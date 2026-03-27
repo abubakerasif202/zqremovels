@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "buildCommand": "node scripts/build-site.mjs",
+  "outputDirectory": "site-dist",
+  "framework": null,
+  "cleanUrls": true
+}

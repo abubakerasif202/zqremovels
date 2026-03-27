@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="720" viewBox="0 0 960 720" role="img" aria-labelledby="title desc">
+  <title id="title">Interstate network placeholder</title>
+  <desc id="desc">Stylised route network placeholder showing Adelaide linked to east coast interstate destinations.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A192F"/>
+      <stop offset="100%" stop-color="#17365C"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="720" fill="#F8F9FA"/>
+  <rect x="68" y="72" width="824" height="576" rx="36" fill="url(#bg)"/>
+  <path d="M210 524C318 448 384 358 438 286C472 242 520 212 596 180C632 166 694 148 760 132" fill="none" stroke="#FFB800" stroke-width="14" stroke-linecap="round"/>
+  <path d="M212 526C296 508 368 500 448 508C528 516 620 546 730 596" fill="none" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="212" cy="526" r="26" fill="#FFB800"/>
+  <circle cx="596" cy="180" r="22" fill="#FFFFFF"/>
+  <circle cx="760" cy="132" r="22" fill="#FFFFFF"/>
+  <circle cx="730" cy="596" r="22" fill="#FFFFFF"/>
+  <text x="170" y="568" fill="#0A192F" font-family="Inter, Roboto, sans-serif" font-size="18" font-weight="700">Adelaide</text>
+  <text x="560" y="218" fill="#FFFFFF" font-family="Inter, Roboto, sans-serif" font-size="18" font-weight="700">Melbourne</text>
+  <text x="714" y="96" fill="#FFFFFF" font-family="Inter, Roboto, sans-serif" font-size="18" font-weight="700">Sydney</text>
+  <text x="658" y="636" fill="#FFFFFF" font-family="Inter, Roboto, sans-serif" font-size="18" font-weight="700">Custom Route</text>
+  <text x="126" y="150" fill="#FFFFFF" font-family="Inter, Roboto, sans-serif" font-size="34" font-weight="700">Interstate removals hub placeholder</text>
+  <text x="126" y="192" fill="#D8E5F4" font-family="Inter, Roboto, sans-serif" font-size="20">Use a real truck, team, or route-planning photo for production.</text>
+</svg>

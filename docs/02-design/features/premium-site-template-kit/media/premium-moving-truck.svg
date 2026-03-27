@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="720" viewBox="0 0 960 720" role="img" aria-labelledby="title desc">
+  <title id="title">Premium moving truck placeholder</title>
+  <desc id="desc">Stylised premium ZQ Removals truck placeholder for homepage hero imagery.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A192F"/>
+      <stop offset="100%" stop-color="#203553"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFB800"/>
+      <stop offset="100%" stop-color="#FFD466"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="720" fill="#F8F9FA"/>
+  <path d="M0 130C110 50 220 30 330 70C420 102 480 168 570 188C682 214 805 154 960 72V720H0Z" fill="url(#bg)"/>
+  <circle cx="740" cy="132" r="96" fill="rgba(255,184,0,0.22)"/>
+  <rect x="170" y="282" width="460" height="176" rx="24" fill="#FFFFFF"/>
+  <rect x="528" y="326" width="156" height="132" rx="22" fill="#FFFFFF"/>
+  <rect x="202" y="314" width="394" height="112" rx="18" fill="#EAF1F8"/>
+  <rect x="560" y="358" width="92" height="68" rx="14" fill="#EAF1F8"/>
+  <rect x="204" y="286" width="478" height="38" rx="19" fill="url(#accent)"/>
+  <circle cx="278" cy="484" r="52" fill="#0A192F"/>
+  <circle cx="596" cy="484" r="52" fill="#0A192F"/>
+  <circle cx="278" cy="484" r="24" fill="#FFFFFF"/>
+  <circle cx="596" cy="484" r="24" fill="#FFFFFF"/>
+  <rect x="118" y="504" width="730" height="12" rx="6" fill="#D9E2EC"/>
+  <text x="172" y="205" fill="#FFFFFF" font-family="Inter, Roboto, sans-serif" font-size="34" font-weight="700">ZQ Removals</text>
+  <text x="172" y="244" fill="#D8E5F4" font-family="Inter, Roboto, sans-serif" font-size="20">Premium moving truck image placeholder</text>
+</svg>

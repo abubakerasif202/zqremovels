@@ -1,0 +1,189 @@
+[build]
+  command = "python scripts/build-site.py"
+  publish = "site-dist"
+
+# Suburb and Guide directory mapping corrections
+[[redirects]]
+  from = "/interstate-removalists-adelaide/"
+  to = "/interstate-removals-adelaide/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/interstate-removalists-adelaide/index.html"
+  to = "/interstate-removals-adelaide/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/interstate-removals/"
+  to = "/interstate-removals-adelaide/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/interstate-removals/index.html"
+  to = "/interstate-removals-adelaide/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/interstate-removals/adelaide-to-melbourne"
+  to = "/adelaide-to-melbourne-removals/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/interstate-removals/adelaide-to-melbourne/"
+  to = "/adelaide-to-melbourne-removals/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/interstate-removals/adelaide-to-melbourne/index.html"
+  to = "/adelaide-to-melbourne-removals/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/interstate-removals/adelaide-to-sydney"
+  to = "/adelaide-to-sydney-removals/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/interstate-removals/adelaide-to-sydney/"
+  to = "/adelaide-to-sydney-removals/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/interstate-removals/adelaide-to-sydney/index.html"
+  to = "/adelaide-to-sydney-removals/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/glenelg.html"
+  to = "/removalists-glenelg/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/adelaide-cbd.html"
+  to = "/removalists-adelaide-cbd/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy-policy"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/privacy/"
+  to = "/privacy-policy"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/privacy.html"
+  to = "/privacy-policy"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/terms"
+  to = "/terms-and-conditions"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/terms/"
+  to = "/terms-and-conditions"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/terms.html"
+  to = "/terms-and-conditions"
+  status = 301
+  force = true
+
+# Global rules for stripping .html and ensuring clean directory URLs
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/*/index.html"
+  to = "/:splat/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/*.html"
+  to = "/:splat"
+  status = 301
+  force = true
+
+# Legacy and static asset redirects
+[[redirects]]
+  from = "/dist"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/dist/*"
+  to = "/"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data:; style-src 'self'; font-src 'self'; script-src 'self'; connect-src 'self'; object-src 'none'; frame-src 'none'; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; manifest-src 'self'; media-src 'self'; worker-src 'self'; upgrade-insecure-requests"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Permissions-Policy = "camera=(), geolocation=(), microphone=()"
+
+[[headers]]
+  for = "/premium-site.min.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/media/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/thank-you.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/404.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, follow"
+
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+  [plugins.inputs]
+    output_path = "reports/lighthouse.html"
+    fail_deploy_on_score_thresholds = false

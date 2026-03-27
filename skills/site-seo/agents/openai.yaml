@@ -1,0 +1,4 @@
+interface:
+  display_name: "Site SEO"
+  short_description: "Audit and improve SEO for static websites"
+  default_prompt: "Use $site-seo to audit and improve on-page SEO for this site."
