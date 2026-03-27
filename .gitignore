@@ -4,6 +4,8 @@ output/
 server.err.log
 server.out.log
 zq-removals-site/node_modules/
+zq-removals-pro/node_modules/
+zq-removals-pro/dist/
 site-dist/
 dist/
 zq-removals-site/dist/
