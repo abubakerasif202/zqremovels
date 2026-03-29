@@ -1,4 +1,4 @@
-import Button from '../components/Button'
+import BrandButton from '../../components/brand/BrandButton'
 
 const events = [
   { time: '08:00', title: 'Arrival & Site Mapping', note: 'Concierge check-in, access verification', location: 'Belgravia Sq' },
@@ -17,8 +17,8 @@ export default function ItineraryDesktop (): JSX.Element {
           <p className="text-sm text-espresso/70">Reference ID: ZQ-77218 · Live status</p>
         </div>
         <div className="flex gap-3">
-          <Button variant="ghost">Share</Button>
-          <Button>Download PDF</Button>
+          <BrandButton variant="ghost">Share</BrandButton>
+          <BrandButton>Download PDF</BrandButton>
         </div>
       </header>
 
@@ -29,8 +29,8 @@ export default function ItineraryDesktop (): JSX.Element {
           <p className="text-sm text-espresso/75">Date: Oct 28, 2024 · Property: Private Estate</p>
           <p className="text-sm text-espresso/75">Tier: White-Glove · Climate-Controlled Storage</p>
           <div className="flex gap-2 pt-2">
-            <Button variant="ghost">Booking Confirmation</Button>
-            <Button variant="ghost">Insurance Policy</Button>
+            <BrandButton variant="ghost">Booking Confirmation</BrandButton>
+            <BrandButton variant="ghost">Insurance Policy</BrandButton>
           </div>
         </div>
         <div className="bg-white border border-espresso/8 rounded-soft p-4 space-y-2">
@@ -69,8 +69,8 @@ export default function ItineraryDesktop (): JSX.Element {
       </section>
 
       <section className="flex flex-col md:flex-row gap-3">
-        <Button className="flex-1">Update Instructions</Button>
-        <Button variant="ghost" className="flex-1">Talk to a Concierge</Button>
+        <BrandButton className="flex-1">Update Instructions</BrandButton>
+        <BrandButton variant="ghost" className="flex-1">Talk to a Concierge</BrandButton>
       </section>
 
       <footer className="bg-espresso text-white rounded-sm p-4 flex items-center gap-2 text-xs">

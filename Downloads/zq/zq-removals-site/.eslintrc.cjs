@@ -4,12 +4,12 @@ module.exports = {
     project: './tsconfig.json'
   },
   rules: {
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/space-before-function-paren': 'off',
-    '@typescript-eslint/strict-boolean-expressions': 'off',
-    '@typescript-eslint/non-nullable-type-assertion-style': 'off',
-    'multiline-ternary': 'off',
-    '@typescript-eslint/member-delimiter-style': 'off',
-    '@typescript-eslint/semi': 'off'
+    '@typescript-eslint/explicit-function-return-type': 'error',
+    '@typescript-eslint/space-before-function-paren': 'error',
+    '@typescript-eslint/strict-boolean-expressions': 'warn',
+    '@typescript-eslint/non-nullable-type-assertion-style': 'warn',
+    'multiline-ternary': 'error',
+    '@typescript-eslint/member-delimiter-style': 'error',
+    '@typescript-eslint/semi': ['error', 'never']
   }
 }

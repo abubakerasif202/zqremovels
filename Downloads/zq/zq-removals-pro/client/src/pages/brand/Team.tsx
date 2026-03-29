@@ -1,4 +1,4 @@
-import Button from '../components/Button'
+import BrandButton from '../../components/brand/BrandButton'
 
 const people = [
   { name: 'Eleanor Sterling', role: 'Move Strategist', bio: 'Architects every relocation as a bespoke plan.' },
@@ -17,8 +17,8 @@ export default function Team (): JSX.Element {
           <h1 className="text-4xl font-serif font-bold text-espresso">Meet Your Concierge Team</h1>
           <p className="text-espresso/80 max-w-xl">Dedicated move strategists providing an unparalleled level of care, treating each transition as an architectural event.</p>
           <div className="flex gap-3">
-            <Button>Book a Private Consultation</Button>
-            <Button variant="ghost">Talk to a Concierge</Button>
+            <BrandButton>Book a Private Consultation</BrandButton>
+            <BrandButton variant="ghost">Talk to a Concierge</BrandButton>
           </div>
         </div>
         <div className="relative">

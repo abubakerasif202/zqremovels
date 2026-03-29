@@ -1,4 +1,4 @@
-import Button from '../components/Button'
+import BrandButton from '../../components/brand/BrandButton'
 
 const services = [
   { title: 'Bespoke Local Moves', copy: 'Concierge planning for townhouse and estate relocations with fixed-price clarity.' },
@@ -17,8 +17,8 @@ export default function Landing (): JSX.Element {
             Concierge-style planning for your most precious belongings, with fixed-price peace of mind and discreet execution.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
-            <Button>Get Your Premium Quote</Button>
-            <Button variant="ghost">Call Our Concierge</Button>
+            <BrandButton>Get Your Premium Quote</BrandButton>
+            <BrandButton variant="ghost">Call Our Concierge</BrandButton>
           </div>
         </div>
         <div className="relative">

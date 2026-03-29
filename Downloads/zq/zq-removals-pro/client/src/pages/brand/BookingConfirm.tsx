@@ -1,4 +1,4 @@
-import Button from '../components/Button'
+import BrandButton from '../../components/brand/BrandButton'
 
 export default function BookingConfirm (): JSX.Element {
   return (
@@ -26,8 +26,8 @@ export default function BookingConfirm (): JSX.Element {
       </div>
 
       <div className="flex flex-col sm:flex-row gap-3">
-        <Button className="flex-1">Download Confirmation</Button>
-        <Button variant="ghost" className="flex-1">Talk to a Concierge</Button>
+        <BrandButton className="flex-1">Download Confirmation</BrandButton>
+        <BrandButton variant="ghost" className="flex-1">Talk to a Concierge</BrandButton>
       </div>
 
       <div className="grid md:grid-cols-3 gap-4 bg-white border border-espresso/8 rounded-soft p-5">

@@ -1,4 +1,4 @@
-import Button from '../components/Button'
+import BrandButton from '../../components/brand/BrandButton'
 
 export default function BookingConfirmDesktop (): JSX.Element {
   return (
@@ -38,8 +38,8 @@ export default function BookingConfirmDesktop (): JSX.Element {
 
         <div className="space-y-4">
           <div className="bg-white border border-espresso/8 rounded-soft p-4 space-y-2">
-            <Button className="w-full">Download Confirmation</Button>
-            <Button variant="ghost" className="w-full">Talk to a Concierge</Button>
+            <BrandButton className="w-full">Download Confirmation</BrandButton>
+            <BrandButton variant="ghost" className="w-full">Talk to a Concierge</BrandButton>
             <div className="flex items-center gap-2 text-xs text-espresso/70 pt-2">
               <span className="inline-block w-4 h-4 rounded-full border border-espresso/40" />
               256-bit secured records

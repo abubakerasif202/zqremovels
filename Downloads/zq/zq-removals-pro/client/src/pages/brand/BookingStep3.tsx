@@ -1,4 +1,4 @@
-import Button from '../components/Button'
+import BrandButton from '../../components/brand/BrandButton'
 
 export default function BookingStep3 (): JSX.Element {
   return (
@@ -41,7 +41,7 @@ export default function BookingStep3 (): JSX.Element {
       </div>
 
       <div className="bg-white border border-espresso/8 rounded-soft p-4 space-y-2">
-        <Button className="w-full">Confirm & Pay</Button>
+        <BrandButton className="w-full">Confirm & Pay</BrandButton>
         <button className="w-full text-sm text-primary font-semibold">Talk to a Concierge</button>
         <div className="flex items-center gap-2 text-xs text-espresso/70 pt-2">
           <span className="inline-block w-4 h-4 rounded-full border border-espresso/40" />

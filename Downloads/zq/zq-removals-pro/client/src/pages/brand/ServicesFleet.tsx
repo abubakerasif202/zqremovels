@@ -1,4 +1,4 @@
-import Button from '../components/Button'
+import BrandButton from '../../components/brand/BrandButton'
 
 const services = [
   'Local Moves',
@@ -76,7 +76,7 @@ export default function ServicesFleet (): JSX.Element {
           <p className="text-sm uppercase tracking-[0.18em] text-primary/80">Trusted by</p>
           <h3 className="text-2xl font-serif font-semibold">Private Residences · Galleries · Executive Offices · Embassy Moves</h3>
         </div>
-        <Button className="bg-white text-espresso hover:bg-white/90">Book a Private Consultation</Button>
+        <BrandButton className="bg-white text-espresso hover:bg-white/90">Book a Private Consultation</BrandButton>
       </section>
     </div>
   )

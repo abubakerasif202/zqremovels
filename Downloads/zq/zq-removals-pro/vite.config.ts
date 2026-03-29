@@ -150,7 +150,28 @@ function vitePluginManusDebugCollector(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
+/**
+ * Vite plugin to replace environment variables in index.html
+ */
+function vitePluginHtmlEnv(): Plugin {
+  return {
+    name: "html-env-replacement",
+    transformIndexHtml(html) {
+      return html
+        .replace(/%VITE_ANALYTICS_ENDPOINT%/g, process.env.VITE_ANALYTICS_ENDPOINT || "")
+        .replace(/%VITE_ANALYTICS_WEBSITE_ID%/g, process.env.VITE_ANALYTICS_WEBSITE_ID || "");
+    },
+  };
+}
+
+const plugins = [
+  react(),
+  tailwindcss(),
+  jsxLocPlugin(),
+  vitePluginManusRuntime(),
+  vitePluginManusDebugCollector(),
+  vitePluginHtmlEnv(),
+];
 
 export default defineConfig({
   plugins,

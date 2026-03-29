@@ -1,19 +1,19 @@
-import { Route, Routes, NavLink } from 'react-router-dom';
-import Landing from './pages/Landing';
-import Team from './pages/Team';
-import ServicesFleet from './pages/ServicesFleet';
-import BookingStep1 from './pages/BookingStep1';
-import BookingStep2 from './pages/BookingStep2';
-import BookingStep3 from './pages/BookingStep3';
-import BookingConfirm from './pages/BookingConfirm';
-import BookingConfirmDesktop from './pages/BookingConfirmDesktop';
-import Itinerary from './pages/Itinerary';
-import ItineraryDesktop from './pages/ItineraryDesktop';
+import { Route, Routes, NavLink } from 'react-router-dom'
+import Landing from './pages/Landing'
+import Team from './pages/Team'
+import ServicesFleet from './pages/ServicesFleet'
+import BookingStep1 from './pages/BookingStep1'
+import BookingStep2 from './pages/BookingStep2'
+import BookingStep3 from './pages/BookingStep3'
+import BookingConfirm from './pages/BookingConfirm'
+import BookingConfirmDesktop from './pages/BookingConfirmDesktop'
+import Itinerary from './pages/Itinerary'
+import ItineraryDesktop from './pages/ItineraryDesktop'
 
-const navLink = 'text-sm font-medium text-espresso/70 hover:text-espresso transition px-3 py-2';
-const active = 'text-espresso border-b-2 border-primary';
+const navLink = 'text-sm font-medium text-espresso/70 hover:text-espresso transition px-3 py-2'
+const active = 'text-espresso border-b-2 border-primary'
 
-export default function App() {
+export default function App (): JSX.Element {
   return (
     <div className="min-h-screen bg-ivory">
       <header className="sticky top-0 z-20 backdrop-blur bg-ivory/90 border-b border-espresso/5">
@@ -44,5 +44,5 @@ export default function App() {
         </Routes>
       </main>
     </div>
-  );
+  )
 }

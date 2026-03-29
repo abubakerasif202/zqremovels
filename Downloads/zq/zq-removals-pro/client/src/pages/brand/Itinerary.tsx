@@ -1,4 +1,4 @@
-import Button from '../components/Button'
+import BrandButton from '../../components/brand/BrandButton'
 
 const timeline = [
   { time: '08:00', title: 'Arrival & Site Mapping', note: 'Concierge check-in, access verification' },
@@ -27,8 +27,8 @@ export default function Itinerary (): JSX.Element {
           <button className="text-sm font-semibold text-primary">Share</button>
         </div>
         <div className="flex gap-2">
-          <Button variant="ghost">Booking Confirmation</Button>
-          <Button variant="ghost">Insurance Policy</Button>
+          <BrandButton variant="ghost">Booking Confirmation</BrandButton>
+          <BrandButton variant="ghost">Insurance Policy</BrandButton>
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-import Button from '../components/Button'
+import BrandButton from '../../components/brand/BrandButton'
 
 const categories = [
   { name: 'Living', count: 18 },
@@ -43,7 +43,7 @@ export default function BookingStep2 (): JSX.Element {
           <span>Current Estimate</span>
           <span className="font-semibold text-espresso">£5,300.00</span>
         </div>
-        <Button className="w-full">Continue to Schedule</Button>
+        <BrandButton className="w-full">Continue to Schedule</BrandButton>
         <button className="w-full text-sm text-primary font-semibold">Need a hand? Talk to a Concierge</button>
       </div>
     </div>

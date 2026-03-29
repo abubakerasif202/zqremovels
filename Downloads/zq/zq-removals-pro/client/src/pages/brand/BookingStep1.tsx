@@ -1,4 +1,4 @@
-import Button from '../components/Button'
+import BrandButton from '../../components/brand/BrandButton'
 
 export default function BookingStep1 (): JSX.Element {
   return (
@@ -22,7 +22,7 @@ export default function BookingStep1 (): JSX.Element {
           <span>Estimated Investment</span>
           <span className="font-semibold text-espresso">£5,300.00</span>
         </div>
-        <Button className="w-full">Continue to Inventory</Button>
+        <BrandButton className="w-full">Continue to Inventory</BrandButton>
         <button className="w-full text-sm text-primary font-semibold">Talk to a Concierge</button>
       </div>
     </div>
