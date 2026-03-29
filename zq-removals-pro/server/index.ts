@@ -23,6 +23,19 @@ async function startServer() {
     res.sendFile(path.join(staticPath, "index.html"));
   });
 
+  // Global error handler
+  app.use(
+    (
+      err: Error,
+      _req: express.Request,
+      res: express.Response,
+      _next: express.NextFunction
+    ) => {
+      console.error(err.stack);
+      res.status(500).send("Internal Server Error");
+    }
+  );
+
   const port = process.env.PORT || 3000;
 
   server.listen(port, () => {

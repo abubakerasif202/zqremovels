@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Phone, MapPin } from "lucide-react";
-import { useState } from "react";
 
 /**
  * ZQ Removals Home Page
@@ -12,8 +11,6 @@ import { useState } from "react";
  */
 
 export default function Home() {
-  const [activeService, setActiveService] = useState<string | null>(null);
-
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation Header */}
@@ -31,7 +28,7 @@ export default function Home() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            <a href="#" className="text-sm font-medium text-foreground hover:text-accent transition">Home</a>
+            <a href="/" className="text-sm font-medium text-foreground hover:text-accent transition">Home</a>
             <a href="#local" className="text-sm font-medium text-foreground hover:text-accent transition">Local Removals</a>
             <a href="#interstate" className="text-sm font-medium text-foreground hover:text-accent transition">Interstate Removals</a>
             <a href="#packing" className="text-sm font-medium text-foreground hover:text-accent transition">Packing Services</a>
@@ -153,9 +150,8 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Local Removals */}
             <div
-              className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden cursor-pointer"
-              onMouseEnter={() => setActiveService("local")}
-              onMouseLeave={() => setActiveService(null)}
+              id="local"
+              className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden"
             >
               <div className="h-48 bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
                 <img
@@ -183,7 +179,7 @@ export default function Home() {
                     <span>Useful for homes, apartments, and office relocations inside Adelaide</span>
                   </li>
                 </ul>
-                <a href="#" className="inline-flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all">
+                <a href="#local" className="inline-flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all">
                   Explore local removals <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
@@ -191,9 +187,8 @@ export default function Home() {
 
             {/* Interstate Removals */}
             <div
-              className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden cursor-pointer"
-              onMouseEnter={() => setActiveService("interstate")}
-              onMouseLeave={() => setActiveService(null)}
+              id="interstate"
+              className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden"
             >
               <div className="h-48 bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
                 <img
@@ -221,7 +216,7 @@ export default function Home() {
                     <span>Reduced double-handling for time-sensitive or higher-care loads</span>
                   </li>
                 </ul>
-                <a href="#" className="inline-flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all">
+                <a href="#interstate" className="inline-flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all">
                   View interstate routes <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
@@ -229,9 +224,8 @@ export default function Home() {
 
             {/* Packing Services */}
             <div
-              className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden cursor-pointer"
-              onMouseEnter={() => setActiveService("packing")}
-              onMouseLeave={() => setActiveService(null)}
+              id="packing"
+              className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden"
             >
               <div className="h-48 bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
                 <img
@@ -259,7 +253,7 @@ export default function Home() {
                     <span>Useful when timing is tight or the inventory needs more care</span>
                   </li>
                 </ul>
-                <a href="#" className="inline-flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all">
+                <a href="#packing" className="inline-flex items-center gap-2 text-accent font-semibold hover:gap-3 transition-all">
                   See packing services <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
@@ -427,28 +421,28 @@ export default function Home() {
             <div>
               <h4 className="font-semibold mb-4">Navigation</h4>
               <ul className="space-y-2 text-sm text-gray-300">
-                <li><a href="#" className="hover:text-accent transition">Home</a></li>
-                <li><a href="#" className="hover:text-accent transition">Local Removals</a></li>
-                <li><a href="#" className="hover:text-accent transition">Interstate Removals</a></li>
-                <li><a href="#" className="hover:text-accent transition">Packing Services</a></li>
+                <li><a href="/" className="hover:text-accent transition">Home</a></li>
+                <li><a href="#local" className="hover:text-accent transition">Local Removals</a></li>
+                <li><a href="#interstate" className="hover:text-accent transition">Interstate Removals</a></li>
+                <li><a href="#packing" className="hover:text-accent transition">Packing Services</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Services</h4>
               <ul className="space-y-2 text-sm text-gray-300">
-                <li><a href="#" className="hover:text-accent transition">Office Removals</a></li>
-                <li><a href="#" className="hover:text-accent transition">Furniture Removalists</a></li>
-                <li><a href="#" className="hover:text-accent transition">Moving Guides</a></li>
-                <li><a href="#" className="hover:text-accent transition">Contact Us</a></li>
+                <li><a href="#services" className="hover:text-accent transition">Office Removals</a></li>
+                <li><a href="#services" className="hover:text-accent transition">Furniture Removalists</a></li>
+                <li><a href="#contact" className="hover:text-accent transition">Moving Guides</a></li>
+                <li><a href="#contact" className="hover:text-accent transition">Contact Us</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Popular Suburbs</h4>
               <ul className="space-y-2 text-sm text-gray-300">
-                <li><a href="#" className="hover:text-accent transition">Adelaide CBD</a></li>
-                <li><a href="#" className="hover:text-accent transition">Marion</a></li>
-                <li><a href="#" className="hover:text-accent transition">Salisbury</a></li>
-                <li><a href="#" className="hover:text-accent transition">Elizabeth</a></li>
+                <li><a href="/removalists-adelaide-cbd/" className="hover:text-accent transition">Adelaide CBD</a></li>
+                <li><a href="/removalists-marion/" className="hover:text-accent transition">Marion</a></li>
+                <li><a href="/removalists-salisbury/" className="hover:text-accent transition">Salisbury</a></li>
+                <li><a href="/removalists-elizabeth/" className="hover:text-accent transition">Elizabeth</a></li>
               </ul>
             </div>
             <div>
@@ -466,8 +460,8 @@ export default function Home() {
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-300">
               <p>&copy; 2026 ZQ Removals. All rights reserved.</p>
               <div className="flex gap-6">
-                <a href="#" className="hover:text-accent transition">Privacy Policy</a>
-                <a href="#" className="hover:text-accent transition">Terms & Conditions</a>
+                <a href="/privacy-policy" className="hover:text-accent transition">Privacy Policy</a>
+                <a href="/terms-and-conditions" className="hover:text-accent transition">Terms & Conditions</a>
               </div>
             </div>
           </div>
