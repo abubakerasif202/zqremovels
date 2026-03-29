@@ -1,0 +1,93 @@
+{
+  "buildCommand": "pnpm build",
+  "outputDirectory": "dist/public",
+  "framework": "vite",
+  "trailingSlash": true,
+  "rewrites": [
+    {
+      "source": "/(api|api/.*)",
+      "destination": "/index.js"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/interstate-removalists-adelaide",
+      "destination": "/interstate-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/interstate-removalists-adelaide/",
+      "destination": "/interstate-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/interstate-removals",
+      "destination": "/interstate-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/interstate-removals/",
+      "destination": "/interstate-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/interstate-removals/adelaide-to-melbourne",
+      "destination": "/adelaide-to-melbourne-removals/",
+      "permanent": true
+    },
+    {
+      "source": "/interstate-removals/adelaide-to-melbourne/",
+      "destination": "/adelaide-to-melbourne-removals/",
+      "permanent": true
+    },
+    {
+      "source": "/interstate-removals/adelaide-to-sydney",
+      "destination": "/adelaide-to-sydney-removals/",
+      "permanent": true
+    },
+    {
+      "source": "/interstate-removals/adelaide-to-sydney/",
+      "destination": "/adelaide-to-sydney-removals/",
+      "permanent": true
+    },
+    {
+      "source": "/glenelg.html",
+      "destination": "/removalists-glenelg/",
+      "permanent": true
+    },
+    {
+      "source": "/adelaide-cbd.html",
+      "destination": "/removalists-adelaide-cbd/",
+      "permanent": true
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy-policy/",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "/privacy-policy/",
+      "permanent": true
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms-and-conditions/",
+      "permanent": true
+    },
+    {
+      "source": "/terms-and-conditions",
+      "destination": "/terms-and-conditions/",
+      "permanent": true
+    }
+  ]
+}
