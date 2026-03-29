@@ -1,6 +1,6 @@
 import BrandButton from '../../components/brand/BrandButton'
 
-export default function BookingConfirmDesktop (): JSX.Element {
+export default function BookingConfirmDesktop () {
   return (
     <div className="mx-auto max-w-5xl px-4 py-12 space-y-12">
       <div className="flex items-center gap-3">
@@ -71,7 +71,7 @@ export default function BookingConfirmDesktop (): JSX.Element {
   )
 }
 
-function Info ({ label, value }: { label: string, value: string }): JSX.Element {
+function Info ({ label, value }: { label: string, value: string }) {
   return (
     <div className="space-y-1">
       <div className="text-xs uppercase tracking-wide text-espresso/60">{label}</div>
@@ -80,7 +80,7 @@ function Info ({ label, value }: { label: string, value: string }): JSX.Element 
   )
 }
 
-function Row ({ label, value, highlight }: { label: string, value: string, highlight?: boolean }): JSX.Element {
+function Row ({ label, value, highlight }: { label: string, value: string, highlight?: boolean }) {
   return (
     <div className="flex justify-between">
       <span className="text-espresso/75">{label}</span>

@@ -7,7 +7,7 @@ const timeline = [
   { time: '16:00', title: 'Transit Commencement', note: 'Climate-controlled departure' }
 ]
 
-export default function Itinerary (): JSX.Element {
+export default function Itinerary () {
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 space-y-8">
       <div className="space-y-2">
@@ -54,8 +54,8 @@ export default function Itinerary (): JSX.Element {
       </div>
 
       <div className="flex flex-col sm:flex-row gap-3">
-        <Button className="flex-1">Update Instructions</Button>
-        <Button variant="ghost" className="flex-1">Talk to a Concierge</Button>
+        <BrandButton className="flex-1">Update Instructions</BrandButton>
+        <BrandButton variant="ghost" className="flex-1">Talk to a Concierge</BrandButton>
       </div>
 
       <div className="bg-espresso text-white rounded-sm p-4 flex items-center gap-2 text-xs">
@@ -66,7 +66,7 @@ export default function Itinerary (): JSX.Element {
   )
 }
 
-function ContactCard ({ name, role }: { name: string, role: string }): JSX.Element {
+function ContactCard ({ name, role }: { name: string, role: string }) {
   return (
     <div className="bg-white border border-espresso/8 rounded-soft p-4 space-y-2">
       <div className="h-16 bg-espresso/10 rounded-sm" />

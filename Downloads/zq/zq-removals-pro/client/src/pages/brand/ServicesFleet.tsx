@@ -15,7 +15,7 @@ const fleet = [
   { name: 'Climate-Controlled Van', specs: ['18m³ Capacity', 'Climate 18–24°C', 'Low-Vibration'] }
 ]
 
-export default function ServicesFleet (): JSX.Element {
+export default function ServicesFleet () {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 space-y-14">
       <section className="grid lg:grid-cols-2 gap-10 items-center">
@@ -23,8 +23,8 @@ export default function ServicesFleet (): JSX.Element {
           <h1 className="text-4xl font-serif font-bold text-espresso">Our Fleet & Services</h1>
           <p className="text-espresso/80 max-w-xl">Concierge logistics with tailored equipment, climate-aware routing, and discreet white-glove crews.</p>
           <div className="flex gap-3">
-            <Button>Request a Concierge Plan</Button>
-            <Button variant="ghost">Talk to a Concierge</Button>
+            <BrandButton>Request a Concierge Plan</BrandButton>
+            <BrandButton variant="ghost">Talk to a Concierge</BrandButton>
           </div>
         </div>
         <div className="relative">

@@ -7,7 +7,7 @@ const events = [
   { time: '16:00', title: 'Transit Commencement', note: 'Climate-controlled departure', location: 'Outbound Route' }
 ]
 
-export default function ItineraryDesktop (): JSX.Element {
+export default function ItineraryDesktop () {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 space-y-10">
       <header className="flex items-center justify-between">
@@ -81,7 +81,7 @@ export default function ItineraryDesktop (): JSX.Element {
   )
 }
 
-function Contact ({ name, role }: { name: string, role: string }): JSX.Element {
+function Contact ({ name, role }: { name: string, role: string }) {
   return (
     <div className="space-y-1">
       <div className="text-espresso font-semibold">{name}</div>

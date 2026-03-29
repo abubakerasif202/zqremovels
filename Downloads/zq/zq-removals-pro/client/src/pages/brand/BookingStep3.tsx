@@ -1,6 +1,6 @@
 import BrandButton from '../../components/brand/BrandButton'
 
-export default function BookingStep3 (): JSX.Element {
+export default function BookingStep3 () {
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 space-y-8">
       <div className="space-y-2">
@@ -52,7 +52,7 @@ export default function BookingStep3 (): JSX.Element {
   )
 }
 
-function Field ({ label, placeholder }: { label: string, placeholder: string }): JSX.Element {
+function Field ({ label, placeholder }: { label: string, placeholder: string }) {
   return (
     <label className="block space-y-1">
       <span className="text-sm font-semibold text-espresso">{label}</span>

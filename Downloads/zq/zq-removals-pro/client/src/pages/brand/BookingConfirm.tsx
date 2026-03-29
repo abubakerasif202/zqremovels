@@ -1,6 +1,6 @@
 import BrandButton from '../../components/brand/BrandButton'
 
-export default function BookingConfirm (): JSX.Element {
+export default function BookingConfirm () {
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 space-y-8">
       <div className="flex items-center gap-3">

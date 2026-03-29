@@ -7,7 +7,7 @@ const categories = [
   { name: 'Art & Fragile', count: 6 }
 ]
 
-export default function BookingStep2 (): JSX.Element {
+export default function BookingStep2 () {
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 space-y-8">
       <div className="space-y-2">

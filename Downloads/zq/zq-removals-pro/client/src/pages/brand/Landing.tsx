@@ -6,7 +6,7 @@ const services = [
   { title: 'Curated Packing', copy: 'White-glove packing for art, archives, and heirlooms with dedicated specialists.' }
 ]
 
-export default function Landing (): JSX.Element {
+export default function Landing () {
   return (
     <div className="mx-auto max-w-5xl px-4 space-y-16">
       <section className="pt-12 grid md:grid-cols-2 gap-10 items-center">
@@ -61,7 +61,7 @@ export default function Landing (): JSX.Element {
           <p className="text-sm uppercase tracking-[0.18em] text-primary/80">Start</p>
           <h3 className="text-2xl font-serif font-semibold">Start Your Premium Journey</h3>
         </div>
-        <Button className="bg-white text-espresso hover:bg-white/90">Book a Private Consultation</Button>
+        <BrandButton className="bg-white text-espresso hover:bg-white/90">Book a Private Consultation</BrandButton>
       </section>
     </div>
   )
