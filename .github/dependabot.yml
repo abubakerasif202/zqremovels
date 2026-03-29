@@ -1,0 +1,22 @@
+version: 2
+updates:
+  # Keep GitHub Actions up to date
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+  # Keep npm/pnpm dependencies up to date for the booking app
+  - package-ecosystem: npm
+    directory: /Downloads/zq/zq-removals-pro
+    schedule:
+      interval: weekly
+    groups:
+      npm-dependencies:
+        update-types:
+          - minor
+          - patch

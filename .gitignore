@@ -1,0 +1,48 @@
+# Dependencies
+**/node_modules/
+.pnpm-store/
+
+# Build outputs
+**/dist/
+**/build/
+**/.next/
+**/.nuxt/
+site-dist/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Vercel
+**/.vercel/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Coverage
+coverage/
+*.lcov
+
+# Manus tooling (development/sandboxed environment only)
+**/.manus-logs/
+**/client/public/__manus__/version.json
