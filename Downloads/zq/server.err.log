@@ -1,6 +1,0 @@
-127.0.0.1 - - [27/Mar/2026 22:49:02] "GET / HTTP/1.1" 200 -
-127.0.0.1 - - [27/Mar/2026 22:49:23] "GET / HTTP/1.1" 200 -
-127.0.0.1 - - [27/Mar/2026 22:49:23] "GET /interstate-removals-adelaide/ HTTP/1.1" 200 -
-127.0.0.1 - - [27/Mar/2026 22:49:23] "GET /office-removals-adelaide/ HTTP/1.1" 200 -
-127.0.0.1 - - [27/Mar/2026 22:49:23] "GET /packing-services-adelaide/ HTTP/1.1" 200 -
-127.0.0.1 - - [27/Mar/2026 22:49:24] "GET /adelaide-moving-guides/ HTTP/1.1" 200 -
