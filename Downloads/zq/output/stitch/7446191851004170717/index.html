@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stitch Screen Reconstructions</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./stitch-rebuild.css">
+  <style>
+    body { background: linear-gradient(180deg, #f7efe4 0%, #ece3d7 100%); }
+    .index-shell { width: min(1120px, calc(100% - 40px)); margin: 0 auto; padding: 56px 0 80px; }
+    .index-head h1, .index-card h2 { margin: 0; line-height: 0.92; letter-spacing: -0.045em; }
+    .index-head h1 { font-size: clamp(46px, 6vw, 78px); }
+    .index-head p, .index-card p { color: #4d556f; line-height: 1.75; }
+    .index-head p { max-width: 720px; }
+    .index-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 32px; }
+    .index-card {
+      display: grid;
+      gap: 18px;
+      padding: 22px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(12, 18, 39, 0.1);
+      box-shadow: 0 18px 40px rgba(12, 18, 39, 0.1);
+    }
+    .index-card img { width: 100%; border-radius: 16px; border: 1px solid rgba(12, 18, 39, 0.08); }
+    .index-card h2 { font-size: 34px; }
+    @media (max-width: 860px) { .index-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main class="index-shell">
+    <header class="index-head fade-up">
+      <div class="eyebrow">Project 7446191851004170717</div>
+      <h1 class="serif">Rebuilt Stitch Screens</h1>
+      <p>These HTML pages were reconstructed from the downloaded Stitch screenshots because the project did not expose hosted <code>htmlCode</code> files for the requested screen IDs.</p>
+    </header>
+
+    <section class="index-grid">
+      <article class="index-card fade-up delay-2">
+        <img src="./premium-hero-and-trust-section.jpg" alt="Premium Hero & Trust Section screenshot">
+        <div>
+          <h2 class="serif">Premium Hero &amp; Trust Section</h2>
+          <p>Cinematic navy hero, editorial trust block, and a compact closing promo band.</p>
+        </div>
+        <a class="btn btn-primary" href="./premium-hero-and-trust-section.html">Open Screen</a>
+      </article>
+
+      <article class="index-card fade-up delay-3">
+        <img src="./brand-logo-screen.jpg" alt="Brand logo screenshot">
+        <div>
+          <h2 class="serif">Brand Logo</h2>
+          <p>Simple black presentation stage centered around the existing ZQ Removals logo asset.</p>
+        </div>
+        <a class="btn btn-primary" href="./brand-logo-screen.html">Open Screen</a>
+      </article>
+
+      <article class="index-card fade-up delay-2">
+        <img src="./luxury-pricing-packages.jpg" alt="Luxury Pricing Packages screenshot">
+        <div>
+          <h2 class="serif">Luxury Pricing Packages</h2>
+          <p>Three-card premium pricing layout with a highlighted concierge package and restrained glow.</p>
+        </div>
+        <a class="btn btn-primary" href="./luxury-pricing-packages.html">Open Screen</a>
+      </article>
+
+      <article class="index-card fade-up delay-3">
+        <img src="./testimonials-and-premium-footer.jpg" alt="Testimonials and premium footer screenshot">
+        <div>
+          <h2 class="serif">Testimonials &amp; Premium Footer</h2>
+          <p>Editorial white intro, gold divider, four testimonial cards, and a premium multi-column footer.</p>
+        </div>
+        <a class="btn btn-primary" href="./testimonials-and-premium-footer.html">Open Screen</a>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

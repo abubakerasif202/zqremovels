@@ -1,0 +1,248 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]: Adelaide local, interstate, office, and packing moves scoped before move day.
+      - link "0433 819 989" [ref=e7] [cursor=pointer]:
+        - /url: tel:+61433819989
+    - generic [ref=e8]:
+      - link "ZQ Removals Local, interstate, and packing specialists" [ref=e9] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e11]:
+          - strong [ref=e12]: ZQ Removals
+          - generic [ref=e13]: Local, interstate, and packing specialists
+      - text: ▾ ▾
+      - link "Fixed-Price Quote" [ref=e15] [cursor=pointer]:
+        - /url: /contact-us/#quote-form
+    - navigation "Mobile" [ref=e16]:
+      - group [ref=e17]:
+        - generic "Open navigation ▾" [ref=e18] [cursor=pointer]
+        - text: ▾ ▾
+  - main [ref=e19]:
+    - generic [ref=e21]:
+      - navigation "Breadcrumb" [ref=e22]:
+        - list [ref=e23]:
+          - listitem [ref=e24]:
+            - link "Home" [ref=e25] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=e26]: /Contact Us
+      - generic [ref=e27]:
+        - generic [ref=e28]:
+          - generic [ref=e29]: Contact ZQ Removals
+          - heading "Get a fixed-price quote with the route and access reviewed upfront." [level=1] [ref=e30]
+          - paragraph [ref=e31]: Share the pickup suburb, destination, preferred date, access constraints, and anything oversized or fragile. A stronger brief produces a cleaner proposal.
+          - list "Quote request highlights" [ref=e32]:
+            - listitem [ref=e33]: Local Adelaide moves
+            - listitem [ref=e34]: Interstate routes and office relocations
+            - listitem [ref=e35]: Packing and protection support
+        - figure [ref=e37]:
+          - img "ZQ Removals truck prepared for a fixed-price quote request" [ref=e38]
+    - region "Tell us what is moving, where it is going, and what access matters." [ref=e39]:
+      - generic [ref=e40]:
+        - generic [ref=e41]:
+          - generic [ref=e42]: Quote Request
+          - heading "Tell us what is moving, where it is going, and what access matters." [level=2] [ref=e43]
+          - paragraph [ref=e44]: "Include the details that materially affect labour and scheduling: stairs, loading docks, booked lifts, parking limits, settlement windows, and any high-value or fragile items."
+          - list [ref=e45]:
+            - listitem [ref=e46]:
+              - strong [ref=e47]: "Phone:"
+              - link "0433 819 989" [ref=e48] [cursor=pointer]:
+                - /url: tel:+61433819989
+            - listitem [ref=e49]:
+              - strong [ref=e50]: "Service base:"
+              - text: Andrews Farm SA 5114
+            - listitem [ref=e51]:
+              - strong [ref=e52]: "Coverage:"
+              - text: Adelaide local moves, interstate routes, packing, furniture, and office relocations
+            - listitem [ref=e53]:
+              - strong [ref=e54]: "Best brief:"
+              - text: Pickup and destination suburbs, move date, inventory size, and any access constraints
+          - generic [ref=e55]:
+            - link "Call the team" [ref=e56] [cursor=pointer]:
+              - /url: tel:+61433819989
+            - link "Local removals hub" [ref=e57] [cursor=pointer]:
+              - /url: /removalists-adelaide/
+            - link "Interstate hub" [ref=e58] [cursor=pointer]:
+              - /url: /interstate-removals-adelaide/
+            - link "Moving guides" [ref=e59] [cursor=pointer]:
+              - /url: /adelaide-moving-guides/
+        - generic [ref=e60]:
+          - generic [ref=e61]:
+            - generic [ref=e62]:
+              - generic [ref=e63]: Name
+              - textbox "Name" [ref=e64]:
+                - /placeholder: Your full name
+            - generic [ref=e65]:
+              - generic [ref=e66]: Phone
+              - textbox "Phone" [ref=e67]:
+                - /placeholder: Best contact number
+            - generic [ref=e68]:
+              - generic [ref=e69]: Email
+              - textbox "Email" [ref=e70]:
+                - /placeholder: Email address
+            - generic [ref=e71]:
+              - generic [ref=e72]: Preferred move date
+              - textbox "Preferred move date" [ref=e73]
+            - generic [ref=e74]:
+              - generic [ref=e75]: From suburb
+              - textbox "From suburb" [ref=e76]:
+                - /placeholder: Origin suburb
+            - generic [ref=e77]:
+              - generic [ref=e78]: To suburb
+              - textbox "To suburb" [ref=e79]:
+                - /placeholder: Destination suburb
+          - generic [ref=e80]:
+            - generic [ref=e81]: Move type
+            - combobox "Move type" [ref=e82]:
+              - option "Select move type" [selected]
+              - option "Local Adelaide move"
+              - option "Interstate move"
+              - option "Office relocation"
+              - option "Packing support only"
+          - generic [ref=e83]:
+            - generic [ref=e84]: Move details
+            - textbox "Move details" [ref=e85]:
+              - /placeholder: Bedrooms, stairs, heavy items, building access, timing constraints, and whether you need packing support.
+          - button "Request a fixed-price quote" [ref=e86] [cursor=pointer]
+          - paragraph [ref=e87]: Submitting on the live site sends the enquiry to the Netlify form inbox and redirects to the thank-you page.
+    - region "The quote is scoped before the truck is booked." [ref=e88]:
+      - generic [ref=e89]:
+        - generic [ref=e90]:
+          - generic [ref=e91]: What Happens Next
+          - heading "The quote is scoped before the truck is booked." [level=2] [ref=e92]
+          - paragraph [ref=e93]: The contact form is the starting point. Once the brief is clear, the team can review the route, access, and handling requirements properly instead of filling gaps on moving day.
+        - generic [ref=e94]:
+          - article [ref=e95]:
+            - generic [ref=e96]: "01"
+            - heading "Send the route and inventory brief" [level=3] [ref=e97]
+            - paragraph [ref=e98]: Start with both suburbs, the preferred date, the property type, and a realistic view of how much is moving.
+          - article [ref=e99]:
+            - generic [ref=e100]: "02"
+            - heading "Access and handling notes are reviewed" [level=3] [ref=e101]
+            - paragraph [ref=e102]: Stairs, lifts, dock bookings, parking limits, bulky items, and fragile pieces are the details that change labour and timing.
+          - article [ref=e103]:
+            - generic [ref=e104]: "03"
+            - heading "The move is scoped with fewer assumptions" [level=3] [ref=e105]
+            - paragraph [ref=e106]: Once the brief is usable, the quote can reflect the real route and service requirements rather than a loose headline estimate.
+    - region "The details that make the first reply more useful." [ref=e107]:
+      - generic [ref=e108]:
+        - generic [ref=e109]:
+          - generic [ref=e110]: What To Include
+          - heading "The details that make the first reply more useful." [level=2] [ref=e111]
+          - paragraph [ref=e112]: If you want the quote conversation to move faster, these are the pieces of information worth adding to the first brief.
+        - generic [ref=e113]:
+          - article [ref=e114]:
+            - generic [ref=e115]: Route
+            - heading "Pickup suburb, destination, and preferred date" [level=3] [ref=e116]
+            - paragraph [ref=e117]: The route and the timing window are the baseline for every local, interstate, office, and packing-heavy move.
+          - article [ref=e118]:
+            - generic [ref=e119]: Access
+            - heading "Stairs, lifts, parking, docks, and loading distance" [level=3] [ref=e120]
+            - paragraph [ref=e121]: These details affect how long the move takes and what needs to be planned before the vehicle arrives.
+          - article [ref=e122]:
+            - generic [ref=e123]: Handling
+            - heading "Heavy, fragile, or high-value items that need more care" [level=3] [ref=e124]
+            - paragraph [ref=e125]: Flag anything oversized, delicate, or commercially sensitive so the quote can reflect the right protection and sequencing.
+    - region "Common questions before sending the enquiry." [ref=e126]:
+      - generic [ref=e127]:
+        - generic [ref=e128]:
+          - generic [ref=e129]: Quote FAQ
+          - heading "Common questions before sending the enquiry." [level=2] [ref=e130]
+          - paragraph [ref=e131]: These answers cover the practical details people usually want to clarify before they commit to the quote form.
+        - generic [ref=e132]:
+          - article [ref=e133]:
+            - heading "Can I use the same form for local, interstate, office, and packing jobs?" [level=3] [ref=e134]
+            - paragraph [ref=e136]: Yes. Use the move type field to identify the job and then add the route, timing, access, and special handling notes in the details box.
+          - article [ref=e137]:
+            - heading "What if I do not know every detail yet?" [level=3] [ref=e138]
+            - paragraph [ref=e140]: Send what you know now, especially the suburbs, date window, and rough inventory. The team can clarify the remaining access or handling details before the quote is finalised.
+          - article [ref=e141]:
+            - heading "Should I call instead of using the form?" [level=3] [ref=e142]
+            - paragraph [ref=e144]: Call if the move is urgent, access is unusually complex, or the route still needs discussion. Use the form when you want the job details captured in one place first.
+  - contentinfo [ref=e145]:
+    - generic [ref=e146]:
+      - generic [ref=e147]:
+        - heading "ZQ Removals" [level=2] [ref=e148]
+        - generic [ref=e149]:
+          - strong [ref=e150]: "Name:"
+          - generic [ref=e151]: ZQ Removals
+          - strong [ref=e152]: "Address:"
+          - generic [ref=e153]: Andrews Farm SA 5114, Australia
+          - strong [ref=e154]: "Phone:"
+          - link "0433 819 989" [ref=e155] [cursor=pointer]:
+            - /url: tel:+61433819989
+        - paragraph [ref=e156]: Share the route, timing window, and access notes and the team can scope the move properly before loading day.
+        - list "Trust signals" [ref=e157]:
+          - listitem [ref=e158]: Fixed-price quotes
+          - listitem [ref=e159]: Transit and liability cover
+          - listitem [ref=e160]: Local and interstate coordination
+      - generic [ref=e161]:
+        - generic [ref=e162]:
+          - heading "Core Services" [level=2] [ref=e163]
+          - list [ref=e164]:
+            - listitem [ref=e165]:
+              - link "Home" [ref=e166] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e167]:
+              - link "Local Removals" [ref=e168] [cursor=pointer]:
+                - /url: /removalists-adelaide/
+            - listitem [ref=e169]:
+              - link "Interstate Removals" [ref=e170] [cursor=pointer]:
+                - /url: /interstate-removals-adelaide/
+            - listitem [ref=e171]:
+              - link "Packing Services" [ref=e172] [cursor=pointer]:
+                - /url: /packing-services-adelaide/
+            - listitem [ref=e173]:
+              - link "Office Removals" [ref=e174] [cursor=pointer]:
+                - /url: /office-removals-adelaide/
+            - listitem [ref=e175]:
+              - link "Furniture Removalists" [ref=e176] [cursor=pointer]:
+                - /url: /furniture-removalists-adelaide/
+            - listitem [ref=e177]:
+              - link "Moving Guides" [ref=e178] [cursor=pointer]:
+                - /url: /adelaide-moving-guides/
+            - listitem [ref=e179]:
+              - link "Contact Us" [ref=e180] [cursor=pointer]:
+                - /url: /contact-us/
+        - generic [ref=e181]:
+          - heading "Adelaide Suburb Pages" [level=2] [ref=e182]
+          - list [ref=e183]:
+            - listitem [ref=e184]:
+              - link "Adelaide CBD" [ref=e185] [cursor=pointer]:
+                - /url: /removalists-adelaide-cbd/
+            - listitem [ref=e186]:
+              - link "Marion" [ref=e187] [cursor=pointer]:
+                - /url: /removalists-marion/
+            - listitem [ref=e188]:
+              - link "Salisbury" [ref=e189] [cursor=pointer]:
+                - /url: /removalists-salisbury/
+            - listitem [ref=e190]:
+              - link "Elizabeth" [ref=e191] [cursor=pointer]:
+                - /url: /removalists-elizabeth/
+            - listitem [ref=e192]:
+              - link "Glenelg" [ref=e193] [cursor=pointer]:
+                - /url: /removalists-glenelg/
+        - generic [ref=e194]:
+          - heading "Interstate Route Pages" [level=2] [ref=e195]
+          - list [ref=e196]:
+            - listitem [ref=e197]:
+              - link "Adelaide to Melbourne" [ref=e198] [cursor=pointer]:
+                - /url: /adelaide-to-melbourne-removals/
+            - listitem [ref=e199]:
+              - link "Adelaide to Sydney" [ref=e200] [cursor=pointer]:
+                - /url: /adelaide-to-sydney-removals/
+            - listitem [ref=e201]:
+              - link "Moving Guides" [ref=e202] [cursor=pointer]:
+                - /url: /adelaide-moving-guides/
+    - generic [ref=e203]:
+      - generic [ref=e204]: © 2026 ZQ Removals. All rights reserved.
+      - generic [ref=e205]:
+        - link "Moving Guides" [ref=e206] [cursor=pointer]:
+          - /url: /adelaide-moving-guides/
+        - link "Privacy Policy" [ref=e207] [cursor=pointer]:
+          - /url: /privacy-policy.html
+        - link "Terms & Conditions" [ref=e208] [cursor=pointer]:
+          - /url: /terms-and-conditions.html
+        - link "Get a Fixed-Price Quote" [ref=e209] [cursor=pointer]:
+          - /url: /contact-us/#quote-form

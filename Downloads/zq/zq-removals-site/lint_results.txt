@@ -1,0 +1,151 @@
+
+> zq-removals-site@0.1.0 lint
+> eslint . --ext .ts,.tsx
+
+
+C:\Users\abuba\Downloads\zq\zq-removals-site\src\App.tsx
+   1:58  error  Extra semicolon                            @typescript-eslint/semi
+   2:38  error  Extra semicolon                            @typescript-eslint/semi
+   3:32  error  Extra semicolon                            @typescript-eslint/semi
+   4:50  error  Extra semicolon                            @typescript-eslint/semi
+   5:48  error  Extra semicolon                            @typescript-eslint/semi
+   6:48  error  Extra semicolon                            @typescript-eslint/semi
+   7:48  error  Extra semicolon                            @typescript-eslint/semi
+   8:52  error  Extra semicolon                            @typescript-eslint/semi
+   9:66  error  Extra semicolon                            @typescript-eslint/semi
+  10:42  error  Extra semicolon                            @typescript-eslint/semi
+  11:56  error  Extra semicolon                            @typescript-eslint/semi
+  13:96  error  Extra semicolon                            @typescript-eslint/semi
+  14:57  error  Extra semicolon                            @typescript-eslint/semi
+  16:16  error  Missing return type on function            @typescript-eslint/explicit-function-return-type
+  16:28  error  Missing space before function parentheses  @typescript-eslint/space-before-function-paren
+  47:4   error  Extra semicolon                            @typescript-eslint/semi
+
+C:\Users\abuba\Downloads\zq\zq-removals-site\src\components\Button.tsx
+   1:24   error  Extra semicolon                            @typescript-eslint/semi
+   2:50   error  Extra semicolon                            @typescript-eslint/semi
+   4:35   error  Extra semicolon                            @typescript-eslint/semi
+   7:21   error  Unexpected separator (;)                   @typescript-eslint/member-delimiter-style
+  10:16   error  Missing return type on function            @typescript-eslint/explicit-function-return-type
+  10:31   error  Missing space before function parentheses  @typescript-eslint/space-before-function-paren
+  11:100  error  Extra semicolon                            @typescript-eslint/semi
+  15:4    error  Extra semicolon                            @typescript-eslint/semi
+  21:4    error  Extra semicolon                            @typescript-eslint/semi
+
+C:\Users\abuba\Downloads\zq\zq-removals-site\src\main.tsx
+   1:26  error  Extra semicolon                                                               @typescript-eslint/semi
+   2:40  error  Extra semicolon                                                               @typescript-eslint/semi
+   3:49  error  Extra semicolon                                                               @typescript-eslint/semi
+   4:24  error  Extra semicolon                                                               @typescript-eslint/semi
+   5:22  error  Extra semicolon                                                               @typescript-eslint/semi
+   7:21  error  Use a ! assertion to more succinctly remove null and undefined from the type  @typescript-eslint/non-nullable-type-assertion-style
+  13:2   error  Extra semicolon                                                               @typescript-eslint/semi
+
+C:\Users\abuba\Downloads\zq\zq-removals-site\src\pages\BookingConfirm.tsx
+   1:42  error  Extra semicolon                            @typescript-eslint/semi
+   3:16  error  Missing return type on function            @typescript-eslint/explicit-function-return-type
+   3:39  error  Missing space before function parentheses  @typescript-eslint/space-before-function-paren
+  48:4   error  Extra semicolon                            @typescript-eslint/semi
+
+C:\Users\abuba\Downloads\zq\zq-removals-site\src\pages\BookingConfirmDesktop.tsx
+   1:42  error  Extra semicolon                                                                              @typescript-eslint/semi
+   3:16  error  Missing return type on function                                                              @typescript-eslint/explicit-function-return-type
+   3:46  error  Missing space before function parentheses                                                    @typescript-eslint/space-before-function-paren
+  71:4   error  Extra semicolon                                                                              @typescript-eslint/semi
+  74:1   error  Missing return type on function                                                              @typescript-eslint/explicit-function-return-type
+  74:14  error  Missing space before function parentheses                                                    @typescript-eslint/space-before-function-paren
+  74:49  error  Expected a comma                                                                             @typescript-eslint/member-delimiter-style
+  80:4   error  Extra semicolon                                                                              @typescript-eslint/semi
+  83:1   error  Missing return type on function                                                              @typescript-eslint/explicit-function-return-type
+  83:13  error  Missing space before function parentheses                                                    @typescript-eslint/space-before-function-paren
+  83:59  error  Expected a comma                                                                             @typescript-eslint/member-delimiter-style
+  83:74  error  Expected a comma                                                                             @typescript-eslint/member-delimiter-style
+  87:24  error  Unexpected nullable boolean value in conditional. Please handle the nullish case explicitly  @typescript-eslint/strict-boolean-expressions
+  89:4   error  Extra semicolon                                                                              @typescript-eslint/semi
+
+C:\Users\abuba\Downloads\zq\zq-removals-site\src\pages\BookingStep1.tsx
+   1:42  error  Extra semicolon                                                                              @typescript-eslint/semi
+   3:16  error  Missing return type on function                                                              @typescript-eslint/explicit-function-return-type
+   3:37  error  Missing space before function parentheses                                                    @typescript-eslint/space-before-function-paren
+  29:4   error  Extra semicolon                                                                              @typescript-eslint/semi
+  32:1   error  Missing return type on function                                                              @typescript-eslint/explicit-function-return-type
+  32:15  error  Missing space before function parentheses                                                    @typescript-eslint/space-before-function-paren
+  32:68  error  Expected a comma                                                                             @typescript-eslint/member-delimiter-style
+  32:89  error  Expected a comma                                                                             @typescript-eslint/member-delimiter-style
+  36:8   error  Unexpected nullable boolean value in conditional. Please handle the nullish case explicitly  @typescript-eslint/strict-boolean-expressions
+  36:8   error  Expected newline between test and consequent of ternary expression                           multiline-ternary
+  36:21  error  Expected newline between consequent and alternate of ternary expression                      multiline-ternary
+  42:4   error  Extra semicolon                                                                              @typescript-eslint/semi
+
+C:\Users\abuba\Downloads\zq\zq-removals-site\src\pages\BookingStep2.tsx
+   1:42  error  Extra semicolon                            @typescript-eslint/semi
+   8:2   error  Extra semicolon                            @typescript-eslint/semi
+  10:16  error  Missing return type on function            @typescript-eslint/explicit-function-return-type
+  10:37  error  Missing space before function parentheses  @typescript-eslint/space-before-function-paren
+  50:4   error  Extra semicolon                            @typescript-eslint/semi
+
+C:\Users\abuba\Downloads\zq\zq-removals-site\src\pages\BookingStep3.tsx
+   1:42  error  Extra semicolon                            @typescript-eslint/semi
+   3:16  error  Missing return type on function            @typescript-eslint/explicit-function-return-type
+   3:37  error  Missing space before function parentheses  @typescript-eslint/space-before-function-paren
+  52:4   error  Extra semicolon                            @typescript-eslint/semi
+  55:1   error  Missing return type on function            @typescript-eslint/explicit-function-return-type
+  55:15  error  Missing space before function parentheses  @typescript-eslint/space-before-function-paren
+  55:56  error  Expected a comma                           @typescript-eslint/member-delimiter-style
+  61:4   error  Extra semicolon                            @typescript-eslint/semi
+
+C:\Users\abuba\Downloads\zq\zq-removals-site\src\pages\Itinerary.tsx
+   1:42  error  Extra semicolon                            @typescript-eslint/semi
+   8:2   error  Extra semicolon                            @typescript-eslint/semi
+  10:16  error  Missing return type on function            @typescript-eslint/explicit-function-return-type
+  10:34  error  Missing space before function parentheses  @typescript-eslint/space-before-function-paren
+  66:4   error  Extra semicolon                            @typescript-eslint/semi
+  69:1   error  Missing return type on function            @typescript-eslint/explicit-function-return-type
+  69:21  error  Missing space before function parentheses  @typescript-eslint/space-before-function-paren
+  69:53  error  Expected a comma                           @typescript-eslint/member-delimiter-style
+  80:4   error  Extra semicolon                            @typescript-eslint/semi
+
+C:\Users\abuba\Downloads\zq\zq-removals-site\src\pages\ItineraryDesktop.tsx
+   1:42  error  Extra semicolon                            @typescript-eslint/semi
+   8:2   error  Extra semicolon                            @typescript-eslint/semi
+  10:16  error  Missing return type on function            @typescript-eslint/explicit-function-return-type
+  10:41  error  Missing space before function parentheses  @typescript-eslint/space-before-function-paren
+  81:4   error  Extra semicolon                            @typescript-eslint/semi
+  84:1   error  Missing return type on function            @typescript-eslint/explicit-function-return-type
+  84:17  error  Missing space before function parentheses  @typescript-eslint/space-before-function-paren
+  84:49  error  Expected a comma                           @typescript-eslint/member-delimiter-style
+  94:4   error  Extra semicolon                            @typescript-eslint/semi
+
+C:\Users\abuba\Downloads\zq\zq-removals-site\src\pages\Landing.tsx
+   1:42  error  Extra semicolon                            @typescript-eslint/semi
+   7:2   error  Extra semicolon                            @typescript-eslint/semi
+   9:16  error  Missing return type on function            @typescript-eslint/explicit-function-return-type
+   9:32  error  Missing space before function parentheses  @typescript-eslint/space-before-function-paren
+  67:4   error  Extra semicolon                            @typescript-eslint/semi
+
+C:\Users\abuba\Downloads\zq\zq-removals-site\src\pages\ServicesFleet.tsx
+   1:42  error  Extra semicolon                            @typescript-eslint/semi
+  10:2   error  Extra semicolon                            @typescript-eslint/semi
+  16:2   error  Extra semicolon                            @typescript-eslint/semi
+  18:16  error  Missing return type on function            @typescript-eslint/explicit-function-return-type
+  18:38  error  Missing space before function parentheses  @typescript-eslint/space-before-function-paren
+  82:4   error  Extra semicolon                            @typescript-eslint/semi
+
+C:\Users\abuba\Downloads\zq\zq-removals-site\src\pages\Team.tsx
+   1:42  error  Extra semicolon                            @typescript-eslint/semi
+  10:2   error  Extra semicolon                            @typescript-eslint/semi
+  12:16  error  Missing return type on function            @typescript-eslint/explicit-function-return-type
+  12:29  error  Missing space before function parentheses  @typescript-eslint/space-before-function-paren
+  63:4   error  Extra semicolon                            @typescript-eslint/semi
+
+C:\Users\abuba\Downloads\zq\zq-removals-site\vite.config.ts
+  0:0  error  Parsing error: ESLint was configured to run on `<tsconfigRootDir>/vite.config.ts` using `parserOptions.project`: <tsconfigRootDir>/tsconfig.json
+However, that TSConfig does not include this file. Either:
+- Change ESLint's list of included files to not include this file
+- Change that TSConfig to include this file
+- Create a new TSConfig that includes this file and include it in your parserOptions.project
+See the typescript-eslint docs for more info: https://typescript-eslint.io/linting/troubleshooting#i-get-errors-telling-me-eslint-was-configured-to-run--however-that-tsconfig-does-not--none-of-those-tsconfigs-include-this-file
+
+Ô£û 110 problems (110 errors, 0 warnings)
+  89 errors and 0 warnings potentially fixable with the `--fix` option.
+

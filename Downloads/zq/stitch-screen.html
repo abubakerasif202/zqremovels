@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Kinetic Architect | Reliable Movers</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700;800;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary": "#ffffff",
+              "surface-variant": "#e0e3e5",
+              "tertiary": "#422700",
+              "error": "#ba1a1a",
+              "inverse-on-surface": "#eff1f3",
+              "on-surface-variant": "#434750",
+              "tertiary-fixed": "#ffddb8",
+              "surface-dim": "#d8dadc",
+              "surface": "#f7f9fb",
+              "surface-container": "#eceef0",
+              "inverse-surface": "#2d3133",
+              "primary": "#002c60",
+              "secondary-container": "#d5e3fc",
+              "on-primary": "#ffffff",
+              "inverse-primary": "#aac7ff",
+              "secondary-fixed-dim": "#b9c7df",
+              "on-secondary-fixed-variant": "#3a485b",
+              "on-primary-fixed": "#001b3e",
+              "on-tertiary": "#ffffff",
+              "tertiary-container": "#613b00",
+              "surface-tint": "#3a5e99",
+              "on-secondary-fixed": "#0d1c2e",
+              "outline": "#737781",
+              "on-background": "#191c1e",
+              "surface-container-highest": "#e0e3e5",
+              "on-primary-fixed-variant": "#1f467f",
+              "tertiary-fixed-dim": "#ffb95f",
+              "surface-container-high": "#e6e8ea",
+              "on-tertiary-container": "#f49d0a",
+              "surface-bright": "#f7f9fb",
+              "on-error": "#ffffff",
+              "secondary-fixed": "#d5e3fc",
+              "on-tertiary-fixed-variant": "#653e00",
+              "on-error-container": "#93000a",
+              "surface-container-low": "#f2f4f6",
+              "surface-container-lowest": "#ffffff",
+              "background": "#f7f9fb",
+              "primary-container": "#1b437c",
+              "on-tertiary-fixed": "#2a1700",
+              "on-secondary-container": "#57657a",
+              "on-primary-container": "#8fb1f1",
+              "outline-variant": "#c3c6d1",
+              "secondary": "#515f74",
+              "error-container": "#ffdad6",
+              "primary-fixed-dim": "#aac7ff",
+              "on-surface": "#191c1e",
+              "primary-fixed": "#d7e3ff"
+            },
+            fontFamily: {
+              "headline": ["Work Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-effect {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      .asymmetric-clip {
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f7f9fb;
+        color: #191c1e;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-blue-900" data-icon="menu">menu</span>
+<span class="text-xl font-black text-blue-900 dark:text-blue-50 uppercase tracking-tighter font-['Work_Sans']">The Kinetic Architect</span>
+</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-blue-700 dark:text-blue-300 font-semibold transition-colors hover:text-blue-800" href="#">Home</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium transition-colors hover:text-blue-800" href="#">Services</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium transition-colors hover:text-blue-800" href="#">Track</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium transition-colors hover:text-blue-800" href="#">Support</a>
+</nav>
+<button class="bg-gradient-to-r from-primary to-primary-container text-white px-6 py-2.5 rounded-md font-semibold text-sm active:scale-95 duration-200">
+                Get Quote
+            </button>
+</div>
+</header>
+<main class="pt-16 pb-20 md:pb-0">
+<!-- Hero Section -->
+<section class="relative min-h-[751px] flex items-center overflow-hidden bg-surface">
+<div class="absolute inset-0 z-0">
+<img alt="Professional movers" class="w-full h-full object-cover opacity-20 md:opacity-100 md:w-2/3 md:ml-auto asymmetric-clip" data-alt="Professional movers in blue uniforms carefully loading a pristine white moving truck in a sunlit modern suburban neighborhood, clean and high-end aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjjGkz2RVmzUuJTS9njswaogVqbZs2CNBGA03P_9pO-vGLm9OmeaaqA1mBE6PHsMSUh0Lf862-Ntem9HQRL1yg0OwbfdVT95T6wJDlBJChTazazKsvFIvzTil9fSrTCJuIy0Khl24W-bNiJdvbsYvG3Np0KOhwYfwlVel5br4Bzml7dM1PWx23FIdGIcf48MtlsRH2gagH6jzZPaXOmdWLoIwtDVofk3OjmfxZSGi5Ok2TPS43bpibuD6vO1H1Zl60u-v_TORHxp0"/>
+<div class="absolute inset-0 bg-gradient-to-r from-surface via-surface/90 to-transparent"></div>
+</div>
+<div class="relative z-10 max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+<div class="space-y-8">
+<h1 class="font-headline font-black text-5xl md:text-7xl text-primary tracking-tight leading-[1.1]">
+                        Your Stress-Free Move Starts <span class="text-primary-container">Here</span>
+</h1>
+<p class="font-body text-xl text-on-surface-variant max-w-lg leading-relaxed">
+                        Professional, reliable, and affordable moving services for your home or business. Handled with architectural precision.
+                    </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-tertiary-fixed text-on-tertiary-fixed px-8 py-4 rounded-md font-bold text-lg shadow-lg hover:brightness-105 transition-all">
+                            Get a Free Quote
+                        </button>
+<button class="bg-surface-container-highest text-on-surface px-8 py-4 rounded-md font-bold text-lg hover:bg-surface-container-high transition-all">
+                            Learn More
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Quote Form -->
+<section class="max-w-7xl mx-auto px-6 -mt-16 relative z-20">
+<div class="bg-surface-container-lowest p-8 md:p-12 rounded-xl shadow-[0_24px_48px_rgba(0,27,62,0.06)] border-b-4 border-primary">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-outline">From Zip Code</label>
+<input class="w-full bg-surface-container-low border-0 border-b-2 border-outline-variant focus:border-primary focus:ring-0 py-3 px-4 font-body" placeholder="e.g. 10001" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-outline">To Zip Code</label>
+<input class="w-full bg-surface-container-low border-0 border-b-2 border-outline-variant focus:border-primary focus:ring-0 py-3 px-4 font-body" placeholder="e.g. 90210" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-outline">Move Date</label>
+<input class="w-full bg-surface-container-low border-0 border-b-2 border-outline-variant focus:border-primary focus:ring-0 py-3 px-4 font-body" type="date"/>
+</div>
+<button class="w-full bg-primary text-white py-4 rounded-md font-bold uppercase tracking-widest text-sm hover:bg-primary-container transition-all">
+                        Start Quote
+                    </button>
+</div>
+</div>
+</section>
+<!-- Services Grid -->
+<section class="py-24 px-6 max-w-7xl mx-auto">
+<div class="mb-16">
+<h2 class="font-headline text-3xl md:text-5xl font-extrabold text-primary mb-4">Precision Services</h2>
+<div class="h-1.5 w-24 bg-tertiary-fixed"></div>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<!-- Service 1 -->
+<div class="group p-8 bg-surface-container-low hover:bg-surface-container-lowest transition-all duration-300 rounded-xl space-y-6">
+<div class="w-16 h-16 bg-primary text-white flex items-center justify-center rounded-lg shadow-md group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="home">home</span>
+</div>
+<h3 class="font-headline text-2xl font-bold text-primary">Residential Moving</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                        White-glove home transitions. We treat your family's belongings with the respect and care they deserve.
+                    </p>
+</div>
+<!-- Service 2 -->
+<div class="group p-8 bg-surface-container-low hover:bg-surface-container-lowest transition-all duration-300 rounded-xl space-y-6">
+<div class="w-16 h-16 bg-primary text-white flex items-center justify-center rounded-lg shadow-md group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="corporate_fare">corporate_fare</span>
+</div>
+<h3 class="font-headline text-2xl font-bold text-primary">Commercial Moving</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                        Minimal downtime office relocations. Systematic packing and transport for high-stakes business environments.
+                    </p>
+</div>
+<!-- Service 3 -->
+<div class="group p-8 bg-surface-container-low hover:bg-surface-container-lowest transition-all duration-300 rounded-xl space-y-6">
+<div class="w-16 h-16 bg-primary text-white flex items-center justify-center rounded-lg shadow-md group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="inventory_2">inventory_2</span>
+</div>
+<h3 class="font-headline text-2xl font-bold text-primary">Packing Services</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                        Professional crating and specialized packing materials for fragile, high-value, or oversized assets.
+                    </p>
+</div>
+</div>
+</section>
+<!-- Trust Signals (Bento Style) -->
+<section class="bg-surface-container-low py-24">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-1">
+<div class="bg-surface-container-lowest p-12 flex flex-col items-center text-center gap-4">
+<span class="material-symbols-outlined text-4xl text-primary" data-icon="verified_user">verified_user</span>
+<h4 class="font-bold text-xl">Licensed &amp; Insured</h4>
+<p class="text-sm text-on-surface-variant">Full liability coverage for every mile of your journey.</p>
+</div>
+<div class="bg-surface-container-lowest p-12 flex flex-col items-center text-center gap-4">
+<span class="material-symbols-outlined text-4xl text-primary" data-icon="badge">badge</span>
+<h4 class="font-bold text-xl">Vetted Staff</h4>
+<p class="text-sm text-on-surface-variant">Every team member undergoes rigorous background screening.</p>
+</div>
+<div class="bg-surface-container-lowest p-12 flex flex-col items-center text-center gap-4">
+<span class="material-symbols-outlined text-4xl text-primary" data-icon="payments">payments</span>
+<h4 class="font-bold text-xl">Transparent Pricing</h4>
+<p class="text-sm text-on-surface-variant">No hidden fees or surprise surcharges. Guaranteed.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="py-24 px-6 max-w-4xl mx-auto text-center">
+<div class="inline-flex gap-1 mb-8 text-tertiary-container">
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<blockquote class="font-headline text-2xl md:text-4xl font-bold text-primary mb-8 italic leading-snug">
+                "The most professional moving experience I've had in 20 years. They treated my antique piano like a work of art. Absolute precision."
+            </blockquote>
+<cite class="not-italic block">
+<span class="font-bold text-lg">Eleanor Vance</span>
+<span class="block text-outline text-sm uppercase tracking-widest mt-1">Cross-Country Client</span>
+</cite>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-50 dark:bg-slate-950 w-full py-12 px-6 mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-start gap-8 max-w-7xl mx-auto">
+<div class="space-y-4">
+<span class="text-lg font-bold text-blue-900 dark:text-blue-50">The Kinetic Architect Moving Co.</span>
+<p class="max-w-xs text-slate-500 dark:text-slate-400 font-['Inter'] text-sm">
+                    Precision in motion. Delivering architectural-grade logistical solutions for residential and commercial transitions.
+                </p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-blue-900 cursor-pointer" data-icon="share">share</span>
+<span class="material-symbols-outlined text-blue-900 cursor-pointer" data-icon="mail">mail</span>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-2 gap-12">
+<div class="space-y-3">
+<h5 class="font-bold text-blue-900 uppercase text-xs tracking-widest">Company</h5>
+<ul class="space-y-2 text-sm">
+<li><a class="text-slate-500 hover:text-blue-900 transition-colors" href="#">About Us</a></li>
+<li><a class="text-slate-500 hover:text-blue-900 transition-colors" href="#">Careers</a></li>
+<li><a class="text-slate-500 hover:text-blue-900 transition-colors" href="#">Moving Tips</a></li>
+</ul>
+</div>
+<div class="space-y-3">
+<h5 class="font-bold text-blue-900 uppercase text-xs tracking-widest">Legal</h5>
+<ul class="space-y-2 text-sm">
+<li><a class="text-slate-500 hover:text-blue-900 transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="text-slate-500 hover:text-blue-900 transition-colors" href="#">Terms of Service</a></li>
+<li><a class="text-slate-500 hover:text-blue-900 transition-colors" href="#">Insurance Details</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-200">
+<p class="text-slate-500 dark:text-slate-400 font-['Inter'] text-sm text-center md:text-left">
+                © 2024 Kinetic Architect Moving Co. Precision in Motion.
+            </p>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl bg-white dark:bg-slate-900 shadow-[0_-4px_12px_rgba(0,44,96,0.05)] border-t border-slate-100 dark:border-slate-800 h-16 pb-safe flex justify-around items-center">
+<a class="flex flex-col items-center justify-center text-blue-900 dark:text-blue-100 bg-blue-50 dark:bg-blue-900/30 rounded-xl px-3 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-['Inter'] text-[10px] font-semibold">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400" href="#">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+<span class="font-['Inter'] text-[10px] font-semibold">Services</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400" href="#">
+<span class="material-symbols-outlined" data-icon="distance">distance</span>
+<span class="font-['Inter'] text-[10px] font-semibold">Track</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400" href="#">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+<span class="font-['Inter'] text-[10px] font-semibold">Support</span>
+</a>
+</nav>
+</body></html>

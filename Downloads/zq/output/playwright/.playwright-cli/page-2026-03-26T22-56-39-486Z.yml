@@ -1,0 +1,200 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]: Adelaide local, interstate, office, and packing moves scoped before move day.
+      - link "0433 819 989" [ref=e7] [cursor=pointer]:
+        - /url: tel:+61433819989
+    - generic [ref=e8]:
+      - link "ZQ Removals Local, interstate, and packing specialists" [ref=e9] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e11]:
+          - strong [ref=e12]: ZQ Removals
+          - generic [ref=e13]: Local, interstate, and packing specialists
+      - navigation "Primary" [ref=e14]:
+        - link "Home" [ref=e15] [cursor=pointer]:
+          - /url: /
+        - group [ref=e16]:
+          - generic "Local Removals ▾" [ref=e17] [cursor=pointer]
+        - group [ref=e18]:
+          - generic "Interstate Removals ▾" [ref=e19] [cursor=pointer]
+        - link "Packing Services" [ref=e20] [cursor=pointer]:
+          - /url: /packing-services-adelaide/
+        - link "Moving Guides" [ref=e21] [cursor=pointer]:
+          - /url: /adelaide-moving-guides/
+        - link "Contact Us" [ref=e22] [cursor=pointer]:
+          - /url: /contact-us/
+      - generic [ref=e23]:
+        - link "0433 819 989" [ref=e24] [cursor=pointer]:
+          - /url: tel:+61433819989
+        - link "Fixed-Price Quote" [ref=e25] [cursor=pointer]:
+          - /url: /contact-us/#quote-form
+    - text: ▾ ▾ ▾
+  - main [ref=e26]:
+    - generic [ref=e28]:
+      - navigation "Breadcrumb" [ref=e29]:
+        - list [ref=e30]:
+          - listitem [ref=e31]:
+            - link "Home" [ref=e32] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=e33]: /Interstate Removals Adelaide
+      - generic [ref=e34]:
+        - generic [ref=e35]:
+          - generic [ref=e36]: Interstate Removals Adelaide
+          - heading "Interstate removals Adelaide clients can book with fixed-price planning and cleaner long-haul logistics." [level=1] [ref=e37]
+          - paragraph [ref=e38]: ZQ Removals scopes interstate jobs around actual access, inventory, and timing so longer routes are planned properly before a truck is loaded. Use the route pages below when the destination is already known, or request a custom quote if the route still needs planning.
+          - list "Interstate value proposition" [ref=e39]:
+            - listitem [ref=e40]: Fixed-price quotes after route review
+            - listitem [ref=e41]: Minimal rehandling across linehaul legs
+            - listitem [ref=e42]: Route pages for Melbourne and Sydney intent
+          - generic [ref=e43]:
+            - link "Get a Fixed-Price Quote" [ref=e44] [cursor=pointer]:
+              - /url: /contact-us/#quote-form
+            - link "Call 0433 819 989" [ref=e45] [cursor=pointer]:
+              - /url: tel:+61433819989
+        - figure [ref=e47]:
+          - img "ZQ Removals interstate removalists preparing a fixed-price Adelaide linehaul truck" [ref=e48]
+    - region "Long-haul moves need a clearer operating plan before departure." [ref=e49]:
+      - generic [ref=e50]:
+        - generic [ref=e51]:
+          - generic [ref=e52]: How Interstate Planning Differs
+          - heading "Long-haul moves need a clearer operating plan before departure." [level=2] [ref=e53]
+          - paragraph [ref=e54]: Clients comparing interstate movers want to know how timing, protection, and destination access will be handled across a longer route. The Adelaide interstate hub explains that operating model before you drop into a destination-specific page.
+        - generic [ref=e55]:
+          - article [ref=e56]:
+            - heading "Low-Rehandling Linehaul Planning" [level=3] [ref=e57]
+            - paragraph [ref=e58]: Fewer handling points help inventory stay more secure and make delivery windows easier to keep on longer interstate routes.
+            - list [ref=e59]:
+              - listitem [ref=e60]: Fewer transfer points between pickup and unload
+              - listitem [ref=e61]: Cleaner accountability through the route
+              - listitem [ref=e62]: Better protection for higher-value items
+          - article [ref=e63]:
+            - heading "Fixed-Price Route Review" [level=3] [ref=e64]
+            - paragraph [ref=e65]: Quote from access, inventory, and destination timing instead of broad hourly assumptions that do not suit a long-distance move.
+            - list [ref=e66]:
+              - listitem [ref=e67]: Inventory-led quoting
+              - listitem [ref=e68]: Building and loading notes at both ends
+              - listitem [ref=e69]: Packing and special-handling inclusions clarified upfront
+    - region "Choose the route page that matches the destination." [ref=e70]:
+      - generic [ref=e71]:
+        - generic [ref=e72]:
+          - generic [ref=e73]: Popular Routes
+          - heading "Choose the route page that matches the destination." [level=2] [ref=e74]
+          - paragraph [ref=e75]: These pages give you a direct path into more specific route, timing, and destination-access detail for the most common interstate destinations.
+        - generic [ref=e76]:
+          - article [ref=e77]:
+            - generic [ref=e78]: Interstate Route
+            - heading "Adelaide to Melbourne Removals" [level=3] [ref=e79]
+            - paragraph [ref=e80]: Fixed-price interstate moves from Adelaide into Melbourne with access notes, dock timing, and clear delivery-window planning.
+            - link "Open route page →" [ref=e81] [cursor=pointer]:
+              - /url: /adelaide-to-melbourne-removals/
+          - article [ref=e82]:
+            - generic [ref=e83]: Interstate Route
+            - heading "Adelaide to Sydney Removals" [level=3] [ref=e84]
+            - paragraph [ref=e85]: Longer-haul Adelaide to Sydney relocations with multi-day planning, destination coordination, and fixed-price quoting.
+            - link "Open route page →" [ref=e86] [cursor=pointer]:
+              - /url: /adelaide-to-sydney-removals/
+          - article [ref=e87]:
+            - generic [ref=e88]: Custom Route
+            - heading "Need a different destination?" [level=3] [ref=e89]
+            - paragraph [ref=e90]: Use the contact page to scope non-standard east-coast or regional routes without forcing the move into the wrong destination page.
+            - link "Request a custom route quote →" [ref=e91] [cursor=pointer]:
+              - /url: /contact-us/#quote-form
+    - region "Ready to plan an interstate move from Adelaide?" [ref=e92]:
+      - complementary [ref=e94]:
+        - generic [ref=e95]:
+          - generic [ref=e96]: Interstate Quote
+          - heading "Ready to plan an interstate move from Adelaide?" [level=2] [ref=e97]
+          - paragraph [ref=e98]: Choose the route page if the destination is already set, or request a custom quote if the route and timing still need work.
+        - generic [ref=e99]:
+          - link "Get a Fixed-Price Quote" [ref=e100] [cursor=pointer]:
+            - /url: /contact-us/#quote-form
+          - link "Speak with the interstate team" [ref=e101] [cursor=pointer]:
+            - /url: tel:+61433819989
+  - contentinfo [ref=e102]:
+    - generic [ref=e103]:
+      - generic [ref=e104]:
+        - heading "ZQ Removals" [level=2] [ref=e105]
+        - generic [ref=e106]:
+          - strong [ref=e107]: "Name:"
+          - generic [ref=e108]: ZQ Removals
+          - strong [ref=e109]: "Address:"
+          - generic [ref=e110]: Andrews Farm SA 5114, Australia
+          - strong [ref=e111]: "Phone:"
+          - link "0433 819 989" [ref=e112] [cursor=pointer]:
+            - /url: tel:+61433819989
+        - paragraph [ref=e113]: Share the route, timing window, and access notes and the team can scope the move properly before loading day.
+        - list "Trust signals" [ref=e114]:
+          - listitem [ref=e115]: Fixed-price quotes
+          - listitem [ref=e116]: Transit and liability cover
+          - listitem [ref=e117]: Local and interstate coordination
+      - generic [ref=e118]:
+        - generic [ref=e119]:
+          - heading "Core Services" [level=2] [ref=e120]
+          - list [ref=e121]:
+            - listitem [ref=e122]:
+              - link "Home" [ref=e123] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e124]:
+              - link "Local Removals" [ref=e125] [cursor=pointer]:
+                - /url: /removalists-adelaide/
+            - listitem [ref=e126]:
+              - link "Interstate Removals" [ref=e127] [cursor=pointer]:
+                - /url: /interstate-removals-adelaide/
+            - listitem [ref=e128]:
+              - link "Packing Services" [ref=e129] [cursor=pointer]:
+                - /url: /packing-services-adelaide/
+            - listitem [ref=e130]:
+              - link "Office Removals" [ref=e131] [cursor=pointer]:
+                - /url: /office-removals-adelaide/
+            - listitem [ref=e132]:
+              - link "Furniture Removalists" [ref=e133] [cursor=pointer]:
+                - /url: /furniture-removalists-adelaide/
+            - listitem [ref=e134]:
+              - link "Moving Guides" [ref=e135] [cursor=pointer]:
+                - /url: /adelaide-moving-guides/
+            - listitem [ref=e136]:
+              - link "Contact Us" [ref=e137] [cursor=pointer]:
+                - /url: /contact-us/
+        - generic [ref=e138]:
+          - heading "Adelaide Suburb Pages" [level=2] [ref=e139]
+          - list [ref=e140]:
+            - listitem [ref=e141]:
+              - link "Adelaide CBD" [ref=e142] [cursor=pointer]:
+                - /url: /removalists-adelaide-cbd/
+            - listitem [ref=e143]:
+              - link "Marion" [ref=e144] [cursor=pointer]:
+                - /url: /removalists-marion/
+            - listitem [ref=e145]:
+              - link "Salisbury" [ref=e146] [cursor=pointer]:
+                - /url: /removalists-salisbury/
+            - listitem [ref=e147]:
+              - link "Elizabeth" [ref=e148] [cursor=pointer]:
+                - /url: /removalists-elizabeth/
+            - listitem [ref=e149]:
+              - link "Glenelg" [ref=e150] [cursor=pointer]:
+                - /url: /removalists-glenelg/
+        - generic [ref=e151]:
+          - heading "Interstate Route Pages" [level=2] [ref=e152]
+          - list [ref=e153]:
+            - listitem [ref=e154]:
+              - link "Adelaide to Melbourne" [ref=e155] [cursor=pointer]:
+                - /url: /adelaide-to-melbourne-removals/
+            - listitem [ref=e156]:
+              - link "Adelaide to Sydney" [ref=e157] [cursor=pointer]:
+                - /url: /adelaide-to-sydney-removals/
+            - listitem [ref=e158]:
+              - link "Moving Guides" [ref=e159] [cursor=pointer]:
+                - /url: /adelaide-moving-guides/
+    - generic [ref=e160]:
+      - generic [ref=e161]: © 2026 ZQ Removals. All rights reserved.
+      - generic [ref=e162]:
+        - link "Moving Guides" [ref=e163] [cursor=pointer]:
+          - /url: /adelaide-moving-guides/
+        - link "Privacy Policy" [ref=e164] [cursor=pointer]:
+          - /url: /privacy-policy.html
+        - link "Terms & Conditions" [ref=e165] [cursor=pointer]:
+          - /url: /terms-and-conditions.html
+        - link "Get a Fixed-Price Quote" [ref=e166] [cursor=pointer]:
+          - /url: /contact-us/#quote-form

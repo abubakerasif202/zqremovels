@@ -1,0 +1,184 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]: Premium Adelaide removalists with fixed-price planning and interstate coordination.
+      - link "0433 819 989" [ref=e7] [cursor=pointer]:
+        - /url: tel:+61433819989
+    - generic [ref=e8]:
+      - link "ZQ Removals Local, interstate, and packing specialists" [ref=e9] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e11]:
+          - strong [ref=e12]: ZQ Removals
+          - generic [ref=e13]: Local, interstate, and packing specialists
+      - navigation "Primary" [ref=e14]:
+        - link "Home" [ref=e15] [cursor=pointer]:
+          - /url: /
+        - group [ref=e16]:
+          - generic "Local Removals ▾" [ref=e17] [cursor=pointer]
+        - group [ref=e18]:
+          - generic "Interstate Removals ▾" [ref=e19] [cursor=pointer]
+        - link "Packing Services" [ref=e20] [cursor=pointer]:
+          - /url: /packing-services-adelaide/
+        - link "Contact Us" [ref=e21] [cursor=pointer]:
+          - /url: /contact-us/
+      - generic [ref=e22]:
+        - link "0433 819 989" [ref=e23] [cursor=pointer]:
+          - /url: tel:+61433819989
+        - link "Get a Fixed-Price Quote" [ref=e24] [cursor=pointer]:
+          - /url: /contact-us/#quote-form
+    - text: ▾ ▾ ▾
+  - main [ref=e25]:
+    - generic [ref=e27]:
+      - navigation "Breadcrumb" [ref=e28]:
+        - list [ref=e29]:
+          - listitem [ref=e30]:
+            - link "Home" [ref=e31] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=e32]: /Contact Us
+      - generic [ref=e33]:
+        - generic [ref=e34]:
+          - generic [ref=e35]: Contact ZQ Removals
+          - heading "Get a fixed-price quote with the route and access reviewed upfront." [level=1] [ref=e36]
+          - paragraph [ref=e37]: Share the pickup suburb, destination, preferred date, access constraints, and anything oversized or fragile. A stronger brief produces a cleaner proposal.
+          - list "Quote request highlights" [ref=e38]:
+            - listitem [ref=e39]: Local Adelaide moves
+            - listitem [ref=e40]: Interstate routes and office relocations
+            - listitem [ref=e41]: Packing and protection support
+        - figure [ref=e43]:
+          - img "ZQ Removals premium moving truck prepared for a fixed-price quote request" [ref=e44]
+    - region "Tell us what is moving, where it is going, and what access matters." [ref=e45]:
+      - generic [ref=e46]:
+        - generic [ref=e47]:
+          - generic [ref=e48]: Quote Request
+          - heading "Tell us what is moving, where it is going, and what access matters." [level=2] [ref=e49]
+          - paragraph [ref=e50]: "Include the details that materially affect labour and scheduling: stairs, loading docks, booked lifts, parking limits, settlement windows, and any high-value or fragile items."
+          - list [ref=e51]:
+            - listitem [ref=e52]:
+              - strong [ref=e53]: "Phone:"
+              - link "0433 819 989" [ref=e54] [cursor=pointer]:
+                - /url: tel:+61433819989
+            - listitem [ref=e55]:
+              - strong [ref=e56]: "Service base:"
+              - text: Andrews Farm SA 5114
+            - listitem [ref=e57]:
+              - strong [ref=e58]: "Coverage:"
+              - text: Adelaide local moves, interstate routes, packing, and office relocations
+            - listitem [ref=e59]:
+              - strong [ref=e60]: "CTA path:"
+              - text: This page is the primary conversion destination for the new navigation and footer CTA
+        - generic [ref=e61]:
+          - generic [ref=e62]:
+            - generic [ref=e63]:
+              - generic [ref=e64]: Name
+              - textbox "Name" [ref=e65]:
+                - /placeholder: Your full name
+            - generic [ref=e66]:
+              - generic [ref=e67]: Phone
+              - textbox "Phone" [ref=e68]:
+                - /placeholder: Best contact number
+            - generic [ref=e69]:
+              - generic [ref=e70]: Email
+              - textbox "Email" [ref=e71]:
+                - /placeholder: Email address
+            - generic [ref=e72]:
+              - generic [ref=e73]: Preferred move date
+              - textbox "Preferred move date" [ref=e74]
+            - generic [ref=e75]:
+              - generic [ref=e76]: From suburb
+              - textbox "From suburb" [ref=e77]:
+                - /placeholder: Origin suburb
+            - generic [ref=e78]:
+              - generic [ref=e79]: To suburb
+              - textbox "To suburb" [ref=e80]:
+                - /placeholder: Destination suburb
+          - generic [ref=e81]:
+            - generic [ref=e82]: Move type
+            - combobox "Move type" [ref=e83]:
+              - option "Local Adelaide move" [selected]
+              - option "Interstate move"
+              - option "Office relocation"
+              - option "Packing support only"
+          - generic [ref=e84]:
+            - generic [ref=e85]: Move details
+            - textbox "Move details" [ref=e86]:
+              - /placeholder: Bedrooms, stairs, heavy items, building access, timing constraints, and whether you need packing support.
+          - button "Request a fixed-price quote" [ref=e87] [cursor=pointer]
+          - paragraph [ref=e88]: Submitting on the live site sends the enquiry to the Netlify form inbox and redirects to the thank-you page.
+  - contentinfo [ref=e89]:
+    - generic [ref=e90]:
+      - generic [ref=e91]:
+        - heading "ZQ Removals" [level=2] [ref=e92]
+        - generic [ref=e93]:
+          - strong [ref=e94]: "Name:"
+          - generic [ref=e95]: ZQ Removals
+          - strong [ref=e96]: "Address:"
+          - generic [ref=e97]: Andrews Farm SA 5114, Australia
+          - strong [ref=e98]: "Phone:"
+          - link "0433 819 989" [ref=e99] [cursor=pointer]:
+            - /url: tel:+61433819989
+        - paragraph [ref=e100]: Use the same suburb, postcode, and phone formatting everywhere the business is cited online.
+        - list "Trust signals" [ref=e101]:
+          - listitem [ref=e102]: Fixed-price quotes
+          - listitem [ref=e103]: Transit and liability cover
+          - listitem [ref=e104]: 5-Star Google Reviews badge
+      - generic [ref=e105]:
+        - generic [ref=e106]:
+          - heading "Core Services" [level=2] [ref=e107]
+          - list [ref=e108]:
+            - listitem [ref=e109]:
+              - link "Home" [ref=e110] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e111]:
+              - link "Local Removals" [ref=e112] [cursor=pointer]:
+                - /url: /removalists-adelaide/
+            - listitem [ref=e113]:
+              - link "Interstate Removals" [ref=e114] [cursor=pointer]:
+                - /url: /interstate-removals-adelaide/
+            - listitem [ref=e115]:
+              - link "Packing Services" [ref=e116] [cursor=pointer]:
+                - /url: /packing-services-adelaide/
+            - listitem [ref=e117]:
+              - link "Office Removals" [ref=e118] [cursor=pointer]:
+                - /url: /office-removals-adelaide/
+            - listitem [ref=e119]:
+              - link "Furniture Removalists" [ref=e120] [cursor=pointer]:
+                - /url: /furniture-removalists-adelaide/
+            - listitem [ref=e121]:
+              - link "Contact Us" [ref=e122] [cursor=pointer]:
+                - /url: /contact-us/
+        - generic [ref=e123]:
+          - heading "Adelaide Suburb Pages" [level=2] [ref=e124]
+          - list [ref=e125]:
+            - listitem [ref=e126]:
+              - link "Adelaide CBD" [ref=e127] [cursor=pointer]:
+                - /url: /removalists-adelaide-cbd/
+            - listitem [ref=e128]:
+              - link "Marion" [ref=e129] [cursor=pointer]:
+                - /url: /removalists-marion/
+            - listitem [ref=e130]:
+              - link "Salisbury" [ref=e131] [cursor=pointer]:
+                - /url: /removalists-salisbury/
+            - listitem [ref=e132]:
+              - link "Elizabeth" [ref=e133] [cursor=pointer]:
+                - /url: /removalists-elizabeth/
+            - listitem [ref=e134]:
+              - link "Glenelg" [ref=e135] [cursor=pointer]:
+                - /url: /removalists-glenelg/
+        - generic [ref=e136]:
+          - heading "Interstate Route Pages" [level=2] [ref=e137]
+          - list [ref=e138]:
+            - listitem [ref=e139]:
+              - link "Adelaide to Melbourne" [ref=e140] [cursor=pointer]:
+                - /url: /adelaide-to-melbourne-removals/
+            - listitem [ref=e141]:
+              - link "Adelaide to Sydney" [ref=e142] [cursor=pointer]:
+                - /url: /adelaide-to-sydney-removals/
+            - listitem [ref=e143]:
+              - link "Moving Guides" [ref=e144] [cursor=pointer]:
+                - /url: /adelaide-moving-guides/
+    - generic [ref=e145]:
+      - generic [ref=e146]: © 2026 ZQ Removals. All rights reserved.
+      - link "Get a Fixed-Price Quote" [ref=e147] [cursor=pointer]:
+        - /url: /contact-us/#quote-form
