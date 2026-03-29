@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Downloads/zq/zq-removals-pro/**"
+  pull_request:
+    paths:
+      - "Downloads/zq/zq-removals-pro/**"
+
+defaults:
+  run:
+    working-directory: Downloads/zq/zq-removals-pro
+
+jobs:
+  build:
+    name: Type-check & Build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          package_json_file: Downloads/zq/zq-removals-pro/package.json
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: Downloads/zq/zq-removals-pro/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Type check
+        run: pnpm check
+
+      - name: Build
+        run: pnpm build
