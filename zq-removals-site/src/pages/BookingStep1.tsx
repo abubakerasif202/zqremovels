@@ -10,10 +10,10 @@ export default function BookingStep1() {
       </div>
 
       <div className="space-y-5">
-        <Field label="Move From" placeholder="82 Belgravia Sq, London" />
-        <Field label="Move To" placeholder="Villa L'Estaque, Antibes" />
-        <Field label="Date" placeholder="24 Oct 2024" />
-        <Field label="Property Type" placeholder="The Heritage Suite" />
+        <Field label="Move From" placeholder="82 Belgravia Sq, London" required />
+        <Field label="Move To" placeholder="Villa L'Estaque, Antibes" required />
+        <Field label="Date" placeholder="24 Oct 2024" type="date" required />
+        <Field label="Property Type" placeholder="The Heritage Suite" required />
         <Field label="Access Notes" placeholder="Service lift booking, heritage access window" isTextArea />
       </div>
 
@@ -29,14 +29,14 @@ export default function BookingStep1() {
   );
 }
 
-function Field({ label, placeholder, isTextArea }: { label: string; placeholder: string; isTextArea?: boolean }) {
+function Field({ label, placeholder, isTextArea, type = "text", required }: { label: string; placeholder: string; isTextArea?: boolean; type?: string; required?: boolean }) {
   return (
     <label className="block space-y-1">
       <span className="text-sm font-semibold text-espresso">{label}</span>
       {isTextArea ? (
-        <textarea className="w-full bg-transparent border-b border-espresso/20 focus:border-primary outline-none pb-2 text-sm" placeholder={placeholder} rows={3} />
+        <textarea className="w-full bg-transparent border-b border-espresso/20 focus:border-primary outline-none pb-2 text-sm" placeholder={placeholder} rows={3} maxLength={500} required={required} />
       ) : (
-        <input className="w-full bg-transparent border-b border-espresso/20 focus:border-primary outline-none pb-2 text-sm" placeholder={placeholder} />
+        <input className="w-full bg-transparent border-b border-espresso/20 focus:border-primary outline-none pb-2 text-sm" type={type} placeholder={placeholder} required={required} />
       )}
     </label>
   );

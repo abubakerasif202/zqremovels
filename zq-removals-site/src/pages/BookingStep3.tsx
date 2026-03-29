@@ -1,3 +1,4 @@
+import React from 'react';
 import Button from '../components/Button';
 
 export default function BookingStep3() {
@@ -26,11 +27,11 @@ export default function BookingStep3() {
       </div>
 
       <div className="space-y-4">
-        <Field label="Name on Card" placeholder="Eleanor Sterling" />
-        <Field label="Card Number" placeholder="4242 4242 4242 4242" />
+        <Field label="Name on Card" placeholder="Eleanor Sterling" required />
+        <Field label="Card Number" placeholder="4242 4242 4242 4242" type="text" inputMode="numeric" pattern="[\d ]{13,19}" maxLength={19} required />
         <div className="grid grid-cols-2 gap-3">
-          <Field label="Expiry" placeholder="10/27" />
-          <Field label="CVC" placeholder="123" />
+          <Field label="Expiry" placeholder="10/27" type="text" inputMode="numeric" pattern="\d{2}/\d{2}" maxLength={5} required />
+          <Field label="CVC" placeholder="123" type="text" inputMode="numeric" pattern="\d{3,4}" maxLength={4} required />
         </div>
         <label className="flex items-center gap-2 text-sm text-espresso/80">
           <input type="checkbox" className="accent-primary" defaultChecked /> Billing same as move origin
@@ -52,11 +53,19 @@ export default function BookingStep3() {
   );
 }
 
-function Field({ label, placeholder }: { label: string; placeholder: string }) {
+function Field({ label, placeholder, type = "text", inputMode, pattern, maxLength, required }: { label: string; placeholder: string; type?: string; inputMode?: React.HTMLAttributes<HTMLInputElement>["inputMode"]; pattern?: string; maxLength?: number; required?: boolean }) {
   return (
     <label className="block space-y-1">
       <span className="text-sm font-semibold text-espresso">{label}</span>
-      <input className="w-full bg-transparent border-b border-espresso/20 focus:border-primary outline-none pb-2 text-sm" placeholder={placeholder} />
+      <input
+        className="w-full bg-transparent border-b border-espresso/20 focus:border-primary outline-none pb-2 text-sm"
+        type={type}
+        inputMode={inputMode}
+        pattern={pattern}
+        maxLength={maxLength}
+        placeholder={placeholder}
+        required={required}
+      />
     </label>
   );
 }
