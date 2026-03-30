@@ -928,7 +928,6 @@ const localProofProfiles = {
 
 await rm(distRoot, { recursive: true, force: true });
 await mkdir(distRoot, { recursive: true });
-await copyFile(path.join(root, 'premium-site.css'), path.join(root, 'premium-site.min.css'));
 await copyFile(path.join(root, 'premium-site.css'), path.join(distRoot, 'premium-site.min.css'));
 
 for (const page of pages) {
@@ -947,17 +946,13 @@ for (const page of pages) {
     .replace('{{CONTENT}}', indent(content.trim(), 4))
     .replace('{{FOOTER}}', indent(page.layout === 'standard' ? partials.footer : '', 4));
 
-  const outputPath = path.join(root, page.output);
   const distOutputPath = path.join(distRoot, page.output);
-  await mkdir(path.dirname(outputPath), { recursive: true });
   await mkdir(path.dirname(distOutputPath), { recursive: true });
-  await writeFile(outputPath, `${html.trim()}\n`, 'utf8');
   await writeFile(distOutputPath, `${html.trim()}\n`, 'utf8');
   console.log(`built ${page.output}`);
 }
 
 const sitemap = await renderSitemap(pages);
-await writeFile(path.join(root, 'sitemap.xml'), sitemap, 'utf8');
 await writeFile(path.join(distRoot, 'sitemap.xml'), sitemap, 'utf8');
 
 await copyStaticAssets();
