@@ -1,12 +1,12 @@
 import BrandButton from '../../components/brand/BrandButton'
 
 const people = [
-  { name: 'Eleanor Sterling', role: 'Move Strategist', bio: 'Architects every relocation as a bespoke plan.' },
-  { name: 'Julian Vane', role: 'Logistics Lead', bio: 'Orchestrates multi-city routes with minute-level precision.' },
-  { name: 'Saffron Thorne', role: 'White-Glove Specialist', bio: 'Leads fine art, antiques, and couture handling.' },
-  { name: 'Marin Caro', role: 'Preservation Lead', bio: 'Supervises packing chemistry and climate controls.' },
-  { name: 'Rowan Hale', role: 'Access Specialist', bio: 'Navigates heritage sites and tight urban access.' },
-  { name: 'Ines Laurent', role: 'Client Concierge', bio: 'Single point of contact from brief to handover.' }
+  { name: 'Eleanor Sterling', role: 'Move Strategist', bio: 'Architects every relocation as a bespoke plan.', email: 'eleanor@zqremovals.com', phone: '+61 8 0000 0001' },
+  { name: 'Julian Vane', role: 'Logistics Lead', bio: 'Orchestrates multi-city routes with minute-level precision.', email: 'julian@zqremovals.com', phone: '+61 8 0000 0002' },
+  { name: 'Saffron Thorne', role: 'White-Glove Specialist', bio: 'Leads fine art, antiques, and couture handling.', email: 'saffron@zqremovals.com', phone: '+61 8 0000 0003' },
+  { name: 'Marin Caro', role: 'Preservation Lead', bio: 'Supervises packing chemistry and climate controls.', email: 'marin@zqremovals.com', phone: '+61 8 0000 0004' },
+  { name: 'Rowan Hale', role: 'Access Specialist', bio: 'Navigates heritage sites and tight urban access.', email: 'rowan@zqremovals.com', phone: '+61 8 0000 0005' },
+  { name: 'Ines Laurent', role: 'Client Concierge', bio: 'Single point of contact from brief to handover.', email: 'ines@zqremovals.com', phone: '+61 8 0000 0006' }
 ]
 
 export default function Team () {
@@ -35,8 +35,20 @@ export default function Team () {
             <div className="text-sm font-semibold text-primary">{p.role}</div>
             <p className="text-sm text-espresso/75">{p.bio}</p>
             <div className="flex gap-2 pt-2">
-              <span className="text-xs px-2 py-1 border border-espresso/15 rounded-soft text-espresso/80">Email</span>
-              <span className="text-xs px-2 py-1 border border-espresso/15 rounded-soft text-espresso/80">Phone</span>
+              <button
+                className="text-xs px-2 py-1 border border-espresso/15 rounded-soft text-espresso/80 hover:border-espresso/40 transition"
+                aria-label={`Email ${p.name}`}
+                onClick={() => { window.location.href = `mailto:${p.email}` }}
+              >
+                Email
+              </button>
+              <button
+                className="text-xs px-2 py-1 border border-espresso/15 rounded-soft text-espresso/80 hover:border-espresso/40 transition"
+                aria-label={`Call ${p.name}`}
+                onClick={() => { window.location.href = `tel:${p.phone}` }}
+              >
+                Phone
+              </button>
             </div>
           </div>
         ))}

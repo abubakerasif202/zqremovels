@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import { useLocation } from 'wouter'
+import { toast } from 'sonner'
 import BrandButton from '../../components/brand/BrandButton'
 
 const categories = [
@@ -7,7 +10,23 @@ const categories = [
   { name: 'Art & Fragile', count: 6 }
 ]
 
+const specialHandlingOptions = ['White-Glove handling', 'Climate-controlled storage'] as const
+
 export default function BookingStep2 () {
+  const [, setLocation] = useLocation()
+  const [specialHandling, setSpecialHandling] = useState<Record<string, boolean>>(
+    Object.fromEntries(specialHandlingOptions.map(opt => [opt, true]))
+  )
+
+  const toggleOption = (label: string) => {
+    setSpecialHandling(prev => ({ ...prev, [label]: !prev[label] }))
+  }
+
+  const handleContinue = () => {
+    toast.success('Inventory saved')
+    setLocation('/booking/step-3')
+  }
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 space-y-8">
       <div className="space-y-2">
@@ -30,9 +49,15 @@ export default function BookingStep2 () {
 
       <div className="space-y-2">
         <p className="text-sm font-semibold text-espresso">Special handling</p>
-        {['White-Glove handling', 'Climate-controlled storage'].map((label) => (
-          <label key={label} className="flex items-center gap-2 text-sm text-espresso/80">
-            <input type="checkbox" className="accent-primary" defaultChecked />
+        {specialHandlingOptions.map((label) => (
+          <label key={label} className="flex items-center gap-2 text-sm text-espresso/80 cursor-pointer">
+            <input
+              type="checkbox"
+              className="accent-primary"
+              checked={specialHandling[label]}
+              onChange={() => toggleOption(label)}
+              aria-label={label}
+            />
             {label}
           </label>
         ))}
@@ -43,8 +68,8 @@ export default function BookingStep2 () {
           <span>Current Estimate</span>
           <span className="font-semibold text-espresso">£5,300.00</span>
         </div>
-        <BrandButton className="w-full">Continue to Schedule</BrandButton>
-        <button className="w-full text-sm text-primary font-semibold">Need a hand? Talk to a Concierge</button>
+        <BrandButton className="w-full" onClick={handleContinue}>Continue to Schedule</BrandButton>
+        <button className="w-full text-sm text-primary font-semibold hover:opacity-75 transition">Need a hand? Talk to a Concierge</button>
       </div>
     </div>
   )

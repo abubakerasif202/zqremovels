@@ -49,8 +49,8 @@ export default function Itinerary () {
       </div>
 
       <div className="grid sm:grid-cols-2 gap-4">
-        <ContactCard name="Eleanor Sterling" role="Concierge" />
-        <ContactCard name="Julian Vane" role="Crew Lead" />
+        <ContactCard name="Eleanor Sterling" role="Concierge" email="eleanor@zqremovals.com" phone="+61 8 0000 0001" />
+        <ContactCard name="Julian Vane" role="Crew Lead" email="julian@zqremovals.com" phone="+61 8 0000 0002" />
       </div>
 
       <div className="flex flex-col sm:flex-row gap-3">
@@ -66,15 +66,27 @@ export default function Itinerary () {
   )
 }
 
-function ContactCard ({ name, role }: { name: string, role: string }) {
+function ContactCard ({ name, role, email, phone }: { name: string, role: string, email: string, phone: string }) {
   return (
     <div className="bg-white border border-espresso/8 rounded-soft p-4 space-y-2">
       <div className="h-16 bg-espresso/10 rounded-sm" />
       <div className="text-base font-serif text-espresso">{name}</div>
       <div className="text-sm text-primary font-semibold">{role}</div>
       <div className="flex gap-2">
-        <span className="text-xs px-2 py-1 border border-espresso/15 rounded-soft text-espresso/80">Email</span>
-        <span className="text-xs px-2 py-1 border border-espresso/15 rounded-soft text-espresso/80">Phone</span>
+        <button
+          className="text-xs px-2 py-1 border border-espresso/15 rounded-soft text-espresso/80 hover:border-espresso/40 transition"
+          aria-label={`Email ${name}`}
+          onClick={() => { window.location.href = `mailto:${email}` }}
+        >
+          Email
+        </button>
+        <button
+          className="text-xs px-2 py-1 border border-espresso/15 rounded-soft text-espresso/80 hover:border-espresso/40 transition"
+          aria-label={`Call ${name}`}
+          onClick={() => { window.location.href = `tel:${phone}` }}
+        >
+          Phone
+        </button>
       </div>
     </div>
   )

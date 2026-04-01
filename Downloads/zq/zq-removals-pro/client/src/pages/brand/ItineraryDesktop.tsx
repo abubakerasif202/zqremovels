@@ -36,8 +36,8 @@ export default function ItineraryDesktop () {
         <div className="bg-white border border-espresso/8 rounded-soft p-4 space-y-2">
           <div className="text-sm font-semibold text-espresso">Contacts</div>
           <div className="grid grid-cols-2 gap-3 text-sm text-espresso/80">
-            <Contact name="Eleanor Sterling" role="Concierge" />
-            <Contact name="Julian Vane" role="Crew Lead" />
+            <Contact name="Eleanor Sterling" role="Concierge" email="eleanor@zqremovals.com" phone="+61 8 0000 0001" />
+            <Contact name="Julian Vane" role="Crew Lead" email="julian@zqremovals.com" phone="+61 8 0000 0002" />
           </div>
           <div className="pt-3 text-sm">
             <div className="flex justify-between text-espresso/75"><span>Estimated Investment</span><span className="font-semibold text-espresso">£5,300.00</span></div>
@@ -81,14 +81,26 @@ export default function ItineraryDesktop () {
   )
 }
 
-function Contact ({ name, role }: { name: string, role: string }) {
+function Contact ({ name, role, email, phone }: { name: string, role: string, email: string, phone: string }) {
   return (
     <div className="space-y-1">
       <div className="text-espresso font-semibold">{name}</div>
       <div className="text-espresso/70 text-xs">{role}</div>
       <div className="flex gap-2">
-        <span className="text-xs px-2 py-1 border border-espresso/15 rounded-soft text-espresso/80">Email</span>
-        <span className="text-xs px-2 py-1 border border-espresso/15 rounded-soft text-espresso/80">Phone</span>
+        <button
+          className="text-xs px-2 py-1 border border-espresso/15 rounded-soft text-espresso/80 hover:border-espresso/40 transition"
+          aria-label={`Email ${name}`}
+          onClick={() => { window.location.href = `mailto:${email}` }}
+        >
+          Email
+        </button>
+        <button
+          className="text-xs px-2 py-1 border border-espresso/15 rounded-soft text-espresso/80 hover:border-espresso/40 transition"
+          aria-label={`Call ${name}`}
+          onClick={() => { window.location.href = `tel:${phone}` }}
+        >
+          Phone
+        </button>
       </div>
     </div>
   )

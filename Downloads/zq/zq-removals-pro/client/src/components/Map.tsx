@@ -76,7 +76,7 @@
 
 /// <reference types="@types/google.maps" />
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePersistFn } from "@/hooks/usePersistFn";
 import { cn } from "@/lib/utils";
 
@@ -93,17 +93,23 @@ const FORGE_BASE_URL =
 const MAPS_PROXY_URL = `${FORGE_BASE_URL}/v1/maps/proxy`;
 
 function loadMapScript() {
-  return new Promise(resolve => {
+  return new Promise<void>((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      reject(new Error("Google Maps script load timed out"));
+    }, 10000);
+
     const script = document.createElement("script");
     script.src = `${MAPS_PROXY_URL}/maps/api/js?key=${API_KEY}&v=weekly&libraries=marker,places,geocoding,geometry`;
     script.async = true;
     script.crossOrigin = "anonymous";
     script.onload = () => {
-      resolve(null);
+      clearTimeout(timeout);
+      resolve();
       script.remove(); // Clean up immediately
     };
     script.onerror = () => {
-      console.error("Failed to load Google Maps script");
+      clearTimeout(timeout);
+      reject(new Error("Failed to load Google Maps script"));
     };
     document.head.appendChild(script);
   });
@@ -124,24 +130,33 @@ export function MapView({
 }: MapViewProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<google.maps.Map | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   const init = usePersistFn(async () => {
-    await loadMapScript();
-    if (!mapContainer.current) {
-      console.error("Map container not found");
-      return;
-    }
-    map.current = new window.google.maps.Map(mapContainer.current, {
-      zoom: initialZoom,
-      center: initialCenter,
-      mapTypeControl: true,
-      fullscreenControl: true,
-      zoomControl: true,
-      streetViewControl: true,
-      mapId: "DEMO_MAP_ID",
-    });
-    if (onMapReady) {
-      onMapReady(map.current);
+    try {
+      await loadMapScript();
+      if (!mapContainer.current) {
+        console.error("Map container not found");
+        return;
+      }
+      map.current = new window.google!.maps.Map(mapContainer.current, {
+        zoom: initialZoom,
+        center: initialCenter,
+        mapTypeControl: true,
+        fullscreenControl: true,
+        zoomControl: true,
+        streetViewControl: true,
+        mapId: "DEMO_MAP_ID",
+      });
+      if (onMapReady) {
+        onMapReady(map.current);
+      }
+    } catch (err) {
+      console.error("Map initialisation failed:", err);
+      setLoadError(err instanceof Error ? err.message : "Failed to load map");
+    } finally {
+      setIsLoading(false);
     }
   });
 
@@ -149,7 +164,22 @@ export function MapView({
     init();
   }, [init]);
 
+  if (loadError) {
+    return (
+      <div className={cn("w-full h-[500px] flex items-center justify-center bg-espresso/5 rounded-sm text-sm text-espresso/60", className)}>
+        Map unavailable — {loadError}
+      </div>
+    );
+  }
+
   return (
-    <div ref={mapContainer} className={cn("w-full h-[500px]", className)} />
+    <div className={cn("relative w-full h-[500px]", className)}>
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-espresso/5 rounded-sm animate-pulse text-sm text-espresso/50">
+          Loading map…
+        </div>
+      )}
+      <div ref={mapContainer} className="w-full h-full" />
+    </div>
   );
 }
