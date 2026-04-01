@@ -4,6 +4,6 @@
   "version": "1.0.0",
   "description": "Static deployment manifest for Vercel root build.",
   "scripts": {
-    "build": "echo \"Static site build: no compile step required.\""
+    "build": "node scripts/build-site.mjs"
   }
 }
