@@ -151,15 +151,37 @@ function vitePluginManusDebugCollector(): Plugin {
 }
 
 /**
- * Vite plugin to replace environment variables in index.html
+ * Vite plugin to replace environment variables in index.html.
+ * Uses order:'pre' on the transformIndexHtml hook so it runs before
+ * vite:build-html attempts to resolve type="module" script sources.
+ * When analytics env vars are absent the entire analytics script tag is
+ * removed to avoid an unresolvable module path in the build.
  */
 function vitePluginHtmlEnv(): Plugin {
   return {
     name: "html-env-replacement",
-    transformIndexHtml(html) {
-      return html
-        .replace(/%VITE_ANALYTICS_ENDPOINT%/g, process.env.VITE_ANALYTICS_ENDPOINT || "")
-        .replace(/%VITE_ANALYTICS_WEBSITE_ID%/g, process.env.VITE_ANALYTICS_WEBSITE_ID || "");
+    transformIndexHtml: {
+      order: "pre",
+      handler(html) {
+        const endpoint = process.env.VITE_ANALYTICS_ENDPOINT;
+        const websiteId = process.env.VITE_ANALYTICS_WEBSITE_ID;
+
+        if (!endpoint || !websiteId) {
+          // Strip the umami analytics script block so the build doesn't fail
+          // trying to resolve the unresolved placeholder as a module path.
+          // The pattern matches a <script> tag that contains the literal
+          // placeholder src "%VITE_ANALYTICS_ENDPOINT%/umami" as written in
+          // client/index.html.
+          return html.replace(
+            /<script[^>]*src="%VITE_ANALYTICS_ENDPOINT%\/umami"[^>]*>[\s\S]*?<\/script>/g,
+            "",
+          );
+        }
+
+        return html
+          .replace(/%VITE_ANALYTICS_ENDPOINT%/g, endpoint)
+          .replace(/%VITE_ANALYTICS_WEBSITE_ID%/g, websiteId);
+      },
     },
   };
 }
