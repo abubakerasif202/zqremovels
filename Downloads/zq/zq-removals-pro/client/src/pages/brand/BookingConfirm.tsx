@@ -1,6 +1,9 @@
+import { useLocation } from 'wouter'
 import BrandButton from '../../components/brand/BrandButton'
 
 export default function BookingConfirm () {
+  const [, setLocation] = useLocation()
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 space-y-8">
       <div className="flex items-center gap-3">
@@ -14,7 +17,7 @@ export default function BookingConfirm () {
       <div className="bg-white border border-espresso/8 rounded-soft p-4 space-y-2">
         <div className="flex justify-between text-sm text-espresso/80">
           <span>Move</span>
-          <button className="text-primary font-semibold">View itinerary</button>
+          <button className="text-primary font-semibold hover:opacity-75 transition" onClick={() => setLocation('/itinerary')}>View itinerary</button>
         </div>
         <p className="text-sm text-espresso">82 Belgravia Sq, London → Villa L&apos;Estaque, Antibes</p>
         <p className="text-sm text-espresso/75">Date: Oct 24, 2024 · Property: The Heritage Suite</p>
