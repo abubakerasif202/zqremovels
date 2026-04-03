@@ -1,9 +1,26 @@
 import { copyFile, cp, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
-const root = process.cwd();
-const srcRoot = path.join(root, 'site-src');
-const distRoot = path.join(root, 'site-dist');
+const workspaceRoot = process.cwd();
+
+async function findProjectRoot() {
+  const candidates = [workspaceRoot, path.join(workspaceRoot, 'Downloads', 'zq')];
+
+  for (const candidate of candidates) {
+    try {
+      await stat(path.join(candidate, 'site-src', 'pages.json'));
+      return candidate;
+    } catch {
+      // Try the next layout.
+    }
+  }
+
+  return workspaceRoot;
+}
+
+const projectRoot = await findProjectRoot();
+const srcRoot = path.join(projectRoot, 'site-src');
+const distRoot = path.join(projectRoot, 'site-dist');
 
 const templates = {
   standard: await readFile(path.join(srcRoot, 'templates', 'standard.html'), 'utf8'),
@@ -928,7 +945,7 @@ const localProofProfiles = {
 
 await rm(distRoot, { recursive: true, force: true });
 await mkdir(distRoot, { recursive: true });
-await copyFile(path.join(root, 'premium-site.css'), path.join(distRoot, 'premium-site.min.css'));
+await copyFile(path.join(projectRoot, 'premium-site.css'), path.join(distRoot, 'premium-site.min.css'));
 
 for (const page of pages) {
   const contentPath = path.join(srcRoot, page.contentFile);
@@ -1312,11 +1329,11 @@ async function copyStaticAssets() {
   ];
 
   for (const asset of fileAssets) {
-    await copyFile(path.join(root, asset), path.join(distRoot, asset));
+    await copyFile(path.join(projectRoot, asset), path.join(distRoot, asset));
   }
 
-  await cp(path.join(root, 'fonts'), path.join(distRoot, 'fonts'), { recursive: true });
-  await cp(path.join(root, 'media'), path.join(distRoot, 'media'), { recursive: true });
+  await cp(path.join(projectRoot, 'fonts'), path.join(distRoot, 'fonts'), { recursive: true });
+  await cp(path.join(projectRoot, 'media'), path.join(distRoot, 'media'), { recursive: true });
 }
 
 async function renderSitemap(pages) {
