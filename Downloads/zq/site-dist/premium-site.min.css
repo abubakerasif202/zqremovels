@@ -1814,6 +1814,14 @@ main {
   padding: var(--space-5);
 }
 
+.review-rating {
+  margin: 0.15rem 0 0.75rem;
+  color: #0a192f;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
 .testimonial-meta {
   display: flex;
   align-items: center;
@@ -3940,3 +3948,5 @@ body.page-utility .thank-you-shell {
     width: 100%;
   }
 }
+
+
