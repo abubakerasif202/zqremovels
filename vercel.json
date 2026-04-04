@@ -4,17 +4,6 @@
   "trailingSlash": true,
   "redirects": [
     {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.zqremovals.au"
-        }
-      ],
-      "destination": "https://zqremovals.au/:path*",
-      "permanent": true
-    },
-    {
       "source": "/index.html",
       "destination": "/",
       "permanent": true
