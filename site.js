@@ -169,6 +169,7 @@ const requiredFieldMessages = {
   inventory_special_items: "Add inventory or special-item notes.",
 };
 const MIN_PHONE_NUMBER_LENGTH = 8;
+const EMAIL_INPUT_VALIDATOR = /^[^\s@]+@[^\s@]+$/;
 
 function isSupportedFormField(field) {
   return (
@@ -196,7 +197,7 @@ function validateWeb3Form(form) {
     }
   });
 
-  if (payload.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
+  if (payload.email && !EMAIL_INPUT_VALIDATOR.test(payload.email)) {
     errors.email = "Enter a valid email address.";
   }
 
@@ -310,7 +311,13 @@ function setupWeb3Forms() {
             }),
           });
 
-          const result = await response.json().catch(() => ({}));
+          let result = {};
+          try {
+            result = await response.json();
+          } catch (error) {
+            console.error("Web3Forms response parse failed.", error);
+          }
+
           if (!response.ok || result.success === false) {
             throw new Error(result.message || "Submission failed");
           }
@@ -323,7 +330,8 @@ function setupWeb3Forms() {
           "Thanks — your quote request has been sent. We will respond shortly.",
           "success",
         );
-      } catch {
+      } catch (error) {
+        console.error("Web3Forms submission failed.", error);
         setWeb3FormFeedback(
           form,
           "Could not send the request. Please try again or call 0433 819 989.",
