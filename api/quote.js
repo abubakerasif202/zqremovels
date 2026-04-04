@@ -22,10 +22,7 @@ async function readJsonBody(req) {
   for await (const chunk of req) {
     body += chunk;
   }
-  if (!body) {
-    return {};
-  }
-  return JSON.parse(body);
+  return body;
 }
 
 module.exports = async function handler(req, res) {
@@ -34,9 +31,10 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    let payload;
+    const rawBody = await readJsonBody(req);
+    let payload = {};
     try {
-      payload = await readJsonBody(req);
+      payload = rawBody ? JSON.parse(rawBody) : {};
     } catch (error) {
       console.error("Quote API received malformed JSON.", error);
       return sendJson(res, 400, { success: false, message: "Malformed JSON payload" });
