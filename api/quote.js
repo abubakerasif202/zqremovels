@@ -87,8 +87,15 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    const web3Result = await web3Response.json().catch(() => ({}));
+    const web3Result = await web3Response.json().catch((error) => {
+      console.error("Web3Forms response parse failed.", error);
+      return {};
+    });
     if (!web3Response.ok || web3Result.success === false) {
+      console.error("Web3Forms upstream returned a failure response.", {
+        status: web3Response.status,
+        body: web3Result,
+      });
       return sendJson(res, 502, {
         success: false,
         message: "Quote submission failed",
