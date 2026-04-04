@@ -1,0 +1,21 @@
+.vercel
+
+/net-commander
+
+# Local generated artifacts for this workspace
+/Downloads/
+/output/
+/.playwright-cli/
+/.playwright-mcp/
+/.omx/
+site-dist/
+/.netlify/functions-internal/
+/.netlify/state.json
+/.gemini/*.log
+/Gemini_Generated_Image_*.png
+/Site SEO-saved.html
+/zq-andrews-farm-desktop.png
+/zq-guides-desktop.png
+/zq-home-desktop.png
+/zq-home-mobile.png
+/zq-removals-pro.zip

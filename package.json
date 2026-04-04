@@ -1,0 +1,9 @@
+{
+  "name": "zq-static-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static deployment manifest for Vercel root build.",
+  "scripts": {
+    "build": "node scripts/build-site.mjs"
+  }
+}
