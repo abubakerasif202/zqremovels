@@ -5,5 +5,8 @@
   "description": "Static deployment manifest for Vercel root build.",
   "scripts": {
     "build": "node scripts/build-site.mjs"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
   }
 }
