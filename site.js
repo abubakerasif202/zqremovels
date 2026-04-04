@@ -269,16 +269,6 @@ function setupWeb3Forms() {
         return;
       }
 
-      const accessKey = form.getAttribute("data-access-key")?.trim() ?? "";
-      if (!accessKey && !isLocalPreview) {
-        setWeb3FormFeedback(
-          form,
-          "Quote form is unavailable right now. Please call 0433 819 989.",
-          "error",
-        );
-        return;
-      }
-
       submitButton.dataset.submitting = "true";
       submitButton.disabled = true;
       submitButton.textContent = "Sending request...";
@@ -286,16 +276,13 @@ function setupWeb3Forms() {
 
       try {
         if (!isLocalPreview) {
-          const response = await fetch("https://api.web3forms.com/submit", {
+          const response = await fetch("/api/quote", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
               Accept: "application/json",
             },
             body: JSON.stringify({
-              access_key: accessKey,
-              subject: "Homepage quote request - ZQ Removals",
-              from_name: payload.full_name,
               botcheck: payload.botcheck ?? "",
               pickup_suburb: payload.pickup_suburb,
               delivery_suburb: payload.delivery_suburb,
