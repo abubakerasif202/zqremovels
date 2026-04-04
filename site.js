@@ -13,9 +13,6 @@ const quoteDateFields = Array.from(
 const web3FormsEndpoint = "https://api.web3forms.com/submit";
 const web3FormsAccessKey = "80c3ff0c-7ae6-4aa7-bb66-567612739824";
 const web3FormsRedirect = "/thank-you.html";
-const web3FormsEndpoint = 'https://api.web3forms.com/submit';
-const web3FormsAccessKey = '80c3ff0c-7ae6-4aa7-bb66-567612739824';
-const web3FormsRedirect = '/thank-you.html';
 
 function closeDetails(detailsList, keepOpen = null) {
   detailsList.forEach((details) => {
