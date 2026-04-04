@@ -76,67 +76,67 @@
         <div class="field-grid">
           <label>
             <span>Pickup suburb</span>
-            <input autocomplete="address-level2" name="pickup_suburb" required type="text" />
-            <small class="field-error" data-error-for="pickup_suburb"></small>
+            <input autocomplete="address-level2" aria-describedby="error-pickup_suburb" name="pickup_suburb" required type="text" />
+            <small class="field-error" data-error-for="pickup_suburb" id="error-pickup_suburb"></small>
           </label>
           <label>
             <span>Delivery suburb</span>
-            <input autocomplete="address-level2" name="delivery_suburb" required type="text" />
-            <small class="field-error" data-error-for="delivery_suburb"></small>
+            <input autocomplete="address-level2" aria-describedby="error-delivery_suburb" name="delivery_suburb" required type="text" />
+            <small class="field-error" data-error-for="delivery_suburb" id="error-delivery_suburb"></small>
           </label>
           <label>
             <span>Move type</span>
-            <select name="move_type" required>
+            <select aria-describedby="error-move_type" name="move_type" required>
               <option selected value="">Select move type</option>
               <option value="local">Local move</option>
               <option value="interstate">Interstate move</option>
               <option value="office">Office relocation</option>
             </select>
-            <small class="field-error" data-error-for="move_type"></small>
+            <small class="field-error" data-error-for="move_type" id="error-move_type"></small>
           </label>
           <label>
             <span>Property type</span>
-            <select name="property_type" required>
+            <select aria-describedby="error-property_type" name="property_type" required>
               <option selected value="">Select property type</option>
               <option value="apartment">Apartment</option>
               <option value="house">House</option>
               <option value="office">Office</option>
               <option value="other">Other</option>
             </select>
-            <small class="field-error" data-error-for="property_type"></small>
+            <small class="field-error" data-error-for="property_type" id="error-property_type"></small>
           </label>
           <label>
             <span>Preferred move date</span>
-            <input name="preferred_move_date" type="date" />
-            <small class="field-error" data-error-for="preferred_move_date"></small>
+            <input aria-describedby="error-preferred_move_date" name="preferred_move_date" type="date" />
+            <small class="field-error" data-error-for="preferred_move_date" id="error-preferred_move_date"></small>
           </label>
           <label>
             <span>Full name</span>
-            <input autocomplete="name" name="full_name" required type="text" />
-            <small class="field-error" data-error-for="full_name"></small>
+            <input autocomplete="name" aria-describedby="error-full_name" name="full_name" required type="text" />
+            <small class="field-error" data-error-for="full_name" id="error-full_name"></small>
           </label>
           <label>
             <span>Phone</span>
-            <input autocomplete="tel" name="phone" required type="tel" />
-            <small class="field-error" data-error-for="phone"></small>
+            <input autocomplete="tel" aria-describedby="error-phone" name="phone" required type="tel" />
+            <small class="field-error" data-error-for="phone" id="error-phone"></small>
           </label>
           <label>
             <span>Email</span>
-            <input autocomplete="email" name="email" required type="email" />
-            <small class="field-error" data-error-for="email"></small>
+            <input autocomplete="email" aria-describedby="error-email" name="email" required type="email" />
+            <small class="field-error" data-error-for="email" id="error-email"></small>
           </label>
         </div>
 
         <label>
           <span>Access notes</span>
-          <textarea name="access_notes" required rows="4"></textarea>
-          <small class="field-error" data-error-for="access_notes"></small>
+          <textarea aria-describedby="error-access_notes" name="access_notes" required rows="4"></textarea>
+          <small class="field-error" data-error-for="access_notes" id="error-access_notes"></small>
         </label>
 
         <label>
           <span>Inventory / special items</span>
-          <textarea name="inventory_special_items" required rows="4"></textarea>
-          <small class="field-error" data-error-for="inventory_special_items"></small>
+          <textarea aria-describedby="error-inventory_special_items" name="inventory_special_items" required rows="4"></textarea>
+          <small class="field-error" data-error-for="inventory_special_items" id="error-inventory_special_items"></small>
         </label>
 
         <button class="button button-primary" type="submit">Get a Fixed-Price Quote</button>

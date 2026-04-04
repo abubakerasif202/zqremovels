@@ -315,7 +315,10 @@ function setupWeb3Forms() {
           try {
             result = await response.json();
           } catch (error) {
-            console.error("Web3Forms response parse failed.", error);
+            console.error("Web3Forms response parse failed.", {
+              error,
+              status: response.status,
+            });
           }
 
           if (!response.ok) {
@@ -337,7 +340,10 @@ function setupWeb3Forms() {
           "success",
         );
       } catch (error) {
-        console.error("Web3Forms submission failed.", error);
+        console.error("Web3Forms submission failed.", {
+          error,
+          source: window.location.href,
+        });
         setWeb3FormFeedback(
           form,
           "Could not send the request. Please try again or call 0433 819 989.",
