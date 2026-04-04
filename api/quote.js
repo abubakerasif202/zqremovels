@@ -53,30 +53,39 @@ module.exports = async function handler(req, res) {
       return sendJson(res, 500, { success: false, message: "Quote service unavailable" });
     }
 
-    const web3Response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        access_key: accessKey,
-        subject: "Homepage quote request - ZQ Removals",
-        from_name: payload.full_name,
-        botcheck: "",
-        pickup_suburb: payload.pickup_suburb,
-        delivery_suburb: payload.delivery_suburb,
-        move_type: payload.move_type,
-        property_type: payload.property_type,
-        preferred_move_date: payload.preferred_move_date || "",
-        access_notes: payload.access_notes,
-        inventory_special_items: payload.inventory_special_items,
-        full_name: payload.full_name,
-        phone: payload.phone,
-        email: payload.email,
-        source_page: payload.source_page || "",
-      }),
-    });
+    let web3Response;
+    try {
+      web3Response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: "Homepage quote request - ZQ Removals",
+          from_name: payload.full_name,
+          botcheck: "",
+          pickup_suburb: payload.pickup_suburb,
+          delivery_suburb: payload.delivery_suburb,
+          move_type: payload.move_type,
+          property_type: payload.property_type,
+          preferred_move_date: payload.preferred_move_date || "",
+          access_notes: payload.access_notes,
+          inventory_special_items: payload.inventory_special_items,
+          full_name: payload.full_name,
+          phone: payload.phone,
+          email: payload.email,
+          source_page: payload.source_page || "",
+        }),
+      });
+    } catch (error) {
+      console.error("Web3Forms request failed.", error);
+      return sendJson(res, 502, {
+        success: false,
+        message: "Failed to reach quote service",
+      });
+    }
 
     const web3Result = await web3Response.json().catch(() => ({}));
     if (!web3Response.ok || web3Result.success === false) {
@@ -88,7 +97,8 @@ module.exports = async function handler(req, res) {
     }
 
     return sendJson(res, 200, { success: true, message: "Quote submitted" });
-  } catch {
+  } catch (error) {
+    console.error("Quote API handler failed.", error);
     return sendJson(res, 500, { success: false, message: "Unexpected server error" });
   }
 };
