@@ -21,7 +21,6 @@ async function findProjectRoot() {
 const projectRoot = await findProjectRoot();
 const srcRoot = path.join(projectRoot, 'site-src');
 const distRoot = path.join(projectRoot, 'site-dist');
-const web3FormsAccessKey = process.env.VITE_WEB3FORMS_ACCESS_KEY ?? '';
 
 const templates = {
   standard: await readFile(path.join(srcRoot, 'templates', 'standard.html'), 'utf8'),
@@ -1148,7 +1147,6 @@ function getBodyClasses(page) {
 function transformContent(content, page) {
   let next = content.replaceAll('href="/#quote-form"', 'href="/contact-us/#quote-form"');
   next = next.replace(/\/contact-us(?:\/contact-us)+\/#quote-form/g, '/contact-us/#quote-form');
-  next = next.replaceAll('__VITE_WEB3FORMS_ACCESS_KEY__', escapeAttribute(web3FormsAccessKey));
 
   if (page.output === 'index.html') {
     next = next
