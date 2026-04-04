@@ -169,7 +169,7 @@ const requiredFieldMessages = {
   inventory_special_items: "Add inventory or special-item notes.",
 };
 const MIN_PHONE_NUMBER_LENGTH = 8;
-const EMAIL_INPUT_VALIDATOR = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function isSupportedFormField(field) {
   return (
@@ -197,7 +197,7 @@ function validateWeb3Form(form) {
     }
   });
 
-  if (payload.email && !EMAIL_INPUT_VALIDATOR.test(payload.email)) {
+  if (payload.email && !EMAIL_REGEX.test(payload.email)) {
     errors.email = "Enter a valid email address.";
   }
 
@@ -312,11 +312,13 @@ function setupWeb3Forms() {
           });
 
           let result = {};
+          let responseJsonParsed = true;
           try {
             result = await response.json();
           } catch (error) {
+            responseJsonParsed = false;
             console.error("Web3Forms response parse failed.", {
-              error,
+              message: error instanceof Error ? error.message : String(error),
               status: response.status,
             });
           }
@@ -330,6 +332,10 @@ function setupWeb3Forms() {
           if (result.success === false) {
             throw new Error(result.message || "Submission failed");
           }
+
+          if (!responseJsonParsed) {
+            throw new Error("Submission response could not be confirmed.");
+          }
         }
 
         form.reset();
@@ -341,7 +347,7 @@ function setupWeb3Forms() {
         );
       } catch (error) {
         console.error("Web3Forms submission failed.", {
-          error,
+          message: error instanceof Error ? error.message : String(error),
           source: window.location.href,
         });
         setWeb3FormFeedback(
