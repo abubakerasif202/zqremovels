@@ -169,7 +169,7 @@ const requiredFieldMessages = {
   inventory_special_items: "Add inventory or special-item notes.",
 };
 const MIN_PHONE_NUMBER_LENGTH = 8;
-const EMAIL_INPUT_VALIDATOR = /^[^\s@]+@[^\s@]+$/;
+const EMAIL_INPUT_VALIDATOR = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function isSupportedFormField(field) {
   return (
@@ -318,7 +318,13 @@ function setupWeb3Forms() {
             console.error("Web3Forms response parse failed.", error);
           }
 
-          if (!response.ok || result.success === false) {
+          if (!response.ok) {
+            throw new Error(
+              result.message || `Submission failed with status ${response.status}`,
+            );
+          }
+
+          if (result.success === false) {
             throw new Error(result.message || "Submission failed");
           }
         }
