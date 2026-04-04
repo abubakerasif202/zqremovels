@@ -4,6 +4,9 @@ const footerYears = document.querySelectorAll("[data-year]");
 const siteHeader = document.querySelector(".site-header");
 const headerDetails = Array.from(siteHeader?.querySelectorAll("details") ?? []);
 const forms = Array.from(document.querySelectorAll("form"));
+const web3FormsForms = Array.from(
+  document.querySelectorAll('form[data-web3forms="true"]'),
+);
 const quoteDateFields = Array.from(
   document.querySelectorAll('input[type="date"][name*="date"]'),
 );
@@ -113,6 +116,10 @@ function setupFormState() {
   }
 
   forms.forEach((form) => {
+    if (form.getAttribute("data-web3forms") === "true") {
+      return;
+    }
+
     const submitButton = form.querySelector('button[type="submit"]');
     if (!submitButton) {
       return;
@@ -150,6 +157,175 @@ function setupFormState() {
   });
 }
 
+const requiredFieldMessages = {
+  pickup_suburb: "Enter the pickup suburb.",
+  delivery_suburb: "Enter the delivery suburb.",
+  move_type: "Select a move type.",
+  property_type: "Select a property type.",
+  full_name: "Enter your full name.",
+  phone: "Enter your phone number.",
+  email: "Enter your email address.",
+  access_notes: "Add access notes for pickup or delivery.",
+  inventory_special_items: "Add inventory or special-item notes.",
+};
+
+function validateWeb3Form(form) {
+  const payload = {};
+  const errors = {};
+  const fields = Array.from(form.elements).filter((field) => field.name);
+
+  fields.forEach((field) => {
+    if (!(field instanceof HTMLInputElement) && !(field instanceof HTMLSelectElement) && !(field instanceof HTMLTextAreaElement)) {
+      return;
+    }
+    payload[field.name] = field.value.trim();
+  });
+
+  Object.entries(requiredFieldMessages).forEach(([name, message]) => {
+    if (!payload[name]) {
+      errors[name] = message;
+    }
+  });
+
+  if (payload.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
+    errors.email = "Enter a valid email address.";
+  }
+
+  if (payload.phone && payload.phone.replace(/[^\d+]/g, "").length < 8) {
+    errors.phone = "Enter a valid phone number.";
+  }
+
+  return { payload, errors };
+}
+
+function applyWeb3FormErrors(form, errors) {
+  const errorNodes = Array.from(form.querySelectorAll("[data-error-for]"));
+  errorNodes.forEach((node) => {
+    const fieldName = node.getAttribute("data-error-for") ?? "";
+    node.textContent = errors[fieldName] ?? "";
+  });
+}
+
+function setWeb3FormFeedback(form, message, state = "") {
+  const feedbackNode = form.querySelector("[data-form-feedback]");
+  if (!feedbackNode) {
+    return;
+  }
+  feedbackNode.textContent = message;
+  feedbackNode.classList.remove("is-success", "is-error");
+  if (state === "success") {
+    feedbackNode.classList.add("is-success");
+  }
+  if (state === "error") {
+    feedbackNode.classList.add("is-error");
+  }
+}
+
+function setupWeb3Forms() {
+  if (web3FormsForms.length === 0) {
+    return;
+  }
+
+  const localPreviewHosts = new Set(["127.0.0.1", "localhost"]);
+  const isLocalPreview = localPreviewHosts.has(window.location.hostname);
+
+  web3FormsForms.forEach((form) => {
+    const submitButton = form.querySelector('button[type="submit"]');
+    if (!submitButton) {
+      return;
+    }
+    const defaultLabel = submitButton.textContent?.trim() ?? "Submit";
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      if (submitButton.dataset.submitting === "true") {
+        return;
+      }
+
+      const { payload, errors } = validateWeb3Form(form);
+      applyWeb3FormErrors(form, errors);
+
+      if (Object.keys(errors).length > 0) {
+        setWeb3FormFeedback(form, "Please check the highlighted fields.", "error");
+        return;
+      }
+
+      if (payload.botcheck) {
+        setWeb3FormFeedback(form, "Unable to submit. Please try again.", "error");
+        return;
+      }
+
+      const accessKey = form.getAttribute("data-access-key")?.trim() ?? "";
+      if (!accessKey && !isLocalPreview) {
+        setWeb3FormFeedback(
+          form,
+          "Quote form is unavailable right now. Please call 0433 819 989.",
+          "error",
+        );
+        return;
+      }
+
+      submitButton.dataset.submitting = "true";
+      submitButton.disabled = true;
+      submitButton.textContent = "Sending request...";
+      setWeb3FormFeedback(form, "Submitting your quote request...");
+
+      try {
+        if (!isLocalPreview) {
+          const response = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({
+              access_key: accessKey,
+              subject: "Homepage quote request - ZQ Removals",
+              from_name: payload.full_name,
+              botcheck: payload.botcheck ?? "",
+              pickup_suburb: payload.pickup_suburb,
+              delivery_suburb: payload.delivery_suburb,
+              move_type: payload.move_type,
+              property_type: payload.property_type,
+              preferred_move_date: payload.preferred_move_date || "",
+              access_notes: payload.access_notes,
+              inventory_special_items: payload.inventory_special_items,
+              full_name: payload.full_name,
+              phone: payload.phone,
+              email: payload.email,
+              source_page: window.location.href,
+            }),
+          });
+
+          const result = await response.json().catch(() => ({}));
+          if (!response.ok || result.success === false) {
+            throw new Error(result.message || "Submission failed");
+          }
+        }
+
+        form.reset();
+        applyWeb3FormErrors(form, {});
+        setWeb3FormFeedback(
+          form,
+          "Thanks — your quote request has been sent. We will respond shortly.",
+          "success",
+        );
+      } catch {
+        setWeb3FormFeedback(
+          form,
+          "Could not send the request. Please try again or call 0433 819 989.",
+          "error",
+        );
+      } finally {
+        submitButton.disabled = false;
+        submitButton.dataset.submitting = "false";
+        submitButton.textContent = defaultLabel;
+      }
+    });
+  });
+}
+
 function setupLocalFormPreview() {
   const localPreviewHosts = new Set(["127.0.0.1", "localhost"]);
   if (!localPreviewHosts.has(window.location.hostname)) {
@@ -157,6 +333,10 @@ function setupLocalFormPreview() {
   }
 
   forms.forEach((form) => {
+    if (form.getAttribute("data-web3forms") === "true") {
+      return;
+    }
+
     const successPath =
       form.getAttribute("data-dev-success") ?? "/thank-you.html";
 
@@ -224,6 +404,7 @@ setCurrentYear();
 setQuoteDateMinimum();
 setupHeaderDetails();
 setupFormState();
+setupWeb3Forms();
 setupLocalFormPreview();
 setupHeaderState();
 setupRevealAnimations();
