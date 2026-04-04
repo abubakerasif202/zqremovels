@@ -168,6 +168,15 @@ const requiredFieldMessages = {
   access_notes: "Add access notes for pickup or delivery.",
   inventory_special_items: "Add inventory or special-item notes.",
 };
+const MIN_PHONE_NUMBER_LENGTH = 8;
+
+function isSupportedFormField(field) {
+  return (
+    field instanceof HTMLInputElement ||
+    field instanceof HTMLSelectElement ||
+    field instanceof HTMLTextAreaElement
+  );
+}
 
 function validateWeb3Form(form) {
   const payload = {};
@@ -175,7 +184,7 @@ function validateWeb3Form(form) {
   const fields = Array.from(form.elements).filter((field) => field.name);
 
   fields.forEach((field) => {
-    if (!(field instanceof HTMLInputElement) && !(field instanceof HTMLSelectElement) && !(field instanceof HTMLTextAreaElement)) {
+    if (!isSupportedFormField(field)) {
       return;
     }
     payload[field.name] = field.value.trim();
@@ -191,7 +200,10 @@ function validateWeb3Form(form) {
     errors.email = "Enter a valid email address.";
   }
 
-  if (payload.phone && payload.phone.replace(/[^\d+]/g, "").length < 8) {
+  if (
+    payload.phone &&
+    payload.phone.replace(/[^\d+]/g, "").length < MIN_PHONE_NUMBER_LENGTH
+  ) {
     errors.phone = "Enter a valid phone number.";
   }
 
