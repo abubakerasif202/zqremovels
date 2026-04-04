@@ -22,7 +22,10 @@ async function readJsonBody(req) {
   for await (const chunk of req) {
     body += chunk;
   }
-  return body ? JSON.parse(body) : {};
+  if (!body) {
+    return {};
+  }
+  return JSON.parse(body);
 }
 
 module.exports = async function handler(req, res) {
@@ -31,7 +34,13 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const payload = await readJsonBody(req);
+    let payload;
+    try {
+      payload = await readJsonBody(req);
+    } catch (error) {
+      console.error("Quote API received malformed JSON.", error);
+      return sendJson(res, 400, { success: false, message: "Malformed JSON payload" });
+    }
 
     if (payload.botcheck) {
       return sendJson(res, 400, { success: false, message: "Invalid request" });
@@ -87,10 +96,16 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    const web3Result = await web3Response.json().catch((error) => {
+    let web3Result;
+    try {
+      web3Result = await web3Response.json();
+    } catch (error) {
       console.error("Web3Forms response parse failed.", error);
-      return {};
-    });
+      return sendJson(res, 502, {
+        success: false,
+        message: "Invalid response from quote service",
+      });
+    }
     if (!web3Response.ok || web3Result.success === false) {
       console.error("Web3Forms upstream returned a failure response.", {
         status: web3Response.status,
