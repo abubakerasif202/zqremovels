@@ -34,6 +34,7 @@ const partials = {
 };
 
 const pages = JSON.parse(await readFile(path.join(srcRoot, 'pages.json'), 'utf8'));
+const defaultSocialImage = 'https://zqremovals.au/media/Gemini_Generated_Image_.png';
 
 const seoGuideLibrary = {
   cost: {
@@ -975,6 +976,16 @@ await writeFile(path.join(distRoot, 'sitemap.xml'), sitemap, 'utf8');
 await copyStaticAssets();
 
 function renderHead(page, content) {
+  const ogImage =
+    page.ogImage?.includes('/zq-removals-social-share.png') ||
+    page.ogImage?.includes('/zq-removals-social-share.webp')
+      ? defaultSocialImage
+      : page.ogImage;
+  const twitterImage =
+    page.twitterImage?.includes('/zq-removals-social-share.png') ||
+    page.twitterImage?.includes('/zq-removals-social-share.webp')
+      ? defaultSocialImage
+      : page.twitterImage || ogImage;
   const tags = [
     '<meta charset="utf-8" />',
     '<meta name="viewport" content="width=device-width, initial-scale=1" />',
@@ -990,11 +1001,11 @@ function renderHead(page, content) {
     `<meta property="og:url" content="${escapeAttribute(page.ogUrl || page.canonical)}" />`,
     `<meta property="og:title" content="${escapeAttribute(page.ogTitle || page.title)}" />`,
     `<meta property="og:description" content="${escapeAttribute(page.ogDescription || page.description)}" />`,
-    `<meta property="og:image" content="${escapeAttribute(page.ogImage)}" />`,
+    `<meta property="og:image" content="${escapeAttribute(ogImage)}" />`,
     `<meta name="twitter:card" content="${escapeAttribute(page.twitterCard || 'summary_large_image')}" />`,
     `<meta name="twitter:title" content="${escapeAttribute(page.twitterTitle || page.title)}" />`,
     `<meta name="twitter:description" content="${escapeAttribute(page.twitterDescription || page.description)}" />`,
-    `<meta name="twitter:image" content="${escapeAttribute(page.twitterImage || page.ogImage)}" />`,
+    `<meta name="twitter:image" content="${escapeAttribute(twitterImage)}" />`,
   ];
 
   if (page.layout !== 'redirect') {
