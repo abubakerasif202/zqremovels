@@ -3783,6 +3783,36 @@ body.page-utility .thank-you-shell {
   gap: 0.95rem;
 }
 
+.home-hero-form {
+  align-self: start;
+}
+
+.home-hero-form .quote-form {
+  margin-top: 1rem;
+}
+
+.home-services-grid .proof-card h3 a {
+  color: inherit;
+}
+
+.home-services-grid .proof-card h3 a:hover,
+.home-services-grid .proof-card h3 a:focus-visible {
+  text-decoration: underline;
+}
+
+.star-rating-badge {
+  color: #c0851f;
+  letter-spacing: 0.08em;
+}
+
+.home-pricing-grid {
+  grid-template-columns: 1fr;
+}
+
+.home-local-grid .proof-card {
+  min-height: 100%;
+}
+
 .hero-proof-item strong {
   max-width: 30ch;
 }
@@ -3860,6 +3890,10 @@ body.page-utility .thank-you-shell {
 @media (min-width: 960px) {
   .home-quote-grid {
     grid-template-columns: minmax(0, 0.9fr) minmax(22rem, 1.1fr);
+  }
+
+  .home-pricing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .contact-hero-grid {
