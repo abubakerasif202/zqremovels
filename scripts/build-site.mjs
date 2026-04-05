@@ -995,6 +995,10 @@ function renderHead(page, content) {
     `<meta name="theme-color" content="${escapeAttribute(page.themeColor || '#0A192F')}" />`,
     `<meta name="robots" content="${escapeAttribute(page.robots || 'index,follow,max-image-preview:large')}" />`,
     '<link rel="icon" type="image/svg+xml" href="/favicon.svg" />',
+    '<meta name="geo.region" content="AU-SA" />',
+    '<meta name="geo.placename" content="Adelaide, South Australia" />',
+    '<meta name="geo.position" content="-34.9285;138.6007" />',
+    '<meta name="ICBM" content="-34.9285, 138.6007" />',
     `<meta property="og:type" content="${escapeAttribute(page.ogType || 'website')}" />`,
     '<meta property="og:site_name" content="ZQ Removals" />',
     '<meta property="og:locale" content="en_AU" />',
@@ -1009,6 +1013,8 @@ function renderHead(page, content) {
   ];
 
   if (page.layout !== 'redirect') {
+    tags.push('<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />');
+    tags.push('<link rel="preload" href="/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin />');
     tags.push('<link rel="stylesheet" href="/premium-site.min.css" />');
   }
 
