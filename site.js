@@ -10,9 +10,6 @@ const web3FormsForms = Array.from(
 const quoteDateFields = Array.from(
   document.querySelectorAll('input[type="date"][name*="date"]'),
 );
-const web3FormsEndpoint = "https://api.web3forms.com/submit";
-const web3FormsAccessKey = "80c3ff0c-7ae6-4aa7-bb66-567612739824";
-const web3FormsRedirect = "/thank-you.html";
 
 function closeDetails(detailsList, keepOpen = null) {
   detailsList.forEach((details) => {
@@ -354,6 +351,18 @@ function setupWeb3Forms() {
   });
 }
 
+function ensureHiddenField(form, name, value) {
+  let input = form.querySelector(`input[name="${name}"]`);
+  if (!input) {
+    input = document.createElement("input");
+    input.type = "hidden";
+    input.name = name;
+    form.appendChild(input);
+  }
+
+  input.value = value;
+}
+
 function setupLocalFormPreview() {
   const localPreviewHosts = new Set(["127.0.0.1", "localhost"]);
   if (!localPreviewHosts.has(window.location.hostname)) {
@@ -377,47 +386,6 @@ function setupLocalFormPreview() {
       window.location.assign(successPath);
     });
   });
-}
-
-function setupWeb3Forms() {
-  if (forms.length === 0) {
-    return;
-  }
-
-  forms.forEach((form) => {
-    if (!form.classList.contains("quote-form")) {
-      return;
-    }
-
-    form.setAttribute("action", web3FormsEndpoint);
-    ensureHiddenField(form, "access_key", web3FormsAccessKey);
-    ensureHiddenField(form, "redirect", web3FormsRedirect);
-    ensureHiddenField(form, "subject", "Quote request from ZQ Removals");
-  });
-}
-
-function updateQuoteFormDisclaimers() {
-  const disclaimers = Array.from(document.querySelectorAll(".quote-form-disclaimer"));
-  if (disclaimers.length === 0) {
-    return;
-  }
-
-  disclaimers.forEach((node) => {
-    node.textContent =
-      "Submitting this form sends the enquiry to Web3Forms and redirects to the thank-you page.";
-  });
-}
-
-function ensureHiddenField(form, name, value) {
-  let input = form.querySelector(`input[name="${name}"]`);
-  if (!input) {
-    input = document.createElement("input");
-    input.type = "hidden";
-    input.name = name;
-    form.appendChild(input);
-  }
-
-  input.value = value;
 }
 
 function setupHeaderState() {
@@ -475,7 +443,5 @@ setupHeaderDetails();
 setupFormState();
 setupWeb3Forms();
 setupLocalFormPreview();
-setupWeb3Forms();
-updateQuoteFormDisclaimers();
 setupHeaderState();
 setupRevealAnimations();
