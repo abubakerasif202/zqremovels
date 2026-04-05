@@ -37,6 +37,7 @@ const pages = JSON.parse(await readFile(path.join(srcRoot, 'pages.json'), 'utf8'
 const defaultSocialImage = 'https://zqremovals.au/media/Gemini_Generated_Image_.png';
 const SUBURB_PAGE_WORD_MIN = 600;
 const SUBURB_PAGE_WORD_MAX = 900;
+const SUBURB_CONDITION_HEADING_WORDS = 4;
 const SUBURB_PADDING_PARAGRAPH =
   'Every move is reviewed for access, inventory, and timing before scheduling, so clients receive a practical plan supported by experienced local movers.';
 
@@ -1535,7 +1536,7 @@ function renderSuburbPage(page) {
 <div class="value-grid">
 ${profile.conditions
   .map((condition) => {
-    const conditionHeading = condition.split(/\s+/).slice(0, 4).join(' ');
+    const conditionHeading = condition.split(/\s+/).slice(0, SUBURB_CONDITION_HEADING_WORDS).join(' ');
     return `<article class="value-card">
   <h3>${escapeHtml(conditionHeading)}</h3>
   <p>${escapeHtml(condition)}</p>
@@ -1574,7 +1575,7 @@ ${profile.scenarios
 <p>${escapeHtml(profile.trust[1])}</p>
 ${extraParagraph}
 <p>${escapeHtml(targetCopy)}</p>
-<h3>Internal services</h3>
+<h3>Related moving services</h3>
 <ul aria-label="Internal service links" class="bullet-list">
 <li><a href="/removalists-adelaide/">Removalists Adelaide</a></li>
 <li><a href="/packing-services-adelaide/">Packing Services Adelaide</a></li>
@@ -1589,13 +1590,13 @@ ${extraParagraph}
 
 function suburbWordCount(profile) {
   const values = [
-    profile.hero,
-    ...(profile.intro || []),
-    ...(profile.conditions || []),
-    ...(profile.scenarios || []).flatMap(({ title, copy }) => [title, copy]),
-    ...(profile.trust || []),
-    profile.services,
-    profile.nearby,
+    profile.hero || '',
+    ...((profile.intro || []).filter(Boolean)),
+    ...((profile.conditions || []).filter(Boolean)),
+    ...((profile.scenarios || []).flatMap(({ title, copy }) => [title || '', copy || ''])),
+    ...((profile.trust || []).filter(Boolean)),
+    profile.services || '',
+    profile.nearby || '',
   ];
 
   return values.reduce((count, value) => count + value.split(/\s+/).filter(Boolean).length, 0);
