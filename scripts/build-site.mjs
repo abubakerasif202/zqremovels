@@ -37,6 +37,8 @@ const pages = JSON.parse(await readFile(path.join(srcRoot, 'pages.json'), 'utf8'
 const defaultSocialImage = 'https://zqremovals.au/media/Gemini_Generated_Image_.png';
 const SUBURB_PAGE_WORD_MIN = 600;
 const SUBURB_PAGE_WORD_MAX = 900;
+const SUBURB_PADDING_PARAGRAPH =
+  'Every move is reviewed for access, inventory, and timing before scheduling, so clients receive a practical plan supported by experienced local movers.';
 
 const suburbPageProfiles = {
   'adelaide-cbd': {
@@ -1291,11 +1293,13 @@ function buildSuburbMovingCompanyJsonLd(page) {
     return '';
   }
 
+  const canonical = page.canonical || `https://zqremovals.au/${page.output.replace(/index\.html$/, '')}`;
+
   return JSON.stringify(
     {
       '@context': 'https://schema.org',
       '@type': 'MovingCompany',
-      '@id': `${page.canonical}#moving-company`,
+      '@id': `${canonical}#moving-company`,
       name: 'ZQ Removals',
       areaServed: 'Adelaide',
       serviceType: 'Removal Services',
@@ -1480,9 +1484,7 @@ function renderSuburbPage(page) {
   const extraParagraph =
     wordCount > SUBURB_PAGE_WORD_MAX
       ? ''
-      : `<p>${escapeHtml(
-          'Every move is reviewed for access, inventory, and timing before scheduling, so clients receive a practical plan supported by experienced local movers.',
-        )}</p>`;
+      : `<p>${escapeHtml(SUBURB_PADDING_PARAGRAPH)}</p>`;
 
   return `
 <main id="main-content">
@@ -1532,12 +1534,13 @@ function renderSuburbPage(page) {
 </div>
 <div class="value-grid">
 ${profile.conditions
-  .map(
-    (condition) => `<article class="value-card">
-  <h3>Condition planning</h3>
+  .map((condition) => {
+    const conditionHeading = condition.split(/\s+/).slice(0, 4).join(' ');
+    return `<article class="value-card">
+  <h3>${escapeHtml(conditionHeading)}</h3>
   <p>${escapeHtml(condition)}</p>
-</article>`,
-  )
+</article>`;
+  })
   .join('\n')}
 </div>
 </div>
@@ -1571,14 +1574,14 @@ ${profile.scenarios
 <p>${escapeHtml(profile.trust[1])}</p>
 ${extraParagraph}
 <p>${escapeHtml(targetCopy)}</p>
-<p>
-Internal services:
-<a href="/removalists-adelaide/">Removalists Adelaide</a>,
-<a href="/packing-services-adelaide/">Packing Services Adelaide</a>,
-<a href="/furniture-removalists-adelaide/">Furniture Removalists Adelaide</a>,
-<a href="/office-removals-adelaide/">Office Removals Adelaide</a>,
-<a href="/interstate-removals-adelaide/">Interstate Removals Adelaide</a>.
-</p>
+<h3>Internal services</h3>
+<ul aria-label="Internal service links" class="bullet-list">
+<li><a href="/removalists-adelaide/">Removalists Adelaide</a></li>
+<li><a href="/packing-services-adelaide/">Packing Services Adelaide</a></li>
+<li><a href="/furniture-removalists-adelaide/">Furniture Removalists Adelaide</a></li>
+<li><a href="/office-removals-adelaide/">Office Removals Adelaide</a></li>
+<li><a href="/interstate-removals-adelaide/">Interstate Removals Adelaide</a></li>
+</ul>
 </div>
 </section>
 </main>`;
@@ -1595,10 +1598,7 @@ function suburbWordCount(profile) {
     profile.nearby,
   ];
 
-  return values
-    .join(' ')
-    .split(/\s+/)
-    .filter(Boolean).length;
+  return values.reduce((count, value) => count + value.split(/\s+/).filter(Boolean).length, 0);
 }
 
 function renderFaqSection(page, content) {
