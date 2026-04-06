@@ -1222,6 +1222,7 @@ function renderHead(page, content) {
     page.twitterImage?.includes('/zq-removals-social-share.webp')
       ? defaultSocialImage
       : page.twitterImage || ogImage;
+  const imageAlt = page.ogImageAlt || page.ogTitle || page.title;
   const tags = [
     '<meta charset="utf-8" />',
     '<meta name="viewport" content="width=device-width, initial-scale=1" />',
@@ -1242,10 +1243,12 @@ function renderHead(page, content) {
     `<meta property="og:title" content="${escapeAttribute(page.ogTitle || page.title)}" />`,
     `<meta property="og:description" content="${escapeAttribute(page.ogDescription || page.description)}" />`,
     `<meta property="og:image" content="${escapeAttribute(ogImage)}" />`,
+    `<meta property="og:image:alt" content="${escapeAttribute(imageAlt)}" />`,
     `<meta name="twitter:card" content="${escapeAttribute(page.twitterCard || 'summary_large_image')}" />`,
     `<meta name="twitter:title" content="${escapeAttribute(page.twitterTitle || page.title)}" />`,
     `<meta name="twitter:description" content="${escapeAttribute(page.twitterDescription || page.description)}" />`,
     `<meta name="twitter:image" content="${escapeAttribute(twitterImage)}" />`,
+    `<meta name="twitter:image:alt" content="${escapeAttribute(imageAlt)}" />`,
   ];
 
   if (page.layout !== 'redirect') {
@@ -1262,7 +1265,7 @@ function renderHead(page, content) {
     tags.push(`<meta http-equiv="refresh" content="${escapeAttribute(page.refresh)}" />`);
   }
 
-  for (const jsonLd of page.jsonLd || []) {
+  for (const jsonLd of normalizeJsonLdBlocks(page)) {
     tags.push(`<script type="application/ld+json">\n${jsonLd}\n</script>`);
   }
 
@@ -1279,7 +1282,12 @@ function buildDynamicJsonLd(page, content) {
   if (suburbJsonLd) {
     blocks.push(suburbJsonLd);
   }
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd(page, content);
   const faqJsonLd = buildFaqJsonLd(page, content);
+
+  if (breadcrumbJsonLd) {
+    blocks.push(breadcrumbJsonLd);
+  }
 
   if (faqJsonLd) {
     blocks.push(faqJsonLd);
@@ -1346,8 +1354,125 @@ function buildFaqJsonLd(page, content) {
   );
 }
 
+function buildBreadcrumbJsonLd(page, content) {
+  if (pageHasJsonLdType(page, 'BreadcrumbList')) {
+    return '';
+  }
+
+  const items = extractBreadcrumbItems(content);
+  if (items.length < 2) {
+    return '';
+  }
+
+  if (!items.at(-1)?.url) {
+    items[items.length - 1].url = page.canonical;
+  }
+
+  return JSON.stringify(
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      '@id': `${page.canonical}#breadcrumbs`,
+      itemListElement: items.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        item: item.url,
+      })),
+    },
+    null,
+    2,
+  );
+}
+
 function pageHasFaqJsonLd(page) {
-  return (page.jsonLd || []).some((jsonLd) => jsonLd.includes('"@type": "FAQPage"'));
+  return pageHasJsonLdType(page, 'FAQPage');
+}
+
+function pageHasJsonLdType(page, type) {
+  return (page.jsonLd || []).some((jsonLd) => jsonLd.includes(`"@type": "${type}"`));
+}
+
+function normalizeJsonLdBlocks(page) {
+  return (page.jsonLd || []).map((jsonLd) => {
+    try {
+      const value = JSON.parse(jsonLd);
+      const normalized = normalizeJsonLdValue(value, page);
+      return JSON.stringify(normalized, null, 2);
+    } catch {
+      return jsonLd;
+    }
+  });
+}
+
+function normalizeJsonLdValue(value, page) {
+  if (Array.isArray(value)) {
+    return value.map((entry) => normalizeJsonLdValue(entry, page));
+  }
+
+  if (!value || typeof value !== 'object') {
+    return value;
+  }
+
+  if (Array.isArray(value['@graph'])) {
+    return {
+      ...value,
+      '@graph': value['@graph'].map((entry) => normalizeJsonLdNode(entry, page)),
+    };
+  }
+
+  return normalizeJsonLdNode(value, page);
+}
+
+function normalizeJsonLdNode(node, page) {
+  if (!node || typeof node !== 'object') {
+    return node;
+  }
+
+  const types = Array.isArray(node['@type']) ? node['@type'] : [node['@type']].filter(Boolean);
+
+  if (types.includes('MovingCompany')) {
+    return normalizeMovingCompanyNode(node);
+  }
+
+  if (types.includes('WebPage') || types.includes('ContactPage')) {
+    return {
+      ...node,
+      url: page.canonical,
+      name: page.title,
+      description: page.description,
+    };
+  }
+
+  return node;
+}
+
+function normalizeMovingCompanyNode(node) {
+  return {
+    ...node,
+    '@id': 'https://zqremovals.au/#business',
+    name: 'ZQ Removals',
+    url: 'https://zqremovals.au/',
+    telephone: '+61 433 819 989',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Andrews Farm',
+      addressRegion: 'SA',
+      postalCode: '5114',
+      addressCountry: 'AU',
+      ...(node.address || {}),
+    },
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        contactType: 'customer service',
+        telephone: '+61 433 819 989',
+        areaServed: ['Adelaide', 'South Australia', 'Australia'],
+        availableLanguage: ['en'],
+        url: 'https://zqremovals.au/contact-us/',
+      },
+    ],
+  };
 }
 
 function extractFaqPairs(content) {
@@ -1380,6 +1505,51 @@ function decodeHtmlEntities(value = '') {
     .replaceAll('&apos;', "'")
     .replaceAll('&lt;', '<')
     .replaceAll('&gt;', '>');
+}
+
+function extractBreadcrumbItems(content) {
+  const navMatch = content.match(
+    /<nav[^>]*class="breadcrumb"[^>]*>[\s\S]*?<ol>([\s\S]*?)<\/ol>[\s\S]*?<\/nav>/i,
+  );
+
+  if (!navMatch) {
+    return [];
+  }
+
+  const items = [];
+  const listItemPattern = /<li>([\s\S]*?)<\/li>/gi;
+
+  for (const match of navMatch[1].matchAll(listItemPattern)) {
+    const itemHtml = match[1];
+    const linkMatch = itemHtml.match(/<a[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/i);
+    const name = cleanHtmlText(linkMatch ? linkMatch[2] : itemHtml);
+    const url = normalizeBreadcrumbUrl(linkMatch ? linkMatch[1] : '');
+
+    if (name) {
+      items.push({
+        name,
+        url: url || '',
+      });
+    }
+  }
+
+  return items;
+}
+
+function normalizeBreadcrumbUrl(value = '') {
+  if (!value) {
+    return '';
+  }
+
+  if (value.startsWith('http://') || value.startsWith('https://')) {
+    return value;
+  }
+
+  if (value.startsWith('/')) {
+    return `https://zqremovals.au${value}`;
+  }
+
+  return value;
 }
 
 function renderBodyAttributes(page) {
@@ -1434,6 +1604,7 @@ function transformContent(content, page) {
   let next = renderSuburbPage(page) || content;
   next = next.replaceAll('href="/#quote-form"', 'href="/contact-us/#quote-form"');
   next = next.replace(/\/contact-us(?:\/contact-us)+\/#quote-form/g, '/contact-us/#quote-form');
+  next = sanitizePublicCopy(next);
 
   if (page.output === 'index.html') {
     next = next
@@ -1449,7 +1620,10 @@ function transformContent(content, page) {
   const proofSection = renderLocalProofSection(page);
   const faqSection = renderFaqSection(page, next);
   const seoSupport = renderSeoSupportSection(page);
-  const supplementalSections = [proofSection, faqSection, seoSupport].filter(Boolean).join('\n');
+  const relatedLinks = renderRelatedLinksSection(page);
+  const supplementalSections = [proofSection, faqSection, seoSupport, relatedLinks]
+    .filter(Boolean)
+    .join('\n');
 
   if (supplementalSections && next.includes('</main>')) {
     next = next.replace('</main>', `${supplementalSections}\n</main>`);
@@ -1600,6 +1774,371 @@ function suburbWordCount(profile) {
   ];
 
   return values.reduce((count, value) => count + value.split(/\s+/).filter(Boolean).length, 0);
+}
+
+function sanitizePublicCopy(content) {
+  return content
+    .replaceAll(
+      'and the nearby routes are named explicitly here.',
+      'and the nearby areas we commonly cover.',
+    )
+    .replaceAll(
+      'should stay visible in the page copy and schema.',
+      'are nearby areas we commonly cover.',
+    )
+    .replaceAll(
+      'belong in the content and schema.',
+      'are nearby areas we commonly cover.',
+    )
+    .replaceAll(
+      'are the route names that help the page match the way people actually search.',
+      'are nearby areas people often mention when planning the move.',
+    );
+}
+
+function renderRelatedLinksSection(page) {
+  const profile = getRelatedLinksProfile(page);
+  if (!profile) {
+    return '';
+  }
+
+  const sectionId = `${page.output.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}-related-links`;
+  const cards = profile.links
+    .map(
+      ({ eyebrow, title, copy, url, cta }) => `<article class="route-card">
+<small>${escapeHtml(eyebrow)}</small>
+<h3>${escapeHtml(title)}</h3>
+<p>${escapeHtml(copy)}</p>
+<a class="button-link" href="${escapeAttribute(url)}">${escapeHtml(cta)}</a>
+</article>`,
+    )
+    .join('\n');
+
+  return `
+<section aria-labelledby="${sectionId}" class="section section-soft">
+<div class="container">
+<div class="section-heading">
+<span class="eyebrow">${escapeHtml(profile.eyebrow)}</span>
+<h2 id="${sectionId}">${escapeHtml(profile.heading)}</h2>
+<p>${escapeHtml(profile.intro)}</p>
+</div>
+<div class="route-grid">
+${cards}
+</div>
+</div>
+</section>`;
+}
+
+function getRelatedLinksProfile(page) {
+  const output = page.output;
+
+  if (output === 'index.html' || output === 'contact-us/index.html' || output === '404.html') {
+    return null;
+  }
+
+  if (output === 'removalists-adelaide/index.html') {
+    return {
+      eyebrow: 'Related services',
+      heading: 'Choose the service that matches the move.',
+      intro:
+        'If the brief includes packing, delicate furniture, office equipment, or a longer route, start with the matching service page.',
+      links: [
+        {
+          eyebrow: 'Packing',
+          title: 'Packing services Adelaide',
+          copy: 'Add packing help for fragile items, kitchens, wardrobes, or full-home preparation.',
+          url: '/packing-services-adelaide/',
+          cta: 'View packing services',
+        },
+        {
+          eyebrow: 'Furniture',
+          title: 'Furniture removals',
+          copy: 'For bulky, delicate, or hard-to-move pieces that need extra care and access planning.',
+          url: '/furniture-removalists-adelaide/',
+          cta: 'View furniture removals',
+        },
+        {
+          eyebrow: 'Office',
+          title: 'Office relocations',
+          copy: 'For desks, equipment, files, and workspaces that need a commercial move plan.',
+          url: '/office-removals-adelaide/',
+          cta: 'View office removals',
+        },
+        {
+          eyebrow: 'Quote',
+          title: 'Request a fixed-price quote',
+          copy: 'Send the addresses, property type, and access notes for a clear Adelaide move quote.',
+          url: '/contact-us/#quote-form',
+          cta: 'Request a quote',
+        },
+      ],
+    };
+  }
+
+  if (
+    output === 'interstate-removals-adelaide/index.html' ||
+    output === 'adelaide-to-melbourne-removals/index.html' ||
+    output === 'adelaide-to-sydney-removals/index.html'
+  ) {
+    const routeLinks =
+      output === 'interstate-removals-adelaide/index.html'
+        ? [
+            {
+              eyebrow: 'Route page',
+              title: 'Adelaide to Melbourne removals',
+              copy: 'See the Melbourne route page for destination-specific planning and quote context.',
+              url: '/adelaide-to-melbourne-removals/',
+              cta: 'View Adelaide to Melbourne',
+            },
+            {
+              eyebrow: 'Route page',
+              title: 'Adelaide to Sydney removals',
+              copy: 'See the Sydney route page for longer-haul timing, access, and packing considerations.',
+              url: '/adelaide-to-sydney-removals/',
+              cta: 'View Adelaide to Sydney',
+            },
+            {
+              eyebrow: 'Packing',
+              title: 'Packing services Adelaide',
+              copy: 'Add packing support for fragile items, longer travel, or tighter delivery windows.',
+              url: '/packing-services-adelaide/',
+              cta: 'View packing services',
+            },
+            {
+              eyebrow: 'Quote',
+              title: 'Request a fixed-price quote',
+              copy: 'Send both addresses, access details, and any packing needs for a route-specific quote.',
+              url: '/contact-us/#quote-form',
+              cta: 'Request a quote',
+            },
+          ]
+        : [
+            {
+              eyebrow: 'Interstate hub',
+              title: 'Interstate removals Adelaide',
+              copy: 'See the Adelaide interstate service page for route planning and broader destination coverage.',
+              url: '/interstate-removals-adelaide/',
+              cta: 'Open interstate removals',
+            },
+            {
+              eyebrow: 'Packing',
+              title: 'Packing services Adelaide',
+              copy: 'Add packing support for fragile items, longer travel, or tighter delivery windows.',
+              url: '/packing-services-adelaide/',
+              cta: 'View packing services',
+            },
+            {
+              eyebrow: 'Local pickup',
+              title: 'Adelaide local removals',
+              copy: 'If the move starts with a local Adelaide leg, review the local removals hub as well.',
+              url: '/removalists-adelaide/',
+              cta: 'View local removals',
+            },
+            {
+              eyebrow: 'Quote',
+              title: 'Request a fixed-price quote',
+              copy: 'Send both addresses, access details, and any packing needs for a route-specific quote.',
+              url: '/contact-us/#quote-form',
+              cta: 'Request a quote',
+            },
+          ];
+
+    return {
+      eyebrow: 'Related services',
+      heading: 'Useful links while planning an interstate move.',
+      intro:
+        'Use the interstate hub for route planning, add packing support when needed, or request a fixed-price quote once the addresses are ready.',
+      links: routeLinks,
+    };
+  }
+
+  if (
+    output === 'office-removals-adelaide/index.html' ||
+    output === 'furniture-removalists-adelaide/index.html' ||
+    output === 'packing-services-adelaide/index.html'
+  ) {
+    const serviceLinks =
+      output === 'office-removals-adelaide/index.html'
+        ? [
+            {
+              eyebrow: 'Local removals',
+              title: 'Adelaide local removals',
+              copy: 'Use the local hub for suburb-to-suburb moves, apartments, and family homes across Adelaide.',
+              url: '/removalists-adelaide/',
+              cta: 'View local removals',
+            },
+            {
+              eyebrow: 'Packing',
+              title: 'Packing services Adelaide',
+              copy: 'Add packing help for files, workstations, fragile items, and move-day preparation.',
+              url: '/packing-services-adelaide/',
+              cta: 'View packing services',
+            },
+            {
+              eyebrow: 'Interstate',
+              title: 'Interstate removals Adelaide',
+              copy: 'Use the interstate hub if the office move includes another city or a staged interstate route.',
+              url: '/interstate-removals-adelaide/',
+              cta: 'View interstate removals',
+            },
+            {
+              eyebrow: 'Quote',
+              title: 'Request a fixed-price quote',
+              copy: 'Send the move details once and get a quote that matches the actual job.',
+              url: '/contact-us/#quote-form',
+              cta: 'Request a quote',
+            },
+          ]
+        : output === 'furniture-removalists-adelaide/index.html'
+          ? [
+              {
+                eyebrow: 'Packing',
+                title: 'Packing services Adelaide',
+                copy: 'Add wrapping and packing help for fragile items, artwork, kitchens, or full-home preparation.',
+                url: '/packing-services-adelaide/',
+                cta: 'View packing services',
+              },
+              {
+                eyebrow: 'Local removals',
+                title: 'Adelaide local removals',
+                copy: 'Use the local hub for suburb-to-suburb moves, apartments, and family homes across Adelaide.',
+                url: '/removalists-adelaide/',
+                cta: 'View local removals',
+              },
+              {
+                eyebrow: 'Interstate',
+                title: 'Interstate removals Adelaide',
+                copy: 'Use the interstate hub if the furniture is travelling beyond Adelaide.',
+                url: '/interstate-removals-adelaide/',
+                cta: 'View interstate removals',
+              },
+              {
+                eyebrow: 'Quote',
+                title: 'Request a fixed-price quote',
+                copy: 'Send the move details once and get a quote that matches the actual job.',
+                url: '/contact-us/#quote-form',
+                cta: 'Request a quote',
+              },
+            ]
+          : [
+              {
+                eyebrow: 'Local removals',
+                title: 'Adelaide local removals',
+                copy: 'Use the local hub for suburb-to-suburb moves, apartments, and family homes across Adelaide.',
+                url: '/removalists-adelaide/',
+                cta: 'View local removals',
+              },
+              {
+                eyebrow: 'Interstate',
+                title: 'Interstate removals Adelaide',
+                copy: 'Use the interstate hub if the move is leaving Adelaide or needs a longer delivery plan.',
+                url: '/interstate-removals-adelaide/',
+                cta: 'View interstate removals',
+              },
+              {
+                eyebrow: 'Furniture',
+                title: 'Furniture removals',
+                copy: 'See the furniture service page for bulky, delicate, and hard-to-move pieces.',
+                url: '/furniture-removalists-adelaide/',
+                cta: 'View furniture removals',
+              },
+              {
+                eyebrow: 'Quote',
+                title: 'Request a fixed-price quote',
+                copy: 'Send the move details once and get a quote that matches the actual job.',
+                url: '/contact-us/#quote-form',
+                cta: 'Request a quote',
+              },
+            ];
+
+    return {
+      eyebrow: 'Related services',
+      heading: 'Plan the move around the right support.',
+      intro:
+        'Combine the main service with local removals, interstate planning, or packing support depending on what the job needs.',
+      links: serviceLinks,
+    };
+  }
+
+  if (output.startsWith('removalists-')) {
+    return {
+      eyebrow: 'Plan the full move',
+      heading: 'Useful links for the rest of the move.',
+      intro:
+        'Use the Adelaide local removals page for broader suburb coverage, add support for delicate items or packing, or request a fixed-price quote when the brief is ready.',
+      links: [
+        {
+          eyebrow: 'Local hub',
+          title: 'Adelaide local removals',
+          copy: 'See the main Adelaide removals page for suburb coverage, local move details, and more Adelaide locations.',
+          url: '/removalists-adelaide/',
+          cta: 'Open local removals',
+        },
+        {
+          eyebrow: 'Furniture',
+          title: 'Furniture removals',
+          copy: 'For bulky, delicate, or hard-to-move pieces that need extra care and access planning.',
+          url: '/furniture-removalists-adelaide/',
+          cta: 'View furniture removals',
+        },
+        {
+          eyebrow: 'Packing',
+          title: 'Packing services Adelaide',
+          copy: 'Add packing support for fragile items, kitchens, wardrobes, or full-home preparation.',
+          url: '/packing-services-adelaide/',
+          cta: 'View packing services',
+        },
+        {
+          eyebrow: 'Quote',
+          title: 'Request a fixed-price quote',
+          copy: 'Send the addresses, property type, and access notes for a clear quote.',
+          url: '/contact-us/#quote-form',
+          cta: 'Request a quote',
+        },
+      ],
+    };
+  }
+
+  if (output === 'adelaide-moving-guides/index.html' || output.startsWith('adelaide-moving-guides/')) {
+    return {
+      eyebrow: 'Turn planning into a quote',
+      heading: 'Ready to book the move?',
+      intro:
+        'Use the service page that matches the move, then send the details for a fixed-price quote once the brief is clear.',
+      links: [
+        {
+          eyebrow: 'Local removals',
+          title: 'Adelaide local removals',
+          copy: 'For suburb-to-suburb moves, apartments, family homes, and Adelaide local relocations.',
+          url: '/removalists-adelaide/',
+          cta: 'View local removals',
+        },
+        {
+          eyebrow: 'Interstate',
+          title: 'Interstate removals Adelaide',
+          copy: 'For routes leaving Adelaide, including Melbourne, Sydney, and other interstate destinations.',
+          url: '/interstate-removals-adelaide/',
+          cta: 'View interstate removals',
+        },
+        {
+          eyebrow: 'Office',
+          title: 'Office removals Adelaide',
+          copy: 'For offices, clinics, studios, and workspaces that need access and restart planning.',
+          url: '/office-removals-adelaide/',
+          cta: 'View office removals',
+        },
+        {
+          eyebrow: 'Quote',
+          title: 'Request a fixed-price quote',
+          copy: 'Send the addresses, property type, and access notes when you are ready for pricing.',
+          url: '/contact-us/#quote-form',
+          cta: 'Request a quote',
+        },
+      ],
+    };
+  }
+
+  return null;
 }
 
 function renderFaqSection(page, content) {

@@ -10,7 +10,7 @@ This folder is the source of truth for the deployed static pages.
 Build the site with:
 
 ```powershell
-python scripts/build-site.py
+npm run build
 ```
 
-That command optimizes the shared raster assets and regenerates the HTML pages plus `premium-site.min.css`.
+That command runs `node scripts/build-site.mjs`, rebuilds the static HTML pages in `site-dist/`, and refreshes the shared minified stylesheet.

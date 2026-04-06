@@ -10,6 +10,7 @@ const web3FormsForms = Array.from(
 const quoteDateFields = Array.from(
   document.querySelectorAll('input[type="date"][name*="date"]'),
 );
+const web3FormsRedirect = "/thank-you.html";
 
 function closeDetails(detailsList, keepOpen = null) {
   detailsList.forEach((details) => {
@@ -332,6 +333,9 @@ function setupWeb3Forms() {
           "Thanks — your quote request has been sent. We will respond shortly.",
           "success",
         );
+        window.setTimeout(() => {
+          window.location.assign(web3FormsRedirect);
+        }, 300);
       } catch (error) {
         console.error("Web3Forms submission failed.", {
           message: error instanceof Error ? error.message : String(error),
