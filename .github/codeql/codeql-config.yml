@@ -1,0 +1,10 @@
+name: Repository CodeQL Configuration
+
+paths-ignore:
+  - .omx/**
+  - .vercel/**
+  - fonts/**
+  - media/**
+  - output/**
+  - site-dist/**
+  - tmp/**
