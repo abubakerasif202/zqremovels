@@ -235,6 +235,18 @@ function setWeb3FormFeedback(form, message, state = "") {
   }
 }
 
+function trackQuoteSubmission(payload) {
+  if (typeof window.gtag !== "function") {
+    return;
+  }
+
+  window.gtag("event", "quote_submitted", {
+    source_page: payload.source_page || window.location.pathname,
+    move_type: payload.move_type || "",
+    property_type: payload.property_type || "",
+  });
+}
+
 function setupWeb3Forms() {
   if (web3FormsForms.length === 0) {
     return;
@@ -324,6 +336,12 @@ function setupWeb3Forms() {
           if (!responseJsonParsed) {
             throw new Error("Submission response could not be confirmed.");
           }
+
+          trackQuoteSubmission({
+            source_page: window.location.href,
+            move_type: payload.move_type,
+            property_type: payload.property_type,
+          });
         }
 
         form.reset();

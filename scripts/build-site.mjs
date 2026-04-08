@@ -34,8 +34,12 @@ const partials = {
 };
 
 const pages = JSON.parse(await readFile(path.join(srcRoot, 'pages.json'), 'utf8'));
-const defaultSocialImage = 'https://zqremovals.au/brand-logo.png';
+const defaultSocialImage = 'https://zqremovals.au/zq-removals-social-share.webp';
+const defaultLogoImage = 'https://zqremovals.au/brand-logo.webp';
 const googleBusinessProfileUrl = 'https://share.google/Y04mpt9RTflWP3iRl';
+const gaMeasurementId = process.env.GA_MEASUREMENT_ID?.trim() || '';
+const googleSiteVerificationToken =
+  process.env.GOOGLE_SITE_VERIFICATION?.trim() || '';
 const SUBURB_PAGE_WORD_MIN = 600;
 const SUBURB_PAGE_WORD_MAX = 900;
 const SUBURB_CONDITION_HEADING_WORDS = 4;
@@ -1183,7 +1187,12 @@ const localProofProfiles = {
 
 await rm(distRoot, { recursive: true, force: true });
 await mkdir(distRoot, { recursive: true });
-await copyFile(path.join(projectRoot, 'premium-site.css'), path.join(distRoot, 'premium-site.min.css'));
+const premiumSiteCss = await readFile(path.join(projectRoot, 'premium-site.css'), 'utf8');
+await writeFile(
+  path.join(distRoot, 'premium-site.min.css'),
+  `${minifyCss(premiumSiteCss)}\n`,
+  'utf8',
+);
 
 for (const page of pages) {
   const contentPath = path.join(srcRoot, page.contentFile);
@@ -1250,10 +1259,29 @@ function renderHead(page, content) {
     `<meta name="twitter:image:alt" content="${escapeAttribute(imageAlt)}" />`,
   ];
 
+  if (googleSiteVerificationToken) {
+    tags.push(
+      `<meta name="google-site-verification" content="${escapeAttribute(googleSiteVerificationToken)}" />`,
+    );
+  }
+
   if (page.layout !== 'redirect') {
     tags.push('<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />');
     tags.push('<link rel="preload" href="/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin />');
     tags.push('<link rel="stylesheet" href="/premium-site.min.css" />');
+
+    if (gaMeasurementId) {
+      tags.push(
+        `<script async src="https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(gaMeasurementId)}"></script>`,
+      );
+      tags.push(`<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+window.gtag = window.gtag || gtag;
+gtag('js', new Date());
+gtag('config', ${JSON.stringify(gaMeasurementId)});
+</script>`);
+    }
   }
 
   for (const stylesheet of page.extraStylesheets || []) {
@@ -1456,7 +1484,7 @@ function normalizeMovingCompanyNode(node) {
     url: 'https://zqremovals.au/',
     telephone: '+61 433 819 989',
     image: defaultSocialImage,
-    logo: 'https://zqremovals.au/brand-logo.png',
+    logo: defaultLogoImage,
     hasMap: googleBusinessProfileUrl,
     sameAs: Array.from(new Set([googleBusinessProfileUrl, ...sameAs].filter(Boolean))),
     address: {
@@ -1482,10 +1510,21 @@ function normalizeMovingCompanyNode(node) {
 
 function usesDefaultSocialImage(value = '') {
   return (
+    value.includes('/brand-logo.png') ||
+    value.includes('/brand-logo.webp') ||
     value.includes('/zq-removals-social-share.png') ||
     value.includes('/zq-removals-social-share.webp') ||
     value.includes('/media/Gemini_Generated_Image')
   );
+}
+
+function minifyCss(css) {
+  return css
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/\s+/g, ' ')
+    .replace(/\s*([{}:;,>])\s*/g, '$1')
+    .replace(/;}/g, '}')
+    .trim();
 }
 
 function extractFaqPairs(content) {
