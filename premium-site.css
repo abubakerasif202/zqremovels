@@ -2538,6 +2538,34 @@ main {
   max-width: 30rem;
 }
 
+.hero-trust-panel {
+  display: grid;
+  align-self: stretch;
+}
+
+.hero-trust-brand {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+.hero-trust-panel .hero-trust-brand img {
+  width: clamp(4.75rem, 11vw, 6.25rem);
+  height: auto;
+  min-height: 0;
+  object-fit: contain;
+  filter: none;
+}
+
+.hero-trust-panel .hero-spotlight-content {
+  padding-bottom: 1.35rem;
+}
+
+.hero-trust-panel .cta-cluster {
+  margin-top: 0.2rem;
+}
+
 .hero-proof-strip {
   display: grid;
   gap: 1px;

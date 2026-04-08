@@ -34,7 +34,8 @@ const partials = {
 };
 
 const pages = JSON.parse(await readFile(path.join(srcRoot, 'pages.json'), 'utf8'));
-const defaultSocialImage = 'https://zqremovals.au/media/Gemini_Generated_Image_.png';
+const defaultSocialImage = 'https://zqremovals.au/brand-logo.png';
+const googleBusinessProfileUrl = 'https://share.google/Y04mpt9RTflWP3iRl';
 const SUBURB_PAGE_WORD_MIN = 600;
 const SUBURB_PAGE_WORD_MAX = 900;
 const SUBURB_CONDITION_HEADING_WORDS = 4;
@@ -1213,13 +1214,11 @@ await copyStaticAssets();
 
 function renderHead(page, content) {
   const ogImage =
-    page.ogImage?.includes('/zq-removals-social-share.png') ||
-    page.ogImage?.includes('/zq-removals-social-share.webp')
+    usesDefaultSocialImage(page.ogImage)
       ? defaultSocialImage
       : page.ogImage;
   const twitterImage =
-    page.twitterImage?.includes('/zq-removals-social-share.png') ||
-    page.twitterImage?.includes('/zq-removals-social-share.webp')
+    usesDefaultSocialImage(page.twitterImage)
       ? defaultSocialImage
       : page.twitterImage || ogImage;
   const imageAlt = page.ogImageAlt || page.ogTitle || page.title;
@@ -1435,7 +1434,7 @@ function normalizeJsonLdNode(node, page) {
     return normalizeMovingCompanyNode(node);
   }
 
-  if (types.includes('WebPage') || types.includes('ContactPage')) {
+  if (types.includes('WebPage') || types.includes('ContactPage') || types.includes('AboutPage')) {
     return {
       ...node,
       url: page.canonical,
@@ -1448,12 +1447,18 @@ function normalizeJsonLdNode(node, page) {
 }
 
 function normalizeMovingCompanyNode(node) {
+  const { aggregateRating, review, sameAs = [], hasMap, image, logo, ...rest } = node;
+
   return {
-    ...node,
+    ...rest,
     '@id': 'https://zqremovals.au/#business',
     name: 'ZQ Removals',
     url: 'https://zqremovals.au/',
     telephone: '+61 433 819 989',
+    image: defaultSocialImage,
+    logo: 'https://zqremovals.au/brand-logo.png',
+    hasMap: googleBusinessProfileUrl,
+    sameAs: Array.from(new Set([googleBusinessProfileUrl, ...sameAs].filter(Boolean))),
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Andrews Farm',
@@ -1473,6 +1478,14 @@ function normalizeMovingCompanyNode(node) {
       },
     ],
   };
+}
+
+function usesDefaultSocialImage(value = '') {
+  return (
+    value.includes('/zq-removals-social-share.png') ||
+    value.includes('/zq-removals-social-share.webp') ||
+    value.includes('/media/Gemini_Generated_Image')
+  );
 }
 
 function extractFaqPairs(content) {

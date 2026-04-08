@@ -21,6 +21,29 @@
     "contentFile": "content/404.html"
   },
   {
+    "output": "about/index.html",
+    "layout": "standard",
+    "title": "About ZQ Removals | Adelaide Moving Service Background",
+    "description": "About ZQ Removals: Adelaide service base, public business details, representative move briefs, and how local and interstate quotes are scoped.",
+    "canonical": "https://zqremovals.au/about/",
+    "robots": "index,follow,max-image-preview:large",
+    "themeColor": "#10151d",
+    "ogTitle": "About ZQ Removals | Adelaide Moving Service Background",
+    "ogDescription": "See the ZQ Removals service base, public business details, representative move briefs, and quote-first planning process.",
+    "ogType": "website",
+    "ogUrl": "https://zqremovals.au/about/",
+    "ogImage": "https://zqremovals.au/brand-logo.png",
+    "twitterCard": "summary_large_image",
+    "twitterTitle": "About ZQ Removals | Adelaide Moving Service Background",
+    "twitterDescription": "See the ZQ Removals service base, public business details, representative move briefs, and quote-first planning process.",
+    "twitterImage": "https://zqremovals.au/brand-logo.png",
+    "refresh": "",
+    "jsonLd": [
+      "{\n  \"@context\": \"https://schema.org\",\n  \"@graph\": [\n    {\n      \"@type\": \"MovingCompany\",\n      \"@id\": \"https://zqremovals.au/#business\",\n      \"name\": \"ZQ Removals\",\n      \"url\": \"https://zqremovals.au/\",\n      \"telephone\": \"+61 433 819 989\",\n      \"logo\": \"https://zqremovals.au/brand-logo.png\",\n      \"description\": \"Adelaide moving service with local, office, furniture, packing, and interstate quoting from Andrews Farm.\",\n      \"sameAs\": [\n        \"https://share.google/Y04mpt9RTflWP3iRl\"\n      ]\n    },\n    {\n      \"@type\": \"AboutPage\",\n      \"@id\": \"https://zqremovals.au/about/#webpage\",\n      \"url\": \"https://zqremovals.au/about/\",\n      \"name\": \"About ZQ Removals | Adelaide Moving Service Background\",\n      \"description\": \"About ZQ Removals: Adelaide service base, public business details, representative move briefs, and how local and interstate quotes are scoped.\",\n      \"mainEntity\": {\n        \"@id\": \"https://zqremovals.au/#business\"\n      }\n    }\n  ]\n}"
+    ],
+    "contentFile": "content/about/index.html"
+  },
+  {
     "output": "adelaide-moving-guides/index.html",
     "layout": "standard",
     "title": "Adelaide Moving Guides | ZQ Removals",
