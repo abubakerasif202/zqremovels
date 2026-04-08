@@ -893,7 +893,9 @@ main {
 }
 
 .hero-spotlight img {
+  width: 100%;
   min-height: 24rem;
+  object-fit: cover;
 }
 
 .hero-spotlight-content {
@@ -2566,6 +2568,24 @@ main {
   margin-top: 0.2rem;
 }
 
+.hero-visual-note {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1;
+  max-width: 22rem;
+  margin: 0;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-pill);
+  background: rgba(9, 18, 28, 0.56);
+  backdrop-filter: blur(12px);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
 .hero-proof-strip {
   display: grid;
   gap: 1px;
@@ -2576,6 +2596,8 @@ main {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(16px);
   box-shadow: 0 20px 64px rgba(6, 12, 20, 0.26);
+  position: relative;
+  z-index: 1;
 }
 
 .hero-proof-item {
@@ -3100,6 +3122,35 @@ main {
   width: 100%;
   min-height: 22rem;
   object-fit: cover;
+}
+
+.page-hero-media-stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.brand-figure {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(16, 28, 41, 0.08);
+  border-radius: calc(var(--radius) + 16px);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(243, 238, 231, 0.82) 100%);
+  box-shadow: var(--shadow-card);
+}
+
+.brand-figure img {
+  width: 100%;
+  min-height: 22rem;
+  object-fit: cover;
+}
+
+.brand-figure figcaption {
+  padding: 0.95rem 1.1rem 1.05rem;
+  border-top: 1px solid rgba(16, 28, 41, 0.08);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(246, 240, 232, 0.86) 100%);
+  color: var(--color-text-soft);
+  font-size: 0.92rem;
+  line-height: 1.55;
 }
 
 .value-grid,
