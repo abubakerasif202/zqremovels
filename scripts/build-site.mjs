@@ -35,6 +35,242 @@ const partials = {
 
 const pages = JSON.parse(await readFile(path.join(srcRoot, 'pages.json'), 'utf8'));
 const defaultSocialImage = 'https://zqremovals.au/media/Gemini_Generated_Image_.png';
+const SUBURB_PAGE_WORD_MIN = 600;
+const SUBURB_PAGE_WORD_MAX = 900;
+const SUBURB_CONDITION_HEADING_WORDS = 4;
+const SUBURB_PADDING_PARAGRAPH =
+  'Every move is reviewed for access, inventory, and timing before scheduling, so clients receive a practical plan supported by experienced local movers.';
+
+const suburbPageProfiles = {
+  'adelaide-cbd': {
+    suburb: 'Adelaide CBD',
+    nearby: 'North Terrace, King William Street, Rundle Mall, Grenfell Street, and Waymouth Street',
+    hero:
+      'Adelaide CBD moves require planning around loading zones, booked lift windows, and high-traffic blocks, so the job is scoped around building access rather than guesswork.',
+    intro: [
+      'When people search for removalists in Adelaide CBD, they usually need more than a truck and a time slot. City jobs are shaped by concierge rules, service-lift bookings, and strict loading times that can change the whole schedule. Our crew plans CBD relocations by confirming access details first, then matching labour and vehicle timing to the actual window available.',
+      'We regularly move apartments, offices, and mixed-use spaces through the city grid where short travel distances still involve complex logistics. A move from one side of the CBD to the other can still become access-sensitive when parking is limited and elevators are shared with tenants. That is why we build each city move plan around entry points, carry distance, and timing pressure before move day starts.',
+    ],
+    conditions: [
+      'Coordinating service-lift reservations and loading dock instructions before arrival',
+      'Scheduling around city traffic peaks near North Terrace and King William Street',
+      'Managing access limits in towers where dock time is fixed and strictly monitored',
+    ],
+    scenarios: [
+      {
+        title: 'Apartment tower relocations',
+        copy:
+          'CBD apartment moves often involve strict booking slots and shared lift access. We sequence the load so priority furniture goes first, protect common areas, and keep the unload moving inside the approved window.',
+      },
+      {
+        title: 'Office and suite transitions',
+        copy:
+          'Businesses moving around Grenfell Street or Waymouth Street usually need downtime control. We stage desks, monitors, archived files, and equipment by zone so teams can reset faster without unnecessary disruption.',
+      },
+      {
+        title: 'City-to-suburb handovers',
+        copy:
+          'A CBD departure to wider Adelaide can involve tight pickup access followed by a longer suburban unload. We plan both ends together so the city constraints do not delay the final delivery and placement.',
+      },
+    ],
+    trust: [
+      'ZQ Removals is trusted by Adelaide clients who need experienced city movers that understand how CBD buildings actually operate. We provide clear communication, careful handling, and practical staging from first call to handover.',
+      'Our team works across local routes, specialist furniture handling, and interstate departures, so your plan can scale if the move brief changes. The same disciplined approach is used whether the route is one city block or a multi-stop relocation.',
+    ],
+    services:
+      'If you are comparing options, you can review our broader Adelaide service coverage, specialist packing and furniture support, and interstate pathways before submitting your brief.',
+  },
+  glenelg: {
+    suburb: 'Glenelg',
+    nearby: 'Jetty Road, Brighton Road, Colley Terrace, Anzac Highway, and Moseley Square',
+    hero:
+      'Glenelg moves need coastal access planning, parking awareness, and tighter sequencing for apartments, townhouses, and homes near busy beachside routes.',
+    intro: [
+      'People booking removalists in Glenelg are usually balancing lifestyle properties with practical access constraints. Streets near Jetty Road and Colley Terrace can be active throughout the day, and that changes how trucks are positioned and how quickly loading can begin. We scope each move around parking reality, entry width, and item profile so the plan fits the suburb.',
+      'Glenelg also includes a mix of apartments, older homes, renovated townhouses, and small mixed-use sites. That variety means no two jobs run exactly the same way. Our approach is to map loading order to the property layout, confirm path-of-travel risks early, and keep the move predictable from pickup through placement.',
+    ],
+    conditions: [
+      'Planning around beachside traffic flow near Jetty Road and Brighton Road',
+      'Managing shared access in apartment and townhouse developments',
+      'Adjusting staging for coastal properties with tighter frontage or longer carries',
+    ],
+    scenarios: [
+      {
+        title: 'Beachside apartment access',
+        copy:
+          'Apartment jobs in Glenelg can include shared corridors, tight lifts, and fixed unloading points. We align labour and sequence to reduce congestion and protect common areas while keeping the timeline realistic.',
+      },
+      {
+        title: 'Family home and townhouse moves',
+        copy:
+          'Home moves around Brighton Road and nearby streets often involve mixed furniture sizes and varied room layouts. We prepare the load plan to avoid double handling and keep placement efficient at destination.',
+      },
+      {
+        title: 'Local plus interstate planning',
+        copy:
+          'Some Glenelg clients move locally first and then send part of the load interstate. We can structure the brief so packing, protection, and transfer steps are consistent across both legs.',
+      },
+    ],
+    trust: [
+      'ZQ Removals is selected by many Adelaide families and professionals because we combine careful handling with practical route planning. Our experienced movers understand how coastal timing and access can affect labour if ignored.',
+      'We focus on honest scoping, fixed-price clarity, and responsive communication, so clients know what to expect before move day. That consistency matters when moving fragile or high-value household items near busier coastal strips.',
+    ],
+    services:
+      'You can also compare our full Adelaide local moving service, dedicated packing help, furniture-specific handling, office relocations, and interstate moving support.',
+  },
+  norwood: {
+    suburb: 'Norwood',
+    nearby: 'The Parade, Magill Road, Portrush Road, Fullarton Road, and Osmond Terrace',
+    hero:
+      'Norwood moves are often terrace or apartment sensitive, with tighter street access and mixed residential-commercial conditions that need precise planning.',
+    intro: [
+      'Searching for removalists in Norwood usually means you are moving through streets where access can change block by block. Around The Parade and Magill Road, parking position and carry distance can quickly affect time on site. We plan each move by confirming those variables in advance so labour and timing are based on real conditions.',
+      'Norwood routes can include heritage-style homes, modern apartments, family residences, and shopfront or office-adjacent properties. Instead of using generic assumptions, we stage by property type and inventory mix, then set a clear order for loading and placement. That keeps the move stable even when access is tighter than expected.',
+    ],
+    conditions: [
+      'Reviewing frontage access and parking options near The Parade and Osmond Terrace',
+      'Preparing for stairs, narrow entries, and corridor constraints in older properties',
+      'Sequencing mixed residential and small-business inventory where required',
+    ],
+    scenarios: [
+      {
+        title: 'Terrace and heritage-style moves',
+        copy:
+          'Norwood terraces can involve constrained entries and careful turning space. We pre-plan furniture flow so heavier items are moved safely without unnecessary reshuffling inside the property.',
+      },
+      {
+        title: 'Apartment and unit relocations',
+        copy:
+          'Apartment jobs around Portrush Road and Fullarton Road often depend on shared access rules. We confirm lift or corridor details early and build a move plan that protects common areas while staying efficient.',
+      },
+      {
+        title: 'Retail and office-adjacent transfers',
+        copy:
+          'When a move includes stock, shelving, desks, or point-of-sale equipment, sequence matters. We structure the load so business-critical items are easier to reset at destination.',
+      },
+    ],
+    trust: [
+      'ZQ Removals is trusted across Adelaide for careful handling, disciplined planning, and reliable move-day communication. Our experienced team works with routes where access detail is as important as the inventory itself.',
+      'We support local and interstate moves from the same operational standard, so clients can keep one trusted provider if the scope expands. That helps reduce risk when timelines and property conditions are changing.',
+    ],
+    services:
+      'For planning support, review our Adelaide local moving page, packing services, office removals, furniture movers, and interstate removals before requesting your quote.',
+  },
+  salisbury: {
+    suburb: 'Salisbury',
+    nearby: 'Salisbury Highway, Commercial Road, Park Terrace, John Street, and Saints Road',
+    hero:
+      'Salisbury moves often combine family homes, units, and storage-linked jobs where route timing and load sequencing make the biggest difference.',
+    intro: [
+      'People looking for removalists in Salisbury usually want a straightforward move with no surprises. In practice, northern suburb routes can still become complex when access, storage transfers, or mixed inventory are not scoped early. We review the full brief before pricing so the plan matches the actual load and destination conditions.',
+      'From properties near Commercial Road to surrounding streets feeding into Salisbury Highway, parking setup and carry distance can shift labour time even on short routes. Our process is to confirm property access, list key items, and stage by priority so unloading runs smoothly at the new address.',
+    ],
+    conditions: [
+      'Planning driveway and street positioning for home and unit pickups',
+      'Sequencing storage cage or garage items with household furniture',
+      'Keeping suburb-to-suburb timing realistic during northern corridor traffic',
+    ],
+    scenarios: [
+      {
+        title: 'Home and unit relocations',
+        copy:
+          'Salisbury home moves often involve a mix of standard furniture, whitegoods, and outdoor items. We organise the load order so heavy and fragile pieces are handled with fewer interruptions.',
+      },
+      {
+        title: 'Storage transfer combinations',
+        copy:
+          'Some clients need a direct move plus a storage stop in the same run. We map pickup, transfer, and final delivery in one sequence to avoid repeat handling and time loss.',
+      },
+      {
+        title: 'Small business inventory moves',
+        copy:
+          'If the brief includes shelves, archives, or office furniture, we isolate those items in the plan so business assets are easier to place and restart at destination.',
+      },
+    ],
+    trust: [
+      'ZQ Removals is known for practical planning, careful handling, and clear communication across Adelaide’s north. Our experienced movers focus on predictability, not rushed assumptions.',
+      'Clients choose us when they want a quote that reflects real access and inventory conditions. That trust is built by consistent move-day execution and transparent updates from booking through handover.',
+    ],
+    services:
+      'Before booking, explore our Adelaide local removals, packing assistance, office relocations, furniture moving service, and interstate removals support.',
+  },
+  elizabeth: {
+    suburb: 'Elizabeth',
+    nearby: 'Main North Road, Philip Highway, Yorktown Road, Midway Road, and Elizabeth Way',
+    hero:
+      'Elizabeth moves often involve homes, units, garage loads, and storage transitions that need a clear scope and structured handling plan.',
+    intro: [
+      'When customers search for removalists in Elizabeth, they usually need practical help with mixed household and storage-related inventory. Routes around Main North Road and Philip Highway can appear simple, but timing and access still affect efficiency when parking or carry paths are unclear. We scope these details before the booking is confirmed.',
+      'Elizabeth jobs also vary from family homes and units to garage-heavy loads and small business stock. Our team plans each move around item profile, property type, and route order so important pieces arrive in the right sequence and the unload does not become disorganised.',
+    ],
+    conditions: [
+      'Checking driveway, street access, and stair constraints before move day',
+      'Structuring garage and storage items to avoid double handling',
+      'Planning timing across northern corridors linked by Main North Road',
+    ],
+    scenarios: [
+      {
+        title: 'Family home and unit moves',
+        copy:
+          'Elizabeth home relocations often involve full-room inventory and heavier household pieces. We organise furniture flow and room placement so the destination setup is faster and less stressful.',
+      },
+      {
+        title: 'Garage, shed, and storage-heavy loads',
+        copy:
+          'Loads with tools, shelving, boxes, and mixed items need better sequencing than a standard home move. We separate priority items and allocate handling steps that keep the run controlled.',
+      },
+      {
+        title: 'Business and mixed-use transitions',
+        copy:
+          'Where office furniture or stock is included, we build the plan around restart needs. That helps reduce downtime and keeps critical business items easier to locate on delivery.',
+      },
+    ],
+    trust: [
+      'ZQ Removals is trusted by Adelaide families and businesses for dependable planning, careful item handling, and straightforward communication. Our experienced crews treat each move as an operational job, not just transport.',
+      'We support local and interstate pathways from the same process, so clients can keep continuity if the route expands later. That consistency reduces risk and improves confidence before move day.',
+    ],
+    services:
+      'You can compare our Adelaide local movers, packing support, office removals, furniture handling, and interstate services to build the right move brief.',
+  },
+  marion: {
+    suburb: 'Marion',
+    nearby: 'Marion Road, Sturt Road, Diagonal Road, Morphett Road, and Oaklands Road',
+    hero:
+      'Marion moves often blend home, unit, clinic, and office requirements where access, traffic timing, and item sequencing all need careful planning.',
+    intro: [
+      'People booking removalists in Marion are often moving through busier south-west corridors where travel timing and site access both matter. Streets linked by Marion Road, Sturt Road, and Diagonal Road can add pressure if the route is not planned in detail. We build each move around access points, inventory type, and unloading priorities.',
+      'Marion also has diverse property types, including homes, apartments, townhouses, clinics, and small offices. That mix requires a practical loading strategy rather than a one-size-fits-all approach. Our crew scopes each job for handling risk, access complexity, and destination layout before finalising the move plan.',
+    ],
+    conditions: [
+      'Planning around corridor traffic windows near Marion Road and Sturt Road',
+      'Managing shared parking and access for units, clinics, and mixed-use sites',
+      'Sequencing home and business items to reduce disruption at destination',
+    ],
+    scenarios: [
+      {
+        title: 'House and townhouse relocations',
+        copy:
+          'Family moves in Marion often include a blend of bulky furniture, boxed goods, and delicate items. We structure the load so placement is faster and handling quality stays high throughout the job.',
+      },
+      {
+        title: 'Apartment and shared-access moves',
+        copy:
+          'Apartment runs near Morphett Road and Oaklands Road can involve shared entries and stricter loading conditions. We confirm those constraints early and match crew flow to the property setup.',
+      },
+      {
+        title: 'Clinic and office transitions',
+        copy:
+          'When a move includes treatment rooms, reception assets, or workstations, sequencing is essential. We prioritise business-critical items so teams can restart operations with less downtime.',
+      },
+    ],
+    trust: [
+      'ZQ Removals is trusted across Adelaide for organised moving support, careful packing and handling, and consistent communication from quote to completion. Our experienced movers understand south-west route complexity.',
+      'We focus on transparent scoping and practical execution so clients can make confident decisions early. Whether the move stays local or extends interstate, the same quality standards apply.',
+    ],
+    services:
+      'To plan properly, review our Adelaide local removals, office relocation services, packing assistance, furniture movers, and interstate removals options.',
+  },
+};
 
 const seoGuideLibrary = {
   cost: {
@@ -986,6 +1222,7 @@ function renderHead(page, content) {
     page.twitterImage?.includes('/zq-removals-social-share.webp')
       ? defaultSocialImage
       : page.twitterImage || ogImage;
+  const imageAlt = page.ogImageAlt || page.ogTitle || page.title;
   const tags = [
     '<meta charset="utf-8" />',
     '<meta name="viewport" content="width=device-width, initial-scale=1" />',
@@ -1006,10 +1243,12 @@ function renderHead(page, content) {
     `<meta property="og:title" content="${escapeAttribute(page.ogTitle || page.title)}" />`,
     `<meta property="og:description" content="${escapeAttribute(page.ogDescription || page.description)}" />`,
     `<meta property="og:image" content="${escapeAttribute(ogImage)}" />`,
+    `<meta property="og:image:alt" content="${escapeAttribute(imageAlt)}" />`,
     `<meta name="twitter:card" content="${escapeAttribute(page.twitterCard || 'summary_large_image')}" />`,
     `<meta name="twitter:title" content="${escapeAttribute(page.twitterTitle || page.title)}" />`,
     `<meta name="twitter:description" content="${escapeAttribute(page.twitterDescription || page.description)}" />`,
     `<meta name="twitter:image" content="${escapeAttribute(twitterImage)}" />`,
+    `<meta name="twitter:image:alt" content="${escapeAttribute(imageAlt)}" />`,
   ];
 
   if (page.layout !== 'redirect') {
@@ -1026,7 +1265,7 @@ function renderHead(page, content) {
     tags.push(`<meta http-equiv="refresh" content="${escapeAttribute(page.refresh)}" />`);
   }
 
-  for (const jsonLd of page.jsonLd || []) {
+  for (const jsonLd of normalizeJsonLdBlocks(page)) {
     tags.push(`<script type="application/ld+json">\n${jsonLd}\n</script>`);
   }
 
@@ -1039,13 +1278,51 @@ function renderHead(page, content) {
 
 function buildDynamicJsonLd(page, content) {
   const blocks = [];
+  const suburbJsonLd = buildSuburbMovingCompanyJsonLd(page);
+  if (suburbJsonLd) {
+    blocks.push(suburbJsonLd);
+  }
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd(page, content);
   const faqJsonLd = buildFaqJsonLd(page, content);
+
+  if (breadcrumbJsonLd) {
+    blocks.push(breadcrumbJsonLd);
+  }
 
   if (faqJsonLd) {
     blocks.push(faqJsonLd);
   }
 
   return blocks;
+}
+
+function buildSuburbMovingCompanyJsonLd(page) {
+  const profile = getSuburbProfile(page);
+  if (!profile) {
+    return '';
+  }
+
+  const canonical = page.canonical || `https://zqremovals.au/${page.output.replace(/index\.html$/, '')}`;
+
+  return JSON.stringify(
+    {
+      '@context': 'https://schema.org',
+      '@type': 'MovingCompany',
+      '@id': `${canonical}#moving-company`,
+      name: 'ZQ Removals',
+      areaServed: 'Adelaide',
+      serviceType: 'Removal Services',
+      telephone: '+61 433 819 989',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Adelaide',
+        addressRegion: 'SA',
+        addressCountry: 'AU',
+      },
+    },
+    null,
+    2,
+  );
 }
 
 function buildFaqJsonLd(page, content) {
@@ -1077,8 +1354,125 @@ function buildFaqJsonLd(page, content) {
   );
 }
 
+function buildBreadcrumbJsonLd(page, content) {
+  if (pageHasJsonLdType(page, 'BreadcrumbList')) {
+    return '';
+  }
+
+  const items = extractBreadcrumbItems(content);
+  if (items.length < 2) {
+    return '';
+  }
+
+  if (!items.at(-1)?.url) {
+    items[items.length - 1].url = page.canonical;
+  }
+
+  return JSON.stringify(
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      '@id': `${page.canonical}#breadcrumbs`,
+      itemListElement: items.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        item: item.url,
+      })),
+    },
+    null,
+    2,
+  );
+}
+
 function pageHasFaqJsonLd(page) {
-  return (page.jsonLd || []).some((jsonLd) => jsonLd.includes('"@type": "FAQPage"'));
+  return pageHasJsonLdType(page, 'FAQPage');
+}
+
+function pageHasJsonLdType(page, type) {
+  return (page.jsonLd || []).some((jsonLd) => jsonLd.includes(`"@type": "${type}"`));
+}
+
+function normalizeJsonLdBlocks(page) {
+  return (page.jsonLd || []).map((jsonLd) => {
+    try {
+      const value = JSON.parse(jsonLd);
+      const normalized = normalizeJsonLdValue(value, page);
+      return JSON.stringify(normalized, null, 2);
+    } catch {
+      return jsonLd;
+    }
+  });
+}
+
+function normalizeJsonLdValue(value, page) {
+  if (Array.isArray(value)) {
+    return value.map((entry) => normalizeJsonLdValue(entry, page));
+  }
+
+  if (!value || typeof value !== 'object') {
+    return value;
+  }
+
+  if (Array.isArray(value['@graph'])) {
+    return {
+      ...value,
+      '@graph': value['@graph'].map((entry) => normalizeJsonLdNode(entry, page)),
+    };
+  }
+
+  return normalizeJsonLdNode(value, page);
+}
+
+function normalizeJsonLdNode(node, page) {
+  if (!node || typeof node !== 'object') {
+    return node;
+  }
+
+  const types = Array.isArray(node['@type']) ? node['@type'] : [node['@type']].filter(Boolean);
+
+  if (types.includes('MovingCompany')) {
+    return normalizeMovingCompanyNode(node);
+  }
+
+  if (types.includes('WebPage') || types.includes('ContactPage')) {
+    return {
+      ...node,
+      url: page.canonical,
+      name: page.title,
+      description: page.description,
+    };
+  }
+
+  return node;
+}
+
+function normalizeMovingCompanyNode(node) {
+  return {
+    ...node,
+    '@id': 'https://zqremovals.au/#business',
+    name: 'ZQ Removals',
+    url: 'https://zqremovals.au/',
+    telephone: '+61 433 819 989',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Andrews Farm',
+      addressRegion: 'SA',
+      postalCode: '5114',
+      addressCountry: 'AU',
+      ...(node.address || {}),
+    },
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        contactType: 'customer service',
+        telephone: '+61 433 819 989',
+        areaServed: ['Adelaide', 'South Australia', 'Australia'],
+        availableLanguage: ['en'],
+        url: 'https://zqremovals.au/contact-us/',
+      },
+    ],
+  };
 }
 
 function extractFaqPairs(content) {
@@ -1111,6 +1505,51 @@ function decodeHtmlEntities(value = '') {
     .replaceAll('&apos;', "'")
     .replaceAll('&lt;', '<')
     .replaceAll('&gt;', '>');
+}
+
+function extractBreadcrumbItems(content) {
+  const navMatch = content.match(
+    /<nav[^>]*class="breadcrumb"[^>]*>[\s\S]*?<ol>([\s\S]*?)<\/ol>[\s\S]*?<\/nav>/i,
+  );
+
+  if (!navMatch) {
+    return [];
+  }
+
+  const items = [];
+  const listItemPattern = /<li>([\s\S]*?)<\/li>/gi;
+
+  for (const match of navMatch[1].matchAll(listItemPattern)) {
+    const itemHtml = match[1];
+    const linkMatch = itemHtml.match(/<a[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/i);
+    const name = cleanHtmlText(linkMatch ? linkMatch[2] : itemHtml);
+    const url = normalizeBreadcrumbUrl(linkMatch ? linkMatch[1] : '');
+
+    if (name) {
+      items.push({
+        name,
+        url: url || '',
+      });
+    }
+  }
+
+  return items;
+}
+
+function normalizeBreadcrumbUrl(value = '') {
+  if (!value) {
+    return '';
+  }
+
+  if (value.startsWith('http://') || value.startsWith('https://')) {
+    return value;
+  }
+
+  if (value.startsWith('/')) {
+    return `https://zqremovals.au${value}`;
+  }
+
+  return value;
 }
 
 function renderBodyAttributes(page) {
@@ -1162,8 +1601,10 @@ function getBodyClasses(page) {
 }
 
 function transformContent(content, page) {
-  let next = content.replaceAll('href="/#quote-form"', 'href="/contact-us/#quote-form"');
+  let next = renderSuburbPage(page) || content;
+  next = next.replaceAll('href="/#quote-form"', 'href="/contact-us/#quote-form"');
   next = next.replace(/\/contact-us(?:\/contact-us)+\/#quote-form/g, '/contact-us/#quote-form');
+  next = sanitizePublicCopy(next);
 
   if (page.output === 'index.html') {
     next = next
@@ -1179,13 +1620,525 @@ function transformContent(content, page) {
   const proofSection = renderLocalProofSection(page);
   const faqSection = renderFaqSection(page, next);
   const seoSupport = renderSeoSupportSection(page);
-  const supplementalSections = [proofSection, faqSection, seoSupport].filter(Boolean).join('\n');
+  const relatedLinks = renderRelatedLinksSection(page);
+  const supplementalSections = [proofSection, faqSection, seoSupport, relatedLinks]
+    .filter(Boolean)
+    .join('\n');
 
   if (supplementalSections && next.includes('</main>')) {
     next = next.replace('</main>', `${supplementalSections}\n</main>`);
   }
 
   return next;
+}
+
+function getSuburbSlugFromPage(page) {
+  const match = page.output.match(/^removalists-([^/]+)\/index\.html$/);
+  if (!match) {
+    return '';
+  }
+  return match[1];
+}
+
+function getSuburbProfile(page) {
+  return suburbPageProfiles[getSuburbSlugFromPage(page)] || null;
+}
+
+function renderSuburbPage(page) {
+  const profile = getSuburbProfile(page);
+  if (!profile) {
+    return '';
+  }
+
+  const wordCount = suburbWordCount(profile);
+  const targetCopy =
+    wordCount < SUBURB_PAGE_WORD_MIN
+      ? `${profile.services} We also provide transparent quote reviews and route-specific planning so the scope is clear before your moving date is locked.`
+      : profile.services;
+
+  const extraParagraph =
+    wordCount > SUBURB_PAGE_WORD_MAX
+      ? ''
+      : `<p>${escapeHtml(SUBURB_PADDING_PARAGRAPH)}</p>`;
+
+  return `
+<main id="main-content">
+<section class="hero-shell">
+<div class="container">
+<nav aria-label="Breadcrumb" class="breadcrumb">
+<ol>
+<li><a href="/">Home</a></li>
+<li><a href="/removalists-adelaide/">Removalists Adelaide</a></li>
+<li>${escapeHtml(profile.suburb)}</li>
+</ol>
+</nav>
+<div class="page-hero-grid">
+<div class="page-hero-copy">
+<span class="eyebrow">Local Adelaide moving service</span>
+<h1>Removalists ${escapeHtml(profile.suburb)}</h1>
+<p class="lead">${escapeHtml(profile.hero)}</p>
+<ul aria-label="${escapeAttribute(profile.suburb)} move highlights" class="route-meta">
+<li>Suburb-focused local planning</li>
+<li>Residential and business move support</li>
+<li>Careful handling with fixed-price quotes</li>
+</ul>
+<div class="cta-cluster">
+<a class="button button-primary" href="/contact-us/#quote-form">Get a Fixed-Price Quote</a>
+<a class="button button-secondary" href="tel:+61433819989">Call 0433 819 989</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="container">
+<div class="section-heading">
+<span class="eyebrow">Suburb moving brief</span>
+<h2>Local route planning for ${escapeHtml(profile.suburb)} moves</h2>
+</div>
+<p>${escapeHtml(profile.intro[0])}</p>
+<p>${escapeHtml(profile.intro[1])}</p>
+<p>Common local references for this suburb include ${escapeHtml(profile.nearby)}.</p>
+</div>
+</section>
+<section class="section section-soft">
+<div class="container">
+<div class="section-heading">
+<span class="eyebrow">Local conditions</span>
+<h2>What we account for before move day</h2>
+</div>
+<div class="value-grid">
+${profile.conditions
+  .map((condition) => {
+    const conditionHeading = condition.split(/\s+/).slice(0, SUBURB_CONDITION_HEADING_WORDS).join(' ');
+    return `<article class="value-card">
+  <h3>${escapeHtml(conditionHeading)}</h3>
+  <p>${escapeHtml(condition)}</p>
+</article>`;
+  })
+  .join('\n')}
+</div>
+</div>
+</section>
+<section class="section">
+<div class="container">
+<div class="section-heading">
+<span class="eyebrow">Suburb-specific scenarios</span>
+<h2>Moving situations we commonly manage in ${escapeHtml(profile.suburb)}</h2>
+</div>
+<div class="timeline-grid">
+${profile.scenarios
+  .map(
+    ({ title, copy }, index) => `<article class="timeline-card">
+  <small>Scenario ${String(index + 1).padStart(2, '0')}</small>
+  <h3>${escapeHtml(title)}</h3>
+  <p>${escapeHtml(copy)}</p>
+</article>`,
+  )
+  .join('\n')}
+</div>
+</div>
+</section>
+<section class="section section-soft">
+<div class="container">
+<div class="section-heading">
+<span class="eyebrow">Trust and experience</span>
+<h2>Why clients choose ZQ Removals</h2>
+</div>
+<p>${escapeHtml(profile.trust[0])}</p>
+<p>${escapeHtml(profile.trust[1])}</p>
+${extraParagraph}
+<p>${escapeHtml(targetCopy)}</p>
+<h3>Related moving services</h3>
+<ul aria-label="Internal service links" class="bullet-list">
+<li><a href="/removalists-adelaide/">Removalists Adelaide</a></li>
+<li><a href="/packing-services-adelaide/">Packing Services Adelaide</a></li>
+<li><a href="/furniture-removalists-adelaide/">Furniture Removalists Adelaide</a></li>
+<li><a href="/office-removals-adelaide/">Office Removals Adelaide</a></li>
+<li><a href="/interstate-removals-adelaide/">Interstate Removals Adelaide</a></li>
+</ul>
+</div>
+</section>
+</main>`;
+}
+
+function suburbWordCount(profile) {
+  const values = [
+    profile.hero || '',
+    ...((profile.intro || []).filter(Boolean)),
+    ...((profile.conditions || []).filter(Boolean)),
+    ...((profile.scenarios || []).flatMap(({ title, copy }) => [title || '', copy || ''])),
+    ...((profile.trust || []).filter(Boolean)),
+    profile.services || '',
+    profile.nearby || '',
+  ];
+
+  return values.reduce((count, value) => count + value.split(/\s+/).filter(Boolean).length, 0);
+}
+
+function sanitizePublicCopy(content) {
+  return content
+    .replaceAll(
+      'and the nearby routes are named explicitly here.',
+      'and the nearby areas we commonly cover.',
+    )
+    .replaceAll(
+      'should stay visible in the page copy and schema.',
+      'are nearby areas we commonly cover.',
+    )
+    .replaceAll(
+      'belong in the content and schema.',
+      'are nearby areas we commonly cover.',
+    )
+    .replaceAll(
+      'are the route names that help the page match the way people actually search.',
+      'are nearby areas people often mention when planning the move.',
+    );
+}
+
+function renderRelatedLinksSection(page) {
+  const profile = getRelatedLinksProfile(page);
+  if (!profile) {
+    return '';
+  }
+
+  const sectionId = `${page.output.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}-related-links`;
+  const cards = profile.links
+    .map(
+      ({ eyebrow, title, copy, url, cta }) => `<article class="route-card">
+<small>${escapeHtml(eyebrow)}</small>
+<h3>${escapeHtml(title)}</h3>
+<p>${escapeHtml(copy)}</p>
+<a class="button-link" href="${escapeAttribute(url)}">${escapeHtml(cta)}</a>
+</article>`,
+    )
+    .join('\n');
+
+  return `
+<section aria-labelledby="${sectionId}" class="section section-soft">
+<div class="container">
+<div class="section-heading">
+<span class="eyebrow">${escapeHtml(profile.eyebrow)}</span>
+<h2 id="${sectionId}">${escapeHtml(profile.heading)}</h2>
+<p>${escapeHtml(profile.intro)}</p>
+</div>
+<div class="route-grid">
+${cards}
+</div>
+</div>
+</section>`;
+}
+
+function getRelatedLinksProfile(page) {
+  const output = page.output;
+
+  if (output === 'index.html' || output === 'contact-us/index.html' || output === '404.html') {
+    return null;
+  }
+
+  if (output === 'removalists-adelaide/index.html') {
+    return {
+      eyebrow: 'Related services',
+      heading: 'Choose the service that matches the move.',
+      intro:
+        'If the brief includes packing, delicate furniture, office equipment, or a longer route, start with the matching service page.',
+      links: [
+        {
+          eyebrow: 'Packing',
+          title: 'Packing services Adelaide',
+          copy: 'Add packing help for fragile items, kitchens, wardrobes, or full-home preparation.',
+          url: '/packing-services-adelaide/',
+          cta: 'View packing services',
+        },
+        {
+          eyebrow: 'Furniture',
+          title: 'Furniture removals',
+          copy: 'For bulky, delicate, or hard-to-move pieces that need extra care and access planning.',
+          url: '/furniture-removalists-adelaide/',
+          cta: 'View furniture removals',
+        },
+        {
+          eyebrow: 'Office',
+          title: 'Office relocations',
+          copy: 'For desks, equipment, files, and workspaces that need a commercial move plan.',
+          url: '/office-removals-adelaide/',
+          cta: 'View office removals',
+        },
+        {
+          eyebrow: 'Quote',
+          title: 'Request a fixed-price quote',
+          copy: 'Send the addresses, property type, and access notes for a clear Adelaide move quote.',
+          url: '/contact-us/#quote-form',
+          cta: 'Request a quote',
+        },
+      ],
+    };
+  }
+
+  if (
+    output === 'interstate-removals-adelaide/index.html' ||
+    output === 'adelaide-to-melbourne-removals/index.html' ||
+    output === 'adelaide-to-sydney-removals/index.html'
+  ) {
+    const routeLinks =
+      output === 'interstate-removals-adelaide/index.html'
+        ? [
+            {
+              eyebrow: 'Route page',
+              title: 'Adelaide to Melbourne removals',
+              copy: 'See the Melbourne route page for destination-specific planning and quote context.',
+              url: '/adelaide-to-melbourne-removals/',
+              cta: 'View Adelaide to Melbourne',
+            },
+            {
+              eyebrow: 'Route page',
+              title: 'Adelaide to Sydney removals',
+              copy: 'See the Sydney route page for longer-haul timing, access, and packing considerations.',
+              url: '/adelaide-to-sydney-removals/',
+              cta: 'View Adelaide to Sydney',
+            },
+            {
+              eyebrow: 'Packing',
+              title: 'Packing services Adelaide',
+              copy: 'Add packing support for fragile items, longer travel, or tighter delivery windows.',
+              url: '/packing-services-adelaide/',
+              cta: 'View packing services',
+            },
+            {
+              eyebrow: 'Quote',
+              title: 'Request a fixed-price quote',
+              copy: 'Send both addresses, access details, and any packing needs for a route-specific quote.',
+              url: '/contact-us/#quote-form',
+              cta: 'Request a quote',
+            },
+          ]
+        : [
+            {
+              eyebrow: 'Interstate hub',
+              title: 'Interstate removals Adelaide',
+              copy: 'See the Adelaide interstate service page for route planning and broader destination coverage.',
+              url: '/interstate-removals-adelaide/',
+              cta: 'Open interstate removals',
+            },
+            {
+              eyebrow: 'Packing',
+              title: 'Packing services Adelaide',
+              copy: 'Add packing support for fragile items, longer travel, or tighter delivery windows.',
+              url: '/packing-services-adelaide/',
+              cta: 'View packing services',
+            },
+            {
+              eyebrow: 'Local pickup',
+              title: 'Adelaide local removals',
+              copy: 'If the move starts with a local Adelaide leg, review the local removals hub as well.',
+              url: '/removalists-adelaide/',
+              cta: 'View local removals',
+            },
+            {
+              eyebrow: 'Quote',
+              title: 'Request a fixed-price quote',
+              copy: 'Send both addresses, access details, and any packing needs for a route-specific quote.',
+              url: '/contact-us/#quote-form',
+              cta: 'Request a quote',
+            },
+          ];
+
+    return {
+      eyebrow: 'Related services',
+      heading: 'Useful links while planning an interstate move.',
+      intro:
+        'Use the interstate hub for route planning, add packing support when needed, or request a fixed-price quote once the addresses are ready.',
+      links: routeLinks,
+    };
+  }
+
+  if (
+    output === 'office-removals-adelaide/index.html' ||
+    output === 'furniture-removalists-adelaide/index.html' ||
+    output === 'packing-services-adelaide/index.html'
+  ) {
+    const serviceLinks =
+      output === 'office-removals-adelaide/index.html'
+        ? [
+            {
+              eyebrow: 'Local removals',
+              title: 'Adelaide local removals',
+              copy: 'Use the local hub for suburb-to-suburb moves, apartments, and family homes across Adelaide.',
+              url: '/removalists-adelaide/',
+              cta: 'View local removals',
+            },
+            {
+              eyebrow: 'Packing',
+              title: 'Packing services Adelaide',
+              copy: 'Add packing help for files, workstations, fragile items, and move-day preparation.',
+              url: '/packing-services-adelaide/',
+              cta: 'View packing services',
+            },
+            {
+              eyebrow: 'Interstate',
+              title: 'Interstate removals Adelaide',
+              copy: 'Use the interstate hub if the office move includes another city or a staged interstate route.',
+              url: '/interstate-removals-adelaide/',
+              cta: 'View interstate removals',
+            },
+            {
+              eyebrow: 'Quote',
+              title: 'Request a fixed-price quote',
+              copy: 'Send the move details once and get a quote that matches the actual job.',
+              url: '/contact-us/#quote-form',
+              cta: 'Request a quote',
+            },
+          ]
+        : output === 'furniture-removalists-adelaide/index.html'
+          ? [
+              {
+                eyebrow: 'Packing',
+                title: 'Packing services Adelaide',
+                copy: 'Add wrapping and packing help for fragile items, artwork, kitchens, or full-home preparation.',
+                url: '/packing-services-adelaide/',
+                cta: 'View packing services',
+              },
+              {
+                eyebrow: 'Local removals',
+                title: 'Adelaide local removals',
+                copy: 'Use the local hub for suburb-to-suburb moves, apartments, and family homes across Adelaide.',
+                url: '/removalists-adelaide/',
+                cta: 'View local removals',
+              },
+              {
+                eyebrow: 'Interstate',
+                title: 'Interstate removals Adelaide',
+                copy: 'Use the interstate hub if the furniture is travelling beyond Adelaide.',
+                url: '/interstate-removals-adelaide/',
+                cta: 'View interstate removals',
+              },
+              {
+                eyebrow: 'Quote',
+                title: 'Request a fixed-price quote',
+                copy: 'Send the move details once and get a quote that matches the actual job.',
+                url: '/contact-us/#quote-form',
+                cta: 'Request a quote',
+              },
+            ]
+          : [
+              {
+                eyebrow: 'Local removals',
+                title: 'Adelaide local removals',
+                copy: 'Use the local hub for suburb-to-suburb moves, apartments, and family homes across Adelaide.',
+                url: '/removalists-adelaide/',
+                cta: 'View local removals',
+              },
+              {
+                eyebrow: 'Interstate',
+                title: 'Interstate removals Adelaide',
+                copy: 'Use the interstate hub if the move is leaving Adelaide or needs a longer delivery plan.',
+                url: '/interstate-removals-adelaide/',
+                cta: 'View interstate removals',
+              },
+              {
+                eyebrow: 'Furniture',
+                title: 'Furniture removals',
+                copy: 'See the furniture service page for bulky, delicate, and hard-to-move pieces.',
+                url: '/furniture-removalists-adelaide/',
+                cta: 'View furniture removals',
+              },
+              {
+                eyebrow: 'Quote',
+                title: 'Request a fixed-price quote',
+                copy: 'Send the move details once and get a quote that matches the actual job.',
+                url: '/contact-us/#quote-form',
+                cta: 'Request a quote',
+              },
+            ];
+
+    return {
+      eyebrow: 'Related services',
+      heading: 'Plan the move around the right support.',
+      intro:
+        'Combine the main service with local removals, interstate planning, or packing support depending on what the job needs.',
+      links: serviceLinks,
+    };
+  }
+
+  if (output.startsWith('removalists-')) {
+    return {
+      eyebrow: 'Plan the full move',
+      heading: 'Useful links for the rest of the move.',
+      intro:
+        'Use the Adelaide local removals page for broader suburb coverage, add support for delicate items or packing, or request a fixed-price quote when the brief is ready.',
+      links: [
+        {
+          eyebrow: 'Local hub',
+          title: 'Adelaide local removals',
+          copy: 'See the main Adelaide removals page for suburb coverage, local move details, and more Adelaide locations.',
+          url: '/removalists-adelaide/',
+          cta: 'Open local removals',
+        },
+        {
+          eyebrow: 'Furniture',
+          title: 'Furniture removals',
+          copy: 'For bulky, delicate, or hard-to-move pieces that need extra care and access planning.',
+          url: '/furniture-removalists-adelaide/',
+          cta: 'View furniture removals',
+        },
+        {
+          eyebrow: 'Packing',
+          title: 'Packing services Adelaide',
+          copy: 'Add packing support for fragile items, kitchens, wardrobes, or full-home preparation.',
+          url: '/packing-services-adelaide/',
+          cta: 'View packing services',
+        },
+        {
+          eyebrow: 'Quote',
+          title: 'Request a fixed-price quote',
+          copy: 'Send the addresses, property type, and access notes for a clear quote.',
+          url: '/contact-us/#quote-form',
+          cta: 'Request a quote',
+        },
+      ],
+    };
+  }
+
+  if (output === 'adelaide-moving-guides/index.html' || output.startsWith('adelaide-moving-guides/')) {
+    return {
+      eyebrow: 'Turn planning into a quote',
+      heading: 'Ready to book the move?',
+      intro:
+        'Use the service page that matches the move, then send the details for a fixed-price quote once the brief is clear.',
+      links: [
+        {
+          eyebrow: 'Local removals',
+          title: 'Adelaide local removals',
+          copy: 'For suburb-to-suburb moves, apartments, family homes, and Adelaide local relocations.',
+          url: '/removalists-adelaide/',
+          cta: 'View local removals',
+        },
+        {
+          eyebrow: 'Interstate',
+          title: 'Interstate removals Adelaide',
+          copy: 'For routes leaving Adelaide, including Melbourne, Sydney, and other interstate destinations.',
+          url: '/interstate-removals-adelaide/',
+          cta: 'View interstate removals',
+        },
+        {
+          eyebrow: 'Office',
+          title: 'Office removals Adelaide',
+          copy: 'For offices, clinics, studios, and workspaces that need access and restart planning.',
+          url: '/office-removals-adelaide/',
+          cta: 'View office removals',
+        },
+        {
+          eyebrow: 'Quote',
+          title: 'Request a fixed-price quote',
+          copy: 'Send the addresses, property type, and access notes when you are ready for pricing.',
+          url: '/contact-us/#quote-form',
+          cta: 'Request a quote',
+        },
+      ],
+    };
+  }
+
+  return null;
 }
 
 function renderFaqSection(page, content) {
