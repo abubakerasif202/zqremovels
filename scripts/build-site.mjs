@@ -1,5 +1,6 @@
 import { copyFile, cp, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { transform } from 'lightningcss';
 
 const workspaceRoot = process.cwd();
 
@@ -1831,6 +1832,8 @@ function buildBusinessJsonLd(page) {
       logo: defaultLogoImage,
       hasMap: googleBusinessProfileUrl,
       sameAs: [googleBusinessProfileUrl],
+      openingHours: 'Mo-Su 00:00-23:59',
+      priceRange: '$150/hr',
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Andrews Farm',
@@ -2122,6 +2125,8 @@ function normalizeMovingCompanyNode(node) {
     logo: defaultLogoImage,
     hasMap: googleBusinessProfileUrl,
     sameAs: Array.from(new Set([googleBusinessProfileUrl, ...sameAs].filter(Boolean))),
+    openingHours: 'Mo-Su 00:00-23:59',
+    priceRange: '$150/hr',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Andrews Farm',
@@ -2154,26 +2159,49 @@ function usesDefaultSocialImage(value = '') {
 }
 
 function minifyCss(css) {
-  return css
-    .replace(/\/\*[\s\S]*?\*\//g, '')
-    .replace(/\s+/g, ' ')
-    .replace(/\s*([{}:;,>])\s*/g, '$1')
-    .replace(/;}/g, '}')
-    .trim();
+  try {
+    const { code } = transform({
+      filename: 'premium-site.css',
+      code: Buffer.from(css),
+      minify: true,
+      sourceMap: false,
+    });
+    return code.toString('utf8');
+  } catch (error) {
+    console.error('lightningcss error:', error);
+    return css
+      .replace(/\/\*[\s\S]*?\*\//g, '')
+      .replace(/\s+/g, ' ')
+      .replace(/\s*([{}:;,>])\s*/g, '$1')
+      .replace(/;}/g, '}')
+      .trim();
+  }
 }
 
 function extractFaqPairs(content) {
-  const itemPattern =
+  const strictPattern =
     /<article class="faq-item"[\s\S]*?<h3 class="faq-question"[^>]*>([\s\S]*?)<\/h3>[\s\S]*?<p[^>]*itemprop="text"[^>]*>([\s\S]*?)<\/p>[\s\S]*?<\/article>/gi;
-  const pairs = [];
+  const loosePattern = /<article>\s*<h3>([\s\S]*?)<\/h3>\s*<p>([\s\S]*?)<\/p>\s*<\/article>/gi;
 
-  for (const match of content.matchAll(itemPattern)) {
+  const pairs = [];
+  const addedQuestions = new Set();
+
+  const processMatch = (match) => {
     const question = cleanHtmlText(match[1]);
     const answer = cleanHtmlText(match[2]);
 
-    if (question && answer) {
+    if (question && answer && !addedQuestions.has(question)) {
       pairs.push({ question, answer });
+      addedQuestions.add(question);
     }
+  };
+
+  for (const match of content.matchAll(strictPattern)) {
+    processMatch(match);
+  }
+
+  for (const match of content.matchAll(loosePattern)) {
+    processMatch(match);
   }
 
   return pairs;
