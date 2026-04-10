@@ -325,12 +325,14 @@ function setupWeb3Forms() {
 
           if (!response.ok) {
             throw new Error(
-              result.message || `Submission failed with status ${response.status}`,
+              result.details ||
+                result.message ||
+                `Submission failed with status ${response.status}`,
             );
           }
 
           if (result.success === false) {
-            throw new Error(result.message || "Submission failed");
+            throw new Error(result.details || result.message || "Submission failed");
           }
 
           if (!responseJsonParsed) {

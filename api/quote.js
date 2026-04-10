@@ -57,9 +57,15 @@ module.exports = async function handler(req, res) {
     }
 
     const accessKey =
-      process.env.VITE_WEB3FORMS_ACCESS_KEY || DEFAULT_WEB3FORMS_ACCESS_KEY;
+      process.env.WEB3FORMS_ACCESS_KEY?.trim() ||
+      process.env.VITE_WEB3FORMS_ACCESS_KEY?.trim() ||
+      DEFAULT_WEB3FORMS_ACCESS_KEY;
     if (!accessKey) {
-      return sendJson(res, 500, { success: false, message: "Quote service unavailable" });
+      return sendJson(res, 500, {
+        success: false,
+        message: "Quote service unavailable",
+        details: "Missing Web3Forms access key environment variable.",
+      });
     }
 
     let web3Response;
@@ -114,7 +120,10 @@ module.exports = async function handler(req, res) {
       return sendJson(res, 502, {
         success: false,
         message: "Quote submission failed",
-        details: web3Result.message || "Upstream error",
+        details:
+          web3Result.message ||
+          web3Result.error ||
+          `Upstream error (${web3Response.status})`,
       });
     }
 

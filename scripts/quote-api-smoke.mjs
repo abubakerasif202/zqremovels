@@ -1,0 +1,148 @@
+import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const handler = require('../api/quote.js');
+
+function createResponse() {
+  return {
+    statusCode: 200,
+    headers: {},
+    body: '',
+    status(code) {
+      this.statusCode = code;
+      return this;
+    },
+    setHeader(name, value) {
+      this.headers[name.toLowerCase()] = value;
+      return this;
+    },
+    end(payload) {
+      this.body = payload;
+      return this;
+    },
+  };
+}
+
+function createRequest(payload) {
+  return {
+    method: 'POST',
+    async *[Symbol.asyncIterator]() {
+      yield JSON.stringify(payload);
+    },
+  };
+}
+
+const validPayload = {
+  botcheck: '',
+  pickup_suburb: 'Adelaide',
+  delivery_suburb: 'Glenelg',
+  move_type: 'local',
+  property_type: 'house',
+  preferred_move_date: '2026-04-15',
+  access_notes: 'Ground floor access with driveway parking.',
+  inventory_special_items: 'Two sofas and a fridge.',
+  full_name: 'Test User',
+  phone: '+61 400 000 000',
+  email: 'test@example.com',
+  source_page: 'https://www.zqremovals.au/contact-us/',
+};
+
+async function runMissingKeySmoke() {
+  const originalFetch = global.fetch;
+  const originalKey = process.env.WEB3FORMS_ACCESS_KEY;
+  const originalLegacyKey = process.env.VITE_WEB3FORMS_ACCESS_KEY;
+  delete process.env.WEB3FORMS_ACCESS_KEY;
+  delete process.env.VITE_WEB3FORMS_ACCESS_KEY;
+  global.fetch = async () => {
+    throw new Error('fetch should not be called without an access key');
+  };
+
+  try {
+    const res = createResponse();
+    await handler(createRequest(validPayload), res);
+
+    assert.equal(res.statusCode, 500);
+    assert.equal(res.headers['content-type'], 'application/json');
+
+    const body = JSON.parse(res.body);
+    assert.equal(body.success, false);
+    assert.equal(body.message, 'Quote service unavailable');
+    assert.match(body.details, /Missing Web3Forms access key/);
+  } finally {
+    if (originalFetch === undefined) {
+      delete global.fetch;
+    } else {
+      global.fetch = originalFetch;
+    }
+
+    if (originalKey === undefined) {
+      delete process.env.WEB3FORMS_ACCESS_KEY;
+    } else {
+      process.env.WEB3FORMS_ACCESS_KEY = originalKey;
+    }
+
+    if (originalLegacyKey === undefined) {
+      delete process.env.VITE_WEB3FORMS_ACCESS_KEY;
+    } else {
+      process.env.VITE_WEB3FORMS_ACCESS_KEY = originalLegacyKey;
+    }
+  }
+}
+
+async function runLegacyKeySmoke() {
+  const originalFetch = global.fetch;
+  const originalKey = process.env.WEB3FORMS_ACCESS_KEY;
+  const originalLegacyKey = process.env.VITE_WEB3FORMS_ACCESS_KEY;
+  delete process.env.WEB3FORMS_ACCESS_KEY;
+  process.env.VITE_WEB3FORMS_ACCESS_KEY = 'legacy-test-key';
+
+  let upstreamBody = null;
+  global.fetch = async (_url, options) => {
+    upstreamBody = JSON.parse(options.body);
+    return {
+      ok: true,
+      status: 200,
+      json: async () => ({ success: true }),
+    };
+  };
+
+  try {
+    const res = createResponse();
+    await handler(createRequest(validPayload), res);
+
+    assert.equal(res.statusCode, 200);
+    assert.equal(res.headers['content-type'], 'application/json');
+    assert.deepEqual(JSON.parse(res.body), {
+      success: true,
+      message: 'Quote submitted',
+    });
+    assert.equal(upstreamBody.access_key, 'legacy-test-key');
+    assert.equal(upstreamBody.subject, 'Homepage quote request - ZQ Removals');
+    assert.equal(upstreamBody.botcheck, '');
+    assert.equal(upstreamBody.source_page, validPayload.source_page);
+  } finally {
+    if (originalFetch === undefined) {
+      delete global.fetch;
+    } else {
+      global.fetch = originalFetch;
+    }
+
+    if (originalKey === undefined) {
+      delete process.env.WEB3FORMS_ACCESS_KEY;
+    } else {
+      process.env.WEB3FORMS_ACCESS_KEY = originalKey;
+    }
+
+    if (originalLegacyKey === undefined) {
+      delete process.env.VITE_WEB3FORMS_ACCESS_KEY;
+    } else {
+      process.env.VITE_WEB3FORMS_ACCESS_KEY = originalLegacyKey;
+    }
+  }
+}
+
+await runMissingKeySmoke();
+await runLegacyKeySmoke();
+
+console.log('quote API smoke checks passed');

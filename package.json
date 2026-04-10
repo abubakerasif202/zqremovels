@@ -5,7 +5,8 @@
   "description": "Static deployment manifest for Vercel root build.",
   "scripts": {
     "build": "node scripts/build-site.mjs",
-    "test": "node --test --experimental-test-isolation=none tests/*.test.mjs",
+    "test": "node scripts/quote-api-smoke.mjs && node --test --experimental-test-isolation=none tests/*.test.mjs",
+    "test:quote-api": "node scripts/quote-api-smoke.mjs",
     "lhci": "npm run build && node scripts/run-lhci.mjs"
   }
 }

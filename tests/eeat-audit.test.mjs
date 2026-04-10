@@ -50,7 +50,7 @@ test('homepage schema does not publish an unsupported aggregate rating', () => {
   assert.doesNotMatch(homepage, /AggregateRating|aggregateRating|reviewCount|ratingValue/);
 });
 
-test('homepage and contact page avoid Gemini-labelled imagery and expose an alt-labelled logo', () => {
+test('homepage and contact page avoid Gemini-labelled imagery and expose the current logo markup', () => {
   const homepage = readDist('index.html');
   const contactPage = readDist(path.join('contact-us', 'index.html'));
 
@@ -58,7 +58,7 @@ test('homepage and contact page avoid Gemini-labelled imagery and expose an alt-
   assert.doesNotMatch(contactPage, /Gemini_Generated_Image/i);
   assert.match(
     homepage,
-    /<img[^>]+src="\/brand-logo\.webp"[^>]+alt="[^"]+\S[^"]*"/i,
+    /<img[^>]+src="\/brand-logo-96\.webp"[^>]+alt="ZQ Removals logo"/i,
   );
 });
 
@@ -79,13 +79,13 @@ test('build injects env-driven analytics tags and uses the social share image fa
   assert.match(aboutPage, /"image": "https:\/\/zqremovals\.au\/zq-removals-social-share\.webp"/);
 });
 
-test('homepage hero serves a WebP source with PNG fallback', () => {
+test('homepage hero serves the current WebP asset and dimensions', () => {
   const homepage = readDist('index.html');
 
-  assert.match(homepage, /<picture>[\s\S]*?<source[^>]+srcset="\/media\/zq-local-premium\.webp"[^>]+type="image\/webp"/i);
-  assert.match(homepage, /<img[^>]+src="\/media\/home-local-hero-branded\.png"/i);
-  assert.match(homepage, /<img[^>]+width="1452"/i);
-  assert.match(homepage, /<img[^>]+height="768"/i);
+  assert.match(homepage, /<picture>[\s\S]*?<source[^>]+srcset="\/media\/home-local-hero-branded\.webp"[^>]+type="image\/webp"/i);
+  assert.match(homepage, /<img[^>]+src="\/media\/home-local-hero-branded\.webp"/i);
+  assert.match(homepage, /<img[^>]+width="768"/i);
+  assert.match(homepage, /<img[^>]+height="406"/i);
 });
 
 test('minified stylesheet output is smaller than the source stylesheet', () => {
