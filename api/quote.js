@@ -55,9 +55,7 @@ module.exports = async function handler(req, res) {
       return sendJson(res, 400, { success: false, message: "Invalid email" });
     }
 
-    const accessKey =
-      process.env.VITE_WEB3FORMS_ACCESS_KEY ||
-      "80c3ff0c-7ae6-4aa7-bb66-567612739824";
+    const accessKey = process.env.VITE_WEB3FORMS_ACCESS_KEY;
     if (!accessKey) {
       return sendJson(res, 500, { success: false, message: "Quote service unavailable" });
     }
