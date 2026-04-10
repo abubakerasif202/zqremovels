@@ -11,6 +11,7 @@ const REQUIRED_FIELDS = [
 ];
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const DEFAULT_WEB3FORMS_ACCESS_KEY = "80c3ff0c-7ae6-4aa7-bb66-567612739824";
 
 function sendJson(res, status, payload) {
   res.status(status).setHeader("Content-Type", "application/json");
@@ -55,7 +56,8 @@ module.exports = async function handler(req, res) {
       return sendJson(res, 400, { success: false, message: "Invalid email" });
     }
 
-    const accessKey = process.env.VITE_WEB3FORMS_ACCESS_KEY;
+    const accessKey =
+      process.env.VITE_WEB3FORMS_ACCESS_KEY || DEFAULT_WEB3FORMS_ACCESS_KEY;
     if (!accessKey) {
       return sendJson(res, 500, { success: false, message: "Quote service unavailable" });
     }
