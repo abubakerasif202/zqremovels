@@ -164,8 +164,33 @@ const suburbPageProfiles = {
   salisbury: {
     suburb: 'Salisbury',
     nearby: 'Salisbury Highway, Commercial Road, Park Terrace, John Street, and Saints Road',
+    eyebrow: 'Removalists Salisbury SA',
+    h1: 'Salisbury removalists for family homes, storage transfers, and northern Adelaide moves.',
     hero:
       'Salisbury moves often combine family homes, units, and storage-linked jobs where route timing and load sequencing make the biggest difference.',
+    highlights: [
+      'Family homes, units, and storage-linked moves',
+      'Garage items and mixed loads scoped before quoting',
+      'Fixed-price quotes that reflect access and inventory',
+    ],
+    startHere: {
+      eyebrow: 'When to use this page',
+      heading: 'When Salisbury is the right starting point for your quote',
+      intro:
+        'Use this page when Salisbury is one end of the move and the brief includes storage, garage items, or any access detail that could change labour time.',
+      points: [
+        'Pickup or delivery is in Salisbury or the nearby northern corridor',
+        'You have storage cages, garages, or mixed household and stock inventory',
+        'Parking, carry distance, stairs, or timing windows need to be accounted for early',
+      ],
+    },
+    nearbyLinks: [
+      { href: '/removalists-northern-adelaide/', label: 'Northern Adelaide movers and planning notes' },
+      { href: '/removalists-elizabeth/', label: 'Elizabeth removalists' },
+      { href: '/removalists-mawson-lakes/', label: 'Mawson Lakes removalists' },
+      { href: '/removalists-andrews-farm/', label: 'Andrews Farm removalists' },
+      { href: '/removalists-adelaide/', label: 'All Adelaide suburb coverage' },
+    ],
     intro: [
       'People looking for removalists in Salisbury usually want a straightforward move with no surprises. In practice, northern suburb routes can still become complex when access, storage transfers, or mixed inventory are not scoped early. We review the full brief before pricing so the plan matches the actual load and destination conditions.',
       'From properties near Commercial Road to surrounding streets feeding into Salisbury Highway, parking setup and carry distance can shift labour time even on short routes. Our process is to confirm property access, list key items, and stage by priority so unloading runs smoothly at the new address.',
@@ -198,6 +223,323 @@ const suburbPageProfiles = {
     ],
     services:
       'Before booking, explore our Adelaide local removals, packing assistance, office relocations, furniture moving service, and interstate removals support.',
+  },
+  gawler: {
+    suburb: 'Gawler',
+    nearby: 'Murray Street, Adelaide Road, Main North Road, and the surrounding northern townships',
+    eyebrow: 'Removalists Gawler SA',
+    h1: 'Gawler removalists for house moves, units, and organised northside relocations.',
+    hero:
+      'Gawler moves often mix family homes, newer estates, and garage-heavy loads where driveway access, stairs, and longer northern timing all affect the plan.',
+    highlights: [
+      'House removals in Gawler scoped around access and inventory',
+      'Bulky items like sofas and beds handled with clearer staging',
+      'Fixed-price quotes built from a real move brief',
+    ],
+    startHere: {
+      eyebrow: 'When to use this page',
+      heading: 'When Gawler move planning needs more detail',
+      intro:
+        'Use this page when your move is based in Gawler and you want the quote to reflect stairs, driveway access, garage loads, and any business or storage component.',
+      points: [
+        'Pickup or delivery is in Gawler or the surrounding northern corridor',
+        'Your move includes bulky furniture, whitegoods, or garage inventory',
+        'You want packing or a staged plan included before move day',
+      ],
+    },
+    nearbyLinks: [
+      { href: '/removalists-blakeview/', label: 'Blakeview removalists' },
+      { href: '/removalists-northern-adelaide/', label: 'Northern Adelaide movers and planning notes' },
+      { href: '/removalists-andrews-farm/', label: 'Andrews Farm removalists' },
+      { href: '/removalists-salisbury/', label: 'Salisbury removalists' },
+      { href: '/removalists-adelaide/', label: 'All Adelaide suburb coverage' },
+    ],
+    intro: [
+      'When people search for removalists in Gawler, they are usually balancing two needs: a smooth local move and a quote that does not ignore the real labour involved. Northern township moves can still run long when access is tight, the inventory is fuller, or fragile furniture needs a stronger protection standard. We review the brief properly before confirming the quote so the plan matches the property and the load.',
+      'Gawler also has a wide mix of property types, from tighter townhouse layouts to larger family homes with sheds, outdoor settings, and heavier garage items. The most reliable moves here are the ones where access notes, carry distance, and any awkward pieces like sofas, beds, or heavier whitegoods are surfaced early, not discovered on the day.',
+    ],
+    conditions: [
+      'Allowing for double-storey stairs, narrow hallways, and tighter turning space in townhouse layouts',
+      'Planning parking position and carry distance where street access is busy or constrained',
+      'Sequencing garage items, outdoor furniture, and heavier pieces so the load stays stable and protected',
+    ],
+    scenarios: [
+      {
+        title: 'House moves with garage loads',
+        copy:
+          'Gawler house moves often include sheds, garages, and outdoor pieces alongside the main household furniture. We structure the load so heavy items and delicate pieces are handled once and staged safely.',
+      },
+      {
+        title: 'Townhouse and estate relocations',
+        copy:
+          'Newer estate moves can involve narrow streets, multi-car driveways, and tighter internal access. We plan the entry path and placement order so unloads stay efficient and predictable.',
+      },
+      {
+        title: 'Small office and stock transfers',
+        copy:
+          'Some moves include desks, archives, shelving, or lighter business stock. When that is part of the brief, we separate those items in the plan so the reset is faster at the destination.',
+      },
+    ],
+    trust: [
+      'ZQ Removals supports Gawler clients who want careful handling and clear communication without the templated quote approach. We scope access and inventory early so the move day is less chaotic.',
+      'If the route expands beyond Adelaide or needs packing support, the same quoting process can cover local, office, furniture, packing, and interstate requirements in one brief.',
+    ],
+    services:
+      'Review our Adelaide removals hub, packing services, office relocations, furniture movers, and interstate removals coverage to match your move type before requesting a fixed-price quote.',
+  },
+  'elizabeth-vale': {
+    suburb: 'Elizabeth Vale',
+    nearby: 'the northern corridors around Main North Road and the Elizabeth / Salisbury region',
+    eyebrow: 'Removalists Elizabeth Vale',
+    h1: 'Elizabeth Vale removalists for units, townhouses, and northside house moves.',
+    hero:
+      'Elizabeth Vale moves are often shaped by unit access, shared driveways, and mixed household inventory where a clear brief keeps the day running smoothly.',
+    highlights: [
+      'Unit and townhouse access reviewed before quoting',
+      'Packing and moving services available when timelines are tight',
+      'Fixed-price quotes built around real access and inventory',
+    ],
+    startHere: {
+      eyebrow: 'When to use this page',
+      heading: 'When Elizabeth Vale is the right place to start',
+      intro:
+        'Use this page if Elizabeth Vale is part of the route and access details like shared entries, stairs, or parking will influence timing and handling.',
+      points: [
+        'You are moving to or from Elizabeth Vale (unit, townhouse, or home)',
+        'You have heavier or fragile items that should be quoted properly',
+        'You want packing support included in the same plan and quote',
+      ],
+    },
+    nearbyLinks: [
+      { href: '/removalists-elizabeth/', label: 'Elizabeth removalists' },
+      { href: '/removalists-andrews-farm/', label: 'Andrews Farm removalists' },
+      { href: '/removalists-salisbury/', label: 'Salisbury removalists' },
+      { href: '/removalists-northern-adelaide/', label: 'Northern Adelaide movers and planning notes' },
+      { href: '/removalists-adelaide/', label: 'All Adelaide suburb coverage' },
+    ],
+    intro: [
+      'People booking removalists in Elizabeth Vale usually want the job handled efficiently without losing care around heavier or fragile furniture. The main differences here tend to be access: units, shared entries, tighter parking, and longer carries that can add labour time quickly if they are not scoped early. We build the plan around those details before the quote is confirmed.',
+      'Elizabeth Vale also sits inside a broader northside moving corridor, so some briefs involve storage transfers, family home moves, or a route that links into Salisbury, Andrews Farm, and neighbouring suburbs. When the suburb is known, we recommend capturing the access notes and the item profile up front so the proposal stays realistic and the move day stays organised.',
+    ],
+    conditions: [
+      'Reviewing unit and townhouse access, including shared entries, stairs, and parking position',
+      'Flagging heavier or awkward items early so handling and load order stay controlled',
+      'Allowing for northside timing where the route includes storage stops or multiple addresses',
+    ],
+    scenarios: [
+      {
+        title: 'Unit and townhouse relocations',
+        copy:
+          'Elizabeth Vale units and townhouses can be access-sensitive when stairs or longer carries are involved. We confirm the path out and stage the load so bulky furniture and fragile items are protected properly.',
+      },
+      {
+        title: 'Family homes with fuller inventories',
+        copy:
+          'Some Elizabeth Vale moves include larger households, garage items, or outdoor settings. We map the inventory and room priorities early so the unload sequence is easier at the new address.',
+      },
+      {
+        title: 'Packing and moving support',
+        copy:
+          'If you want packing and moving services combined, we can scope the packing brief with the move so fragile rooms and delicate pieces are prepared before the truck arrives.',
+      },
+    ],
+    trust: [
+      'ZQ Removals works across Adelaide’s north with a planning-first approach, so clients get a quote that reflects the real access and inventory conditions instead of a guess.',
+      'If the move changes into an office relocation or an interstate departure, the same quoting process can carry the full brief through without starting from scratch.',
+    ],
+    services:
+      'Compare local Adelaide removals, packing services, furniture moving support, office relocations, and interstate removals so the quote matches the move type from the start.',
+  },
+  'elizabeth-downs': {
+    suburb: 'Elizabeth Downs',
+    nearby: 'the local streets feeding into Elizabeth, Main North Road, and the broader northern suburbs',
+    eyebrow: 'Removalists Elizabeth Downs',
+    h1: 'Elizabeth Downs removalists for family homes, garage loads, and northside moves.',
+    hero:
+      'Elizabeth Downs moves often involve full household loads and garage items where driveway access, parking position, and handling order make a noticeable difference.',
+    highlights: [
+      'Family-home moves with fuller inventories and garage items',
+      'Short-notice move briefs assessed with clearer access notes',
+      'Fixed-price quotes built around the real load and route',
+    ],
+    startHere: {
+      eyebrow: 'When to use this page',
+      heading: 'When Elizabeth Downs moves need a tighter brief',
+      intro:
+        'Use this page when Elizabeth Downs is part of the route and you want a quote that accounts for heavier items, garage inventory, stairs, or access constraints.',
+      points: [
+        'You are moving within Adelaide’s northside corridor',
+        'The inventory includes heavier furniture, whitegoods, or outdoor items',
+        'You want the quote to reflect parking, carry distance, and timing windows',
+      ],
+    },
+    nearbyLinks: [
+      { href: '/removalists-elizabeth/', label: 'Elizabeth removalists' },
+      { href: '/removalists-andrews-farm/', label: 'Andrews Farm removalists' },
+      { href: '/removalists-salisbury/', label: 'Salisbury removalists' },
+      { href: '/removalists-northern-adelaide/', label: 'Northern Adelaide movers and planning notes' },
+      { href: '/removalists-adelaide/', label: 'All Adelaide suburb coverage' },
+    ],
+    intro: [
+      'If you are searching for removalists in Elizabeth Downs, the move is usually straightforward when the access and inventory are captured early. Where these jobs get harder is when heavier pieces, garage stock, or tighter parking turns a simple route into a slow day. We review those variables before quoting so the plan stays realistic and the crew arrives with the right expectations.',
+      'Elizabeth Downs sits within Adelaide’s northside corridor, so some moves also connect to Andrews Farm, Salisbury, and other nearby areas where timing and access change street-by-street. The cleanest way to keep the move affordable is to tighten the brief early: list the larger items, note stairs or longer carries, and confirm any fragile handling needs before booking.',
+    ],
+    conditions: [
+      'Checking driveway width, street parking, and carry distance so loading time is not underestimated',
+      'Sequencing garage and outdoor items with household furniture to reduce double handling',
+      'Planning for stairs, tight corners, and heavier pieces that need slower handling and better protection',
+    ],
+    scenarios: [
+      {
+        title: 'Family homes and garage-heavy loads',
+        copy:
+          'Elizabeth Downs moves often include larger furniture profiles plus garage items and outdoor pieces. We plan the load so heavy items move safely and fragile pieces stay protected.',
+      },
+      {
+        title: 'Short-notice move windows',
+        copy:
+          'When timing is tight, a clear brief matters even more. We focus on access notes and priority items first so the plan stays usable and the delivery side is easier to manage.',
+      },
+      {
+        title: 'Storage or multi-stop days',
+        copy:
+          'If the route includes a storage stop or a second address, we map the sequence early so the load does not need to be reshuffled during the day.',
+      },
+    ],
+    trust: [
+      'ZQ Removals is chosen by northside clients who want careful handling with a quote that reflects real access and inventory, not a generic headline number.',
+      'We keep communication simple and practical so households and teams know what to expect before move day and during the handover.',
+    ],
+    services:
+      'Review the Adelaide local removals hub, packing services, furniture handling, office relocations, and interstate removals coverage before sending your quote request.',
+  },
+  blakeview: {
+    suburb: 'Blakeview',
+    nearby: 'Blakeview estates, nearby northside suburbs, and the Gawler corridor',
+    eyebrow: 'Removalists Blakeview SA',
+    h1: 'Blakeview removalists for estate moves, home shifting, and northside relocations.',
+    hero:
+      'Blakeview moves often involve newer estates, tighter street parking, and room-by-room setup priorities where the brief needs to be organised early.',
+    highlights: [
+      'Estate street access and driveway setup planned before quoting',
+      'Bulky furniture and fragile finishes handled with clearer staging',
+      'Fixed-price quotes for Blakeview moves based on the brief',
+    ],
+    startHere: {
+      eyebrow: 'When to use this page',
+      heading: 'When a Blakeview move needs more planning',
+      intro:
+        'Use this page when Blakeview is part of the route and access, stairs, or tight timelines mean the brief needs to be organised early.',
+      points: [
+        'The property is inside a newer estate with limited street parking',
+        'Stairs, narrow hallways, or awkward turning points affect bulky items',
+        'You want packing support included so fragile rooms are protected properly',
+      ],
+    },
+    nearbyLinks: [
+      { href: '/removalists-gawler/', label: 'Gawler removalists' },
+      { href: '/removalists-northern-adelaide/', label: 'Northern Adelaide movers and planning notes' },
+      { href: '/removalists-andrews-farm/', label: 'Andrews Farm removalists' },
+      { href: '/removalists-salisbury/', label: 'Salisbury removalists' },
+      { href: '/removalists-adelaide/', label: 'All Adelaide suburb coverage' },
+    ],
+    intro: [
+      'Blakeview is a suburb where the move can look simple on paper but still depend on practical access details: driveway position, narrow streets, multiple cars, and tight internal turns in modern layouts. We scope those details before quoting so the plan stays efficient and the day does not get slowed down by avoidable bottlenecks.',
+      'Customers also ask for help with home shifting services in Blakeview when the move needs to happen cleanly inside a narrow timing window. The best way to support that is to keep the brief specific: confirm access, list heavier items, and call out any rooms or pieces that should be delivered first at the new property.',
+    ],
+    conditions: [
+      'Planning parking and truck position in estates where street space is limited or shared',
+      'Allowing for double-storey stairs, tighter hallways, and awkward turning points for bulky furniture',
+      'Keeping room priorities clear so the unload order matches the way you will use the new home first',
+    ],
+    scenarios: [
+      {
+        title: 'Estate home moves with stairs',
+        copy:
+          'Blakeview moves often include double-storey stairs and larger furniture that needs controlled handling. We confirm access and stage the load to protect bulky items and fragile finishes.',
+      },
+      {
+        title: 'Business and home-linked relocations',
+        copy:
+          'Some briefs include a home move plus a small business relocation component, like shelving, archives, or work equipment. We isolate those items so they are easier to place and restart at destination.',
+      },
+      {
+        title: 'Packing and protection support',
+        copy:
+          'When fragile rooms or delicate furniture are part of the inventory, packing support can be scoped with the move so preparation is handled properly before move day.',
+      },
+    ],
+    trust: [
+      'ZQ Removals supports Blakeview clients who want a careful move plan with clear communication and disciplined handling from booking through handover.',
+      'If the move becomes office-related or interstate, the same quoting process can cover those requirements without losing detail or resetting the brief.',
+    ],
+    services:
+      'Use our Adelaide removals hub, packing services, office relocations, furniture movers, and interstate removals pages to match the quote request to the real move type.',
+  },
+  'northern-adelaide': {
+    suburb: 'Northern Adelaide',
+    nearby: 'Salisbury, Elizabeth, Andrews Farm, Mawson Lakes, Blakeview, and Gawler',
+    eyebrow: 'Adelaide North Removalists',
+    h1: 'Northern Adelaide removalists for estates, short-notice moves, and garage-heavy loads.',
+    hero:
+      'Northern Adelaide moves often involve family homes, estates, and unit access where driveway setup, stairs, and garage inventory change labour time quickly.',
+    highlights: [
+      'Northside moves scoped around access, stairs, and parking',
+      'Urgent timelines assessed with clear brief details',
+      'Packing, office, and furniture support available when needed',
+    ],
+    startHere: {
+      eyebrow: 'When to use this page',
+      heading: 'When Adelaide north move planning should start here',
+      intro:
+        'Use this page when your route touches multiple northern suburbs or you want a northside-focused quote that reflects access, inventory, and timing pressure.',
+      points: [
+        'Your move is within Adelaide’s northside corridor or crosses multiple northern suburbs',
+        'You need a plan that accounts for garage items, stairs, and mixed inventory',
+        'You may need packing support or an office component included in the same brief',
+      ],
+    },
+    nearbyLinks: [
+      { href: '/removalists-salisbury/', label: 'Salisbury removalists' },
+      { href: '/removalists-elizabeth/', label: 'Elizabeth removalists' },
+      { href: '/removalists-andrews-farm/', label: 'Andrews Farm removalists' },
+      { href: '/removalists-mawson-lakes/', label: 'Mawson Lakes removalists' },
+      { href: '/removalists-blakeview/', label: 'Blakeview removalists' },
+      { href: '/removalists-gawler/', label: 'Gawler removalists' },
+      { href: '/removalists-adelaide/', label: 'All Adelaide suburb coverage' },
+    ],
+    intro: [
+      'When people search for removalists in Adelaide north, they are usually looking for a team that can move quickly without turning the day into a rushed job. The safest way to do that is not to guess. It is to confirm access, capture the inventory profile, and stage the load so heavier and fragile items are handled properly from the first lift.',
+      'This northside page is a practical starting point when your route touches multiple northern suburbs or you are comparing areas like Salisbury, Elizabeth, and Gawler. If the suburb is known and has specific access constraints, the suburb pages are a better match. If the brief is still broad, use this page to frame the key details before requesting the fixed-price quote.',
+    ],
+    conditions: [
+      'Reviewing driveways, street parking, and carry distance across estate-style and family-home routes',
+      'Planning for stairs, unit access, and shared entries that can slow loading if not scoped early',
+      'Sequencing garage items, outdoor settings, and heavier furniture so the load stays stable and protected',
+    ],
+    scenarios: [
+      {
+        title: 'Family homes and estate relocations',
+        copy:
+          'Northside home moves often include fuller inventories and garage items. We organise the brief so the loading order and room priorities stay clear from start to finish.',
+      },
+      {
+        title: 'Short-notice local moves',
+        copy:
+          'If the move timeline is tight, send the key details early. Same-day availability depends on scheduling, but urgent briefs are easier to assess when access and larger items are clearly listed.',
+      },
+      {
+        title: 'Small office and mixed-load moves',
+        copy:
+          'Some northern moves include office furniture, archives, or small business stock. We plan those items separately so the new site can reset faster and with less disruption.',
+      },
+    ],
+    trust: [
+      'ZQ Removals supports northern Adelaide routes with a planning-first standard so quotes reflect real access and inventory conditions, not generic assumptions.',
+      'We provide local Adelaide moves, office relocations, furniture handling, packing support, and interstate routes from the same quoting process so the brief stays coherent even if the scope changes.',
+    ],
+    services:
+      'For next steps, explore the Salisbury, Elizabeth, Andrews Farm, Blakeview, and Gawler suburb pages, plus our packing services, office removals, furniture moving support, and interstate removals hubs.',
   },
   elizabeth: {
     suburb: 'Elizabeth',
@@ -379,6 +721,144 @@ const faqProfiles = {
         question: 'When should I start planning an interstate move from Adelaide?',
         answer:
           'As early as possible, especially if the route includes apartments, settlement deadlines, storage, or narrower delivery windows that need to be aligned before departure.',
+      },
+    ],
+  },
+  'removalists-salisbury/index.html': {
+    eyebrow: 'Salisbury removals FAQ',
+    heading: 'Questions people ask before booking Salisbury removalists.',
+    intro:
+      'These answers cover the access and inventory details that most often change labour time on Salisbury moves.',
+    items: [
+      {
+        question: 'Do you handle storage transfers and garage-heavy moves in Salisbury?',
+        answer:
+          'Yes. If the move includes a storage stop, garage shelving, outdoor settings, or mixed household and stock items, include that in the brief so the route and load sequencing can be quoted properly.',
+      },
+      {
+        question: 'How do I keep a Salisbury move affordable without under-scoping the job?',
+        answer:
+          'The fastest win is a clearer brief: list the heavier items, call out stairs or longer carries, confirm parking position, and flag any fragile pieces. That reduces quote drift and avoids delays on move day.',
+      },
+      {
+        question: 'What should I include in the quote request for Salisbury?',
+        answer:
+          'Include both suburbs, property types, preferred date window, access notes (parking, stairs, lifts, carry distance), and any bulky or fragile items so the fixed-price quote reflects the real workload.',
+      },
+    ],
+  },
+  'removalists-gawler/index.html': {
+    eyebrow: 'Gawler removals FAQ',
+    heading: 'Questions people ask before booking a Gawler move.',
+    intro:
+      'These answers focus on access, bulky furniture, and timing details that matter on Gawler routes.',
+    items: [
+      {
+        question: 'Do you handle sofa and bed moves in Gawler?',
+        answer:
+          'Yes. Bulky furniture like sofas, beds, and heavier whitegoods can be scoped into the quote as long as the item list and access notes are included in the brief.',
+      },
+      {
+        question: 'Can you help with office or stock moves in Gawler?',
+        answer:
+          'Yes. If the move includes desks, files, shelving, or business stock, include that in the enquiry so the delivery order and restart priorities can be planned. You can also review our office removals page for a dedicated commercial brief.',
+      },
+      {
+        question: 'What details make a Gawler quote more accurate?',
+        answer:
+          'Both addresses, property types, any stairs or tight turns, parking position, heavier items, and whether packing or storage is part of the day. Those factors tend to decide labour time more than the suburb name alone.',
+      },
+    ],
+  },
+  'removalists-elizabeth-vale/index.html': {
+    eyebrow: 'Elizabeth Vale removals FAQ',
+    heading: 'Questions people ask before booking Elizabeth Vale removalists.',
+    intro:
+      'These answers cover unit access, packing decisions, and northside move planning.',
+    items: [
+      {
+        question: 'Can you provide packing and moving services in Elizabeth Vale?',
+        answer:
+          'Yes. Packing can be scoped as targeted fragile-room packing or a broader room-by-room service, depending on your timeline and the inventory profile.',
+      },
+      {
+        question: 'Do you handle units and shared-entry access in Elizabeth Vale?',
+        answer:
+          'Yes. Shared driveways, stair runs, and tighter parking need to be included in the access notes so the move can be planned and quoted properly before booking.',
+      },
+      {
+        question: 'What should I include in the Elizabeth Vale quote request?',
+        answer:
+          'Include both suburbs, property type, stairs or lift access, parking position, heavier or fragile items, and any timing window so the fixed-price quote matches the real brief.',
+      },
+    ],
+  },
+  'removalists-elizabeth-downs/index.html': {
+    eyebrow: 'Elizabeth Downs removals FAQ',
+    heading: 'Questions people ask before booking an Elizabeth Downs move.',
+    intro:
+      'These answers focus on garage inventory, access, and cost-sensitive planning without cutting corners.',
+    items: [
+      {
+        question: 'Do you handle garage loads and outdoor items in Elizabeth Downs?',
+        answer:
+          'Yes. Garage shelving, outdoor settings, and heavier items can be included in the brief so load order and handling are planned properly from the start.',
+      },
+      {
+        question: 'Can you quote a small office relocation in the Elizabeth area?',
+        answer:
+          'Yes. If the move includes desks, monitors, files, shelving, or stock, include that in the enquiry so the delivery sequence supports a faster reset. The office removals page is also useful for commercial briefs.',
+      },
+      {
+        question: 'How do you approach tight timelines on northside moves?',
+        answer:
+          'We start with the access notes and priority items. Short-notice availability depends on scheduling, but clear move details make it easier to confirm what is realistic and keep the plan controlled.',
+      },
+    ],
+  },
+  'removalists-blakeview/index.html': {
+    eyebrow: 'Blakeview removals FAQ',
+    heading: 'Questions people ask before booking a Blakeview move.',
+    intro:
+      'These answers cover estate access, stair runs, and mixed residential-business briefs.',
+    items: [
+      {
+        question: 'Do you handle estate street parking and tighter access in Blakeview?',
+        answer:
+          'Yes. Parking position, carry distance, stairs, and tight turning points should be included in the access notes so the quote matches real conditions.',
+      },
+      {
+        question: 'Can you support business relocation services in Blakeview?',
+        answer:
+          'Yes. If your brief includes office furniture, archives, shelving, or work equipment, include that in the enquiry so delivery order and restart priorities can be planned.',
+      },
+      {
+        question: 'What makes a Blakeview quote more accurate?',
+        answer:
+          'Both addresses, property types, stairs, parking position, heavier items, and whether packing help is needed. The more specific the brief, the more reliable the fixed-price proposal.',
+      },
+    ],
+  },
+  'removalists-northern-adelaide/index.html': {
+    eyebrow: 'Northern Adelaide removals FAQ',
+    heading: 'Questions people ask before booking Adelaide north removalists.',
+    intro:
+      'These answers cover urgent timelines, northside access patterns, and when to use suburb pages instead.',
+    items: [
+      {
+        question: 'Can you help with urgent moves in Adelaide’s north?',
+        answer:
+          'If the brief is urgent, call or send the enquiry early with access notes and larger items included. Same-day availability depends on scheduling, but clear details make it faster to confirm what is realistic.',
+      },
+      {
+        question: 'When should I use a suburb page instead of the northside hub?',
+        answer:
+          'Use the suburb page when the pickup or delivery suburb is known and has specific access constraints. Use the northside hub when the route spans multiple northern suburbs or you are still comparing areas.',
+      },
+      {
+        question: 'Do you handle office furniture moves in Adelaide’s north?',
+        answer:
+          'Yes. Desks, monitors, files, and office equipment can be planned as part of the move brief. For a dedicated commercial scope, use the office removals page as well.',
       },
     ],
   },
@@ -1305,9 +1785,20 @@ gtag('config', ${JSON.stringify(gaMeasurementId)});
 
 function buildDynamicJsonLd(page, content) {
   const blocks = [];
-  const suburbJsonLd = buildSuburbMovingCompanyJsonLd(page);
-  if (suburbJsonLd) {
-    blocks.push(suburbJsonLd);
+  const businessJsonLd = buildBusinessJsonLd(page);
+  const webPageJsonLd = buildWebPageJsonLd(page);
+  const serviceJsonLd = buildServiceJsonLd(page);
+
+  if (businessJsonLd) {
+    blocks.push(businessJsonLd);
+  }
+
+  if (webPageJsonLd) {
+    blocks.push(webPageJsonLd);
+  }
+
+  if (serviceJsonLd) {
+    blocks.push(serviceJsonLd);
   }
   const breadcrumbJsonLd = buildBreadcrumbJsonLd(page, content);
   const faqJsonLd = buildFaqJsonLd(page, content);
@@ -1323,29 +1814,140 @@ function buildDynamicJsonLd(page, content) {
   return blocks;
 }
 
-function buildSuburbMovingCompanyJsonLd(page) {
-  const profile = getSuburbProfile(page);
-  if (!profile) {
+function buildBusinessJsonLd(page) {
+  if (pageHasJsonLdType(page, 'MovingCompany')) {
     return '';
   }
-
-  const canonical = page.canonical || `https://zqremovals.au/${page.output.replace(/index\.html$/, '')}`;
 
   return JSON.stringify(
     {
       '@context': 'https://schema.org',
       '@type': 'MovingCompany',
-      '@id': `${canonical}#moving-company`,
+      '@id': 'https://zqremovals.au/#business',
       name: 'ZQ Removals',
-      areaServed: 'Adelaide',
-      serviceType: 'Removal Services',
+      url: 'https://zqremovals.au/',
       telephone: '+61 433 819 989',
+      image: defaultSocialImage,
+      logo: defaultLogoImage,
+      hasMap: googleBusinessProfileUrl,
+      sameAs: [googleBusinessProfileUrl],
       address: {
         '@type': 'PostalAddress',
-        addressLocality: 'Adelaide',
+        addressLocality: 'Andrews Farm',
         addressRegion: 'SA',
+        postalCode: '5114',
         addressCountry: 'AU',
       },
+      contactPoint: [
+        {
+          '@type': 'ContactPoint',
+          contactType: 'customer service',
+          telephone: '+61 433 819 989',
+          areaServed: ['Adelaide', 'South Australia', 'Australia'],
+          availableLanguage: ['en'],
+          url: 'https://zqremovals.au/contact-us/',
+        },
+      ],
+    },
+    null,
+    2,
+  );
+}
+
+function buildWebPageJsonLd(page) {
+  if (pageHasJsonLdType(page, 'WebPage') || pageHasJsonLdType(page, 'ContactPage') || pageHasJsonLdType(page, 'AboutPage')) {
+    return '';
+  }
+
+  if ((page.robots || '').includes('noindex')) {
+    return '';
+  }
+
+  const type =
+    page.output === 'contact-us/index.html'
+      ? 'ContactPage'
+      : page.output === 'about/index.html'
+        ? 'AboutPage'
+        : 'WebPage';
+
+  return JSON.stringify(
+    {
+      '@context': 'https://schema.org',
+      '@type': type,
+      '@id': `${page.canonical}#webpage`,
+      url: page.canonical,
+      name: page.title,
+      description: page.description,
+    },
+    null,
+    2,
+  );
+}
+
+function buildServiceJsonLd(page) {
+  if (pageHasJsonLdType(page, 'Service')) {
+    return '';
+  }
+
+  if ((page.robots || '').includes('noindex')) {
+    return '';
+  }
+
+  const output = page.output;
+  const suburbProfile = getSuburbProfile(page);
+
+  let name = '';
+  let serviceType = '';
+  let areaServed = ['Adelaide', 'South Australia'];
+
+  if (suburbProfile) {
+    name = `Removalists in ${suburbProfile.suburb}`;
+    serviceType = 'Local removal services';
+    areaServed = [`${suburbProfile.suburb}, SA`, 'Adelaide', 'South Australia'];
+  } else if (output === 'removalists-adelaide/index.html') {
+    name = 'Removalists in Adelaide';
+    serviceType = 'Local removal services';
+  } else if (output === 'local-removals-adelaide/index.html') {
+    name = 'Local removals in Adelaide';
+    serviceType = 'Local removal services';
+  } else if (output === 'packing-services-adelaide/index.html') {
+    name = 'Packing services in Adelaide';
+    serviceType = 'Packing services';
+  } else if (output === 'office-removals-adelaide/index.html') {
+    name = 'Office removals in Adelaide';
+    serviceType = 'Office relocation services';
+  } else if (output === 'furniture-removalists-adelaide/index.html') {
+    name = 'Furniture removalists in Adelaide';
+    serviceType = 'Furniture removal services';
+  } else if (output === 'interstate-removals-adelaide/index.html') {
+    name = 'Interstate removals from Adelaide';
+    serviceType = 'Interstate removal services';
+    areaServed = ['Australia'];
+  } else if (output.startsWith('adelaide-to-') && output.endsWith('-removals/index.html')) {
+    const route = output
+      .replace(/\/index\.html$/, '')
+      .replace(/^adelaide-to-/, 'Adelaide to ')
+      .replace(/-removals$/, '')
+      .replaceAll('-', ' ');
+    name = `Interstate removals: ${route}`;
+    serviceType = 'Interstate removal services';
+    areaServed = ['Australia'];
+  } else {
+    return '';
+  }
+
+  return JSON.stringify(
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      '@id': `${page.canonical}#service`,
+      name,
+      serviceType,
+      areaServed,
+      provider: {
+        '@id': 'https://zqremovals.au/#business',
+      },
+      url: page.canonical,
     },
     null,
     2,
@@ -1417,7 +2019,40 @@ function pageHasFaqJsonLd(page) {
 }
 
 function pageHasJsonLdType(page, type) {
-  return (page.jsonLd || []).some((jsonLd) => jsonLd.includes(`"@type": "${type}"`));
+  return (page.jsonLd || []).some((jsonLd) => {
+    try {
+      const value = JSON.parse(jsonLd);
+      return jsonLdValueContainsType(value, type);
+    } catch {
+      return jsonLd.includes(`"@type": "${type}"`);
+    }
+  });
+}
+
+function jsonLdValueContainsType(value, type) {
+  if (!value) {
+    return false;
+  }
+
+  if (Array.isArray(value)) {
+    return value.some((entry) => jsonLdValueContainsType(entry, type));
+  }
+
+  if (typeof value !== 'object') {
+    return false;
+  }
+
+  const nodeType = value['@type'];
+  const types = Array.isArray(nodeType) ? nodeType : typeof nodeType === 'string' ? [nodeType] : [];
+  if (types.includes(type)) {
+    return true;
+  }
+
+  if (Array.isArray(value['@graph'])) {
+    return value['@graph'].some((entry) => jsonLdValueContainsType(entry, type));
+  }
+
+  return Object.values(value).some((entry) => jsonLdValueContainsType(entry, type));
 }
 
 function normalizeJsonLdBlocks(page) {
@@ -1713,6 +2348,31 @@ function renderSuburbPage(page) {
       ? ''
       : `<p>${escapeHtml(SUBURB_PADDING_PARAGRAPH)}</p>`;
 
+  const heroEyebrow = profile.eyebrow || `Removalists ${profile.suburb}`;
+  const heroHeading = profile.h1 || `${profile.suburb} removalists for suburb-to-suburb Adelaide moves.`;
+  const heroLead = profile.hero || '';
+  const heroHighlights = Array.isArray(profile.highlights) && profile.highlights.length > 0
+    ? profile.highlights
+    : [
+        'Suburb-focused planning and clearer access notes',
+        'Homes, units, and mixed inventory scoped before quoting',
+        'Fixed-price quotes built around the real brief',
+      ];
+
+  const startHere = profile.startHere || {
+    eyebrow: 'When to use this page',
+    heading: `When this ${profile.suburb} page is the right starting point`,
+    intro:
+      'Use this page when the suburb is known and you want the quote scoped around the access and inventory conditions that tend to show up here.',
+    points: [
+      'You already know the pickup or delivery suburb is inside this area',
+      'Access, stairs, parking, or carry distance will influence labour time',
+      'You want packing help or fragile handling included in the same brief',
+    ],
+  };
+
+  const nearbyLinks = Array.isArray(profile.nearbyLinks) ? profile.nearbyLinks : [];
+
   return `
 <main id="main-content">
 <section class="hero-shell">
@@ -1726,13 +2386,11 @@ function renderSuburbPage(page) {
 </nav>
 <div class="page-hero-grid">
 <div class="page-hero-copy">
-<span class="eyebrow">Local Adelaide moving service</span>
-<h1>Removalists ${escapeHtml(profile.suburb)}</h1>
-<p class="lead">${escapeHtml(profile.hero)}</p>
+<span class="eyebrow">${escapeHtml(heroEyebrow)}</span>
+<h1>${escapeHtml(heroHeading)}</h1>
+<p class="lead">${escapeHtml(heroLead)}</p>
 <ul aria-label="${escapeAttribute(profile.suburb)} move highlights" class="route-meta">
-<li>Suburb-focused local planning</li>
-<li>Residential and business move support</li>
-<li>Careful handling with fixed-price quotes</li>
+${heroHighlights.map((item) => `<li>${escapeHtml(item)}</li>`).join('\n')}
 </ul>
 <div class="cta-cluster">
 <a class="button button-primary" href="/contact-us/#quote-form">Get a Fixed-Price Quote</a>
@@ -1751,6 +2409,26 @@ function renderSuburbPage(page) {
 <p>${escapeHtml(profile.intro[0])}</p>
 <p>${escapeHtml(profile.intro[1])}</p>
 <p>Common local references for this suburb include ${escapeHtml(profile.nearby)}.</p>
+</div>
+</section>
+<section class="section section-soft">
+<div class="container">
+<div class="section-heading">
+<span class="eyebrow">${escapeHtml(startHere.eyebrow)}</span>
+<h2>${escapeHtml(startHere.heading)}</h2>
+<p>${escapeHtml(startHere.intro)}</p>
+</div>
+<ul class="bullet-list">
+${(startHere.points || []).map((point) => `<li>${escapeHtml(point)}</li>`).join('\n')}
+</ul>
+${
+  nearbyLinks.length > 0
+    ? `<h3>Nearby areas people often compare</h3>
+<ul class="bullet-list">
+${nearbyLinks.map(({ href, label }) => (href ? `<li><a href="${escapeAttribute(href)}">${escapeHtml(label)}</a></li>` : `<li>${escapeHtml(label)}</li>`)).join('\n')}
+</ul>`
+    : ''
+}
 </div>
 </section>
 <section class="section section-soft">
@@ -1930,7 +2608,11 @@ function getRelatedLinksProfile(page) {
   if (
     output === 'interstate-removals-adelaide/index.html' ||
     output === 'adelaide-to-melbourne-removals/index.html' ||
-    output === 'adelaide-to-sydney-removals/index.html'
+    output === 'adelaide-to-sydney-removals/index.html' ||
+    output === 'adelaide-to-brisbane-removals/index.html' ||
+    output === 'adelaide-to-canberra-removals/index.html' ||
+    output === 'adelaide-to-perth-removals/index.html' ||
+    output === 'adelaide-to-queensland-removals/index.html'
   ) {
     const routeLinks =
       output === 'interstate-removals-adelaide/index.html'
@@ -1948,6 +2630,34 @@ function getRelatedLinksProfile(page) {
               copy: 'See the Sydney route page for longer-haul timing, access, and packing considerations.',
               url: '/adelaide-to-sydney-removals/',
               cta: 'View Adelaide to Sydney',
+            },
+            {
+              eyebrow: 'Route page',
+              title: 'Adelaide to Brisbane removals',
+              copy: 'Review the Brisbane route page if Queensland is the destination and the quote needs route-specific planning.',
+              url: '/adelaide-to-brisbane-removals/',
+              cta: 'View Adelaide to Brisbane',
+            },
+            {
+              eyebrow: 'Route page',
+              title: 'Adelaide to Canberra removals',
+              copy: 'Check the Canberra route page for longer interstate timing and delivery access details.',
+              url: '/adelaide-to-canberra-removals/',
+              cta: 'View Adelaide to Canberra',
+            },
+            {
+              eyebrow: 'Route page',
+              title: 'Adelaide to Perth removals',
+              copy: 'Use the Perth route page when the move needs a western route brief and stronger packing control.',
+              url: '/adelaide-to-perth-removals/',
+              cta: 'View Adelaide to Perth',
+            },
+            {
+              eyebrow: 'Route page',
+              title: 'Adelaide to Queensland removals',
+              copy: 'Use the Queensland route page for broader long-distance planning beyond Brisbane alone.',
+              url: '/adelaide-to-queensland-removals/',
+              cta: 'View Adelaide to Queensland',
             },
             {
               eyebrow: 'Packing',
