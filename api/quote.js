@@ -11,7 +11,6 @@ const REQUIRED_FIELDS = [
 ];
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const DEFAULT_WEB3FORMS_ACCESS_KEY = "80c3ff0c-7ae6-4aa7-bb66-567612739824";
 
 function sendJson(res, status, payload) {
   res.status(status).setHeader("Content-Type", "application/json");
@@ -58,8 +57,7 @@ module.exports = async function handler(req, res) {
 
     const accessKey =
       process.env.WEB3FORMS_ACCESS_KEY?.trim() ||
-      process.env.VITE_WEB3FORMS_ACCESS_KEY?.trim() ||
-      DEFAULT_WEB3FORMS_ACCESS_KEY;
+      process.env.VITE_WEB3FORMS_ACCESS_KEY?.trim();
     if (!accessKey) {
       return sendJson(res, 500, {
         success: false,
