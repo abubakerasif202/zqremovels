@@ -3049,6 +3049,9 @@ function escapeAttribute(value = '') {
 async function copyStaticAssets() {
   const fileAssets = [
     'brand-logo.png',
+    'brand-logo-64.webp',
+    'brand-logo-256.webp',
+    'brand-logo-96.webp',
     'brand-logo.webp',
     'favicon.ico',
     'favicon.svg',

@@ -6,6 +6,6 @@
   "scripts": {
     "build": "node scripts/build-site.mjs",
     "test": "node --test --experimental-test-isolation=none tests/*.test.mjs",
-    "lhci": "npm run build && npx @lhci/cli@0.14.x autorun --config=.lighthouserc.cjs"
+    "lhci": "npm run build && node scripts/run-lhci.mjs"
   }
 }

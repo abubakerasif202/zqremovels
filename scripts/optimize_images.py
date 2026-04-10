@@ -6,8 +6,15 @@ from PIL import Image, ImageEnhance, ImageOps
 ROOT = Path(__file__).resolve().parents[1]
 TARGETS = [
     (ROOT / 'brand-logo.png', ROOT / 'brand-logo.webp', 90),
+    (ROOT / 'brand-logo.png', ROOT / 'brand-logo-64.webp', 80),
+    (ROOT / 'brand-logo.png', ROOT / 'brand-logo-256.webp', 82),
+    (ROOT / 'brand-logo.png', ROOT / 'brand-logo-96.webp', 80),
     (ROOT / 'screen.png', ROOT / 'screen.webp', 84),
     (ROOT / 'zq-removals-social-share.png', ROOT / 'zq-removals-social-share.webp', 86),
+]
+RESIZED_TARGETS = [
+    (ROOT / 'media' / 'home-local-hero-branded.png', ROOT / 'media' / 'home-local-hero-branded.webp', 768, 406, 88),
+    (ROOT / 'media' / 'contact-quote-branded.png', ROOT / 'media' / 'contact-quote-branded.webp', 768, 573, 86),
 ]
 CUSTOM_GRID_SOURCE = ROOT / 'media' / 'custom-photo-pack-grid.png'
 CUSTOM_DIRECT_VARIANTS = [
@@ -205,6 +212,19 @@ def build_variant(spec: dict[str, object]) -> None:
         final_image.save(target, 'WEBP', quality=quality, method=6)
 
 
+def build_resized_webp(source: Path, target: Path, width: int, height: int, quality: int) -> None:
+    if not source.exists():
+        return
+    if target.exists() and target.stat().st_mtime >= source.stat().st_mtime:
+        return
+
+    target.parent.mkdir(parents=True, exist_ok=True)
+
+    with Image.open(source) as image:
+        fitted = ImageOps.fit(image.convert('RGB'), (width, height), method=RESAMPLING.LANCZOS)
+        fitted.save(target, 'WEBP', quality=quality, method=6)
+
+
 def get_photo_variants() -> list[dict[str, object]]:
     if all(Path(spec['source']).exists() for spec in CUSTOM_DIRECT_VARIANTS):
         return CUSTOM_DIRECT_VARIANTS
@@ -216,6 +236,9 @@ def get_photo_variants() -> list[dict[str, object]]:
 if __name__ == '__main__':
     for source, target, quality in TARGETS:
         build_webp(source, target, quality)
+        print(f'optimized {target.relative_to(ROOT)}')
+    for source, target, width, height, quality in RESIZED_TARGETS:
+        build_resized_webp(source, target, width, height, quality)
         print(f'optimized {target.relative_to(ROOT)}')
     for spec in get_photo_variants():
         build_variant(spec)
