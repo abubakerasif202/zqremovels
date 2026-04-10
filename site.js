@@ -385,6 +385,25 @@ function ensureHiddenField(form, name, value) {
   input.value = value;
 }
 
+function toSafeLocalSuccessPath(rawPath, fallbackPath = "/thank-you.html") {
+  if (typeof rawPath !== "string" || rawPath.trim() === "") {
+    return fallbackPath;
+  }
+
+  try {
+    const parsed = new URL(rawPath, window.location.origin);
+    const protocol = parsed.protocol.toLowerCase();
+    const isHttpProtocol = protocol === "http:" || protocol === "https:";
+    if (!isHttpProtocol || parsed.origin !== window.location.origin) {
+      return fallbackPath;
+    }
+
+    return `${parsed.pathname}${parsed.search}${parsed.hash}`;
+  } catch {
+    return fallbackPath;
+  }
+}
+
 function setupLocalFormPreview() {
   const localPreviewHosts = new Set(["127.0.0.1", "localhost"]);
   if (!localPreviewHosts.has(window.location.hostname)) {
@@ -396,8 +415,10 @@ function setupLocalFormPreview() {
       return;
     }
 
-    const successPath =
-      form.getAttribute("data-dev-success") ?? "/thank-you.html";
+    const successPath = toSafeLocalSuccessPath(
+      form.getAttribute("data-dev-success"),
+      "/thank-you.html",
+    );
 
     form.addEventListener("submit", (event) => {
       if (!form.reportValidity()) {
