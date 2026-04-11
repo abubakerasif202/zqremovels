@@ -8,5 +8,8 @@
     "test": "node scripts/quote-api-smoke.mjs && node --test --experimental-test-isolation=none tests/*.test.mjs",
     "test:quote-api": "node scripts/quote-api-smoke.mjs",
     "lhci": "npm run build && node scripts/run-lhci.mjs"
+  },
+  "devDependencies": {
+    "lightningcss": "^1.32.0"
   }
 }

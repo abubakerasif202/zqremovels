@@ -158,17 +158,6 @@ function setupFormState() {
   });
 }
 
-const requiredFieldMessages = {
-  pickup_suburb: "Enter the pickup suburb.",
-  delivery_suburb: "Enter the delivery suburb.",
-  move_type: "Select a move type.",
-  property_type: "Select a property type.",
-  full_name: "Enter your full name.",
-  phone: "Enter your phone number.",
-  email: "Enter your email address.",
-  access_notes: "Add access notes for pickup or delivery.",
-  inventory_special_items: "Add inventory or special-item notes.",
-};
 const MIN_PHONE_NUMBER_LENGTH = 8;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -192,10 +181,20 @@ function validateWeb3Form(form) {
     payload[field.name] = field.value.trim();
   });
 
-  Object.entries(requiredFieldMessages).forEach(([name, message]) => {
-    if (!payload[name]) {
-      errors[name] = message;
+  fields.forEach((field) => {
+    if (!isSupportedFormField(field) || !field.required) {
+      return;
     }
+
+    if (payload[field.name]) {
+      return;
+    }
+
+    const labelText = field
+      .closest("label")
+      ?.querySelector("span")
+      ?.textContent?.trim();
+    errors[field.name] = labelText ? `Enter ${labelText.toLowerCase()}.` : "Complete this field.";
   });
 
   if (payload.email && !EMAIL_REGEX.test(payload.email)) {
@@ -289,26 +288,18 @@ function setupWeb3Forms() {
 
       try {
         if (!isLocalPreview) {
+          const requestPayload = {
+            ...payload,
+            botcheck: payload.botcheck ?? "",
+            source_page: window.location.href,
+          };
           const response = await fetch("/api/quote", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
               Accept: "application/json",
             },
-            body: JSON.stringify({
-              botcheck: payload.botcheck ?? "",
-              pickup_suburb: payload.pickup_suburb,
-              delivery_suburb: payload.delivery_suburb,
-              move_type: payload.move_type,
-              property_type: payload.property_type,
-              preferred_move_date: payload.preferred_move_date || "",
-              access_notes: payload.access_notes,
-              inventory_special_items: payload.inventory_special_items,
-              full_name: payload.full_name,
-              phone: payload.phone,
-              email: payload.email,
-              source_page: window.location.href,
-            }),
+            body: JSON.stringify(requestPayload),
           });
 
           let result = {};
@@ -350,7 +341,9 @@ function setupWeb3Forms() {
         applyWeb3FormErrors(form, {});
         setWeb3FormFeedback(
           form,
-          "Thanks — your quote request has been sent. We will respond shortly.",
+          payload.message
+            ? "Thanks — your message has been sent. We will respond shortly."
+            : "Thanks — your quote request has been sent. We will respond shortly.",
           "success",
         );
         window.setTimeout(() => {

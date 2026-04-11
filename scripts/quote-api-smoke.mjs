@@ -48,6 +48,15 @@ const validPayload = {
   source_page: 'https://www.zqremovals.au/contact-us/',
 };
 
+const simpleContactPayload = {
+  botcheck: '',
+  name: 'Simple Contact User',
+  email: 'simple@example.com',
+  phone: '+61 411 111 111',
+  message: 'Need a quote for a move next month.',
+  source_page: 'https://www.zqremovals.au/contact-us/',
+};
+
 async function runMissingKeySmoke() {
   const originalFetch = global.fetch;
   const originalKey = process.env.WEB3FORMS_ACCESS_KEY;
@@ -142,7 +151,55 @@ async function runLegacyKeySmoke() {
   }
 }
 
+async function runSimpleContactPayloadSmoke() {
+  const originalFetch = global.fetch;
+  const originalKey = process.env.WEB3FORMS_ACCESS_KEY;
+  process.env.WEB3FORMS_ACCESS_KEY = 'primary-test-key';
+
+  let upstreamBody = null;
+  global.fetch = async (_url, options) => {
+    upstreamBody = JSON.parse(options.body);
+    return {
+      ok: true,
+      status: 200,
+      json: async () => ({ success: true }),
+    };
+  };
+
+  try {
+    const res = createResponse();
+    await handler(createRequest(simpleContactPayload), res);
+
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(JSON.parse(res.body), {
+      success: true,
+      message: 'Quote submitted',
+    });
+    assert.equal(upstreamBody.access_key, 'primary-test-key');
+    assert.equal(upstreamBody.subject, 'New ZQ Removals Contact');
+    assert.equal(upstreamBody.from_name, 'ZQ Removals Website');
+    assert.equal(upstreamBody.name, simpleContactPayload.name);
+    assert.equal(upstreamBody.email, simpleContactPayload.email);
+    assert.equal(upstreamBody.phone, simpleContactPayload.phone);
+    assert.equal(upstreamBody.message, simpleContactPayload.message);
+    assert.equal(upstreamBody.source_page, simpleContactPayload.source_page);
+  } finally {
+    if (originalFetch === undefined) {
+      delete global.fetch;
+    } else {
+      global.fetch = originalFetch;
+    }
+
+    if (originalKey === undefined) {
+      delete process.env.WEB3FORMS_ACCESS_KEY;
+    } else {
+      process.env.WEB3FORMS_ACCESS_KEY = originalKey;
+    }
+  }
+}
+
 await runMissingKeySmoke();
 await runLegacyKeySmoke();
+await runSimpleContactPayloadSmoke();
 
 console.log('quote API smoke checks passed');

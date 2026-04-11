@@ -102,6 +102,16 @@ test('frontend quote flow emits a GA submission event hook', () => {
   assert.match(clientScript, /window\.gtag/);
 });
 
+test('contact page ships the simplified contact form fields', () => {
+  const contactPage = readDist(path.join('contact-us', 'index.html'));
+
+  assert.match(contactPage, /name="name"/);
+  assert.match(contactPage, /name="email"/);
+  assert.match(contactPage, /name="phone"/);
+  assert.match(contactPage, /name="message"/);
+  assert.doesNotMatch(contactPage, /name="pickup_suburb"/);
+});
+
 test('about page is built and surfaced from shared navigation', () => {
   const homepage = readDist('index.html');
   const aboutPage = readDist(path.join('about', 'index.html'));

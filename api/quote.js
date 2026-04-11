@@ -1,4 +1,4 @@
-const REQUIRED_FIELDS = [
+const QUOTE_REQUIRED_FIELDS = [
   "pickup_suburb",
   "delivery_suburb",
   "move_type",
@@ -9,6 +9,7 @@ const REQUIRED_FIELDS = [
   "phone",
   "email",
 ];
+const CONTACT_REQUIRED_FIELDS = ["name", "email", "message"];
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -23,6 +24,80 @@ async function readJsonBody(req) {
     body += chunk;
   }
   return body;
+}
+
+function getTrimmedString(payload, field) {
+  return String(payload[field] ?? "").trim();
+}
+
+function normaliseSubmission(payload) {
+  const isSimpleContactSubmission =
+    typeof payload === "object" &&
+    payload !== null &&
+    (Object.prototype.hasOwnProperty.call(payload, "message") ||
+      Object.prototype.hasOwnProperty.call(payload, "name"));
+
+  if (isSimpleContactSubmission) {
+    for (const field of CONTACT_REQUIRED_FIELDS) {
+      if (!getTrimmedString(payload, field)) {
+        return {
+          error: { status: 400, message: `Missing field: ${field}` },
+        };
+      }
+    }
+
+    if (!EMAIL_REGEX.test(getTrimmedString(payload, "email"))) {
+      return {
+        error: { status: 400, message: "Invalid email" },
+      };
+    }
+
+    return {
+      upstreamPayload: {
+        subject: "New ZQ Removals Contact",
+        from_name: "ZQ Removals Website",
+        botcheck: "",
+        name: getTrimmedString(payload, "name"),
+        email: getTrimmedString(payload, "email"),
+        phone: getTrimmedString(payload, "phone"),
+        message: getTrimmedString(payload, "message"),
+        source_page: getTrimmedString(payload, "source_page"),
+      },
+    };
+  }
+
+  for (const field of QUOTE_REQUIRED_FIELDS) {
+    if (!getTrimmedString(payload, field)) {
+      return {
+        error: { status: 400, message: `Missing field: ${field}` },
+      };
+    }
+  }
+
+  if (!EMAIL_REGEX.test(getTrimmedString(payload, "email"))) {
+    return {
+      error: { status: 400, message: "Invalid email" },
+    };
+  }
+
+  return {
+    upstreamPayload: {
+      subject: "Homepage quote request - ZQ Removals",
+      from_name: getTrimmedString(payload, "full_name"),
+      botcheck: "",
+      pickup_suburb: getTrimmedString(payload, "pickup_suburb"),
+      delivery_suburb: getTrimmedString(payload, "delivery_suburb"),
+      move_type: getTrimmedString(payload, "move_type"),
+      property_type: getTrimmedString(payload, "property_type"),
+      preferred_move_date: getTrimmedString(payload, "preferred_move_date"),
+      access_notes: getTrimmedString(payload, "access_notes"),
+      inventory_special_items: getTrimmedString(payload, "inventory_special_items"),
+      full_name: getTrimmedString(payload, "full_name"),
+      phone: getTrimmedString(payload, "phone"),
+      email: getTrimmedString(payload, "email"),
+      source_page: getTrimmedString(payload, "source_page"),
+    },
+  };
 }
 
 module.exports = async function handler(req, res) {
@@ -44,15 +119,12 @@ module.exports = async function handler(req, res) {
       return sendJson(res, 400, { success: false, message: "Invalid request" });
     }
 
-    for (const field of REQUIRED_FIELDS) {
-      const value = String(payload[field] ?? "").trim();
-      if (!value) {
-        return sendJson(res, 400, { success: false, message: `Missing field: ${field}` });
-      }
-    }
-
-    if (!EMAIL_REGEX.test(String(payload.email).trim())) {
-      return sendJson(res, 400, { success: false, message: "Invalid email" });
+    const submission = normaliseSubmission(payload);
+    if (submission.error) {
+      return sendJson(res, submission.error.status, {
+        success: false,
+        message: submission.error.message,
+      });
     }
 
     const accessKey =
@@ -76,20 +148,7 @@ module.exports = async function handler(req, res) {
         },
         body: JSON.stringify({
           access_key: accessKey,
-          subject: "Homepage quote request - ZQ Removals",
-          from_name: payload.full_name,
-          botcheck: "",
-          pickup_suburb: payload.pickup_suburb,
-          delivery_suburb: payload.delivery_suburb,
-          move_type: payload.move_type,
-          property_type: payload.property_type,
-          preferred_move_date: payload.preferred_move_date || "",
-          access_notes: payload.access_notes,
-          inventory_special_items: payload.inventory_special_items,
-          full_name: payload.full_name,
-          phone: payload.phone,
-          email: payload.email,
-          source_page: payload.source_page || "",
+          ...submission.upstreamPayload,
         }),
       });
     } catch (error) {
