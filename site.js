@@ -251,118 +251,34 @@ function setupWeb3Forms() {
     return;
   }
 
-  const localPreviewHosts = new Set(["127.0.0.1", "localhost"]);
-  const isLocalPreview = localPreviewHosts.has(window.location.hostname);
-
   web3FormsForms.forEach((form) => {
-    const submitButton = form.querySelector('button[type="submit"]');
-    if (!submitButton) {
-      return;
-    }
-    const defaultLabel = submitButton.textContent?.trim() ?? "Submit";
-
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
-
-      if (submitButton.dataset.submitting === "true") {
-        return;
-      }
-
-      const { payload, errors } = validateWeb3Form(form);
-      applyWeb3FormErrors(form, errors);
-
-      if (Object.keys(errors).length > 0) {
-        setWeb3FormFeedback(form, "Please check the highlighted fields.", "error");
-        return;
-      }
-
-      if (payload.botcheck) {
-        setWeb3FormFeedback(form, "Unable to submit. Please try again.", "error");
-        return;
-      }
-
-      submitButton.dataset.submitting = "true";
-      submitButton.disabled = true;
-      submitButton.textContent = "Sending request...";
-      setWeb3FormFeedback(form, "Submitting your quote request...");
+      const formData = new FormData(form);
+      formData.append("access_key", "d928b483-d5f0-40d7-9eb1-44a56130ba63");
+      formData.append("subject", "New ZQ Removals Quote Request");
+      formData.append("from_name", "ZQ Removals Website");
 
       try {
-        if (!isLocalPreview) {
-          const requestPayload = {
-            ...payload,
-            botcheck: payload.botcheck ?? "",
-            source_page: window.location.href,
-          };
-          const response = await fetch("/api/quote", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-            body: JSON.stringify(requestPayload),
-          });
-
-          let result = {};
-          let responseJsonParsed = true;
-          try {
-            result = await response.json();
-          } catch (error) {
-            responseJsonParsed = false;
-            console.error("Web3Forms response parse failed.", {
-              message: error instanceof Error ? error.message : String(error),
-              status: response.status,
-            });
-          }
-
-          if (!response.ok) {
-            throw new Error(
-              result.details ||
-                result.message ||
-                `Submission failed with status ${response.status}`,
-            );
-          }
-
-          if (result.success === false) {
-            throw new Error(result.details || result.message || "Submission failed");
-          }
-
-          if (!responseJsonParsed) {
-            throw new Error("Submission response could not be confirmed.");
-          }
-
-          trackQuoteSubmission({
-            source_page: window.location.href,
-            move_type: payload.move_type,
-            property_type: payload.property_type,
-          });
-        }
-
-        form.reset();
-        applyWeb3FormErrors(form, {});
-        setWeb3FormFeedback(
-          form,
-          payload.message
-            ? "Thanks — your message has been sent. We will respond shortly."
-            : "Thanks — your quote request has been sent. We will respond shortly.",
-          "success",
-        );
-        window.setTimeout(() => {
-          window.location.assign(web3FormsRedirect);
-        }, 300);
-      } catch (error) {
-        console.error("Web3Forms submission failed.", {
-          message: error instanceof Error ? error.message : String(error),
-          source: window.location.href,
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json",
+          },
         });
-        setWeb3FormFeedback(
-          form,
-          "Could not send the request. Please try again or call 0433 819 989.",
-          "error",
-        );
-      } finally {
-        submitButton.disabled = false;
-        submitButton.dataset.submitting = "false";
-        submitButton.textContent = defaultLabel;
+
+        const result = await response.json();
+
+        if (result.success) {
+          alert("Message sent successfully");
+          form.reset();
+        } else {
+          alert(result.message || "Submission failed");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Network error");
       }
     });
   });
