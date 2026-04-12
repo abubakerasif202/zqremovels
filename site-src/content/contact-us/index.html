@@ -10,16 +10,16 @@
             </ol>
           </nav>
           <span class="eyebrow">Adelaide moving contact</span>
-          <h1>Send your move details and we will get back to you.</h1>
+          <h1>Request a Quote for Adelaide House, Furniture, Office or Interstate Moves</h1>
           <p class="lead">
-            Use this form for local Adelaide moves, interstate relocations, office work, furniture handling,
-            or packing questions. If you already know the route or date, include it in the message so we can
-            review the job faster.
+            Use this quote form for local Adelaide house removals, furniture removals, office relocations,
+            packing services, and interstate moves. The more detail you share about suburbs, access, move size,
+            and timing, the faster we can review the brief and respond clearly.
           </p>
           <ul aria-label="Contact highlights" class="value-list">
             <li>Local Adelaide and metro moves</li>
-            <li>Interstate planning and route questions</li>
-            <li>Office, furniture, and packing enquiries</li>
+            <li>Office, furniture, packing, and interstate quotes</li>
+            <li>Mobile-friendly quote form with practical move fields</li>
           </ul>
           <div class="proof-grid reveal-on-scroll">
             <article class="proof-card">
@@ -51,7 +51,7 @@
         <form
           id="quote-form"
           class="quote-form quote-form-hero reveal-on-scroll"
-          data-web3forms="true"
+          data-quote-form="quote"
           novalidate
         >
           <p hidden>
@@ -62,55 +62,143 @@
           </p>
 
           <div class="quote-form-intro">
-            <span class="eyebrow">Contact form</span>
-            <h2 class="mini-heading" id="quote-heading">Start your enquiry here.</h2>
+            <span class="eyebrow">Moving quote form</span>
+            <h2 class="mini-heading" id="quote-heading">Tell us the route, access, and move size.</h2>
             <p class="form-note">
-              We review every submission manually. Add as much move context as you have and we will follow up.
+              We review every quote request manually. Add the move details you already know and we will follow up with the next steps.
             </p>
           </div>
 
           <div class="field-grid">
             <label>
-              <span>Full Name</span>
-              <input autocomplete="name" aria-describedby="contact-error-name" name="name" placeholder="Full Name" required type="text" />
-              <small class="field-error" data-error-for="name" id="contact-error-name"></small>
+              <span>Move date</span>
+              <input aria-describedby="contact-error-move_date" name="move_date" type="date" />
+              <small class="field-error" data-error-for="move_date" id="contact-error-move_date"></small>
+            </label>
+            <label>
+              <span>Pickup suburb</span>
+              <input autocomplete="address-level2" aria-describedby="contact-error-pickup_suburb" name="pickup_suburb" placeholder="Pickup suburb" required type="text" />
+              <small class="field-error" data-error-for="pickup_suburb" id="contact-error-pickup_suburb"></small>
+            </label>
+            <label>
+              <span>Drop-off suburb</span>
+              <input autocomplete="address-level2" aria-describedby="contact-error-dropoff_suburb" name="dropoff_suburb" placeholder="Drop-off suburb" required type="text" />
+              <small class="field-error" data-error-for="dropoff_suburb" id="contact-error-dropoff_suburb"></small>
+            </label>
+            <label>
+              <span>Move scope</span>
+              <select aria-describedby="contact-error-move_scope" name="move_scope" required>
+                <option selected value="">Select move scope</option>
+                <option value="house-removal">House move</option>
+                <option value="apartment-removal">Apartment or unit move</option>
+                <option value="office-relocation">Office relocation</option>
+                <option value="furniture-removal">Furniture-only move</option>
+                <option value="interstate-removal">Interstate move</option>
+                <option value="packing-service">Packing support</option>
+              </select>
+              <small class="field-error" data-error-for="move_scope" id="contact-error-move_scope"></small>
+            </label>
+            <label>
+              <span>Property type</span>
+              <select aria-describedby="contact-error-property_type" name="property_type" required>
+                <option selected value="">Select property type</option>
+                <option value="apartment">Apartment or unit</option>
+                <option value="house">House or townhouse</option>
+                <option value="office">Office or clinic</option>
+                <option value="storage">Storage or mixed load</option>
+                <option value="other">Other</option>
+              </select>
+              <small class="field-error" data-error-for="property_type" id="contact-error-property_type"></small>
+            </label>
+            <label>
+              <span>Move size</span>
+              <select aria-describedby="contact-error-move_size" name="move_size" required>
+                <option selected value="">Select move size</option>
+                <option value="studio-1-bedroom">Studio or 1 bedroom</option>
+                <option value="2-bedroom">2 bedrooms</option>
+                <option value="3-bedroom">3 bedrooms</option>
+                <option value="4-plus-bedroom">4+ bedrooms</option>
+                <option value="office-suite">Office or clinic suite</option>
+                <option value="single-items">Single items or partial load</option>
+              </select>
+              <small class="field-error" data-error-for="move_size" id="contact-error-move_size"></small>
+            </label>
+            <label>
+              <span>Pickup access</span>
+              <select aria-describedby="contact-error-pickup_access" name="pickup_access" required>
+                <option selected value="">Select pickup access</option>
+                <option value="ground-level">Ground level</option>
+                <option value="stairs">Stairs</option>
+                <option value="lift">Lift access</option>
+                <option value="loading-zone">Loading zone or booking required</option>
+                <option value="not-sure">Not sure yet</option>
+              </select>
+              <small class="field-error" data-error-for="pickup_access" id="contact-error-pickup_access"></small>
+            </label>
+            <label>
+              <span>Drop-off access</span>
+              <select aria-describedby="contact-error-dropoff_access" name="dropoff_access" required>
+                <option selected value="">Select drop-off access</option>
+                <option value="ground-level">Ground level</option>
+                <option value="stairs">Stairs</option>
+                <option value="lift">Lift access</option>
+                <option value="loading-zone">Loading zone or booking required</option>
+                <option value="not-sure">Not sure yet</option>
+              </select>
+              <small class="field-error" data-error-for="dropoff_access" id="contact-error-dropoff_access"></small>
+            </label>
+            <label>
+              <span>Packing required</span>
+              <select aria-describedby="contact-error-packing_required" name="packing_required" required>
+                <option selected value="">Select packing support</option>
+                <option value="no-packing-needed">No packing required</option>
+                <option value="partial-packing">Partial packing</option>
+                <option value="full-packing">Full packing service</option>
+                <option value="fragile-items-only">Fragile items only</option>
+              </select>
+              <small class="field-error" data-error-for="packing_required" id="contact-error-packing_required"></small>
+            </label>
+            <label>
+              <span>Full name</span>
+              <input autocomplete="name" aria-describedby="contact-error-full_name" name="full_name" placeholder="Full name" required type="text" />
+              <small class="field-error" data-error-for="full_name" id="contact-error-full_name"></small>
+            </label>
+            <label>
+              <span>Phone</span>
+              <input autocomplete="tel" aria-describedby="contact-error-phone" name="phone" placeholder="Phone" required type="tel" />
+              <small class="field-error" data-error-for="phone" id="contact-error-phone"></small>
             </label>
             <label>
               <span>Email</span>
               <input autocomplete="email" aria-describedby="contact-error-email" name="email" placeholder="Email" required type="email" />
               <small class="field-error" data-error-for="email" id="contact-error-email"></small>
             </label>
-            <label>
-              <span>Phone</span>
-              <input autocomplete="tel" aria-describedby="contact-error-phone" name="phone" placeholder="Phone" type="tel" />
-              <small class="field-error" data-error-for="phone" id="contact-error-phone"></small>
-            </label>
           </div>
 
           <label>
-            <span>Message</span>
+            <span>Move details</span>
             <textarea
-              aria-describedby="contact-error-message"
-              name="message"
-              placeholder="Tell us about your move..."
+              aria-describedby="contact-error-move_details"
+              name="move_details"
+              placeholder="Tell us about larger furniture, fragile items, apartment lifts, loading zones, office timing, or anything else we should know."
               required
               rows="7"
             ></textarea>
-            <small class="field-error" data-error-for="message" id="contact-error-message"></small>
+            <small class="field-error" data-error-for="move_details" id="contact-error-move_details"></small>
           </label>
 
-          <button class="button button-primary" type="submit">Get Quote</button>
+          <button class="button button-primary" type="submit">Request My Moving Quote</button>
           <p class="form-feedback" data-form-feedback role="status" aria-live="polite"></p>
         </form>
 
         <div class="contact-hero-notes reveal-on-scroll">
           <div>
             <strong>What to include</strong>
-            <span>Your pickup suburb, delivery suburb, timing, property type, and anything important about stairs, parking, or bulky items.</span>
+            <span>Your pickup suburb, drop-off suburb, move size, property type, and anything important about stairs, lifts, parking, or bulky items.</span>
           </div>
           <div>
             <strong>What happens next</strong>
-            <span>We review the message, check the move requirements, and reply with the next steps or a quote.</span>
+            <span>We review the move brief, check the route and access requirements, and reply with the next steps or a quote.</span>
           </div>
           <div>
             <strong>Need to call?</strong>
@@ -158,33 +246,33 @@
       <div class="route-grid">
         <article class="route-card reveal-on-scroll">
           <small>Local moves</small>
-          <h3>Adelaide local removals</h3>
-          <p>Homes, apartments, offices, and suburb-to-suburb moves across Adelaide.</p>
-          <a class="button-link" href="/removalists-adelaide/">View local removals</a>
+          <h3>House removals Adelaide</h3>
+          <p>Homes, apartments, townhouses, and suburb-to-suburb house moves across Adelaide.</p>
+          <a class="button-link" href="/house-removals-adelaide/">View house removals Adelaide</a>
         </article>
         <article class="route-card reveal-on-scroll">
           <small>Interstate routes</small>
           <h3>Interstate removals from Adelaide</h3>
           <p>Long-distance moves with clear pickup, delivery, and access planning.</p>
-          <a class="button-link" href="/interstate-removals-adelaide/">View interstate removals</a>
+          <a class="button-link" href="/interstate-removals-adelaide/">View interstate removals Adelaide</a>
         </article>
         <article class="route-card reveal-on-scroll">
           <small>Commercial moves</small>
-          <h3>Office relocations</h3>
+          <h3>Office relocations Adelaide</h3>
           <p>Desks, equipment, files, clinics, studios, and workspaces that need an organised move plan.</p>
-          <a class="button-link" href="/office-removals-adelaide/">View office removals</a>
+          <a class="button-link" href="/office-removals-adelaide/">View office relocations Adelaide</a>
         </article>
         <article class="route-card reveal-on-scroll">
           <small>Furniture moves</small>
-          <h3>Furniture removals</h3>
+          <h3>Furniture removalists Adelaide</h3>
           <p>Large, delicate, and awkward pieces that need extra care and access planning.</p>
-          <a class="button-link" href="/furniture-removalists-adelaide/">View furniture removals</a>
+          <a class="button-link" href="/furniture-removalists-adelaide/">View furniture removalists Adelaide</a>
         </article>
         <article class="route-card reveal-on-scroll">
           <small>Packing support</small>
           <h3>Packing services Adelaide</h3>
           <p>Packing help for kitchens, wardrobes, fragile items, offices, and move-day preparation.</p>
-          <a class="button-link" href="/packing-services-adelaide/">View packing services</a>
+          <a class="button-link" href="/packing-services-adelaide/">View packing services Adelaide</a>
         </article>
       </div>
     </div>

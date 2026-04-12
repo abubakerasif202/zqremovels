@@ -54,7 +54,7 @@ const suburbPageProfiles = {
     hero:
       'Adelaide CBD moves require planning around loading zones, booked lift windows, and high-traffic blocks, so the job is scoped around building access rather than guesswork.',
     intro: [
-      'When people search for removalists in Adelaide CBD, they usually need more than a truck and a time slot. City jobs are shaped by concierge rules, service-lift bookings, and strict loading times that can change the whole schedule. Our crew plans CBD relocations by confirming access details first, then matching labour and vehicle timing to the actual window available.',
+      'When people search for removalists in Adelaide CBD, they usually need more than a truck and a time slot. City jobs are shaped by concierge rules, service lift bookings, and strict loading times that can change the whole schedule. Our crew plans CBD relocations by confirming access details first, then matching labour and vehicle timing to the actual window available.',
       'We regularly move apartments, offices, and mixed-use spaces through the city grid where short travel distances still involve complex logistics. A move from one side of the CBD to the other can still become access-sensitive when parking is limited and elevators are shared with tenants. That is why we build each city move plan around entry points, carry distance, and timing pressure before move day starts.',
     ],
     conditions: [
@@ -66,7 +66,7 @@ const suburbPageProfiles = {
       {
         title: 'Apartment tower relocations',
         copy:
-          'CBD apartment moves often involve strict booking slots and shared lift access. We sequence the load so priority furniture goes first, protect common areas, and keep the unload moving inside the approved window.',
+          'CBD apartment moves often involve strict booking slots, service lift access, and shared loading areas. We sequence the load so priority furniture goes first, protect common areas, and keep the unload moving inside the approved window.',
       },
       {
         title: 'Office and suite transitions',
@@ -480,8 +480,8 @@ const suburbPageProfiles = {
   'northern-adelaide': {
     suburb: 'Northern Adelaide',
     nearby: 'Salisbury, Elizabeth, Andrews Farm, Mawson Lakes, Blakeview, and Gawler',
-    eyebrow: 'Adelaide North Removalists',
-    h1: 'Northern Adelaide removalists for estates, short-notice moves, and garage-heavy loads.',
+    eyebrow: 'Removalists Northern Suburbs Adelaide',
+    h1: 'Removalists Northern Suburbs Adelaide for family homes, estates, and northside coverage.',
     hero:
       'Northern Adelaide moves often involve family homes, estates, and unit access where driveway setup, stairs, and garage inventory change labour time quickly.',
     highlights: [
@@ -1887,55 +1887,111 @@ function buildWebPageJsonLd(page) {
   );
 }
 
-function buildServiceJsonLd(page) {
-  if (pageHasJsonLdType(page, 'Service')) {
-    return '';
-  }
-
+function getServiceSchemaConfig(page) {
   if ((page.robots || '').includes('noindex')) {
-    return '';
+    return null;
   }
 
   const output = page.output;
   const suburbProfile = getSuburbProfile(page);
 
-  let name = '';
-  let serviceType = '';
-  let areaServed = ['Adelaide', 'South Australia'];
+  if (output === 'removalists-northern-adelaide/index.html') {
+    return {
+      name: 'Removalists Northern Suburbs Adelaide',
+      serviceType: 'Local removal services in Adelaide northern suburbs',
+      areaServed: ['Northern Adelaide', 'Salisbury', 'Elizabeth', 'Andrews Farm', 'Blakeview', 'Gawler', 'Adelaide'],
+      offerDescription: 'Fixed-price northside quote after access, inventory, and route review.',
+    };
+  }
 
   if (suburbProfile) {
-    name = `Removalists in ${suburbProfile.suburb}`;
-    serviceType = 'Local removal services';
-    areaServed = [`${suburbProfile.suburb}, SA`, 'Adelaide', 'South Australia'];
-  } else if (output === 'removalists-adelaide/index.html') {
-    name = 'Removalists in Adelaide';
-    serviceType = 'Local removal services';
-  } else if (output === 'local-removals-adelaide/index.html') {
-    name = 'Local removals in Adelaide';
-    serviceType = 'Local removal services';
-  } else if (output === 'packing-services-adelaide/index.html') {
-    name = 'Packing services in Adelaide';
-    serviceType = 'Packing services';
-  } else if (output === 'office-removals-adelaide/index.html') {
-    name = 'Office removals in Adelaide';
-    serviceType = 'Office relocation services';
-  } else if (output === 'furniture-removalists-adelaide/index.html') {
-    name = 'Furniture removalists in Adelaide';
-    serviceType = 'Furniture removal services';
-  } else if (output === 'interstate-removals-adelaide/index.html') {
-    name = 'Interstate removals from Adelaide';
-    serviceType = 'Interstate removal services';
-    areaServed = ['Australia'];
-  } else if (output.startsWith('adelaide-to-') && output.endsWith('-removals/index.html')) {
+    return {
+      name: `Removalists ${suburbProfile.suburb}`,
+      serviceType: `Local removal services in ${suburbProfile.suburb}`,
+      areaServed: [`${suburbProfile.suburb}, SA`, 'Adelaide', 'South Australia'],
+      offerDescription: 'Fixed-price suburb quote after access, inventory, and timing review.',
+    };
+  }
+
+  if (output === 'removalists-adelaide/index.html') {
+    return {
+      name: 'Removalists Adelaide',
+      serviceType: 'Local removal services',
+      areaServed: ['Adelaide', 'South Australia'],
+      offerDescription: 'Fixed-price Adelaide quote after suburb, access, and inventory review.',
+    };
+  }
+
+  if (output === 'house-removals-adelaide/index.html') {
+    return {
+      name: 'House Removals Adelaide',
+      serviceType: 'House removal services',
+      areaServed: ['Adelaide', 'South Australia'],
+      offerDescription: 'Fixed-price house removals quote after property, access, and move-size review.',
+    };
+  }
+
+  if (output === 'packing-services-adelaide/index.html') {
+    return {
+      name: 'Packing Services Adelaide',
+      serviceType: 'Packing services',
+      areaServed: ['Adelaide', 'South Australia'],
+      offerDescription: 'Packing quote based on service level, fragile-item profile, and inventory volume.',
+    };
+  }
+
+  if (output === 'office-removals-adelaide/index.html') {
+    return {
+      name: 'Office Relocations Adelaide',
+      serviceType: 'Office relocation services',
+      areaServed: ['Adelaide', 'Adelaide CBD', 'Marion', 'South Australia'],
+      offerDescription: 'Fixed-price office relocation quote after inventory, access, and timing review.',
+    };
+  }
+
+  if (output === 'furniture-removalists-adelaide/index.html') {
+    return {
+      name: 'Furniture Removalists Adelaide',
+      serviceType: 'Furniture removal services',
+      areaServed: ['Adelaide', 'Adelaide CBD', 'Marion', 'Glenelg', 'South Australia'],
+      offerDescription: 'Fixed-price furniture move quote based on item profile, protection, and access complexity.',
+    };
+  }
+
+  if (output === 'interstate-removals-adelaide/index.html') {
+    return {
+      name: 'Interstate Removals Adelaide',
+      serviceType: 'Interstate removal services',
+      areaServed: ['Australia'],
+      offerDescription: 'Fixed-price interstate quote after route, access, and inventory review.',
+    };
+  }
+
+  if (output.startsWith('adelaide-to-') && output.endsWith('-removals/index.html')) {
     const route = output
       .replace(/\/index\.html$/, '')
       .replace(/^adelaide-to-/, 'Adelaide to ')
       .replace(/-removals$/, '')
       .replaceAll('-', ' ');
-    name = `Interstate removals: ${route}`;
-    serviceType = 'Interstate removal services';
-    areaServed = ['Australia'];
-  } else {
+
+    return {
+      name: `Interstate removals: ${route}`,
+      serviceType: 'Interstate removal services',
+      areaServed: ['Australia'],
+      offerDescription: 'Fixed-price interstate quote after route, access, and inventory review.',
+    };
+  }
+
+  return null;
+}
+
+function buildServiceJsonLd(page) {
+  if (pageHasJsonLdType(page, 'Service')) {
+    return '';
+  }
+
+  const config = getServiceSchemaConfig(page);
+  if (!config) {
     return '';
   }
 
@@ -1944,13 +2000,18 @@ function buildServiceJsonLd(page) {
       '@context': 'https://schema.org',
       '@type': 'Service',
       '@id': `${page.canonical}#service`,
-      name,
-      serviceType,
-      areaServed,
+      name: config.name,
+      serviceType: config.serviceType,
+      areaServed: config.areaServed,
       provider: {
         '@id': 'https://zqremovals.au/#business',
       },
       url: page.canonical,
+      offers: {
+        '@type': 'Offer',
+        priceCurrency: 'AUD',
+        description: config.offerDescription,
+      },
     },
     null,
     2,
@@ -2109,7 +2170,43 @@ function normalizeJsonLdNode(node, page) {
     };
   }
 
+  if (types.includes('Service')) {
+    return normalizeServiceNode(node, page);
+  }
+
   return node;
+}
+
+function normalizeServiceNode(node, page) {
+  const config = getServiceSchemaConfig(page);
+  if (!config) {
+    return node;
+  }
+
+  return {
+    ...node,
+    '@id': `${page.canonical}#service`,
+    name: config.name,
+    serviceType: config.serviceType,
+    provider: {
+      '@id': 'https://zqremovals.au/#business',
+    },
+    areaServed: Array.isArray(node.areaServed) && node.areaServed.length > 0 ? node.areaServed : config.areaServed,
+    url: page.canonical,
+    offers:
+      node.offers && typeof node.offers === 'object'
+        ? {
+            ...node.offers,
+            '@type': 'Offer',
+            priceCurrency: node.offers.priceCurrency || 'AUD',
+            description: node.offers.description || config.offerDescription,
+          }
+        : {
+            '@type': 'Offer',
+            priceCurrency: 'AUD',
+            description: config.offerDescription,
+          },
+  };
 }
 
 function normalizeMovingCompanyNode(node) {
@@ -2300,6 +2397,8 @@ function getBodyClasses(page) {
     classes.push('page-service-packing');
   } else if (output === 'furniture-removalists-adelaide/index.html') {
     classes.push('page-service-furniture');
+  } else if (output === 'house-removals-adelaide/index.html') {
+    classes.push('page-service-local');
   } else if (output === 'removalists-adelaide/index.html') {
     classes.push('page-service-local');
   } else if (output.startsWith('removalists-')) {
@@ -2509,11 +2608,13 @@ ${extraParagraph}
 <p>${escapeHtml(targetCopy)}</p>
 <h3>Related moving services</h3>
 <ul aria-label="Internal service links" class="bullet-list">
+<li><a href="/house-removals-adelaide/">House Removals Adelaide</a></li>
 <li><a href="/removalists-adelaide/">Removalists Adelaide</a></li>
 <li><a href="/packing-services-adelaide/">Packing Services Adelaide</a></li>
 <li><a href="/furniture-removalists-adelaide/">Furniture Removalists Adelaide</a></li>
-<li><a href="/office-removals-adelaide/">Office Removals Adelaide</a></li>
+<li><a href="/office-removals-adelaide/">Office Relocations Adelaide</a></li>
 <li><a href="/interstate-removals-adelaide/">Interstate Removals Adelaide</a></li>
+<li><a href="/contact-us/#quote-form">Request a moving quote</a></li>
 </ul>
 </div>
 </section>
@@ -2601,6 +2702,13 @@ function getRelatedLinksProfile(page) {
       intro:
         'If the brief includes packing, delicate furniture, office equipment, or a longer route, start with the matching service page.',
       links: [
+        {
+          eyebrow: 'House moves',
+          title: 'House removals Adelaide',
+          copy: 'Start with the residential service page for family homes, apartments, and townhouse moves across Adelaide.',
+          url: '/house-removals-adelaide/',
+          cta: 'View house removals',
+        },
         {
           eyebrow: 'Packing',
           title: 'Packing services Adelaide',
@@ -2751,11 +2859,25 @@ function getRelatedLinksProfile(page) {
       output === 'office-removals-adelaide/index.html'
         ? [
             {
-              eyebrow: 'Local removals',
-              title: 'Adelaide local removals',
-              copy: 'Use the local hub for suburb-to-suburb moves, apartments, and family homes across Adelaide.',
-              url: '/removalists-adelaide/',
-              cta: 'View local removals',
+              eyebrow: 'Residential',
+              title: 'House removals Adelaide',
+              copy: 'Use the house removals page for family homes, apartments, and townhouse moves across Adelaide.',
+              url: '/house-removals-adelaide/',
+              cta: 'View house removals',
+            },
+            {
+              eyebrow: 'Adelaide CBD',
+              title: 'Removalists Adelaide CBD',
+              copy: 'Use the CBD page when the office move depends on loading zones, service lifts, or tighter city access windows.',
+              url: '/removalists-adelaide-cbd/',
+              cta: 'View Adelaide CBD moves',
+            },
+            {
+              eyebrow: 'Marion',
+              title: 'Removalists Marion',
+              copy: 'Use the Marion page for south-west business moves, clinics, and mixed residential-commercial routes.',
+              url: '/removalists-marion/',
+              cta: 'View Marion moves',
             },
             {
               eyebrow: 'Packing',
@@ -2779,8 +2901,15 @@ function getRelatedLinksProfile(page) {
               cta: 'Request a quote',
             },
           ]
-        : output === 'furniture-removalists-adelaide/index.html'
+          : output === 'furniture-removalists-adelaide/index.html'
           ? [
+              {
+                eyebrow: 'Residential',
+                title: 'House removals Adelaide',
+                copy: 'Use the house removals page when the furniture brief sits inside a wider residential move.',
+                url: '/house-removals-adelaide/',
+                cta: 'View house removals',
+              },
               {
                 eyebrow: 'Packing',
                 title: 'Packing services Adelaide',
@@ -2789,11 +2918,11 @@ function getRelatedLinksProfile(page) {
                 cta: 'View packing services',
               },
               {
-                eyebrow: 'Local removals',
-                title: 'Adelaide local removals',
-                copy: 'Use the local hub for suburb-to-suburb moves, apartments, and family homes across Adelaide.',
-                url: '/removalists-adelaide/',
-                cta: 'View local removals',
+                eyebrow: 'Glenelg',
+                title: 'Removalists Glenelg',
+                copy: 'Use the Glenelg page for coastal apartments, fragile furniture, and beachside access planning.',
+                url: '/removalists-glenelg/',
+                cta: 'View Glenelg moves',
               },
               {
                 eyebrow: 'Interstate',
@@ -2812,11 +2941,11 @@ function getRelatedLinksProfile(page) {
             ]
           : [
               {
-                eyebrow: 'Local removals',
-                title: 'Adelaide local removals',
-                copy: 'Use the local hub for suburb-to-suburb moves, apartments, and family homes across Adelaide.',
-                url: '/removalists-adelaide/',
-                cta: 'View local removals',
+                eyebrow: 'Residential',
+                title: 'House removals Adelaide',
+                copy: 'Use the house removals page if the packing brief supports a wider home, apartment, or townhouse move.',
+                url: '/house-removals-adelaide/',
+                cta: 'View house removals',
               },
               {
                 eyebrow: 'Interstate',
@@ -2858,11 +2987,11 @@ function getRelatedLinksProfile(page) {
         'Use the Adelaide local removals page for broader suburb coverage, add support for delicate items or packing, or request a fixed-price quote when the brief is ready.',
       links: [
         {
-          eyebrow: 'Local hub',
-          title: 'Adelaide local removals',
-          copy: 'See the main Adelaide removals page for suburb coverage, local move details, and more Adelaide locations.',
-          url: '/removalists-adelaide/',
-          cta: 'Open local removals',
+          eyebrow: 'Residential',
+          title: 'House removals Adelaide',
+          copy: 'See the residential service page for family homes, apartments, and townhouse moves across Adelaide.',
+          url: '/house-removals-adelaide/',
+          cta: 'Open house removals',
         },
         {
           eyebrow: 'Furniture',
@@ -2870,6 +2999,13 @@ function getRelatedLinksProfile(page) {
           copy: 'For bulky, delicate, or hard-to-move pieces that need extra care and access planning.',
           url: '/furniture-removalists-adelaide/',
           cta: 'View furniture removals',
+        },
+        {
+          eyebrow: 'Office',
+          title: 'Office relocations Adelaide',
+          copy: 'Use the office relocations page when the brief includes clinics, workstations, files, or mixed-use business inventory.',
+          url: '/office-removals-adelaide/',
+          cta: 'View office relocations',
         },
         {
           eyebrow: 'Packing',
@@ -3141,6 +3277,7 @@ function getSitemapMeta(page) {
 
   if (
     page.output === 'adelaide-moving-guides/index.html' ||
+    page.output === 'house-removals-adelaide/index.html' ||
     page.output === 'furniture-removalists-adelaide/index.html' ||
     page.output === 'office-removals-adelaide/index.html' ||
     page.output === 'interstate-removals-adelaide/index.html' ||

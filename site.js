@@ -4,13 +4,13 @@ const footerYears = document.querySelectorAll("[data-year]");
 const siteHeader = document.querySelector(".site-header");
 const headerDetails = Array.from(siteHeader?.querySelectorAll("details") ?? []);
 const forms = Array.from(document.querySelectorAll("form"));
-const web3FormsForms = Array.from(
-  document.querySelectorAll('form[data-web3forms="true"]'),
+const quoteForms = Array.from(
+  document.querySelectorAll('form[data-quote-form="quote"]'),
 );
 const quoteDateFields = Array.from(
   document.querySelectorAll('input[type="date"][name*="date"]'),
 );
-const web3FormsRedirect = "/thank-you.html";
+const quoteRedirect = "/thank-you.html";
 
 function closeDetails(detailsList, keepOpen = null) {
   detailsList.forEach((details) => {
@@ -117,7 +117,7 @@ function setupFormState() {
   }
 
   forms.forEach((form) => {
-    if (form.getAttribute("data-web3forms") === "true") {
+    if (form.getAttribute("data-quote-form") === "quote") {
       return;
     }
 
@@ -169,7 +169,7 @@ function isSupportedFormField(field) {
   );
 }
 
-function validateWeb3Form(form) {
+function validateQuoteForm(form) {
   const payload = {};
   const errors = {};
   const fields = Array.from(form.elements).filter((field) => field.name);
@@ -211,7 +211,7 @@ function validateWeb3Form(form) {
   return { payload, errors };
 }
 
-function applyWeb3FormErrors(form, errors) {
+function applyQuoteFormErrors(form, errors) {
   const errorNodes = Array.from(form.querySelectorAll("[data-error-for]"));
   errorNodes.forEach((node) => {
     const fieldName = node.getAttribute("data-error-for") ?? "";
@@ -219,7 +219,7 @@ function applyWeb3FormErrors(form, errors) {
   });
 }
 
-function setWeb3FormFeedback(form, message, state = "") {
+function setQuoteFormFeedback(form, message, state = "") {
   const feedbackNode = form.querySelector("[data-form-feedback]");
   if (!feedbackNode) {
     return;
@@ -241,45 +241,111 @@ function trackQuoteSubmission(payload) {
 
   window.gtag("event", "quote_submitted", {
     source_page: payload.source_page || window.location.pathname,
-    move_type: payload.move_type || "",
+    move_scope: payload.move_scope || "",
     property_type: payload.property_type || "",
   });
 }
 
-function setupWeb3Forms() {
-  if (web3FormsForms.length === 0) {
+function setQuoteFormSubmitting(form, isSubmitting) {
+  const submitButton = form.querySelector('button[type="submit"]');
+  if (!submitButton) {
     return;
   }
 
-  web3FormsForms.forEach((form) => {
+  if (!submitButton.dataset.defaultLabel) {
+    submitButton.dataset.defaultLabel =
+      submitButton.textContent?.trim() ?? "Submit";
+  }
+
+  submitButton.disabled = isSubmitting;
+  submitButton.dataset.submitting = isSubmitting ? "true" : "false";
+  submitButton.textContent = isSubmitting
+    ? "Sending quote..."
+    : submitButton.dataset.defaultLabel;
+}
+
+async function submitQuoteForm(form, payload) {
+  const response = await fetch("/api/quote", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      ...payload,
+      source_page: window.location.href,
+    }),
+  });
+
+  const result = await response.json().catch(() => ({
+    success: false,
+    message: "Invalid response from quote service.",
+  }));
+
+  if (!response.ok || result.success === false) {
+    const error = new Error(result.details || result.message || "Quote submission failed.");
+    error.payload = result;
+    throw error;
+  }
+
+  return result;
+}
+
+function setupQuoteForms() {
+  if (quoteForms.length === 0) {
+    return;
+  }
+
+  quoteForms.forEach((form) => {
+    setQuoteFormSubmitting(form, false);
+
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
-      const formData = new FormData(form);
-      formData.append("access_key", "d928b483-d5f0-40d7-9eb1-44a56130ba63");
-      formData.append("subject", "New ZQ Removals Quote Request");
-      formData.append("from_name", "ZQ Removals Website");
+
+      const submitButton = form.querySelector('button[type="submit"]');
+      if (submitButton?.dataset.submitting === "true") {
+        return;
+      }
+
+      const { payload, errors } = validateQuoteForm(form);
+      applyQuoteFormErrors(form, errors);
+
+      if (Object.keys(errors).length > 0) {
+        setQuoteFormFeedback(form, "Check the highlighted fields and try again.", "error");
+        const firstErrorField = Array.from(form.elements).find(
+          (field) => isSupportedFormField(field) && errors[field.name],
+        );
+        firstErrorField?.focus();
+        return;
+      }
+
+      setQuoteFormFeedback(form, "");
+      setQuoteFormSubmitting(form, true);
 
       try {
-        const response = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          body: formData,
-          headers: {
-            Accept: "application/json",
-          },
+        await submitQuoteForm(form, payload);
+        trackQuoteSubmission({
+          ...payload,
+          source_page: window.location.pathname,
         });
-
-        const result = await response.json();
-
-        if (result.success) {
-          alert("Message sent successfully");
-          form.reset();
-        } else {
-          alert(result.message || "Submission failed");
-        }
+        setQuoteFormFeedback(form, "Quote request sent. Redirecting...", "success");
+        form.reset();
+        window.location.assign(quoteRedirect);
       } catch (error) {
         console.error(error);
-        alert("Network error");
+        setQuoteFormFeedback(
+          form,
+          error?.payload?.details || error?.payload?.message || error.message || "Quote submission failed.",
+          "error",
+        );
+        setQuoteFormSubmitting(form, false);
       }
+    });
+  });
+
+  window.addEventListener("pageshow", () => {
+    quoteForms.forEach((form) => {
+      setQuoteFormSubmitting(form, false);
     });
   });
 }
@@ -322,7 +388,7 @@ function setupLocalFormPreview() {
   }
 
   forms.forEach((form) => {
-    if (form.getAttribute("data-web3forms") === "true") {
+    if (form.getAttribute("data-quote-form") === "quote") {
       return;
     }
 
@@ -395,7 +461,7 @@ setCurrentYear();
 setQuoteDateMinimum();
 setupHeaderDetails();
 setupFormState();
-setupWeb3Forms();
+setupQuoteForms();
 setupLocalFormPreview();
 setupHeaderState();
 setupRevealAnimations();

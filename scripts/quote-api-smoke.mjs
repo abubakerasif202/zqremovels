@@ -36,15 +36,18 @@ function createRequest(payload) {
 const validPayload = {
   botcheck: '',
   pickup_suburb: 'Adelaide',
-  delivery_suburb: 'Glenelg',
-  move_type: 'local',
+  dropoff_suburb: 'Glenelg',
+  move_scope: 'house-removal',
   property_type: 'house',
-  preferred_move_date: '2026-04-15',
-  access_notes: 'Ground floor access with driveway parking.',
-  inventory_special_items: 'Two sofas and a fridge.',
+  move_date: '2026-04-15',
+  move_size: '3-bedroom',
+  pickup_access: 'ground-level',
+  dropoff_access: 'stairs',
+  packing_required: 'partial-packing',
   full_name: 'Test User',
   phone: '+61 400 000 000',
   email: 'test@example.com',
+  move_details: 'Two sofas, a fridge, and stair access at the drop-off property.',
   source_page: 'https://www.zqremovals.au/contact-us/',
 };
 
@@ -127,9 +130,11 @@ async function runLegacyKeySmoke() {
       message: 'Quote submitted',
     });
     assert.equal(upstreamBody.access_key, 'legacy-test-key');
-    assert.equal(upstreamBody.subject, 'Homepage quote request - ZQ Removals');
+    assert.equal(upstreamBody.subject, 'Quote request - ZQ Removals');
     assert.equal(upstreamBody.botcheck, '');
     assert.equal(upstreamBody.source_page, validPayload.source_page);
+    assert.equal(upstreamBody.dropoff_suburb, validPayload.dropoff_suburb);
+    assert.equal(upstreamBody.move_scope, validPayload.move_scope);
   } finally {
     if (originalFetch === undefined) {
       delete global.fetch;

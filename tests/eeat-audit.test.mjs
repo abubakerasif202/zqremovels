@@ -102,14 +102,22 @@ test('frontend quote flow emits a GA submission event hook', () => {
   assert.match(clientScript, /window\.gtag/);
 });
 
-test('contact page ships the simplified contact form fields', () => {
+test('contact page ships the removals-specific quote form fields', () => {
   const contactPage = readDist(path.join('contact-us', 'index.html'));
 
-  assert.match(contactPage, /name="name"/);
+  assert.match(contactPage, /name="move_date"/);
+  assert.match(contactPage, /name="pickup_suburb"/);
+  assert.match(contactPage, /name="dropoff_suburb"/);
+  assert.match(contactPage, /name="move_scope"/);
+  assert.match(contactPage, /name="property_type"/);
+  assert.match(contactPage, /name="move_size"/);
+  assert.match(contactPage, /name="pickup_access"/);
+  assert.match(contactPage, /name="dropoff_access"/);
+  assert.match(contactPage, /name="packing_required"/);
+  assert.match(contactPage, /name="full_name"/);
   assert.match(contactPage, /name="email"/);
   assert.match(contactPage, /name="phone"/);
-  assert.match(contactPage, /name="message"/);
-  assert.doesNotMatch(contactPage, /name="pickup_suburb"/);
+  assert.match(contactPage, /name="move_details"/);
 });
 
 test('about page is built and surfaced from shared navigation', () => {

@@ -29,6 +29,21 @@
       "permanent": true
     },
     {
+      "source": "/local-removals-adelaide",
+      "destination": "/house-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/local-removals-adelaide/",
+      "destination": "/house-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/local-removals-adelaide/index.html",
+      "destination": "/house-removals-adelaide/",
+      "permanent": true
+    },
+    {
       "source": "/interstate-removals",
       "destination": "/interstate-removals-adelaide/",
       "permanent": true

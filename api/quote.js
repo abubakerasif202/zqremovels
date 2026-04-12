@@ -1,5 +1,19 @@
 const QUOTE_REQUIRED_FIELDS = [
   "pickup_suburb",
+  "dropoff_suburb",
+  "move_scope",
+  "property_type",
+  "move_size",
+  "pickup_access",
+  "dropoff_access",
+  "packing_required",
+  "full_name",
+  "phone",
+  "email",
+  "move_details",
+];
+const LEGACY_QUOTE_REQUIRED_FIELDS = [
+  "pickup_suburb",
   "delivery_suburb",
   "move_type",
   "property_type",
@@ -28,6 +42,10 @@ async function readJsonBody(req) {
 
 function getTrimmedString(payload, field) {
   return String(payload[field] ?? "").trim();
+}
+
+function hasAnyField(payload, fields) {
+  return fields.some((field) => Object.prototype.hasOwnProperty.call(payload, field));
 }
 
 function normaliseSubmission(payload) {
@@ -66,7 +84,19 @@ function normaliseSubmission(payload) {
     };
   }
 
-  for (const field of QUOTE_REQUIRED_FIELDS) {
+  const isLegacyQuoteSubmission = hasAnyField(payload, [
+    "delivery_suburb",
+    "move_type",
+    "access_notes",
+    "inventory_special_items",
+    "preferred_move_date",
+  ]);
+
+  const requiredFields = isLegacyQuoteSubmission
+    ? LEGACY_QUOTE_REQUIRED_FIELDS
+    : QUOTE_REQUIRED_FIELDS;
+
+  for (const field of requiredFields) {
     if (!getTrimmedString(payload, field)) {
       return {
         error: { status: 400, message: `Missing field: ${field}` },
@@ -80,18 +110,42 @@ function normaliseSubmission(payload) {
     };
   }
 
+  if (isLegacyQuoteSubmission) {
+    return {
+      upstreamPayload: {
+        subject: "Quote request - ZQ Removals",
+        from_name: getTrimmedString(payload, "full_name"),
+        botcheck: "",
+        pickup_suburb: getTrimmedString(payload, "pickup_suburb"),
+        delivery_suburb: getTrimmedString(payload, "delivery_suburb"),
+        move_type: getTrimmedString(payload, "move_type"),
+        property_type: getTrimmedString(payload, "property_type"),
+        preferred_move_date: getTrimmedString(payload, "preferred_move_date"),
+        access_notes: getTrimmedString(payload, "access_notes"),
+        inventory_special_items: getTrimmedString(payload, "inventory_special_items"),
+        full_name: getTrimmedString(payload, "full_name"),
+        phone: getTrimmedString(payload, "phone"),
+        email: getTrimmedString(payload, "email"),
+        source_page: getTrimmedString(payload, "source_page"),
+      },
+    };
+  }
+
   return {
     upstreamPayload: {
-      subject: "Homepage quote request - ZQ Removals",
+      subject: "Quote request - ZQ Removals",
       from_name: getTrimmedString(payload, "full_name"),
       botcheck: "",
+      move_date: getTrimmedString(payload, "move_date"),
       pickup_suburb: getTrimmedString(payload, "pickup_suburb"),
-      delivery_suburb: getTrimmedString(payload, "delivery_suburb"),
-      move_type: getTrimmedString(payload, "move_type"),
+      dropoff_suburb: getTrimmedString(payload, "dropoff_suburb"),
+      move_scope: getTrimmedString(payload, "move_scope"),
       property_type: getTrimmedString(payload, "property_type"),
-      preferred_move_date: getTrimmedString(payload, "preferred_move_date"),
-      access_notes: getTrimmedString(payload, "access_notes"),
-      inventory_special_items: getTrimmedString(payload, "inventory_special_items"),
+      move_size: getTrimmedString(payload, "move_size"),
+      pickup_access: getTrimmedString(payload, "pickup_access"),
+      dropoff_access: getTrimmedString(payload, "dropoff_access"),
+      packing_required: getTrimmedString(payload, "packing_required"),
+      move_details: getTrimmedString(payload, "move_details"),
       full_name: getTrimmedString(payload, "full_name"),
       phone: getTrimmedString(payload, "phone"),
       email: getTrimmedString(payload, "email"),
