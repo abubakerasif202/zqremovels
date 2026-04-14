@@ -10,7 +10,11 @@ const quoteForms = Array.from(
 const quoteDateFields = Array.from(
   document.querySelectorAll('input[type="date"][name*="date"]'),
 );
-const quoteRedirect = "/thank-you.html";
+const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
+const WEB3FORMS_ACCESS_KEY = "d928b483-d5f0-40d7-9eb1-44a56130ba63";
+const WEB3FORMS_SUBJECT = "New ZQ Removals Quote Request";
+const WEB3FORMS_FROM_NAME = "ZQ Removals Website";
+const DEFAULT_QUOTE_ERROR_MESSAGE = "Could not send the request. Please try again.";
 
 function closeDetails(detailsList, keepOpen = null) {
   detailsList.forEach((details) => {
@@ -265,17 +269,29 @@ function setQuoteFormSubmitting(form, isSubmitting) {
 }
 
 async function submitQuoteForm(form, payload) {
-  const response = await fetch("/api/quote", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({
-      ...payload,
-      source_page: window.location.href,
-    }),
+  const formData = new FormData(form);
+  Object.entries(payload).forEach(([fieldName, value]) => {
+    formData.set(fieldName, value);
   });
+  formData.set("access_key", WEB3FORMS_ACCESS_KEY);
+  formData.set("subject", WEB3FORMS_SUBJECT);
+  formData.set("from_name", WEB3FORMS_FROM_NAME);
+  formData.set("source_page", window.location.href);
+
+  let response;
+  try {
+    response = await fetch(WEB3FORMS_ENDPOINT, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+      },
+      body: formData,
+    });
+  } catch (error) {
+    const requestError = new Error(DEFAULT_QUOTE_ERROR_MESSAGE);
+    requestError.cause = error;
+    throw requestError;
+  }
 
   const result = await response.json().catch(() => ({
     success: false,
@@ -283,7 +299,9 @@ async function submitQuoteForm(form, payload) {
   }));
 
   if (!response.ok || result.success === false) {
-    const error = new Error(result.details || result.message || "Quote submission failed.");
+    const error = new Error(
+      result.message || result.error || result.details || DEFAULT_QUOTE_ERROR_MESSAGE,
+    );
     error.payload = result;
     throw error;
   }
@@ -328,14 +346,24 @@ function setupQuoteForms() {
           ...payload,
           source_page: window.location.pathname,
         });
-        setQuoteFormFeedback(form, "Quote request sent. Redirecting...", "success");
+        applyQuoteFormErrors(form, {});
         form.reset();
-        window.location.assign(quoteRedirect);
+        setQuoteDateMinimum();
+        setQuoteFormFeedback(
+          form,
+          "Quote request sent successfully. We will review it and get back to you soon.",
+          "success",
+        );
+        setQuoteFormSubmitting(form, false);
       } catch (error) {
         console.error(error);
         setQuoteFormFeedback(
           form,
-          error?.payload?.details || error?.payload?.message || error.message || "Quote submission failed.",
+          error?.payload?.message ||
+            error?.payload?.error ||
+            error?.payload?.details ||
+            error.message ||
+            DEFAULT_QUOTE_ERROR_MESSAGE,
           "error",
         );
         setQuoteFormSubmitting(form, false);

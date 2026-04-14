@@ -44,32 +44,26 @@ test('homepage targets Adelaide removalists with the new commercial headline and
   assert.match(homepage, /href="\/removalists-northern-adelaide\/"/);
 });
 
-test('contact page ships a removals-specific quote form and posts through the local quote API', () => {
+test('quote forms post directly to Web3Forms with the required contact field names', () => {
+  const homepage = readDist('index.html');
   const contactPage = readDist(path.join('contact-us', 'index.html'));
   const clientScript = readDist('site.js');
 
-  for (const fieldName of [
-    'move_date',
-    'pickup_suburb',
-    'dropoff_suburb',
-    'move_scope',
-    'property_type',
-    'move_size',
-    'pickup_access',
-    'dropoff_access',
-    'packing_required',
-    'full_name',
-    'phone',
-    'email',
-    'move_details',
-  ]) {
-    assert.match(contactPage, new RegExp(`name="${fieldName}"`));
+  for (const formMarkup of [homepage, contactPage]) {
+    for (const fieldName of ['name', 'phone', 'email', 'message']) {
+      assert.match(formMarkup, new RegExp(`name="${fieldName}"`));
+    }
+
+    assert.doesNotMatch(formMarkup, /name="full_name"/);
+    assert.doesNotMatch(formMarkup, /name="move_details"/);
   }
 
   assert.match(contactPage, /Request My Moving Quote/i);
-  assert.match(clientScript, /fetch\("\/api\/quote"/);
-  assert.doesNotMatch(clientScript, /api\.web3forms\.com\/submit/i);
-  assert.doesNotMatch(clientScript, /d928b483-d5f0-40d7-9eb1-44a56130ba63/);
+  assert.match(clientScript, /new FormData\(form\)/);
+  assert.match(clientScript, /https:\/\/api\.web3forms\.com\/submit/);
+  assert.match(clientScript, /d928b483-d5f0-40d7-9eb1-44a56130ba63/);
+  assert.match(clientScript, /Accept:\s*"application\/json"/);
+  assert.doesNotMatch(clientScript, /fetch\("\/api\/quote"/);
 });
 
 test('house removals page owns the residential keyword and old local-removals URL redirects to it', () => {
