@@ -35,8 +35,10 @@ const partials = {
 };
 
 const pages = JSON.parse(await readFile(path.join(srcRoot, 'pages.json'), 'utf8'));
-const defaultSocialImage = 'https://zqremovals.au/zq-removals-social-share.webp';
-const defaultLogoImage = 'https://zqremovals.au/brand-logo.webp';
+const preferredSiteOrigin = 'https://www.zqremovals.au';
+const legacySiteOrigin = 'https://zqremovals.au';
+const defaultSocialImage = `${preferredSiteOrigin}/zq-removals-social-share.webp`;
+const defaultLogoImage = `${preferredSiteOrigin}/brand-logo.webp`;
 const googleBusinessProfileUrl = 'https://share.google/Y04mpt9RTflWP3iRl';
 const gaMeasurementId = process.env.GA_MEASUREMENT_ID?.trim() || '';
 const googleSiteVerificationToken =
@@ -46,6 +48,10 @@ const SUBURB_PAGE_WORD_MAX = 900;
 const SUBURB_CONDITION_HEADING_WORDS = 4;
 const SUBURB_PADDING_PARAGRAPH =
   'Every move is reviewed for access, inventory, and timing before scheduling, so clients receive a practical plan supported by experienced local movers.';
+
+for (const page of pages) {
+  normalizePageUrls(page);
+}
 
 const suburbPageProfiles = {
   'adelaide-cbd': {
@@ -89,6 +95,7 @@ const suburbPageProfiles = {
   glenelg: {
     suburb: 'Glenelg',
     nearby: 'Jetty Road, Brighton Road, Colley Terrace, Anzac Highway, and Moseley Square',
+    h1: 'Glenelg removalists for coastal apartments, homes, and beachside moves.',
     hero:
       'Glenelg moves need coastal access planning, parking awareness, and tighter sequencing for apartments, townhouses, and homes near busy beachside routes.',
     intro: [
@@ -166,7 +173,7 @@ const suburbPageProfiles = {
     suburb: 'Salisbury',
     nearby: 'Salisbury Highway, Commercial Road, Park Terrace, John Street, and Saints Road',
     eyebrow: 'Removalists Salisbury SA',
-    h1: 'Salisbury removalists for family homes, storage transfers, and northern Adelaide moves.',
+    h1: 'Salisbury removalists for homes, storage transfers, and northern Adelaide moves.',
     hero:
       'Salisbury moves often combine family homes, units, and storage-linked jobs where route timing and load sequencing make the biggest difference.',
     highlights: [
@@ -583,6 +590,7 @@ const suburbPageProfiles = {
   marion: {
     suburb: 'Marion',
     nearby: 'Marion Road, Sturt Road, Diagonal Road, Morphett Road, and Oaklands Road',
+    h1: 'Marion removalists for homes, units, clinics, and offices.',
     hero:
       'Marion moves often blend home, unit, clinic, and office requirements where access, traffic timing, and item sequencing all need careful planning.',
     intro: [
@@ -1693,12 +1701,12 @@ for (const page of pages) {
 
   const distOutputPath = path.join(distRoot, page.output);
   await mkdir(path.dirname(distOutputPath), { recursive: true });
-  await writeFile(distOutputPath, `${html.trim()}\n`, 'utf8');
+  await writeFile(distOutputPath, `${normalizeSiteUrl(html.trim())}\n`, 'utf8');
   console.log(`built ${page.output}`);
 }
 
 const sitemap = await renderSitemap(pages);
-await writeFile(path.join(distRoot, 'sitemap.xml'), sitemap, 'utf8');
+await writeFile(path.join(distRoot, 'sitemap.xml'), normalizeSiteUrl(sitemap), 'utf8');
 
 await copyStaticAssets();
 
@@ -2363,14 +2371,32 @@ function normalizeBreadcrumbUrl(value = '') {
   }
 
   if (value.startsWith('http://') || value.startsWith('https://')) {
-    return value;
+    return normalizeSiteUrl(value);
   }
 
   if (value.startsWith('/')) {
-    return `https://zqremovals.au${value}`;
+    return `${preferredSiteOrigin}${value}`;
   }
 
   return value;
+}
+
+function normalizeSiteUrl(value) {
+  return value.replaceAll(legacySiteOrigin, preferredSiteOrigin);
+}
+
+function normalizePageUrls(page) {
+  for (const key of ['canonical', 'ogUrl', 'ogImage', 'twitterImage', 'heroImage']) {
+    if (typeof page[key] === 'string') {
+      page[key] = normalizeSiteUrl(page[key]);
+    }
+  }
+
+  if (Array.isArray(page.jsonLd)) {
+    page.jsonLd = page.jsonLd.map((block) =>
+      typeof block === 'string' ? normalizeSiteUrl(block) : block,
+    );
+  }
 }
 
 function renderBodyAttributes(page) {
