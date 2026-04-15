@@ -1666,7 +1666,7 @@ const localProofProfiles = {
   },
 };
 
-await rm(distRoot, { recursive: true, force: true });
+await rm(distRoot, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
 await mkdir(distRoot, { recursive: true });
 const premiumSiteCss = await readFile(path.join(projectRoot, 'premium-site.css'), 'utf8');
 await writeFile(
@@ -2210,7 +2210,18 @@ function normalizeServiceNode(node, page) {
 }
 
 function normalizeMovingCompanyNode(node) {
-  const { aggregateRating, review, sameAs = [], hasMap, image, logo, ...rest } = node;
+  const {
+    aggregateRating,
+    review,
+    sameAs = [],
+    hasMap,
+    image,
+    logo,
+    openingHours,
+    openingHoursSpecification,
+    priceRange,
+    ...rest
+  } = node;
 
   return {
     ...rest,
@@ -2222,8 +2233,6 @@ function normalizeMovingCompanyNode(node) {
     logo: defaultLogoImage,
     hasMap: googleBusinessProfileUrl,
     sameAs: Array.from(new Set([googleBusinessProfileUrl, ...sameAs].filter(Boolean))),
-    openingHours: 'Mo-Su 00:00-23:59',
-    priceRange: '$150/hr',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Andrews Farm',
@@ -2238,7 +2247,7 @@ function normalizeMovingCompanyNode(node) {
         contactType: 'customer service',
         telephone: '+61 433 819 989',
         areaServed: ['Adelaide', 'South Australia', 'Australia'],
-        availableLanguage: ['en'],
+        availableLanguage: ['en-AU'],
         url: 'https://zqremovals.au/contact-us/',
       },
     ],
