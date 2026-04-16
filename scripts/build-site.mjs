@@ -2231,7 +2231,7 @@ function normalizeMovingCompanyNode(node) {
     ...rest
   } = node;
 
-  return {
+  const result = {
     ...rest,
     '@id': 'https://zqremovals.au/#business',
     name: 'ZQ Removals',
@@ -2260,6 +2260,16 @@ function normalizeMovingCompanyNode(node) {
       },
     ],
   };
+
+  if (openingHoursSpecification) {
+    result.openingHoursSpecification = openingHoursSpecification;
+  }
+
+  if (priceRange) {
+    result.priceRange = priceRange;
+  }
+
+  return result;
 }
 
 function usesDefaultSocialImage(value = '') {
@@ -3111,10 +3121,10 @@ function renderFaqSection(page, content) {
   const sectionId = `${page.output.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}-faq`;
   const items = profile.items
     .map(
-      ({ question, answer }) => `<article class="faq-item" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
-  <h3 class="faq-question" itemprop="name">${escapeHtml(question)}</h3>
-  <div class="faq-answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
-    <p itemprop="text">${escapeHtml(answer)}</p>
+      ({ question, answer }) => `<article class="faq-item">
+  <h3 class="faq-question">${escapeHtml(question)}</h3>
+  <div class="faq-answer">
+    <p>${escapeHtml(answer)}</p>
   </div>
 </article>`,
     )
@@ -3128,7 +3138,7 @@ function renderFaqSection(page, content) {
 <h2 id="${sectionId}">${escapeHtml(profile.heading)}</h2>
 <p>${escapeHtml(profile.intro)}</p>
 </div>
-<div class="faq-list" itemscope itemtype="https://schema.org/FAQPage">
+<div class="faq-list">
 ${items}
 </div>
 </div>
