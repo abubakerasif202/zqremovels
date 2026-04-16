@@ -35,8 +35,8 @@ const partials = {
 };
 
 const pages = JSON.parse(await readFile(path.join(srcRoot, 'pages.json'), 'utf8'));
-const preferredSiteOrigin = 'https://www.zqremovals.au';
-const legacySiteOrigin = 'https://zqremovals.au';
+const preferredSiteOrigin = 'https://zqremovals.au';
+const legacySiteOrigin = 'https://www.zqremovals.au';
 const defaultSocialImage = `${preferredSiteOrigin}/zq-removals-social-share.webp`;
 const defaultLogoImage = `${preferredSiteOrigin}/brand-logo.webp`;
 const googleBusinessProfileUrl = 'https://share.google/Y04mpt9RTflWP3iRl';
@@ -1781,118 +1781,132 @@ gtag('config', ${JSON.stringify(gaMeasurementId)});
     tags.push(`<meta http-equiv="refresh" content="${escapeAttribute(page.refresh)}" />`);
   }
 
-  for (const jsonLd of normalizeJsonLdBlocks(page)) {
-    tags.push(`<script type="application/ld+json">\n${jsonLd}\n</script>`);
-  }
-
-  for (const jsonLd of buildDynamicJsonLd(page, content)) {
-    tags.push(`<script type="application/ld+json">\n${jsonLd}\n</script>`);
+  const jsonLdGraph = buildPageJsonLdGraph(page, content);
+  if (jsonLdGraph) {
+    tags.push(`<script type="application/ld+json">\n${jsonLdGraph}\n</script>`);
   }
 
   return tags.join('\n');
 }
 
+function buildPageJsonLdGraph(page, content) {
+  if (!shouldEmitSchema(page)) {
+    return '';
+  }
+
+  const nodes = [
+    ...extractManualJsonLdNodes(page),
+    ...buildDynamicJsonLd(page, content),
+  ];
+
+  const normalized = normalizeJsonLdValue(
+    {
+      '@context': 'https://schema.org',
+      '@graph': nodes,
+    },
+    page,
+  );
+
+  const graphNodes = Array.isArray(normalized?.['@graph']) ? normalized['@graph'] : [];
+  const filteredNodes = filterJsonLdNodesForPage(page, graphNodes, content);
+  const dedupedNodes = dedupeJsonLdNodes(filteredNodes);
+
+  if (dedupedNodes.length === 0) {
+    return '';
+  }
+
+  return JSON.stringify(
+    {
+      '@context': 'https://schema.org',
+      '@graph': dedupedNodes,
+    },
+    null,
+    2,
+  );
+}
+
 function buildDynamicJsonLd(page, content) {
-  const blocks = [];
-  const businessJsonLd = buildBusinessJsonLd(page);
-  const webPageJsonLd = buildWebPageJsonLd(page);
-  const serviceJsonLd = buildServiceJsonLd(page);
+  const nodes = [];
+  const businessNode = buildBusinessJsonLd(page);
+  const webPageNode = buildWebPageJsonLd(page);
+  const serviceNode = buildServiceJsonLd(page);
+  const breadcrumbNode = buildBreadcrumbJsonLd(page, content) || buildFallbackBreadcrumbJsonLd(page);
+  const faqNode = buildFaqJsonLd(page, content);
 
-  if (businessJsonLd) {
-    blocks.push(businessJsonLd);
+  if (businessNode) {
+    nodes.push(businessNode);
   }
 
-  if (webPageJsonLd) {
-    blocks.push(webPageJsonLd);
+  if (webPageNode) {
+    nodes.push(webPageNode);
   }
 
-  if (serviceJsonLd) {
-    blocks.push(serviceJsonLd);
-  }
-  const breadcrumbJsonLd = buildBreadcrumbJsonLd(page, content);
-  const faqJsonLd = buildFaqJsonLd(page, content);
-
-  if (breadcrumbJsonLd) {
-    blocks.push(breadcrumbJsonLd);
+  if (serviceNode) {
+    nodes.push(serviceNode);
   }
 
-  if (faqJsonLd) {
-    blocks.push(faqJsonLd);
+  if (breadcrumbNode) {
+    nodes.push(breadcrumbNode);
   }
 
-  return blocks;
+  if (faqNode) {
+    nodes.push(faqNode);
+  }
+
+  return nodes;
 }
 
 function buildBusinessJsonLd(page) {
-  if (pageHasJsonLdType(page, 'MovingCompany')) {
-    return '';
+  const category = getSchemaPageCategory(page);
+  if (!['home', 'service', 'suburb'].includes(category)) {
+    return null;
   }
 
-  return JSON.stringify(
-    {
-      '@context': 'https://schema.org',
-      '@type': 'MovingCompany',
-      '@id': 'https://zqremovals.au/#business',
-      name: 'ZQ Removals',
-      url: 'https://zqremovals.au/',
-      telephone: '+61 433 819 989',
-      image: defaultSocialImage,
-      logo: defaultLogoImage,
-      hasMap: googleBusinessProfileUrl,
-      sameAs: [googleBusinessProfileUrl],
-      openingHours: 'Mo-Su 00:00-23:59',
-      priceRange: '$150/hr',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Andrews Farm',
-        addressRegion: 'SA',
-        postalCode: '5114',
-        addressCountry: 'AU',
-      },
-      contactPoint: [
-        {
-          '@type': 'ContactPoint',
-          contactType: 'customer service',
-          telephone: '+61 433 819 989',
-          areaServed: ['Adelaide', 'South Australia', 'Australia'],
-          availableLanguage: ['en'],
-          url: 'https://zqremovals.au/contact-us/',
-        },
-      ],
+  return {
+    '@type': ['Organization', 'MovingCompany'],
+    '@id': `${preferredSiteOrigin}/#business`,
+    name: 'ZQ Removals',
+    url: `${preferredSiteOrigin}/`,
+    telephone: '+61 433 819 989',
+    image: defaultSocialImage,
+    logo: defaultLogoImage,
+    hasMap: googleBusinessProfileUrl,
+    sameAs: [googleBusinessProfileUrl],
+    openingHours: 'Mo-Su 00:00-23:59',
+    priceRange: '$150/hr',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Andrews Farm',
+      addressRegion: 'SA',
+      postalCode: '5114',
+      addressCountry: 'AU',
     },
-    null,
-    2,
-  );
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        contactType: 'customer service',
+        telephone: '+61 433 819 989',
+        areaServed: ['Adelaide', 'South Australia', 'Australia'],
+        availableLanguage: ['en-AU'],
+        url: `${preferredSiteOrigin}/contact-us/`,
+      },
+    ],
+  };
 }
 
 function buildWebPageJsonLd(page) {
-  if (pageHasJsonLdType(page, 'WebPage') || pageHasJsonLdType(page, 'ContactPage') || pageHasJsonLdType(page, 'AboutPage')) {
-    return '';
+  const category = getSchemaPageCategory(page);
+  if (!['home', 'service', 'suburb', 'guide', 'guide-hub'].includes(category)) {
+    return null;
   }
 
-  if ((page.robots || '').includes('noindex')) {
-    return '';
-  }
-
-  const type =
-    page.output === 'contact-us/index.html'
-      ? 'ContactPage'
-      : page.output === 'about/index.html'
-        ? 'AboutPage'
-        : 'WebPage';
-
-  return JSON.stringify(
-    {
-      '@context': 'https://schema.org',
-      '@type': type,
-      '@id': `${page.canonical}#webpage`,
-      url: page.canonical,
-      name: page.title,
-      description: page.description,
-    },
-    null,
-    2,
-  );
+  return {
+    '@type': 'WebPage',
+    '@id': `${page.canonical}#webpage`,
+    url: page.canonical,
+    name: page.title,
+    description: page.description,
+  };
 }
 
 function getServiceSchemaConfig(page) {
@@ -1901,33 +1915,8 @@ function getServiceSchemaConfig(page) {
   }
 
   const output = page.output;
-  const suburbProfile = getSuburbProfile(page);
-
-  if (output === 'removalists-northern-adelaide/index.html') {
-    return {
-      name: 'Removalists Northern Suburbs Adelaide',
-      serviceType: 'Local removal services in Adelaide northern suburbs',
-      areaServed: ['Northern Adelaide', 'Salisbury', 'Elizabeth', 'Andrews Farm', 'Blakeview', 'Gawler', 'Adelaide'],
-      offerDescription: 'Fixed-price northside quote after access, inventory, and route review.',
-    };
-  }
-
-  if (suburbProfile) {
-    return {
-      name: `Removalists ${suburbProfile.suburb}`,
-      serviceType: `Local removal services in ${suburbProfile.suburb}`,
-      areaServed: [`${suburbProfile.suburb}, SA`, 'Adelaide', 'South Australia'],
-      offerDescription: 'Fixed-price suburb quote after access, inventory, and timing review.',
-    };
-  }
-
-  if (output === 'removalists-adelaide/index.html') {
-    return {
-      name: 'Removalists Adelaide',
-      serviceType: 'Local removal services',
-      areaServed: ['Adelaide', 'South Australia'],
-      offerDescription: 'Fixed-price Adelaide quote after suburb, access, and inventory review.',
-    };
+  if (getSchemaPageCategory(page) !== 'service') {
+    return null;
   }
 
   if (output === 'house-removals-adelaide/index.html') {
@@ -1994,96 +1983,256 @@ function getServiceSchemaConfig(page) {
 }
 
 function buildServiceJsonLd(page) {
-  if (pageHasJsonLdType(page, 'Service')) {
-    return '';
-  }
-
   const config = getServiceSchemaConfig(page);
   if (!config) {
-    return '';
+    return null;
   }
 
-  return JSON.stringify(
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Service',
-      '@id': `${page.canonical}#service`,
-      name: config.name,
-      serviceType: config.serviceType,
-      areaServed: config.areaServed,
-      provider: {
-        '@id': 'https://zqremovals.au/#business',
-      },
-      url: page.canonical,
-      offers: {
-        '@type': 'Offer',
-        priceCurrency: 'AUD',
-        description: config.offerDescription,
-      },
+  return {
+    '@type': 'Service',
+    '@id': `${page.canonical}#service`,
+    name: config.name,
+    serviceType: config.serviceType,
+    areaServed: config.areaServed,
+    provider: {
+      '@id': `${preferredSiteOrigin}/#business`,
     },
-    null,
-    2,
-  );
+    url: page.canonical,
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'AUD',
+      description: config.offerDescription,
+    },
+  };
 }
 
 function buildFaqJsonLd(page, content) {
-  if (pageHasFaqJsonLd(page)) {
-    return '';
-  }
-
   const faqPairs = extractFaqPairs(content);
   if (faqPairs.length === 0) {
-    return '';
+    return null;
   }
 
-  return JSON.stringify(
-    {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      '@id': `${page.canonical}#faq`,
-      mainEntity: faqPairs.map(({ question, answer }) => ({
-        '@type': 'Question',
-        name: question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: answer,
-        },
-      })),
-    },
-    null,
-    2,
-  );
+  return {
+    '@type': 'FAQPage',
+    '@id': `${page.canonical}#faq`,
+    mainEntity: faqPairs.map(({ question, answer }) => ({
+      '@type': 'Question',
+      name: question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: answer,
+      },
+    })),
+  };
 }
 
 function buildBreadcrumbJsonLd(page, content) {
-  if (pageHasJsonLdType(page, 'BreadcrumbList')) {
-    return '';
-  }
-
   const items = extractBreadcrumbItems(content);
   if (items.length < 2) {
-    return '';
+    return null;
   }
 
   if (!items.at(-1)?.url) {
     items[items.length - 1].url = page.canonical;
   }
 
-  return JSON.stringify(
-    {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      '@id': `${page.canonical}#breadcrumbs`,
-      itemListElement: items.map((item, index) => ({
-        '@type': 'ListItem',
-        position: index + 1,
-        name: item.name,
-        item: item.url,
-      })),
-    },
-    null,
-    2,
-  );
+  return {
+    '@type': 'BreadcrumbList',
+    '@id': `${page.canonical}#breadcrumbs`,
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+}
+
+function shouldEmitSchema(page) {
+  return page.layout !== 'redirect' && !(page.robots || '').includes('noindex');
+}
+
+function getSchemaPageCategory(page) {
+  const output = page.output;
+
+  if (output === 'index.html') {
+    return 'home';
+  }
+
+  if (output === 'adelaide-moving-guides/index.html') {
+    return 'guide-hub';
+  }
+
+  if (output.startsWith('adelaide-moving-guides/')) {
+    return 'guide';
+  }
+
+  if (output.startsWith('removalists-') && output !== 'removalists-adelaide/index.html') {
+    return 'suburb';
+  }
+
+  if (
+    output === 'house-removals-adelaide/index.html' ||
+    output === 'furniture-removalists-adelaide/index.html' ||
+    output === 'office-removals-adelaide/index.html' ||
+    output === 'packing-services-adelaide/index.html' ||
+    output === 'interstate-removals-adelaide/index.html' ||
+    (output.startsWith('adelaide-to-') && output.endsWith('-removals/index.html'))
+  ) {
+    return 'service';
+  }
+
+  return 'other';
+}
+
+function extractManualJsonLdNodes(page) {
+  const nodes = [];
+
+  for (const jsonLd of normalizeJsonLdBlocks(page)) {
+    try {
+      const value = JSON.parse(jsonLd);
+      nodes.push(...extractJsonLdNodes(value));
+    } catch {
+      // Ignore malformed JSON-LD blocks.
+    }
+  }
+
+  return nodes;
+}
+
+function extractJsonLdNodes(value) {
+  if (!value || typeof value !== 'object') {
+    return [];
+  }
+
+  if (Array.isArray(value)) {
+    return value.flatMap((entry) => extractJsonLdNodes(entry));
+  }
+
+  if (Array.isArray(value['@graph'])) {
+    return value['@graph'].flatMap((entry) => extractJsonLdNodes(entry));
+  }
+
+  return [value];
+}
+
+function buildFallbackBreadcrumbJsonLd(page) {
+  const category = getSchemaPageCategory(page);
+  if (!['service', 'suburb', 'guide', 'guide-hub'].includes(category)) {
+    return null;
+  }
+
+  const items = [{ name: 'Home', url: `${preferredSiteOrigin}/` }];
+
+  if (category === 'guide-hub') {
+    items.push({ name: 'Adelaide Moving Guides', url: page.canonical });
+  } else if (category === 'guide') {
+    items.push({ name: 'Adelaide Moving Guides', url: `${preferredSiteOrigin}/adelaide-moving-guides/` });
+    items.push({ name: page.title, url: page.canonical });
+  } else if (category === 'suburb') {
+    items.push({ name: 'Removalists Adelaide', url: `${preferredSiteOrigin}/removalists-adelaide/` });
+    items.push({ name: page.title, url: page.canonical });
+  } else if (page.output.startsWith('adelaide-to-')) {
+    items.push({ name: 'Interstate Removals Adelaide', url: `${preferredSiteOrigin}/interstate-removals-adelaide/` });
+    items.push({ name: page.title, url: page.canonical });
+  } else {
+    items.push({ name: page.title, url: page.canonical });
+  }
+
+  return {
+    '@type': 'BreadcrumbList',
+    '@id': `${page.canonical}#breadcrumbs`,
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+}
+
+function filterJsonLdNodesForPage(page, nodes, content) {
+  const category = getSchemaPageCategory(page);
+  const faqVisible = extractFaqPairs(content).length > 0;
+  const allowFaq = category === 'home' || category === 'service' || category === 'guide' || category === 'guide-hub';
+
+  let allowedTypes = null;
+  if (category === 'home') {
+    allowedTypes = new Set(['Organization', 'MovingCompany', 'WebPage', ...(allowFaq && faqVisible ? ['FAQPage'] : [])]);
+  } else if (category === 'service') {
+    allowedTypes = new Set(['Organization', 'MovingCompany', 'WebPage', 'Service', 'BreadcrumbList', ...(allowFaq && faqVisible ? ['FAQPage'] : [])]);
+  } else if (category === 'suburb') {
+    allowedTypes = new Set(['Organization', 'MovingCompany', 'WebPage', 'BreadcrumbList']);
+  } else if (category === 'guide' || category === 'guide-hub') {
+    allowedTypes = new Set(['WebPage', 'BreadcrumbList', ...(allowFaq && faqVisible ? ['FAQPage'] : [])]);
+  }
+
+  if (!allowedTypes) {
+    return nodes;
+  }
+
+  return nodes.filter((node) => {
+    const types = getNodeTypes(node);
+    return types.some((type) => allowedTypes.has(type));
+  });
+}
+
+function dedupeJsonLdNodes(nodes) {
+  const orderedById = new Map();
+  const idOrder = [];
+  const anonNodes = [];
+  const anonSignatures = new Set();
+
+  for (const node of nodes) {
+    if (!node || typeof node !== 'object') {
+      continue;
+    }
+
+    const id = typeof node['@id'] === 'string' ? node['@id'] : '';
+    if (id) {
+      if (!orderedById.has(id)) {
+        idOrder.push(id);
+        orderedById.set(id, node);
+      } else {
+        orderedById.set(id, mergeJsonLdNodes(orderedById.get(id), node));
+      }
+      continue;
+    }
+
+    const signature = JSON.stringify({
+      type: getNodeTypes(node).sort(),
+      name: node.name || '',
+      url: node.url || '',
+    });
+
+    if (!anonSignatures.has(signature)) {
+      anonSignatures.add(signature);
+      anonNodes.push(node);
+    }
+  }
+
+  return [
+    ...idOrder.map((id) => orderedById.get(id)).filter(Boolean),
+    ...anonNodes,
+  ];
+}
+
+function mergeJsonLdNodes(base, next) {
+  const merged = {
+    ...base,
+    ...next,
+  };
+  const mergedTypes = Array.from(new Set([...getNodeTypes(base), ...getNodeTypes(next)]));
+  merged['@type'] = mergedTypes.length === 1 ? mergedTypes[0] : mergedTypes;
+  return merged;
+}
+
+function getNodeTypes(node) {
+  const nodeType = node?.['@type'];
+  if (Array.isArray(nodeType)) {
+    return nodeType.filter((type) => typeof type === 'string');
+  }
+  return typeof nodeType === 'string' ? [nodeType] : [];
 }
 
 function pageHasFaqJsonLd(page) {
@@ -2197,7 +2346,7 @@ function normalizeServiceNode(node, page) {
     name: config.name,
     serviceType: config.serviceType,
     provider: {
-      '@id': 'https://zqremovals.au/#business',
+      '@id': `${preferredSiteOrigin}/#business`,
     },
     areaServed: Array.isArray(node.areaServed) && node.areaServed.length > 0 ? node.areaServed : config.areaServed,
     url: page.canonical,
@@ -2233,9 +2382,10 @@ function normalizeMovingCompanyNode(node) {
 
   const result = {
     ...rest,
-    '@id': 'https://zqremovals.au/#business',
+    '@id': `${preferredSiteOrigin}/#business`,
+    '@type': ['Organization', 'MovingCompany'],
     name: 'ZQ Removals',
-    url: 'https://zqremovals.au/',
+    url: `${preferredSiteOrigin}/`,
     telephone: '+61 433 819 989',
     image: defaultSocialImage,
     logo: defaultLogoImage,
@@ -2252,13 +2402,13 @@ function normalizeMovingCompanyNode(node) {
     contactPoint: [
       {
         '@type': 'ContactPoint',
-        contactType: 'customer service',
-        telephone: '+61 433 819 989',
-        areaServed: ['Adelaide', 'South Australia', 'Australia'],
-        availableLanguage: ['en-AU'],
-        url: 'https://zqremovals.au/contact-us/',
-      },
-    ],
+          contactType: 'customer service',
+          telephone: '+61 433 819 989',
+          areaServed: ['Adelaide', 'South Australia', 'Australia'],
+          availableLanguage: ['en-AU'],
+          url: `${preferredSiteOrigin}/contact-us/`,
+        },
+      ],
   };
 
   if (openingHoursSpecification) {
@@ -2304,7 +2454,7 @@ function minifyCss(css) {
 
 function extractFaqPairs(content) {
   const strictPattern =
-    /<article class="faq-item"[\s\S]*?<h3 class="faq-question"[^>]*>([\s\S]*?)<\/h3>[\s\S]*?<p[^>]*itemprop="text"[^>]*>([\s\S]*?)<\/p>[\s\S]*?<\/article>/gi;
+    /<article[^>]*class="[^"]*\bfaq-item\b[^"]*"[^>]*>[\s\S]*?<h3[^>]*class="[^"]*\bfaq-question\b[^"]*"[^>]*>([\s\S]*?)<\/h3>[\s\S]*?<div[^>]*class="[^"]*\bfaq-answer\b[^"]*"[^>]*>[\s\S]*?<p[^>]*>([\s\S]*?)<\/p>[\s\S]*?<\/div>[\s\S]*?<\/article>/gi;
   const loosePattern = /<article>\s*<h3>([\s\S]*?)<\/h3>\s*<p>([\s\S]*?)<\/p>\s*<\/article>/gi;
 
   const pairs = [];
