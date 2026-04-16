@@ -1,21 +1,25 @@
-.vercel
+# Node
+node_modules/
+dist/
+build/
 
-/net-commander
+# Env
+.env
+.env.local
 
-# Local generated artifacts for this workspace
-/Downloads/
-/output/
-/.playwright-cli/
-/.playwright-mcp/
-/.omx/
-site-dist/
-/.netlify/functions-internal/
-/.netlify/state.json
-/.gemini/*.log
-/Gemini_Generated_Image_*.png
-/Site SEO-saved.html
-/zq-andrews-farm-desktop.png
-/zq-guides-desktop.png
-/zq-home-desktop.png
-/zq-home-mobile.png
-/zq-removals-pro.zip
+# Logs
+npm-debug.log*
+yarn-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# AI / local tools
+.claude/
+.codex/
+.gemini/
+.cursor/
+
+# Misc
+*.log

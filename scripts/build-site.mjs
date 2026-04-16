@@ -1674,7 +1674,7 @@ const localProofProfiles = {
   },
 };
 
-await rm(distRoot, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
+await rm(distRoot, { recursive: true, force: true, maxRetries: 25, retryDelay: 200 });
 await mkdir(distRoot, { recursive: true });
 const premiumSiteCss = await readFile(path.join(projectRoot, 'premium-site.css'), 'utf8');
 await writeFile(
