@@ -1,0 +1,304 @@
+# Instincts generated from https://github.com/abubakerasif202/zqremovels
+# Generated: 2026-04-16T17:44:03.598Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: zqremovels-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/abubakerasif202/zqremovels
+---
+
+# Zqremovels Commit Length
+
+## Action
+
+Write moderate-length commit messages (~60 characters)
+
+## Evidence
+
+- Average commit message length: 60 chars
+- Based on 3 commits
+
+---
+id: zqremovels-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/abubakerasif202/zqremovels
+---
+
+# Zqremovels Naming Files
+
+## Action
+
+Use camelCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: camelCase
+
+---
+id: zqremovels-import-relative
+trigger: "when importing modules"
+confidence: 0.75
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/abubakerasif202/zqremovels
+---
+
+# Zqremovels Import Relative
+
+## Action
+
+Use relative imports for project files
+
+## Evidence
+
+- Import analysis shows relative import pattern
+- Example: import { x } from '../lib/x'
+
+---
+id: zqremovels-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/abubakerasif202/zqremovels
+---
+
+# Zqremovels Export Style
+
+## Action
+
+Prefer named exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: named
+
+---
+id: zqremovels-test-separate
+trigger: "when writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/abubakerasif202/zqremovels
+---
+
+# Zqremovels Test Separate
+
+## Action
+
+Place tests in the tests/ or __tests__/ directory, mirroring src structure
+
+## Evidence
+
+- Separate test directory pattern detected
+- Tests live in dedicated test folders
+
+---
+id: zqremovels-workflow-manage-node-modules-and-dependencies
+trigger: "when doing manage node modules and dependencies"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/abubakerasif202/zqremovels
+---
+
+# Zqremovels Workflow Manage Node Modules And Dependencies
+
+## Action
+
+Follow the manage-node-modules-and-dependencies workflow:
+1. Add or remove files and folders under node_modules/
+2. Update .gitignore to include or exclude node_modules/
+3. Commit changes reflecting the new dependency management state
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: node_modules/.package-lock.json, node_modules/detect-libc/*, node_modules/lightningcss-linux-x64-gnu/*
+
+---
+id: zqremovels-instinct-filename-camelcase
+trigger: "When creating or renaming a file in the codebase"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: abubakerasif202/zqremovels
+---
+
+# Zqremovels Instinct Filename Camelcase
+
+## Action
+
+Name the file using camelCase
+
+## Evidence
+
+- Pattern in namingConventions.files: camelCase
+
+---
+id: zqremovels-instinct-function-camelcase
+trigger: "When defining a function"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: abubakerasif202/zqremovels
+---
+
+# Zqremovels Instinct Function Camelcase
+
+## Action
+
+Name the function using camelCase
+
+## Evidence
+
+- Pattern in namingConventions.functions: camelCase
+
+---
+id: zqremovels-instinct-class-pascalcase
+trigger: "When defining a class"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: abubakerasif202/zqremovels
+---
+
+# Zqremovels Instinct Class Pascalcase
+
+## Action
+
+Name the class using PascalCase
+
+## Evidence
+
+- Pattern in namingConventions.classes: PascalCase
+
+---
+id: zqremovels-instinct-constant-screaming-snake-case
+trigger: "When defining a constant"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: abubakerasif202/zqremovels
+---
+
+# Zqremovels Instinct Constant Screaming Snake Case
+
+## Action
+
+Name the constant using SCREAMING_SNAKE_CASE
+
+## Evidence
+
+- Pattern in namingConventions.constants: SCREAMING_SNAKE_CASE
+
+---
+id: zqremovels-instinct-import-relative
+trigger: "When importing modules in JavaScript files"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: abubakerasif202/zqremovels
+---
+
+# Zqremovels Instinct Import Relative
+
+## Action
+
+Use relative import paths
+
+## Evidence
+
+- Pattern in importStyle: relative
+
+---
+id: zqremovels-instinct-export-named
+trigger: "When exporting from a module"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: abubakerasif202/zqremovels
+---
+
+# Zqremovels Instinct Export Named
+
+## Action
+
+Use named exports
+
+## Evidence
+
+- Pattern in exportStyle: named
+
+---
+id: zqremovels-instinct-test-separate-location
+trigger: "When adding or updating tests"
+confidence: 0.7
+domain: testing
+source: repo-analysis
+source_repo: abubakerasif202/zqremovels
+---
+
+# Zqremovels Instinct Test Separate Location
+
+## Action
+
+Place test files in a separate directory from source files
+
+## Evidence
+
+- Pattern in architecture.testLocation: separate
+
+---
+id: zqremovels-instinct-commit-freeform
+trigger: "When writing a commit message"
+confidence: 0.8
+domain: git
+source: repo-analysis
+source_repo: abubakerasif202/zqremovels
+---
+
+# Zqremovels Instinct Commit Freeform
+
+## Action
+
+Use a concise, freeform message without a strict prefix, summarizing the change in ~60 characters
+
+## Evidence
+
+- Pattern in commits.type: freeform
+- Pattern in commits.averageLength: 60
+- Seen in commit: 'Plan structured data and internal linking refactor'
+
+---
+id: zqremovels-instinct-manage-node-modules
+trigger: "When someone needs to add, update, or remove tracked node_modules or adjust dependency tracking"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: abubakerasif202/zqremovels
+---
+
+# Zqremovels Instinct Manage Node Modules
+
+## Action
+
+Add or remove files/folders under node_modules, update .gitignore to include/exclude node_modules, and commit the changes reflecting the new dependency management state
+
+## Evidence
+
+- Workflow: manage-node-modules-and-dependencies
+- Seen in commits: 'Remove tracked node_modules and ignore local dependencies'
+
