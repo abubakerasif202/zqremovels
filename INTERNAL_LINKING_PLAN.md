@@ -22,6 +22,7 @@
 
 - Local removals page links into top suburb pages and quote flow
 - Interstate hub links into Melbourne and Sydney route pages plus quote flow
+- Interstate hub also links into Brisbane, Canberra, Perth, and Queensland route pages plus quote flow
 - Office, furniture, and packing pages now have stronger service-specific CTA copy
 - Shared generator now appends related-link sections for service pages so each one can pass users into:
   - local removals
@@ -48,6 +49,7 @@
   - quote page
 - Shared generator appends related links for:
   - interstate hub
+  - route-to-route comparisons between the active interstate pages
   - local Adelaide removals
   - packing services
   - contact / quote page

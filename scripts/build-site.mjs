@@ -2433,7 +2433,11 @@ function getBodyClasses(page) {
     output === 'interstate-removals-adelaide/index.html' ||
     output === 'interstate-removalists-adelaide/index.html' ||
     output === 'adelaide-to-melbourne-removals/index.html' ||
-    output === 'adelaide-to-sydney-removals/index.html'
+    output === 'adelaide-to-sydney-removals/index.html' ||
+    output === 'adelaide-to-brisbane-removals/index.html' ||
+    output === 'adelaide-to-canberra-removals/index.html' ||
+    output === 'adelaide-to-perth-removals/index.html' ||
+    output === 'adelaide-to-queensland-removals/index.html'
   ) {
     classes.push('page-interstate');
   } else if (output === 'office-removals-adelaide/index.html') {
@@ -3328,6 +3332,10 @@ function getSitemapMeta(page) {
     page.output === 'interstate-removals-adelaide/index.html' ||
     page.output === 'adelaide-to-melbourne-removals/index.html' ||
     page.output === 'adelaide-to-sydney-removals/index.html' ||
+    page.output === 'adelaide-to-brisbane-removals/index.html' ||
+    page.output === 'adelaide-to-canberra-removals/index.html' ||
+    page.output === 'adelaide-to-perth-removals/index.html' ||
+    page.output === 'adelaide-to-queensland-removals/index.html' ||
     page.output === 'packing-services-adelaide/index.html'
   ) {
     return { changefreq: 'monthly', priority: '0.8' };

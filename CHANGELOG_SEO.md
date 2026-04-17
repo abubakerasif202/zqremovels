@@ -16,6 +16,10 @@
 - `site-src/content/packing-services-adelaide/index.html`
 - `site-src/content/adelaide-to-melbourne-removals/index.html`
 - `site-src/content/adelaide-to-sydney-removals/index.html`
+- `site-src/content/adelaide-to-brisbane-removals/index.html`
+- `site-src/content/adelaide-to-canberra-removals/index.html`
+- `site-src/content/adelaide-to-perth-removals/index.html`
+- `site-src/content/adelaide-to-queensland-removals/index.html`
 - `site-src/content/removalists-adelaide-cbd/index.html`
 - `site-src/content/removalists-marion/index.html`
 - `site-src/content/removalists-salisbury/index.html`
@@ -73,6 +77,7 @@
 
 - Route pages
   - differentiated Melbourne vs Sydney intent
+  - added Brisbane, Canberra, Perth, and Queensland route pages into the shared interstate link graph
   - linked back into interstate hub and quote flow
 
 - Top suburb pages

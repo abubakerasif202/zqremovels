@@ -127,3 +127,31 @@ test('priority service and suburb pages carry the refined title targets and cros
   assert.match(cbdPage, /service lifts?/i);
   assert.match(northernPage, /Removalists Northern Suburbs Adelaide/i);
 });
+
+test('new interstate routes are linked from the hub, footer, and sibling route sections', () => {
+  const hubPage = readDist(path.join('interstate-removals-adelaide', 'index.html'));
+  const homepage = readDist('index.html');
+  const brisbanePage = readDist(path.join('adelaide-to-brisbane-removals', 'index.html'));
+  const canberraPage = readDist(path.join('adelaide-to-canberra-removals', 'index.html'));
+  const perthPage = readDist(path.join('adelaide-to-perth-removals', 'index.html'));
+  const queenslandPage = readDist(path.join('adelaide-to-queensland-removals', 'index.html'));
+
+  for (const route of [
+    '/adelaide-to-brisbane-removals/',
+    '/adelaide-to-canberra-removals/',
+    '/adelaide-to-perth-removals/',
+    '/adelaide-to-queensland-removals/',
+  ]) {
+    assert.match(hubPage, new RegExp(`href="${route.replace(/\//g, '\\/')}"`));
+    assert.match(homepage, new RegExp(`href="${route.replace(/\//g, '\\/')}"`));
+  }
+
+  assert.match(brisbanePage, /href="\/interstate-removals-adelaide\/"/);
+  assert.match(brisbanePage, /href="\/adelaide-to-canberra-removals\/"/);
+  assert.match(canberraPage, /href="\/interstate-removals-adelaide\/"/);
+  assert.match(canberraPage, /href="\/adelaide-to-brisbane-removals\/"/);
+  assert.match(perthPage, /href="\/interstate-removals-adelaide\/"/);
+  assert.match(perthPage, /href="\/adelaide-to-queensland-removals\/"/);
+  assert.match(queenslandPage, /href="\/interstate-removals-adelaide\/"/);
+  assert.match(queenslandPage, /href="\/adelaide-to-perth-removals\/"/);
+});
