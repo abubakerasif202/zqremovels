@@ -219,6 +219,10 @@ test('v4 suburb pages surface region-aware intents and contextual ctas', () => {
   const cbdPage = readDist(path.join('removalists-adelaide-cbd', 'index.html'));
   const glenelgPage = readDist(path.join('removalists-glenelg', 'index.html'));
   const salisburyPage = readDist(path.join('removalists-salisbury', 'index.html'));
+  const elizabethPage = readDist(path.join('removalists-elizabeth', 'index.html'));
+  const noarlungaPage = readDist(path.join('removalists-noarlunga', 'index.html'));
+  const reynellaPage = readDist(path.join('removalists-reynella', 'index.html'));
+  const norwoodPage = readDist(path.join('removalists-norwood', 'index.html'));
 
   assert.match(cbdPage, /Route and intent expansion/i);
   assert.match(cbdPage, /Book apartment move/i);
@@ -231,6 +235,14 @@ test('v4 suburb pages surface region-aware intents and contextual ctas', () => {
   assert.match(salisburyPage, /Get suburb-specific quote/i);
   assert.match(salisburyPage, /northern corridor/i);
   assert.match(salisburyPage, /Storage Planning Adelaide/i);
+  assert.match(elizabethPage, /Book eastern-corridor move|How long moves take Adelaide/i);
+  assert.match(elizabethPage, /Route and intent expansion/i);
+  assert.match(noarlungaPage, /Plan coastal move/i);
+  assert.match(noarlungaPage, /Storage planning Adelaide/i);
+  assert.match(reynellaPage, /Book family-home move/i);
+  assert.match(reynellaPage, /Avoiding damage during a move/i);
+  assert.match(norwoodPage, /Book eastern-corridor move/i);
+  assert.match(norwoodPage, /Adelaide Pricing Breakdown/i);
 });
 
 test('new v4 guides are linked from the guide hub and support conversion paths', () => {
