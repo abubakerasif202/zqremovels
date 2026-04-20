@@ -1,13 +1,20 @@
+import { existsSync } from 'node:fs';
 import { readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-import { getGeneratedPages, getRouteCoverageReport, mergePagesByOutput, seoConfig } from '../site-src/data/seo-v4.mjs';
+import { getGeneratedPages, getRouteCoverageReport, getSuburbDataset, mergePagesByOutput, seoConfig } from '../site-src/data/seo-v4.mjs';
 
 const root = process.cwd();
 const distRoot = path.join(root, 'site-dist');
 const staticPages = JSON.parse(await readFile(path.join(root, 'site-src', 'pages.json'), 'utf8'));
 const generatedPages = getGeneratedPages();
 const pages = mergePagesByOutput(staticPages, generatedPages).filter((page) => page.robots !== 'noindex,follow' || page.extra);
+const generatedSuburbOutputs = new Set(
+  generatedPages.filter((page) => page.generatedKind === 'suburb').map((page) => normalizeOutput(page.output)),
+);
+const generatedCommercialOutputs = new Set(
+  generatedPages.filter((page) => page.generatedKind === 'commercial').map((page) => normalizeOutput(page.output)),
+);
 
 const htmlFiles = await collectHtmlFiles(distRoot);
 const htmlMap = new Map(await Promise.all(htmlFiles.map(async (file) => [file, await readFile(path.join(distRoot, file), 'utf8')])));
@@ -31,10 +38,16 @@ for (const page of pages) {
   if (!canonical) failures.push(`missing canonical: ${page.output}`);
   if (!title) failures.push(`missing title: ${page.output}`);
   if (!h1) failures.push(`missing h1: ${page.output}`);
-  if (page.output.startsWith('removalists-') && wordCount(stripTags(html)) < 650) {
+  if (page.layout !== 'redirect' && page.output.startsWith('removalists-') && wordCount(stripTags(html)) < 650) {
     failures.push(`thin suburb page: ${page.output}`);
   }
-  if (page.output.startsWith('adelaide-moving-guides/') && wordCount(stripTags(html)) < 450) {
+  if (page.layout !== 'redirect' && generatedSuburbOutputs.has(normalizeOutput(page.output)) && wordCount(stripTags(html)) < 700) {
+    failures.push(`thin generated suburb page: ${page.output}`);
+  }
+  if (page.layout !== 'redirect' && generatedCommercialOutputs.has(normalizeOutput(page.output)) && wordCount(stripTags(html)) < 550) {
+    failures.push(`thin generated money page: ${page.output}`);
+  }
+  if (page.layout !== 'redirect' && page.output.startsWith('adelaide-moving-guides/') && wordCount(stripTags(html)) < 450) {
     failures.push(`thin guide page: ${page.output}`);
   }
   if (page.robots?.includes('noindex') && !page.output.includes('seo-v4/overview')) {
@@ -46,9 +59,13 @@ for (const page of pages) {
 }
 
 validateInternalLinkGraph(graph, pages, failures, warnings);
+validateGeneratedSuburbModules(pages, htmlMap, failures);
+validateImageReferences(htmlMap, failures);
+validateSchemaIds(htmlMap, failures);
+validateSuburbDatasetSlugs(getSuburbDataset(), generatedPages, failures);
 
 const coverage = getRouteCoverageReport();
-if (coverage.length !== generatedPages.filter((page) => page.output.startsWith('removalists-')).length) {
+if (coverage.length !== generatedPages.filter((page) => page.generatedKind === 'suburb').length) {
   failures.push('route coverage count mismatch');
 }
 
@@ -56,10 +73,19 @@ const robots = await readFile(path.join(distRoot, 'robots.txt'), 'utf8').catch((
 if (!robots.includes('/sitemap-index.xml')) failures.push('robots missing sitemap index reference');
 
 const sitemapFiles = ['sitemap-index.xml', 'sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml'];
+const sitemapXmlByName = new Map();
 for (const file of sitemapFiles) {
   const xml = await readFile(path.join(distRoot, file), 'utf8').catch(() => '');
   if (!xml) failures.push(`missing sitemap file: ${file}`);
+  sitemapXmlByName.set(file, xml);
 }
+const sitemapImagesXml = await readFile(path.join(distRoot, 'sitemap-images.xml'), 'utf8').catch(() => '');
+if (!sitemapImagesXml) {
+  failures.push('missing sitemap file: sitemap-images.xml');
+} else {
+  sitemapXmlByName.set('sitemap-images.xml', sitemapImagesXml);
+}
+validateSitemaps(pages, sitemapXmlByName, failures);
 
 const uniqueFailures = [...new Set(failures)];
 const uniqueWarnings = [...new Set(warnings)];
@@ -151,6 +177,13 @@ function validateInternalLinkGraph(graph, pagesList, failuresList, warningsList)
     const internalOutboundCount = uniqueOutgoingTargets.size;
     const internalInboundCount = node.inbound.length;
 
+    for (const link of node.contentOutbound) {
+      if (!link.target) continue;
+      if (!graph.has(link.target)) {
+        failuresList.push(`broken internal link: ${page.output} -> ${link.href}`);
+      }
+    }
+
     if (page.output.startsWith('removalists-') && internalOutboundCount < 3) {
       warningsList.push(`suburb page underlinked outbound: ${page.output}`);
     }
@@ -232,4 +265,213 @@ function extractMainContent(html = '') {
     .replace(/<header[\s\S]*?<\/header>/gi, ' ')
     .replace(/<footer[\s\S]*?<\/footer>/gi, ' ')
     .replace(/<nav[\s\S]*?<\/nav>/gi, ' ');
+}
+
+function validateGeneratedSuburbModules(pagesList, htmlMap, failuresList) {
+  const expectedModules = [
+    'hero-title',
+    'local-intro',
+    'local-service-summary',
+    'logistics-access',
+    'move-types',
+    'nearby-suburbs',
+    'related-services',
+    'related-guides',
+    'suburb-faq',
+    'bottom-cta',
+  ];
+
+  for (const page of pagesList) {
+    if (page.generatedKind !== 'suburb') continue;
+
+    const html = htmlMap.get(normalizeOutput(page.output)) || '';
+    for (const moduleName of expectedModules) {
+      if (!html.includes(`data-generated-module="${moduleName}"`)) {
+        failuresList.push(`missing generated suburb module: ${page.output} -> ${moduleName}`);
+      }
+    }
+
+    for (const ctaName of ['top', 'bottom']) {
+      if (!html.includes(`data-generated-cta="${ctaName}"`)) {
+        failuresList.push(`missing generated suburb cta: ${page.output} -> ${ctaName}`);
+      }
+    }
+  }
+}
+
+function validateImageReferences(htmlMap, failuresList) {
+  for (const [output, html] of htmlMap.entries()) {
+    const imageRefs = [
+      ...extractHtmlImageRefs(html),
+      ...extractMetaImageRefs(html),
+    ];
+
+    for (const href of imageRefs) {
+      const assetPath = normalizeAssetHrefToDistPath(href);
+      if (!assetPath) continue;
+      if (!htmlMap.has(assetPath) && !assetExistsOnDisk(assetPath)) {
+        failuresList.push(`missing image asset: ${output} -> ${href}`);
+      }
+    }
+  }
+}
+
+function validateSchemaIds(htmlMap, failuresList) {
+  for (const [output, html] of htmlMap.entries()) {
+    const ids = [];
+    for (const block of extractJsonLdBlocks(html)) {
+      try {
+        const parsed = JSON.parse(block);
+        collectSchemaIds(parsed, ids);
+      } catch {
+        failuresList.push(`invalid json-ld: ${output}`);
+      }
+    }
+
+    const seen = new Set();
+    for (const id of ids) {
+      if (seen.has(id)) {
+        failuresList.push(`duplicate schema id on page: ${output} -> ${id}`);
+      }
+      seen.add(id);
+    }
+  }
+}
+
+function validateSuburbDatasetSlugs(suburbDataset, generatedPagesList, failuresList) {
+  const allowedSlugMismatches = new Map([
+    ['victor-harbor-road', 'victor-harbor-road-corridor'],
+  ]);
+
+  for (const { slug, suburb } of suburbDataset) {
+    const expected = slugify(suburb);
+    if (allowedSlugMismatches.get(slug) === expected) {
+      continue;
+    }
+    if (slug !== expected) {
+      failuresList.push(`bad suburb slug: ${slug} -> ${suburb}`);
+    }
+  }
+
+  if (suburbDataset.some(({ slug }) => slug === 'semore')) {
+    failuresList.push('legacy semore slug still present in suburb dataset');
+  }
+
+  if (generatedPagesList.some((page) => normalizeOutput(page.output) === 'removalists-semore/index.html' && page.generatedKind === 'suburb')) {
+    failuresList.push('legacy semore suburb page still generated');
+  }
+}
+
+function validateSitemaps(pagesList, sitemapXmlByName, failuresList) {
+  const indexedLocs = new Set();
+  for (const name of ['sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml']) {
+    for (const loc of extractSitemapLocs(sitemapXmlByName.get(name) || '')) {
+      indexedLocs.add(loc);
+    }
+  }
+
+  for (const page of pagesList) {
+    const shouldBeExcluded =
+      page.layout === 'redirect' ||
+      String(page.robots || '').toLowerCase().includes('noindex') ||
+      page.output === '404.html' ||
+      page.output === 'thank-you.html' ||
+      page.output.startsWith('premium-moving-concepts/');
+
+    if (shouldBeExcluded && indexedLocs.has(outputToAbsoluteUrl(page.output))) {
+      failuresList.push(`bad sitemap inclusion: ${page.output}`);
+    }
+  }
+
+  if ([...indexedLocs].some((loc) => loc.includes('/removalists-semore/'))) {
+    failuresList.push('bad sitemap inclusion: legacy semore route');
+  }
+
+  const imageLocs = extractSitemapLocs(sitemapXmlByName.get('sitemap-images.xml') || '');
+  for (const loc of imageLocs) {
+    if (!loc.includes('/media/') && !loc.endsWith('.webp') && !loc.endsWith('.png') && !loc.endsWith('.jpg') && !loc.endsWith('.jpeg') && !loc.endsWith('.svg')) {
+      continue;
+    }
+    const assetPath = normalizeAssetHrefToDistPath(loc);
+    if (assetPath && !assetExistsOnDisk(assetPath)) {
+      failuresList.push(`image sitemap missing asset: ${loc}`);
+    }
+  }
+}
+
+function extractHtmlImageRefs(html = '') {
+  return [...html.matchAll(/<img[^>]*src="([^"]+)"/gi)].map((match) => match[1]);
+}
+
+function extractMetaImageRefs(html = '') {
+  return [...html.matchAll(/<(?:meta|link)[^>]*(?:content|href)="([^"]+\.(?:png|jpg|jpeg|webp|svg))"/gi)].map((match) => match[1]);
+}
+
+function extractJsonLdBlocks(html = '') {
+  return [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi)].map((match) => match[1].trim());
+}
+
+function collectSchemaIds(node, out) {
+  if (!node || typeof node !== 'object') return;
+  if (Array.isArray(node)) {
+    for (const item of node) collectSchemaIds(item, out);
+    return;
+  }
+
+  const keys = Object.keys(node);
+  const isReferenceOnly = keys.length === 1 && keys[0] === '@id';
+
+  if (typeof node['@id'] === 'string' && !isReferenceOnly) {
+    out.push(node['@id']);
+  }
+
+  for (const value of Object.values(node)) {
+    collectSchemaIds(value, out);
+  }
+}
+
+function extractSitemapLocs(xml = '') {
+  return [...xml.matchAll(/<loc>([^<]+)<\/loc>/gi)].map((match) => match[1]);
+}
+
+function normalizeAssetHrefToDistPath(href = '') {
+  const clean = normalizeAssetHref(href);
+  if (!clean || clean === '/' || clean.endsWith('/')) {
+    return '';
+  }
+  return clean.slice(1).replace(/\//g, path.sep);
+}
+
+function normalizeAssetHref(href = '') {
+  const clean = decodeURIComponent(String(href).split('#')[0].split('?')[0].trim());
+  if (!clean) return '';
+  if (clean.startsWith(`${seoConfig.siteUrl}/`)) {
+    return clean.slice(seoConfig.siteUrl.length);
+  }
+  if (clean.startsWith('http://') || clean.startsWith('https://')) {
+    return '';
+  }
+  if (!clean.startsWith('/') || clean.startsWith('//')) {
+    return '';
+  }
+  return clean;
+}
+
+function assetExistsOnDisk(relativePath) {
+  return existsSync(path.join(distRoot, relativePath));
+}
+
+function slugify(value = '') {
+  return String(value).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+
+function outputToAbsoluteUrl(output = '') {
+  const normalized = normalizeOutput(output);
+  if (normalized === 'index.html') {
+    return `${seoConfig.siteUrl}/`;
+  }
+  if (normalized.endsWith('/index.html')) {
+    return `${seoConfig.siteUrl}/${normalized.replace(/\/index\.html$/, '/')}`;
+  }
+  return `${seoConfig.siteUrl}/${normalized}`;
 }

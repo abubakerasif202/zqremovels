@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -215,7 +215,7 @@ test('guide hub and guide articles feed into packing, furniture, office, and int
   assert.match(coastalAccess, /href="\/removalists-southern-adelaide\/"/);
 });
 
-test('v4 suburb pages surface region-aware intents and contextual ctas', () => {
+test('v5 suburb pages surface region-aware ctas, richer modules, and stronger link paths', () => {
   const cbdPage = readDist(path.join('removalists-adelaide-cbd', 'index.html'));
   const glenelgPage = readDist(path.join('removalists-glenelg', 'index.html'));
   const salisburyPage = readDist(path.join('removalists-salisbury', 'index.html'));
@@ -225,25 +225,25 @@ test('v4 suburb pages surface region-aware intents and contextual ctas', () => {
   const norwoodPage = readDist(path.join('removalists-norwood', 'index.html'));
   const seafordPage = readDist(path.join('removalists-seaford', 'index.html'));
 
-  assert.match(cbdPage, /Route and intent expansion/i);
-  assert.match(cbdPage, /Book apartment move/i);
-  assert.match(cbdPage, /Book office relocation/i);
-  assert.match(cbdPage, /interstate/i);
-  assert.match(cbdPage, /Apartment Lift Bookings Adelaide/i);
+  assert.match(cbdPage, /data-generated-module="logistics-access"/);
+  assert.match(cbdPage, /Book city move|Book apartment move/i);
+  assert.match(cbdPage, /href="\/office-relocation-adelaide\/"/);
+  assert.match(cbdPage, /href="\/adelaide-moving-guides\/apartment-moving-tips-adelaide\/"/);
+  assert.match(cbdPage, /src="\/media\/zq-operations-premium\.webp"/);
   assert.match(glenelgPage, /Plan coastal move/i);
-  assert.match(glenelgPage, /furniture removalists support/i);
-  assert.match(glenelgPage, /Coastal Moving Access Adelaide/i);
+  assert.match(glenelgPage, /href="\/furniture-removalists-adelaide\/"/);
+  assert.match(glenelgPage, /href="\/adelaide-moving-guides\/coastal-moving-access-adelaide\/"/);
   assert.match(salisburyPage, /Get suburb-specific quote/i);
-  assert.match(salisburyPage, /northern corridor/i);
-  assert.match(salisburyPage, /Storage Planning Adelaide/i);
-  assert.match(elizabethPage, /Book eastern-corridor move|How long moves take Adelaide/i);
-  assert.match(elizabethPage, /Route and intent expansion/i);
-  assert.match(noarlungaPage, /Plan coastal move/i);
-  assert.match(noarlungaPage, /Storage planning Adelaide/i);
+  assert.match(salisburyPage, /href="\/cheap-removalists-adelaide\/"/);
+  assert.match(salisburyPage, /href="\/adelaide-moving-guides\/suburb-move-preparation-adelaide\/"|href="\/adelaide-moving-guides\/removalist-cost-adelaide\/"/);
+  assert.match(elizabethPage, /Get suburb-specific quote|Book larger-home move/i);
+  assert.match(elizabethPage, /data-generated-module="move-types"/);
+  assert.match(noarlungaPage, /Plan staged coastal move|Plan coastal move/i);
+  assert.match(noarlungaPage, /href="\/storage-friendly-removals-adelaide\/"/);
   assert.match(reynellaPage, /Book family-home move/i);
-  assert.match(reynellaPage, /Avoiding damage during a move/i);
-  assert.match(norwoodPage, /Book eastern-corridor move/i);
-  assert.match(norwoodPage, /Adelaide Pricing Breakdown/i);
+  assert.match(reynellaPage, /href="\/storage-friendly-removals-adelaide\/"/);
+  assert.match(norwoodPage, /Book access-aware move/i);
+  assert.match(norwoodPage, /href="\/adelaide-moving-guides\/removalist-cost-adelaide\/"/);
   assert.match(seafordPage, /coastal family-home access/i);
   assert.match(seafordPage, /Plan coastal move|coastal access planning/i);
 });
@@ -348,4 +348,133 @@ test('regional hubs act like cluster controllers instead of isolated landing pag
   ]) {
     assert.match(southernHub, new RegExp(`href="${href.replace(/\//g, '\\/')}"`));
   }
+});
+
+test('generated suburb pages now ship modular content, real hero images, and the corrected semaphore route', () => {
+  const semaphorePage = readDist(path.join('removalists-semaphore', 'index.html'));
+  const semoreRedirect = readDist(path.join('removalists-semore', 'index.html'));
+  const suburbsSitemap = readDist('sitemap-suburbs.xml');
+  const imageSitemap = readDist('sitemap-images.xml');
+  const vercelConfig = JSON.parse(readFileSync(path.join(root, 'vercel.json'), 'utf8'));
+
+  for (const moduleName of [
+    'hero-title',
+    'local-intro',
+    'local-service-summary',
+    'logistics-access',
+    'move-types',
+    'nearby-suburbs',
+    'related-services',
+    'related-guides',
+    'suburb-faq',
+    'bottom-cta',
+  ]) {
+    assert.match(semaphorePage, new RegExp(`data-generated-module="${moduleName}"`));
+  }
+
+  assert.match(semaphorePage, /data-generated-cta="top"/);
+  assert.match(semaphorePage, /data-generated-cta="bottom"/);
+  assert.match(semaphorePage, /href="\/removalists-adelaide\/"/);
+  assert.match(semaphorePage, /href="\/removalists-glenelg\/"|href="\/removalists-brighton\/"/);
+  assert.match(semaphorePage, /href="\/adelaide-moving-guides\/coastal-moving-access-adelaide\/"/);
+  assert.match(semaphorePage, /src="\/media\/zq-local-premium\.webp"/);
+
+  assert.match(semoreRedirect, /http-equiv="refresh"/i);
+  assert.match(semoreRedirect, /https:\/\/zqremovals\.au\/removalists-semaphore\//);
+  assert.match(suburbsSitemap, /https:\/\/zqremovals\.au\/removalists-semaphore\//);
+  assert.doesNotMatch(suburbsSitemap, /https:\/\/zqremovals\.au\/removalists-semore\//);
+  assert.match(imageSitemap, /https:\/\/zqremovals\.au\/removalists-semaphore\//);
+  assert.match(imageSitemap, /https:\/\/zqremovals\.au\/media\/zq-local-premium\.webp/);
+
+  assert.ok(
+    vercelConfig.redirects.some(
+      ({ source, destination }) =>
+        source === '/removalists-semore/' &&
+        destination === '/removalists-semaphore/',
+    ),
+  );
+});
+
+test('generated money pages are substantial, image-backed, and linked into suburbs, guides, and sibling services', () => {
+  const cases = [
+    {
+      slug: 'cheap-removalists-adelaide',
+      suburb: '/removalists-salisbury/',
+      guide: '/adelaide-moving-guides/removalist-cost-adelaide/',
+      sibling: '/last-minute-removalists-adelaide/',
+      image: '/media/home-local-hero-branded.webp',
+    },
+    {
+      slug: 'same-day-removalists-adelaide',
+      suburb: '/removalists-adelaide-cbd/',
+      guide: '/adelaide-moving-guides/booking-timing-guide-adelaide/',
+      sibling: '/last-minute-removalists-adelaide/',
+      image: '/media/home-local-hero-branded.webp',
+    },
+    {
+      slug: 'last-minute-removalists-adelaide',
+      suburb: '/removalists-glenelg/',
+      guide: '/adelaide-moving-guides/packing-tips-adelaide/',
+      sibling: '/same-day-removalists-adelaide/',
+      image: '/media/home-local-hero-branded.webp',
+    },
+    {
+      slug: 'apartment-removalists-adelaide',
+      suburb: '/removalists-mawson-lakes/',
+      guide: '/adelaide-moving-guides/apartment-moving-tips-adelaide/',
+      sibling: '/same-day-removalists-adelaide/',
+      image: '/media/zq-service-premium.webp',
+    },
+    {
+      slug: 'office-relocation-adelaide',
+      suburb: '/removalists-marion/',
+      guide: '/adelaide-moving-guides/office-relocation-preparation-adelaide/',
+      sibling: '/storage-friendly-removals-adelaide/',
+      image: '/media/zq-operations-premium.webp',
+    },
+    {
+      slug: 'storage-friendly-removals-adelaide',
+      suburb: '/removalists-noarlunga/',
+      guide: '/adelaide-moving-guides/storage-planning-adelaide/',
+      sibling: '/office-relocation-adelaide/',
+      image: '/media/zq-interstate-premium.webp',
+    },
+  ];
+
+  for (const testCase of cases) {
+    const html = readDist(path.join(testCase.slug, 'index.html'));
+
+    assert.match(html, /data-generated-page="money-v5"/);
+    assert.match(html, new RegExp(`href="${testCase.suburb.replace(/\//g, '\\/')}"`));
+    assert.match(html, new RegExp(`href="${testCase.guide.replace(/\//g, '\\/')}"`));
+    assert.match(html, new RegExp(`href="${testCase.sibling.replace(/\//g, '\\/')}"`));
+    assert.match(html, /href="\/contact-us\/#quote-form"/);
+    assert.match(html, new RegExp(`src="${testCase.image.replace(/\//g, '\\/')}"`));
+    assert.match(html, /data-generated-module="commercial-factors"/);
+    assert.match(html, /data-generated-module="commercial-guides"/);
+  }
+});
+
+test('generated-page lastmod follows source file mtimes and image sitemap is powered by real page images', () => {
+  const suburbsSitemap = readDist('sitemap-suburbs.xml');
+  const servicesSitemap = readDist('sitemap-services.xml');
+  const imageSitemap = readDist('sitemap-images.xml');
+  const expectedLastmod = [
+    statSync(path.join(root, 'site-src', 'data', 'seo-v4.mjs')).mtime.toISOString().slice(0, 10),
+    statSync(path.join(root, 'scripts', 'build-site.mjs')).mtime.toISOString().slice(0, 10),
+  ].sort().at(-1);
+
+  const semaphoreLastmod = suburbsSitemap.match(
+    /<loc>https:\/\/zqremovals\.au\/removalists-semaphore\/<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/,
+  );
+  const cheapLastmod = servicesSitemap.match(
+    /<loc>https:\/\/zqremovals\.au\/cheap-removalists-adelaide\/<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/,
+  );
+
+  assert.ok(semaphoreLastmod);
+  assert.ok(cheapLastmod);
+  assert.equal(semaphoreLastmod[1], expectedLastmod);
+  assert.equal(cheapLastmod[1], expectedLastmod);
+  assert.match(imageSitemap, /<image:loc>https:\/\/zqremovals\.au\/media\/zq-local-premium\.webp<\/image:loc>/);
+  assert.match(imageSitemap, /<image:loc>https:\/\/zqremovals\.au\/media\/zq-service-premium\.webp<\/image:loc>/);
 });

@@ -134,6 +134,21 @@
       "permanent": true
     },
     {
+      "source": "/removalists-semore",
+      "destination": "/removalists-semaphore/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-semore/",
+      "destination": "/removalists-semaphore/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-semore/index.html",
+      "destination": "/removalists-semaphore/",
+      "permanent": true
+    },
+    {
       "source": "/adelaide-cbd.html",
       "destination": "/removalists-adelaide-cbd/",
       "permanent": true

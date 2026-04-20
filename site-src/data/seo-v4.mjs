@@ -4,6 +4,10 @@ const PHONE = '+61 433 819 989';
 const DEFAULT_OG_IMAGE = `${SITE_URL}/zq-removals-social-share.webp`;
 const DEFAULT_LOGO = `${SITE_URL}/brand-logo.webp`;
 
+function toAbsoluteUrl(pathname) {
+  return pathname.startsWith('http') ? pathname : `${SITE_URL}${pathname}`;
+}
+
 export const seoConfig = {
   siteUrl: SITE_URL,
   businessName: BUSINESS_NAME,
@@ -52,22 +56,74 @@ export const localBusinessSchema = {
 
 export const imageAssets = {
   homepage: {
-    url: `${SITE_URL}/screen.webp`,
-    alt: 'ZQ Removals premium Adelaide moving team and website hero',
+    path: '/media/home-local-hero-branded.webp',
+    url: toAbsoluteUrl('/media/home-local-hero-branded.webp'),
+    alt: 'ZQ Removals branded Adelaide moving scene with premium local coverage',
     title: 'ZQ Removals Adelaide moving service',
     caption: 'Premium Adelaide removals with clear quote-first planning.',
   },
   suburb: {
-    url: `${SITE_URL}/zq-removals-social-share.webp`,
-    alt: 'ZQ Removals moving truck and Adelaide suburb service area',
+    path: '/media/zq-local-premium.webp',
+    url: toAbsoluteUrl('/media/zq-local-premium.webp'),
+    alt: 'ZQ Removals Adelaide suburb moving coverage image',
     title: 'Adelaide suburb removals',
     caption: 'Suburb-specific moving support across Adelaide.',
   },
   guide: {
-    url: `${SITE_URL}/screen.webp`,
-    alt: 'ZQ Removals Adelaide moving guide illustration',
+    path: '/media/zq-service-premium.webp',
+    url: toAbsoluteUrl('/media/zq-service-premium.webp'),
+    alt: 'ZQ Removals Adelaide moving guide planning image',
     title: 'Adelaide moving guide',
     caption: 'Planning resources for Adelaide removals and packing.',
+  },
+  operations: {
+    path: '/media/zq-operations-premium.webp',
+    url: toAbsoluteUrl('/media/zq-operations-premium.webp'),
+    alt: 'ZQ Removals commercial and operations planning image',
+    title: 'Adelaide office and operations relocations',
+    caption: 'Operational Adelaide moves with structured access and timing.',
+  },
+  interstate: {
+    path: '/media/zq-interstate-premium.webp',
+    url: toAbsoluteUrl('/media/zq-interstate-premium.webp'),
+    alt: 'ZQ Removals interstate route planning image',
+    title: 'Interstate and staged Adelaide removals',
+    caption: 'Longer Adelaide routes with staged delivery and route planning.',
+  },
+};
+
+const generatedPageImageAssignments = {
+  suburb: {
+    default: imageAssets.suburb,
+    CBD: imageAssets.operations,
+    'CBD fringe': imageAssets.operations,
+    coastal: imageAssets.suburb,
+    'southern coastal': imageAssets.interstate,
+    southern: imageAssets.suburb,
+    northern: imageAssets.homepage,
+    'northern fringe': imageAssets.homepage,
+    eastern: imageAssets.suburb,
+    'inner east': imageAssets.suburb,
+    'inner north': imageAssets.homepage,
+    'inner south': imageAssets.suburb,
+    'north-adelaide': imageAssets.operations,
+    'north-eastern': imageAssets.homepage,
+    'west-north': imageAssets.homepage,
+    western: imageAssets.suburb,
+    'south-west': imageAssets.operations,
+    hills: imageAssets.interstate,
+    'eastern hills': imageAssets.interstate,
+  },
+  guide: {
+    default: imageAssets.guide,
+  },
+  commercial: {
+    'cheap-removalists-adelaide': imageAssets.homepage,
+    'same-day-removalists-adelaide': imageAssets.homepage,
+    'last-minute-removalists-adelaide': imageAssets.homepage,
+    'apartment-removalists-adelaide': imageAssets.guide,
+    'office-relocation-adelaide': imageAssets.operations,
+    'storage-friendly-removals-adelaide': imageAssets.interstate,
   },
 };
 
@@ -173,7 +229,7 @@ export function buildImageObjectSchema({ id, url, name, caption }) {
 
 export function getRouteCoverageReport() {
   return getGeneratedPages()
-    .filter((page) => page.output.startsWith('removalists-'))
+    .filter((page) => page.generatedKind === 'suburb')
     .map((page) => {
       const slug = page.output.replace(/^removalists-/, '').replace(/\/index\.html$/, '');
       const suburb = getSuburbData(slug);
@@ -222,10 +278,33 @@ export function getSuburbLinkProfile(slug) {
   };
 }
 
+export function getSuburbDataset() {
+  return suburbData.map(([slug, suburb, region, clusterKey, logisticsLabel]) => ({
+    slug,
+    suburb,
+    region,
+    clusterKey,
+    logisticsLabel,
+  }));
+}
+
 function clampText(value, limit) {
   const text = String(value).trim().replace(/\s+/g, ' ');
   if (text.length <= limit) return text;
   return `${text.slice(0, limit - 1).trimEnd()}…`;
+}
+
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function escapeAttribute(value) {
+  return escapeHtml(value);
 }
 
 function getSuburbData(slug) {
@@ -288,7 +367,7 @@ const suburbData = [
   ['west-lakes', 'West Lakes', 'West Lakes', 'western', 'waterfront homes and unit access'],
   ['henley-beach', 'Henley Beach', 'Henley Beach', 'coastal', 'beachside apartments and homes'],
   ['grange', 'Grange', 'Grange', 'coastal', 'premium coastal homes and parking'],
-  ['semore', 'Semaphore', 'Semaphore', 'coastal', 'beachfront apartments and tight access'],
+  ['semaphore', 'Semaphore', 'Semaphore', 'coastal', 'beachfront apartments and tight access'],
   ['brighton', 'Brighton', 'Brighton', 'coastal', 'family homes and apartment access'],
   ['somerton-park', 'Somerton Park', 'Somerton Park', 'coastal', 'coastal villa moves'],
   ['hove', 'Hove', 'Hove', 'coastal', 'apartment and townhouse access'],
@@ -1197,6 +1276,555 @@ const commercialLinkProfiles = {
   },
 };
 
+function formatClusterLabel(clusterKey) {
+  return toTitle(normalizeClusterKey(clusterKey));
+}
+
+function getGeneratedPageImage({ type, slug, title, suburb, clusterKey, logisticsLabel, topic }) {
+  let asset = null;
+
+  if (type === 'suburb') {
+    asset = generatedPageImageAssignments.suburb[normalizeClusterKey(clusterKey)] || generatedPageImageAssignments.suburb.default;
+  } else if (type === 'guide') {
+    asset = generatedPageImageAssignments.guide[slug] || generatedPageImageAssignments.guide.default;
+  } else if (type === 'commercial') {
+    asset = generatedPageImageAssignments.commercial[slug] || imageAssets.homepage;
+  }
+
+  if (!asset) {
+    return null;
+  }
+
+  return {
+    ...asset,
+    alt: buildGeneratedImageAlt({ type, suburb, clusterKey, logisticsLabel, title, topic }),
+    title:
+      type === 'suburb'
+        ? `${suburb} removals planning`
+        : type === 'guide'
+          ? `${title} guide image`
+          : `${title} service image`,
+    caption:
+      type === 'suburb'
+        ? `${suburb} moving support across ${formatClusterLabel(clusterKey).toLowerCase()} routes in Adelaide.`
+        : type === 'guide'
+          ? `Planning support for Adelaide customers researching ${topic}.`
+          : `${title} with quote-first planning for Adelaide moves.`,
+  };
+}
+
+function buildGeneratedImageAlt({ type, suburb, clusterKey, logisticsLabel, title, topic }) {
+  if (type === 'suburb') {
+    return `${BUSINESS_NAME} ${suburb} removalists planning image for ${formatClusterLabel(clusterKey).toLowerCase()} access and ${logisticsLabel}`;
+  }
+
+  if (type === 'guide') {
+    return `${BUSINESS_NAME} Adelaide moving guide image for ${topic} and quote-ready planning`;
+  }
+
+  return `${BUSINESS_NAME} ${title} planning image for Adelaide moves`;
+}
+
+function getSuburbCtaTheme(clusterKey) {
+  const actions = {
+    coastal: 'Plan coastal move',
+    'southern coastal': 'Plan staged coastal move',
+    southern: 'Book family-home move',
+    northern: 'Get suburb-specific quote',
+    'northern fringe': 'Book larger-home move',
+    eastern: 'Book access-aware move',
+    'inner east': 'Book access-aware move',
+    'inner north': 'Book compact-street move',
+    'inner south': 'Book townhouse move',
+    western: 'Book mixed-access move',
+    'south-west': 'Book mixed-use move',
+    hills: 'Book slope-aware move',
+    'eastern hills': 'Book slope-aware move',
+    'CBD fringe': 'Book apartment move',
+    CBD: 'Book city move',
+    'north-adelaide': 'Book premium local move',
+    'north-eastern': 'Get suburb-specific quote',
+    'west-north': 'Get suburb-specific quote',
+  };
+
+  return actions[normalizeClusterKey(clusterKey)] || 'Get suburb-specific quote';
+}
+
+function buildSuburbTraits(logisticsLabel, clusterKey) {
+  const haystack = `${normalizeClusterKey(clusterKey)} ${logisticsLabel}`.toLowerCase();
+  const traits = [];
+
+  if (/apartment|lift|unit|townhouse/.test(haystack)) traits.push('apartment');
+  if (/family|garage|driveway|house|estate|larger home/.test(haystack)) traits.push('family-home');
+  if (/storage|staged|split handover/.test(haystack)) traits.push('storage');
+  if (/office|commercial|mixed-use|warehouse/.test(haystack)) traits.push('office');
+  if (/coastal|beach|harbour|waterfront/.test(haystack)) traits.push('coastal');
+  if (/heritage|villa|terrace/.test(haystack)) traits.push('heritage');
+  if (/hill|slope|driveway/.test(haystack)) traits.push('hillside');
+
+  if (traits.length === 0) {
+    traits.push('local');
+  }
+
+  return [...new Set(traits)];
+}
+
+function buildSuburbHighlights({ suburb, logisticsLabel, clusterKey, nearby }) {
+  const traits = buildSuburbTraits(logisticsLabel, clusterKey);
+  const highlights = [
+    `${toTitle(logisticsLabel)} scoped before quoting`,
+    `${nearby.slice(0, 2).map((item) => item.suburb).join(' and ')} links for route comparison`,
+  ];
+
+  if (traits.includes('apartment')) highlights.push('Apartment, unit, and shared-entry access mapped early');
+  if (traits.includes('family-home')) highlights.push('Family-home inventory and garage loads staged before move day');
+  if (traits.includes('storage')) highlights.push('Storage stops and staged delivery handled in one plan');
+  if (traits.includes('office')) highlights.push('Mixed-use and office inventory sequenced around access windows');
+  if (traits.includes('coastal')) highlights.push('Coastal parking and carry distance reviewed before the booking is locked');
+  if (traits.includes('heritage')) highlights.push('Heritage entries and tighter turning space considered early');
+  if (traits.includes('hillside')) highlights.push('Slope-aware carrying and driveway access planned into labour time');
+
+  if (highlights.length < 3) {
+    highlights.push(`Linked back to Adelaide removals coverage for broader ${suburb} route planning`);
+  }
+
+  return highlights.slice(0, 4);
+}
+
+function buildSuburbIntroParagraphs({ suburb, intro, logisticsLabel, nearby, clusterKey, supportProfile }) {
+  const clusterLabel = formatClusterLabel(clusterKey).toLowerCase();
+  const supportServices = supportProfile.services.slice(0, 2).map((item) => item.label).join(' and ');
+
+  return [
+    intro,
+    `${suburb} moves usually perform better when the quote is based on the real access path, the inventory mix, and the timing pressure on the street or in the building. For this suburb, that often means clarifying ${logisticsLabel} before labour, vehicle setup, and the unload order are locked in.`,
+    `This page is designed as a stronger local entry point, not a thin suburb mention. It keeps ${suburb} connected to the Adelaide removals hub, nearby comparison routes like ${nearby.map((item) => item.suburb).join(', ')}, and the most useful services for ${clusterLabel} moves, including ${supportServices}.`,
+  ];
+}
+
+function buildSuburbSummaryCards({ suburb, logisticsLabel, supportProfile, traits }) {
+  return [
+    {
+      title: `Local service summary for ${suburb}`,
+      copy: `${suburb} jobs can flow into house removals, apartment work, packing support, storage staging, or interstate handoff depending on the route. The common thread is that the job is scoped around ${logisticsLabel}, not a generic suburb template.`,
+      points: [
+        'Local and Adelaide-wide routes scoped from one brief',
+        'Inventory, access, and timing reviewed before scheduling',
+        'Premium handling without forcing a long sales loop',
+      ],
+    },
+    {
+      title: 'What improves quote accuracy',
+      copy: `The strongest enquiry explains the property type, stair or lift setup, parking position, and whether the move includes bulky furniture, storage, packing, or a second stop.`,
+      points: [
+        'Pickup and delivery suburbs confirmed early',
+        'Heavy or fragile items listed up front',
+        'Property access notes included before move day',
+      ],
+    },
+    {
+      title: 'Best-fit service paths',
+      copy: `The related services for ${suburb} follow the local access pattern rather than forcing the same route through every page. That is why ${supportProfile.services.slice(0, 2).map((item) => item.label).join(' and ')} sit close to this suburb brief.`,
+      points: [
+        traits.includes('apartment') ? 'Apartment access stays tied to loading, lifts, and timing' : 'Residential access stays tied to property layout and carry path',
+        traits.includes('storage') ? 'Storage staging can be added without breaking the route plan' : 'Packing and furniture handling can be scoped in the same job',
+        traits.includes('office') ? 'Mixed-use loads can still be handled under one operational brief' : 'Broader Adelaide links stay visible for comparison and quote support',
+      ],
+    },
+  ];
+}
+
+function buildSuburbLogisticsCards({ suburb, logisticsLabel, clusterKey, nearby }) {
+  const clusterLabel = formatClusterLabel(clusterKey);
+  const traits = buildSuburbTraits(logisticsLabel, clusterKey);
+
+  return [
+    {
+      title: `${clusterLabel} access checks`,
+      copy: `${suburb} sits inside a ${clusterLabel.toLowerCase()} pattern where route timing, street position, and the carry path can change the labour plan quickly.`,
+      points: [
+        `Nearby route comparisons include ${nearby.slice(0, 2).map((item) => item.suburb).join(' and ')}`,
+        `${toTitle(logisticsLabel)} should be mentioned before the quote is approved`,
+        'Short local distance does not remove access-driven delays',
+      ],
+    },
+    {
+      title: 'Loading and unloading pressure',
+      copy: `The job often turns on how quickly the truck can be positioned and how much reshuffling is avoided at both ends of the route.`,
+      points: [
+        traits.includes('coastal') ? 'Parking pressure and weather exposure can slow loading' : 'Entry width and stair counts affect how the first hour runs',
+        traits.includes('apartment') ? 'Shared-building rules and lift windows shape the unload order' : 'Driveways, garages, and room order shape the unload order',
+        'Priority rooms and fragile items should be identified before loading begins',
+      ],
+    },
+    {
+      title: 'Access notes worth mentioning',
+      copy: `The better the access notes, the less the move depends on assumptions. That keeps labour, timing, and handling expectations aligned.`,
+      points: [
+        'Stairs, service lifts, loading docks, or long carries',
+        'Street parking limits, driveway slope, or narrow entries',
+        'Storage stops, office equipment, or larger furniture that needs extra protection',
+      ],
+    },
+  ];
+}
+
+function buildSuburbMoveTypeCards({ suburb, logisticsLabel, clusterKey }) {
+  const traits = buildSuburbTraits(logisticsLabel, clusterKey);
+  const cards = [];
+  const fallbackCards = [
+    {
+      title: 'Local household relocations',
+      copy: `${suburb} household moves still benefit from a room-by-room plan that matches the actual load and access path.`,
+      points: ['Useful for standard Adelaide house and unit routes'],
+    },
+    {
+      title: 'Packing and protection support',
+      copy: `Packing support can be added when the move includes fragile rooms, compressed timing, or furniture that needs cleaner wrapping.`,
+      points: ['Useful when preparation quality shapes move-day speed'],
+    },
+    {
+      title: 'Broader Adelaide handoff',
+      copy: `${suburb} visitors should still be able to move naturally into Adelaide-wide service pages and quote paths once the local angle is clear.`,
+      points: ['Useful when suburb research turns into a service-led enquiry'],
+    },
+  ];
+
+  if (traits.includes('apartment')) {
+    cards.push({
+      title: 'Apartment and unit moves',
+      copy: `${suburb} apartment jobs are best scoped around lift timing, corridor clearance, and the order bulky items enter or leave the building.`,
+      points: ['Useful for towers, units, and tighter townhouse layouts'],
+    });
+  }
+
+  if (traits.includes('family-home')) {
+    cards.push({
+      title: 'Family-home relocations',
+      copy: `${suburb} family-home moves often include garage stock, outdoor furniture, and a bigger room count than the first estimate suggests.`,
+      points: ['Useful when inventory size and room order affect the day'],
+    });
+  }
+
+  if (traits.includes('storage')) {
+    cards.push({
+      title: 'Storage-linked routes',
+      copy: `${suburb} moves can include a storage stage, a renovation gap, or a staggered handover that needs the load sequenced for more than one destination.`,
+      points: ['Useful for split delivery, downsizing, and settlement gaps'],
+    });
+  }
+
+  if (traits.includes('office')) {
+    cards.push({
+      title: 'Office and mixed-use inventory',
+      copy: `${suburb} can also trigger office or clinic-style work where desks, shelves, labelled crates, or mixed residential-commercial stock need cleaner restart planning.`,
+      points: ['Useful for mixed-use corridors and business-critical resets'],
+    });
+  }
+
+  if (traits.includes('coastal')) {
+    cards.push({
+      title: 'Coastal home and apartment work',
+      copy: `${suburb} coastal jobs need more deliberate loading because parking windows, beachside frontage, and exposed access points can extend the day.`,
+      points: ['Useful for beachside homes, apartments, and shared entries'],
+    });
+  }
+
+  if (traits.includes('heritage')) {
+    cards.push({
+      title: 'Heritage and premium access moves',
+      copy: `${suburb} often suits more careful furniture flow where entries, stair geometry, or higher-finish interiors reward a more deliberate sequence.`,
+      points: ['Useful for villas, terraces, and premium handling'],
+    });
+  }
+
+  if (traits.includes('hillside')) {
+    cards.push({
+      title: 'Slope-aware loading plans',
+      copy: `${suburb} hillside access changes how crews stage heavier furniture, longer carries, and driveway turns before the truck is loaded.`,
+      points: ['Useful when slopes and distance change carrying time'],
+    });
+  }
+
+  for (const fallbackCard of fallbackCards) {
+    if (cards.length >= 3) break;
+    cards.push(fallbackCard);
+  }
+
+  return cards.slice(0, 3);
+}
+
+function buildSuburbFaqItems({ suburb, logisticsLabel, nearby, clusterKey }) {
+  return [
+    {
+      question: `Do you handle ${suburb} moves with ${logisticsLabel}?`,
+      answer: `Yes. ${suburb} jobs are scoped around ${logisticsLabel} so the timing, access, and labour plan are grounded in the real route rather than a generic estimate.`,
+    },
+    {
+      question: `Which nearby suburbs are most relevant when comparing ${suburb} routes?`,
+      answer: `${nearby.map((item) => item.suburb).join(', ')} are practical comparison points because they share similar route pressure, access patterns, or corridor timing.`,
+    },
+    ...getFaqPool(clusterKey),
+  ];
+}
+
+function buildGuideChecklistCards(topic) {
+  const cards = {
+    'moving checklist': [
+      { title: 'Confirm the route', copy: 'Lock in the pickup suburb, delivery suburb, property type, and any access constraints before comparing quotes.' },
+      { title: 'List the larger items', copy: 'Whitegoods, bulky furniture, gym gear, and storage cages should be included before the moving day is priced.' },
+      { title: 'Decide what needs support', copy: 'Packing, storage, furniture-only handling, or an interstate leg should sit inside the same move brief.' },
+    ],
+    'cost guide': [
+      { title: 'What changes the quote', copy: 'Access, inventory size, stair runs, and the quality of the route brief matter more than headline suburb distance.' },
+      { title: 'Why cheaper is not always simpler', copy: 'Low-cost quotes often drift when parking, heavy items, or property access were never clarified.' },
+      { title: 'How to compare value', copy: 'Look for transparent inclusions, realistic labour assumptions, and a clear path from quote to move-day execution.' },
+    ],
+    'apartment moves': [
+      { title: 'Book lifts early', copy: 'Service lifts, loading docks, and shared corridors control the timing more than the suburb name alone.' },
+      { title: 'Protect common areas', copy: 'The move plan should reflect how trolleys, wraps, and staging protect building finishes and reduce complaints.' },
+      { title: 'Reduce bottlenecks', copy: 'Bulky items and room priority should be sequenced before the truck arrives.' },
+    ],
+    'storage planning': [
+      { title: 'Sequence the load', copy: 'Storage works better when the pickup, storage stop, and final delivery are treated as one route plan.' },
+      { title: 'Label by destination', copy: 'Downsizing and staged handovers are easier when cartons and furniture are grouped by the next stop.' },
+      { title: 'Prevent double handling', copy: 'The goal is to minimise reload friction, not just add an extra stop to the same move day.' },
+    ],
+    'office preparation': [
+      { title: 'Map the restart order', copy: 'Desks, monitors, files, and shared equipment should be staged according to what staff need first.' },
+      { title: 'Confirm building access', copy: 'Dock bookings, after-hours access, and lift windows should be checked before the date is locked.' },
+      { title: 'Separate critical equipment', copy: 'IT gear and high-priority items should not be buried inside the general load.' },
+    ],
+    'packing tips': [
+      { title: 'Protect by category', copy: 'Fragile kitchenware, framed items, and heavier books need different carton choices and wrapping standards.' },
+      { title: 'Pack for the unload', copy: 'Labels should reflect room order and first-night priority, not just what was nearest when the box was filled.' },
+      { title: 'Leave awkward items visible', copy: 'Oversized pieces, mirrors, and heavy furniture should be flagged before moving day.' },
+    ],
+    'booking timing': [
+      { title: 'Book early when the brief is complex', copy: 'Access-sensitive, apartment, interstate, and staged moves benefit from more lead time than a simple suburb swap.' },
+      { title: 'Short notice still needs detail', copy: 'Same-day and last-minute moves only work when access and inventory details are supplied quickly.' },
+      { title: 'Reduce avoidable delays', copy: 'The route, parking setup, and move scope should be clarified before the truck is allocated.' },
+    ],
+    'suburb move prep': [
+      { title: 'Use the right suburb page', copy: 'A suburb page is useful when the address is already known and the route needs local context before quoting.' },
+      { title: 'Keep service links visible', copy: 'Suburb research should still connect to the best-fit service page, guide, and quote path.' },
+      { title: 'Describe the access pattern', copy: 'Suburb-level planning is only helpful when it reflects the actual property and not a generic postcode summary.' },
+    ],
+  };
+
+  return cards[topic] || cards['moving checklist'];
+}
+
+function buildCommercialHighlights(page) {
+  const defaults = {
+    'cheap-removalists-adelaide': [
+      'Accurate scoping keeps low-cost quotes realistic',
+      'Budget-friendly routes still need premium handling standards',
+      'Useful for local household and suburb-led moves',
+    ],
+    'same-day-removalists-adelaide': [
+      'Fast confirmation depends on early access detail',
+      'Useful for urgent residential, apartment, and compact commercial jobs',
+      'Built for shorter response loops without sloppy quoting',
+    ],
+    'last-minute-removalists-adelaide': [
+      'Short-notice jobs still need route clarity',
+      'Useful when the booking window is tight but care still matters',
+      'Connected to planning guides that reduce friction fast',
+    ],
+    'apartment-removalists-adelaide': [
+      'Lift timing, corridor width, and loading windows matter first',
+      'Useful for towers, units, and tight-access townhouses',
+      'Linked to suburb pages where apartment demand is strongest',
+    ],
+    'office-relocation-adelaide': [
+      'Downtime control is part of the move brief',
+      'Useful for desks, monitors, files, and staged resets',
+      'Connected to CBD and commercial access planning content',
+    ],
+    'storage-friendly-removals-adelaide': [
+      'Pickup, storage, and delivery should be staged in one plan',
+      'Useful for renovations, downsizing, and settlement gaps',
+      'Built for moves that need more than one destination',
+    ],
+  };
+
+  return defaults[page.slug] || [
+    'Service page built for quote-ready Adelaide intent',
+    'Linked back to suburbs, guides, and related services',
+    'Focused on route fit rather than filler copy',
+  ];
+}
+
+function buildCommercialFactorCards(page) {
+  const cards = {
+    'cheap-removalists-adelaide': [
+      { title: 'What keeps the quote lean', copy: 'Accurate inventory, clear access notes, and a realistic route brief stop cheap quotes from drifting later.' },
+      { title: 'Where value is protected', copy: 'Careful handling, transparent inclusions, and less rework matter more than chasing the lowest headline number.' },
+      { title: 'Who this page fits', copy: 'Clients comparing local Adelaide options and trying to stay budget-conscious without dropping service quality.' },
+    ],
+    'same-day-removalists-adelaide': [
+      { title: 'What makes same-day viable', copy: 'A workable schedule, fast access confirmation, and an inventory summary that can be priced without guesswork.' },
+      { title: 'What usually causes delays', copy: 'Parking uncertainty, building restrictions, and heavy items that were never listed in the first call.' },
+      { title: 'Where the page helps', copy: 'Urgent Adelaide moves that still need a sensible plan, not a rushed commitment with missing scope.' },
+    ],
+    'last-minute-removalists-adelaide': [
+      { title: 'What the team needs first', copy: 'Addresses, preferred date, property type, and the key access risks that could affect labour and timing.' },
+      { title: 'How to avoid price drift', copy: 'Supply the move brief once, clearly, so the quote reflects the real route instead of a short-notice assumption.' },
+      { title: 'Where this page fits', copy: 'Searchers who are already urgent but still want a premium-standard operator and cleaner communication.' },
+    ],
+    'apartment-removalists-adelaide': [
+      { title: 'What shapes apartment timing', copy: 'Lift bookings, loading docks, corridor distance, and whether the building has fixed move windows.' },
+      { title: 'How the load is sequenced', copy: 'Bulky furniture and priority rooms should be planned for the building layout before the truck arrives.' },
+      { title: 'Where this page fits', copy: 'Adelaide apartments, units, and shared-entry moves where access detail decides the day.' },
+    ],
+    'office-relocation-adelaide': [
+      { title: 'What reduces downtime', copy: 'A staged reset order, clean labelling, and building access that matches when teams actually need the space back.' },
+      { title: 'How the commercial brief is built', copy: 'Desks, monitors, files, stock, and critical equipment are mapped to the restart plan rather than packed blindly.' },
+      { title: 'Where this page fits', copy: 'Businesses that need a more operationally aware Adelaide relocation plan than a generic office move promise.' },
+    ],
+    'storage-friendly-removals-adelaide': [
+      { title: 'What makes storage routes different', copy: 'Extra handling and more than one destination mean the load order has to match what gets delivered first.' },
+      { title: 'How staged delivery helps', copy: 'Renovation gaps, downsizing, and settlement timing are easier when storage is already part of the route plan.' },
+      { title: 'Where this page fits', copy: 'Moves that need a storage stop, split handover, or wider route strategy before quoting.' },
+    ],
+  };
+
+  return cards[page.slug] || [];
+}
+
+function renderBreadcrumbMarkup(items) {
+  return `<nav aria-label="Breadcrumb" class="breadcrumb"><ol>${items
+    .map((item) => (item.href ? `<li><a href="${escapeAttribute(item.href)}">${escapeHtml(item.label)}</a></li>` : `<li>${escapeHtml(item.label)}</li>`))
+    .join('')}</ol></nav>`;
+}
+
+function renderHeroMedia(image) {
+  if (!image) {
+    return '';
+  }
+
+  return `<div class="page-hero-media">
+  <figure class="media-frame" data-generated-module="hero-image">
+    <img alt="${escapeAttribute(image.alt)}" fetchpriority="high" loading="eager" src="${escapeAttribute(image.path)}" />
+  </figure>
+</div>`;
+}
+
+function renderPageHero({ eyebrow, title, lead, supporting = [], points = [], primaryCta, secondaryCta, image, breadcrumbs, pageType }) {
+  return `<section class="hero-shell" data-generated-module="hero-title">
+  <div class="container">
+    ${renderBreadcrumbMarkup(breadcrumbs)}
+    <div class="page-hero-grid">
+      <div class="page-hero-copy">
+        <span class="eyebrow">${escapeHtml(eyebrow)}</span>
+        <h1>${escapeHtml(title)}</h1>
+        <p class="lead">${escapeHtml(lead)}</p>
+        ${supporting.map((item) => `<p class="field-note">${escapeHtml(item)}</p>`).join('')}
+        <ul aria-label="${escapeAttribute(title)} highlights" class="route-meta">
+          ${points.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}
+        </ul>
+        <div class="cta-cluster" data-generated-cta="top" data-generated-page-type="${escapeAttribute(pageType)}">
+          <a class="button button-primary" href="${escapeAttribute(primaryCta.href)}">${escapeHtml(primaryCta.label)}</a>
+          <a class="button button-secondary" href="${escapeAttribute(secondaryCta.href)}">${escapeHtml(secondaryCta.label)}</a>
+        </div>
+      </div>
+      ${renderHeroMedia(image)}
+    </div>
+  </div>
+</section>`;
+}
+
+function renderSectionHeading(eyebrow, heading, intro = '') {
+  return `<div class="section-heading">
+  <span class="eyebrow">${escapeHtml(eyebrow)}</span>
+  <h2>${escapeHtml(heading)}</h2>
+  ${intro ? `<p>${escapeHtml(intro)}</p>` : ''}
+</div>`;
+}
+
+function renderTextSection({ module, eyebrow, heading, intro = '', paragraphs = [], soft = false }) {
+  return `<section class="section${soft ? ' section-soft' : ''}" data-generated-module="${escapeAttribute(module)}">
+  <div class="container">
+    ${renderSectionHeading(eyebrow, heading, intro)}
+    ${paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('')}
+  </div>
+</section>`;
+}
+
+function renderValueCardSection({ module, eyebrow, heading, intro = '', cards = [], soft = false }) {
+  return `<section class="section${soft ? ' section-soft' : ''}" data-generated-module="${escapeAttribute(module)}">
+  <div class="container">
+    ${renderSectionHeading(eyebrow, heading, intro)}
+    <div class="value-grid">
+      ${cards
+        .map(
+          (card) => `<article class="value-card">
+        <h3>${escapeHtml(card.title)}</h3>
+        <p>${escapeHtml(card.copy)}</p>
+        ${Array.isArray(card.points) && card.points.length > 0 ? `<ul>${card.points.map((point) => `<li>${escapeHtml(point)}</li>`).join('')}</ul>` : ''}
+      </article>`,
+        )
+        .join('')}
+    </div>
+  </div>
+</section>`;
+}
+
+function renderRouteCardSection({ module, eyebrow, heading, intro = '', cards = [], soft = false }) {
+  return `<section class="section${soft ? ' section-soft' : ''}" data-generated-module="${escapeAttribute(module)}">
+  <div class="container">
+    ${renderSectionHeading(eyebrow, heading, intro)}
+    <div class="route-grid">
+      ${cards
+        .map(
+          (card) => `<article class="route-card">
+        <small>${escapeHtml(card.eyebrow)}</small>
+        <h3>${escapeHtml(card.title)}</h3>
+        <p>${escapeHtml(card.copy)}</p>
+        <a class="button-link" href="${escapeAttribute(card.href)}">${escapeHtml(card.cta)}</a>
+      </article>`,
+        )
+        .join('')}
+    </div>
+  </div>
+</section>`;
+}
+
+function renderFaqSectionBlock({ module, eyebrow, heading, intro = '', items = [] }) {
+  return `<section class="section section-split" data-generated-module="${escapeAttribute(module)}">
+  <div class="container">
+    ${renderSectionHeading(eyebrow, heading, intro)}
+    <div class="faq-list">
+      ${items
+        .map(
+          (item) => `<article class="faq-item">
+        <h3 class="faq-question">${escapeHtml(item.question)}</h3>
+        <div class="faq-answer">
+          <p>${escapeHtml(item.answer)}</p>
+        </div>
+      </article>`,
+        )
+        .join('')}
+    </div>
+  </div>
+</section>`;
+}
+
+function renderQuoteStrip({ eyebrow, heading, copy, primaryCta, secondaryCta, pageType }) {
+  return `<section class="section" data-generated-module="bottom-cta">
+  <div class="container">
+    <div class="quote-strip">
+      ${renderSectionHeading(eyebrow, heading, copy)}
+      <div class="cta-cluster" data-generated-cta="bottom" data-generated-page-type="${escapeAttribute(pageType)}">
+        <a class="button button-primary" href="${escapeAttribute(primaryCta.href)}">${escapeHtml(primaryCta.label)}</a>
+        <a class="button button-secondary" href="${escapeAttribute(secondaryCta.href)}">${escapeHtml(secondaryCta.label)}</a>
+      </div>
+    </div>
+  </div>
+</section>`;
+}
+
 export function getGeneratedPages() {
   const pages = [];
 
@@ -1214,6 +1842,14 @@ export function getGeneratedPages() {
     pages.push(makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel }));
   }
 
+  pages.push(makeRedirectPage({
+    output: 'removalists-semore/index.html',
+    canonical: buildCanonical('/removalists-semaphore/'),
+    title: buildTitle('Semaphore Removalists Redirect'),
+    description: buildDescription('Legacy typo redirect for the Semaphore removals page.'),
+    destinationPath: '/removalists-semaphore/',
+  }));
+
   for (const [slug, title, topic, type] of guideTopics) {
     pages.push(makeGuidePage({ slug, title, topic, type }));
   }
@@ -1225,10 +1861,13 @@ export function getGeneratedPages() {
   return pages;
 }
 
+const GENERATED_LASTMOD_SOURCES = ['site-src/data/seo-v4.mjs', 'scripts/build-site.mjs'];
+
 function makeStaticPage(page) {
   return {
     output: page.output,
     layout: 'standard',
+    generatedKind: page.generatedKind || 'overview',
     title: page.title,
     description: page.description,
     canonical: page.canonical,
@@ -1242,7 +1881,30 @@ function makeStaticPage(page) {
     twitterImage: DEFAULT_OG_IMAGE,
     jsonLd: [JSON.stringify(buildBreadcrumbSchema([{ name: 'Home', url: SITE_URL }], page.canonical))],
     contentHtml: page.contentHtml,
+    lastmodSources: page.lastmodSources || GENERATED_LASTMOD_SOURCES,
     extra: page.extra,
+  };
+}
+
+function makeRedirectPage({ output, canonical, title, description, destinationPath }) {
+  return {
+    output,
+    layout: 'redirect',
+    generatedKind: 'redirect',
+    title,
+    description,
+    canonical,
+    robots: 'noindex,nofollow',
+    ogTitle: title,
+    ogDescription: description,
+    ogUrl: canonical,
+    ogImage: DEFAULT_OG_IMAGE,
+    twitterTitle: title,
+    twitterDescription: description,
+    twitterImage: DEFAULT_OG_IMAGE,
+    refresh: `0; url=${destinationPath}`,
+    lastmodSources: GENERATED_LASTMOD_SOURCES,
+    contentHtml: `<main id="main-content"><section class="section"><div class="container"><h1>Redirecting to Semaphore removalists</h1><p><a href="${escapeAttribute(destinationPath)}">Continue to the corrected Semaphore removals page</a>.</p></div></section></main>`,
   };
 }
 
@@ -1252,12 +1914,21 @@ function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel }) {
   const template = clusterTemplates[normalizedClusterKey] || clusterTemplates.northern;
   const intro = template.intro.replaceAll('{suburb}', suburb);
   const nearby = getSuburbPeerLinks(slug, normalizedClusterKey, template.nearby, 4);
-  const faqPool = getFaqPool(normalizedClusterKey);
   const title = buildTitle(`${suburb} Removalists | ${logisticsLabel}`);
   const description = buildDescription(`${suburb} removalists for ${logisticsLabel}, with suburb-specific planning, local access notes, and a clear quote path.`);
+  const pageImage = getGeneratedPageImage({
+    type: 'suburb',
+    slug,
+    suburb,
+    clusterKey: normalizedClusterKey,
+    logisticsLabel,
+  });
+  const faqItems = buildSuburbFaqItems({ suburb, logisticsLabel, nearby, clusterKey: normalizedClusterKey });
+
   return {
     output: `removalists-${slug}/index.html`,
     layout: 'standard',
+    generatedKind: 'suburb',
     title,
     description,
     canonical,
@@ -1265,18 +1936,24 @@ function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel }) {
     ogTitle: title,
     ogDescription: description,
     ogUrl: canonical,
-    ogImage: DEFAULT_OG_IMAGE,
+    ogImage: pageImage?.url || DEFAULT_OG_IMAGE,
+    ogImageAlt: pageImage?.alt || title,
     twitterTitle: title,
     twitterDescription: description,
-    twitterImage: DEFAULT_OG_IMAGE,
+    twitterImage: pageImage?.url || DEFAULT_OG_IMAGE,
+    heroImage: pageImage?.path || '',
+    heroImageAlt: pageImage?.alt || '',
+    lastmodSources: GENERATED_LASTMOD_SOURCES,
     jsonLd: [
       JSON.stringify(buildLocalBusinessSchema()),
-      JSON.stringify(buildImageObjectSchema({
-        id: canonical,
-        url: imageAssets.suburb.url,
-        name: imageAssets.suburb.title,
-        caption: imageAssets.suburb.caption,
-      })),
+      ...(pageImage
+        ? [JSON.stringify(buildImageObjectSchema({
+            id: canonical,
+            url: pageImage.url,
+            name: pageImage.title,
+            caption: pageImage.caption,
+          }))]
+        : []),
       JSON.stringify(buildServiceSchema({
         id: canonical,
         name: `Removalists ${suburb}`,
@@ -1289,17 +1966,7 @@ function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel }) {
         { name: 'Removalists Adelaide', url: `${SITE_URL}/removalists-adelaide/` },
         { name: `Removalists ${suburb}`, url: canonical },
       ], canonical)),
-      JSON.stringify(buildFAQSchema([
-        {
-          question: `Do you handle ${suburb} moves with ${logisticsLabel}?`,
-          answer: `Yes. ${suburb} moves are planned around ${logisticsLabel} so the access, inventory, and timing brief stays realistic.`,
-        },
-        {
-          question: `What nearby suburbs are relevant for ${suburb}?`,
-          answer: `${nearby.map((item) => item.suburb).join(', ')} are common nearby reference points for route planning and suburb comparisons.`,
-        },
-        ...faqPool,
-      ], canonical)),
+      JSON.stringify(buildFAQSchema(faqItems, canonical)),
     ],
     contentHtml: renderSuburbContent({
       slug,
@@ -1309,6 +1976,8 @@ function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel }) {
       logisticsLabel,
       nearby,
       clusterKey: normalizedClusterKey,
+      image: pageImage,
+      faqItems,
     }),
   };
 }
@@ -1316,9 +1985,11 @@ function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel }) {
 function makeGuidePage({ slug, title, topic }) {
   const canonical = buildCanonical(`/adelaide-moving-guides/${slug}/`);
   const description = buildDescription(`A practical Adelaide guide for ${topic}, written to support quote-ready planning and clear access decisions.`);
+  const pageImage = getGeneratedPageImage({ type: 'guide', slug, title, topic });
   return {
     output: `adelaide-moving-guides/${slug}/index.html`,
     layout: 'standard',
+    generatedKind: 'guide',
     title: buildTitle(title),
     description,
     canonical,
@@ -1326,22 +1997,28 @@ function makeGuidePage({ slug, title, topic }) {
     ogTitle: buildTitle(title),
     ogDescription: description,
     ogUrl: canonical,
-    ogImage: DEFAULT_OG_IMAGE,
+    ogImage: pageImage?.url || DEFAULT_OG_IMAGE,
+    ogImageAlt: pageImage?.alt || title,
     twitterTitle: buildTitle(title),
     twitterDescription: description,
-    twitterImage: DEFAULT_OG_IMAGE,
+    twitterImage: pageImage?.url || DEFAULT_OG_IMAGE,
+    heroImage: pageImage?.path || '',
+    heroImageAlt: pageImage?.alt || '',
+    lastmodSources: GENERATED_LASTMOD_SOURCES,
     jsonLd: [
       JSON.stringify(buildBreadcrumbSchema([
         { name: 'Home', url: SITE_URL },
         { name: 'Adelaide Moving Guides', url: `${SITE_URL}/adelaide-moving-guides/` },
         { name: title, url: canonical },
       ], canonical)),
-      JSON.stringify(buildImageObjectSchema({
-        id: canonical,
-        url: imageAssets.guide.url,
-        name: imageAssets.guide.title,
-        caption: imageAssets.guide.caption,
-      })),
+      ...(pageImage
+        ? [JSON.stringify(buildImageObjectSchema({
+            id: canonical,
+            url: pageImage.url,
+            name: pageImage.title,
+            caption: pageImage.caption,
+          }))]
+        : []),
       JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'BlogPosting',
@@ -1351,9 +2028,10 @@ function makeGuidePage({ slug, title, topic }) {
         mainEntityOfPage: { '@id': `${canonical}#webpage` },
         author: { '@type': 'Organization', name: BUSINESS_NAME },
         publisher: { '@type': 'Organization', name: BUSINESS_NAME },
+        ...(pageImage ? { image: [pageImage.url] } : {}),
       }),
     ],
-    contentHtml: renderGuideContent({ title, topic, canonical }),
+    contentHtml: renderGuideContent({ slug, title, topic, canonical, image: pageImage }),
   };
 }
 
@@ -1361,9 +2039,11 @@ function makeCommercialPage(page) {
   const canonical = buildCanonical(page.canonical);
   const title = buildTitle(page.title);
   const description = buildDescription(page.description);
+  const pageImage = getGeneratedPageImage({ type: 'commercial', slug: page.slug, title: page.title });
   return {
     output: `${page.slug}/index.html`,
     layout: 'standard',
+    generatedKind: 'commercial',
     title,
     description,
     canonical,
@@ -1371,18 +2051,24 @@ function makeCommercialPage(page) {
     ogTitle: title,
     ogDescription: description,
     ogUrl: canonical,
-    ogImage: DEFAULT_OG_IMAGE,
+    ogImage: pageImage?.url || DEFAULT_OG_IMAGE,
+    ogImageAlt: pageImage?.alt || title,
     twitterTitle: title,
     twitterDescription: description,
-    twitterImage: DEFAULT_OG_IMAGE,
+    twitterImage: pageImage?.url || DEFAULT_OG_IMAGE,
+    heroImage: pageImage?.path || '',
+    heroImageAlt: pageImage?.alt || '',
+    lastmodSources: GENERATED_LASTMOD_SOURCES,
     jsonLd: [
       JSON.stringify(buildLocalBusinessSchema()),
-      JSON.stringify(buildImageObjectSchema({
-        id: canonical,
-        url: imageAssets.homepage.url,
-        name: imageAssets.homepage.title,
-        caption: imageAssets.homepage.caption,
-      })),
+      ...(pageImage
+        ? [JSON.stringify(buildImageObjectSchema({
+            id: canonical,
+            url: pageImage.url,
+            name: pageImage.title,
+            caption: pageImage.caption,
+          }))]
+        : []),
       JSON.stringify(buildServiceSchema({
         id: canonical,
         name: page.title,
@@ -1396,70 +2082,130 @@ function makeCommercialPage(page) {
       ], canonical)),
       JSON.stringify(buildFAQSchema(page.faq, canonical)),
     ],
-    contentHtml: renderCommercialContent(page, canonical),
+    contentHtml: renderCommercialContent(page, canonical, pageImage),
   };
 }
 
 function renderOverviewPage() {
-  return `<section class="section"><div class="container"><h1>ZQ SEO V4</h1><p>Centralised SEO architecture for scalable Adelaide local landing pages, service pages, guides, and automated sitemap generation.</p></div></section>`;
+  return `<main id="main-content"><section class="section"><div class="container"><h1>ZQ SEO V4</h1><p>Centralised SEO architecture for scalable Adelaide local landing pages, service pages, guides, and automated sitemap generation.</p></div></section></main>`;
 }
 
-function renderSuburbContent({ slug, suburb, region, intro, logisticsLabel, nearby, clusterKey }) {
-  const actions = {
-    coastal: 'Plan coastal move',
-    'southern coastal': 'Plan coastal move',
-    southern: 'Book family-home move',
-    northern: 'Get suburb-specific quote',
-    'northern fringe': 'Get suburb-specific quote',
-    eastern: 'Book eastern-corridor move',
-    'inner east': 'Book eastern-corridor move',
-    'CBD fringe': 'Book apartment move',
-    CBD: 'Book apartment move',
-  };
-  const cta = actions[region] || 'Get suburb-specific quote';
-  const faqPool = getFaqPool(clusterKey);
+function renderSuburbContent({ slug, suburb, region, intro, logisticsLabel, nearby, clusterKey, image, faqItems }) {
+  const cta = getSuburbCtaTheme(clusterKey);
   const supportProfile = getClusterSupportProfile(clusterKey);
-  const supportGuideHref = supportProfile.guides[0]?.href || '/adelaide-moving-guides/storage-planning-adelaide/';
-  const supportGuideLabel = toTitle(supportGuideHref.split('/').filter(Boolean).pop());
-  const faqMarkup = faqPool
-    .map((item) => `<details><summary>${item.question}</summary><p>${item.answer}</p></details>`)
-    .join('');
-  const nearbyLinks = renderLinkListItems(nearby);
-  const serviceLinks = renderLinkListItems(supportProfile.services);
-  const guideLinks = renderLinkListItems(supportProfile.guides);
-  const hubLinks = renderLinkListItems(supportProfile.hubs);
-  const localSignals = [
-    `${logisticsLabel} planning`,
-    `${region} routing pressure`,
-    `${nearby.slice(0, 2).map((item) => item.suburb).join(' and ')} comparison routes`,
-  ];
-  return `
-<section class="section">
-  <div class="container">
-    <h1>${suburb} removalists</h1>
-    <div class="section-heading">
-      <span class="eyebrow">Route and intent expansion</span>
-      <h2>${cta} for ${suburb}</h2>
-    </div>
-    <p>${intro}</p>
-    <p>${suburb} sits in the ${region} cluster and usually needs ${logisticsLabel} planning. That makes the quote more reliable when the inventory, access path, and building type are described in one brief rather than split across multiple calls.</p>
-    <p>At the local level, we treat ${suburb} as more than a postcode. We look for the access pattern, nearby streets, property mix, and whether the move is likely to lean residential, apartment-heavy, storage-linked, or corridor-based. That context helps the load order, vehicle setup, and time estimate stay realistic.</p>
-    <div class="content-block"><h3>Service summary for ${suburb}</h3><p>ZQ Removals handles local moves, apartment moves, family homes, storage stops, packing support, furniture handling, and interstate handoffs when the route touches ${suburb}. The practical goal is simple: convert local intent into a stable move-day plan.</p></div>
-    <div class="content-block"><h3>Local logistics in ${suburb}</h3><p>${suburb} usually benefits from ${logisticsLabel} planning. Nearby areas for route planning include ${nearby.map((item) => item.suburb).join(', ')}. This page also supports a clearer northern corridor, coastal brief, or corridor handoff where relevant.</p><ul>${localSignals.map((item) => `<li>${item}</li>`).join('')}</ul></div>
-    <div class="content-block"><h3>Move types supported</h3><p>Common ${suburb} jobs include apartment relocations, family-house moves, storage transfers, and office-style inventory when the suburb sits on a mixed-use corridor.</p><p>That means the quote is not only about suburb distance. It also needs the lift situation, driveway shape, stair count, and whether the day includes a storage stop, office component, or fragile-item sequence.</p></div>
-    <div class="content-block"><h3>Why ZQ for this area</h3><p>We keep the process premium and direct: useful quote scoping, careful handling, clear communication, and a move plan that reflects the actual access conditions instead of generic suburb copy.</p><p>For ${suburb}, the advantage is clarity. We use the suburb profile, the cluster profile, and the support pages below so the job can move from local research into a booking-ready brief without losing the specifics that affect pricing and timing.</p></div>
-    <div class="content-block"><h3>Nearby suburbs and local comparisons</h3><ul>${nearbyLinks}</ul></div>
-    <div class="content-block"><h3>Useful services for ${suburb}</h3><ul>${serviceLinks}</ul></div>
-    <div class="content-block"><h3>Planning guides that support this route</h3><ul>${guideLinks}</ul></div>
-    <div class="content-block"><h3>Cluster hubs and broader Adelaide coverage</h3><ul>${hubLinks}</ul></div>
-    <div class="content-block"><h3>Local questions for ${suburb}</h3>${faqMarkup}</div>
-    <p><a href="/contact-us/#quote-form">${cta}</a> or compare <a href="/removalists-adelaide/">Adelaide removals coverage</a>, <a href="${supportGuideHref}">${supportGuideLabel}</a>, and <a href="${supportProfile.hubs[0]?.href || '/removalists-adelaide/'}">${supportProfile.hubs[0]?.label || 'the main Adelaide hub'}</a>.</p>
-  </div>
-</section>`;
+  const introParagraphs = buildSuburbIntroParagraphs({ suburb, intro, logisticsLabel, nearby, clusterKey, supportProfile });
+  const nearbyCards = nearby.map((item, index) => ({
+    eyebrow: index === 0 ? 'Nearby suburb' : 'Compare the route',
+    title: item.suburb,
+    copy: `${suburb} and ${item.suburb} often get compared when the route crosses nearby Adelaide streets, similar access conditions, or the same corridor timing.`,
+    href: item.href,
+    cta: item.label,
+  }));
+  const serviceCards = supportProfile.services.slice(0, 3).map((item, index) => ({
+    eyebrow: index === 0 ? 'Related service' : 'Service fit',
+    title: toTitle(item.label),
+    copy: `${item.label} stays relevant for ${suburb} because the move brief can still shift toward ${region.toLowerCase()} household work, packing, furniture handling, or a broader Adelaide route.`,
+    href: item.href,
+    cta: item.label,
+  }));
+  const guideCards = supportProfile.guides.slice(0, 3).map((item, index) => ({
+    eyebrow: index === 0 ? 'Planning guide' : 'Guide support',
+    title: toTitle(item.label),
+    copy: `Use this guide when the ${suburb} quote still depends on access notes, timing, or packing decisions before the booking is confirmed.`,
+    href: item.href,
+    cta: item.label,
+  }));
+
+  return `<main id="main-content" data-generated-page="suburb-v5">
+${renderPageHero({
+  eyebrow: `Removalists ${suburb}`,
+  title: `${suburb} removalists for ${logisticsLabel} and clearer Adelaide route planning`,
+  lead: `${suburb} moves work best when the route, the access pattern, and the inventory mix are reviewed together before the quote is approved.`,
+  supporting: [
+    `${suburb} sits inside the ${formatClusterLabel(clusterKey).toLowerCase()} cluster, so the booking path should reflect local access pressure rather than a generic metro assumption.`,
+  ],
+  points: buildSuburbHighlights({ suburb, logisticsLabel, clusterKey, nearby }),
+  primaryCta: { href: '/contact-us/#quote-form', label: cta },
+  secondaryCta: { href: '/removalists-adelaide/', label: 'View Adelaide coverage' },
+  image,
+  breadcrumbs: [
+    { href: '/', label: 'Home' },
+    { href: '/removalists-adelaide/', label: 'Removalists Adelaide' },
+    { label: suburb },
+  ],
+  pageType: 'suburb',
+})}
+${renderTextSection({
+  module: 'local-intro',
+  eyebrow: 'Local suburb brief',
+  heading: `${cta} for ${suburb} without losing the route detail`,
+  intro: `This page is built to turn ${suburb} research into a stronger quote-ready brief.`,
+  paragraphs: introParagraphs,
+})}
+${renderValueCardSection({
+  module: 'local-service-summary',
+  eyebrow: 'Local service summary',
+  heading: `How ${suburb} jobs are scoped before move day`,
+  intro: `The visible goal is better local content, but the practical goal is more accurate quoting and clearer service fit.`,
+  cards: buildSuburbSummaryCards({ suburb, logisticsLabel, supportProfile, traits: buildSuburbTraits(logisticsLabel, clusterKey) }),
+  soft: true,
+})}
+${renderValueCardSection({
+  module: 'logistics-access',
+  eyebrow: 'Logistics and access',
+  heading: `What usually changes the timing in ${suburb}`,
+  intro: `Access notes, parking, and the order of operations matter more than the suburb name alone.`,
+  cards: buildSuburbLogisticsCards({ suburb, logisticsLabel, clusterKey, nearby }),
+})}
+${renderValueCardSection({
+  module: 'move-types',
+  eyebrow: 'Move types',
+  heading: `Common move briefs we support in ${suburb}`,
+  intro: `Different route patterns call for different service emphasis, even inside the same suburb.`,
+  cards: buildSuburbMoveTypeCards({ suburb, logisticsLabel, clusterKey }),
+  soft: true,
+})}
+${renderRouteCardSection({
+  module: 'nearby-suburbs',
+  eyebrow: 'Nearby suburbs',
+  heading: `Compare ${suburb} with the most relevant nearby routes`,
+  intro: `These nearby pages help when the booking covers multiple local areas or the suburb choice is still being narrowed.`,
+  cards: nearbyCards,
+})}
+${renderRouteCardSection({
+  module: 'related-services',
+  eyebrow: 'Related services',
+  heading: `Best-fit service pages for ${suburb} searches`,
+  intro: `Suburb traffic should still flow naturally into the service page that matches the actual move.`,
+  cards: serviceCards,
+  soft: true,
+})}
+${renderRouteCardSection({
+  module: 'related-guides',
+  eyebrow: 'Related guides',
+  heading: `Planning guides that help ${suburb} visitors convert`,
+  intro: `These guides answer the pre-quote questions that usually sit between research and booking approval.`,
+  cards: guideCards,
+})}
+${renderFaqSectionBlock({
+  module: 'suburb-faq',
+  eyebrow: 'Local FAQ',
+  heading: `Questions people ask before booking ${suburb} removalists`,
+  intro: `These answers stay aligned with the visible access and route themes on this page.`,
+  items: faqItems.slice(0, 5),
+})}
+${renderQuoteStrip({
+  eyebrow: 'Ready to move',
+  heading: `Send the ${suburb} route and we will scope it properly`,
+  copy: `Include the origin, destination, property type, and any access notes so the quote reflects the real move rather than a thin suburb estimate.`,
+  primaryCta: { href: '/contact-us/#quote-form', label: `Request a ${suburb} quote` },
+  secondaryCta: { href: supportProfile.hubs[0]?.href || '/removalists-adelaide/', label: supportProfile.hubs[0]?.label || 'Review Adelaide removals' },
+  pageType: 'suburb',
+})}
+</main>`;
 }
 
-function renderGuideContent({ title, topic, canonical }) {
-  const slug = canonical.split('/').filter(Boolean).pop();
+function renderGuideContent({ slug, title, topic, canonical, image }) {
   const profile = guideLinkProfiles[slug] || guideLinkProfiles['moving-checklist-adelaide'];
   const extras = {
     'storage planning': 'Include storage unit access, staging order, and whether the load needs a short-term stop before final delivery.',
@@ -1471,13 +2217,229 @@ function renderGuideContent({ title, topic, canonical }) {
     'cost guide': 'Removalists Adelaide pricing depends on access, inventory, stairs, and timing windows.',
     'moving checklist': 'This moving checklist helps Adelaide customers confirm the brief before booking.',
   };
-  return `<section class="section"><div class="container"><h1>${title}</h1><p>This guide covers ${topic} for Adelaide customers who need a quote-ready brief.</p><p>${extras[topic] || 'Use this page to tighten the move brief before requesting a quote.'}</p><p>Strong guide pages do two jobs at once: they answer a planning question and move the reader toward a better commercial page. That is why each guide links into a service route, a quote path, and the broader Adelaide hub.</p><div class="content-block"><h2>Best-fit service pages</h2><ul>${renderLinkListItems(profile.services)}</ul></div><div class="content-block"><h2>Adelaide suburb routes that match this guide</h2><ul>${renderLinkListItems(profile.suburbs)}</ul></div><div class="content-block"><h2>Keep planning with related guides</h2><ul>${renderLinkListItems(profile.guides)}</ul></div><div class="content-block"><h2>Commercial pages for faster conversion</h2><ul>${renderLinkListItems(profile.commercial)}</ul></div><p><a href="/contact-us/#quote-form">Request a quote</a> after reviewing the planning notes.</p><p><a href="/adelaide-moving-guides/">Back to moving guides</a> or <a href="/removalists-adelaide/">review Adelaide removals</a>.</p></div></section>`;
+  const serviceCards = profile.services.map((item, index) => ({
+    eyebrow: index === 0 ? 'Service page' : 'Related service',
+    title: toTitle(item.label),
+    copy: `Use this service page when the ${topic} question is already turning into a quote-ready Adelaide move brief.`,
+    href: item.href,
+    cta: item.label,
+  }));
+  const suburbCards = profile.suburbs.map((item, index) => ({
+    eyebrow: index === 0 ? 'Suburb route' : 'Local route',
+    title: toTitle(item.label),
+    copy: `This suburb page adds local context when ${topic} depends on the route, building access, or the suburb cluster.`,
+    href: item.href,
+    cta: item.label,
+  }));
+  const guideCards = profile.guides.map((item, index) => ({
+    eyebrow: index === 0 ? 'Next guide' : 'Related guide',
+    title: toTitle(item.label),
+    copy: `Use the next guide when the move brief still needs one more planning step before you request the quote.`,
+    href: item.href,
+    cta: item.label,
+  }));
+  const commercialCards = profile.commercial.map((item, index) => ({
+    eyebrow: index === 0 ? 'Commercial page' : 'High-intent page',
+    title: toTitle(item.label),
+    copy: `This page captures higher-intent Adelaide traffic when the planning question is already close to booking.`,
+    href: item.href,
+    cta: item.label,
+  }));
+
+  return `<main id="main-content" data-generated-page="guide-v5">
+${renderPageHero({
+  eyebrow: 'Adelaide moving guide',
+  title,
+  lead: `This guide covers ${topic} for Adelaide customers who need a more useful brief before the quote is confirmed.`,
+  supporting: [
+    extras[topic] || 'Use this page to tighten the move brief before requesting a quote.',
+    'Strong guide pages should answer the planning question and move the visitor toward the best-fit commercial or suburb page.',
+  ],
+  points: [
+    'Practical Adelaide planning notes without filler',
+    'Natural links into service pages, suburbs, and quote paths',
+    'Written to support real pre-booking questions',
+  ],
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Request a quote' },
+  secondaryCta: { href: '/adelaide-moving-guides/', label: 'Back to moving guides' },
+  image,
+  breadcrumbs: [
+    { href: '/', label: 'Home' },
+    { href: '/adelaide-moving-guides/', label: 'Adelaide Moving Guides' },
+    { label: title },
+  ],
+  pageType: 'guide',
+})}
+${renderTextSection({
+  module: 'guide-purpose',
+  eyebrow: 'Guide purpose',
+  heading: `Why ${topic} matters before the moving date is locked`,
+  intro: `The best guide pages improve the move brief before the visitor reaches the contact form.`,
+  paragraphs: [
+    `People usually arrive on a guide like ${title} because one part of the move still feels uncertain. That could be pricing, access, packing, timing, or whether the suburb page alone is enough to shape the quote.`,
+    `A stronger answer does not stop at advice. It should push the visitor toward the most relevant Adelaide service page, local route page, or high-intent money page once the question is clear enough to act on.`,
+  ],
+})}
+${renderValueCardSection({
+  module: 'guide-checklist',
+  eyebrow: 'Before you book',
+  heading: 'What to confirm from this guide before requesting a quote',
+  intro: `These checks keep the planning detail useful instead of letting it drift back into a vague enquiry.`,
+  cards: buildGuideChecklistCards(topic),
+  soft: true,
+})}
+${renderRouteCardSection({
+  module: 'guide-services',
+  eyebrow: 'Service pages',
+  heading: 'Best-fit service pages for this guide',
+  intro: 'These are the service routes that usually make the most sense once the planning question has been answered.',
+  cards: serviceCards,
+})}
+${renderRouteCardSection({
+  module: 'guide-suburbs',
+  eyebrow: 'Suburb pages',
+  heading: 'Relevant suburb pages when local access matters',
+  intro: 'Use these suburb routes when the move brief already depends on a known Adelaide location or corridor.',
+  cards: suburbCards,
+  soft: true,
+})}
+${renderRouteCardSection({
+  module: 'guide-related',
+  eyebrow: 'Keep planning',
+  heading: 'Related guides that move the brief forward',
+  intro: 'These pages help when the route still needs one more step of planning before the enquiry is sent.',
+  cards: guideCards,
+})}
+${renderRouteCardSection({
+  module: 'guide-commercial',
+  eyebrow: 'High-intent pages',
+  heading: 'Commercial pages that match this planning topic',
+  intro: 'These pages are useful when the visitor is no longer researching broadly and is closer to booking.',
+  cards: commercialCards,
+  soft: true,
+})}
+${renderQuoteStrip({
+  eyebrow: 'Need a quote',
+  heading: 'Turn the guide into a booking-ready brief',
+  copy: 'Once the route, access, and support needs are clear, send the details through the quote form so the move can be scoped properly.',
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Request a quote' },
+  secondaryCta: { href: '/removalists-adelaide/', label: 'Review Adelaide removals' },
+  pageType: 'guide',
+})}
+</main>`;
 }
 
-function renderCommercialContent(page, canonical) {
+function renderCommercialContent(page, canonical, image) {
   const profile = commercialLinkProfiles[page.slug] || commercialLinkProfiles['cheap-removalists-adelaide'];
-  const faqMarkup = page.faq.map((item) => `<details><summary>${item.question}</summary><p>${item.answer}</p></details>`).join('');
-  return `<section class="section"><div class="container"><h1>${page.title}</h1><div class="content-block"><h2>Commercial intent</h2><p>${page.hero}</p></div><div class="content-block"><h2>What this service solves</h2>${page.sections.map((section) => `<p>${section}</p>`).join('')}</div><div class="content-block"><h2>Why ZQ for this page</h2><p>We keep the quote path short, the route logic transparent, and the internal links useful. That combination helps convert the traffic without turning the page into a doorway template.</p></div><div class="content-block"><h2>Core services around this intent</h2><ul>${renderLinkListItems(profile.services)}</ul></div><div class="content-block"><h2>Suburb routes that often trigger this search</h2><ul>${renderLinkListItems(profile.suburbs)}</ul></div><div class="content-block"><h2>Planning guides that support conversion</h2><ul>${renderLinkListItems(profile.guides)}</ul></div><div class="content-block"><h2>Related commercial pages</h2><ul>${renderLinkListItems(profile.siblings)}</ul></div><div class="content-block"><h2>Questions</h2>${faqMarkup}</div><p><a href="/contact-us/#quote-form">Request a quote</a> or <a href="/removalists-adelaide/">review Adelaide removals</a>.</p></div></section>`;
+  const serviceCards = profile.services.map((item, index) => ({
+    eyebrow: index === 0 ? 'Core service' : 'Related service',
+    title: toTitle(item.label),
+    copy: `Use this service page when the ${page.title.toLowerCase()} search still overlaps with a more standard Adelaide move path.`,
+    href: item.href,
+    cta: item.label,
+  }));
+  const suburbCards = profile.suburbs.map((item, index) => ({
+    eyebrow: index === 0 ? 'Suburb route' : 'Route trigger',
+    title: toTitle(item.label),
+    copy: `This suburb route often triggers the same search intent because the local access pattern pushes the move toward ${page.title.toLowerCase()}.`,
+    href: item.href,
+    cta: item.label,
+  }));
+  const guideCards = profile.guides.map((item, index) => ({
+    eyebrow: index === 0 ? 'Planning guide' : 'Guide support',
+    title: toTitle(item.label),
+    copy: `Use this guide when the enquiry still needs more planning detail before the service can be priced cleanly.`,
+    href: item.href,
+    cta: item.label,
+  }));
+  const siblingCards = profile.siblings.map((item, index) => ({
+    eyebrow: index === 0 ? 'Related intent' : 'Sibling page',
+    title: toTitle(item.label),
+    copy: `This related page helps when the search intent broadens or narrows after the first quote review.`,
+    href: item.href,
+    cta: item.label,
+  }));
+
+  return `<main id="main-content" data-generated-page="money-v5">
+${renderPageHero({
+  eyebrow: 'Adelaide money page',
+  title: page.title,
+  lead: page.hero,
+  supporting: [
+    page.sections[0],
+    page.sections[1],
+  ],
+  points: buildCommercialHighlights(page),
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Request a quote' },
+  secondaryCta: { href: '/removalists-adelaide/', label: 'Review Adelaide removals' },
+  image,
+  breadcrumbs: [
+    { href: '/', label: 'Home' },
+    { label: page.title },
+  ],
+  pageType: 'money',
+})}
+${renderTextSection({
+  module: 'commercial-intro',
+  eyebrow: 'Commercial intent',
+  heading: `When ${page.title.toLowerCase()} is the right starting point`,
+  intro: 'This page should convert high-intent traffic without dropping into doorway-style filler.',
+  paragraphs: page.sections,
+})}
+${renderValueCardSection({
+  module: 'commercial-factors',
+  eyebrow: 'What changes the quote',
+  heading: 'The main factors that shape this service',
+  intro: 'The most valuable money pages explain what makes the route simpler or more complex before the visitor submits the enquiry.',
+  cards: buildCommercialFactorCards(page),
+  soft: true,
+})}
+${renderRouteCardSection({
+  module: 'commercial-services',
+  eyebrow: 'Related services',
+  heading: 'Service pages that connect naturally to this search',
+  intro: 'These links keep the visitor inside the service cluster instead of forcing them back to the homepage.',
+  cards: serviceCards,
+})}
+${renderRouteCardSection({
+  module: 'commercial-suburbs',
+  eyebrow: 'Relevant suburbs',
+  heading: 'Suburb routes that often trigger this intent',
+  intro: 'These suburb pages are useful when the visitor already knows the local area involved in the move.',
+  cards: suburbCards,
+  soft: true,
+})}
+${renderRouteCardSection({
+  module: 'commercial-guides',
+  eyebrow: 'Planning guides',
+  heading: 'Guides that support conversion for this service',
+  intro: 'Guide links should answer the next planning question instead of repeating the same pitch.',
+  cards: guideCards,
+})}
+${renderRouteCardSection({
+  module: 'commercial-siblings',
+  eyebrow: 'Related money pages',
+  heading: 'Other high-intent pages that fit nearby search patterns',
+  intro: 'These related pages help when the visitor is comparing urgency, access type, or route structure.',
+  cards: siblingCards,
+  soft: true,
+})}
+${renderFaqSectionBlock({
+  module: 'commercial-faq',
+  eyebrow: 'Questions',
+  heading: `Questions people ask about ${page.title.toLowerCase()}`,
+  intro: 'The answers stay aligned with the visible content and the actual service angle of this page.',
+  items: page.faq,
+})}
+${renderQuoteStrip({
+  eyebrow: 'Ready to book',
+  heading: `Send the details for ${page.title.toLowerCase()}`,
+  copy: 'Include the addresses, property type, preferred timing, and access notes so the service can be scoped without filler or guesswork.',
+  primaryCta: { href: '/contact-us/#quote-form', label: `Request ${page.title}` },
+  secondaryCta: { href: '/removalists-adelaide/', label: 'Review Adelaide removals' },
+  pageType: 'money',
+})}
+</main>`;
 }
 
 function slugify(value) {

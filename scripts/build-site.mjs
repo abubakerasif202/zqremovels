@@ -51,6 +51,8 @@ const SUBURB_PAGE_WORD_MAX = 900;
 const SUBURB_CONDITION_HEADING_WORDS = 4;
 const SUBURB_PADDING_PARAGRAPH =
   'Every move is reviewed for access, inventory, and timing before scheduling, so clients receive a practical plan supported by experienced local movers.';
+const sourceMtimeCache = new Map();
+const imageAssetExistsCache = new Map();
 
 for (const page of pages) {
   normalizePageUrls(page);
@@ -2255,6 +2257,7 @@ try {
   await rm(distRoot, { recursive: true, force: true, maxRetries: 25, retryDelay: 200 });
   await mkdir(distRoot, { recursive: true });
   const premiumSiteCss = await readFile(path.join(projectRoot, 'premium-site.css'), 'utf8');
+  const renderedHtmlByOutput = new Map();
   await writeFile(
     path.join(distRoot, 'premium-site.min.css'),
     `${minifyCss(premiumSiteCss)}\n`,
@@ -2283,14 +2286,15 @@ try {
     const distOutputPath = path.join(distRoot, page.output);
     await mkdir(path.dirname(distOutputPath), { recursive: true });
     await writeFile(distOutputPath, `${normalizeSiteUrl(html.trim())}\n`, 'utf8');
+    renderedHtmlByOutput.set(page.output.replace(/\\/g, '/'), normalizeSiteUrl(html.trim()));
     console.log(`built ${page.output}`);
   }
 
-  const sitemapFiles = await renderSitemaps(pages);
+  await copyStaticAssets();
+  const sitemapFiles = await renderSitemaps(pages, renderedHtmlByOutput);
   for (const [name, xml] of Object.entries(sitemapFiles)) {
     await writeFile(path.join(distRoot, name), normalizeSiteUrl(xml), 'utf8');
   }
-  await copyStaticAssets();
   await writeFile(
     path.join(distRoot, 'robots.txt'),
     `User-agent: *\nAllow: /\nSitemap: ${preferredSiteOrigin}/sitemap-index.xml\n`,
@@ -3085,11 +3089,21 @@ function getBodyClasses(page) {
     classes.push('page-interstate');
   } else if (output === 'office-removals-adelaide/index.html') {
     classes.push('page-service-operations');
+  } else if (output === 'office-relocation-adelaide/index.html') {
+    classes.push('page-service-operations');
   } else if (output === 'packing-services-adelaide/index.html') {
     classes.push('page-service-packing');
   } else if (output === 'furniture-removalists-adelaide/index.html') {
     classes.push('page-service-furniture');
   } else if (output === 'house-removals-adelaide/index.html') {
+    classes.push('page-service-local');
+  } else if (
+    output === 'cheap-removalists-adelaide/index.html' ||
+    output === 'same-day-removalists-adelaide/index.html' ||
+    output === 'last-minute-removalists-adelaide/index.html' ||
+    output === 'apartment-removalists-adelaide/index.html' ||
+    output === 'storage-friendly-removals-adelaide/index.html'
+  ) {
     classes.push('page-service-local');
   } else if (output === 'removalists-adelaide/index.html') {
     classes.push('page-service-local');
@@ -3230,6 +3244,10 @@ ${supportGuide ? `<p class="field-note">Support guide: <a href="${escapeAttribut
 }
 
 function renderSuburbPage(page) {
+  if (page.generatedKind === 'suburb') {
+    return '';
+  }
+
   const profile = getSuburbProfile(page);
   if (!profile) {
     return '';
@@ -4370,7 +4388,7 @@ async function copyStaticAssets() {
   await cp(path.join(projectRoot, 'media'), path.join(distRoot, 'media'), { recursive: true });
 }
 
-async function renderSitemaps(pages) {
+async function renderSitemaps(pages, renderedHtmlByOutput = new Map()) {
   const grouped = {
     'sitemap-pages.xml': [],
     'sitemap-services.xml': [],
@@ -4378,6 +4396,7 @@ async function renderSitemaps(pages) {
     'sitemap-guides.xml': [],
     'sitemap-images.xml': [],
   };
+  const sitemapLastmods = Object.fromEntries(Object.keys(grouped).map((name) => [name, []]));
 
   for (const page of pages) {
     if (!shouldIncludeInSitemap(page)) continue;
@@ -4389,8 +4408,10 @@ async function renderSitemaps(pages) {
 
     if (page.output.startsWith('adelaide-moving-guides/')) {
       grouped['sitemap-guides.xml'].push(entry);
+      sitemapLastmods['sitemap-guides.xml'].push(lastmod);
     } else if (page.output.startsWith('removalists-')) {
       grouped['sitemap-suburbs.xml'].push(entry);
+      sitemapLastmods['sitemap-suburbs.xml'].push(lastmod);
     } else if (
       page.output === 'house-removals-adelaide/index.html' ||
       page.output === 'office-removals-adelaide/index.html' ||
@@ -4405,10 +4426,23 @@ async function renderSitemaps(pages) {
       page.output === 'adelaide-to-queensland-removals/index.html'
     ) {
       grouped['sitemap-services.xml'].push(entry);
+      sitemapLastmods['sitemap-services.xml'].push(lastmod);
     } else if (page.output.startsWith('cheap-removalists-adelaide/') || page.output.startsWith('same-day-removalists-adelaide/') || page.output.startsWith('last-minute-removalists-adelaide/') || page.output.startsWith('apartment-removalists-adelaide/') || page.output.startsWith('office-relocation-adelaide/') || page.output.startsWith('storage-friendly-removals-adelaide/')) {
       grouped['sitemap-services.xml'].push(entry);
+      sitemapLastmods['sitemap-services.xml'].push(lastmod);
     } else {
       grouped['sitemap-pages.xml'].push(entry);
+      sitemapLastmods['sitemap-pages.xml'].push(lastmod);
+    }
+
+    const imageEntry = await buildImageSitemapEntry(
+      page,
+      renderedHtmlByOutput.get(page.output.replace(/\\/g, '/')) || '',
+      lastmod,
+    );
+    if (imageEntry) {
+      grouped['sitemap-images.xml'].push(imageEntry);
+      sitemapLastmods['sitemap-images.xml'].push(lastmod);
     }
   }
 
@@ -4416,14 +4450,18 @@ async function renderSitemaps(pages) {
   const indexEntries = [];
   for (const [name, urls] of Object.entries(grouped)) {
     if (urls.length === 0) continue;
+    const urlsetTag = name === 'sitemap-images.xml'
+      ? '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">'
+      : '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+    const sitemapLastmod = getLatestDateString(sitemapLastmods[name]) || new Date().toISOString().slice(0, 10);
     files[name] = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urlsetTag}
 ${urls.join('\n')}
 </urlset>
 `;
     indexEntries.push(`  <sitemap>
     <loc>${preferredSiteOrigin}/${name}</loc>
-    <lastmod>${new Date().toISOString().slice(0, 10)}</lastmod>
+    <lastmod>${sitemapLastmod}</lastmod>
   </sitemap>`);
   }
 
@@ -4437,12 +4475,141 @@ ${indexEntries.join('\n')}
 }
 
 async function getPageLastmod(page) {
-  if (page.contentHtml || !page.contentFile) {
+  const sourcePaths = [];
+
+  if (page.contentFile) {
+    sourcePaths.push(path.join(srcRoot, page.contentFile));
+  }
+
+  if (Array.isArray(page.lastmodSources)) {
+    for (const source of page.lastmodSources) {
+      sourcePaths.push(path.isAbsolute(source) ? source : path.join(projectRoot, source));
+    }
+  }
+
+  if (sourcePaths.length === 0 && page.generatedKind) {
+    sourcePaths.push(
+      path.join(projectRoot, 'site-src', 'data', 'seo-v4.mjs'),
+      path.join(projectRoot, 'scripts', 'build-site.mjs'),
+    );
+  }
+
+  const mtimes = [];
+  for (const sourcePath of [...new Set(sourcePaths.map((item) => path.resolve(item)))]) {
+    const mtime = await getSourceMtime(sourcePath);
+    if (mtime) {
+      mtimes.push(mtime);
+    }
+  }
+
+  if (mtimes.length === 0) {
     return new Date().toISOString().slice(0, 10);
   }
-  const contentPath = path.join(srcRoot, page.contentFile);
-  const { mtime } = await stat(contentPath);
-  return mtime.toISOString().slice(0, 10);
+
+  return new Date(Math.max(...mtimes.map((mtime) => mtime.getTime()))).toISOString().slice(0, 10);
+}
+
+async function getSourceMtime(sourcePath) {
+  const key = path.resolve(sourcePath);
+  if (sourceMtimeCache.has(key)) {
+    return sourceMtimeCache.get(key);
+  }
+
+  try {
+    const { mtime } = await stat(key);
+    sourceMtimeCache.set(key, mtime);
+    return mtime;
+  } catch {
+    sourceMtimeCache.set(key, null);
+    return null;
+  }
+}
+
+async function buildImageSitemapEntry(page, html, lastmod) {
+  const images = await collectPageImagesForSitemap(html, page);
+  if (images.length === 0) {
+    return '';
+  }
+
+  const imageBlocks = images
+    .map((image) => `    <image:image>
+      <image:loc>${escapeHtml(image.loc)}</image:loc>
+      ${image.title ? `<image:title>${escapeHtml(image.title)}</image:title>` : ''}
+      ${image.caption ? `<image:caption>${escapeHtml(image.caption)}</image:caption>` : ''}
+    </image:image>`)
+    .join('\n');
+
+  return `  <url>
+    <loc>${escapeHtml(page.canonical)}</loc>
+    <lastmod>${lastmod}</lastmod>
+${imageBlocks}
+  </url>`;
+}
+
+async function collectPageImagesForSitemap(html = '', page) {
+  const matches = [...html.matchAll(/<img\b[^>]*>/gi)];
+  const images = [];
+  const seen = new Set();
+
+  for (const match of matches) {
+    const tag = match[0];
+    const src = extractAttributeValue(tag, 'src');
+    const normalizedSrc = normalizeImageHref(src);
+    if (!normalizedSrc || !await imageAssetExistsInDist(normalizedSrc) || seen.has(normalizedSrc)) {
+      continue;
+    }
+
+    seen.add(normalizedSrc);
+    const alt = extractAttributeValue(tag, 'alt');
+    images.push({
+      loc: `${preferredSiteOrigin}${normalizedSrc}`,
+      title: page.title,
+      caption: alt || page.description,
+    });
+  }
+
+  return images;
+}
+
+function extractAttributeValue(tag, attributeName) {
+  const match = tag.match(new RegExp(`${attributeName}="([^"]*)"`, 'i'));
+  return match?.[1] || '';
+}
+
+function normalizeImageHref(href = '') {
+  const clean = decodeURIComponent(String(href).split('#')[0].split('?')[0].trim());
+  if (!clean) return '';
+  if (clean.startsWith(preferredSiteOrigin)) {
+    return clean.slice(preferredSiteOrigin.length) || '/';
+  }
+  if (clean.startsWith(legacySiteOrigin)) {
+    return clean.slice(legacySiteOrigin.length) || '/';
+  }
+  if (!clean.startsWith('/') || clean.startsWith('//')) {
+    return '';
+  }
+  return clean;
+}
+
+async function imageAssetExistsInDist(href) {
+  if (imageAssetExistsCache.has(href)) {
+    return imageAssetExistsCache.get(href);
+  }
+
+  const assetPath = path.join(distRoot, href.replace(/^\//, '').replace(/\//g, path.sep));
+  try {
+    const fileStat = await stat(assetPath);
+    const exists = fileStat.isFile();
+    imageAssetExistsCache.set(href, exists);
+    return exists;
+  } catch {
+    imageAssetExistsCache.set(href, false);
+    return false;
+  }
+}
+
+function getLatestDateString(values) {
+  return [...values].sort().at(-1) || '';
 }
 
 async function writeRouteCoverageReport() {
