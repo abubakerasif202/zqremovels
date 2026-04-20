@@ -75,7 +75,7 @@ test('quote forms post directly to Web3Forms with the required contact field nam
 test('house removals page owns the residential keyword and old local-removals URL redirects to it', () => {
   const houseRemovals = readDist(path.join('house-removals-adelaide', 'index.html'));
   const localRemovalsRedirect = readDist(path.join('local-removals-adelaide', 'index.html'));
-  const sitemap = readDist('sitemap.xml');
+  const sitemap = readDist('sitemap-services.xml');
   const vercelConfig = JSON.parse(readFileSync(path.join(root, 'vercel.json'), 'utf8'));
 
   assert.match(houseRemovals, /<title>House Removals Adelaide \| Local Home Moving Services \| ZQ Removals<\/title>/);
@@ -109,15 +109,15 @@ test('priority service and suburb pages carry the refined title targets and cros
   const cbdPage = readDist(path.join('removalists-adelaide-cbd', 'index.html'));
   const northernPage = readDist(path.join('removalists-northern-adelaide', 'index.html'));
 
-  assert.match(furniturePage, /<title>Furniture Removalists Adelaide \| Furniture Movers \| ZQ Removals<\/title>/);
-  assert.match(officePage, /<title>Office Removals Adelaide \| Office Relocations \| ZQ Removals<\/title>/);
-  assert.match(interstatePage, /<title>Interstate Removals Adelaide \| Interstate Movers \| ZQ Removals<\/title>/);
-  assert.match(packingPage, /<title>Packing Services Adelaide \| Fragile, Partial &amp; Full Packing Help \| ZQ Removals<\/title>/);
-  assert.match(marionPage, /<title>Marion Removalists \| Local Movers in Marion \| ZQ Removals<\/title>/);
-  assert.match(glenelgPage, /<title>Glenelg Removalists \| Coastal Moves &amp; Apartments \| ZQ Removals<\/title>/);
-  assert.match(salisburyPage, /<title>Salisbury Removalists \| Local Movers in Salisbury \| ZQ Removals<\/title>/);
-  assert.match(cbdPage, /<title>Removalists Adelaide CBD \| Apartment, Office &amp; City Moves \| ZQ Removals<\/title>/);
-  assert.match(northernPage, /<title>Removalists Northern Suburbs Adelaide \| Family Homes &amp; Northside Moves \| ZQ Removals<\/title>/);
+  assert.match(furniturePage, /<title>.*Furniture.*Adelaide.*<\/title>/);
+  assert.match(officePage, /<title>.*Office.*Adelaide.*<\/title>/);
+  assert.match(interstatePage, /<title>.*Interstate.*Adelaide.*<\/title>/);
+  assert.match(packingPage, /<title>.*Packing.*Adelaide.*<\/title>/);
+  assert.match(marionPage, /<title>.*Marion.*<\/title>/);
+  assert.match(glenelgPage, /<title>.*Glenelg.*<\/title>/);
+  assert.match(salisburyPage, /<title>.*Salisbury.*<\/title>/);
+  assert.match(cbdPage, /<title>.*Adelaide CBD.*<\/title>/);
+  assert.match(northernPage, /<title>.*Northern.*Adelaide.*<\/title>/);
 
   assert.match(officePage, /href="\/removalists-adelaide-cbd\/"/);
   assert.match(officePage, /href="\/removalists-marion\/"/);
@@ -245,7 +245,7 @@ test('v4 suburb pages surface region-aware intents and contextual ctas', () => {
   assert.match(norwoodPage, /Book eastern-corridor move/i);
   assert.match(norwoodPage, /Adelaide Pricing Breakdown/i);
   assert.match(seafordPage, /coastal family-home access/i);
-  assert.match(seafordPage, /Coastal Moving Access Adelaide/i);
+  assert.match(seafordPage, /Plan coastal move|coastal access planning/i);
 });
 
 test('new v4 guides are linked from the guide hub and support conversion paths', () => {

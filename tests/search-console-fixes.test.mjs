@@ -3,10 +3,14 @@ import path from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
+import { getGeneratedPages } from '../site-src/data/seo-v4.mjs';
 
 const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
-const pages = JSON.parse(readFileSync(path.join(root, 'site-src', 'pages.json'), 'utf8'));
+const pages = [
+  ...JSON.parse(readFileSync(path.join(root, 'site-src', 'pages.json'), 'utf8')),
+  ...getGeneratedPages(),
+];
 
 function readDist(relativePath) {
   return readFileSync(path.join(distDir, relativePath), 'utf8');
@@ -79,19 +83,19 @@ test.before(async () => {
 });
 
 test('generated sitemap and canonicals stay on the apex host', () => {
-  const sitemap = readDist('sitemap.xml');
+  const sitemap = readDist('sitemap-index.xml');
   const homepage = readDist('index.html');
   const interstateHub = readDist(path.join('interstate-removals-adelaide', 'index.html'));
   const robots = readDist('robots.txt');
 
   assert.doesNotMatch(sitemap, /https:\/\/www\.zqremovals\.au\//);
-  assert.match(sitemap, /<loc>https:\/\/zqremovals\.au\/<\/loc>/);
+  assert.match(sitemap, /<sitemapindex/);
   assert.match(homepage, /<link rel="canonical" href="https:\/\/zqremovals\.au\/" \/>/);
   assert.match(
     interstateHub,
     /<link rel="canonical" href="https:\/\/zqremovals\.au\/interstate-removals-adelaide\/" \/>/,
   );
-  assert.match(robots, /Sitemap: https:\/\/zqremovals\.au\/sitemap\.xml/);
+  assert.match(robots, /Sitemap: https:\/\/zqremovals\.au\/sitemap-index\.xml/);
 });
 
 test('generated html does not leak mixed-host seo output', () => {
@@ -106,8 +110,9 @@ test('generated html does not leak mixed-host seo output', () => {
 });
 
 test('sitemap contains only intended indexable routes', () => {
-  const sitemap = readDist('sitemap.xml');
-  const locations = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
+  const sitemapFiles = ['sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml'];
+  const locations = sitemapFiles
+    .flatMap((file) => [...readDist(file).matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]));
   const expected = pages
     .filter((page) => shouldIncludeInSitemap(page))
     .map((page) => `https://zqremovals.au${outputToRoute(page.output)}`);

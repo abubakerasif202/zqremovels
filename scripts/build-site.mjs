@@ -1,6 +1,7 @@
 import { copyFile, cp, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { transform } from 'lightningcss';
+import { buildCanonical, buildDescription, buildFAQSchema, buildImageObjectSchema, buildLocalBusinessSchema, buildOGTags, buildServiceSchema, buildTitle, buildTwitterTags, getGeneratedPages, getRouteCoverageReport, seoConfig } from '../site-src/data/seo-v4.mjs';
 
 const workspaceRoot = process.cwd();
 
@@ -34,11 +35,13 @@ const partials = {
   footer: await readFile(path.join(srcRoot, 'partials', 'footer.html'), 'utf8'),
 };
 
-const pages = JSON.parse(await readFile(path.join(srcRoot, 'pages.json'), 'utf8'));
-const preferredSiteOrigin = 'https://zqremovals.au';
-const legacySiteOrigin = 'https://zqremovals.au';
-const defaultSocialImage = `${preferredSiteOrigin}/zq-removals-social-share.webp`;
-const defaultLogoImage = `${preferredSiteOrigin}/brand-logo.webp`;
+const staticPages = JSON.parse(await readFile(path.join(srcRoot, 'pages.json'), 'utf8'));
+const generatedPages = getGeneratedPages();
+const pages = [...staticPages, ...generatedPages];
+const preferredSiteOrigin = seoConfig.siteUrl;
+const legacySiteOrigin = seoConfig.siteUrl;
+const defaultSocialImage = seoConfig.defaultOgImage;
+const defaultLogoImage = seoConfig.defaultLogo;
 const googleBusinessProfileUrl = 'https://share.google/Y04mpt9RTflWP3iRl';
 const gaMeasurementId = process.env.GA_MEASUREMENT_ID?.trim() || '';
 const googleSiteVerificationToken =
@@ -2259,8 +2262,11 @@ try {
   );
 
   for (const page of pages) {
-    const contentPath = path.join(srcRoot, page.contentFile);
-    let content = await readFile(contentPath, 'utf8');
+    let content = page.contentHtml;
+    if (!content) {
+      const contentPath = path.join(srcRoot, page.contentFile);
+      content = await readFile(contentPath, 'utf8');
+    }
     content = transformContent(content, page);
 
     const head = renderHead(page, content);
@@ -2280,10 +2286,17 @@ try {
     console.log(`built ${page.output}`);
   }
 
-  const sitemap = await renderSitemap(pages);
-  await writeFile(path.join(distRoot, 'sitemap.xml'), normalizeSiteUrl(sitemap), 'utf8');
-
+  const sitemapFiles = await renderSitemaps(pages);
+  for (const [name, xml] of Object.entries(sitemapFiles)) {
+    await writeFile(path.join(distRoot, name), normalizeSiteUrl(xml), 'utf8');
+  }
   await copyStaticAssets();
+  await writeFile(
+    path.join(distRoot, 'robots.txt'),
+    `User-agent: *\nAllow: /\nSitemap: ${preferredSiteOrigin}/sitemap-index.xml\n`,
+    'utf8',
+  );
+  await writeRouteCoverageReport();
 } finally {
   await releaseBuildLock();
 }
@@ -4241,70 +4254,113 @@ async function copyStaticAssets() {
   await cp(path.join(projectRoot, 'media'), path.join(distRoot, 'media'), { recursive: true });
 }
 
-async function renderSitemap(pages) {
-  const urls = [];
+async function renderSitemaps(pages) {
+  const grouped = {
+    'sitemap-pages.xml': [],
+    'sitemap-services.xml': [],
+    'sitemap-suburbs.xml': [],
+    'sitemap-guides.xml': [],
+    'sitemap-images.xml': [],
+  };
 
   for (const page of pages) {
-    if (!shouldIncludeInSitemap(page)) {
-      continue;
-    }
-
-    const contentPath = path.join(srcRoot, page.contentFile);
-    const { mtime } = await stat(contentPath);
-    const meta = getSitemapMeta(page);
-
-    urls.push(`  <url>
+    if (!shouldIncludeInSitemap(page)) continue;
+    const lastmod = await getPageLastmod(page);
+    const entry = `  <url>
     <loc>${escapeHtml(page.canonical)}</loc>
-    <lastmod>${mtime.toISOString().slice(0, 10)}</lastmod>
-    <changefreq>${meta.changefreq}</changefreq>
-    <priority>${meta.priority}</priority>
-  </url>`);
+    <lastmod>${lastmod}</lastmod>
+  </url>`;
+
+    if (page.output.startsWith('adelaide-moving-guides/')) {
+      grouped['sitemap-guides.xml'].push(entry);
+    } else if (page.output.startsWith('removalists-')) {
+      grouped['sitemap-suburbs.xml'].push(entry);
+    } else if (
+      page.output === 'house-removals-adelaide/index.html' ||
+      page.output === 'office-removals-adelaide/index.html' ||
+      page.output === 'packing-services-adelaide/index.html' ||
+      page.output === 'furniture-removalists-adelaide/index.html' ||
+      page.output === 'interstate-removals-adelaide/index.html' ||
+      page.output === 'adelaide-to-melbourne-removals/index.html' ||
+      page.output === 'adelaide-to-sydney-removals/index.html' ||
+      page.output === 'adelaide-to-brisbane-removals/index.html' ||
+      page.output === 'adelaide-to-canberra-removals/index.html' ||
+      page.output === 'adelaide-to-perth-removals/index.html' ||
+      page.output === 'adelaide-to-queensland-removals/index.html'
+    ) {
+      grouped['sitemap-services.xml'].push(entry);
+    } else {
+      grouped['sitemap-pages.xml'].push(entry);
+    }
   }
 
-  return `<?xml version="1.0" encoding="UTF-8"?>
+  const files = {};
+  const indexEntries = [];
+  for (const [name, urls] of Object.entries(grouped)) {
+    if (urls.length === 0) continue;
+    files[name] = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.join('\n')}
 </urlset>
 `;
+    indexEntries.push(`  <sitemap>
+    <loc>${preferredSiteOrigin}/${name}</loc>
+    <lastmod>${new Date().toISOString().slice(0, 10)}</lastmod>
+  </sitemap>`);
+  }
+
+  files['sitemap-index.xml'] = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${indexEntries.join('\n')}
+</sitemapindex>
+`;
+  files['sitemap.xml'] = files['sitemap-index.xml'];
+  return files;
 }
 
-function getSitemapMeta(page) {
-  if (page.output === 'index.html') {
-    return { changefreq: 'monthly', priority: '1.0' };
+async function getPageLastmod(page) {
+  if (page.contentHtml || !page.contentFile) {
+    return new Date().toISOString().slice(0, 10);
   }
+  const contentPath = path.join(srcRoot, page.contentFile);
+  const { mtime } = await stat(contentPath);
+  return mtime.toISOString().slice(0, 10);
+}
 
-  if (page.output === 'removalists-adelaide/index.html') {
-    return { changefreq: 'monthly', priority: '0.9' };
+async function writeRouteCoverageReport() {
+  const report = getRouteCoverageReport();
+  const reportDir = path.join(distRoot, 'reports');
+  await mkdir(reportDir, { recursive: true });
+  await writeFile(
+    path.join(reportDir, 'route-coverage.json'),
+    `${JSON.stringify({
+      generatedAt: new Date().toISOString(),
+      totalSuburbPages: report.length,
+      routeCoverage: report,
+    }, null, 2)}\n`,
+    'utf8',
+  );
+  const csvRows = [
+    ['slug', 'suburb', 'region', 'clusterKey', 'canonical', 'hubPaths', 'siblingPaths', 'guidePaths', 'traceableFrom'].join(','),
+    ...report.map((row) => [
+      row.slug,
+      row.suburb,
+      row.region,
+      row.clusterKey,
+      row.canonical,
+      row.hubPaths.join(' | '),
+      row.siblingPaths.join(' | '),
+      row.guidePaths.join(' | '),
+      row.traceableFrom.join(' | '),
+    ].map(escapeCsv).join(',')),
+  ];
+  await writeFile(path.join(reportDir, 'route-coverage.csv'), `${csvRows.join('\n')}\n`, 'utf8');
+}
+
+function escapeCsv(value) {
+  const text = String(value ?? '');
+  if (/[,"\n]/.test(text)) {
+    return `"${text.replace(/"/g, '""')}"`;
   }
-
-  if (
-    page.output === 'adelaide-moving-guides/index.html' ||
-    page.output === 'house-removals-adelaide/index.html' ||
-    page.output === 'furniture-removalists-adelaide/index.html' ||
-    page.output === 'office-removals-adelaide/index.html' ||
-    page.output === 'interstate-removals-adelaide/index.html' ||
-    page.output === 'adelaide-to-melbourne-removals/index.html' ||
-    page.output === 'adelaide-to-sydney-removals/index.html' ||
-    page.output === 'adelaide-to-brisbane-removals/index.html' ||
-    page.output === 'adelaide-to-canberra-removals/index.html' ||
-    page.output === 'adelaide-to-perth-removals/index.html' ||
-    page.output === 'adelaide-to-queensland-removals/index.html' ||
-    page.output === 'packing-services-adelaide/index.html'
-  ) {
-    return { changefreq: 'monthly', priority: '0.8' };
-  }
-
-  if (page.output.startsWith('adelaide-moving-guides/')) {
-    return { changefreq: 'monthly', priority: '0.7' };
-  }
-
-  if (page.output === 'contact-us/index.html') {
-    return { changefreq: 'monthly', priority: '0.7' };
-  }
-
-  if (page.output.startsWith('removalists-')) {
-    return { changefreq: 'monthly', priority: '0.8' };
-  }
-
-  return { changefreq: 'monthly', priority: '0.7' };
+  return text;
 }
