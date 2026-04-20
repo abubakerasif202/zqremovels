@@ -223,6 +223,7 @@ test('v4 suburb pages surface region-aware intents and contextual ctas', () => {
   const noarlungaPage = readDist(path.join('removalists-noarlunga', 'index.html'));
   const reynellaPage = readDist(path.join('removalists-reynella', 'index.html'));
   const norwoodPage = readDist(path.join('removalists-norwood', 'index.html'));
+  const seafordPage = readDist(path.join('removalists-seaford', 'index.html'));
 
   assert.match(cbdPage, /Route and intent expansion/i);
   assert.match(cbdPage, /Book apartment move/i);
@@ -243,6 +244,8 @@ test('v4 suburb pages surface region-aware intents and contextual ctas', () => {
   assert.match(reynellaPage, /Avoiding damage during a move/i);
   assert.match(norwoodPage, /Book eastern-corridor move/i);
   assert.match(norwoodPage, /Adelaide Pricing Breakdown/i);
+  assert.match(seafordPage, /coastal family-home access/i);
+  assert.match(seafordPage, /Coastal Moving Access Adelaide/i);
 });
 
 test('new v4 guides are linked from the guide hub and support conversion paths', () => {

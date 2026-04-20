@@ -881,6 +881,15 @@ const suburbV4Registry = {
     ctaTheme: 'Plan coastal move',
     supportGuide: '/adelaide-moving-guides/storage-planning-adelaide/',
   },
+  seaford: {
+    region: 'coastal',
+    inventory: ['coastal homes', 'family loads', 'townhouses'],
+    access: ['coastal parking', 'longer carries', 'family-home staging'],
+    intents: ['furniture', 'packing', 'interstate'],
+    nearbyCorridors: ['Seaford Road', 'Main South Road', 'Commercial Road'],
+    ctaTheme: 'Plan coastal family move',
+    supportGuide: '/adelaide-moving-guides/coastal-moving-access-adelaide/',
+  },
   'north-adelaide': {
     region: 'cbd',
     inventory: ['terrace homes', 'apartments', 'clinic or office inventory'],
@@ -1903,9 +1912,9 @@ const seoSupportProfiles = {
       'Seaford moves usually depend on coastal family-home access, southern travel time, and whether the brief stays local or becomes a longer departure. These guides tighten the plan before the quote is confirmed.',
     cards: [
       {
-        guide: 'cost',
+        guide: 'coastalAccess',
         description:
-          'Use the pricing guide before comparing Seaford quotes so travel time, access, and inventory volume are framed properly.',
+          'Use the coastal-access guide when parking, frontage, stairs, and longer carries are the main Seaford variables. ',
       },
       {
         guide: 'house',
