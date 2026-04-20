@@ -50,6 +50,35 @@ export const localBusinessSchema = {
   ],
 };
 
+export const imageAssets = {
+  homepage: {
+    url: `${SITE_URL}/screen.webp`,
+    alt: 'ZQ Removals premium Adelaide moving team and website hero',
+    title: 'ZQ Removals Adelaide moving service',
+    caption: 'Premium Adelaide removals with clear quote-first planning.',
+  },
+  suburb: {
+    url: `${SITE_URL}/zq-removals-social-share.webp`,
+    alt: 'ZQ Removals moving truck and Adelaide suburb service area',
+    title: 'Adelaide suburb removals',
+    caption: 'Suburb-specific moving support across Adelaide.',
+  },
+  guide: {
+    url: `${SITE_URL}/screen.webp`,
+    alt: 'ZQ Removals Adelaide moving guide illustration',
+    title: 'Adelaide moving guide',
+    caption: 'Planning resources for Adelaide removals and packing.',
+  },
+};
+
+export function mergePagesByOutput(...pageGroups) {
+  const merged = new Map();
+  for (const page of pageGroups.flat().filter(Boolean)) {
+    merged.set(normalizePageOutput(page.output), page);
+  }
+  return [...merged.values()];
+}
+
 export function buildTitle(partial) {
   const raw = partial.includes('|') ? partial : `${partial} | ZQ Removals`;
   return clampText(raw, seoConfig.titleMaxLength);
@@ -148,30 +177,49 @@ export function getRouteCoverageReport() {
     .map((page) => {
       const slug = page.output.replace(/^removalists-/, '').replace(/\/index\.html$/, '');
       const suburb = getSuburbData(slug);
-      const cluster = clusterTemplates[suburb?.clusterKey] || clusterTemplates.northern;
-      const faqPool = getFaqPool(suburb?.clusterKey || 'northern');
-      const supportingHubs = cluster.supportingHubs || [];
-      const siblings = cluster.siblings || [];
-      const guideLinks = cluster.guideLinks || [];
+      const clusterKey = normalizeClusterKey(suburb?.clusterKey || 'northern');
+      const supportProfile = getClusterSupportProfile(clusterKey);
+      const faqPool = getFaqPool(clusterKey);
+      const siblings = getSuburbPeerLinks(slug, clusterKey).map((item) => item.href);
+      const guideLinks = supportProfile.guides.map((item) => item.href);
+      const hubPaths = supportProfile.hubs.map((item) => item.href);
 
       return {
         slug,
         suburb: suburb?.suburb || slug,
         region: suburb?.region || 'Adelaide',
-        clusterKey: suburb?.clusterKey || 'northern',
+        clusterKey,
         canonical: page.canonical,
-        hubPaths: [cluster.hub || '/removalists-adelaide/', '/removalists-adelaide/', ...supportingHubs].filter(Boolean),
+        hubPaths,
         siblingPaths: siblings,
         guidePaths: guideLinks,
         faqTopics: faqPool.map((item) => item.question),
         traceableFrom: [
-          cluster.hub || '/removalists-adelaide/',
-          '/removalists-adelaide/',
-          ...supportingHubs,
+          ...hubPaths,
           ...siblings.slice(0, 3),
+          ...supportProfile.services.slice(0, 2).map((item) => item.href),
         ].filter(Boolean),
       };
     });
+}
+
+export function getSuburbLinkProfile(slug) {
+  const suburb = getSuburbData(slug);
+  if (!suburb) {
+    return null;
+  }
+
+  const clusterKey = normalizeClusterKey(suburb.clusterKey);
+  const template = clusterTemplates[clusterKey] || clusterTemplates.northern;
+
+  return {
+    slug,
+    suburb: suburb.suburb,
+    region: suburb.region,
+    clusterKey,
+    peers: getSuburbPeerLinks(slug, clusterKey, template.nearby, 4),
+    support: getClusterSupportProfile(clusterKey),
+  };
 }
 
 function clampText(value, limit) {
@@ -185,7 +233,19 @@ function getSuburbData(slug) {
 }
 
 function getFaqPool(clusterKey) {
-  return faqPools[clusterKey] || faqPools.northern;
+  return faqPools[normalizeClusterKey(clusterKey)] || faqPools.northern;
+}
+
+function normalizePageOutput(output) {
+  return String(output || '').replace(/\\/g, '/');
+}
+
+function normalizeClusterKey(clusterKey) {
+  const aliases = {
+    'east hills': 'eastern hills',
+    'northern growth': 'northern fringe',
+  };
+  return aliases[clusterKey] || clusterKey;
 }
 
 const suburbData = [
@@ -316,6 +376,21 @@ const suburbDataBySlug = new Map(
     { slug, suburb, region, clusterKey, logisticsLabel },
   ]),
 );
+
+const suburbDataByName = new Map(
+  suburbData.map(([slug, suburb, region, clusterKey, logisticsLabel]) => [
+    suburb,
+    { slug, suburb, region, clusterKey, logisticsLabel },
+  ]),
+);
+
+const suburbsByClusterKey = suburbData.reduce((map, [slug, suburb, region, clusterKey, logisticsLabel]) => {
+  const normalizedKey = normalizeClusterKey(clusterKey);
+  const current = map.get(normalizedKey) || [];
+  current.push({ slug, suburb, region, clusterKey: normalizedKey, logisticsLabel });
+  map.set(normalizedKey, current);
+  return map;
+}, new Map());
 
 const clusterTemplates = {
   CBD: {
@@ -730,6 +805,398 @@ const guideTopics = [
   ['suburb-move-preparation-adelaide', 'Suburb move preparation Adelaide', 'suburb move prep', 'article'],
 ];
 
+const commercialPages = [
+  {
+    slug: 'cheap-removalists-adelaide',
+    title: 'Cheap Removalists Adelaide',
+    description:
+      'Affordable Adelaide removalists focused on accurate scoping, transparent inclusions, and practical budgeting for local and suburb moves.',
+    canonical: '/cheap-removalists-adelaide/',
+    type: 'money',
+    hero: 'Affordable pricing works best when access, inventory, and timing are scoped clearly before the truck is booked.',
+    sections: [
+      'Cheap does not need to mean careless. The best low-cost Adelaide move is one where the brief is precise enough to avoid rework, waiting time, and last-minute scope changes.',
+      'This page supports budget-conscious clients who still need a premium service standard, careful handling, and a clean move-day plan that avoids hidden extras.',
+    ],
+    faq: [
+      {
+        question: 'How do I keep an Adelaide move affordable?',
+        answer: 'Provide an accurate inventory, clear access notes, and any packing requirements so the quote reflects the real job rather than a padded guess.',
+      },
+      {
+        question: 'Is the cheapest quote always the best value?',
+        answer: 'Not necessarily. Transparent labour time, included travel, and damage prevention usually matter more than the lowest headline price.',
+      },
+    ],
+  },
+  {
+    slug: 'same-day-removalists-adelaide',
+    title: 'Same Day Removalists Adelaide',
+    description:
+      'Same-day Adelaide removalists for urgent moves where access, inventory, and timing need a practical response without sacrificing care.',
+    canonical: '/same-day-removalists-adelaide/',
+    type: 'money',
+    hero: 'Urgent moves need a fast but controlled response, with the route and access checked before the crew is dispatched.',
+    sections: [
+      'Same-day removals are usually driven by settlement changes, property issues, or a short-notice relocation that still needs a clean handover.',
+      'The page is designed for fast conversion and clear scoping so urgent clients can book confidently without a long discovery loop.',
+    ],
+    faq: [
+      {
+        question: 'Can you do a same-day move in Adelaide?',
+        answer: 'Yes, if the schedule and access are workable. The more detail you can provide early, the faster the move can be confirmed.',
+      },
+      {
+        question: 'What slows down a same-day job?',
+        answer: 'Missing access information, parking uncertainty, and unlisted heavy items are the main causes of delay.',
+      },
+    ],
+  },
+  {
+    slug: 'last-minute-removalists-adelaide',
+    title: 'Last Minute Removalists Adelaide',
+    description:
+      'Last-minute Adelaide removalists for short-notice bookings that still need a stable plan, careful handling, and direct communication.',
+    canonical: '/last-minute-removalists-adelaide/',
+    type: 'money',
+    hero: 'Last-minute bookings still need a proper plan. The quickest way to move well is to supply access, inventory, and timing details early.',
+    sections: [
+      'Last-minute work often means the booking window is small, so the quoting process has to be efficient and factual.',
+      'This page helps capture urgent search intent while still supporting a premium brand impression and a sensible quote path.',
+    ],
+    faq: [
+      {
+        question: 'Do last-minute removalists cost more?',
+        answer: 'Sometimes, depending on labour availability, timing, and the complexity of the route. Clear scoping reduces surprises.',
+      },
+      {
+        question: 'What information do you need fastest?',
+        answer: 'The addresses, move date, inventory type, access notes, and whether you need packing or heavy-item handling.',
+      },
+    ],
+  },
+  {
+    slug: 'apartment-removalists-adelaide',
+    title: 'Apartment Removalists Adelaide',
+    description:
+      'Apartment removalists in Adelaide for lift bookings, stairs, loading windows, and compact access that needs careful sequencing.',
+    canonical: '/apartment-removalists-adelaide/',
+    type: 'money',
+    hero: 'Apartment moves are won by access planning, lift coordination, and a packing order that respects shared spaces.',
+    sections: [
+      'Apartment relocations need a practical plan for lifts, corridors, loading windows, and the risk of bottlenecks in shared buildings.',
+      'This page supports apartment-specific intent while linking to the right suburb and packing pages for conversion.',
+    ],
+    faq: [
+      {
+        question: 'Do apartment moves need a lift booking?',
+        answer: 'Often yes. If the building uses a service lift or a shared loading dock, confirm the booking before move day.',
+      },
+      {
+        question: 'Can you handle stairs-only apartment jobs?',
+        answer: 'Yes. The labour plan just needs to reflect the stair count, carry distance, and item size.',
+      },
+    ],
+  },
+  {
+    slug: 'office-relocation-adelaide',
+    title: 'Office Relocation Adelaide',
+    description:
+      'Office relocation services in Adelaide for businesses that need downtime control, access planning, and a staged reset.',
+    canonical: '/office-relocation-adelaide/',
+    type: 'money',
+    hero: 'Office relocations work best when desk reset, IT equipment, dock access, and staff communication are scoped together.',
+    sections: [
+      'Office moves require more than a truck. They need an operational brief that covers downtime, restart order, and access to the building at both ends.',
+      'This page strengthens commercial intent around office relocation while keeping the site architecture focused on quote-ready planning.',
+    ],
+    faq: [
+      {
+        question: 'What matters most in an office relocation?',
+        answer: 'Downtime, access, IT handling, and a clear reset order for staff and equipment.',
+      },
+      {
+        question: 'Can office moves be staged after hours?',
+        answer: 'Often yes, subject to building access and timing constraints.',
+      },
+    ],
+  },
+  {
+    slug: 'storage-friendly-removals-adelaide',
+    title: 'Storage Friendly Removals Adelaide',
+    description:
+      'Storage-friendly Adelaide removals for moves that include a storage stop, staged delivery, or a split handover plan.',
+    canonical: '/storage-friendly-removals-adelaide/',
+    type: 'money',
+    hero: 'Storage-friendly moves need an order of operations that handles pickup, storage, and delivery without double handling.',
+    sections: [
+      'Storage-friendly removals are valuable for renovations, settlement gaps, downsizing, and interstate handovers that need staging.',
+      'The page supports searchers who are planning a split move and need a clearer route to storage-aware quoting.',
+    ],
+    faq: [
+      {
+        question: 'Can storage be part of the same move?',
+        answer: 'Yes. The route can be scoped as pickup, storage stop, and final delivery when that is the most practical plan.',
+      },
+      {
+        question: 'What makes storage moves more complex?',
+        answer: 'Extra handling, longer timing windows, and the need to sequence the load so it can be delivered in stages.',
+      },
+    ],
+  },
+];
+
+const guideLinkProfiles = {
+  'moving-checklist-adelaide': {
+    services: [
+      { href: '/house-removals-adelaide/', label: 'house removals for checklist-ready bookings' },
+      { href: '/packing-services-adelaide/', label: 'packing support for the final prep stage' },
+    ],
+    suburbs: [
+      { href: '/removalists-adelaide-cbd/', label: 'city-move planning in Adelaide CBD' },
+      { href: '/removalists-marion/', label: 'family-home move planning in Marion' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'booking timing guide' },
+      { href: '/adelaide-moving-guides/packing-tips-adelaide/', label: 'packing tips guide' },
+    ],
+    commercial: [
+      { href: '/last-minute-removalists-adelaide/', label: 'last-minute removalists in Adelaide' },
+    ],
+  },
+  'removalist-cost-adelaide': {
+    services: [
+      { href: '/removalists-adelaide/', label: 'Adelaide removals pricing context' },
+      { href: '/cheap-removalists-adelaide/', label: 'budget-conscious Adelaide move options' },
+    ],
+    suburbs: [
+      { href: '/removalists-glenelg/', label: 'coastal quote examples in Glenelg' },
+      { href: '/removalists-salisbury/', label: 'northside pricing context in Salisbury' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'timing guide for lower-friction bookings' },
+      { href: '/adelaide-moving-guides/storage-planning-adelaide/', label: 'storage planning guide' },
+    ],
+    commercial: [
+      { href: '/cheap-removalists-adelaide/', label: 'cheap removalists Adelaide page' },
+    ],
+  },
+  'apartment-moving-tips-adelaide': {
+    services: [
+      { href: '/apartment-removalists-adelaide/', label: 'apartment removalists for Adelaide buildings' },
+      { href: '/packing-services-adelaide/', label: 'packing support for lifts and corridors' },
+    ],
+    suburbs: [
+      { href: '/removalists-adelaide-cbd/', label: 'Adelaide CBD apartment moves' },
+      { href: '/removalists-mawson-lakes/', label: 'Mawson Lakes apartment access planning' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/apartment-lift-bookings-adelaide/', label: 'lift booking guide' },
+      { href: '/adelaide-moving-guides/moving-checklist-adelaide/', label: 'moving checklist' },
+    ],
+    commercial: [
+      { href: '/apartment-removalists-adelaide/', label: 'apartment removalists Adelaide page' },
+    ],
+  },
+  'storage-planning-adelaide': {
+    services: [
+      { href: '/storage-friendly-removals-adelaide/', label: 'storage-friendly removals in Adelaide' },
+      { href: '/house-removals-adelaide/', label: 'house moves with a storage stop' },
+    ],
+    suburbs: [
+      { href: '/removalists-reynella/', label: 'southern storage-linked moves in Reynella' },
+      { href: '/removalists-noarlunga/', label: 'coastal storage planning in Noarlunga' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'booking timing guide' },
+      { href: '/adelaide-moving-guides/suburb-move-preparation-adelaide/', label: 'suburb move preparation guide' },
+    ],
+    commercial: [
+      { href: '/storage-friendly-removals-adelaide/', label: 'storage-friendly removals Adelaide page' },
+    ],
+  },
+  'office-relocation-preparation-adelaide': {
+    services: [
+      { href: '/office-relocation-adelaide/', label: 'office relocation services in Adelaide' },
+      { href: '/office-removals-adelaide/', label: 'office removals for commercial moves' },
+    ],
+    suburbs: [
+      { href: '/removalists-adelaide-cbd/', label: 'CBD office move planning' },
+      { href: '/removalists-marion/', label: 'Marion office and clinic moves' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/office-access-planning-adelaide-cbd/', label: 'office access planning guide' },
+      { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'timing guide for office moves' },
+    ],
+    commercial: [
+      { href: '/office-relocation-adelaide/', label: 'office relocation Adelaide page' },
+    ],
+  },
+  'packing-tips-adelaide': {
+    services: [
+      { href: '/packing-services-adelaide/', label: 'packing services in Adelaide' },
+      { href: '/furniture-removalists-adelaide/', label: 'furniture handling support' },
+    ],
+    suburbs: [
+      { href: '/removalists-glenelg/', label: 'coastal packing jobs in Glenelg' },
+      { href: '/removalists-norwood/', label: 'inner-east packing support in Norwood' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/moving-checklist-adelaide/', label: 'moving checklist' },
+      { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'booking timing guide' },
+    ],
+    commercial: [
+      { href: '/last-minute-removalists-adelaide/', label: 'last-minute removalists when packing time is short' },
+    ],
+  },
+  'booking-timing-guide-adelaide': {
+    services: [
+      { href: '/same-day-removalists-adelaide/', label: 'same-day removalists in Adelaide' },
+      { href: '/last-minute-removalists-adelaide/', label: 'last-minute move support' },
+    ],
+    suburbs: [
+      { href: '/removalists-adelaide-cbd/', label: 'tight booking windows in Adelaide CBD' },
+      { href: '/removalists-salisbury/', label: 'northern corridor booking planning in Salisbury' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/moving-checklist-adelaide/', label: 'moving checklist' },
+      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'cost guide' },
+    ],
+    commercial: [
+      { href: '/same-day-removalists-adelaide/', label: 'same-day removalists Adelaide page' },
+      { href: '/last-minute-removalists-adelaide/', label: 'last-minute removalists Adelaide page' },
+    ],
+  },
+  'suburb-move-preparation-adelaide': {
+    services: [
+      { href: '/removalists-adelaide/', label: 'Adelaide suburb move coverage' },
+      { href: '/house-removals-adelaide/', label: 'house removals for suburb routes' },
+    ],
+    suburbs: [
+      { href: '/removalists-norwood/', label: 'eastern suburb planning in Norwood' },
+      { href: '/removalists-noarlunga/', label: 'southern suburb planning in Noarlunga' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/storage-planning-adelaide/', label: 'storage planning guide' },
+      { href: '/adelaide-moving-guides/moving-checklist-adelaide/', label: 'moving checklist' },
+    ],
+    commercial: [
+      { href: '/cheap-removalists-adelaide/', label: 'cheap removalists Adelaide page' },
+    ],
+  },
+};
+
+const commercialLinkProfiles = {
+  'cheap-removalists-adelaide': {
+    services: [
+      { href: '/removalists-adelaide/', label: 'Adelaide removals hub' },
+      { href: '/house-removals-adelaide/', label: 'house removals for budget-led moves' },
+    ],
+    suburbs: [
+      { href: '/removalists-salisbury/', label: 'Salisbury move planning' },
+      { href: '/removalists-marion/', label: 'Marion move planning' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
+      { href: '/adelaide-moving-guides/moving-checklist-adelaide/', label: 'moving checklist' },
+    ],
+    siblings: [
+      { href: '/storage-friendly-removals-adelaide/', label: 'storage-friendly removals' },
+      { href: '/last-minute-removalists-adelaide/', label: 'last-minute removals' },
+    ],
+  },
+  'same-day-removalists-adelaide': {
+    services: [
+      { href: '/removalists-adelaide/', label: 'Adelaide removals hub' },
+      { href: '/apartment-removalists-adelaide/', label: 'apartment removals for tight schedules' },
+    ],
+    suburbs: [
+      { href: '/removalists-adelaide-cbd/', label: 'CBD urgent move planning' },
+      { href: '/removalists-norwood/', label: 'inner-east short-notice moves' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'booking timing guide' },
+      { href: '/adelaide-moving-guides/moving-checklist-adelaide/', label: 'moving checklist' },
+    ],
+    siblings: [
+      { href: '/last-minute-removalists-adelaide/', label: 'last-minute removals' },
+      { href: '/apartment-removalists-adelaide/', label: 'apartment removals' },
+    ],
+  },
+  'last-minute-removalists-adelaide': {
+    services: [
+      { href: '/removalists-adelaide/', label: 'Adelaide removals hub' },
+      { href: '/house-removals-adelaide/', label: 'house removals when the booking window is short' },
+    ],
+    suburbs: [
+      { href: '/removalists-salisbury/', label: 'Salisbury short-notice moves' },
+      { href: '/removalists-glenelg/', label: 'Glenelg last-minute coastal moves' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'booking timing guide' },
+      { href: '/adelaide-moving-guides/packing-tips-adelaide/', label: 'packing tips guide' },
+    ],
+    siblings: [
+      { href: '/same-day-removalists-adelaide/', label: 'same-day removals' },
+      { href: '/cheap-removalists-adelaide/', label: 'cheap removalists' },
+    ],
+  },
+  'apartment-removalists-adelaide': {
+    services: [
+      { href: '/house-removals-adelaide/', label: 'house and apartment removals' },
+      { href: '/packing-services-adelaide/', label: 'packing support for shared-building moves' },
+    ],
+    suburbs: [
+      { href: '/removalists-adelaide-cbd/', label: 'Adelaide CBD apartment routes' },
+      { href: '/removalists-mawson-lakes/', label: 'Mawson Lakes apartment access' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/apartment-moving-tips-adelaide/', label: 'apartment moving tips' },
+      { href: '/adelaide-moving-guides/apartment-lift-bookings-adelaide/', label: 'lift booking guide' },
+    ],
+    siblings: [
+      { href: '/same-day-removalists-adelaide/', label: 'same-day removals' },
+      { href: '/office-relocation-adelaide/', label: 'office relocation support' },
+    ],
+  },
+  'office-relocation-adelaide': {
+    services: [
+      { href: '/office-removals-adelaide/', label: 'office removals Adelaide' },
+      { href: '/packing-services-adelaide/', label: 'packing support for workstations and files' },
+    ],
+    suburbs: [
+      { href: '/removalists-adelaide-cbd/', label: 'CBD office routes' },
+      { href: '/removalists-marion/', label: 'Marion commercial relocations' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/office-relocation-preparation-adelaide/', label: 'office relocation preparation guide' },
+      { href: '/adelaide-moving-guides/office-access-planning-adelaide-cbd/', label: 'office access planning guide' },
+    ],
+    siblings: [
+      { href: '/same-day-removalists-adelaide/', label: 'same-day removals' },
+      { href: '/storage-friendly-removals-adelaide/', label: 'storage-friendly removals' },
+    ],
+  },
+  'storage-friendly-removals-adelaide': {
+    services: [
+      { href: '/house-removals-adelaide/', label: 'house moves with a storage stage' },
+      { href: '/interstate-removals-adelaide/', label: 'interstate removals with staged delivery' },
+    ],
+    suburbs: [
+      { href: '/removalists-reynella/', label: 'Reynella storage-linked planning' },
+      { href: '/removalists-noarlunga/', label: 'Noarlunga storage-linked planning' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/storage-planning-adelaide/', label: 'storage planning guide' },
+      { href: '/adelaide-moving-guides/moving-checklist-adelaide/', label: 'moving checklist' },
+    ],
+    siblings: [
+      { href: '/cheap-removalists-adelaide/', label: 'cheap removalists' },
+      { href: '/office-relocation-adelaide/', label: 'office relocation services' },
+    ],
+  },
+};
+
 export function getGeneratedPages() {
   const pages = [];
 
@@ -749,6 +1216,10 @@ export function getGeneratedPages() {
 
   for (const [slug, title, topic, type] of guideTopics) {
     pages.push(makeGuidePage({ slug, title, topic, type }));
+  }
+
+  for (const page of commercialPages) {
+    pages.push(makeCommercialPage(page));
   }
 
   return pages;
@@ -777,10 +1248,11 @@ function makeStaticPage(page) {
 
 function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel }) {
   const canonical = buildCanonical(`/removalists-${slug}/`);
-  const template = clusterTemplates[clusterKey] || clusterTemplates.northern;
+  const normalizedClusterKey = normalizeClusterKey(clusterKey);
+  const template = clusterTemplates[normalizedClusterKey] || clusterTemplates.northern;
   const intro = template.intro.replaceAll('{suburb}', suburb);
-  const nearby = template.nearby.filter((name) => name !== suburb).slice(0, 3);
-  const faqPool = getFaqPool(clusterKey);
+  const nearby = getSuburbPeerLinks(slug, normalizedClusterKey, template.nearby, 4);
+  const faqPool = getFaqPool(normalizedClusterKey);
   const title = buildTitle(`${suburb} Removalists | ${logisticsLabel}`);
   const description = buildDescription(`${suburb} removalists for ${logisticsLabel}, with suburb-specific planning, local access notes, and a clear quote path.`);
   return {
@@ -799,6 +1271,12 @@ function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel }) {
     twitterImage: DEFAULT_OG_IMAGE,
     jsonLd: [
       JSON.stringify(buildLocalBusinessSchema()),
+      JSON.stringify(buildImageObjectSchema({
+        id: canonical,
+        url: imageAssets.suburb.url,
+        name: imageAssets.suburb.title,
+        caption: imageAssets.suburb.caption,
+      })),
       JSON.stringify(buildServiceSchema({
         id: canonical,
         name: `Removalists ${suburb}`,
@@ -818,12 +1296,20 @@ function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel }) {
         },
         {
           question: `What nearby suburbs are relevant for ${suburb}?`,
-          answer: `${nearby.join(', ')} are common nearby reference points for route planning and suburb comparisons.`,
+          answer: `${nearby.map((item) => item.suburb).join(', ')} are common nearby reference points for route planning and suburb comparisons.`,
         },
         ...faqPool,
       ], canonical)),
     ],
-    contentHtml: renderSuburbContent({ suburb, region, intro, logisticsLabel, nearby, clusterKey }),
+    contentHtml: renderSuburbContent({
+      slug,
+      suburb,
+      region,
+      intro,
+      logisticsLabel,
+      nearby,
+      clusterKey: normalizedClusterKey,
+    }),
   };
 }
 
@@ -850,6 +1336,12 @@ function makeGuidePage({ slug, title, topic }) {
         { name: 'Adelaide Moving Guides', url: `${SITE_URL}/adelaide-moving-guides/` },
         { name: title, url: canonical },
       ], canonical)),
+      JSON.stringify(buildImageObjectSchema({
+        id: canonical,
+        url: imageAssets.guide.url,
+        name: imageAssets.guide.title,
+        caption: imageAssets.guide.caption,
+      })),
       JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'BlogPosting',
@@ -865,11 +1357,54 @@ function makeGuidePage({ slug, title, topic }) {
   };
 }
 
+function makeCommercialPage(page) {
+  const canonical = buildCanonical(page.canonical);
+  const title = buildTitle(page.title);
+  const description = buildDescription(page.description);
+  return {
+    output: `${page.slug}/index.html`,
+    layout: 'standard',
+    title,
+    description,
+    canonical,
+    robots: seoConfig.robots,
+    ogTitle: title,
+    ogDescription: description,
+    ogUrl: canonical,
+    ogImage: DEFAULT_OG_IMAGE,
+    twitterTitle: title,
+    twitterDescription: description,
+    twitterImage: DEFAULT_OG_IMAGE,
+    jsonLd: [
+      JSON.stringify(buildLocalBusinessSchema()),
+      JSON.stringify(buildImageObjectSchema({
+        id: canonical,
+        url: imageAssets.homepage.url,
+        name: imageAssets.homepage.title,
+        caption: imageAssets.homepage.caption,
+      })),
+      JSON.stringify(buildServiceSchema({
+        id: canonical,
+        name: page.title,
+        serviceType: page.title,
+        areaServed: ['Adelaide', ...seoConfig.serviceAreas],
+        description,
+      })),
+      JSON.stringify(buildBreadcrumbSchema([
+        { name: 'Home', url: SITE_URL },
+        { name: page.title, url: canonical },
+      ], canonical)),
+      JSON.stringify(buildFAQSchema(page.faq, canonical)),
+    ],
+    contentHtml: renderCommercialContent(page, canonical),
+  };
+}
+
 function renderOverviewPage() {
   return `<section class="section"><div class="container"><h1>ZQ SEO V4</h1><p>Centralised SEO architecture for scalable Adelaide local landing pages, service pages, guides, and automated sitemap generation.</p></div></section>`;
 }
 
-function renderSuburbContent({ suburb, region, intro, logisticsLabel, nearby, clusterKey }) {
+function renderSuburbContent({ slug, suburb, region, intro, logisticsLabel, nearby, clusterKey }) {
   const actions = {
     coastal: 'Plan coastal move',
     'southern coastal': 'Plan coastal move',
@@ -883,22 +1418,49 @@ function renderSuburbContent({ suburb, region, intro, logisticsLabel, nearby, cl
   };
   const cta = actions[region] || 'Get suburb-specific quote';
   const faqPool = getFaqPool(clusterKey);
-  const supportGuideMap = {
-    'Plan coastal move': '/adelaide-moving-guides/coastal-moving-access-adelaide/',
-    'Book family-home move': '/adelaide-moving-guides/avoiding-damage-adelaide/',
-    'Get suburb-specific quote': '/adelaide-moving-guides/storage-planning-adelaide/',
-    'Book eastern-corridor move': '/adelaide-moving-guides/pricing-breakdown-adelaide/',
-    'Book apartment move': '/adelaide-moving-guides/apartment-lift-bookings-adelaide/',
-  };
-  const supportGuideHref = supportGuideMap[cta] || '/adelaide-moving-guides/storage-planning-adelaide/';
-  const supportGuideLabel = supportGuideHref.split('/').filter(Boolean).pop().replace(/-/g, ' ').replace(/\b\w/g, (m) => m.toUpperCase());
+  const supportProfile = getClusterSupportProfile(clusterKey);
+  const supportGuideHref = supportProfile.guides[0]?.href || '/adelaide-moving-guides/storage-planning-adelaide/';
+  const supportGuideLabel = toTitle(supportGuideHref.split('/').filter(Boolean).pop());
   const faqMarkup = faqPool
     .map((item) => `<details><summary>${item.question}</summary><p>${item.answer}</p></details>`)
     .join('');
-  return `<section class="section"><div class="container"><h1>${suburb} removalists</h1><div class="section-heading"><span class="eyebrow">Route and intent expansion</span><h2>${cta} for ${suburb}</h2></div><p>${intro}</p><p>${suburb} sits in the ${region} cluster and usually needs ${logisticsLabel} planning.</p><p>Nearby areas for route planning include ${nearby.join(', ')}. This page also supports a clearer northern corridor, coastal brief, or corridor handoff where relevant.</p><div class="content-block"><h3>Local questions for ${suburb}</h3>${faqMarkup}</div><p><a href="/contact-us/#quote-form">${cta}</a> or compare <a href="/removalists-adelaide/">Adelaide removals</a> and <a href="${supportGuideHref}">${supportGuideLabel}</a>.</p></div></section>`;
+  const nearbyLinks = renderLinkListItems(nearby);
+  const serviceLinks = renderLinkListItems(supportProfile.services);
+  const guideLinks = renderLinkListItems(supportProfile.guides);
+  const hubLinks = renderLinkListItems(supportProfile.hubs);
+  const localSignals = [
+    `${logisticsLabel} planning`,
+    `${region} routing pressure`,
+    `${nearby.slice(0, 2).map((item) => item.suburb).join(' and ')} comparison routes`,
+  ];
+  return `
+<section class="section">
+  <div class="container">
+    <h1>${suburb} removalists</h1>
+    <div class="section-heading">
+      <span class="eyebrow">Route and intent expansion</span>
+      <h2>${cta} for ${suburb}</h2>
+    </div>
+    <p>${intro}</p>
+    <p>${suburb} sits in the ${region} cluster and usually needs ${logisticsLabel} planning. That makes the quote more reliable when the inventory, access path, and building type are described in one brief rather than split across multiple calls.</p>
+    <p>At the local level, we treat ${suburb} as more than a postcode. We look for the access pattern, nearby streets, property mix, and whether the move is likely to lean residential, apartment-heavy, storage-linked, or corridor-based. That context helps the load order, vehicle setup, and time estimate stay realistic.</p>
+    <div class="content-block"><h3>Service summary for ${suburb}</h3><p>ZQ Removals handles local moves, apartment moves, family homes, storage stops, packing support, furniture handling, and interstate handoffs when the route touches ${suburb}. The practical goal is simple: convert local intent into a stable move-day plan.</p></div>
+    <div class="content-block"><h3>Local logistics in ${suburb}</h3><p>${suburb} usually benefits from ${logisticsLabel} planning. Nearby areas for route planning include ${nearby.map((item) => item.suburb).join(', ')}. This page also supports a clearer northern corridor, coastal brief, or corridor handoff where relevant.</p><ul>${localSignals.map((item) => `<li>${item}</li>`).join('')}</ul></div>
+    <div class="content-block"><h3>Move types supported</h3><p>Common ${suburb} jobs include apartment relocations, family-house moves, storage transfers, and office-style inventory when the suburb sits on a mixed-use corridor.</p><p>That means the quote is not only about suburb distance. It also needs the lift situation, driveway shape, stair count, and whether the day includes a storage stop, office component, or fragile-item sequence.</p></div>
+    <div class="content-block"><h3>Why ZQ for this area</h3><p>We keep the process premium and direct: useful quote scoping, careful handling, clear communication, and a move plan that reflects the actual access conditions instead of generic suburb copy.</p><p>For ${suburb}, the advantage is clarity. We use the suburb profile, the cluster profile, and the support pages below so the job can move from local research into a booking-ready brief without losing the specifics that affect pricing and timing.</p></div>
+    <div class="content-block"><h3>Nearby suburbs and local comparisons</h3><ul>${nearbyLinks}</ul></div>
+    <div class="content-block"><h3>Useful services for ${suburb}</h3><ul>${serviceLinks}</ul></div>
+    <div class="content-block"><h3>Planning guides that support this route</h3><ul>${guideLinks}</ul></div>
+    <div class="content-block"><h3>Cluster hubs and broader Adelaide coverage</h3><ul>${hubLinks}</ul></div>
+    <div class="content-block"><h3>Local questions for ${suburb}</h3>${faqMarkup}</div>
+    <p><a href="/contact-us/#quote-form">${cta}</a> or compare <a href="/removalists-adelaide/">Adelaide removals coverage</a>, <a href="${supportGuideHref}">${supportGuideLabel}</a>, and <a href="${supportProfile.hubs[0]?.href || '/removalists-adelaide/'}">${supportProfile.hubs[0]?.label || 'the main Adelaide hub'}</a>.</p>
+  </div>
+</section>`;
 }
 
 function renderGuideContent({ title, topic, canonical }) {
+  const slug = canonical.split('/').filter(Boolean).pop();
+  const profile = guideLinkProfiles[slug] || guideLinkProfiles['moving-checklist-adelaide'];
   const extras = {
     'storage planning': 'Include storage unit access, staging order, and whether the load needs a short-term stop before final delivery.',
     'booking timing': 'Weekdays can be easier to book, while weekend demand usually needs a longer lead time.',
@@ -909,5 +1471,186 @@ function renderGuideContent({ title, topic, canonical }) {
     'cost guide': 'Removalists Adelaide pricing depends on access, inventory, stairs, and timing windows.',
     'moving checklist': 'This moving checklist helps Adelaide customers confirm the brief before booking.',
   };
-  return `<section class="section"><div class="container"><h1>${title}</h1><p>This guide covers ${topic} for Adelaide customers who need a quote-ready brief.</p><p>${extras[topic] || 'Use this page to tighten the move brief before requesting a quote.'}</p><p><a href="/contact-us/#quote-form">Request a quote</a> after reviewing the planning notes.</p><p><a href="/adelaide-moving-guides/">Back to moving guides</a> or <a href="/removalists-adelaide/">review Adelaide removals</a>.</p></div></section>`;
+  return `<section class="section"><div class="container"><h1>${title}</h1><p>This guide covers ${topic} for Adelaide customers who need a quote-ready brief.</p><p>${extras[topic] || 'Use this page to tighten the move brief before requesting a quote.'}</p><p>Strong guide pages do two jobs at once: they answer a planning question and move the reader toward a better commercial page. That is why each guide links into a service route, a quote path, and the broader Adelaide hub.</p><div class="content-block"><h2>Best-fit service pages</h2><ul>${renderLinkListItems(profile.services)}</ul></div><div class="content-block"><h2>Adelaide suburb routes that match this guide</h2><ul>${renderLinkListItems(profile.suburbs)}</ul></div><div class="content-block"><h2>Keep planning with related guides</h2><ul>${renderLinkListItems(profile.guides)}</ul></div><div class="content-block"><h2>Commercial pages for faster conversion</h2><ul>${renderLinkListItems(profile.commercial)}</ul></div><p><a href="/contact-us/#quote-form">Request a quote</a> after reviewing the planning notes.</p><p><a href="/adelaide-moving-guides/">Back to moving guides</a> or <a href="/removalists-adelaide/">review Adelaide removals</a>.</p></div></section>`;
+}
+
+function renderCommercialContent(page, canonical) {
+  const profile = commercialLinkProfiles[page.slug] || commercialLinkProfiles['cheap-removalists-adelaide'];
+  const faqMarkup = page.faq.map((item) => `<details><summary>${item.question}</summary><p>${item.answer}</p></details>`).join('');
+  return `<section class="section"><div class="container"><h1>${page.title}</h1><div class="content-block"><h2>Commercial intent</h2><p>${page.hero}</p></div><div class="content-block"><h2>What this service solves</h2>${page.sections.map((section) => `<p>${section}</p>`).join('')}</div><div class="content-block"><h2>Why ZQ for this page</h2><p>We keep the quote path short, the route logic transparent, and the internal links useful. That combination helps convert the traffic without turning the page into a doorway template.</p></div><div class="content-block"><h2>Core services around this intent</h2><ul>${renderLinkListItems(profile.services)}</ul></div><div class="content-block"><h2>Suburb routes that often trigger this search</h2><ul>${renderLinkListItems(profile.suburbs)}</ul></div><div class="content-block"><h2>Planning guides that support conversion</h2><ul>${renderLinkListItems(profile.guides)}</ul></div><div class="content-block"><h2>Related commercial pages</h2><ul>${renderLinkListItems(profile.siblings)}</ul></div><div class="content-block"><h2>Questions</h2>${faqMarkup}</div><p><a href="/contact-us/#quote-form">Request a quote</a> or <a href="/removalists-adelaide/">review Adelaide removals</a>.</p></div></section>`;
+}
+
+function slugify(value) {
+  return String(value).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+
+function toTitle(value) {
+  return String(value || '')
+    .replace(/-/g, ' ')
+    .replace(/\b\w/g, (match) => match.toUpperCase());
+}
+
+function renderLinkListItems(items = []) {
+  return items
+    .map((item) => `<li><a href="${item.href}">${item.label}</a></li>`)
+    .join('');
+}
+
+function getSuburbPeerLinks(slug, clusterKey, templateNearby = [], limit = 4) {
+  const normalizedClusterKey = normalizeClusterKey(clusterKey);
+  const members = suburbsByClusterKey.get(normalizedClusterKey) || [];
+  const currentIndex = members.findIndex((item) => item.slug === slug);
+  const slugs = [];
+
+  if (currentIndex >= 0 && members.length > 1) {
+    for (const offset of [1, -1, 2, -2, 3, -3]) {
+      const member = members[(currentIndex + offset + members.length) % members.length];
+      if (member?.slug && member.slug !== slug) {
+        slugs.push(member.slug);
+      }
+    }
+  }
+
+  for (const name of templateNearby) {
+    const match = suburbDataByName.get(name);
+    if (match && match.slug !== slug) {
+      slugs.push(match.slug);
+    }
+  }
+
+  return [...new Set(slugs)]
+    .slice(0, limit)
+    .map((peerSlug, index) => {
+      const suburb = suburbDataBySlug.get(peerSlug);
+      return {
+        href: `/removalists-${peerSlug}/`,
+        label: getSuburbLinkLabel(suburb?.suburb || toTitle(peerSlug), index),
+        suburb: suburb?.suburb || toTitle(peerSlug),
+      };
+    });
+}
+
+function getSuburbLinkLabel(suburb, index) {
+  const variants = [
+    `${suburb} removals`,
+    `moving support in ${suburb}`,
+    `${suburb} move planning`,
+    `see ${suburb} suburb details`,
+  ];
+  return variants[index % variants.length];
+}
+
+function getClusterSupportProfile(clusterKey) {
+  const normalizedClusterKey = normalizeClusterKey(clusterKey);
+
+  if (['CBD', 'CBD fringe', 'inner east', 'eastern', 'eastern hills', 'north-adelaide'].includes(normalizedClusterKey)) {
+    return {
+      hubs: [
+        { href: '/removalists-adelaide/', label: 'Adelaide removals hub' },
+        { href: '/removalists-northern-adelaide/', label: 'northern Adelaide planning hub' },
+      ],
+      services: [
+        { href: '/apartment-removalists-adelaide/', label: 'apartment removalists for access-led city jobs' },
+        { href: '/office-relocation-adelaide/', label: 'office relocation planning in Adelaide' },
+        { href: '/packing-services-adelaide/', label: 'packing services for access-sensitive moves' },
+      ],
+      guides: [
+        { href: '/adelaide-moving-guides/apartment-moving-tips-adelaide/', label: 'apartment moving tips guide' },
+        { href: '/adelaide-moving-guides/office-relocation-preparation-adelaide/', label: 'office relocation preparation guide' },
+        { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'Adelaide cost guide' },
+      ],
+    };
+  }
+
+  if (['coastal', 'southern coastal'].includes(normalizedClusterKey)) {
+    return {
+      hubs: [
+        { href: '/removalists-southern-adelaide/', label: 'southern Adelaide coastal hub' },
+        { href: '/removalists-adelaide/', label: 'Adelaide removals hub' },
+      ],
+      services: [
+        { href: '/house-removals-adelaide/', label: 'house removals for coastal homes' },
+        { href: '/furniture-removalists-adelaide/', label: 'furniture removalists for tight beachside access' },
+        { href: '/storage-friendly-removals-adelaide/', label: 'storage-friendly removals for staged coastal moves' },
+      ],
+      guides: [
+        { href: '/adelaide-moving-guides/coastal-moving-access-adelaide/', label: 'coastal moving access guide' },
+        { href: '/adelaide-moving-guides/packing-tips-adelaide/', label: 'packing tips for fragile coastal jobs' },
+        { href: '/adelaide-moving-guides/storage-planning-adelaide/', label: 'storage planning guide' },
+      ],
+    };
+  }
+
+  if (['southern', 'south-west', 'inner south', 'hills'].includes(normalizedClusterKey)) {
+    return {
+      hubs: [
+        { href: '/removalists-southern-adelaide/', label: 'southern Adelaide removals hub' },
+        { href: '/removalists-adelaide/', label: 'Adelaide removals hub' },
+      ],
+      services: [
+        { href: '/house-removals-adelaide/', label: 'house removals for family-home routes' },
+        { href: '/packing-services-adelaide/', label: 'packing services for longer household jobs' },
+        { href: '/storage-friendly-removals-adelaide/', label: 'storage-friendly removals for split handovers' },
+      ],
+      guides: [
+        { href: '/adelaide-moving-guides/storage-planning-adelaide/', label: 'storage planning guide' },
+        { href: '/adelaide-moving-guides/suburb-move-preparation-adelaide/', label: 'suburb move preparation guide' },
+        { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'booking timing guide' },
+      ],
+    };
+  }
+
+  if (['northern', 'northern fringe', 'north-eastern', 'inner north', 'west-north'].includes(normalizedClusterKey)) {
+    return {
+      hubs: [
+        { href: '/removalists-northern-adelaide/', label: 'northern Adelaide removals hub' },
+        { href: '/removalists-adelaide/', label: 'Adelaide removals hub' },
+      ],
+      services: [
+        { href: '/house-removals-adelaide/', label: 'house removals for northern family homes' },
+        { href: '/cheap-removalists-adelaide/', label: 'budget-conscious removals in Adelaide' },
+        { href: '/storage-friendly-removals-adelaide/', label: 'storage-friendly removals for northern staging' },
+      ],
+      guides: [
+        { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
+        { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'booking timing guide' },
+        { href: '/adelaide-moving-guides/suburb-move-preparation-adelaide/', label: 'suburb move preparation guide' },
+      ],
+    };
+  }
+
+  if (['western', 'inner west'].includes(normalizedClusterKey)) {
+    return {
+      hubs: [
+        { href: '/removalists-adelaide/', label: 'Adelaide removals hub' },
+        { href: '/removalists-southern-adelaide/', label: 'southern Adelaide service hub' },
+      ],
+      services: [
+        { href: '/office-relocation-adelaide/', label: 'office relocation support' },
+        { href: '/same-day-removalists-adelaide/', label: 'same-day removalists in Adelaide' },
+        { href: '/packing-services-adelaide/', label: 'packing services for mixed-access jobs' },
+      ],
+      guides: [
+        { href: '/adelaide-moving-guides/office-relocation-preparation-adelaide/', label: 'office relocation preparation guide' },
+        { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'booking timing guide' },
+        { href: '/adelaide-moving-guides/packing-tips-adelaide/', label: 'packing tips guide' },
+      ],
+    };
+  }
+
+  return {
+    hubs: [
+      { href: '/removalists-adelaide/', label: 'Adelaide removals hub' },
+    ],
+    services: [
+      { href: '/house-removals-adelaide/', label: 'house removals in Adelaide' },
+      { href: '/packing-services-adelaide/', label: 'packing services in Adelaide' },
+      { href: '/interstate-removals-adelaide/', label: 'interstate removals from Adelaide' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/moving-checklist-adelaide/', label: 'moving checklist guide' },
+      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
+      { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'booking timing guide' },
+    ],
+  };
 }

@@ -7,7 +7,8 @@
     "build": "node scripts/build-site.mjs",
     "test": "node scripts/quote-api-smoke.mjs && node --test --test-concurrency=1 --experimental-test-isolation=none tests/*.test.mjs",
     "test:quote-api": "node scripts/quote-api-smoke.mjs",
-    "lhci": "npm run build && node scripts/run-lhci.mjs"
+    "lhci": "npm run build && node scripts/run-lhci.mjs",
+    "seo:validate": "node scripts/seo-validate.mjs"
   },
   "devDependencies": {
     "lightningcss": "^1.32.0"

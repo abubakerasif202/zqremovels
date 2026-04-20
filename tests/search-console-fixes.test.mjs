@@ -3,14 +3,14 @@ import path from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
-import { getGeneratedPages } from '../site-src/data/seo-v4.mjs';
+import { getGeneratedPages, mergePagesByOutput } from '../site-src/data/seo-v4.mjs';
 
 const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
-const pages = [
-  ...JSON.parse(readFileSync(path.join(root, 'site-src', 'pages.json'), 'utf8')),
-  ...getGeneratedPages(),
-];
+const pages = mergePagesByOutput(
+  JSON.parse(readFileSync(path.join(root, 'site-src', 'pages.json'), 'utf8')),
+  getGeneratedPages(),
+);
 
 function readDist(relativePath) {
   return readFileSync(path.join(distDir, relativePath), 'utf8');

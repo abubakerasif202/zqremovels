@@ -1,7 +1,7 @@
 import { copyFile, cp, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { transform } from 'lightningcss';
-import { buildCanonical, buildDescription, buildFAQSchema, buildImageObjectSchema, buildLocalBusinessSchema, buildOGTags, buildServiceSchema, buildTitle, buildTwitterTags, getGeneratedPages, getRouteCoverageReport, seoConfig } from '../site-src/data/seo-v4.mjs';
+import { buildCanonical, buildDescription, buildFAQSchema, buildImageObjectSchema, buildLocalBusinessSchema, buildOGTags, buildServiceSchema, buildTitle, buildTwitterTags, getGeneratedPages, getRouteCoverageReport, getSuburbLinkProfile, mergePagesByOutput, seoConfig } from '../site-src/data/seo-v4.mjs';
 
 const workspaceRoot = process.cwd();
 
@@ -37,7 +37,7 @@ const partials = {
 
 const staticPages = JSON.parse(await readFile(path.join(srcRoot, 'pages.json'), 'utf8'));
 const generatedPages = getGeneratedPages();
-const pages = [...staticPages, ...generatedPages];
+const pages = mergePagesByOutput(staticPages, generatedPages);
 const preferredSiteOrigin = seoConfig.siteUrl;
 const legacySiteOrigin = seoConfig.siteUrl;
 const defaultSocialImage = seoConfig.defaultOgImage;
@@ -3654,6 +3654,59 @@ function getRelatedLinksProfile(page) {
     };
   }
 
+  if (output === 'house-removals-adelaide/index.html') {
+    return {
+      eyebrow: 'Residential planning links',
+      heading: 'Use the house-move page to branch into the right residential intent.',
+      intro:
+        'Some Adelaide house-move searches are really about apartment access, storage staging, or urgent booking windows. Use the page that matches the brief before requesting the quote.',
+      links: [
+        {
+          eyebrow: 'Budget-led moves',
+          title: 'Cheap removalists Adelaide',
+          copy: 'Use the affordable-moves page when pricing clarity and leaner scope control are the main buying factors.',
+          url: '/cheap-removalists-adelaide/',
+          cta: 'View affordable removals',
+        },
+        {
+          eyebrow: 'Apartment access',
+          title: 'Apartment removalists Adelaide',
+          copy: 'Use the apartment page when lifts, stairs, shared corridors, and booked loading windows drive the move more than the suburb alone.',
+          url: '/apartment-removalists-adelaide/',
+          cta: 'View apartment removals',
+        },
+        {
+          eyebrow: 'Storage staging',
+          title: 'Storage-friendly removals Adelaide',
+          copy: 'Use the storage page when the route needs a staged delivery, renovation gap, or temporary hold between addresses.',
+          url: '/storage-friendly-removals-adelaide/',
+          cta: 'View storage-friendly removals',
+        },
+        {
+          eyebrow: 'Short notice',
+          title: 'Same-day removalists Adelaide',
+          copy: 'Use the urgent-move page when the booking window is tight and the access brief needs a faster decision.',
+          url: '/same-day-removalists-adelaide/',
+          cta: 'View same-day removals',
+        },
+        {
+          eyebrow: 'Planning guide',
+          title: 'Moving checklist Adelaide',
+          copy: 'Open the checklist guide when the house move still needs room-by-room planning and a cleaner booking brief.',
+          url: '/adelaide-moving-guides/moving-checklist-adelaide/',
+          cta: 'Open the checklist guide',
+        },
+        {
+          eyebrow: 'Planning guide',
+          title: 'Removalist cost Adelaide',
+          copy: 'Use the pricing guide when the household brief needs better cost framing before the quote is requested.',
+          url: '/adelaide-moving-guides/removalist-cost-adelaide/',
+          cta: 'Open the cost guide',
+        },
+      ],
+    };
+  }
+
   if (
     output === 'interstate-removals-adelaide/index.html' ||
     output === 'adelaide-to-melbourne-removals/index.html' ||
@@ -3893,12 +3946,22 @@ function getRelatedLinksProfile(page) {
   }
 
   if (output.startsWith('removalists-')) {
+    const suburbLinks = getSuburbLinkProfile(getSuburbSlugFromPage(page));
+    const peerLinks = (suburbLinks?.peers || []).slice(0, 2).map((item) => ({
+      eyebrow: 'Nearby suburb',
+      title: item.suburb || item.label,
+      copy: `Use ${item.suburb || item.label} when the route, access pattern, or suburb comparison is a better fit than this page alone.`,
+      url: item.href,
+      cta: item.label,
+    }));
+
     return {
       eyebrow: 'Plan the full move',
       heading: 'Useful links for the rest of the move.',
       intro:
         'Use the Adelaide local removals page for broader suburb coverage, add support for delicate items or packing, or request a fixed-price quote when the brief is ready.',
       links: [
+        ...peerLinks,
         {
           eyebrow: 'Residential',
           title: 'House removals Adelaide',
@@ -3946,6 +4009,59 @@ function getRelatedLinksProfile(page) {
   }
 
   if (output === 'adelaide-moving-guides/index.html' || output.startsWith('adelaide-moving-guides/')) {
+    if (output === 'adelaide-moving-guides/index.html') {
+      return {
+        eyebrow: 'Planning clusters',
+        heading: 'Use the guide hub to move from research into the right booking page.',
+        intro:
+          'These guide pages answer real pre-quote questions, then hand off into the commercial page or service page that matches the move brief.',
+        links: [
+          {
+            eyebrow: 'Checklist',
+            title: 'Moving checklist Adelaide',
+            copy: 'Use the checklist when the move needs a clear pre-booking sequence before the quote is locked in.',
+            url: '/adelaide-moving-guides/moving-checklist-adelaide/',
+            cta: 'Read the moving checklist',
+          },
+          {
+            eyebrow: 'Pricing',
+            title: 'Removalist cost Adelaide',
+            copy: 'Use the pricing guide when the next step is understanding labour, access, and timing pressure before comparing quotes.',
+            url: '/adelaide-moving-guides/removalist-cost-adelaide/',
+            cta: 'Read the cost guide',
+          },
+          {
+            eyebrow: 'Apartment',
+            title: 'Apartment moving tips Adelaide',
+            copy: 'Use the apartment guide when shared access, lift bookings, or corridor rules are likely to control the whole move.',
+            url: '/adelaide-moving-guides/apartment-moving-tips-adelaide/',
+            cta: 'Read the apartment guide',
+          },
+          {
+            eyebrow: 'Office',
+            title: 'Office relocation preparation Adelaide',
+            copy: 'Use the office prep guide when the move involves downtime control, dock access, and a staged restart.',
+            url: '/adelaide-moving-guides/office-relocation-preparation-adelaide/',
+            cta: 'Read the office guide',
+          },
+          {
+            eyebrow: 'Urgent moves',
+            title: 'Same-day removalists Adelaide',
+            copy: 'Switch to the same-day page when the planning question is really about confirming a fast booking window.',
+            url: '/same-day-removalists-adelaide/',
+            cta: 'View same-day removals',
+          },
+          {
+            eyebrow: 'Budget moves',
+            title: 'Cheap removalists Adelaide',
+            copy: 'Switch to the affordable-moves page when the planning question is really about keeping the job lean and clearly scoped.',
+            url: '/cheap-removalists-adelaide/',
+            cta: 'View affordable removals',
+          },
+        ],
+      };
+    }
+
     if (output === 'adelaide-moving-guides/apartment-lift-bookings-adelaide/index.html') {
       return {
         eyebrow: 'Related services',
@@ -4288,6 +4404,8 @@ async function renderSitemaps(pages) {
       page.output === 'adelaide-to-perth-removals/index.html' ||
       page.output === 'adelaide-to-queensland-removals/index.html'
     ) {
+      grouped['sitemap-services.xml'].push(entry);
+    } else if (page.output.startsWith('cheap-removalists-adelaide/') || page.output.startsWith('same-day-removalists-adelaide/') || page.output.startsWith('last-minute-removalists-adelaide/') || page.output.startsWith('apartment-removalists-adelaide/') || page.output.startsWith('office-relocation-adelaide/') || page.output.startsWith('storage-friendly-removals-adelaide/')) {
       grouped['sitemap-services.xml'].push(entry);
     } else {
       grouped['sitemap-pages.xml'].push(entry);
