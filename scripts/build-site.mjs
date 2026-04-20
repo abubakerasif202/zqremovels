@@ -817,6 +817,81 @@ const suburbPageProfiles = {
   },
 };
 
+const suburbV4Registry = {
+  'adelaide-cbd': {
+    region: 'cbd',
+    inventory: ['apartment towers', 'office suites', 'mixed-use inventory'],
+    access: ['service lifts', 'loading docks', 'managed parking', 'short city carries'],
+    intents: ['office', 'packing', 'interstate'],
+    nearbyCorridors: ['North Terrace', 'King William Street', 'Grenfell Street'],
+    ctaTheme: 'Book apartment move',
+    supportGuide: '/adelaide-moving-guides/apartment-lift-bookings-adelaide/',
+  },
+  glenelg: {
+    region: 'coastal',
+    inventory: ['coastal apartments', 'townhouses', 'lifestyle homes'],
+    access: ['beachside parking', 'shared entries', 'longer carries', 'busy frontage'],
+    intents: ['furniture', 'packing', 'interstate'],
+    nearbyCorridors: ['Jetty Road', 'Brighton Road', 'Anzac Highway'],
+    ctaTheme: 'Plan coastal move',
+    supportGuide: '/adelaide-moving-guides/coastal-moving-access-adelaide/',
+  },
+  marion: {
+    region: 'south',
+    inventory: ['family homes', 'units', 'mixed residential-commercial stock'],
+    access: ['busier frontage', 'staging pressure', 'mixed site access'],
+    intents: ['office', 'packing', 'furniture'],
+    nearbyCorridors: ['Marion Road', 'Sturt Road', 'Diagonal Road'],
+    ctaTheme: 'Get suburb-specific quote',
+    supportGuide: '/adelaide-moving-guides/pricing-breakdown-adelaide/',
+  },
+  salisbury: {
+    region: 'north',
+    inventory: ['family homes', 'storage-linked loads', 'small business items'],
+    access: ['driveway positioning', 'garage access', 'northern corridor traffic'],
+    intents: ['furniture', 'packing', 'interstate'],
+    nearbyCorridors: ['Salisbury Highway', 'Commercial Road', 'Park Terrace'],
+    ctaTheme: 'Get suburb-specific quote',
+    supportGuide: '/adelaide-moving-guides/storage-planning-adelaide/',
+  },
+  elizabeth: {
+    region: 'north',
+    inventory: ['family homes', 'units', 'storage transfers'],
+    access: ['longer carries', 'shared access', 'northside corridor timing'],
+    intents: ['furniture', 'packing', 'interstate'],
+    nearbyCorridors: ['Main North Road', 'Philip Highway', 'Groth Road'],
+    ctaTheme: 'Get suburb-specific quote',
+    supportGuide: '/adelaide-moving-guides/how-long-moves-take-adelaide/',
+  },
+  reynella: {
+    region: 'south',
+    inventory: ['family homes', 'garage-heavy loads', 'storage-linked items'],
+    access: ['split-level entries', 'driveway slope', 'southern corridor timing'],
+    intents: ['furniture', 'packing', 'interstate'],
+    nearbyCorridors: ['Main South Road', 'Old South Road', 'Pimpala Road'],
+    ctaTheme: 'Book family-home move',
+    supportGuide: '/adelaide-moving-guides/avoiding-damage-adelaide/',
+  },
+  noarlunga: {
+    region: 'coastal',
+    inventory: ['coastal homes', 'storage transitions', 'business stock'],
+    access: ['parking pressure', 'coastal frontage', 'mixed-use loading'],
+    intents: ['office', 'packing', 'interstate'],
+    nearbyCorridors: ['Main South Road', 'Dyson Road', 'Beach Road'],
+    ctaTheme: 'Plan coastal move',
+    supportGuide: '/adelaide-moving-guides/storage-planning-adelaide/',
+  },
+  'mawson-lakes': {
+    region: 'north',
+    inventory: ['apartments', 'townhouses', 'managed precinct loads'],
+    access: ['lift bookings', 'shared entries', 'parking controls'],
+    intents: ['office', 'packing', 'interstate'],
+    nearbyCorridors: ['Main North Road', 'Garden Tce', 'University Blvd'],
+    ctaTheme: 'Book apartment move',
+    supportGuide: '/adelaide-moving-guides/apartment-lift-bookings-adelaide/',
+  },
+};
+
 const seoGuideLibrary = {
   cost: {
     title: 'Removalists cost guide',
@@ -867,6 +942,31 @@ const seoGuideLibrary = {
     title: 'When to book packing services Adelaide',
     url: '/adelaide-moving-guides/when-to-book-packing-services-adelaide/',
     cta: 'Read the packing-planning guide',
+  },
+  pricingBreakdown: {
+    title: 'Adelaide pricing breakdown',
+    url: '/adelaide-moving-guides/pricing-breakdown-adelaide/',
+    cta: 'Read the pricing breakdown',
+  },
+  moveDuration: {
+    title: 'How long moves take Adelaide',
+    url: '/adelaide-moving-guides/how-long-moves-take-adelaide/',
+    cta: 'Read the timing guide',
+  },
+  bestTime: {
+    title: 'Best time to move Adelaide',
+    url: '/adelaide-moving-guides/best-time-to-move-adelaide/',
+    cta: 'Read the timing guide',
+  },
+  avoidingDamage: {
+    title: 'Avoiding damage during a move',
+    url: '/adelaide-moving-guides/avoiding-damage-adelaide/',
+    cta: 'Read the damage-prevention guide',
+  },
+  storagePlanning: {
+    title: 'Storage planning Adelaide',
+    url: '/adelaide-moving-guides/storage-planning-adelaide/',
+    cta: 'Read the storage-planning guide',
   },
   heavyFurniture: {
     title: 'Moving heavy furniture in Adelaide',
@@ -3001,6 +3101,85 @@ function getSuburbProfile(page) {
   return suburbPageProfiles[getSuburbSlugFromPage(page)] || null;
 }
 
+function getSuburbV4Profile(page) {
+  return suburbV4Registry[getSuburbSlugFromPage(page)] || null;
+}
+
+function renderSuburbV4Section(page) {
+  const profile = getSuburbV4Profile(page);
+  if (!profile) {
+    return '';
+  }
+
+  const sectionId = `${page.output.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}-v4-intents`;
+  const intentBlocks = {
+    furniture: {
+      title: 'Furniture removalists support',
+      copy: `This ${profile.region} route often needs careful handling for bulky furniture, tight turns, and items that are easier to move with the right access plan.`,
+      cta: 'View furniture removals',
+      href: '/furniture-removalists-adelaide/',
+    },
+    office: {
+      title: 'Office removals support',
+      copy: `Business inventory in this area usually needs better sequencing because ${profile.access.join(', ')} often affect timing and restart planning.`,
+      cta: 'Book office relocation',
+      href: '/office-removals-adelaide/',
+    },
+    packing: {
+      title: 'Packing services support',
+      copy: `Packing is useful when ${profile.inventory.join(', ')} need to stay protected through a route shaped by ${profile.access.join(', ')}.`,
+      cta: 'View packing services',
+      href: '/packing-services-adelaide/',
+    },
+    interstate: {
+      title: 'Interstate removals support',
+      copy: `If the move becomes a longer departure, the Adelaide pickup should be scoped around ${profile.nearbyCorridors.join(', ')} and the delivery timing at both ends.`,
+      cta: 'View interstate removals',
+      href: '/interstate-removals-adelaide/',
+    },
+  };
+
+  const cards = profile.intents
+    .map((intent) => intentBlocks[intent])
+    .filter(Boolean)
+    .slice(0, 3)
+    .map(
+      ({ title, copy, cta, href }) => `<article class="value-card">
+  <h3>${escapeHtml(title)}</h3>
+  <p>${escapeHtml(copy)}</p>
+  <a class="button button-secondary" href="${escapeAttribute(href)}">${escapeHtml(cta)}</a>
+</article>`,
+    )
+.join('\n');
+
+  const supportGuide = profile.supportGuide
+    ? seoGuideLibrary[
+        Object.keys(seoGuideLibrary).find((key) => seoGuideLibrary[key].url === profile.supportGuide)
+      ]
+    : null;
+
+  return `
+<section aria-labelledby="${sectionId}" class="section section-soft">
+<div class="container">
+<div class="section-heading">
+<span class="eyebrow">Route and intent expansion</span>
+<h2 id="${sectionId}">${escapeHtml(profile.ctaTheme)} for ${escapeHtml(profile.region)}-route moves</h2>
+<p>${escapeHtml(
+  `This page is built for ${profile.region} moves where inventory, access, and corridor pressure change the quote. Nearby corridors include ${profile.nearbyCorridors.join(', ')}.`,
+)}</p>
+</div>
+<div class="value-grid">
+${cards}
+</div>
+${supportGuide ? `<p class="field-note">Support guide: <a href="${escapeAttribute(supportGuide.url)}">${escapeHtml(supportGuide.title)}</a></p>` : ''}
+<div class="cta-cluster">
+<a class="button button-primary" href="/contact-us/#quote-form">${escapeHtml(profile.ctaTheme)}</a>
+<a class="button button-secondary" href="/removalists-adelaide/">View Adelaide coverage</a>
+</div>
+</div>
+</section>`;
+}
+
 function renderSuburbPage(page) {
   const profile = getSuburbProfile(page);
   if (!profile) {
@@ -3146,10 +3325,11 @@ ${profile.scenarios
 <h2>Why clients choose ZQ Removals</h2>
 </div>
 <p>${escapeHtml(profile.trust[0])}</p>
-<p>${escapeHtml(profile.trust[1])}</p>
-${extraParagraph}
-<p>${escapeHtml(targetCopy)}</p>
-<h3>Related moving services</h3>
+  <p>${escapeHtml(profile.trust[1])}</p>
+  ${extraParagraph}
+  <p>${escapeHtml(targetCopy)}</p>
+  ${renderSuburbV4Section(page)}
+  <h3>Related moving services</h3>
 <ul aria-label="Internal service links" class="bullet-list">
 <li><a href="/house-removals-adelaide/">House Removals Adelaide</a></li>
 <li><a href="/removalists-adelaide/">Removalists Adelaide</a></li>

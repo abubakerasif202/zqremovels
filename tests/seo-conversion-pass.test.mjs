@@ -215,6 +215,50 @@ test('guide hub and guide articles feed into packing, furniture, office, and int
   assert.match(coastalAccess, /href="\/removalists-southern-adelaide\/"/);
 });
 
+test('v4 suburb pages surface region-aware intents and contextual ctas', () => {
+  const cbdPage = readDist(path.join('removalists-adelaide-cbd', 'index.html'));
+  const glenelgPage = readDist(path.join('removalists-glenelg', 'index.html'));
+  const salisburyPage = readDist(path.join('removalists-salisbury', 'index.html'));
+
+  assert.match(cbdPage, /Route and intent expansion/i);
+  assert.match(cbdPage, /Book apartment move/i);
+  assert.match(cbdPage, /Book office relocation/i);
+  assert.match(cbdPage, /interstate/i);
+  assert.match(cbdPage, /Apartment Lift Bookings Adelaide/i);
+  assert.match(glenelgPage, /Plan coastal move/i);
+  assert.match(glenelgPage, /furniture removalists support/i);
+  assert.match(glenelgPage, /Coastal Moving Access Adelaide/i);
+  assert.match(salisburyPage, /Get suburb-specific quote/i);
+  assert.match(salisburyPage, /northern corridor/i);
+  assert.match(salisburyPage, /Storage Planning Adelaide/i);
+});
+
+test('new v4 guides are linked from the guide hub and support conversion paths', () => {
+  const guideHub = readDist(path.join('adelaide-moving-guides', 'index.html'));
+  const pricing = readDist(path.join('adelaide-moving-guides', 'pricing-breakdown-adelaide', 'index.html'));
+  const timing = readDist(path.join('adelaide-moving-guides', 'how-long-moves-take-adelaide', 'index.html'));
+  const bestTime = readDist(path.join('adelaide-moving-guides', 'best-time-to-move-adelaide', 'index.html'));
+  const damage = readDist(path.join('adelaide-moving-guides', 'avoiding-damage-adelaide', 'index.html'));
+  const storage = readDist(path.join('adelaide-moving-guides', 'storage-planning-adelaide', 'index.html'));
+
+  for (const href of [
+    '/adelaide-moving-guides/pricing-breakdown-adelaide/',
+    '/adelaide-moving-guides/how-long-moves-take-adelaide/',
+    '/adelaide-moving-guides/best-time-to-move-adelaide/',
+    '/adelaide-moving-guides/avoiding-damage-adelaide/',
+    '/adelaide-moving-guides/storage-planning-adelaide/',
+  ]) {
+    assert.match(guideHub, new RegExp(`href="${href.replace(/\//g, '\\/')}"`));
+  }
+
+  assert.match(pricing, /Request a quote/i);
+  assert.match(pricing, /Removalists Adelaide/i);
+  assert.match(timing, /move timing/i);
+  assert.match(bestTime, /weekdays/i);
+  assert.match(damage, /Packing Services Adelaide/i);
+  assert.match(storage, /storage unit/i);
+});
+
 test('southern suburb pages connect into service clusters and interstate planning', () => {
   const southernHub = readDist(path.join('removalists-southern-adelaide', 'index.html'));
   const morphettVale = readDist(path.join('removalists-morphett-vale', 'index.html'));
