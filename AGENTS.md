@@ -90,6 +90,13 @@ By default, exclude:
 - Links must be useful to users first, not anchor-stuffing.
 - Improve discoverability across:
   homepage, service pages, suburb pages, interstate route pages, and guide pages.
+- Treat the site as a hierarchy, not a flat related-links pool:
+  homepage -> Adelaide hub + northern/southern hubs
+  region hubs -> differentiated suburb pages + core service pages + guide hub
+  suburb pages -> regional hub + best-fit services + quote path + interstate support where relevant
+  service pages -> sibling services + relevant hubs/suburbs + supporting guides + quote path
+  guides -> best-fit services + relevant hubs/suburbs + quote path
+  interstate pages -> interstate hub + local entry points + packing/support guides + quote path
 - Avoid orphan pages.
 - Related links should be geographically and intent-relevant:
   suburb -> nearby suburb/service/quote
@@ -98,6 +105,60 @@ By default, exclude:
   guide -> relevant service pages and quote path
 - Avoid repetitive exact-match anchors across the same template block.
 - Prefer natural anchor phrasing and route diversity over keyword repetition.
+
+## SEO V3 Cluster Rules
+
+- Strengthen cluster authority flow through shared generator registries before editing page-local copy.
+- The main ranking clusters are:
+  Adelaide removals hub
+  Southern Adelaide hub
+  Northern Adelaide hub
+  core service pages for house, furniture, packing, office, and interstate
+  differentiated suburb pages
+  guide pages that answer real pre-quote planning questions
+- Homepage links should introduce the major hubs, service clusters, and guide entry points.
+- Regional hubs should work as cluster controllers:
+  they should link down into the right suburb nodes, sideways into the right services, and upward into the main Adelaide hub or quote path.
+- Guide pages should support money pages and conversion, not exist as isolated blog posts.
+- Conversion paths should stay natural:
+  guide/suburb/hub -> best-fit service page -> quote form
+  When the brief is already clear, linking directly to `/contact-us/#quote-form` is acceptable as a secondary CTA.
+
+## Suburb Expansion Rules
+
+- Add suburb pages only when the suburb has a real operational angle that changes the move brief.
+- Valid differentiation includes:
+  apartment or tower access
+  coastal access
+  southern vs northern corridor logistics
+  family-home and garage-heavy inventory
+  commercial or mixed-use inventory
+  storage-linked routes
+  loading, parking, stair, or service-lift constraints
+  interstate departure or handover relevance
+- Do not mass-produce suburb pages or duplicate an existing suburb page's intent.
+- New suburb pages must fit naturally into:
+  one regional hub
+  at least one core service cluster
+  at least one guide or interstate support path when relevant
+
+## Guide Library Rules
+
+- Add guides only when they answer a realistic planning question before quote approval.
+- Every guide should have:
+  a clear intent
+  a natural link into at least one money page
+  a natural link into a relevant hub or suburb page when useful
+  enough unique detail to justify indexing
+- Preferred guide angles are:
+  packing timing
+  heavy furniture handling
+  apartment and tower move preparation
+  office dock, lift, and restart planning
+  interstate preparation
+  pricing expectation framing
+  access logistics for CBD, coastal, corridor, or family-home moves
+- Do not publish fluff, doorway-style guides, or thin content built only to host links.
 
 ## Done When Checklist
 

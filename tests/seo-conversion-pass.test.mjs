@@ -167,11 +167,19 @@ test('guide hub and guide articles feed into packing, furniture, office, and int
   const packingWhen = readDist(path.join('adelaide-moving-guides', 'when-to-book-packing-services-adelaide', 'index.html'));
   const heavyFurniture = readDist(path.join('adelaide-moving-guides', 'moving-heavy-furniture-adelaide', 'index.html'));
   const officeAccess = readDist(path.join('adelaide-moving-guides', 'office-access-planning-adelaide-cbd', 'index.html'));
+  const apartmentLiftBookings = readDist(
+    path.join('adelaide-moving-guides', 'apartment-lift-bookings-adelaide', 'index.html'),
+  );
+  const coastalAccess = readDist(
+    path.join('adelaide-moving-guides', 'coastal-moving-access-adelaide', 'index.html'),
+  );
 
   for (const href of [
     '/adelaide-moving-guides/when-to-book-packing-services-adelaide/',
     '/adelaide-moving-guides/moving-heavy-furniture-adelaide/',
     '/adelaide-moving-guides/office-access-planning-adelaide-cbd/',
+    '/adelaide-moving-guides/apartment-lift-bookings-adelaide/',
+    '/adelaide-moving-guides/coastal-moving-access-adelaide/',
     '/packing-services-adelaide/',
     '/furniture-removalists-adelaide/',
     '/office-removals-adelaide/',
@@ -194,24 +202,91 @@ test('guide hub and guide articles feed into packing, furniture, office, and int
   assert.match(officeAccess, /href="\/removalists-adelaide-cbd\/"/);
   assert.match(officeAccess, /href="\/adelaide-moving-guides\/office-relocation-checklist-adelaide\/"/);
   assert.match(officeAccess, /href="\/packing-services-adelaide\/"/);
+
+  assert.match(apartmentLiftBookings, /href="\/house-removals-adelaide\/"/);
+  assert.match(apartmentLiftBookings, /href="\/removalists-adelaide-cbd\/"/);
+  assert.match(apartmentLiftBookings, /href="\/removalists-mawson-lakes\/"/);
+  assert.match(apartmentLiftBookings, /href="\/packing-services-adelaide\/"/);
+
+  assert.match(coastalAccess, /href="\/house-removals-adelaide\/"/);
+  assert.match(coastalAccess, /href="\/furniture-removalists-adelaide\/"/);
+  assert.match(coastalAccess, /href="\/removalists-glenelg\/"/);
+  assert.match(coastalAccess, /href="\/removalists-noarlunga\/"/);
+  assert.match(coastalAccess, /href="\/removalists-southern-adelaide\/"/);
 });
 
 test('southern suburb pages connect into service clusters and interstate planning', () => {
   const southernHub = readDist(path.join('removalists-southern-adelaide', 'index.html'));
   const morphettVale = readDist(path.join('removalists-morphett-vale', 'index.html'));
   const noarlunga = readDist(path.join('removalists-noarlunga', 'index.html'));
+  const reynella = readDist(path.join('removalists-reynella', 'index.html'));
 
   assert.match(southernHub, /href="\/removalists-morphett-vale\/"/);
   assert.match(southernHub, /href="\/removalists-noarlunga\/"/);
+  assert.match(southernHub, /href="\/removalists-reynella\/"/);
   assert.match(southernHub, /href="\/packing-services-adelaide\/"/);
   assert.match(southernHub, /href="\/furniture-removalists-adelaide\/"/);
   assert.match(southernHub, /href="\/interstate-removals-adelaide\/"/);
+  assert.match(southernHub, /href="\/adelaide-moving-guides\/coastal-moving-access-adelaide\/"/);
+  assert.match(southernHub, /href="\/adelaide-moving-guides\/when-to-book-packing-services-adelaide\/"/);
 
-  for (const page of [morphettVale, noarlunga]) {
+  for (const page of [morphettVale, noarlunga, reynella]) {
     assert.match(page, /href="\/packing-services-adelaide\/"/);
     assert.match(page, /href="\/furniture-removalists-adelaide\/"/);
     assert.match(page, /href="\/office-removals-adelaide\/"/);
     assert.match(page, /href="\/interstate-removals-adelaide\/"/);
     assert.match(page, /href="\/removalists-adelaide\/"/);
+    assert.match(page, /href="\/removalists-southern-adelaide\/"/);
+  }
+});
+
+test('regional hubs act like cluster controllers instead of isolated landing pages', () => {
+  const homepage = readDist('index.html');
+  const adelaideHub = readDist(path.join('removalists-adelaide', 'index.html'));
+  const northernHub = readDist(path.join('removalists-northern-adelaide', 'index.html'));
+  const southernHub = readDist(path.join('removalists-southern-adelaide', 'index.html'));
+
+  for (const href of [
+    '/removalists-southern-adelaide/',
+    '/removalists-northern-adelaide/',
+    '/house-removals-adelaide/',
+    '/office-removals-adelaide/',
+    '/adelaide-moving-guides/apartment-lift-bookings-adelaide/',
+    '/adelaide-moving-guides/coastal-moving-access-adelaide/',
+  ]) {
+    assert.match(homepage, new RegExp(`href="${href.replace(/\//g, '\\/')}"`));
+  }
+
+  for (const href of [
+    '/removalists-southern-adelaide/',
+    '/removalists-northern-adelaide/',
+    '/adelaide-moving-guides/',
+    '/adelaide-moving-guides/apartment-lift-bookings-adelaide/',
+    '/adelaide-moving-guides/coastal-moving-access-adelaide/',
+    '/contact-us/#quote-form',
+  ]) {
+    assert.match(adelaideHub, new RegExp(`href="${href.replace(/\//g, '\\/')}"`));
+  }
+
+  for (const href of [
+    '/removalists-mawson-lakes/',
+    '/removalists-salisbury/',
+    '/office-removals-adelaide/',
+    '/packing-services-adelaide/',
+    '/adelaide-moving-guides/apartment-lift-bookings-adelaide/',
+    '/adelaide-moving-guides/office-relocation-checklist-adelaide/',
+  ]) {
+    assert.match(northernHub, new RegExp(`href="${href.replace(/\//g, '\\/')}"`));
+  }
+
+  for (const href of [
+    '/removalists-noarlunga/',
+    '/removalists-reynella/',
+    '/house-removals-adelaide/',
+    '/interstate-removals-adelaide/',
+    '/adelaide-moving-guides/coastal-moving-access-adelaide/',
+    '/adelaide-moving-guides/when-to-book-packing-services-adelaide/',
+  ]) {
+    assert.match(southernHub, new RegExp(`href="${href.replace(/\//g, '\\/')}"`));
   }
 });
