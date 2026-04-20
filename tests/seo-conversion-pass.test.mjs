@@ -41,7 +41,13 @@ test('homepage targets Adelaide removalists with the new commercial headline and
   assert.match(homepage, /href="\/removalists-salisbury\/"/);
   assert.match(homepage, /href="\/removalists-elizabeth\/"/);
   assert.match(homepage, /href="\/removalists-glenelg\/"/);
+  assert.match(homepage, /href="\/removalists-morphett-vale\/"/);
+  assert.match(homepage, /href="\/removalists-noarlunga\/"/);
+  assert.match(homepage, /href="\/removalists-southern-adelaide\/"/);
   assert.match(homepage, /href="\/removalists-northern-adelaide\/"/);
+  assert.match(homepage, /href="\/adelaide-moving-guides\/moving-heavy-furniture-adelaide\/"/);
+  assert.match(homepage, /href="\/adelaide-moving-guides\/office-access-planning-adelaide-cbd\/"/);
+  assert.match(homepage, /href="\/adelaide-moving-guides\/when-to-book-packing-services-adelaide\/"/);
 });
 
 test('quote forms post directly to Web3Forms with the required contact field names', () => {
@@ -154,4 +160,58 @@ test('new interstate routes are linked from the hub, footer, and sibling route s
   assert.match(perthPage, /href="\/adelaide-to-queensland-removals\/"/);
   assert.match(queenslandPage, /href="\/interstate-removals-adelaide\/"/);
   assert.match(queenslandPage, /href="\/adelaide-to-perth-removals\/"/);
+});
+
+test('guide hub and guide articles feed into packing, furniture, office, and interstate intent pages', () => {
+  const guideHub = readDist(path.join('adelaide-moving-guides', 'index.html'));
+  const packingWhen = readDist(path.join('adelaide-moving-guides', 'when-to-book-packing-services-adelaide', 'index.html'));
+  const heavyFurniture = readDist(path.join('adelaide-moving-guides', 'moving-heavy-furniture-adelaide', 'index.html'));
+  const officeAccess = readDist(path.join('adelaide-moving-guides', 'office-access-planning-adelaide-cbd', 'index.html'));
+
+  for (const href of [
+    '/adelaide-moving-guides/when-to-book-packing-services-adelaide/',
+    '/adelaide-moving-guides/moving-heavy-furniture-adelaide/',
+    '/adelaide-moving-guides/office-access-planning-adelaide-cbd/',
+    '/packing-services-adelaide/',
+    '/furniture-removalists-adelaide/',
+    '/office-removals-adelaide/',
+    '/interstate-removals-adelaide/',
+  ]) {
+    assert.match(guideHub, new RegExp(`href="${href.replace(/\//g, '\\/')}"`));
+  }
+
+  assert.match(packingWhen, /href="\/packing-services-adelaide\/"/);
+  assert.match(packingWhen, /href="\/office-removals-adelaide\/"/);
+  assert.match(packingWhen, /href="\/furniture-removalists-adelaide\/"/);
+  assert.match(packingWhen, /href="\/interstate-removals-adelaide\/"/);
+
+  assert.match(heavyFurniture, /href="\/furniture-removalists-adelaide\/"/);
+  assert.match(heavyFurniture, /href="\/house-removals-adelaide\/"/);
+  assert.match(heavyFurniture, /href="\/packing-services-adelaide\/"/);
+  assert.match(heavyFurniture, /href="\/interstate-removals-adelaide\/"/);
+
+  assert.match(officeAccess, /href="\/office-removals-adelaide\/"/);
+  assert.match(officeAccess, /href="\/removalists-adelaide-cbd\/"/);
+  assert.match(officeAccess, /href="\/adelaide-moving-guides\/office-relocation-checklist-adelaide\/"/);
+  assert.match(officeAccess, /href="\/packing-services-adelaide\/"/);
+});
+
+test('southern suburb pages connect into service clusters and interstate planning', () => {
+  const southernHub = readDist(path.join('removalists-southern-adelaide', 'index.html'));
+  const morphettVale = readDist(path.join('removalists-morphett-vale', 'index.html'));
+  const noarlunga = readDist(path.join('removalists-noarlunga', 'index.html'));
+
+  assert.match(southernHub, /href="\/removalists-morphett-vale\/"/);
+  assert.match(southernHub, /href="\/removalists-noarlunga\/"/);
+  assert.match(southernHub, /href="\/packing-services-adelaide\/"/);
+  assert.match(southernHub, /href="\/furniture-removalists-adelaide\/"/);
+  assert.match(southernHub, /href="\/interstate-removals-adelaide\/"/);
+
+  for (const page of [morphettVale, noarlunga]) {
+    assert.match(page, /href="\/packing-services-adelaide\/"/);
+    assert.match(page, /href="\/furniture-removalists-adelaide\/"/);
+    assert.match(page, /href="\/office-removals-adelaide\/"/);
+    assert.match(page, /href="\/interstate-removals-adelaide\/"/);
+    assert.match(page, /href="\/removalists-adelaide\/"/);
+  }
 });

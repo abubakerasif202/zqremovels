@@ -48,7 +48,7 @@ const validPayload = {
   phone: '+61 400 000 000',
   email: 'test@example.com',
   move_details: 'Two sofas, a fridge, and stair access at the drop-off property.',
-  source_page: 'https://www.zqremovals.au/contact-us/',
+  source_page: 'https://zqremovals.au/contact-us/',
 };
 
 const simpleContactPayload = {
@@ -57,7 +57,7 @@ const simpleContactPayload = {
   email: 'simple@example.com',
   phone: '+61 411 111 111',
   message: 'Need a quote for a move next month.',
-  source_page: 'https://www.zqremovals.au/contact-us/',
+  source_page: 'https://zqremovals.au/contact-us/',
 };
 
 async function runMissingKeySmoke() {

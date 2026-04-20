@@ -79,6 +79,61 @@
       "permanent": true
     },
     {
+      "source": "/about.html",
+      "destination": "/about/",
+      "permanent": true
+    },
+    {
+      "source": "/contact-us.html",
+      "destination": "/contact-us/",
+      "permanent": true
+    },
+    {
+      "source": "/house-removals-adelaide.html",
+      "destination": "/house-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/interstate-removals-adelaide.html",
+      "destination": "/interstate-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/office-removals-adelaide.html",
+      "destination": "/office-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/packing-services-adelaide.html",
+      "destination": "/packing-services-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/furniture-removalists-adelaide.html",
+      "destination": "/furniture-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-adelaide.html",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/adelaide-moving-guides/:slug.html",
+      "destination": "/adelaide-moving-guides/:slug/",
+      "permanent": true
+    },
+    {
+      "source": "/adelaide-to-:slug.html",
+      "destination": "/adelaide-to-:slug/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-:slug.html",
+      "destination": "/removalists-:slug/",
+      "permanent": true
+    },
+    {
       "source": "/adelaide-cbd.html",
       "destination": "/removalists-adelaide-cbd/",
       "permanent": true

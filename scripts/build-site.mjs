@@ -35,7 +35,7 @@ const partials = {
 };
 
 const pages = JSON.parse(await readFile(path.join(srcRoot, 'pages.json'), 'utf8'));
-const preferredSiteOrigin = 'https://www.zqremovals.au';
+const preferredSiteOrigin = 'https://zqremovals.au';
 const legacySiteOrigin = 'https://zqremovals.au';
 const defaultSocialImage = `${preferredSiteOrigin}/zq-removals-social-share.webp`;
 const defaultLogoImage = `${preferredSiteOrigin}/brand-logo.webp`;
@@ -626,6 +626,132 @@ const suburbPageProfiles = {
     services:
       'To plan properly, review our Adelaide local removals, office relocation services, packing assistance, furniture movers, and interstate removals options.',
   },
+  'morphett-vale': {
+    suburb: 'Morphett Vale',
+    nearby: 'South Road, Main South Road, Beach Road, States Road, and the southern corridor toward Reynella and Noarlunga',
+    eyebrow: 'Removalists Morphett Vale',
+    h1: 'Morphett Vale removalists for family homes, garages, and longer southern Adelaide moves.',
+    hero:
+      'Morphett Vale moves often involve larger family-home inventories, garage storage, and longer suburb-to-suburb routes where driveway access and loading order make the biggest difference.',
+    highlights: [
+      'Family homes, garages, and larger household inventories',
+      'South-side routes scoped around access, stairs, and carry distance',
+      'Packing, furniture handling, and interstate support available from one brief',
+    ],
+    startHere: {
+      eyebrow: 'When to use this page',
+      heading: 'When Morphett Vale is the right starting point',
+      intro:
+        'Use this page when Morphett Vale is one end of the move and the job includes family-home inventory, storage or garage items, or a longer southern corridor route that needs cleaner planning.',
+      points: [
+        'Pickup or delivery is in Morphett Vale or the nearby southern corridor',
+        'The move includes garage stock, outdoor settings, whitegoods, or heavier furniture',
+        'You want packing, furniture handling, or interstate support scoped in the same quote',
+      ],
+    },
+    nearbyLinks: [
+      { href: '/removalists-southern-adelaide/', label: 'Southern Adelaide movers and planning notes' },
+      { href: '/removalists-hallett-cove/', label: 'Hallett Cove removalists' },
+      { href: '/removalists-seaford/', label: 'Seaford removalists' },
+      { href: '/removalists-noarlunga/', label: 'Noarlunga removalists' },
+      { href: '/removalists-adelaide/', label: 'All Adelaide suburb coverage' },
+    ],
+    intro: [
+      'People searching for removalists in Morphett Vale are usually planning a bigger household move rather than a simple small-load transfer. Family homes in this area often come with garage storage, outdoor furniture, whitegoods, and a route that stretches further across the southern corridor than the suburb name suggests. We review the inventory and the access path first so labour and timing are based on the real workload.',
+      'Morphett Vale also sits between several southern Adelaide corridors, so the move can easily branch into Reynella, Seaford, Noarlunga, Marion, or an interstate departure. That makes sequencing more important. We plan the order around driveway access, stairs, heavier pieces, and any packing work so the pickup stays organised and the unload does not slow down once the truck arrives.',
+    ],
+    conditions: [
+      'Reviewing driveway access, longer carries, and stairs before the quote is locked in',
+      'Sequencing garage, shed, and outdoor items with the main household load',
+      'Planning southern corridor timing when the move crosses multiple suburbs or extends interstate',
+    ],
+    scenarios: [
+      {
+        title: 'Family homes with garage inventory',
+        copy:
+          'Morphett Vale house moves often include garage shelving, outdoor settings, spare fridges, and larger whitegoods alongside the main home inventory. We stage those items early so the load stays protected and the truck space is used properly.',
+      },
+      {
+        title: 'Townhouse and split-level routes',
+        copy:
+          'Some Morphett Vale jobs involve tighter internal turns, stair runs, and longer carries than expected. We review those access details before quoting so the crew arrives with the right labour plan.',
+      },
+      {
+        title: 'Southern Adelaide to interstate departures',
+        copy:
+          'When the Morphett Vale pickup is the first leg of a longer route, the brief needs tighter packing, timing, and handover control. We keep that planning consistent from the Adelaide end through to the interstate service page.',
+      },
+    ],
+    trust: [
+      'ZQ Removals is chosen for southern Adelaide jobs where careful handling and practical route planning matter more than generic room-count quoting. We keep the brief specific so the move day stays controlled.',
+      'The same move review can cover local relocations, heavier furniture handling, packing support, and interstate planning. That keeps the process simpler when the route becomes more complex than a standard suburb move.',
+    ],
+    services:
+      'Before booking, compare our Southern Adelaide hub, house removals, packing services, furniture movers, and interstate planning pages if the route extends beyond a standard local run.',
+  },
+  noarlunga: {
+    suburb: 'Noarlunga',
+    nearby: 'Beach Road, Main South Road, Dyson Road, and the coastal-southern routes around Seaford and Port Noarlunga',
+    eyebrow: 'Removalists Noarlunga',
+    h1: 'Noarlunga removalists for coastal homes, units, storage moves, and southern business relocations.',
+    hero:
+      'Noarlunga moves often combine coastal access, unit or townhouse constraints, storage-linked jobs, and wider southern corridor timing that needs to be planned before the quote is final.',
+    highlights: [
+      'Coastal homes, units, and townhouse moves',
+      'Storage-linked and mixed residential-business briefs',
+      'Interstate-ready planning from the southern coastal corridor',
+    ],
+    startHere: {
+      eyebrow: 'When to use this page',
+      heading: 'When Noarlunga is the better suburb brief',
+      intro:
+        'Use this page when the move is based around Noarlunga and the route includes coastal access, storage, mixed-use inventory, or a southern business reset that needs more than a generic metro quote.',
+      points: [
+        'Pickup or delivery is in Noarlunga or the nearby southern coastal corridor',
+        'The move includes units, townhouses, storage, stock, or mixed residential-commercial items',
+        'Parking, access timing, packing, or interstate handover details need to be scoped early',
+      ],
+    },
+    nearbyLinks: [
+      { href: '/removalists-southern-adelaide/', label: 'Southern Adelaide movers and planning notes' },
+      { href: '/removalists-seaford/', label: 'Seaford removalists' },
+      { href: '/removalists-glenelg/', label: 'Glenelg removalists' },
+      { href: '/interstate-removals-adelaide/', label: 'Interstate removals Adelaide' },
+      { href: '/removalists-adelaide/', label: 'All Adelaide suburb coverage' },
+    ],
+    intro: [
+      'People looking for removalists in Noarlunga are often juggling a route that mixes coastal living conditions with broader southern Adelaide travel. That can mean units with tighter access, homes with longer carries, storage transfers, or commercial stock that needs a cleaner sequence than a basic house move quote.',
+      'Noarlunga also works as a transition point between local southern suburbs and longer Adelaide or interstate routes. We plan the move around where the truck can load, what needs better protection, and whether the day includes residential items, business equipment, or a staged handover to another destination.',
+    ],
+    conditions: [
+      'Planning parking, loading, and timing for coastal and southern corridor properties',
+      'Separating residential furniture, storage boxes, and light commercial stock in the move plan',
+      'Using packing and route-specific handover notes when the brief extends beyond a standard local move',
+    ],
+    scenarios: [
+      {
+        title: 'Coastal homes and unit relocations',
+        copy:
+          'Noarlunga jobs can involve tighter access, shared entries, and mixed furniture sizes that benefit from a clearer loading order. We build the move around those constraints before the truck is booked.',
+      },
+      {
+        title: 'Storage and mixed-load transfers',
+        copy:
+          'Some Noarlunga moves include storage cages, archived items, or stock alongside standard household furniture. We separate those components in the brief so the unload sequence stays practical at destination.',
+      },
+      {
+        title: 'Southern business and interstate handovers',
+        copy:
+          'If the move includes business equipment or becomes the first leg of an interstate route, we align access, packing, and handover notes early so the later stages stay controlled.',
+      },
+    ],
+    trust: [
+      'ZQ Removals supports Noarlunga clients who want a suburb-specific brief that accounts for coastal access, mixed inventory, and wider southern Adelaide timing rather than relying on a vague metro quote.',
+      'We keep the move review practical and adaptable, so the same plan can cover local houses, storage moves, lighter commercial jobs, and interstate departures when needed.',
+    ],
+    services:
+      'Compare the Southern Adelaide hub, packing services, furniture movers, office relocations, and interstate planning pages if the route is more complex than a standard local move.',
+  },
 };
 
 const seoGuideLibrary = {
@@ -673,6 +799,21 @@ const seoGuideLibrary = {
     title: 'Apartment move guide Adelaide',
     url: '/adelaide-moving-guides/moving-from-apartment-buildings-adelaide/',
     cta: 'Read the apartment guide',
+  },
+  packingWhen: {
+    title: 'When to book packing services Adelaide',
+    url: '/adelaide-moving-guides/when-to-book-packing-services-adelaide/',
+    cta: 'Read the packing-planning guide',
+  },
+  heavyFurniture: {
+    title: 'Moving heavy furniture in Adelaide',
+    url: '/adelaide-moving-guides/moving-heavy-furniture-adelaide/',
+    cta: 'Read the furniture guide',
+  },
+  officeAccess: {
+    title: 'Office move access planning Adelaide CBD',
+    url: '/adelaide-moving-guides/office-access-planning-adelaide-cbd/',
+    cta: 'Read the CBD office-access guide',
   },
 };
 
@@ -871,6 +1012,52 @@ const faqProfiles = {
       },
     ],
   },
+  'removalists-morphett-vale/index.html': {
+    eyebrow: 'Morphett Vale removals FAQ',
+    heading: 'Questions people ask before booking a Morphett Vale move.',
+    intro:
+      'These answers focus on larger family-home loads, garage inventory, and southern corridor planning before the quote is approved.',
+    items: [
+      {
+        question: 'Do you handle garage stock and outdoor furniture in Morphett Vale?',
+        answer:
+          'Yes. Garage shelving, outdoor settings, whitegoods, and bulkier household items can all be included in the move brief so loading order and labour are planned properly.',
+      },
+      {
+        question: 'Can a Morphett Vale move also be quoted for interstate relocation?',
+        answer:
+          'Yes. If the Morphett Vale pickup becomes the Adelaide leg of an interstate route, the same brief can include packing, access, and handover details before the interstate booking is confirmed.',
+      },
+      {
+        question: 'What makes a Morphett Vale quote more accurate?',
+        answer:
+          'Both addresses, property types, driveway access, stairs, carry distance, heavier items, and any packing or storage requirements. Those factors usually decide labour time more than the suburb name alone.',
+      },
+    ],
+  },
+  'removalists-noarlunga/index.html': {
+    eyebrow: 'Noarlunga removals FAQ',
+    heading: 'Questions people ask before booking Noarlunga removalists.',
+    intro:
+      'These answers cover coastal access, storage-linked jobs, and mixed residential-business moves in the southern corridor.',
+    items: [
+      {
+        question: 'Do you handle Noarlunga moves with storage or mixed inventory?',
+        answer:
+          'Yes. Storage boxes, stock, archived items, and household furniture can all be scoped in one move brief so the sequence stays organised from pickup to delivery.',
+      },
+      {
+        question: 'Can Noarlunga jobs include business or office equipment?',
+        answer:
+          'Yes. If the move includes desks, monitors, files, shelving, or business stock, include that in the enquiry so the load order and restart priorities can be planned properly.',
+      },
+      {
+        question: 'Why do Noarlunga and nearby coastal routes still need detailed access notes?',
+        answer:
+          'Parking limits, unit access, stairs, longer carries, and southern corridor timing can all change labour and delivery sequencing, even when the move looks simple on paper.',
+      },
+    ],
+  },
 };
 
 const seoSupportProfiles = {
@@ -923,6 +1110,11 @@ const seoSupportProfiles = {
           'Use the packing checklist when the brief includes fragile pieces, wrapped furniture, or a staged pre-move protection plan.',
       },
       {
+        guide: 'heavyFurniture',
+        description:
+          'Use the heavy-furniture guide for stairs, turning points, delicate finishes, and the access details that most often change the handling plan.',
+      },
+      {
         guide: 'interstate',
         description:
           'Use the interstate checklist if fragile or oversized furniture is leaving Adelaide on a longer route.',
@@ -943,6 +1135,11 @@ const seoSupportProfiles = {
         guide: 'office',
         description:
           'Start with the office checklist for access windows, staff comms, IT sequencing, and restart priorities.',
+      },
+      {
+        guide: 'officeAccess',
+        description:
+          'Use the CBD office-access guide when loading docks, service lifts, concierge approvals, or after-hours windows are the main risk in the brief.',
       },
       {
         guide: 'cost',
@@ -972,6 +1169,11 @@ const seoSupportProfiles = {
           'Start with the packing checklist to organise materials, labeling, fragile-item prep, and what should be packed first.',
       },
       {
+        guide: 'packingWhen',
+        description:
+          'Use the packing-planning guide to decide when the move needs professional packing rather than a full self-pack approach.',
+      },
+      {
         guide: 'cost',
         description:
           'Use the pricing guide to understand how materials, fragility, labour, and unpack scope change the final quote.',
@@ -997,6 +1199,11 @@ const seoSupportProfiles = {
         guide: 'interstate',
         description:
           'Start with the interstate checklist for inventory, booking windows, delivery sequencing, and arrival-day expectations.',
+      },
+      {
+        guide: 'packingWhen',
+        description:
+          'Use the packing-planning guide when the interstate route includes fragile rooms, tighter timing, or an Adelaide departure that should be packed professionally.',
       },
       {
         guide: 'cost',
@@ -1086,6 +1293,11 @@ const seoSupportProfiles = {
           'Use the office checklist if the CBD move involves suites, clinics, desks, archives, or a staged commercial reset.',
       },
       {
+        guide: 'officeAccess',
+        description:
+          'Use the office-access guide when the real issue is dock windows, service lifts, loading permits, and how to keep the building rules from derailing the move.',
+      },
+      {
         guide: 'apartments',
         description:
           'Use the apartment guide if the CBD brief is tower-led and still needs lift planning, loading windows, or corridor protection.',
@@ -1094,6 +1306,116 @@ const seoSupportProfiles = {
     supportLinks: [
       { url: '/office-removals-adelaide/', label: 'Pair it with the office removals page' },
       { url: '/removalists-adelaide/', label: 'Return to the Adelaide removals hub' },
+    ],
+  },
+  'removalists-southern-adelaide/index.html': {
+    eyebrow: 'Southern corridor planning guides',
+    heading: 'Use the guide set that fits the south-side move brief.',
+    intro:
+      'Southern Adelaide jobs usually branch into packing, heavier furniture handling, or interstate planning once the suburb route is known. These guides support that planning before the quote is fixed.',
+    cards: [
+      {
+        guide: 'heavyFurniture',
+        description:
+          'Use the furniture guide when the brief includes heavier pieces, garage inventory, stair work, or delicate handling across southern suburbs.',
+      },
+      {
+        guide: 'packingWhen',
+        description:
+          'Use the packing-planning guide when the move includes fragile rooms, storage, or timing pressure that makes self-packing risky.',
+      },
+      {
+        guide: 'interstate',
+        description:
+          'Use the interstate checklist when the southern Adelaide pickup becomes the first leg of a route out of South Australia.',
+      },
+    ],
+    supportLinks: [
+      { url: '/removalists-morphett-vale/', label: 'See Morphett Vale removalists' },
+      { url: '/removalists-noarlunga/', label: 'See Noarlunga removalists' },
+      { url: '/adelaide-moving-guides/', label: 'Browse every Adelaide planning guide' },
+    ],
+  },
+  'removalists-northern-adelaide/index.html': {
+    eyebrow: 'Northern corridor planning guides',
+    heading: 'Use the guide set that matches northside move conditions.',
+    intro:
+      'Northern Adelaide jobs often expand into family-home preparation, heavier furniture handling, or office-related sequencing once the route and inventory are clearer. These guides support that work before move day is booked.',
+    cards: [
+      {
+        guide: 'house',
+        description:
+          'Use the house-move guide when the northside brief includes family-home staging, garage items, or room-by-room preparation before the truck arrives.',
+      },
+      {
+        guide: 'heavyFurniture',
+        description:
+          'Use the furniture guide for bulkier pieces, tight turns, stairs, or access-sensitive handling across the northern corridor.',
+      },
+      {
+        guide: 'office',
+        description:
+          'Use the office checklist if the northside route includes desks, files, shelving, or a lighter commercial reset alongside the main move.',
+      },
+    ],
+    supportLinks: [
+      { url: '/removalists-salisbury/', label: 'See Salisbury removalists' },
+      { url: '/removalists-gawler/', label: 'See Gawler removalists' },
+      { url: '/adelaide-moving-guides/', label: 'Browse every Adelaide planning guide' },
+    ],
+  },
+  'removalists-morphett-vale/index.html': {
+    eyebrow: 'Morphett Vale planning guides',
+    heading: 'Use the guide set that matches larger southern family moves.',
+    intro:
+      'Morphett Vale jobs usually need clearer prep around garage items, heavier furniture, and whether the route stays local or extends further south or interstate. These guides help close those gaps before the quote is finalised.',
+    cards: [
+      {
+        guide: 'house',
+        description:
+          'Use the house-move guide when the brief includes larger family-home preparation, decluttering, and room-by-room staging before move day.',
+      },
+      {
+        guide: 'heavyFurniture',
+        description:
+          'Use the furniture guide when whitegoods, outdoor settings, and heavier pieces need a more deliberate handling plan.',
+      },
+      {
+        guide: 'packingWhen',
+        description:
+          'Use the packing-planning guide when the move includes fragile rooms, tighter timing, or an interstate leg that makes professional packing more worthwhile.',
+      },
+    ],
+    supportLinks: [
+      { url: '/removalists-southern-adelaide/', label: 'Return to the Southern Adelaide hub' },
+      { url: '/interstate-removals-adelaide/', label: 'See interstate removals Adelaide' },
+    ],
+  },
+  'removalists-noarlunga/index.html': {
+    eyebrow: 'Noarlunga planning guides',
+    heading: 'Use the guide set that fits coastal and mixed-load southern moves.',
+    intro:
+      'Noarlunga jobs often branch into coastal access, storage sequencing, packing, and business-equipment handling. These guides support those decisions before the move is priced as final.',
+    cards: [
+      {
+        guide: 'packingWhen',
+        description:
+          'Use the packing-planning guide when the brief includes fragile rooms, storage, or a route that needs cleaner pre-move organisation.',
+      },
+      {
+        guide: 'officeAccess',
+        description:
+          'Use the office-access guide when the Noarlunga move includes business stock, workstations, or access windows that need a commercial planning lens.',
+      },
+      {
+        guide: 'interstate',
+        description:
+          'Use the interstate checklist when the southern coastal pickup becomes part of a longer route outside Adelaide.',
+      },
+    ],
+    supportLinks: [
+      { url: '/removalists-southern-adelaide/', label: 'Return to the Southern Adelaide hub' },
+      { url: '/packing-services-adelaide/', label: 'Add packing services Adelaide' },
     ],
   },
   'removalists-andrews-farm/index.html': {
@@ -1674,41 +1996,47 @@ const localProofProfiles = {
   },
 };
 
-await rm(distRoot, { recursive: true, force: true, maxRetries: 25, retryDelay: 200 });
-await mkdir(distRoot, { recursive: true });
-const premiumSiteCss = await readFile(path.join(projectRoot, 'premium-site.css'), 'utf8');
-await writeFile(
-  path.join(distRoot, 'premium-site.min.css'),
-  `${minifyCss(premiumSiteCss)}\n`,
-  'utf8',
-);
+const releaseBuildLock = await acquireBuildLock();
 
-for (const page of pages) {
-  const contentPath = path.join(srcRoot, page.contentFile);
-  let content = await readFile(contentPath, 'utf8');
-  content = transformContent(content, page);
+try {
+  await rm(distRoot, { recursive: true, force: true, maxRetries: 25, retryDelay: 200 });
+  await mkdir(distRoot, { recursive: true });
+  const premiumSiteCss = await readFile(path.join(projectRoot, 'premium-site.css'), 'utf8');
+  await writeFile(
+    path.join(distRoot, 'premium-site.min.css'),
+    `${minifyCss(premiumSiteCss)}\n`,
+    'utf8',
+  );
 
-  const head = renderHead(page, content);
-  const bodyAttributes = renderBodyAttributes(page);
-  const template = templates[page.layout] ?? templates.standard;
+  for (const page of pages) {
+    const contentPath = path.join(srcRoot, page.contentFile);
+    let content = await readFile(contentPath, 'utf8');
+    content = transformContent(content, page);
 
-  const html = template
-    .replace('{{HEAD}}', indent(head, 4))
-    .replace('{{BODY_ATTRIBUTES}}', bodyAttributes)
-    .replace('{{HEADER}}', indent(page.layout === 'standard' ? partials.header : '', 4))
-    .replace('{{CONTENT}}', indent(content.trim(), 4))
-    .replace('{{FOOTER}}', indent(page.layout === 'standard' ? partials.footer : '', 4));
+    const head = renderHead(page, content);
+    const bodyAttributes = renderBodyAttributes(page);
+    const template = templates[page.layout] ?? templates.standard;
 
-  const distOutputPath = path.join(distRoot, page.output);
-  await mkdir(path.dirname(distOutputPath), { recursive: true });
-  await writeFile(distOutputPath, `${normalizeSiteUrl(html.trim())}\n`, 'utf8');
-  console.log(`built ${page.output}`);
+    const html = template
+      .replace('{{HEAD}}', indent(head, 4))
+      .replace('{{BODY_ATTRIBUTES}}', bodyAttributes)
+      .replace('{{HEADER}}', indent(page.layout === 'standard' ? partials.header : '', 4))
+      .replace('{{CONTENT}}', indent(content.trim(), 4))
+      .replace('{{FOOTER}}', indent(page.layout === 'standard' ? partials.footer : '', 4));
+
+    const distOutputPath = path.join(distRoot, page.output);
+    await mkdir(path.dirname(distOutputPath), { recursive: true });
+    await writeFile(distOutputPath, `${normalizeSiteUrl(html.trim())}\n`, 'utf8');
+    console.log(`built ${page.output}`);
+  }
+
+  const sitemap = await renderSitemap(pages);
+  await writeFile(path.join(distRoot, 'sitemap.xml'), normalizeSiteUrl(sitemap), 'utf8');
+
+  await copyStaticAssets();
+} finally {
+  await releaseBuildLock();
 }
-
-const sitemap = await renderSitemap(pages);
-await writeFile(path.join(distRoot, 'sitemap.xml'), normalizeSiteUrl(sitemap), 'utf8');
-
-await copyStaticAssets();
 
 function renderHead(page, content) {
   const ogImage =
@@ -1870,7 +2198,7 @@ function buildWebPageJsonLd(page) {
     return '';
   }
 
-  if ((page.robots || '').includes('noindex')) {
+  if (!isIndexablePage(page)) {
     return '';
   }
 
@@ -1896,7 +2224,7 @@ function buildWebPageJsonLd(page) {
 }
 
 function getServiceSchemaConfig(page) {
-  if ((page.robots || '').includes('noindex')) {
+  if (!isIndexablePage(page)) {
     return null;
   }
 
@@ -2395,6 +2723,58 @@ function normalizeSiteUrl(value) {
   return value.replaceAll(legacySiteOrigin, preferredSiteOrigin);
 }
 
+async function acquireBuildLock(retries = 200) {
+  const lockDir = path.join(projectRoot, '.build-site.lock');
+
+  for (let attempt = 0; attempt < retries; attempt += 1) {
+    try {
+      await mkdir(lockDir);
+      return async () => {
+        await rm(lockDir, { recursive: true, force: true });
+      };
+    } catch (error) {
+      if (error && error.code === 'EEXIST') {
+        await new Promise((resolve) => setTimeout(resolve, 50));
+        continue;
+      }
+      throw error;
+    }
+  }
+
+  throw new Error('Timed out waiting for the site build lock.');
+}
+
+function pageHasRobotsDirective(page, directive) {
+  return (page.robots || '')
+    .split(',')
+    .map((value) => value.trim().toLowerCase())
+    .includes(directive.toLowerCase());
+}
+
+function isRedirectPage(page) {
+  return page.layout === 'redirect';
+}
+
+function isNoindexPage(page) {
+  return pageHasRobotsDirective(page, 'noindex');
+}
+
+function isUtilityOutput(output) {
+  return output === '404.html' || output === 'thank-you.html';
+}
+
+function isPreviewOutput(output) {
+  return output === 'premium-moving-concepts/index.html' || output.startsWith('premium-moving-concepts/');
+}
+
+function isIndexablePage(page) {
+  return !isRedirectPage(page) && !isNoindexPage(page) && !isUtilityOutput(page.output) && !isPreviewOutput(page.output);
+}
+
+function shouldIncludeInSitemap(page) {
+  return isIndexablePage(page) && page.output !== 'privacy-policy/index.html' && page.output !== 'terms-and-conditions/index.html';
+}
+
 function normalizePageUrls(page) {
   for (const key of ['canonical', 'ogUrl', 'ogImage', 'twitterImage', 'heroImage']) {
     if (typeof page[key] === 'string') {
@@ -2780,6 +3160,20 @@ function getRelatedLinksProfile(page) {
           cta: 'View office removals',
         },
         {
+          eyebrow: 'Southern Adelaide',
+          title: 'Southern Adelaide removals',
+          copy: 'Use the southern hub for Marion, Hallett Cove, Morphett Vale, Noarlunga, and broader south-side route planning.',
+          url: '/removalists-southern-adelaide/',
+          cta: 'View southern Adelaide',
+        },
+        {
+          eyebrow: 'Northern Adelaide',
+          title: 'Northern Adelaide removals',
+          copy: 'Use the northern hub for Salisbury, Elizabeth, Gawler, and wider northside family-home or storage routes.',
+          url: '/removalists-northern-adelaide/',
+          cta: 'View northern Adelaide',
+        },
+        {
           eyebrow: 'Quote',
           title: 'Request a fixed-price quote',
           copy: 'Send the addresses, property type, and access notes for a clear Adelaide move quote.',
@@ -3064,6 +3458,13 @@ function getRelatedLinksProfile(page) {
           cta: 'View packing services',
         },
         {
+          eyebrow: 'Interstate',
+          title: 'Interstate removals Adelaide',
+          copy: 'Use the interstate hub if the suburb move also includes a longer route beyond Adelaide.',
+          url: '/interstate-removals-adelaide/',
+          cta: 'View interstate removals',
+        },
+        {
           eyebrow: 'Quote',
           title: 'Request a fixed-price quote',
           copy: 'Send the addresses, property type, and access notes for a clear quote.',
@@ -3101,6 +3502,20 @@ function getRelatedLinksProfile(page) {
           copy: 'For offices, clinics, studios, and workspaces that need access and restart planning.',
           url: '/office-removals-adelaide/',
           cta: 'View office removals',
+        },
+        {
+          eyebrow: 'Furniture',
+          title: 'Furniture removals Adelaide',
+          copy: 'Use the furniture page when the job is led by bulky, delicate, or single-item handling.',
+          url: '/furniture-removalists-adelaide/',
+          cta: 'View furniture removals',
+        },
+        {
+          eyebrow: 'Packing',
+          title: 'Packing services Adelaide',
+          copy: 'Use the packing page when the move needs wrapping, carton sequencing, or fragile-item preparation.',
+          url: '/packing-services-adelaide/',
+          cta: 'View packing services',
         },
         {
           eyebrow: 'Quote',
@@ -3288,11 +3703,7 @@ async function renderSitemap(pages) {
   const urls = [];
 
   for (const page of pages) {
-    if (page.output === 'privacy-policy/index.html' || page.output === 'terms-and-conditions/index.html') {
-      continue;
-    }
-
-    if ((page.robots || '').includes('noindex')) {
+    if (!shouldIncludeInSitemap(page)) {
       continue;
     }
 
