@@ -1699,20 +1699,51 @@ function renderBreadcrumbMarkup(items) {
     .join('')}</ol></nav>`;
 }
 
-function renderHeroMedia(image) {
+function getHeroMediaNote(pageType) {
+  switch (pageType) {
+    case 'suburb':
+      return {
+        eyebrow: 'Local route planning',
+        title: 'Suburb-level access matters before the quote is confirmed.',
+        copy: 'Apartment access, stair carries, parking pressure, storage stops, and corridor timing all change the brief.',
+      };
+    case 'guide':
+      return {
+        eyebrow: 'Planning support',
+        title: 'Use the guide to sharpen the move brief before you enquire.',
+        copy: 'The goal is to turn pricing, access, and handling questions into a clearer quote request.',
+      };
+    default:
+      return {
+        eyebrow: 'Service fit',
+        title: 'Quote quality improves when the move details are reviewed together.',
+        copy: 'Addresses, property type, inventory mix, timing, and access notes should travel through the same brief.',
+      };
+  }
+}
+
+function renderHeroMedia(image, pageType) {
+  const note = getHeroMediaNote(pageType);
+  const noteMarkup = `<div class="page-hero-media-note">
+  <span class="proof-label">${escapeHtml(note.eyebrow)}</span>
+  <strong>${escapeHtml(note.title)}</strong>
+  <p>${escapeHtml(note.copy)}</p>
+</div>`;
+
   if (!image) {
-    return '';
+    return `<div class="page-hero-media page-hero-media-stack">${noteMarkup}</div>`;
   }
 
-  return `<div class="page-hero-media">
+  return `<div class="page-hero-media page-hero-media-stack">
   <figure class="media-frame" data-generated-module="hero-image">
     <img alt="${escapeAttribute(image.alt)}" fetchpriority="high" loading="eager" src="${escapeAttribute(image.path)}" />
   </figure>
+  ${noteMarkup}
 </div>`;
 }
 
 function renderPageHero({ eyebrow, title, lead, supporting = [], points = [], primaryCta, secondaryCta, image, breadcrumbs, pageType }) {
-  return `<section class="hero-shell" data-generated-module="hero-title">
+  return `<section class="hero-shell page-hero-shell-premium" data-generated-module="hero-title">
   <div class="container">
     ${renderBreadcrumbMarkup(breadcrumbs)}
     <div class="page-hero-grid">
@@ -1720,16 +1751,16 @@ function renderPageHero({ eyebrow, title, lead, supporting = [], points = [], pr
         <span class="eyebrow">${escapeHtml(eyebrow)}</span>
         <h1>${escapeHtml(title)}</h1>
         <p class="lead">${escapeHtml(lead)}</p>
-        ${supporting.map((item) => `<p class="field-note">${escapeHtml(item)}</p>`).join('')}
-        <ul aria-label="${escapeAttribute(title)} highlights" class="route-meta">
+        ${supporting.length > 0 ? `<div class="page-hero-support-grid">${supporting.map((item) => `<p class="field-note page-hero-support-note">${escapeHtml(item)}</p>`).join('')}</div>` : ''}
+        ${points.length > 0 ? `<ul aria-label="${escapeAttribute(title)} highlights" class="route-meta route-meta-premium">
           ${points.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}
-        </ul>
+        </ul>` : ''}
         <div class="cta-cluster" data-generated-cta="top" data-generated-page-type="${escapeAttribute(pageType)}">
           <a class="button button-primary" href="${escapeAttribute(primaryCta.href)}">${escapeHtml(primaryCta.label)}</a>
           <a class="button button-secondary" href="${escapeAttribute(secondaryCta.href)}">${escapeHtml(secondaryCta.label)}</a>
         </div>
       </div>
-      ${renderHeroMedia(image)}
+      ${renderHeroMedia(image, pageType)}
     </div>
   </div>
 </section>`;
@@ -1814,8 +1845,10 @@ function renderFaqSectionBlock({ module, eyebrow, heading, intro = '', items = [
 function renderQuoteStrip({ eyebrow, heading, copy, primaryCta, secondaryCta, pageType }) {
   return `<section class="section" data-generated-module="bottom-cta">
   <div class="container">
-    <div class="quote-strip">
-      ${renderSectionHeading(eyebrow, heading, copy)}
+    <div class="quote-strip quote-strip-premium">
+      <div class="quote-strip-content">
+        ${renderSectionHeading(eyebrow, heading, copy)}
+      </div>
       <div class="cta-cluster" data-generated-cta="bottom" data-generated-page-type="${escapeAttribute(pageType)}">
         <a class="button button-primary" href="${escapeAttribute(primaryCta.href)}">${escapeHtml(primaryCta.label)}</a>
         <a class="button button-secondary" href="${escapeAttribute(secondaryCta.href)}">${escapeHtml(secondaryCta.label)}</a>
