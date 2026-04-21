@@ -485,6 +485,21 @@ function setupRevealAnimations() {
   nodes.forEach((node) => observer.observe(node));
 }
 
+function setupStickyCta() {
+  const stickyCta = document.getElementById("sticky-cta");
+  if (!stickyCta) {
+    return;
+  }
+
+  const syncState = () => {
+    // Show after scrolling past roughly the hero height (e.g. 500px)
+    stickyCta.classList.toggle("is-visible", window.scrollY > 500);
+  };
+
+  syncState();
+  window.addEventListener("scroll", syncState, { passive: true });
+}
+
 setCurrentYear();
 setQuoteDateMinimum();
 setupHeaderDetails();
@@ -493,3 +508,4 @@ setupQuoteForms();
 setupLocalFormPreview();
 setupHeaderState();
 setupRevealAnimations();
+setupStickyCta();
