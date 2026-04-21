@@ -3141,7 +3141,8 @@ function transformContent(content, page) {
   const faqSection = renderFaqSection(page, next);
   const seoSupport = renderSeoSupportSection(page);
   const relatedLinks = renderRelatedLinksSection(page);
-  const supplementalSections = [proofSection, faqSection, seoSupport, relatedLinks]
+  const authoritySection = renderAuthoritySection(page);
+  const supplementalSections = [proofSection, faqSection, seoSupport, authoritySection, relatedLinks]
     .filter(Boolean)
     .join('\n');
 
@@ -3464,6 +3465,48 @@ function sanitizePublicCopy(content) {
     );
 }
 
+function renderAuthoritySection(page) {
+  const output = page.output;
+  if (output === 'index.html' || output === 'contact-us/index.html' || output === '404.html' || output === 'thank-you.html') {
+    return '';
+  }
+
+  const sectionId = `${output.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}-authority`;
+
+  return `
+<section aria-labelledby="${sectionId}" class="section section-dark-plan">
+  <div class="container">
+    <div class="section-heading reveal-on-scroll">
+      <span class="eyebrow">Move Planning Authority</span>
+      <h2 id="${sectionId}">How we guarantee a smoother relocation.</h2>
+      <p>We review every brief to eliminate variables before move day. Here is what you should expect.</p>
+    </div>
+    <div class="proof-grid">
+      <article class="proof-card reveal-on-scroll">
+        <span class="proof-label">Route & Access</span>
+        <h3>Common access issues we account for</h3>
+        <p>We check for lift bookings, loading docks, long carries, and parking restrictions to ensure our trucks and crew are properly equipped.</p>
+      </article>
+      <article class="proof-card reveal-on-scroll">
+        <span class="proof-label">Cost Transparency</span>
+        <h3>What changes pricing</h3>
+        <p>Your quote is based on the volume of your inventory and the time required to navigate your specific pickup and delivery locations.</p>
+      </article>
+      <article class="proof-card reveal-on-scroll">
+        <span class="proof-label">Fixed-Price Value</span>
+        <h3>Why fixed-price quotes help clients</h3>
+        <p>Hourly rates reward slow work. A fixed-price quote guarantees the cost upfront, giving you total peace of mind regardless of traffic or unexpected delays.</p>
+      </article>
+      <article class="proof-card reveal-on-scroll">
+        <span class="proof-label">Next Steps</span>
+        <h3>What happens after enquiry</h3>
+        <p>Our Adelaide team manually reviews your brief and replies with a confirmed quote and clear logistics plan, usually within a few hours.</p>
+      </article>
+    </div>
+  </div>
+</section>`;
+}
+
 function renderRelatedLinksSection(page) {
   const profile = getRelatedLinksProfile(page);
   if (!profile) {
@@ -3473,27 +3516,29 @@ function renderRelatedLinksSection(page) {
   const sectionId = `${page.output.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}-related-links`;
   const cards = profile.links
     .map(
-      ({ eyebrow, title, copy, url, cta }) => `<article class="route-card">
-<small>${escapeHtml(eyebrow)}</small>
-<h3>${escapeHtml(title)}</h3>
-<p>${escapeHtml(copy)}</p>
-<a class="button-link" href="${escapeAttribute(url)}">${escapeHtml(cta)}</a>
+      ({ eyebrow, title, copy, url, cta }) => `<article class="route-card reveal-on-scroll">
+  <small>${escapeHtml(eyebrow)}</small>
+  <h3>${escapeHtml(title)}</h3>
+  <p>${escapeHtml(copy)}</p>
+  <footer>
+    <a class="button-link" href="${escapeAttribute(url)}">${escapeHtml(cta)}</a>
+  </footer>
 </article>`,
     )
     .join('\n');
 
   return `
 <section aria-labelledby="${sectionId}" class="section section-soft">
-<div class="container">
-<div class="section-heading">
-<span class="eyebrow">${escapeHtml(profile.eyebrow)}</span>
-<h2 id="${sectionId}">${escapeHtml(profile.heading)}</h2>
-<p>${escapeHtml(profile.intro)}</p>
-</div>
-<div class="route-grid">
+  <div class="container">
+    <div class="section-heading reveal-on-scroll">
+      <span class="eyebrow">${escapeHtml(profile.eyebrow)}</span>
+      <h2 id="${sectionId}">${escapeHtml(profile.heading)}</h2>
+      <p>${escapeHtml(profile.intro)}</p>
+    </div>
+    <div class="route-grid">
 ${cards}
-</div>
-</div>
+    </div>
+  </div>
 </section>`;
 }
 
