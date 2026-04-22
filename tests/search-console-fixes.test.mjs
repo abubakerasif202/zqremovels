@@ -98,6 +98,26 @@ test('generated sitemap and canonicals stay on the apex host', () => {
   assert.match(robots, /Sitemap: https:\/\/zqremovals\.au\/sitemap-index\.xml/);
 });
 
+test('sitemap xml files start with a clean xml declaration', () => {
+  for (const file of [
+    'sitemap.xml',
+    'sitemap-index.xml',
+    'sitemap-pages.xml',
+    'sitemap-services.xml',
+    'sitemap-suburbs.xml',
+    'sitemap-guides.xml',
+    'sitemap-images.xml',
+  ]) {
+    const xml = readDist(file);
+    assert.match(
+      xml,
+      /^\u003c\?xml version="1\.0" encoding="UTF-8"\?>\n/,
+      `missing or malformed XML declaration in ${file}`,
+    );
+    assert.doesNotMatch(xml, /^\s+\u003c\?xml/, `leading whitespace found in ${file}`);
+  }
+});
+
 test('generated html does not leak mixed-host seo output', () => {
   for (const htmlFile of walkHtmlFiles(distDir)) {
     const html = readFileSync(htmlFile, 'utf8');

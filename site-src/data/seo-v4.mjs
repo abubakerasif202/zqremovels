@@ -8,6 +8,31 @@ function toAbsoluteUrl(pathname) {
   return pathname.startsWith('http') ? pathname : `${SITE_URL}${pathname}`;
 }
 
+export function normalizeInternalHref(href = '') {
+  const value = String(href || '').trim();
+
+  if (
+    !value ||
+    value.startsWith('#') ||
+    value.startsWith('tel:') ||
+    value.startsWith('mailto:') ||
+    value.startsWith('http://') ||
+    value.startsWith('https://')
+  ) {
+    return value;
+  }
+
+  if (value.startsWith('//')) {
+    return value;
+  }
+
+  if (value.startsWith('/')) {
+    return value.replace(/\/{2,}/g, '/');
+  }
+
+  return `/${value.replace(/^\.\/+/, '').replace(/\/{2,}/g, '/')}`;
+}
+
 export const seoConfig = {
   siteUrl: SITE_URL,
   businessName: BUSINESS_NAME,
@@ -1917,7 +1942,7 @@ function buildCommercialFactorCards(page) {
 
 function renderBreadcrumbMarkup(items) {
   return `<nav aria-label="Breadcrumb" class="breadcrumb"><ol>${items
-    .map((item) => (item.href ? `<li><a href="${escapeAttribute(item.href)}">${escapeHtml(item.label)}</a></li>` : `<li>${escapeHtml(item.label)}</li>`))
+    .map((item) => (item.href ? `<li><a href="${escapeAttribute(normalizeInternalHref(item.href))}">${escapeHtml(item.label)}</a></li>` : `<li>${escapeHtml(item.label)}</li>`))
     .join('')}</ol></nav>`;
 }
 
@@ -1978,8 +2003,8 @@ function renderPageHero({ eyebrow, title, lead, supporting = [], points = [], pr
           ${points.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}
         </ul>` : ''}
         <div class="cta-cluster" data-generated-cta="top" data-generated-page-type="${escapeAttribute(pageType)}">
-          <a class="button button-primary" href="${escapeAttribute(primaryCta.href)}">${escapeHtml(primaryCta.label)}</a>
-          <a class="button button-secondary" href="${escapeAttribute(secondaryCta.href)}">${escapeHtml(secondaryCta.label)}</a>
+          <a class="button button-primary" href="${escapeAttribute(normalizeInternalHref(primaryCta.href))}">${escapeHtml(primaryCta.label)}</a>
+          <a class="button button-secondary" href="${escapeAttribute(normalizeInternalHref(secondaryCta.href))}">${escapeHtml(secondaryCta.label)}</a>
         </div>
         <div class="cta-reassurance" aria-label="Quote reassurance">
           <p>Fixed pricing - no hidden costs</p>
@@ -2058,7 +2083,7 @@ function renderRouteCardSection({ module, eyebrow, heading, intro = '', cards = 
         <small>${escapeHtml(card.eyebrow)}</small>
         <h3>${escapeHtml(card.title)}</h3>
         <p>${escapeHtml(card.copy)}</p>
-        <a class="button-link" href="${escapeAttribute(card.href)}">${escapeHtml(card.cta)}</a>
+        <a class="button-link" href="${escapeAttribute(normalizeInternalHref(card.href))}">${escapeHtml(card.cta)}</a>
       </article>`,
         )
         .join('')}
@@ -2100,8 +2125,8 @@ function renderQuoteStrip({ eyebrow, heading, copy, primaryCta, secondaryCta, pa
         </div>
       </div>
       <div class="cta-cluster" data-generated-cta="bottom" data-generated-page-type="${escapeAttribute(pageType)}">
-        <a class="button button-primary" href="${escapeAttribute(primaryCta.href)}">${escapeHtml(primaryCta.label)}</a>
-        <a class="button button-secondary" href="${escapeAttribute(secondaryCta.href)}">${escapeHtml(secondaryCta.label)}</a>
+        <a class="button button-primary" href="${escapeAttribute(normalizeInternalHref(primaryCta.href))}">${escapeHtml(primaryCta.label)}</a>
+        <a class="button button-secondary" href="${escapeAttribute(normalizeInternalHref(secondaryCta.href))}">${escapeHtml(secondaryCta.label)}</a>
       </div>
     </div>
   </div>
@@ -2986,7 +3011,7 @@ function toTitle(value) {
 
 function renderLinkListItems(items = []) {
   return items
-    .map((item) => `<li><a href="${item.href}">${item.label}</a></li>`)
+    .map((item) => `<li><a href="${escapeAttribute(normalizeInternalHref(item.href))}">${item.label}</a></li>`)
     .join('');
 }
 

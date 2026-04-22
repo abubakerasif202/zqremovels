@@ -1,4 +1,4 @@
-import { readFileSync, statSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -48,6 +48,43 @@ test('homepage targets Adelaide removalists with the new commercial headline and
   assert.match(homepage, /href="\/adelaide-moving-guides\/moving-heavy-furniture-adelaide\/"/);
   assert.match(homepage, /href="\/adelaide-moving-guides\/office-access-planning-adelaide-cbd\/"/);
   assert.match(homepage, /href="\/adelaide-moving-guides\/when-to-book-packing-services-adelaide\/"/);
+});
+
+test('generated html keeps internal hrefs root-absolute', () => {
+  const htmlFiles = [];
+  (function walk(dir) {
+    for (const entry of readdirSync(dir)) {
+      const fullPath = path.join(dir, entry);
+      if (statSync(fullPath).isDirectory()) {
+        walk(fullPath);
+      } else if (entry.endsWith('.html')) {
+        htmlFiles.push(fullPath);
+      }
+    }
+  })(distDir);
+
+  for (const htmlFile of htmlFiles) {
+    const html = readFileSync(htmlFile, 'utf8');
+    const relativeLinks = [...html.matchAll(/href="([^"]+)"/g)]
+      .map((match) => match[1])
+      .filter((href) =>
+        href &&
+        !href.startsWith('/') &&
+        !href.startsWith('http://') &&
+        !href.startsWith('https://') &&
+        !href.startsWith('mailto:') &&
+        !href.startsWith('tel:') &&
+        !href.startsWith('#') &&
+        !href.startsWith('//') &&
+        !href.startsWith('javascript:'),
+      );
+
+    assert.deepEqual(
+      relativeLinks,
+      [],
+      `relative internal hrefs found in ${path.relative(distDir, htmlFile)}: ${relativeLinks.join(', ')}`,
+    );
+  }
 });
 
 test('quote forms post directly to Web3Forms with the required contact field names', () => {

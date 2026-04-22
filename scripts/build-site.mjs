@@ -1,7 +1,7 @@
 import { copyFile, cp, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { transform } from 'lightningcss';
-import { buildCanonical, buildDescription, buildFAQSchema, buildImageObjectSchema, buildLocalBusinessSchema, buildOGTags, buildServiceSchema, buildTitle, buildTwitterTags, getGeneratedPages, getRouteCoverageReport, getSuburbLinkProfile, mergePagesByOutput, seoConfig } from '../site-src/data/seo-v4.mjs';
+import { buildCanonical, buildDescription, buildFAQSchema, buildImageObjectSchema, buildLocalBusinessSchema, buildOGTags, buildServiceSchema, buildTitle, buildTwitterTags, getGeneratedPages, getRouteCoverageReport, getSuburbLinkProfile, mergePagesByOutput, normalizeInternalHref, seoConfig } from '../site-src/data/seo-v4.mjs';
 
 const workspaceRoot = process.cwd();
 
@@ -2458,7 +2458,7 @@ try {
   await copyStaticAssets();
   const sitemapFiles = await renderSitemaps(pages, renderedHtmlByOutput);
   for (const [name, xml] of Object.entries(sitemapFiles)) {
-    await writeFile(path.join(distRoot, name), normalizeSiteUrl(xml), 'utf8');
+    await writeFile(path.join(distRoot, name), normalizeSiteUrl(xml).trimStart(), 'utf8');
   }
   await writeFile(
     path.join(distRoot, 'robots.txt'),
@@ -3326,6 +3326,11 @@ function transformContent(content, page) {
   if (next.includes('class="hero-section"')) {
     next = next.replaceAll('/brand-logo.png', '/zq-removals-social-share.webp');
   }
+
+  next = next.replace(/href="([^"]+)"/g, (match, href) => {
+    const normalizedHref = normalizeInternalHref(href);
+    return normalizedHref === href ? match : `href="${escapeAttribute(normalizedHref)}"`;
+  });
 
   const proofSection = renderLocalProofSection(page);
   const faqSection = renderFaqSection(page, next);

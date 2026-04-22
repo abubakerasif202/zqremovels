@@ -2,6 +2,17 @@
   "buildCommand": "npm run build",
   "outputDirectory": "site-dist",
   "trailingSlash": true,
+  "headers": [
+    {
+      "source": "/(sitemap.*\\.xml)",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/xml"
+        }
+      ]
+    }
+  ],
   "redirects": [
     {
       "source": "/index.html",
