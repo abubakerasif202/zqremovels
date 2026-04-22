@@ -1283,6 +1283,12 @@ main { display: block; }
   .hero-copy h1, .page-hero-copy h1 { font-size: clamp(2.1rem, 10vw, 2.7rem); }
   .footer-grid { gap: 3rem; }
   .container { width: calc(100% - 2rem); }
+  .button {
+    white-space: normal;
+    text-align: center;
+    line-height: 1.25;
+    letter-spacing: 0.1em;
+  }
   .utility-bar {
     display: none;
   }
@@ -1297,6 +1303,10 @@ main { display: block; }
 
   .utility-row > span {
     max-width: 11rem;
+  }
+
+  .mobile-nav-call {
+    display: none;
   }
 
   .sticky-mobile-cta {
@@ -1346,9 +1356,10 @@ main { display: block; }
 
   .hero-shell-home .button,
   .page-hero-copy .button,
-  .conversion-cta-block .button {
+  .conversion-cta-block .button,
+  .sticky-mobile-cta .button {
     min-height: 3.15rem;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.08em;
   }
 
   .sticky-mobile-cta {
