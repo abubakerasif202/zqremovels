@@ -53,6 +53,19 @@ const SUBURB_PADDING_PARAGRAPH =
   'Every move is reviewed for access, inventory, and timing before scheduling, so clients receive a practical plan supported by experienced local movers.';
 const sourceMtimeCache = new Map();
 const imageAssetExistsCache = new Map();
+const heroImageRouteRules = {
+  interstatePrefix: 'adelaide-to-',
+  interstateKeyword: 'interstate',
+  operationsOutputs: new Set([
+    'office-removals-adelaide/index.html',
+    'office-relocation-adelaide/index.html',
+  ]),
+  serviceOutputs: new Set([
+    'packing-services-adelaide/index.html',
+    'furniture-removalists-adelaide/index.html',
+  ]),
+  servicePrefix: 'adelaide-moving-guides/',
+};
 
 for (const page of pages) {
   normalizePageUrls(page);
@@ -3286,25 +3299,32 @@ function getBodyClasses(page) {
 }
 
 function getOptimizedPageHeroImage(page) {
+  // Route precedence is intentional: interstate > operations > service > local fallback.
   const output = page.output || '';
 
-  if (output.startsWith('adelaide-to-') || output.includes('interstate')) {
+  if (
+    output.startsWith(heroImageRouteRules.interstatePrefix) ||
+    output.includes(heroImageRouteRules.interstateKeyword)
+  ) {
     return '/media/zq-interstate-premium.webp';
   }
 
-  if (output === 'office-removals-adelaide/index.html' || output === 'office-relocation-adelaide/index.html') {
+  if (heroImageRouteRules.operationsOutputs.has(output)) {
     return '/media/zq-operations-premium.webp';
   }
 
-  if (
-    output === 'packing-services-adelaide/index.html' ||
-    output === 'furniture-removalists-adelaide/index.html' ||
-    output.startsWith('adelaide-moving-guides/')
-  ) {
+  if (isServiceHeroRoute(output)) {
     return '/media/zq-service-premium.webp';
   }
 
   return '/media/zq-local-premium.webp';
+}
+
+function isServiceHeroRoute(output) {
+  return (
+    heroImageRouteRules.serviceOutputs.has(output) ||
+    output.startsWith(heroImageRouteRules.servicePrefix)
+  );
 }
 
 function transformContent(content, page) {
@@ -3313,12 +3333,11 @@ function transformContent(content, page) {
   next = next.replace(/\/contact-us(?:\/contact-us)+\/#quote-form/g, '/contact-us/#quote-form');
   next = sanitizePublicCopy(next);
 
-  if (next.includes('/media/Gemini_Generated_Image')) {
-    next = next.replace(
-      /\/media\/Gemini_Generated_Image_[^"'<\s]*\.png/g,
-      getOptimizedPageHeroImage(page),
-    );
-  }
+  // Legacy Gemini PNG references in content are hero images; map them to lighter route-intent hero assets.
+  next = next.replace(
+    /\/media\/Gemini_Generated_Image_[^"'<\s]*\.png/g,
+    getOptimizedPageHeroImage(page),
+  );
 
   // Luxury UI transformations for static content
   next = next

@@ -1283,11 +1283,15 @@ main { display: block; }
   .hero-copy h1, .page-hero-copy h1 { font-size: clamp(2.1rem, 10vw, 2.7rem); }
   .footer-grid { gap: 3rem; }
   .container { width: calc(100% - 2rem); }
-  .button {
+  .mobile-nav-top .button,
+  .hero-shell-home .button,
+  .page-hero-copy .button,
+  .conversion-cta-block .button,
+  .sticky-mobile-cta .button {
+    /* Base mobile wrapping/readability for CTA contexts; compact sizing overrides below at <=480px. */
     white-space: normal;
     text-align: center;
     line-height: 1.25;
-    letter-spacing: 0.1em;
   }
   .utility-bar {
     display: none;
