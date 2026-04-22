@@ -227,6 +227,8 @@ test('generated html keeps internal links root-absolute and avoids relative craw
         href.startsWith('mailto:') ||
         href.startsWith('tel:') ||
         href.startsWith('javascript:') ||
+        href.startsWith('data:') ||
+        href.startsWith('vbscript:') ||
         href.startsWith('#')
       ) {
         continue;
