@@ -1981,6 +1981,11 @@ function renderPageHero({ eyebrow, title, lead, supporting = [], points = [], pr
           <a class="button button-primary" href="${escapeAttribute(primaryCta.href)}">${escapeHtml(primaryCta.label)}</a>
           <a class="button button-secondary" href="${escapeAttribute(secondaryCta.href)}">${escapeHtml(secondaryCta.label)}</a>
         </div>
+        <div class="cta-reassurance" aria-label="Quote reassurance">
+          <p>Fixed pricing - no hidden costs</p>
+          <p>Fast response (usually within 30-60 mins)</p>
+          <p>Planned around your actual move details</p>
+        </div>
       </div>
       ${renderHeroMedia(image, pageType)}
     </div>
@@ -1997,10 +2002,28 @@ function renderSectionHeading(eyebrow, heading, intro = '') {
 }
 
 function renderTextSection({ module, eyebrow, heading, intro = '', paragraphs = [], soft = false }) {
+  const conversionNudge = ['local-intro', 'commercial-intro', 'guide-purpose'].includes(module)
+    ? `<div class="conversion-cta-block" data-generated-cta="mid" data-generated-module="${escapeAttribute(module)}">
+  <span class="eyebrow">Check Your Moving Cost</span>
+  <h3>Planning a move in Adelaide?</h3>
+  <p>Check your moving cost and get a fixed-price quote.</p>
+  <div class="cta-cluster">
+    <a class="button button-primary" href="/contact-us/#quote-form">Check Your Moving Cost</a>
+    <a class="button button-secondary" href="/contact-us/#quote-form">Request a Quote</a>
+  </div>
+  <div class="cta-reassurance" aria-label="Quote reassurance">
+    <p>Fixed pricing - no hidden costs</p>
+    <p>Fast response (usually within 30-60 mins)</p>
+    <p>Planned around your actual move details</p>
+  </div>
+</div>`
+    : '';
+
   return `<section class="section${soft ? ' section-soft' : ''}" data-generated-module="${escapeAttribute(module)}">
   <div class="container">
     ${renderSectionHeading(eyebrow, heading, intro)}
     ${paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('')}
+    ${conversionNudge}
   </div>
 </section>`;
 }
@@ -2070,6 +2093,11 @@ function renderQuoteStrip({ eyebrow, heading, copy, primaryCta, secondaryCta, pa
     <div class="quote-strip quote-strip-premium">
       <div class="quote-strip-content">
         ${renderSectionHeading(eyebrow, heading, copy)}
+        <div class="cta-reassurance" aria-label="Quote reassurance">
+          <p>Fixed pricing - no hidden costs</p>
+          <p>Fast response (usually within 30-60 mins)</p>
+          <p>Planned around your actual move details</p>
+        </div>
       </div>
       <div class="cta-cluster" data-generated-cta="bottom" data-generated-page-type="${escapeAttribute(pageType)}">
         <a class="button button-primary" href="${escapeAttribute(primaryCta.href)}">${escapeHtml(primaryCta.label)}</a>
@@ -2555,7 +2583,7 @@ ${renderQuoteStrip({
   eyebrow: 'Request a Quote',
   heading: `Get your fixed-price quote for ${routeName}`,
   copy: `Plan your move to ${destination} with a clear, professional price and reliable transit window.`,
-  primaryCta: { href: '/contact-us/#quote-form', label: 'Request Quote Online' },
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Get Fixed-Price Quote' },
   secondaryCta: { href: '/interstate-removals-adelaide/', label: 'View All Routes' },
   pageType: 'interstate',
 })}
@@ -2720,7 +2748,7 @@ ${renderQuoteStrip({
   eyebrow: 'Ready to move',
   heading: `Send the ${suburb} route and we will scope it properly`,
   copy: `Include the origin, destination, property type, and any access notes so the quote reflects the real move rather than a thin suburb estimate.`,
-  primaryCta: { href: '/contact-us/#quote-form', label: `Request a ${suburb} quote` },
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Get Fixed-Price Quote' },
   secondaryCta: { href: supportProfile.hubs[0]?.href || '/removalists-adelaide/', label: supportProfile.hubs[0]?.label || 'Review Adelaide removals' },
   pageType: 'suburb',
 })}
@@ -2776,7 +2804,7 @@ ${renderPageHero({
     'Natural links into service pages, suburbs, and quote paths',
     'Written to support real pre-booking questions',
   ],
-  primaryCta: { href: '/contact-us/#quote-form', label: 'Request a quote' },
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Get Fixed-Price Quote' },
   secondaryCta: { href: '/adelaide-moving-guides/', label: 'Back to moving guides' },
   image,
   breadcrumbs: [
@@ -2826,7 +2854,7 @@ ${renderQuoteStrip({
   eyebrow: 'Plan confirmed',
   heading: `Request your quote based on your ${topic} brief`,
   copy: `Ready to book? Send your move details and we will provide a clear, fixed-price quote.`,
-  primaryCta: { href: '/contact-us/#quote-form', label: 'Request Quote Online' },
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Get Fixed-Price Quote' },
   secondaryCta: { href: '/adelaide-moving-guides/', label: 'All Guides' },
   pageType: 'guide',
 })}
@@ -2874,7 +2902,7 @@ ${renderPageHero({
     page.sections[1],
   ],
   points: buildCommercialHighlights(page),
-  primaryCta: { href: '/contact-us/#quote-form', label: 'Request a quote' },
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Get Fixed-Price Quote' },
   secondaryCta: { href: '/removalists-adelaide/', label: 'Review Adelaide removals' },
   image,
   breadcrumbs: [
@@ -2939,7 +2967,7 @@ ${renderQuoteStrip({
   eyebrow: 'Ready to book',
   heading: `Send the details for ${page.title.toLowerCase()}`,
   copy: 'Include the addresses, property type, preferred timing, and access notes so the service can be scoped without filler or guesswork.',
-  primaryCta: { href: '/contact-us/#quote-form', label: `Request ${page.title}` },
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Get Fixed-Price Quote' },
   secondaryCta: { href: '/removalists-adelaide/', label: 'Review Adelaide removals' },
   pageType: 'money',
 })}

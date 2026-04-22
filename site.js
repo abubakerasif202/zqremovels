@@ -132,7 +132,7 @@ function setupFormState() {
 
     if (!submitButton.dataset.defaultLabel) {
       submitButton.dataset.defaultLabel =
-        submitButton.textContent?.trim() ?? "Submit";
+        submitButton.textContent?.trim() ?? "Get My Fixed-Price Quote";
     }
 
     form.addEventListener("submit", (event) => {
@@ -157,7 +157,7 @@ function setupFormState() {
       submitButton.disabled = false;
       submitButton.dataset.submitting = "false";
       submitButton.textContent =
-        submitButton.dataset.defaultLabel ?? submitButton.textContent ?? "Submit";
+        submitButton.dataset.defaultLabel ?? submitButton.textContent ?? "Get My Fixed-Price Quote";
     });
   });
 }
@@ -258,14 +258,14 @@ function setQuoteFormSubmitting(form, isSubmitting) {
 
   if (!submitButton.dataset.defaultLabel) {
     submitButton.dataset.defaultLabel =
-      submitButton.textContent?.trim() ?? "Submit";
+      submitButton.textContent?.trim() ?? "Get My Fixed-Price Quote";
   }
 
   submitButton.disabled = isSubmitting;
   submitButton.dataset.submitting = isSubmitting ? "true" : "false";
   submitButton.textContent = isSubmitting
     ? "Sending quote..."
-    : submitButton.dataset.defaultLabel;
+    : submitButton.dataset.defaultLabel || "Get My Fixed-Price Quote";
 }
 
 async function submitQuoteForm(form, payload) {

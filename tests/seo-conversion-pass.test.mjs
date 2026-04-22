@@ -64,7 +64,9 @@ test('quote forms post directly to Web3Forms with the required contact field nam
     assert.doesNotMatch(formMarkup, /name="move_details"/);
   }
 
-  assert.match(contactPage, /Request My Moving Quote/i);
+  assert.match(contactPage, /Get My Fixed-Price Quote/i);
+  assert.match(contactPage, /Get your fixed-price quote in minutes/i);
+  assert.match(contactPage, /What happens after you enquire/i);
   assert.match(clientScript, /new FormData\(form\)/);
   assert.match(clientScript, /https:\/\/api\.web3forms\.com\/submit/);
   assert.match(clientScript, /d928b483-d5f0-40d7-9eb1-44a56130ba63/);
