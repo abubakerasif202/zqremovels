@@ -215,3 +215,43 @@ test('critical generated pages do not contain broken internal links', () => {
     }
   }
 });
+
+test('generated html keeps internal links root-absolute and avoids relative crawl traps', () => {
+  for (const htmlFile of walkHtmlFiles(distDir)) {
+    const html = readFileSync(htmlFile, 'utf8');
+    for (const match of html.matchAll(/href="([^"]+)"/g)) {
+      const href = match[1];
+      if (
+        href.startsWith('http://') ||
+        href.startsWith('https://') ||
+        href.startsWith('mailto:') ||
+        href.startsWith('tel:') ||
+        href.startsWith('javascript:') ||
+        href.startsWith('#')
+      ) {
+        continue;
+      }
+
+      assert.match(
+        href,
+        /^\//,
+        `non-root-absolute internal href found in ${path.relative(distDir, htmlFile)}: ${href}`,
+      );
+      assert.ok(
+        !href.startsWith('//'),
+        `protocol-relative href found in ${path.relative(distDir, htmlFile)}: ${href}`,
+      );
+    }
+  }
+});
+
+test('generated html no longer serves large Gemini PNG hero assets', () => {
+  for (const htmlFile of walkHtmlFiles(distDir)) {
+    const html = readFileSync(htmlFile, 'utf8');
+    assert.doesNotMatch(
+      html,
+      /\/media\/Gemini_Generated_Image_[^"]+\.png/,
+      `legacy Gemini PNG reference found in ${path.relative(distDir, htmlFile)}`,
+    );
+  }
+});

@@ -3285,11 +3285,40 @@ function getBodyClasses(page) {
   return classes;
 }
 
+function getOptimizedPageHeroImage(page) {
+  const output = page.output || '';
+
+  if (output.startsWith('adelaide-to-') || output.includes('interstate')) {
+    return '/media/zq-interstate-premium.webp';
+  }
+
+  if (output === 'office-removals-adelaide/index.html' || output === 'office-relocation-adelaide/index.html') {
+    return '/media/zq-operations-premium.webp';
+  }
+
+  if (
+    output === 'packing-services-adelaide/index.html' ||
+    output === 'furniture-removalists-adelaide/index.html' ||
+    output.startsWith('adelaide-moving-guides/')
+  ) {
+    return '/media/zq-service-premium.webp';
+  }
+
+  return '/media/zq-local-premium.webp';
+}
+
 function transformContent(content, page) {
   let next = renderSuburbPage(page) || content;
   next = next.replaceAll('href="/#quote-form"', 'href="/contact-us/#quote-form"');
   next = next.replace(/\/contact-us(?:\/contact-us)+\/#quote-form/g, '/contact-us/#quote-form');
   next = sanitizePublicCopy(next);
+
+  if (next.includes('/media/Gemini_Generated_Image')) {
+    next = next.replace(
+      /\/media\/Gemini_Generated_Image_[^"'<\s]*\.png/g,
+      getOptimizedPageHeroImage(page),
+    );
+  }
 
   // Luxury UI transformations for static content
   next = next
