@@ -32,6 +32,13 @@ Redesign ZQ Removals into the premier high-end removalist choice in Adelaide. Th
    - Goal: Refine image layouts, add subtle textures, and elevate the quote form flow.
 6. [x] **Iteration 6: Final Production Polish**
    - Goal: Spacing perfection, typography hierarchy, mobile refinement, and micro-interactions.
+7. [x] **Iteration 7: Immersive Hero & Emotional Reassurance**
+   - Goal: Make the hero visually dominant and soften the tone for better connection.
+8. [x] **Iteration 8: Dynamic Layouts & Visual Depth**
+   - Goal: Break the grid patterns with alternating layouts and layered overlaps.
+9. **[CURRENT] Iteration 9: Detail Richness & Iconography**
+   - Goal: Add refined icons, visual markers, and sophisticated accent patterns.
+   - Goal: Add refined icons, visual markers, and sophisticated accent patterns.
 
 ## 6. Creative Freedom Ideas
 - Use "asymmetric image grids" for the hero.
