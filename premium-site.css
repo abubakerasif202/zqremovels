@@ -50,14 +50,14 @@
   --space-1: 0.5rem;
   --space-2: 1rem;
   --space-3: 1.5rem;
-  --space-4: 2.25rem;
-  --space-5: 4rem;
-  --space-6: 6rem;
-  --space-7: 9rem;
-  --space-8: 12rem;
-  --space-9: 16rem;
+  --space-4: 1.5rem;
+  --space-5: 2.5rem;
+  --space-6: 4rem;
+  --space-7: 6rem;
+  --space-8: 8rem;
+  --space-9: 10rem;
   
-  --header-height: 7rem;
+  --header-height: 5.5rem;
   
   /* Typography - Editorial Precision */
   --font-body: "Inter", system-ui, -apple-system, sans-serif;
@@ -1076,9 +1076,9 @@ main { display: block; }
 
 
 .home-premium-hero {
-  padding-top: calc(var(--header-height) + var(--space-4));
-  padding-bottom: var(--space-5);
-  min-height: clamp(550px, 75vh, 850px);
+  padding-top: calc(var(--header-height) + var(--space-3));
+  padding-bottom: var(--space-4);
+  min-height: auto;
   display: flex;
   align-items: center;
 }
