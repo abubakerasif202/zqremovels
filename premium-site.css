@@ -40,9 +40,10 @@
   --color-shadow: rgba(10, 25, 47, 0.03);
   --shadow-soft: 0 12px 40px var(--color-shadow);
   --shadow-card: 0 40px 100px rgba(10, 25, 47, 0.08);
+  --shadow-card-v5: 0 20px 50px rgba(10, 25, 47, 0.12);
   
   /* Layout & Spacing - Airy Production Standards */
-  --radius: 0px; 
+  --radius: 8px; 
   --radius-pill: 999px;
   --content-width: 1400px;
   --content-narrow: 840px;
@@ -649,6 +650,20 @@ main { display: block; }
   .value-grid { grid-template-columns: repeat(4, 1fr); }
 }
 
+.form-urgency-v5 {
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #ff4d4d;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(255, 77, 77, 0.05);
+  border: 1px solid rgba(255, 77, 77, 0.1);
+  border-radius: var(--radius);
+}
+
 .service-card, .value-card, .route-card, .testimonial-card, .timeline-card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -657,7 +672,7 @@ main { display: block; }
   gap: 1.5rem;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--shadow-card-v5);
 }
 
 .service-card:hover, .value-card:hover, .route-card:hover {
@@ -1115,6 +1130,30 @@ main { display: block; }
   flex-wrap: wrap;
   gap: 1.5rem;
   margin: 0.5rem 0 1rem;
+}
+
+.hero-trust-bar-v5 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin: 2rem 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.trust-pill-v5 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.trust-pill-v5 span {
+  color: var(--color-accent);
+  font-size: 1.1rem;
 }
 
 .trust-pill {
