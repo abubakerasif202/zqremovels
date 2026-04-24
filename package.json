@@ -12,5 +12,8 @@
   },
   "devDependencies": {
     "lightningcss": "^1.32.0"
+  },
+  "dependencies": {
+    "sharp": "^0.34.5"
   }
 }
