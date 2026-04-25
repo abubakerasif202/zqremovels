@@ -1,4 +1,4 @@
-import { copyFile, cp, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import { copyFile, cp, mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { transform } from 'lightningcss';
 import { buildCanonical, buildDescription, buildFAQSchema, buildImageObjectSchema, buildLocalBusinessSchema, buildOGTags, buildServiceSchema, buildTitle, buildTwitterTags, getGeneratedPages, getRouteCoverageReport, getSuburbLinkProfile, mergePagesByOutput, normalizeInternalHref, seoConfig } from '../site-src/data/seo-v4.mjs';
@@ -2442,6 +2442,16 @@ try {
     'utf8',
   );
 
+  // Pre-load the set of available responsive image variants so srcset
+  // injection can be done without hitting the filesystem per page.
+  let responsiveVariants = new Set();
+  try {
+    const rFiles = await readdir(path.join(projectRoot, 'media', 'responsive'));
+    responsiveVariants = new Set(rFiles.filter((f) => f.endsWith('.webp')));
+  } catch {
+    // media/responsive doesn't exist yet — srcset injection skipped.
+  }
+
   for (const page of pages) {
     let content = page.contentHtml;
     if (!content) {
@@ -2463,8 +2473,9 @@ try {
 
     const distOutputPath = path.join(distRoot, page.output);
     await mkdir(path.dirname(distOutputPath), { recursive: true });
-    await writeFile(distOutputPath, `${normalizeSiteUrl(html.trim())}\n`, 'utf8');
-    renderedHtmlByOutput.set(page.output.replace(/\\/g, '/'), normalizeSiteUrl(html.trim()));
+    const finalHtml = injectResponsiveSrcset(normalizeSiteUrl(html.trim()), responsiveVariants);
+    await writeFile(distOutputPath, `${finalHtml}\n`, 'utf8');
+    renderedHtmlByOutput.set(page.output.replace(/\\/g, '/'), finalHtml);
     console.log(`built ${page.output}`);
   }
 
@@ -3394,6 +3405,78 @@ function transformContent(content, page) {
   }
 
   return next;
+}
+
+/**
+ * Inject responsive srcset and sizes attributes into <img> elements that
+ * reference /media/*.webp files, using pre-generated responsive variants
+ * from /media/responsive/.
+ *
+ * @param {string} html - Fully assembled page HTML.
+ * @param {Set<string>} responsiveVariants - Filenames available in media/responsive/.
+ * @returns {string} HTML with srcset injected where variants exist.
+ */
+function injectResponsiveSrcset(html, responsiveVariants) {
+  if (responsiveVariants.size === 0) return html;
+
+  /**
+   * Build the srcset string for a given media WebP URL, using available
+   * responsive variants from media/responsive/.
+   */
+  function buildSrcset(srcUrl, encodedName) {
+    const decodedName = decodeURIComponent(encodedName);
+    const baseName = decodedName.replace(/\.webp$/, '');
+    const encodedBase = encodedName.replace(/\.webp$/, '');
+
+    const parts = [];
+    for (const w of [480, 960]) {
+      const variantFile = `${baseName}-${w}w.webp`;
+      if (responsiveVariants.has(variantFile)) {
+        const encodedVariant = `${encodedBase.replace(/ /g, '%20')}-${w}w.webp`;
+        parts.push(`/media/responsive/${encodedVariant} ${w}w`);
+      }
+    }
+    if (parts.length === 0) return null;
+    parts.push(`${srcUrl} 1200w`);
+    return parts.join(', ');
+  }
+
+  // Update <source> elements inside <picture> that have a single WebP srcset URL.
+  let result = html.replace(/<source\b([^>]*?)\s*\/?>/gi, (match, attrs) => {
+    const srcsetMatch = attrs.match(/\bsrcset="(\/media\/([^",\s]+\.webp))"/i);
+    if (!srcsetMatch) return match;
+    const [, srcUrl, encodedName] = srcsetMatch;
+    const srcset = buildSrcset(srcUrl, encodedName);
+    if (!srcset) return match;
+    const sizesStr = '(max-width: 600px) 480px, 960px';
+    const selfClose = match.trimEnd().endsWith('/>') ? ' /' : '';
+    const updatedAttrs = attrs.replace(
+      /\bsrcset="[^"]*"/i,
+      `srcset="${srcset}" sizes="${sizesStr}"`,
+    );
+    return `<source${updatedAttrs}${selfClose}>`;
+  });
+
+  // Update <img> elements that reference media WebP files and lack srcset.
+  result = result.replace(/<img\b([^>]*?)\s*\/?>/gi, (match, attrs) => {
+    // Skip if srcset already present.
+    if (/\bsrcset=/.test(attrs)) return match;
+
+    // Extract the src attribute value.
+    const srcMatch = attrs.match(/\bsrc="(\/media\/([^"]+\.webp))"/i);
+    if (!srcMatch) return match;
+
+    const [, srcUrl, encodedName] = srcMatch;
+    const srcset = buildSrcset(srcUrl, encodedName);
+    if (!srcset) return match;
+
+    const sizesStr = '(max-width: 600px) 480px, 960px';
+    // Preserve self-closing style if the original used />.
+    const selfClose = match.trimEnd().endsWith('/>') ? ' /' : '';
+    return `<img${attrs} srcset="${srcset}" sizes="${sizesStr}"${selfClose}>`;
+  });
+
+  return result;
 }
 
 function getSuburbSlugFromPage(page) {
@@ -4698,7 +4781,11 @@ async function copyStaticAssets() {
   }
 
   await cp(path.join(projectRoot, 'fonts'), path.join(distRoot, 'fonts'), { recursive: true });
-  await cp(path.join(projectRoot, 'media'), path.join(distRoot, 'media'), { recursive: true });
+  // Skip raw PNG source files — every PNG in /media/ has a WebP counterpart.
+  await cp(path.join(projectRoot, 'media'), path.join(distRoot, 'media'), {
+    recursive: true,
+    filter: (src) => !src.toLowerCase().endsWith('.png'),
+  });
 }
 
 async function renderSitemaps(pages, renderedHtmlByOutput = new Map()) {
