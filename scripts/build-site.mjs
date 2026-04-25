@@ -2449,7 +2449,7 @@ try {
     const rFiles = await readdir(path.join(projectRoot, 'media', 'responsive'));
     responsiveVariants = new Set(rFiles.filter((f) => f.endsWith('.webp')));
   } catch {
-    // media/responsive doesn't exist yet — srcset injection skipped.
+    // media/responsive doesn't exist yet — injectResponsiveSrcset will be a no-op.
   }
 
   for (const page of pages) {
@@ -2473,7 +2473,10 @@ try {
 
     const distOutputPath = path.join(distRoot, page.output);
     await mkdir(path.dirname(distOutputPath), { recursive: true });
-    const finalHtml = injectResponsiveSrcset(normalizeSiteUrl(html.trim()), responsiveVariants);
+    const normalizedHtml = normalizeSiteUrl(html.trim());
+    const finalHtml = responsiveVariants.size > 0
+      ? injectResponsiveSrcset(normalizedHtml, responsiveVariants)
+      : normalizedHtml;
     await writeFile(distOutputPath, `${finalHtml}\n`, 'utf8');
     renderedHtmlByOutput.set(page.output.replace(/\\/g, '/'), finalHtml);
     console.log(`built ${page.output}`);
@@ -3432,6 +3435,8 @@ function injectResponsiveSrcset(html, responsiveVariants) {
     for (const w of [480, 960]) {
       const variantFile = `${baseName}-${w}w.webp`;
       if (responsiveVariants.has(variantFile)) {
+        // Encode only spaces (not parentheses) to match the convention used
+        // in the existing src attributes, where ( and ) are left unencoded.
         const encodedVariant = `${encodedBase.replace(/ /g, '%20')}-${w}w.webp`;
         parts.push(`/media/responsive/${encodedVariant} ${w}w`);
       }
