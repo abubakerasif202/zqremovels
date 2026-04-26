@@ -2252,3 +2252,27 @@ main { display: block; }
   opacity: 1;
   transform: translateY(0);
 }
+/* === HERO CONTRAST FIX === */
+
+.hero h1,
+.hero-title,
+.hero-heading {
+  color: #F8F4EA !important;
+}
+
+.hero p,
+.hero-description {
+  color: #DCE3EE !important;
+}
+
+.hero .muted,
+.hero .check,
+.hero li {
+  color: #E6D19A !important;
+}
+
+/* ensure background doesn’t overpower text */
+.hero::before,
+.hero-overlay {
+  opacity: 0.4 !important;
+}
