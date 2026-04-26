@@ -221,6 +221,16 @@ function applyQuoteFormErrors(form, errors) {
     const fieldName = node.getAttribute("data-error-for") ?? "";
     node.textContent = errors[fieldName] ?? "";
   });
+
+  const fields = Array.from(form.elements).filter((field) => isSupportedFormField(field));
+  fields.forEach((field) => {
+    if (errors[field.name]) {
+      field.setAttribute("aria-invalid", "true");
+      return;
+    }
+
+    field.removeAttribute("aria-invalid");
+  });
 }
 
 function setQuoteFormFeedback(form, message, state = "") {
