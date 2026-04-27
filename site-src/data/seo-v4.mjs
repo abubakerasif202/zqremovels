@@ -494,9 +494,9 @@ function normalizeClusterKey(clusterKey) {
 const suburbData = [
   ['adelaide-cbd', 'Adelaide CBD', 'Adelaide CBD', 'CBD', 'tower and lift planning'],
   ['north-adelaide', 'North Adelaide', 'North Adelaide', 'CBD fringe', 'heritage access and parking'],
-  ['glenelg', 'Glenelg', 'Glenelg', 'coastal', 'beachside apartments and parking'],
+  ['glenelg', 'Glenelg', 'Glenelg', 'coastal', 'beachside apartments, coastal parking and weekend access'],
   ['marion', 'Marion', 'Marion', 'southern', 'family homes and mixed-use access'],
-  ['salisbury', 'Salisbury', 'Salisbury', 'northern', 'garage-heavy household moves'],
+  ['salisbury', 'Salisbury', 'Salisbury', 'northern', 'family homes, northern driveway access and large furniture'],
   ['elizabeth', 'Elizabeth', 'Elizabeth', 'northern', 'family-home access and staging'],
   ['elizabeth-downs', 'Elizabeth Downs', 'Elizabeth Downs', 'northern', 'larger inventory and driveway access'],
   ['elizabeth-vale', 'Elizabeth Vale', 'Elizabeth Vale', 'northern', 'unit and townhouse access'],

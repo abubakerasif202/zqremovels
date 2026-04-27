@@ -15,6 +15,17 @@
   ],
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.zqremovals.au"
+        }
+      ],
+      "destination": "https://zqremovals.au/:path*",
+      "permanent": true
+    },
+    {
       "source": "/index.html",
       "destination": "/",
       "permanent": true
@@ -162,6 +173,11 @@
     {
       "source": "/adelaide-cbd.html",
       "destination": "/removalists-adelaide-cbd/",
+      "permanent": true
+    },
+    {
+      "source": "/salisbury.html",
+      "destination": "/removalists-salisbury/",
       "permanent": true
     },
     {
