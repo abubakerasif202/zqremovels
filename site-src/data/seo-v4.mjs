@@ -59,7 +59,7 @@ export const localBusinessSchema = {
   hasMap: seoConfig.socialProfiles[0],
   sameAs: seoConfig.socialProfiles,
   openingHours: 'Mo-Su 00:00-23:59',
-  priceRange: '$150/hr',
+  priceRange: '$$',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Andrews Farm',
@@ -611,6 +611,9 @@ const suburbData = [
   ['seaton-park', 'Seaton Park', 'Seaton Park', 'western', 'quiet residential moves'],
   ['allenby-gardens', 'Allenby Gardens', 'Allenby Gardens', 'western', 'family homes and units'],
   ['rosewater', 'Rosewater', 'Rosewater', 'western', 'mixed housing and access'],
+  ['golden-grove', 'Golden Grove', 'Golden Grove', 'north-eastern', 'family estate and wide access'],
+  ['tea-tree-gully', 'Tea Tree Gully', 'Tea Tree Gully', 'north-eastern', 'hillside and sloped driveway moves'],
+  ['mount-barker', 'Mount Barker', 'Mount Barker', 'hills', 'long-distance metro and estate access'],
 ];
 
 const suburbDataBySlug = new Map(
@@ -1233,6 +1236,56 @@ const commercialPages = [
       },
     ],
   },
+  {
+    slug: 'fixed-price-removalists-adelaide',
+    title: 'Fixed Price Removalists Adelaide | No Hidden Cost Movers',
+    description:
+      'Searching for fixed price removalists Adelaide? ZQ Removals offers upfront, guaranteed pricing with no hidden hourly surprises for house, office, and apartment moves.',
+    canonical: '/fixed-price-removalists-adelaide/',
+    type: 'money',
+    hero: 'Fixed-price moving eliminates the uncertainty of hourly rates. We provide a single, guaranteed price based on your specific move brief.',
+    sections: [
+      'Hourly rates can lead to "slow-walking" or unexpected costs if the truck gets stuck in Adelaide traffic or the lift is busy. Our fixed-price model means the price we quote is the price you pay, regardless of how long the day takes.',
+      'We review every brief properly—including stairs, parking, and furniture inventory—so we can commit to a price that stays stable from the first box to the last.',
+    ],
+    faq: [
+      {
+        question: 'How do you calculate a fixed price?',
+        answer:
+          'We review your pickup and drop-off suburbs, property types, access details (like stairs or lifts), and your inventory to calculate the total work required.',
+      },
+      {
+        question: 'Are there any hidden fees in your fixed quote?',
+        answer:
+          'No. Our fixed-price quotes include travel, fuel, insurance, and equipment. As long as the inventory and access match the brief, the price is guaranteed.',
+      },
+    ],
+  },
+  {
+    slug: 'cheap-vs-fixed-price-removalists-adelaide',
+    title: 'Cheap vs Fixed Price Removalists Adelaide | Value Comparison',
+    description:
+      'Compare cheap removalists Adelaide vs fixed-price movers. Learn why the cheapest hourly rate can become expensive and how to find the best value for your move.',
+    canonical: '/cheap-vs-fixed-price-removalists-adelaide/',
+    type: 'money',
+    hero: 'Choosing between a cheap hourly rate and a fixed-price quote? Understand the hidden costs of "budget" movers and how to ensure your move stays on budget.',
+    sections: [
+      'A low hourly rate often masks the true cost of an Adelaide move. If a team lacks experience or equipment, a "cheap" job can take twice as long, ending up more expensive than a professional fixed-price quote.',
+      'ZQ Removals positions itself as the best value Adelaide removalist. By planning the move properly and committing to a fixed price, we give you cost control and a higher standard of care.',
+    ],
+    faq: [
+      {
+        question: 'Why is fixed-price better than cheap hourly rates?',
+        answer:
+          'Fixed-price quotes remove the risk of "slow-moving" crews or traffic delays increasing your bill. You get a guaranteed price up front.',
+      },
+      {
+        question: 'What are the hidden costs of cheap movers?',
+        answer:
+          'Common hidden costs include depot-to-depot travel fees, fuel surcharges, stairs fees, and lack of transit insurance coverage.',
+      },
+    ],
+  },
 ];
 
 const guideLinkProfiles = {
@@ -1519,6 +1572,42 @@ const commercialLinkProfiles = {
     siblings: [
       { href: '/urgent-movers-adelaide/', label: 'urgent movers' },
       { href: '/last-minute-removalists-adelaide/', label: 'last minute removalists' },
+    ],
+  },
+  'fixed-price-removalists-adelaide': {
+    services: [
+      { href: '/removalists-adelaide/', label: 'Adelaide removals hub' },
+      { href: '/house-removals-adelaide/', label: 'house removals with fixed pricing' },
+    ],
+    suburbs: [
+      { href: '/removalists-adelaide-cbd/', label: 'CBD apartment fixed quotes' },
+      { href: '/removalists-norwood/', label: 'inner-east local moves' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
+      { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'booking timing guide' },
+    ],
+    siblings: [
+      { href: '/cheap-vs-fixed-price-removalists-adelaide/', label: 'cheap vs fixed price comparison' },
+      { href: '/apartment-removalists-adelaide/', label: 'apartment removals' },
+    ],
+  },
+  'cheap-vs-fixed-price-removalists-adelaide': {
+    services: [
+      { href: '/removalists-adelaide/', label: 'Adelaide removals hub' },
+      { href: '/fixed-price-removalists-adelaide/', label: 'fixed-price removals explanation' },
+    ],
+    suburbs: [
+      { href: '/removalists-salisbury/', label: 'northern suburb value moves' },
+      { href: '/removalists-marion/', label: 'south-west value moves' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
+      { href: '/adelaide-moving-guides/suburb-move-preparation-adelaide/', label: 'suburb move prep' },
+    ],
+    siblings: [
+      { href: '/cheap-removalists-adelaide/', label: 'cheap removalists Adelaide' },
+      { href: '/fixed-price-removalists-adelaide/', label: 'fixed price removalists' },
     ],
   },
 };

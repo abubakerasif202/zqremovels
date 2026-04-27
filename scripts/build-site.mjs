@@ -4828,11 +4828,14 @@ async function renderSitemaps(pages, renderedHtmlByOutput = new Map()) {
       page.output === 'adelaide-to-brisbane-removals/index.html' ||
       page.output === 'adelaide-to-canberra-removals/index.html' ||
       page.output === 'adelaide-to-perth-removals/index.html' ||
-      page.output === 'adelaide-to-queensland-removals/index.html'
+      page.output === 'adelaide-to-queensland-removals/index.html' ||
+      page.output === 'fixed-price-removalists-adelaide/index.html' ||
+      page.output === 'cheap-vs-fixed-price-removalists-adelaide/index.html' ||
+      page.output === 'last-minute-movers-adelaide/index.html'
     ) {
       grouped['sitemap-services.xml'].push(entry);
       sitemapLastmods['sitemap-services.xml'].push(lastmod);
-    } else if (page.output.startsWith('cheap-removalists-adelaide/') || page.output.startsWith('same-day-removalists-adelaide/') || page.output.startsWith('last-minute-removalists-adelaide/') || page.output.startsWith('apartment-removalists-adelaide/') || page.output.startsWith('office-relocation-adelaide/') || page.output.startsWith('storage-friendly-removals-adelaide/')) {
+    } else if (page.output.startsWith('cheap-removalists-adelaide/') || page.output.startsWith('same-day-removalists-adelaide/') || page.output.startsWith('last-minute-removalists-adelaide/') || page.output.startsWith('apartment-removalists-adelaide/') || page.output.startsWith('office-relocation-adelaide/') || page.output.startsWith('storage-friendly-removals-adelaide/') || page.output.startsWith('fixed-price-removalists-adelaide/') || page.output.startsWith('cheap-vs-fixed-price-removalists-adelaide/') || page.output.startsWith('last-minute-movers-adelaide/')) {
       grouped['sitemap-services.xml'].push(entry);
       sitemapLastmods['sitemap-services.xml'].push(lastmod);
     } else {

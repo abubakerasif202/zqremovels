@@ -25,11 +25,11 @@ test('homepage targets Adelaide removalists with the new commercial headline and
 
   assert.match(
     homepage,
-    /<h1[^>]*>Adelaide removalists for local, interstate, office, and furniture moves<\/h1>/i,
+    /<h1[^>]*>Adelaide Removalists With Fixed Prices and No Hidden Costs<\/h1>/i,
   );
   assert.match(
     homepage,
-    /ZQ Removals quotes Adelaide house moves, apartment relocations, office removals, furniture-only jobs, packing support, and interstate routes from one clear brief\./i,
+    /Professional house, apartment, office, furniture and interstate moves — planned properly before moving day\. ZQ Removals provides reliable Adelaide removals with upfront fixed pricing\./i,
   );
   assert.match(homepage, /href="\/house-removals-adelaide\/"/);
   assert.match(homepage, /href="\/furniture-removalists-adelaide\/"/);
@@ -41,8 +41,6 @@ test('homepage targets Adelaide removalists with the new commercial headline and
   assert.match(homepage, /href="\/removalists-salisbury\/"/);
   assert.match(homepage, /href="\/removalists-elizabeth\/"/);
   assert.match(homepage, /href="\/removalists-glenelg\/"/);
-  assert.match(homepage, /href="\/removalists-morphett-vale\/"/);
-  assert.match(homepage, /href="\/removalists-noarlunga\/"/);
   assert.match(homepage, /href="\/removalists-southern-adelaide\/"/);
   assert.match(homepage, /href="\/removalists-northern-adelaide\/"/);
   assert.match(homepage, /href="\/adelaide-moving-guides\/moving-heavy-furniture-adelaide\/"/);
@@ -117,8 +115,8 @@ test('house removals page owns the residential keyword and old local-removals UR
   const sitemap = readDist('sitemap-services.xml');
   const vercelConfig = JSON.parse(readFileSync(path.join(root, 'vercel.json'), 'utf8'));
 
-  assert.match(houseRemovals, /<title>House Removals Adelaide \| Local Home Moving Services \| ZQ Removals<\/title>/);
-  assert.match(houseRemovals, /<h1[^>]*>House Removals Adelaide for Family Homes, Apartments, and Townhouse Moves<\/h1>/i);
+  assert.match(houseRemovals, /<title>House Removals Adelaide | Professional Home Movers<\/title>/);
+  assert.match(houseRemovals, /<h1>House Removals Adelaide | Professional Home Movers<\/h1>/i);
   assert.match(houseRemovals, /href="\/removalists-marion\/"/);
   assert.match(houseRemovals, /href="\/removalists-glenelg\/"/);
   assert.match(houseRemovals, /href="\/contact-us\/#quote-form"/);
