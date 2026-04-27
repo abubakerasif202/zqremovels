@@ -1077,24 +1077,26 @@ const commercialPages = [
   },
   {
     slug: 'same-day-removalists-adelaide',
-    title: 'Same Day Removalists Adelaide',
+    title: 'Same Day Removalists Adelaide | Urgent & Emergency Movers',
     description:
-      'Same-day Adelaide removalists for urgent moves where access, inventory, and timing need a practical response without sacrificing care.',
+      'Searching for same day removalists Adelaide? ZQ Removals provides urgent moving support for homes and apartments. Fast response subject to schedule availability.',
     canonical: '/same-day-removalists-adelaide/',
     type: 'money',
-    hero: 'Urgent moves need a fast but controlled response, with the route and access checked before the crew is dispatched.',
+    hero: 'Urgent moves need a fast but controlled response. Availability for same-day removals depends on our daily schedule and the specific requirements of your move brief.',
     sections: [
-      'Same-day removals are usually driven by settlement changes, property issues, or a short-notice relocation that still needs a clean handover.',
-      'The page is designed for fast conversion and clear scoping so urgent clients can book confidently without a long discovery loop.',
+      'Same-day Adelaide removals are designed for high-urgency relocations, whether triggered by settlement changes or emergency property issues. We prioritise clear communication and fast scoping to see if we can help immediately.',
+      'Our ability to support same-day bookings depends on current crew locations and job complexity. We review your access and inventory details instantly to confirm if we can allocate a professional team to your route.',
     ],
     faq: [
       {
-        question: 'Can you do a same-day move in Adelaide?',
-        answer: 'Yes, if the schedule and access are workable. The more detail you can provide early, the faster the move can be confirmed.',
+        question: 'Do you guarantee same-day availability?',
+        answer:
+          'No. Availability depends on our current schedule and the scale of your move. We recommend calling us as early as possible for the best chance of securing a same-day booking.',
       },
       {
-        question: 'What slows down a same-day job?',
-        answer: 'Missing access information, parking uncertainty, and unlisted heavy items are the main causes of delay.',
+        question: 'What is the fastest way to get a same-day quote?',
+        answer:
+          'Call us directly or submit your move brief with full details including pickup and delivery suburbs, property types, and a list of any heavy or bulky items.',
       },
     ],
   },
@@ -1123,24 +1125,26 @@ const commercialPages = [
   },
   {
     slug: 'apartment-removalists-adelaide',
-    title: 'Apartment Removalists Adelaide',
+    title: 'Apartment Removalists Adelaide | Unit & High-Rise Movers',
     description:
-      'Apartment removalists in Adelaide for lift bookings, stairs, loading windows, and compact access that needs careful sequencing.',
+      'Specialist apartment removalists Adelaide for high-rise units, lift bookings, and loading zone coordination. Expert CBD and coastal unit movers.',
     canonical: '/apartment-removalists-adelaide/',
     type: 'money',
-    hero: 'Apartment moves are won by access planning, lift coordination, and a packing order that respects shared spaces.',
+    hero: 'Apartment removals in Adelaide require specialized planning for service lift bookings, loading zone access, and shared corridor sequencing.',
     sections: [
-      'Apartment relocations need a practical plan for lifts, corridors, loading windows, and the risk of bottlenecks in shared buildings.',
-      'This page supports apartment-specific intent while linking to the right suburb and packing pages for conversion.',
+      'Moving into or out of an Adelaide apartment (like those in the CBD, Glenelg, Norwood, or Mawson Lakes) means managing building management rules and tight parking windows.',
+      'We plan for the specific logistics of high-rise and unit living, including stair carries and long corridors, ensuring your furniture is protected and shared spaces are respected.',
     ],
     faq: [
       {
-        question: 'Do apartment moves need a lift booking?',
-        answer: 'Often yes. If the building uses a service lift or a shared loading dock, confirm the booking before move day.',
+        question: 'How do I book a lift for my apartment move?',
+        answer:
+          'Contact your building manager or strata company as early as possible to reserve a dedicated time slot for the service lift, as these are often booked weeks in advance.',
       },
       {
-        question: 'Can you handle stairs-only apartment jobs?',
-        answer: 'Yes. The labour plan just needs to reflect the stair count, carry distance, and item size.',
+        question: 'Do you handle moves in North Adelaide and Norwood apartments?',
+        answer:
+          'Yes. We are highly experienced with the specific access challenges of Adelaide’s inner-east and northern apartment clusters, including narrow entries and stairwells.',
       },
     ],
   },
