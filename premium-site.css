@@ -597,6 +597,7 @@ textarea:focus:not(:focus-visible) {
   display: block;
   border-top: 1px solid var(--color-border);
   background: var(--color-bg);
+  color: var(--text-on-dark);
 }
 
 @media (min-width: 1024px) {
@@ -615,6 +616,7 @@ textarea:focus:not(:focus-visible) {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: var(--text-on-dark);
 }
 
 .mobile-nav details summary.mobile-menu-trigger {
@@ -625,6 +627,7 @@ textarea:focus:not(:focus-visible) {
   border-radius: var(--radius);
   background: var(--color-surface);
   box-shadow: var(--shadow-soft);
+  color: var(--text-on-dark);
 }
 
 .mobile-nav details summary.mobile-menu-trigger::before {
@@ -645,6 +648,7 @@ textarea:focus:not(:focus-visible) {
   display: grid;
   gap: 0.75rem;
   padding-bottom: 2rem;
+  color: var(--text-on-dark);
 }
 
 .mobile-nav .nav-panel {
@@ -656,6 +660,7 @@ textarea:focus:not(:focus-visible) {
   border: 1px solid var(--color-border);
   margin-top: 0.5rem;
   background: var(--color-bg-soft);
+  color: var(--text-on-dark);
 }
 
 .mobile-nav-link {
@@ -665,6 +670,27 @@ textarea:focus:not(:focus-visible) {
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   font-weight: 600;
+  color: var(--text-on-dark);
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link:focus {
+  background: var(--color-bg-soft);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.mobile-nav .nav-panel-link:hover {
+  background: var(--color-surface);
+}
+
+.mobile-nav .button-secondary {
+  color: var(--text-on-dark);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.mobile-nav .header-phone {
+  color: var(--text-on-dark);
 }
 
 /* --- Hero Patterns --- */
@@ -1099,6 +1125,23 @@ textarea:focus:not(:focus-visible) {
   padding-right: 3rem;
 }
 
+.quote-form-premium select option {
+  background-color: #111827; /* Dark background for native dropdown */
+  color: #ffffff;
+}
+
+.quote-form-premium select option:disabled {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.quote-form-premium input:disabled,
+.quote-form-premium select:disabled,
+.quote-form-premium textarea:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background: rgba(255, 255, 255, 0.03);
+}
+
 .quote-form-premium input:focus, 
 .quote-form-premium select:focus, 
 .quote-form-premium textarea:focus {
@@ -1114,7 +1157,7 @@ textarea:focus:not(:focus-visible) {
 
 .quote-form-premium input::placeholder,
 .quote-form-premium textarea::placeholder {
-  color: rgba(216, 222, 232, 0.76);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .quote-form-premium .field-note,
