@@ -1069,6 +1069,22 @@ textarea:focus:not(:focus-visible) {
   margin-left: auto;
 }
 
+.hero-quote-form {
+  margin: 1.25rem 0 0;
+  padding: clamp(1rem, 2vw, 1.35rem);
+  display: grid;
+  gap: 0.85rem;
+  max-width: 46rem;
+}
+
+.hero-quote-form .field-grid {
+  gap: 0.85rem;
+}
+
+.hero-quote-form textarea {
+  min-height: 5.5rem;
+}
+
 .quote-form-groups { display: grid; gap: 2rem; }
 .quote-form-group {
   border: 0; padding: 0; margin: 0;

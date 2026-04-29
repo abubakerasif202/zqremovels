@@ -2627,7 +2627,6 @@ function buildBusinessJsonLd(page) {
       logo: defaultLogoImage,
       hasMap: googleBusinessProfileUrl,
       sameAs: [googleBusinessProfileUrl],
-      openingHours: 'Mo-Su 00:00-23:59',
       priceRange: '$150/hr',
       address: {
         '@type': 'PostalAddress',
@@ -2969,6 +2968,13 @@ function normalizeJsonLdNode(node, page) {
     return normalizeServiceNode(node, page);
   }
 
+  if (types.includes('BlogPosting') && !types.includes('Article')) {
+    return {
+      ...node,
+      '@type': ['Article', 'BlogPosting'],
+    };
+  }
+
   return node;
 }
 
@@ -3048,10 +3054,6 @@ function normalizeMovingCompanyNode(node) {
     ],
   };
 
-  if (openingHoursSpecification) {
-    result.openingHoursSpecification = openingHoursSpecification;
-  }
-
   if (priceRange) {
     result.priceRange = priceRange;
   }
@@ -3091,7 +3093,9 @@ function minifyCss(css) {
 
 function extractFaqPairs(content) {
   const strictPattern =
-    /<article class="faq-item"[\s\S]*?<h3 class="faq-question"[^>]*>([\s\S]*?)<\/h3>[\s\S]*?<p[^>]*itemprop="text"[^>]*>([\s\S]*?)<\/p>[\s\S]*?<\/article>/gi;
+    /<article\b[^>]*class="[^"]*\bfaq-item\b[^"]*"[\s\S]*?<h3\b[^>]*class="[^"]*\bfaq-question\b[^"]*"[^>]*>([\s\S]*?)<\/h3>[\s\S]*?<p[^>]*itemprop="text"[^>]*>([\s\S]*?)<\/p>[\s\S]*?<\/article>/gi;
+  const faqItemPattern =
+    /<article\b[^>]*class="[^"]*\bfaq-item\b[^"]*"[\s\S]*?<h3\b[^>]*class="[^"]*\bfaq-question\b[^"]*"[^>]*>([\s\S]*?)<\/h3>[\s\S]*?<p[^>]*>([\s\S]*?)<\/p>[\s\S]*?<\/article>/gi;
   const loosePattern = /<article>\s*<h3>([\s\S]*?)<\/h3>\s*<p>([\s\S]*?)<\/p>\s*<\/article>/gi;
 
   const pairs = [];
@@ -3108,6 +3112,10 @@ function extractFaqPairs(content) {
   };
 
   for (const match of content.matchAll(strictPattern)) {
+    processMatch(match);
+  }
+
+  for (const match of content.matchAll(faqItemPattern)) {
     processMatch(match);
   }
 
@@ -3182,7 +3190,7 @@ function normalizeSiteUrl(value) {
   return value.replaceAll(legacySiteOrigin, preferredSiteOrigin);
 }
 
-async function acquireBuildLock(retries = 200) {
+async function acquireBuildLock(retries = 800) {
   const lockDir = path.join(projectRoot, '.build-site.lock');
 
   for (let attempt = 0; attempt < retries; attempt += 1) {
@@ -3345,6 +3353,7 @@ function transformContent(content, page) {
   let next = renderSuburbPage(page) || content;
   next = next.replaceAll('href="/#quote-form"', 'href="/contact-us/#quote-form"');
   next = next.replace(/\/contact-us(?:\/contact-us)+\/#quote-form/g, '/contact-us/#quote-form');
+  next = next.replace(/<script\b[^>]*type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/gi, '');
   next = sanitizePublicCopy(next);
 
   // Legacy Gemini PNG references in content are hero images; map them to lighter route-intent hero assets.
@@ -3394,12 +3403,15 @@ function transformContent(content, page) {
     return normalizedHref === href ? match : `href="${escapeAttribute(normalizedHref)}"`;
   });
 
-  const proofSection = renderLocalProofSection(page);
-  const faqSection = renderFaqSection(page, next);
-  const seoSupport = renderSeoSupportSection(page);
-  const relatedLinks = renderRelatedLinksSection(page);
-  const authoritySection = renderAuthoritySection(page);
-  const supplementalSections = [proofSection, faqSection, seoSupport, authoritySection, relatedLinks]
+  const skipSupplemental = page.generatedKind === 'suburb';
+  const proofSection = skipSupplemental ? '' : renderLocalProofSection(page);
+  const faqSection = skipSupplemental ? '' : renderFaqSection(page, next);
+  const seoSupport = skipSupplemental ? '' : renderSeoSupportSection(page);
+  const relatedLinks = skipSupplemental ? '' : renderRelatedLinksSection(page);
+  const authoritySection = skipSupplemental ? '' : renderAuthoritySection(page);
+  const serviceMoneyUpgrade = renderServiceMoneyUpgrade(page);
+  const guideHubExpansion = renderGuideHubExpansion(page);
+  const supplementalSections = [guideHubExpansion, serviceMoneyUpgrade, proofSection, faqSection, seoSupport, authoritySection, relatedLinks]
     .filter(Boolean)
     .join('\n');
 
@@ -3408,6 +3420,239 @@ function transformContent(content, page) {
   }
 
   return next;
+}
+
+function renderGuideHubExpansion(page) {
+  if (page.output !== 'adelaide-moving-guides/index.html') {
+    return '';
+  }
+
+  const guides = [
+    ['/adelaide-moving-guides/removalist-cost-breakdown-adelaide/', 'Removalist cost breakdown Adelaide', 'Compare cost factors'],
+    ['/adelaide-moving-guides/how-much-do-movers-cost-adelaide/', 'How much do movers cost Adelaide', 'Estimate mover pricing'],
+    ['/adelaide-moving-guides/cheap-vs-professional-removalists-adelaide/', 'Cheap vs professional removalists', 'Compare removalist options'],
+    ['/adelaide-moving-guides/hourly-vs-fixed-price-movers-adelaide/', 'Hourly vs fixed price movers', 'Choose a pricing model'],
+    ['/adelaide-moving-guides/moving-house-checklist-adelaide/', 'Moving house checklist Adelaide', 'Plan the house move'],
+    ['/adelaide-moving-guides/last-minute-movers-adelaide-guide/', 'Last minute movers Adelaide guide', 'Check urgent move steps'],
+    ['/adelaide-moving-guides/moving-with-stairs-adelaide/', 'Moving with stairs tips', 'Prepare stair access'],
+    ['/adelaide-moving-guides/office-relocation-checklist-adelaide-guide/', 'Office relocation checklist', 'Plan office relocation'],
+    ['/adelaide-moving-guides/apartment-loading-zone-guide-adelaide/', 'Apartment loading zone guide', 'Review loading zones'],
+    ['/adelaide-moving-guides/furniture-protection-guide-adelaide/', 'Furniture protection guide', 'Protect furniture properly'],
+    ['/adelaide-moving-guides/packing-timeline-adelaide/', 'Packing timeline Adelaide', 'Set packing timing'],
+    ['/adelaide-moving-guides/moving-heavy-items-adelaide-guide/', 'Moving heavy items Adelaide', 'Plan heavy-item handling'],
+    ['/adelaide-moving-guides/downsizing-move-adelaide/', 'Downsizing move Adelaide', 'Map a smaller move'],
+    ['/adelaide-moving-guides/storage-unit-move-adelaide/', 'Storage unit move Adelaide', 'Coordinate storage access'],
+    ['/adelaide-moving-guides/moving-with-kids-adelaide/', 'Moving with kids Adelaide', 'Reduce family move friction'],
+    ['/adelaide-moving-guides/moving-fragile-items-adelaide/', 'Moving fragile items Adelaide', 'Prepare fragile inventory'],
+    ['/adelaide-moving-guides/end-of-lease-moving-adelaide/', 'End of lease moving Adelaide', 'Sequence lease handover'],
+    ['/adelaide-moving-guides/settlement-day-moving-adelaide/', 'Settlement day moving Adelaide', 'Plan settlement timing'],
+    ['/adelaide-moving-guides/weekend-vs-weekday-moving-adelaide/', 'Weekend vs weekday moving Adelaide', 'Compare move days'],
+    ['/adelaide-moving-guides/interstate-removal-checklist-adelaide-guide/', 'Interstate removal checklist', 'Prepare interstate tasks'],
+    ['/adelaide-moving-guides/small-office-move-adelaide/', 'Small office move Adelaide', 'Scope a small office move'],
+    ['/adelaide-moving-guides/coastal-suburb-moving-adelaide/', 'Coastal suburb moving Adelaide', 'Check coastal access'],
+    ['/adelaide-moving-guides/northern-suburbs-moving-adelaide/', 'Northern suburbs moving Adelaide', 'Review northern routes'],
+    ['/adelaide-moving-guides/southern-suburbs-moving-adelaide/', 'Southern suburbs moving Adelaide', 'Review southern routes'],
+  ];
+
+  return `
+<section class="section section-soft" data-guide-cluster-expansion="adelaide">
+  <div class="container">
+    <div class="section-heading reveal-on-scroll">
+      <span class="eyebrow">Expanded Adelaide moving guides</span>
+      <h2>More planning guides for cost, timing, access, and move type.</h2>
+      <p class="lede">Use these guides to answer the planning question first, then move into the best service, suburb, or quote path.</p>
+    </div>
+    <div class="route-grid">
+${guides.map(([href, title, cta]) => `<article class="route-card reveal-on-scroll">
+  <small>Planning guide</small>
+  <h3>${escapeHtml(title)}</h3>
+  <p>Focused Adelaide advice that supports a clearer move brief before requesting a fixed-price quote.</p>
+  <footer><a class="button-link" href="${escapeAttribute(href)}">${escapeHtml(cta)}</a></footer>
+</article>`).join('\n')}
+    </div>
+  </div>
+</section>`;
+}
+
+function renderServiceMoneyUpgrade(page) {
+  const profiles = {
+    'house-removals-adelaide/index.html': {
+      label: 'House removals Adelaide',
+      intro:
+        'House moves need a quote that reflects property type, access, inventory, and the way rooms will be unloaded at the destination.',
+      cost: [
+        ['Access and parking', 'Driveway position, street stopping, stairs, lifts, long carries, and apartment rules can change labour more than distance alone.'],
+        ['Inventory volume', 'Bedrooms, garage items, whitegoods, outdoor furniture, fragile items, and dismantling needs all affect truck space and crew timing.'],
+        ['Packing and preparation', 'A pre-packed home is faster to move, while fragile packing, full-room packing, or last-minute cartons need to be included in the scope.'],
+        ['Timing window', 'Settlement days, school pickup periods, weekend demand, and end-of-month bookings can all shape the recommended move window.'],
+      ],
+      suburbs: [
+        ['/removalists-glenelg/', 'Glenelg house moves'],
+        ['/removalists-marion/', 'Marion family-home moves'],
+        ['/removalists-salisbury/', 'Salisbury house removals'],
+        ['/removalists-unley/', 'Unley townhouse moves'],
+        ['/removalists-prospect/', 'Prospect character homes'],
+        ['/removalists-modbury/', 'Modbury family moves'],
+      ],
+      faqs: [
+        ['What details make a house removals quote accurate?', 'Both addresses, property type, bedrooms, garage items, heavier furniture, stairs, parking, access limits, and whether packing support is needed.'],
+        ['Do house moves cost more when there are stairs?', 'They can. Stairs, long carries, and tight internal turns affect labour time and should be included in the quote request.'],
+        ['Can packing be added to a house move?', 'Yes. Packing can be scoped as fragile-item help, room-by-room packing, or a broader preparation service.'],
+        ['Should I book a weekday or weekend house move?', 'Weekdays can be easier to schedule, while weekends and month-end dates usually need earlier booking.'],
+        ['Can you move garage and outdoor items?', 'Yes. Garage shelving, outdoor furniture, tools, and whitegoods should be listed so load order and truck space are planned.'],
+        ['Do apartment-style house moves need lift details?', 'Yes. If the property has lift, stair, or shared-entry access, include those notes before the quote is confirmed.'],
+        ['Can a local house move become an interstate brief?', 'Yes. If part or all of the inventory is moving interstate, the route, packing, and handover details should be scoped together.'],
+        ['What is the best next step?', 'Send the route, access notes, and item list through the quote form or call if the booking window is urgent.'],
+      ],
+    },
+    'furniture-removalists-adelaide/index.html': {
+      label: 'Furniture removalists Adelaide',
+      intro:
+        'Furniture-led moves are priced around item profile, protection needs, access, and whether the job is a single-item move or part of a larger relocation.',
+      cost: [
+        ['Item size and weight', 'Sofas, beds, dining tables, whitegoods, office desks, and heavy cabinets all need the right labour and loading sequence.'],
+        ['Protection requirements', 'Glass, timber, marble, mirrors, artwork, and delicate finishes may need extra wrapping or a slower handling plan.'],
+        ['Access path', 'Narrow doors, stair turns, apartment lifts, long corridors, and tight parking positions can change the crew plan.'],
+        ['Move type', 'A single-item move, furniture-only transfer, or full house relocation each has a different quote structure.'],
+      ],
+      suburbs: [
+        ['/removalists-adelaide-cbd/', 'CBD apartment furniture'],
+        ['/removalists-glenelg/', 'Glenelg fragile furniture'],
+        ['/removalists-norwood/', 'Norwood terrace furniture'],
+        ['/removalists-henley-beach/', 'Henley Beach furniture moves'],
+        ['/removalists-port-adelaide/', 'Port Adelaide furniture moves'],
+        ['/removalists-mawson-lakes/', 'Mawson Lakes apartment furniture'],
+      ],
+      faqs: [
+        ['Can you move single furniture items?', 'Yes. Single-item moves can be quoted when pickup, delivery, access, and item dimensions are clear.'],
+        ['Do fragile furniture items need special wrapping?', 'Often yes. Glass, marble, polished timber, mirrors, and delicate surfaces should be flagged before booking.'],
+        ['What affects furniture removal pricing?', 'Item weight, item dimensions, stairs, lift access, parking, carry distance, and whether dismantling or wrapping is needed.'],
+        ['Can you move furniture from apartments?', 'Yes. Lift bookings, loading zones, and corridor access should be confirmed before the move is approved.'],
+        ['Do beds and tables need dismantling?', 'Some items do. Tell us what can be dismantled and what needs crew support so the quote is realistic.'],
+        ['Can furniture moves include storage?', 'Yes. Storage pickups, storage deliveries, and split drops can be included in the brief.'],
+        ['Should I choose furniture removals or house removals?', 'Use furniture removals when bulky or delicate items drive the job. Use house removals when the whole property is moving.'],
+        ['How do I request a quote?', 'Send the item list, photos if useful, access notes, and route details through the quote form.'],
+      ],
+    },
+    'office-removals-adelaide/index.html': {
+      label: 'Office removals Adelaide',
+      intro:
+        'Office relocations need a quote that considers downtime, building access, inventory, IT equipment, and the order teams need items placed at destination.',
+      cost: [
+        ['Building access', 'Loading docks, service lifts, after-hours access, induction rules, and parking restrictions shape the move plan.'],
+        ['Business inventory', 'Desks, monitors, filing, archives, meeting-room furniture, stock, and shelving should be listed by zone.'],
+        ['Downtime window', 'The quote should reflect whether the move needs staged packing, evening timing, weekend timing, or a fast restart.'],
+        ['Packing and labelling', 'Crates, labels, monitor handling, archive boxes, and floor plans reduce confusion during the unload.'],
+      ],
+      suburbs: [
+        ['/removalists-adelaide-cbd/', 'Adelaide CBD offices'],
+        ['/removalists-north-adelaide/', 'North Adelaide offices'],
+        ['/removalists-norwood/', 'Norwood commercial moves'],
+        ['/removalists-marion/', 'Marion office moves'],
+        ['/removalists-port-adelaide/', 'Port Adelaide business moves'],
+        ['/removalists-mawson-lakes/', 'Mawson Lakes office moves'],
+      ],
+      faqs: [
+        ['What makes an office removal quote accurate?', 'A clear inventory, building rules, dock or lift access, preferred timing, staff zones, and restart priorities.'],
+        ['Can office moves happen after hours?', 'They can be scoped that way when building access and crew scheduling allow it. Include timing requirements in the brief.'],
+        ['Do monitors and IT equipment need special planning?', 'Yes. IT items should be labelled, protected, and sequenced so they are easier to reset at the new site.'],
+        ['Can small offices use this service?', 'Yes. Small offices still benefit from access planning, labels, and a clear unload sequence.'],
+        ['Do you move archive boxes and filing?', 'Yes. Archive volume and filing cabinets should be listed so weight and placement are planned.'],
+        ['Should staff pack their own desks?', 'That depends on the business. The move brief should state what staff will pack and what the removal team needs to handle.'],
+        ['What suburbs are common for office moves?', 'CBD, North Adelaide, Norwood, Marion, Port Adelaide, Mawson Lakes, and mixed-use corridors often need commercial access planning.'],
+        ['How do I request an office relocation quote?', 'Send the inventory, building access rules, timing window, pickup and delivery addresses, and any packing or crate needs.'],
+      ],
+    },
+    'interstate-removals-adelaide/index.html': {
+      label: 'Interstate removals Adelaide',
+      intro:
+        'Interstate moves need stronger planning because access, packing, route timing, delivery windows, and handover details matter at both ends.',
+      cost: [
+        ['Route and distance', 'Adelaide to Melbourne, Sydney, Brisbane, Canberra, Perth, and Queensland routes all have different timing and linehaul requirements.'],
+        ['Inventory and protection', 'Longer routes make carton quality, wrapping, load order, and fragile-item protection more important.'],
+        ['Access at both ends', 'Stairs, lifts, parking, docks, long carries, and delivery restrictions at either address can change the quote.'],
+        ['Timing and handover', 'Settlement, storage, key handover, delivery windows, and staged loading all need to be documented before booking.'],
+      ],
+      suburbs: [
+        ['/removalists-adelaide-cbd/', 'CBD interstate departures'],
+        ['/removalists-glenelg/', 'Glenelg interstate moves'],
+        ['/removalists-salisbury/', 'Salisbury interstate moves'],
+        ['/removalists-mawson-lakes/', 'Mawson Lakes interstate moves'],
+        ['/removalists-marion/', 'Marion interstate moves'],
+        ['/removalists-andrews-farm/', 'Andrews Farm interstate moves'],
+      ],
+      faqs: [
+        ['What affects interstate removal pricing?', 'Route distance, volume, access at both ends, packing requirements, fragile items, delivery windows, and storage or split delivery needs.'],
+        ['Do interstate moves need more packing?', 'Often yes. Longer transit windows make protection and load sequencing more important.'],
+        ['Can you quote Adelaide to Melbourne or Sydney?', 'Yes. Route-specific interstate pages support major destinations and help frame the brief.'],
+        ['What details are needed at delivery?', 'Property type, stairs, lift access, parking, delivery restrictions, contact details, and handover timing.'],
+        ['Can storage be included?', 'Yes. Storage stops or staged delivery should be included in the quote request.'],
+        ['Should fragile items be listed separately?', 'Yes. Glass, artwork, mirrors, marble, electronics, and delicate furniture should be listed clearly.'],
+        ['Can an interstate move start from any Adelaide suburb?', 'Yes. The suburb page helps with local pickup access, while this page handles the long-distance route.'],
+        ['How do I request an interstate quote?', 'Send origin, destination, property types, move window, inventory, access notes, and packing needs through the quote form.'],
+      ],
+    },
+  };
+
+  const profile = profiles[page.output];
+  if (!profile) return '';
+
+  return `
+<section class="section section-soft" data-service-money-upgrade="${escapeAttribute(page.output)}">
+  <div class="container">
+    <div class="section-heading reveal-on-scroll">
+      <span class="eyebrow">Cost and service depth</span>
+      <h2>${escapeHtml(profile.label)} cost breakdown and planning guide.</h2>
+      <p class="lede">${escapeHtml(profile.intro)}</p>
+    </div>
+    <div class="value-grid">
+${profile.cost.map(([title, copy]) => `<article class="value-card reveal-on-scroll">
+  <h3>${escapeHtml(title)}</h3>
+  <p>${escapeHtml(copy)}</p>
+</article>`).join('\n')}
+    </div>
+  </div>
+</section>
+<section class="section" data-service-trust-upgrade="${escapeAttribute(page.output)}">
+  <div class="container">
+    <div class="editorial-grid">
+      <div class="editorial-copy reveal-on-scroll">
+        <div class="section-heading">
+          <span class="eyebrow">Why choose ZQ</span>
+          <h2>Careful Adelaide movers with a quote-first process.</h2>
+        </div>
+        <p class="lede">The strongest service pages earn trust by explaining how the work is planned, not by making unsupported claims. ZQ Removals reviews access, inventory, timing, and handling needs before the booking is confirmed.</p>
+        <p>That approach helps clients compare quotes more fairly. A low headline price is not useful if it ignores stairs, long carries, fragile furniture, office downtime, storage stops, or interstate handover windows. A clearer brief creates a clearer quote and a cleaner move day.</p>
+        <p>For urgent work, call early. Limited slots this week may be available, and same-day bookings are assessed subject to crew schedule, route, inventory, and access conditions.</p>
+      </div>
+      <aside class="editorial-panel reveal-on-scroll">
+        <h3 style="font-family: var(--font-heading); font-size: 1.35rem;">Relevant Adelaide suburb pages</h3>
+        <div class="inline-link-group" style="margin-top: 1.25rem;">
+${profile.suburbs.map(([href, label]) => `<a href="${escapeAttribute(href)}">${escapeHtml(label)}</a>`).join('\n')}
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+<section class="section section-soft" data-service-faq-upgrade="${escapeAttribute(page.output)}">
+  <div class="container">
+    <div class="section-heading reveal-on-scroll">
+      <span class="eyebrow">Service FAQ</span>
+      <h2>Questions people ask before booking ${escapeHtml(profile.label.toLowerCase())}.</h2>
+      <p class="lede">These answers focus on cost, access, timing, and the details that make the quote more accurate.</p>
+    </div>
+    <div class="faq-list faq-list-premium">
+${profile.faqs.map(([question, answer]) => `<article class="faq-item reveal-on-scroll">
+  <h3 class="faq-question">${escapeHtml(question)}</h3>
+  <div class="faq-answer"><p>${escapeHtml(answer)}</p></div>
+</article>`).join('\n')}
+    </div>
+    <div class="cta-cluster" style="margin-top: 2rem;">
+      <a class="button button-primary" href="/contact-us/#quote-form">Get Quote</a>
+      <a class="button button-secondary" href="tel:+61433819989">Call 0433 819 989</a>
+    </div>
+  </div>
+</section>`;
 }
 
 /**
