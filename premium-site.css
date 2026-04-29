@@ -625,9 +625,9 @@ textarea:focus:not(:focus-visible) {
   list-style: none;
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius);
-  background: var(--color-surface);
+  background: #10213a;
   box-shadow: var(--shadow-soft);
-  color: var(--text-on-dark);
+  color: #ffffff;
 }
 
 .mobile-nav details summary.mobile-menu-trigger::before {
@@ -666,11 +666,11 @@ textarea:focus:not(:focus-visible) {
 .mobile-nav-link {
   display: block;
   padding: 1.25rem;
-  background: var(--color-surface);
+  background: #10213a;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   font-weight: 600;
-  color: var(--text-on-dark);
+  color: #ffffff;
 }
 
 .mobile-nav-link:hover,
@@ -685,12 +685,13 @@ textarea:focus:not(:focus-visible) {
 }
 
 .mobile-nav .button-secondary {
-  color: var(--text-on-dark);
-  border-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .mobile-nav .header-phone {
-  color: var(--text-on-dark);
+  color: #ffffff;
 }
 
 /* --- Hero Patterns --- */
@@ -1599,6 +1600,26 @@ textarea:focus:not(:focus-visible) {
   line-height: 1.6;
 }
 
+.trust-item-bg-service {
+  background-image: linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/media/zq-service-premium.webp');
+  background-size: cover;
+}
+
+.trust-item-bg-local {
+  background-image: linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/media/zq-local-premium.webp');
+  background-size: cover;
+}
+
+.trust-item-bg-operations {
+  background-image: linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/media/custom-operations-source.webp');
+  background-size: cover;
+}
+
+.trust-item-bg-interstate {
+  background-image: linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/media/zq-interstate-premium.webp');
+  background-size: cover;
+}
+
 
 .home-story-grid {
   display: grid;
@@ -1826,6 +1847,80 @@ textarea:focus:not(:focus-visible) {
 
 .plus-marker::before { top: 5px; left: 0; right: 0; height: 2px; }
 .plus-marker::after { left: 5px; top: 0; bottom: 0; width: 2px; }
+
+.plus-marker-corner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+
+.plus-marker-gap-lg {
+  margin-bottom: 2rem;
+}
+
+.plus-marker-gap-md {
+  margin-bottom: 1rem;
+}
+
+.step-visual {
+  height: 12rem;
+  margin: -4rem -3rem 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.step-visual-operations {
+  background-image: url('/media/custom-operations-source.webp');
+  background-size: cover;
+}
+
+.step-visual-route {
+  background-image: url('/media/route-logistics.svg');
+  background-size: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--color-bg-soft);
+}
+
+.step-visual-service {
+  background-image: url('/media/zq-service-premium.webp');
+  background-size: cover;
+}
+
+.step-visual-local {
+  background-image: url('/media/zq-local-premium.webp');
+  background-size: cover;
+}
+
+.route-card-bg-service {
+  background-image: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url('/media/zq-service-premium.webp');
+  background-size: cover;
+}
+
+.route-card-bg-operations {
+  background-image: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url('/media/custom-operations-source.webp');
+  background-size: cover;
+}
+
+.route-card-bg-interstate {
+  background-image: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url('/media/zq-interstate-premium.webp');
+  background-size: cover;
+}
+
+.route-icon {
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+}
+
+.section-soft-team-bg {
+  background-image: linear-gradient(to right, rgba(253,252,248,0.95), rgba(253,252,248,0.85)), url('/media/about-team-branded.webp');
+  background-size: cover;
+  background-position: center;
+}
+
+.label-space-top {
+  margin-top: 1.5rem;
+}
 
 .section-reassurance-pull {
   padding: var(--space-9) 0;

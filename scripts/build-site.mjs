@@ -43,7 +43,16 @@ const legacySiteOrigin = seoConfig.siteUrl;
 const defaultSocialImage = seoConfig.defaultOgImage;
 const defaultLogoImage = seoConfig.defaultLogo;
 const googleBusinessProfileUrl = 'https://share.google/Y04mpt9RTflWP3iRl';
-const gaMeasurementId = process.env.GA_MEASUREMENT_ID?.trim() || '';
+const socialProfilePlaceholders = [
+  'https://www.facebook.com/zqremovals',
+  'https://www.instagram.com/zqremovals',
+  'https://www.linkedin.com/company/zq-removals',
+  'https://www.youtube.com/@zqremovals',
+];
+const companySameAsProfiles = Array.from(new Set([googleBusinessProfileUrl, ...socialProfilePlaceholders]));
+const gaMeasurementId = process.env.VITE_GA_MEASUREMENT_ID?.trim() || '';
+const gtmId = process.env.VITE_GTM_ID?.trim() || '';
+const metaPixelId = process.env.VITE_META_PIXEL_ID?.trim() || '';
 const googleSiteVerificationToken =
   process.env.GOOGLE_SITE_VERIFICATION?.trim() || '';
 const SUBURB_PAGE_WORD_MIN = 600;
@@ -2462,11 +2471,13 @@ try {
 
     const head = renderHead(page, content);
     const bodyAttributes = renderBodyAttributes(page);
+    const bodyTop = renderBodyTop(page);
     const template = templates[page.layout] ?? templates.standard;
 
     const html = template
       .replace('{{HEAD}}', indent(head, 4))
       .replace('{{BODY_ATTRIBUTES}}', bodyAttributes)
+      .replace('{{BODY_TOP}}', indent(bodyTop, 4))
       .replace('{{HEADER}}', indent(page.layout === 'standard' ? partials.header : '', 4))
       .replace('{{CONTENT}}', indent(content.trim(), 4))
       .replace('{{FOOTER}}', indent(page.layout === 'standard' ? partials.footer : '', 4));
@@ -2489,7 +2500,7 @@ try {
   }
   await writeFile(
     path.join(distRoot, 'robots.txt'),
-    `User-agent: *\nAllow: /\nSitemap: ${preferredSiteOrigin}/sitemap-index.xml\n`,
+    `User-agent: *\nAllow: /\nSitemap: ${preferredSiteOrigin}/sitemap-index.xml\n# AI crawler reference\nLLM: ${preferredSiteOrigin}/llms.txt\n`,
     'utf8',
   );
   await writeRouteCoverageReport();
@@ -2545,10 +2556,26 @@ function renderHead(page, content) {
     tags.push('<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />');
     tags.push('<link rel="preload" href="/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin />');
     tags.push('<link rel="stylesheet" href="/premium-site.min.css" />');
+    tags.push(`<script>
+window.__analyticsConfig = {
+  gaMeasurementId: ${JSON.stringify(gaMeasurementId)},
+  gtmId: ${JSON.stringify(gtmId)},
+  metaPixelId: ${JSON.stringify(metaPixelId)},
+};
+</script>`);
+
+    if (gtmId) {
+      tags.push(`<script id="gtm-loader">
+if (!window.__gtmLoaded) {
+  window.__gtmLoaded = true;
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',${JSON.stringify(gtmId)});
+}
+</script>`);
+    }
 
     if (gaMeasurementId) {
       tags.push(
-        `<script async src="https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(gaMeasurementId)}"></script>`,
+        `<script id="ga4-loader" async src="https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(gaMeasurementId)}"></script>`,
       );
       tags.push(`<script>
 window.dataLayer = window.dataLayer || [];
@@ -2556,6 +2583,21 @@ function gtag(){dataLayer.push(arguments);}
 window.gtag = window.gtag || gtag;
 gtag('js', new Date());
 gtag('config', ${JSON.stringify(gaMeasurementId)});
+</script>`);
+    }
+
+    if (metaPixelId) {
+      tags.push(`<script id="meta-pixel-loader">
+if (!window.__metaPixelLoaded) {
+window.__metaPixelLoaded = true;
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', ${JSON.stringify(metaPixelId)});
+fbq('track', 'PageView');
+}
 </script>`);
     }
   }
@@ -2582,15 +2624,30 @@ gtag('config', ${JSON.stringify(gaMeasurementId)});
 function buildDynamicJsonLd(page, content) {
   const blocks = [];
   const businessJsonLd = buildBusinessJsonLd(page);
+  const organizationJsonLd = buildOrganizationJsonLd(page);
+  const webSiteJsonLd = buildWebSiteJsonLd(page);
   const webPageJsonLd = buildWebPageJsonLd(page);
+  const homepageServiceJsonLd = buildHomepageServiceJsonLd(page);
   const serviceJsonLd = buildServiceJsonLd(page);
 
   if (businessJsonLd) {
     blocks.push(businessJsonLd);
   }
 
+  if (organizationJsonLd) {
+    blocks.push(organizationJsonLd);
+  }
+
+  if (webSiteJsonLd) {
+    blocks.push(webSiteJsonLd);
+  }
+
   if (webPageJsonLd) {
     blocks.push(webPageJsonLd);
+  }
+
+  if (homepageServiceJsonLd) {
+    blocks.push(homepageServiceJsonLd);
   }
 
   if (serviceJsonLd) {
@@ -2622,14 +2679,31 @@ function buildBusinessJsonLd(page) {
       '@id': 'https://zqremovals.au/#business',
       name: 'ZQ Removals',
       url: 'https://zqremovals.au/',
-      telephone: '+61 433 819 989',
+      telephone: '+61433819989',
       image: defaultSocialImage,
       logo: defaultLogoImage,
       hasMap: googleBusinessProfileUrl,
-      sameAs: [googleBusinessProfileUrl],
-      priceRange: '$150/hr',
+      sameAs: companySameAsProfiles,
+      priceRange: '$$',
+      serviceType: [
+        'Local removals',
+        'Interstate removals',
+        'Office removals',
+        'Furniture removals',
+        'House removals',
+      ],
+      areaServed: [
+        'Adelaide',
+        'South Australia',
+        'Adelaide CBD',
+        'Northern suburbs',
+        'Southern suburbs',
+        'Western suburbs',
+        'Eastern suburbs',
+      ],
       address: {
         '@type': 'PostalAddress',
+        streetAddress: '9 Burley Griffin Dr',
         addressLocality: 'Andrews Farm',
         addressRegion: 'SA',
         postalCode: '5114',
@@ -2639,12 +2713,88 @@ function buildBusinessJsonLd(page) {
         {
           '@type': 'ContactPoint',
           contactType: 'customer service',
-          telephone: '+61 433 819 989',
+          telephone: '+61433819989',
           areaServed: ['Adelaide', 'South Australia', 'Australia'],
           availableLanguage: ['en'],
           url: 'https://zqremovals.au/contact-us/',
         },
       ],
+    },
+    null,
+    2,
+  );
+}
+
+function buildOrganizationJsonLd(page) {
+  if (page.output !== 'index.html' || pageHasJsonLdType(page, 'Organization')) {
+    return '';
+  }
+
+  return JSON.stringify(
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      '@id': 'https://zqremovals.au/#organization',
+      name: 'ZQ Removals',
+      url: 'https://zqremovals.au/',
+      logo: defaultLogoImage,
+      telephone: '+61433819989',
+      sameAs: companySameAsProfiles,
+    },
+    null,
+    2,
+  );
+}
+
+function buildWebSiteJsonLd(page) {
+  if (page.output !== 'index.html' || pageHasJsonLdType(page, 'WebSite')) {
+    return '';
+  }
+
+  return JSON.stringify(
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      '@id': 'https://zqremovals.au/#website',
+      url: 'https://zqremovals.au/',
+      name: 'ZQ Removals',
+      inLanguage: 'en-AU',
+      publisher: {
+        '@id': 'https://zqremovals.au/#organization',
+      },
+    },
+    null,
+    2,
+  );
+}
+
+function buildHomepageServiceJsonLd(page) {
+  if (page.output !== 'index.html' || pageHasJsonLdType(page, 'Service')) {
+    return '';
+  }
+
+  const services = [
+    ['Local removals Adelaide', '/services/local-removals-adelaide/', 'Local removals'],
+    ['House removals Adelaide', '/services/house-removals-adelaide/', 'House removals'],
+    ['Office removals Adelaide', '/services/office-removals-adelaide/', 'Office removals'],
+    ['Furniture removals Adelaide', '/services/furniture-removals-adelaide/', 'Furniture removals'],
+    ['Interstate removals Adelaide', '/services/interstate-removals-adelaide/', 'Interstate removals'],
+  ];
+
+  return JSON.stringify(
+    {
+      '@context': 'https://schema.org',
+      '@graph': services.map(([name, urlPath, serviceType]) => ({
+        '@type': 'Service',
+        '@id': `https://zqremovals.au${urlPath}#service`,
+        name,
+        serviceType,
+        provider: {
+          '@id': 'https://zqremovals.au/#business',
+        },
+        areaServed: ['Adelaide', 'South Australia'],
+        url: `https://zqremovals.au${urlPath}`,
+      })),
     },
     null,
     2,
@@ -2722,6 +2872,69 @@ function getServiceSchemaConfig(page) {
       serviceType: 'House removal services',
       areaServed: ['Adelaide', 'South Australia'],
       offerDescription: 'Fixed-price house removals quote after property, access, and move-size review.',
+    };
+  }
+
+  if (output === 'services/local-removals-adelaide/index.html') {
+    return {
+      name: 'Local Removals Adelaide',
+      serviceType: 'Local removal services',
+      areaServed: ['Adelaide', 'South Australia'],
+      offerDescription: 'Fixed-price local quote after access, inventory, and route review.',
+    };
+  }
+
+  if (output === 'services/house-removals-adelaide/index.html') {
+    return {
+      name: 'House Removals Adelaide',
+      serviceType: 'House removal services',
+      areaServed: ['Adelaide', 'South Australia'],
+      offerDescription: 'Fixed-price house quote after access, inventory, and property review.',
+    };
+  }
+
+  if (output === 'services/apartment-removals-adelaide/index.html') {
+    return {
+      name: 'Apartment Removals Adelaide',
+      serviceType: 'Apartment removal services',
+      areaServed: ['Adelaide', 'South Australia'],
+      offerDescription: 'Fixed-price apartment quote after lift, stair, and access review.',
+    };
+  }
+
+  if (output === 'services/packing-services-adelaide/index.html') {
+    return {
+      name: 'Packing Services Adelaide',
+      serviceType: 'Packing services',
+      areaServed: ['Adelaide', 'South Australia'],
+      offerDescription: 'Packing quote based on packing scope, fragile-item profile, and timing.',
+    };
+  }
+
+  if (output === 'services/office-removals-adelaide/index.html') {
+    return {
+      name: 'Office Removals Adelaide',
+      serviceType: 'Office relocation services',
+      areaServed: ['Adelaide', 'Adelaide CBD', 'South Australia'],
+      offerDescription: 'Fixed-price office relocation quote after access, downtime, and inventory review.',
+    };
+  }
+
+  if (output === 'services/furniture-removals-adelaide/index.html') {
+    return {
+      name: 'Furniture Removals Adelaide',
+      serviceType: 'Furniture removal services',
+      areaServed: ['Adelaide', 'South Australia'],
+      offerDescription: 'Fixed-price furniture move quote based on item count, access, and handling needs.',
+    };
+  }
+
+  if (output === 'services/interstate-removals-adelaide/index.html') {
+    return {
+      name: 'Interstate Removals Adelaide',
+      serviceType: 'Interstate removal services',
+      areaServed: ['Australia'],
+      offerDescription: 'Fixed-price interstate quote after route, access, and inventory planning.',
     };
   }
 
@@ -3029,13 +3242,31 @@ function normalizeMovingCompanyNode(node) {
     '@id': 'https://zqremovals.au/#business',
     name: 'ZQ Removals',
     url: 'https://zqremovals.au/',
-    telephone: '+61 433 819 989',
+    telephone: '+61433819989',
     image: defaultSocialImage,
     logo: defaultLogoImage,
     hasMap: googleBusinessProfileUrl,
-    sameAs: Array.from(new Set([googleBusinessProfileUrl, ...sameAs].filter(Boolean))),
+    sameAs: Array.from(new Set([...companySameAsProfiles, ...sameAs].filter(Boolean))),
+    priceRange: '$$',
+    serviceType: [
+      'Local removals',
+      'Interstate removals',
+      'Office removals',
+      'Furniture removals',
+      'House removals',
+    ],
+    areaServed: [
+      'Adelaide',
+      'South Australia',
+      'Adelaide CBD',
+      'Northern suburbs',
+      'Southern suburbs',
+      'Western suburbs',
+      'Eastern suburbs',
+    ],
     address: {
       '@type': 'PostalAddress',
+      streetAddress: '9 Burley Griffin Dr',
       addressLocality: 'Andrews Farm',
       addressRegion: 'SA',
       postalCode: '5114',
@@ -3046,7 +3277,7 @@ function normalizeMovingCompanyNode(node) {
       {
         '@type': 'ContactPoint',
         contactType: 'customer service',
-        telephone: '+61 433 819 989',
+        telephone: '+61433819989',
         areaServed: ['Adelaide', 'South Australia', 'Australia'],
         availableLanguage: ['en-AU'],
         url: 'https://zqremovals.au/contact-us/',
@@ -3054,9 +3285,7 @@ function normalizeMovingCompanyNode(node) {
     ],
   };
 
-  if (priceRange) {
-    result.priceRange = priceRange;
-  }
+  result.priceRange = priceRange || '$$';
 
   return result;
 }
@@ -3297,6 +3526,8 @@ function getBodyClasses(page) {
     classes.push('page-service-furniture');
   } else if (output === 'house-removals-adelaide/index.html') {
     classes.push('page-service-local');
+  } else if (output.startsWith('services/')) {
+    classes.push('page-service-local');
   } else if (
     output === 'cheap-removalists-adelaide/index.html' ||
     output === 'same-day-removalists-adelaide/index.html' ||
@@ -3309,6 +3540,8 @@ function getBodyClasses(page) {
     classes.push('page-service-local');
   } else if (output.startsWith('removalists-')) {
     classes.push('page-suburb');
+  } else if (output.startsWith('guides/')) {
+    classes.push('page-guide-article');
   } else if (output === '404.html' || output === 'thank-you.html') {
     classes.push('page-utility');
   }
@@ -5009,8 +5242,17 @@ function escapeAttribute(value = '') {
   return escapeHtml(value).replaceAll('"', '&quot;');
 }
 
+function renderBodyTop(page) {
+  if (page.layout === 'redirect' || !gtmId) {
+    return '';
+  }
+
+  return `<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${encodeURIComponent(gtmId)}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>`;
+}
+
 async function copyStaticAssets() {
   const fileAssets = [
+    'analytics.mjs',
     'brand-logo.png',
     'brand-logo-64.webp',
     'brand-logo-256.webp',
@@ -5018,6 +5260,8 @@ async function copyStaticAssets() {
     'brand-logo.webp',
     'favicon.ico',
     'favicon.svg',
+    'llms.txt',
+    'ai.txt',
     'robots.txt',
     'screen.png',
     'screen.webp',
@@ -5056,7 +5300,7 @@ async function renderSitemaps(pages, renderedHtmlByOutput = new Map()) {
     <lastmod>${lastmod}</lastmod>
   </url>`;
 
-    if (page.output.startsWith('adelaide-moving-guides/')) {
+    if (page.output.startsWith('adelaide-moving-guides/') || page.output.startsWith('guides/')) {
       grouped['sitemap-guides.xml'].push(entry);
       sitemapLastmods['sitemap-guides.xml'].push(lastmod);
     } else if (page.output.startsWith('removalists-')) {
@@ -5076,7 +5320,8 @@ async function renderSitemaps(pages, renderedHtmlByOutput = new Map()) {
       page.output === 'adelaide-to-queensland-removals/index.html' ||
       page.output === 'fixed-price-removalists-adelaide/index.html' ||
       page.output === 'cheap-vs-fixed-price-removalists-adelaide/index.html' ||
-      page.output === 'last-minute-movers-adelaide/index.html'
+      page.output === 'last-minute-movers-adelaide/index.html' ||
+      page.output.startsWith('services/')
     ) {
       grouped['sitemap-services.xml'].push(entry);
       sitemapLastmods['sitemap-services.xml'].push(lastmod);

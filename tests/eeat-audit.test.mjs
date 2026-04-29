@@ -36,7 +36,7 @@ async function buildSite(extraEnv = {}) {
 
 test.before(async () => {
   await buildSite({
-    GA_MEASUREMENT_ID: gaMeasurementId,
+    VITE_GA_MEASUREMENT_ID: gaMeasurementId,
     GOOGLE_SITE_VERIFICATION: searchConsoleVerification,
   });
 });
@@ -96,10 +96,10 @@ test('minified stylesheet output is smaller than the source stylesheet', () => {
 });
 
 test('frontend quote flow emits a GA submission event hook', () => {
-  const clientScript = readDist('site.js');
+  const clientScript = readDist('analytics.mjs');
 
-  assert.match(clientScript, /quote_submitted/);
-  assert.match(clientScript, /window\.gtag/);
+  assert.match(clientScript, /generate_lead/);
+  assert.match(clientScript, /gtag\("event"/);
 });
 
 test('contact page keeps the quote layout while exposing Web3Forms-compatible contact fields', () => {

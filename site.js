@@ -1,3 +1,14 @@
+import {
+  initAnalytics,
+  trackCallClick,
+  trackFormStart,
+  trackFormSubmit,
+  trackMobileMenuOpen,
+  trackOutboundClick,
+  trackQuoteClick,
+  trackServiceCTA,
+} from "./analytics.mjs";
+
 document.documentElement.classList.add("js");
 
 const footerYears = document.querySelectorAll("[data-year]");
@@ -15,6 +26,12 @@ const WEB3FORMS_ACCESS_KEY = "d928b483-d5f0-40d7-9eb1-44a56130ba63";
 const WEB3FORMS_SUBJECT = "New ZQ Removals Quote Request";
 const WEB3FORMS_FROM_NAME = "ZQ Removals Website";
 const DEFAULT_QUOTE_ERROR_MESSAGE = "Could not send the request. Please try again.";
+const SOCIAL_PROFILES = {
+  facebook: "",
+  instagram: "",
+  linkedin: "",
+  youtube: "",
+};
 
 function closeDetails(detailsList, keepOpen = null) {
   detailsList.forEach((details) => {
@@ -60,6 +77,10 @@ function setupHeaderDetails() {
     details.addEventListener("toggle", () => {
       if (!details.open) {
         return;
+      }
+
+      if (details.closest(".mobile-nav") && details.querySelector("summary.mobile-menu-trigger")) {
+        trackMobileMenuOpen();
       }
 
       const siblingDetails = headerDetails.filter((item) => item !== details);
@@ -248,16 +269,98 @@ function setQuoteFormFeedback(form, message, state = "") {
   }
 }
 
-function trackQuoteSubmission(payload) {
-  if (typeof window.gtag !== "function") {
+function isServiceContextPage() {
+  return document.body.classList.contains("page-service-local")
+    || document.body.classList.contains("page-service-furniture")
+    || document.body.classList.contains("page-service-operations")
+    || document.body.classList.contains("page-service-packing")
+    || document.body.classList.contains("page-suburb")
+    || document.body.classList.contains("page-guide-article");
+}
+
+function inferClickLocation(anchor) {
+  if (anchor.closest("#sticky-cta")) {
+    return "sticky_cta";
+  }
+  if (anchor.closest(".site-header")) {
+    return "header";
+  }
+  if (anchor.closest("footer")) {
+    return "footer";
+  }
+  return document.body.className || window.location.pathname;
+}
+
+function trackQuoteSubmission() {
+  trackFormSubmit("quote_form");
+}
+
+function setupConversionTracking() {
+  const trackedForms = new WeakSet();
+  const formStartStoragePrefix = "zq_form_started:";
+
+  document.addEventListener("focusin", (event) => {
+    const form = event.target?.closest?.('form[data-quote-form="quote"]');
+    if (!form || trackedForms.has(form)) {
+      return;
+    }
+
+    trackedForms.add(form);
+    const formName = form.getAttribute("data-form-name") || form.id || "quote_form";
+    const storageKey = `${formStartStoragePrefix}${window.location.pathname}:${formName}`;
+    if (window.sessionStorage?.getItem(storageKey) === "1") {
+      return;
+    }
+    window.sessionStorage?.setItem(storageKey, "1");
+    trackFormStart(formName);
+  });
+
+  document.addEventListener("click", (event) => {
+    const anchor = event.target?.closest?.("a[href]");
+    if (!anchor) {
+      return;
+    }
+
+    const href = anchor.getAttribute("href") || "";
+    if (href.startsWith("tel:")) {
+      trackCallClick(inferClickLocation(anchor));
+      return;
+    }
+
+    const isOutbound = /^https?:\/\//i.test(href) && !href.startsWith(window.location.origin);
+    if (isOutbound) {
+      trackOutboundClick(href);
+      return;
+    }
+
+    if (!href.includes("#quote-form") && href !== "#premium-quote" && href !== "/contact-us/") {
+      return;
+    }
+
+    trackQuoteClick(inferClickLocation(anchor));
+    if (isServiceContextPage()) {
+      trackServiceCTA(window.location.pathname);
+    }
+  });
+}
+
+function setupFooterSocialLinks() {
+  const section = document.querySelector("[data-social-section]");
+  const list = document.querySelector("[data-social-links]");
+  if (!section || !list) {
     return;
   }
 
-  window.gtag("event", "quote_submitted", {
-    source_page: payload.source_page || window.location.pathname,
-    move_scope: payload.move_scope || "",
-    property_type: payload.property_type || "",
-  });
+  const entries = Object.entries(SOCIAL_PROFILES).filter(([, url]) => typeof url === "string" && url.trim());
+  if (entries.length === 0) {
+    section.hidden = true;
+    return;
+  }
+
+  list.innerHTML = entries
+    .map(([network, url]) => `<li><a href="${url}" rel="noopener noreferrer" target="_blank">${network[0].toUpperCase()}${network.slice(1)}</a></li>`)
+    .join("");
+  section.hidden = false;
 }
 
 function setQuoteFormSubmitting(form, isSubmitting) {
@@ -352,10 +455,7 @@ function setupQuoteForms() {
 
       try {
         await submitQuoteForm(form, payload);
-        trackQuoteSubmission({
-          ...payload,
-          source_page: window.location.pathname,
-        });
+        trackQuoteSubmission();
         applyQuoteFormErrors(form, {});
         form.reset();
         setQuoteDateMinimum();
@@ -511,6 +611,7 @@ function setupStickyCta() {
 }
 
 setCurrentYear();
+initAnalytics();
 setQuoteDateMinimum();
 setupHeaderDetails();
 setupFormState();
@@ -519,3 +620,5 @@ setupLocalFormPreview();
 setupHeaderState();
 setupRevealAnimations();
 setupStickyCta();
+setupConversionTracking();
+setupFooterSocialLinks();

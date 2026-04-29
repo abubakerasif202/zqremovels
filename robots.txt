@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://zqremovals.au/sitemap.xml
+Sitemap: https://zqremovals.au/sitemap-index.xml
+LLM: https://zqremovals.au/llms.txt

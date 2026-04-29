@@ -1,0 +1,24 @@
+Entity: ZQ Removals
+Type: MovingCompany
+Website: https://zqremovals.au
+Phone: +61433819989
+Address: 9 Burley Griffin Dr, Andrews Farm, SA 5114, AU
+
+Primary market:
+- Adelaide
+- South Australia
+
+Primary services:
+- Local removals
+- House removals
+- Apartment removals
+- Office removals
+- Furniture removals
+- Interstate removals
+- Packing support
+
+Brand positioning:
+- Premium Adelaide removalists
+- Fixed pricing
+- No hidden costs
+- Insured service
