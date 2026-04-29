@@ -68,13 +68,13 @@ test('build injects env-driven analytics tags and uses the social share image fa
 
   assert.match(
     homepage,
-    new RegExp(`<meta name="google-site-verification" content="${searchConsoleVerification}"`),
+    new RegExp(`<meta\\s+name="google-site-verification"\\s+content="${searchConsoleVerification}"`),
   );
   assert.match(
     homepage,
     new RegExp(`https://www\\.googletagmanager\\.com/gtag/js\\?id=${gaMeasurementId}`),
   );
-  assert.match(homepage, new RegExp(`gtag\\('config', ["']${gaMeasurementId}["']\\)`));
+  assert.match(homepage, new RegExp(`gtag\\('config',\\s*['"]${gaMeasurementId}['"]\\)`));
   assert.match(homepage, /<meta property="og:image" content="https:\/\/zqremovals\.au\/zq-removals-social-share\.webp"/);
   assert.match(aboutPage, /"image": "https:\/\/zqremovals\.au\/zq-removals-social-share\.webp"/);
 });

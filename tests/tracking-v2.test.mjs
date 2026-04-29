@@ -35,9 +35,9 @@ async function buildSite(extraEnv = {}) {
 test("provider scripts load only when matching env vars exist", async () => {
   await buildSite();
   let homepage = readDist("index.html");
-  assert.doesNotMatch(homepage, /id="ga4-loader"/);
-  assert.doesNotMatch(homepage, /id="gtm-loader"/);
-  assert.doesNotMatch(homepage, /id="meta-pixel-loader"/);
+  assert.doesNotMatch(homepage, /www\.googletagmanager\.com\/gtag\/js/);
+  assert.doesNotMatch(homepage, /www\.googletagmanager\.com\/gtm\.js/);
+  assert.doesNotMatch(homepage, /connect\.facebook\.net\/en_US\/fbevents\.js/);
   assert.doesNotMatch(homepage, /ns\.html\?id=/);
 
   await buildSite({
@@ -46,9 +46,9 @@ test("provider scripts load only when matching env vars exist", async () => {
     VITE_META_PIXEL_ID: "123456789012345",
   });
   homepage = readDist("index.html");
-  assert.match(homepage, /id="ga4-loader"/);
-  assert.match(homepage, /id="gtm-loader"/);
-  assert.match(homepage, /id="meta-pixel-loader"/);
+  assert.match(homepage, /www\.googletagmanager\.com\/gtag\/js\?id=G-MNHNPP0087/);
+  assert.match(homepage, /www\.googletagmanager\.com\/gtm\.js\?id=GTM-TESTV2/);
+  assert.match(homepage, /connect\.facebook\.net\/en_US\/fbevents\.js/);
   assert.match(homepage, /ns\.html\?id=GTM-TESTV2/);
 });
 
@@ -61,9 +61,8 @@ test("scripts are not duplicated in generated html", async () => {
   const homepage = readDist("index.html");
 
   const count = (pattern) => (homepage.match(pattern) || []).length;
-  assert.equal(count(/id="ga4-loader"/g), 1);
-  assert.equal(count(/id="gtm-loader"/g), 1);
-  assert.equal(count(/id="meta-pixel-loader"/g), 1);
+  assert.equal(count(/www\.googletagmanager\.com\/gtag\/js\?id=G-MNHNPP0087/g), 1);
+  assert.equal(count(/www\.googletagmanager\.com\/gtm\.js\?id=GTM-TESTV2/g), 1);
 });
 
 test("analytics utility does not throw when providers are unavailable", async () => {
