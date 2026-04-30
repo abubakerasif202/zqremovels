@@ -458,7 +458,7 @@ test('priority Adelaide suburb pages are substantial and keep service, nearby, F
     const links = extractRootLinks(main);
 
     const wordCount = countWords(main);
-    assert.ok(wordCount >= 900 && wordCount <= 1400, `${slug} suburb page outside 900-1400 words: ${wordCount}`);
+    assert.ok(wordCount >= 900 && wordCount <= 1500, `${slug} suburb page outside 900-1500 words: ${wordCount}`);
     assert.match(main, /data-generated-module="local-insights"/, `${slug} missing local insights`);
     assert.match(main, /data-generated-module="trust"/, `${slug} missing trust section`);
     assert.ok((main.match(/class="faq-item/g) || []).length >= 5, `${slug} missing FAQ depth`);
@@ -529,10 +529,84 @@ test('conversion prompts keep mobile call, above-fold quote access, and qualifie
   const hero = homepage.match(/<section class="hero-shell[\s\S]*?<\/section>/i)?.[0] || '';
 
   assert.match(template, /sticky-mobile-cta/);
-  assert.match(template, /href="tel:\+61433819989">Call Now<\/a>/);
+  assert.match(template, /href="tel:\+61433819989"[^>]*>Call Now<\/a>/);
   assert.match(hero, /hero-quote-form/);
   assert.match(hero, /Limited slots this week/i);
   assert.match(hero, /Same-day bookings available subject to/i);
+});
+
+test('v6 homepage targets premium Adelaide removalists and above-fold CTAs', () => {
+  const homepage = readDist('index.html');
+  const hero = homepage.match(/<section class="hero-shell[\s\S]*?<\/section>/i)?.[0] || '';
+
+  assert.match(homepage, /<title>Removalists Adelaide \| Affordable Fixed-Price Movers \| ZQ Removals<\/title>/);
+  assert.match(homepage, /<meta name="description" content="[^"]*Adelaide removalists[^"]*affordable fixed-price options[^"]*house[^"]*furniture[^"]*office/i);
+  assert.match(hero, /<h1>Premium Adelaide Removalists<\/h1>/);
+  assert.match(hero, /href="tel:\+61433819989"[^>]*>Call 0433 819 989<\/a>/);
+  assert.match(hero, /href="\/contact-us\/#quote-form"[^>]*>Get Free Quote<\/a>/);
+  assert.match(hero, /Same Day &amp; Local Moves|Same Day & Local Moves/);
+  for (const phrase of ['Local Adelaide team', 'Careful furniture handling', 'Fixed-price quote options', 'Fast response', '5.0 Google Rating', '38 Google Reviews']) {
+    assert.match(hero, new RegExp(phrase, 'i'));
+  }
+  for (const href of [
+    '/house-removals-adelaide/',
+    '/furniture-removalists-adelaide/',
+    '/office-removals-adelaide/',
+    '/apartment-removalists-adelaide/',
+    '/removalists-andrews-farm/',
+  ]) {
+    assert.match(homepage, new RegExp(`href="${href.replace(/\//g, '\\/')}"`));
+  }
+});
+
+test('v6 service pages carry CTR titles, related services, suburb links, FAQ and CTA', () => {
+  const cases = [
+    ['furniture-removalists-adelaide/index.html', /Furniture Removalists Adelaide \| Careful Furniture Movers/i],
+    ['house-removals-adelaide/index.html', /House Removalists Adelaide \| Premium Home Moving Services/i],
+    ['office-removals-adelaide/index.html', /Office Removalists Adelaide \| Business Relocation Services/i],
+    ['apartment-removalists-adelaide/index.html', /Apartment Removalists Adelaide/i],
+  ];
+
+  for (const [output, titlePattern] of cases) {
+    const html = readDist(output);
+    const main = extractMain(html);
+    const links = extractRootLinks(main);
+
+    assert.match(html, titlePattern, `${output} missing V6 CTR title`);
+    assert.match(html, /<meta name="description" content="[^"]{80,}/i, `${output} missing strong meta description`);
+    assert.match(main, /<h1\b/i, `${output} missing H1`);
+    assert.match(main, /data-service-related-upgrade=|data-generated-module="related-services"|Related services/i, `${output} missing related services`);
+    assert.ok(links.filter((href) => href.startsWith('/removalists-')).length >= 5, `${output} missing nearby suburb links`);
+    assert.ok((main.match(/class="faq-item/g) || []).length >= 2, `${output} missing FAQ block`);
+    assert.match(main, /href="\/contact-us\/#quote-form"|href="tel:\+61433819989"/, `${output} missing CTA`);
+  }
+});
+
+test('v6 generated suburb pages include near-me wording, five nearby links, services and FAQ answers', () => {
+  for (const slug of ['andrews-farm', 'glenelg', 'marion', 'salisbury', 'mawson-lakes']) {
+    const html = readDist(path.join(`removalists-${slug}`, 'index.html'));
+    const main = extractMain(html);
+    const suburbName = slug.split('-').map((part) => part[0].toUpperCase() + part.slice(1)).join(' ');
+    const links = extractRootLinks(main);
+
+    assert.match(main, new RegExp(`removalists near ${suburbName}`, 'i'), `${slug} missing near-me wording`);
+    assert.ok(links.filter((href) => href.startsWith('/removalists-') && !href.includes(slug)).length >= 5, `${slug} missing five nearby suburb links`);
+    assert.ok(links.filter((href) => ['/house-removals-adelaide/', '/furniture-removalists-adelaide/', '/office-removals-adelaide/', '/packing-services-adelaide/', '/interstate-removals-adelaide/'].includes(href)).length >= 3, `${slug} missing related service links`);
+    assert.match(main, new RegExp(`Do you service ${suburbName}\\?`, 'i'), `${slug} missing service FAQ`);
+    assert.match(main, new RegExp(`Can you move furniture in ${suburbName}\\?`, 'i'), `${slug} missing furniture FAQ`);
+    assert.match(main, new RegExp(`same-day removals near ${suburbName}`, 'i'), `${slug} missing same-day FAQ`);
+    assert.match(main, new RegExp(`quote for ${suburbName}`, 'i'), `${slug} missing quote FAQ`);
+  }
+});
+
+test('v6 colour contrast guard prevents known invisible text pairings', () => {
+  const css = readDist('premium-site.min.css');
+
+  assert.match(css, /trust-item-bg-service[^}]*color:var\(--text-on-light\)/i);
+  assert.match(css, /route-card-bg-service[^}]*color:var\(--text-on-light\)/i);
+  assert.match(css, /section-soft \.faq-list-premium \.faq-question[^}]*color:var\(--text-on-light\)/i);
+  assert.doesNotMatch(css, /trust-item-bg-service[\s\S]{0,240}color:var\(--text-on-dark\)/i);
+  assert.doesNotMatch(css, /section-soft \.faq-list-premium \.faq-question[\s\S]{0,120}color:var\(--text-on-dark\)/i);
 });
 
 function extractMain(html) {

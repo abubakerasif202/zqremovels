@@ -2482,9 +2482,10 @@ try {
     const distOutputPath = path.join(distRoot, page.output);
     await mkdir(path.dirname(distOutputPath), { recursive: true });
     const normalizedHtml = normalizeSiteUrl(html.trim());
+    const trackedHtml = decorateLeadTracking(normalizedHtml, page);
     const finalHtml = responsiveVariants.size > 0
-      ? injectResponsiveSrcset(normalizedHtml, responsiveVariants)
-      : normalizedHtml;
+      ? injectResponsiveSrcset(trackedHtml, responsiveVariants)
+      : trackedHtml;
     await writeFile(distOutputPath, `${finalHtml}\n`, 'utf8');
     renderedHtmlByOutput.set(page.output.replace(/\\/g, '/'), finalHtml);
     console.log(`built ${page.output}`);
@@ -3444,6 +3445,50 @@ function renderBodyAttributes(page) {
   return classes.length > 0 ? ` class="${classes.join(' ')}"` : '';
 }
 
+function getLeadLocation(page) {
+  const output = page.output || '';
+  if (output === 'index.html') return 'homepage';
+  if (output === 'contact-us/index.html') return 'contact_page';
+  if (output === 'adelaide-removalists-facebook-offer/index.html') return 'facebook_landing_page';
+  if (output === 'removalists-adelaide-quote/index.html') return 'google_ads_landing_page';
+  if (output.startsWith('removalists-')) return 'suburb_page';
+  if (output.startsWith('adelaide-moving-guides/') || output.startsWith('guides/')) return 'guide_page';
+  if (output.includes('removals') || output.includes('removalists') || output.startsWith('services/')) return 'service_page';
+  if (output === 'thank-you/index.html' || output === 'thank-you.html') return 'thank_you_page';
+  return 'sitewide';
+}
+
+function addAttributeIfMissing(tag, name, value) {
+  if (new RegExp(`\\s${name}=`).test(tag)) {
+    return tag;
+  }
+  return tag.replace(/>$/, ` ${name}="${escapeAttribute(value)}">`);
+}
+
+function decorateLeadTracking(html, page) {
+  const location = getLeadLocation(page);
+  return html
+    .replace(/<a\b(?![^>]*\sdata-lead-event=)([^>]*href="tel:[^"]+"[^>]*)>/gi, (match) => {
+      let next = match;
+      next = addAttributeIfMissing(next, 'data-lead-event', 'phone_click');
+      next = addAttributeIfMissing(next, 'data-lead-location', location);
+      next = addAttributeIfMissing(next, 'aria-label', 'Call ZQ Removals on 0433 819 989');
+      return next;
+    })
+    .replace(/<a\b(?![^>]*\sdata-lead-event=)([^>]*href="mailto:[^"]+"[^>]*)>/gi, (match) => {
+      let next = match;
+      next = addAttributeIfMissing(next, 'data-lead-event', 'email_click');
+      next = addAttributeIfMissing(next, 'data-lead-location', location);
+      return next;
+    })
+    .replace(/<a\b(?![^>]*\sdata-lead-event=)([^>]*href="(?:\/contact-us\/#quote-form|#quote-form|#premium-quote|\/thank-you\/)"[^>]*)>/gi, (match) => {
+      let next = match;
+      next = addAttributeIfMissing(next, 'data-lead-event', 'quote_cta_click');
+      next = addAttributeIfMissing(next, 'data-lead-location', location);
+      return next;
+    });
+}
+
 function getBodyClasses(page) {
   const classes = [];
   const output = page.output;
@@ -3452,6 +3497,11 @@ function getBodyClasses(page) {
     classes.push('page-home');
   } else if (output === 'contact-us/index.html') {
     classes.push('page-contact');
+  } else if (
+    output === 'adelaide-removalists-facebook-offer/index.html' ||
+    output === 'removalists-adelaide-quote/index.html'
+  ) {
+    classes.push('page-landing', 'page-lead-machine');
   } else if (output === 'privacy-policy/index.html' || output === 'terms-and-conditions/index.html') {
     classes.push('page-legal');
   } else if (output === 'adelaide-moving-guides/index.html') {
@@ -3495,11 +3545,11 @@ function getBodyClasses(page) {
     classes.push('page-suburb');
   } else if (output.startsWith('guides/')) {
     classes.push('page-guide-article');
-  } else if (output === '404.html' || output === 'thank-you.html') {
+  } else if (output === '404.html' || output === 'thank-you.html' || output === 'thank-you/index.html') {
     classes.push('page-utility');
   }
 
-  if (output === 'thank-you.html') {
+  if (output === 'thank-you.html' || output === 'thank-you/index.html') {
     classes.push('thank-you-page');
   }
 
@@ -3588,6 +3638,7 @@ function transformContent(content, page) {
     const normalizedHref = normalizeInternalHref(href);
     return normalizedHref === href ? match : `href="${escapeAttribute(normalizedHref)}"`;
   });
+  next = injectLeadMachineHiddenFields(next);
 
   const skipSupplemental = page.generatedKind === 'suburb';
   const proofSection = skipSupplemental ? '' : renderLocalProofSection(page);
@@ -3597,7 +3648,8 @@ function transformContent(content, page) {
   const authoritySection = skipSupplemental ? '' : renderAuthoritySection(page);
   const serviceMoneyUpgrade = renderServiceMoneyUpgrade(page);
   const guideHubExpansion = renderGuideHubExpansion(page);
-  const supplementalSections = [guideHubExpansion, serviceMoneyUpgrade, proofSection, faqSection, seoSupport, authoritySection, relatedLinks]
+  const leadMachineCta = renderLeadMachineCta(page);
+  const supplementalSections = [guideHubExpansion, serviceMoneyUpgrade, leadMachineCta, proofSection, faqSection, seoSupport, authoritySection, relatedLinks]
     .filter(Boolean)
     .join('\n');
 
@@ -3606,6 +3658,74 @@ function transformContent(content, page) {
   }
 
   return next;
+}
+
+function injectLeadMachineHiddenFields(content) {
+  const fields = [
+    'utm_source',
+    'utm_medium',
+    'utm_campaign',
+    'utm_content',
+    'utm_term',
+    'gclid',
+    'fbclid',
+    'landing_page',
+    'captured_at',
+  ];
+
+  return content.replace(/<form\b([^>]*data-quote-form="quote"[^>]*)>/gi, (match) => {
+    if (match.includes('name="utm_source"')) {
+      return match;
+    }
+
+    const hiddenFields = fields
+      .map((name) => `<input type="hidden" name="${name}" value="" data-attribution-field="${name}" />`)
+      .join('');
+    return `${match}\n${hiddenFields}`;
+  });
+}
+
+function renderLeadMachineCta(page) {
+  const output = page.output || '';
+  if (
+    output === 'contact-us/index.html' ||
+    output === 'thank-you.html' ||
+    output === 'thank-you/index.html' ||
+    output === '404.html' ||
+    output.startsWith('premium-moving-concepts/')
+  ) {
+    return '';
+  }
+
+  const isEligible =
+    output === 'index.html' ||
+    output.startsWith('removalists-') ||
+    output.startsWith('adelaide-moving-guides/') ||
+    output.startsWith('guides/') ||
+    output.includes('removals') ||
+    output.includes('removalists') ||
+    output.startsWith('services/');
+
+  if (!isEligible) {
+    return '';
+  }
+
+  return `
+<section class="section lead-machine-cta" data-lead-machine-cta="v7">
+  <div class="container">
+    <div class="lead-machine-cta-shell reveal-on-scroll">
+      <div>
+        <span class="eyebrow">Need movers today?</span>
+        <h2>Get a fixed-price quote before your move date disappears.</h2>
+        <p>Moving furniture, a house, an apartment, or an office? Send the move brief now or call ZQ Removals for urgent Adelaide availability.</p>
+      </div>
+      <div class="lead-machine-cta-actions">
+        <a class="button button-primary" href="/contact-us/#quote-form">Get a fixed-price quote</a>
+        <a class="button button-secondary" href="tel:+61433819989">Call ZQ Removals now</a>
+      </div>
+    </div>
+  </div>
+</section>`;
 }
 
 function renderGuideHubExpansion(page) {
@@ -3782,6 +3902,20 @@ function renderServiceMoneyUpgrade(page) {
 
   const profile = profiles[page.output];
   if (!profile) return '';
+  const relatedServiceCards = [
+    ['/house-removals-adelaide/', 'House removalists Adelaide', 'Plan a complete home move'],
+    ['/furniture-removalists-adelaide/', 'Furniture removalists Adelaide', 'Protect bulky and fragile pieces'],
+    ['/office-removals-adelaide/', 'Office removalists Adelaide', 'Coordinate business relocation'],
+    ['/apartment-removalists-adelaide/', 'Apartment removalists Adelaide', 'Manage lifts and loading zones'],
+    ['/packing-services-adelaide/', 'Packing services Adelaide', 'Prepare fragile rooms and cartons'],
+    ['/interstate-removals-adelaide/', 'Interstate removalists Adelaide', 'Plan long-distance routes'],
+    ['/cheap-removalists-adelaide/', 'Cheap removalists Adelaide', 'Compare affordable fixed-price options'],
+    ['/affordable-removalists-adelaide/', 'Affordable removalists Adelaide', 'Keep premium handling with budget-aware scope'],
+    ['/removalist-cost-adelaide/', 'Removalist cost Adelaide', 'Understand quote factors before booking'],
+    ['/moving-quotes-adelaide/', 'Moving quotes Adelaide', 'Request a clearer fixed-price quote'],
+    ['/fixed-price-removalists-adelaide/', 'Fixed-price removalists Adelaide', 'Avoid hourly surprises with scoped pricing'],
+    ['/budget-removalists-adelaide/', 'Budget removalists Adelaide', 'Plan a value-focused Adelaide move'],
+  ].filter(([href]) => href !== `/${page.output.replace(/index\.html$/, '')}`);
 
   return `
 <section class="section section-soft" data-service-money-upgrade="${escapeAttribute(page.output)}">
@@ -3795,6 +3929,23 @@ function renderServiceMoneyUpgrade(page) {
 ${profile.cost.map(([title, copy]) => `<article class="value-card reveal-on-scroll">
   <h3>${escapeHtml(title)}</h3>
   <p>${escapeHtml(copy)}</p>
+</article>`).join('\n')}
+    </div>
+  </div>
+</section>
+<section class="section" data-service-related-upgrade="${escapeAttribute(page.output)}">
+  <div class="container">
+    <div class="section-heading reveal-on-scroll">
+      <span class="eyebrow">Related services</span>
+      <h2>Service paths that support ${escapeHtml(profile.label.toLowerCase())}.</h2>
+      <p class="lede">Move briefs often start with one service and then need packing, furniture, apartment, office, local, or interstate support once access and inventory are reviewed.</p>
+    </div>
+    <div class="route-grid">
+${relatedServiceCards.slice(0, 8).map(([href, title, copy]) => `<article class="route-card reveal-on-scroll">
+  <small>Related service</small>
+  <h3>${escapeHtml(title)}</h3>
+  <p>${escapeHtml(copy)} before the quote is confirmed.</p>
+  <a class="button-link" href="${escapeAttribute(href)}">View service</a>
 </article>`).join('\n')}
     </div>
   </div>
@@ -5198,9 +5349,22 @@ function escapeAttribute(value = '') {
 function renderTrackingHeadScripts() {
   const gaId = process.env.VITE_GA_MEASUREMENT_ID;
   const gtmId = process.env.VITE_GTM_ID;
+  const googleAdsConversionId = process.env.VITE_GOOGLE_ADS_CONVERSION_ID;
+  const googleAdsLeadLabel = process.env.VITE_GOOGLE_ADS_LEAD_LABEL;
   const metaPixelId = process.env.VITE_META_PIXEL_ID;
 
-  let html = "";
+  const config = {
+    gaMeasurementId: gaId || '',
+    gtmId: gtmId || '',
+    googleAdsConversionId: googleAdsConversionId || '',
+    googleAdsLeadLabel: googleAdsLeadLabel || '',
+    metaPixelId: metaPixelId || '',
+  };
+
+  let html = `
+<script>
+window.__analyticsConfig = ${JSON.stringify(config)};
+</script>`;
 
   if (gaId) {
     html += `

@@ -1042,6 +1042,8 @@ const faqPools = {
 const guideTopics = [
   ['moving-checklist-adelaide', 'Moving checklist Adelaide', 'moving checklist', 'article'],
   ['removalist-cost-adelaide', 'Removalist cost Adelaide', 'cost guide', 'article'],
+  ['how-to-get-accurate-removalist-quotes-adelaide', 'How to Get Accurate Removalist Quotes Adelaide', 'accurate moving quotes', 'article'],
+  ['cheap-vs-fixed-price-removalists-adelaide', 'Cheap vs Fixed Price Removalists Adelaide', 'cheap vs fixed price removals', 'article'],
   ['apartment-moving-tips-adelaide', 'Apartment moving tips Adelaide', 'apartment moves', 'article'],
   ['storage-planning-adelaide', 'Storage planning Adelaide', 'storage planning', 'article'],
   ['office-relocation-preparation-adelaide', 'Office relocation preparation Adelaide', 'office preparation', 'article'],
@@ -1077,9 +1079,9 @@ const guideTopics = [
 const commercialPages = [
   {
     slug: 'cheap-removalists-adelaide',
-    title: 'Cheap Removalists Adelaide',
+    title: 'Cheap Removalists Adelaide | Fixed-Price Moves | ZQ Removals',
     description:
-      'Affordable Adelaide removalists focused on accurate scoping, transparent inclusions, and practical budgeting for local and suburb moves.',
+      'Looking for cheap removalists in Adelaide without risky service? ZQ Removals offers affordable fixed-price moving options with careful handling and clear quotes.',
     canonical: '/cheap-removalists-adelaide/',
     type: 'money',
     hero: 'Affordable pricing works best when access, inventory, and timing are scoped clearly before the truck is booked.',
@@ -1089,6 +1091,10 @@ const commercialPages = [
     ],
     faq: [
       {
+        question: 'How much do cheap removalists cost in Adelaide?',
+        answer: 'The final cost depends on inventory, access, stairs or lifts, distance, packing, timing, and heavy items. ZQ Removals does not publish unconfirmed prices; we provide a fixed-price quote after reviewing the move brief.',
+      },
+      {
         question: 'How do I keep an Adelaide move affordable?',
         answer: 'Provide an accurate inventory, clear access notes, and any packing requirements so the quote reflects the real job rather than a padded guess.',
       },
@@ -1096,6 +1102,74 @@ const commercialPages = [
         question: 'Is the cheapest quote always the best value?',
         answer: 'Not necessarily. Transparent labour time, included travel, and damage prevention usually matter more than the lowest headline price.',
       },
+      {
+        question: 'Can cheap removalists still handle furniture carefully?',
+        answer: 'Yes. The affordable path should come from a clear scope and efficient planning, not from rushed handling or weak protection.',
+      },
+      {
+        question: 'Can I get a fixed-price quote for a budget move?',
+        answer: 'Yes. Send the route, inventory, property access, and date so the move can be quoted as an affordable fixed-price option.',
+      },
+    ],
+  },
+  {
+    slug: 'affordable-removalists-adelaide',
+    title: 'Affordable Removalists Adelaide | Fixed-Price Movers | ZQ Removals',
+    description:
+      'Affordable Adelaide removalists for house, furniture, apartment and office moves with fixed-price options, careful handling and clear quoting.',
+    canonical: '/affordable-removalists-adelaide/',
+    type: 'money',
+    hero: 'Affordable moving should still feel organised, careful, and predictable. We scope Adelaide moves around access, inventory, timing, and handling so the quote is clear before move day.',
+    sections: [
+      'Affordable removalists Adelaide searches often come from people who want price control without taking a risk on careless operators. ZQ Removals keeps the premium service standard while building the quote around the details that can reduce waste.',
+      'A fixed-price option can be safer than a vague hourly estimate because it forces the move brief to be reviewed upfront: truck access, stairs, lifts, item list, packing, and timing windows all sit inside the quote conversation.',
+    ],
+    faq: [
+      { question: 'What makes a removalist affordable without lowering quality?', answer: 'A clear inventory, realistic access notes, efficient loading order, and a fixed quote can reduce uncertainty while preserving careful handling.' },
+      { question: 'Do affordable removalists Adelaide include furniture handling?', answer: 'Yes. Furniture handling should be scoped into the quote, especially for bulky, fragile, antique, or apartment-access pieces.' },
+      { question: 'Can I get an affordable fixed-price quote?', answer: 'Yes. Submit the pickup suburb, delivery suburb, move date, property type, access notes, and key inventory for a fixed-price review.' },
+      { question: 'What affects an affordable Adelaide moving quote?', answer: 'Truck size, number of movers, stairs, lifts, distance, packing, heavy items, weekend timing, after-hours access, and parking all influence the quote.' },
+      { question: 'Do you service suburbs outside central Adelaide?', answer: 'Yes. ZQ Removals services Adelaide CBD, northern, southern, coastal, eastern, and western suburbs subject to route and schedule.' },
+    ],
+  },
+  {
+    slug: 'removalist-cost-adelaide',
+    title: 'Removalist Cost Adelaide | Moving Quote Guide | ZQ Removals',
+    description:
+      'Understand removalist cost in Adelaide, what affects your quote, and how fixed-price moving can help avoid hourly surprises.',
+    canonical: '/removalist-cost-adelaide/',
+    type: 'money',
+    hero: 'Removalist cost in Adelaide depends on the real move brief: access, inventory, truck size, labour, distance, packing, timing, and any heavy or fragile items.',
+    sections: [
+      'No useful Adelaide removalist cost page should pretend every move has the same price. A small unit with lift access, a family home with garage stock, and an office move with after-hours dock access all need different labour and timing assumptions.',
+      'ZQ Removals uses fixed-price quote positioning to reduce hourly surprises. The aim is to review the details first, then provide a clear quote that reflects the actual route and handling requirements.',
+    ],
+    faq: [
+      { question: 'How much does a removalist cost in Adelaide?', answer: 'The cost depends on truck size, number of movers, access, stairs, lifts, distance, packing, heavy items, and timing. We do not invent exact prices online; we quote after reviewing your move.' },
+      { question: 'Is hourly or fixed-price moving safer?', answer: 'A fixed-price quote can be safer when the scope is clear because it reduces the risk of traffic, access delays, or slow loading changing the final bill.' },
+      { question: 'What affects my moving quote most?', answer: 'Inventory volume, property access, stairs or lifts, truck parking, distance, packing needs, heavy items, and weekend or after-hours requirements usually have the biggest impact.' },
+      { question: 'Can packing change the removalist cost?', answer: 'Yes. Packing materials, fragile wrapping, full-home packing, and unpacking support all affect labour and preparation time.' },
+      { question: 'How do I get a more accurate quote?', answer: 'Send photos or a detailed list of large items, room count, stairs, lift details, parking notes, date, and both suburbs.' },
+    ],
+  },
+  {
+    slug: 'moving-quotes-adelaide',
+    title: 'Moving Quotes Adelaide | Free Fixed-Price Quote | ZQ Removals',
+    description:
+      'Request a moving quote in Adelaide for house, furniture, office, apartment and same-day moves. Clear fixed-price options from ZQ Removals.',
+    canonical: '/moving-quotes-adelaide/',
+    type: 'money',
+    hero: 'A useful Adelaide moving quote starts with the details that change the job: route, inventory, access, timing, packing, and the level of furniture protection needed.',
+    sections: [
+      'Moving quotes Adelaide searches are usually quote-ready. The strongest quote request gives enough information to avoid a vague estimate and turn the enquiry into a practical fixed-price option.',
+      'ZQ Removals keeps the quote path simple: call for urgent bookings or send the form with pickup and delivery suburbs, property types, item list, preferred date, and any access notes.',
+    ],
+    faq: [
+      { question: 'How do I request a moving quote in Adelaide?', answer: 'Call 0433 819 989 or use the quote form with your route, property type, date, item list, and access notes.' },
+      { question: 'What should I include in a moving quote request?', answer: 'Include pickup and delivery suburbs, stairs, lifts, parking, truck access, room count, heavy items, fragile pieces, packing needs, and timing constraints.' },
+      { question: 'Can I get a fixed-price moving quote?', answer: 'Yes. ZQ Removals provides fixed-price quote options after reviewing the move details.' },
+      { question: 'Do you quote furniture-only moves?', answer: 'Yes. Furniture-only quotes should include item dimensions, stairs or lift access, parking, and whether pieces need wrapping.' },
+      { question: 'Is calling faster than the quote form?', answer: 'For same-day or urgent moves, calling is usually fastest. The form is useful when you can provide a detailed written brief.' },
     ],
   },
   {
@@ -1148,9 +1222,9 @@ const commercialPages = [
   },
   {
     slug: 'apartment-removalists-adelaide',
-    title: 'Apartment Removalists Adelaide | Unit & High-Rise Movers',
+    title: 'Apartment Removalists Adelaide | Unit & High-Rise Moving',
     description:
-      'Specialist apartment removalists Adelaide for high-rise units, lift bookings, and loading zone coordination. Expert CBD and coastal unit movers.',
+      'Apartment removalists Adelaide for units, towers and townhouses. Lift bookings, loading zones, careful furniture handling and fixed-price quotes.',
     canonical: '/apartment-removalists-adelaide/',
     type: 'money',
     hero: 'Apartment removals in Adelaide require specialized planning for service lift bookings, loading zone access, and shared corridor sequencing.',
@@ -1265,7 +1339,7 @@ const commercialPages = [
   },
   {
     slug: 'fixed-price-removalists-adelaide',
-    title: 'Fixed Price Removalists Adelaide | No Hidden Cost Movers',
+    title: 'Fixed-Price Removalists Adelaide | Clear Quotes | ZQ Removals',
     description:
       'Searching for fixed price removalists Adelaide? ZQ Removals offers upfront, guaranteed pricing with no hidden hourly surprises for house, office, and apartment moves.',
     canonical: '/fixed-price-removalists-adelaide/',
@@ -1286,6 +1360,36 @@ const commercialPages = [
         answer:
           'No. Our fixed-price quotes include travel, fuel, insurance, and equipment. As long as the inventory and access match the brief, the price is guaranteed.',
       },
+      {
+        question: 'Why can fixed-price removals suit Adelaide moves?',
+        answer:
+          'Fixed pricing helps when traffic, parking, stairs, lifts, or loading windows could otherwise turn an hourly estimate into a moving target.',
+      },
+      {
+        question: 'What details do you need for a fixed-price quote?',
+        answer:
+          'Pickup and delivery suburbs, property type, access notes, item list, date, packing needs, and any heavy or fragile items.',
+      },
+    ],
+  },
+  {
+    slug: 'budget-removalists-adelaide',
+    title: 'Budget Removalists Adelaide | Fixed-Price Movers | ZQ Removals',
+    description:
+      'Budget removalists Adelaide for customers who want affordable fixed-price moving options, careful furniture handling and clear scope before booking.',
+    canonical: '/budget-removalists-adelaide/',
+    type: 'money',
+    hero: 'Budget removalists should still protect the furniture, communicate clearly, and quote from a proper move brief rather than a vague low headline rate.',
+    sections: [
+      'Budget-conscious Adelaide moves work best when unnecessary uncertainty is removed. That means listing the main furniture, explaining access, noting stairs or lifts, and flagging anything heavy or fragile before the quote is approved.',
+      'ZQ Removals keeps budget positioning inside a premium standard: affordable fixed-price options, careful loading, clear inclusions, and a direct path to call or request a quote.',
+    ],
+    faq: [
+      { question: 'Are budget removalists lower quality?', answer: 'They should not be. A budget-friendly move should come from efficient scoping, not poor handling or unclear inclusions.' },
+      { question: 'Can I get a budget quote for a house move?', answer: 'Yes. Send the room count, large furniture list, access notes, and date so the team can review the most efficient fixed-price option.' },
+      { question: 'What makes budget moving more expensive?', answer: 'Unlisted heavy items, stairs, long carries, poor parking, extra packing, after-hours timing, and unclear inventory can increase the work required.' },
+      { question: 'Do budget removalists move apartments?', answer: 'Yes, provided lift bookings, loading zones, stairs, and corridor access are included in the quote brief.' },
+      { question: 'How do I avoid surprise costs?', answer: 'Use a fixed-price quote and provide accurate access, inventory, packing, and timing details before booking.' },
     ],
   },
   {
@@ -1475,6 +1579,75 @@ const commercialLinkProfiles = {
       { href: '/last-minute-removalists-adelaide/', label: 'last-minute removals' },
     ],
   },
+  'affordable-removalists-adelaide': {
+    services: [
+      { href: '/house-removals-adelaide/', label: 'house removals with affordable fixed quotes' },
+      { href: '/furniture-removalists-adelaide/', label: 'furniture removalists with careful handling' },
+      { href: '/apartment-removalists-adelaide/', label: 'apartment removalists with access planning' },
+    ],
+    suburbs: [
+      { href: '/removalists-adelaide-cbd/', label: 'Adelaide CBD fixed quote moves' },
+      { href: '/removalists-glenelg/', label: 'Glenelg affordable move planning' },
+      { href: '/removalists-salisbury/', label: 'Salisbury budget-aware routes' },
+      { href: '/removalists-marion/', label: 'Marion local moving quotes' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
+      { href: '/adelaide-moving-guides/how-to-get-accurate-removalist-quotes-adelaide/', label: 'accurate quote guide' },
+      { href: '/adelaide-moving-guides/cheap-vs-fixed-price-removalists-adelaide/', label: 'cheap vs fixed price guide' },
+    ],
+    siblings: [
+      { href: '/cheap-removalists-adelaide/', label: 'cheap removalists Adelaide' },
+      { href: '/fixed-price-removalists-adelaide/', label: 'fixed-price removalists Adelaide' },
+      { href: '/moving-quotes-adelaide/', label: 'moving quotes Adelaide' },
+    ],
+  },
+  'removalist-cost-adelaide': {
+    services: [
+      { href: '/house-removals-adelaide/', label: 'house removals cost factors' },
+      { href: '/furniture-removalists-adelaide/', label: 'furniture removal cost factors' },
+      { href: '/office-removals-adelaide/', label: 'office removal quote factors' },
+    ],
+    suburbs: [
+      { href: '/removalists-adelaide-cbd/', label: 'CBD access cost factors' },
+      { href: '/removalists-glenelg/', label: 'Glenelg coastal quote factors' },
+      { href: '/removalists-mawson-lakes/', label: 'Mawson Lakes apartment quote factors' },
+      { href: '/removalists-salisbury/', label: 'Salisbury northern quote factors' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'full cost guide' },
+      { href: '/adelaide-moving-guides/how-to-get-accurate-removalist-quotes-adelaide/', label: 'accurate quote guide' },
+      { href: '/adelaide-moving-guides/cheap-vs-fixed-price-removalists-adelaide/', label: 'hourly vs fixed-price guide' },
+    ],
+    siblings: [
+      { href: '/moving-quotes-adelaide/', label: 'moving quotes Adelaide' },
+      { href: '/fixed-price-removalists-adelaide/', label: 'fixed-price removalists' },
+      { href: '/affordable-removalists-adelaide/', label: 'affordable removalists' },
+    ],
+  },
+  'moving-quotes-adelaide': {
+    services: [
+      { href: '/removalists-adelaide/', label: 'Adelaide removalists quote path' },
+      { href: '/house-removals-adelaide/', label: 'house moving quotes' },
+      { href: '/same-day-removalists-adelaide/', label: 'same-day quote checks' },
+    ],
+    suburbs: [
+      { href: '/removalists-andrews-farm/', label: 'Andrews Farm moving quotes' },
+      { href: '/removalists-adelaide-cbd/', label: 'Adelaide CBD moving quotes' },
+      { href: '/removalists-glenelg/', label: 'Glenelg moving quotes' },
+      { href: '/removalists-marion/', label: 'Marion moving quotes' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/how-to-get-accurate-removalist-quotes-adelaide/', label: 'accurate removalist quotes' },
+      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
+      { href: '/adelaide-moving-guides/moving-checklist-adelaide/', label: 'moving checklist' },
+    ],
+    siblings: [
+      { href: '/removalist-cost-adelaide/', label: 'removalist cost Adelaide' },
+      { href: '/fixed-price-removalists-adelaide/', label: 'fixed-price movers' },
+      { href: '/cheap-removalists-adelaide/', label: 'cheap removalists Adelaide' },
+    ],
+  },
   'same-day-removalists-adelaide': {
     services: [
       { href: '/removalists-adelaide/', label: 'Adelaide removals hub' },
@@ -1519,6 +1692,9 @@ const commercialLinkProfiles = {
     suburbs: [
       { href: '/removalists-adelaide-cbd/', label: 'Adelaide CBD apartment routes' },
       { href: '/removalists-mawson-lakes/', label: 'Mawson Lakes apartment access' },
+      { href: '/removalists-glenelg/', label: 'Glenelg apartment removals' },
+      { href: '/removalists-north-adelaide/', label: 'North Adelaide unit moves' },
+      { href: '/removalists-norwood/', label: 'Norwood shared-entry moves' },
     ],
     guides: [
       { href: '/adelaide-moving-guides/apartment-moving-tips-adelaide/', label: 'apartment moving tips' },
@@ -1635,6 +1811,29 @@ const commercialLinkProfiles = {
     siblings: [
       { href: '/cheap-removalists-adelaide/', label: 'cheap removalists Adelaide' },
       { href: '/fixed-price-removalists-adelaide/', label: 'fixed price removalists' },
+    ],
+  },
+  'budget-removalists-adelaide': {
+    services: [
+      { href: '/house-removals-adelaide/', label: 'budget-conscious house removals' },
+      { href: '/furniture-removalists-adelaide/', label: 'budget furniture removals' },
+      { href: '/packing-services-adelaide/', label: 'packing support when it protects the budget' },
+    ],
+    suburbs: [
+      { href: '/removalists-salisbury/', label: 'Salisbury budget move planning' },
+      { href: '/removalists-elizabeth/', label: 'Elizabeth budget move planning' },
+      { href: '/removalists-andrews-farm/', label: 'Andrews Farm budget routes' },
+      { href: '/removalists-marion/', label: 'Marion value-focused moves' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'Adelaide cost guide' },
+      { href: '/adelaide-moving-guides/cheap-vs-fixed-price-removalists-adelaide/', label: 'cheap vs fixed price guide' },
+      { href: '/adelaide-moving-guides/how-to-get-accurate-removalist-quotes-adelaide/', label: 'accurate quote guide' },
+    ],
+    siblings: [
+      { href: '/cheap-removalists-adelaide/', label: 'cheap removalists Adelaide' },
+      { href: '/affordable-removalists-adelaide/', label: 'affordable removalists Adelaide' },
+      { href: '/moving-quotes-adelaide/', label: 'moving quotes Adelaide' },
     ],
   },
 };
@@ -1759,7 +1958,7 @@ function buildSuburbIntroParagraphs({ suburb, intro, logisticsLabel, nearby, clu
   const supportServices = supportProfile.services.slice(0, 2).map((item) => item.label).join(' and ');
 
   return [
-    intro,
+    `${intro} If you are comparing removalists near ${suburb} or affordable removalists ${suburb}, check parking, access, stairs, lifts, furniture volume, and timing. A fixed-price quote for ${suburb} moves should be based on the real access path, not a vague headline rate.`,
     `${suburb} moves usually perform better when the quote is based on the real access path, the inventory mix, and the timing pressure on the street or in the building. For this suburb, that often means clarifying ${logisticsLabel} before labour, vehicle setup, and the unload order are locked in.`,
     `This page is designed as a stronger local entry point, not a thin suburb mention. It keeps ${suburb} connected to the Adelaide removals hub, nearby comparison routes like ${nearby.map((item) => item.suburb).join(', ')}, and the most useful services for ${clusterLabel} moves, including ${supportServices}.`,
   ];
@@ -1920,8 +2119,24 @@ function buildSuburbMoveTypeCards({ suburb, logisticsLabel, clusterKey }) {
 function buildSuburbFaqItems({ suburb, logisticsLabel, nearby, clusterKey }) {
   return [
     {
-      question: `Do you handle ${suburb} moves with ${logisticsLabel}?`,
-      answer: `Yes. ${suburb} jobs are scoped around ${logisticsLabel} so the timing, access, and labour plan are grounded in the real route rather than a generic estimate.`,
+      question: `Do you service ${suburb}?`,
+      answer: `Yes. ZQ Removals services ${suburb} and nearby Adelaide suburbs with fixed-price quotes based on the route, property access, inventory, and timing requirements.`,
+    },
+    {
+      question: `Can you move furniture in ${suburb}?`,
+      answer: `Yes. We can move furniture in ${suburb}, including bulky, fragile, apartment, family-home, and storage-linked items when the access path and protection needs are supplied early.`,
+    },
+    {
+      question: `Do you offer same-day removals near ${suburb}?`,
+      answer: `Same-day removals near ${suburb} may be available subject to crew schedule, route, inventory, parking, and access conditions. Calling is the fastest way to check availability.`,
+    },
+    {
+      question: `How do I get a quote for ${suburb}?`,
+      answer: `Send the pickup suburb, delivery suburb, move date, property type, item list, and access notes through the quote form, or call ZQ Removals for urgent ${suburb} bookings.`,
+    },
+    {
+      question: `What affects the price of a ${suburb} move?`,
+      answer: `The price of a ${suburb} move is affected by inventory, truck size, number of movers, stairs, lifts, parking, carry distance, packing, heavy items, timing, and whether the route includes storage or multiple stops.`,
     },
     {
       question: `Which nearby suburbs are most relevant when comparing ${suburb} routes?`,
@@ -1985,6 +2200,21 @@ function buildCommercialHighlights(page) {
       'Budget-friendly routes still need premium handling standards',
       'Useful for local household and suburb-led moves',
     ],
+    'affordable-removalists-adelaide': [
+      'Affordable fixed-price options scoped before booking',
+      'Careful furniture handling stays part of the value',
+      'Useful for house, apartment, office, and local suburb moves',
+    ],
+    'removalist-cost-adelaide': [
+      'Cost factors explained before the quote request',
+      'Fixed-price moving can reduce hourly surprises',
+      'Useful for comparing access, inventory, truck size, and timing',
+    ],
+    'moving-quotes-adelaide': [
+      'Fast quote path for call or form enquiries',
+      'Quote accuracy improves with access and inventory detail',
+      'Useful for customers ready to request a fixed-price option',
+    ],
     'same-day-removalists-adelaide': [
       'Fast confirmation depends on early access detail',
       'Useful for urgent residential, apartment, and compact commercial jobs',
@@ -2010,6 +2240,16 @@ function buildCommercialHighlights(page) {
       'Useful for renovations, downsizing, and settlement gaps',
       'Built for moves that need more than one destination',
     ],
+    'fixed-price-removalists-adelaide': [
+      'Fixed-price quote options built from the actual move brief',
+      'Useful when access, traffic, stairs, or lifts could change timing',
+      'Designed for cost control without weakening service quality',
+    ],
+    'budget-removalists-adelaide': [
+      'Budget-aware planning without low-quality handling',
+      'Useful for customers comparing value, scope, and inclusions',
+      'Clear route and inventory details keep the quote realistic',
+    ],
   };
 
   return defaults[page.slug] || [
@@ -2025,6 +2265,21 @@ function buildCommercialFactorCards(page) {
       { title: 'What keeps the quote lean', copy: 'Accurate inventory, clear access notes, and a realistic route brief stop cheap quotes from drifting later.' },
       { title: 'Where value is protected', copy: 'Careful handling, transparent inclusions, and less rework matter more than chasing the lowest headline number.' },
       { title: 'Who this page fits', copy: 'Clients comparing local Adelaide options and trying to stay budget-conscious without dropping service quality.' },
+    ],
+    'affordable-removalists-adelaide': [
+      { title: 'Where affordability comes from', copy: 'A clear route, accurate item list, and realistic access notes help reduce uncertainty before the quote is set.' },
+      { title: 'What still needs premium care', copy: 'Furniture protection, fragile-item handling, and shared-building access should remain part of the quote even on affordable moves.' },
+      { title: 'What affects the quote', copy: 'Truck size, number of movers, stairs, lifts, distance, packing, heavy items, weekends, and after-hours access can all change the scope.' },
+    ],
+    'removalist-cost-adelaide': [
+      { title: 'Truck size and crew', copy: 'Inventory volume, bulky furniture, and the number of movers required shape the labour and vehicle plan.' },
+      { title: 'Access and timing', copy: 'Stairs, lifts, parking, long carries, after-hours access, and weekend pressure can change how the job is scheduled.' },
+      { title: 'Packing and heavy items', copy: 'Cartons, fragile packing, antiques, gym equipment, pianos, or heavy items should be disclosed before the quote is approved.' },
+    ],
+    'moving-quotes-adelaide': [
+      { title: 'Quote-ready route detail', copy: 'Pickup suburb, delivery suburb, property types, and preferred date give the team the first layer of quote accuracy.' },
+      { title: 'Inventory and access', copy: 'Room count, large furniture, stairs, lifts, parking, and carry distance explain how much work the route really needs.' },
+      { title: 'Call or form path', copy: 'Urgent moves should call. Detailed non-urgent moves can use the quote form and include access notes for a fixed-price review.' },
     ],
     'same-day-removalists-adelaide': [
       { title: 'What makes same-day viable', copy: 'A workable schedule, fast access confirmation, and an inventory summary that can be priced without guesswork.' },
@@ -2050,6 +2305,16 @@ function buildCommercialFactorCards(page) {
       { title: 'What makes storage routes different', copy: 'Extra handling and more than one destination mean the load order has to match what gets delivered first.' },
       { title: 'How staged delivery helps', copy: 'Renovation gaps, downsizing, and settlement timing are easier when storage is already part of the route plan.' },
       { title: 'Where this page fits', copy: 'Moves that need a storage stop, split handover, or wider route strategy before quoting.' },
+    ],
+    'fixed-price-removalists-adelaide': [
+      { title: 'What fixes the price', copy: 'The quote is built from route, inventory, access, packing, timing, and item-handling details.' },
+      { title: 'Why it can be safer', copy: 'A fixed-price quote can reduce exposure to traffic, lift delays, stairs, or slow hourly billing when the scope is accurate.' },
+      { title: 'What must be accurate', copy: 'The supplied inventory and access notes need to match the job so the fixed price remains fair and workable.' },
+    ],
+    'budget-removalists-adelaide': [
+      { title: 'What protects the budget', copy: 'Clear scope, accurate access notes, and no hidden inventory are the best ways to keep a budget move predictable.' },
+      { title: 'Where cheap becomes risky', copy: 'Weak inclusions, rushed handling, missing insurance context, or unlisted access conditions can turn a low headline into poor value.' },
+      { title: 'How ZQ positions value', copy: 'The goal is affordable fixed-price options with careful handling, not a race to the lowest low-quality promise.' },
     ],
   };
 
@@ -2121,6 +2386,7 @@ function renderPageHero({ eyebrow, title, lead, supporting = [], points = [], pr
         <div class="cta-cluster" data-generated-cta="top" data-generated-page-type="${escapeAttribute(pageType)}">
           <a class="button button-primary" href="${escapeAttribute(normalizeInternalHref(primaryCta.href))}">${escapeHtml(primaryCta.label)}</a>
           <a class="button button-secondary" href="${escapeAttribute(normalizeInternalHref(secondaryCta.href))}">${escapeHtml(secondaryCta.label)}</a>
+          <a class="button button-secondary" href="tel:+61433819989">Call 0433 819 989</a>
         </div>
         <div class="cta-reassurance" aria-label="Quote reassurance">
           <p>Fixed pricing - no hidden costs</p>
@@ -2243,6 +2509,7 @@ function renderQuoteStrip({ eyebrow, heading, copy, primaryCta, secondaryCta, pa
       <div class="cta-cluster" data-generated-cta="bottom" data-generated-page-type="${escapeAttribute(pageType)}">
         <a class="button button-primary" href="${escapeAttribute(normalizeInternalHref(primaryCta.href))}">${escapeHtml(primaryCta.label)}</a>
         <a class="button button-secondary" href="${escapeAttribute(normalizeInternalHref(secondaryCta.href))}">${escapeHtml(secondaryCta.label)}</a>
+        <a class="button button-secondary" href="tel:+61433819989">Call 0433 819 989</a>
       </div>
     </div>
   </div>
@@ -2381,7 +2648,7 @@ function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel }) {
   const normalizedClusterKey = normalizeClusterKey(clusterKey);
   const template = clusterTemplates[normalizedClusterKey] || clusterTemplates.northern;
   const intro = template.intro.replaceAll('{suburb}', suburb);
-  const nearby = getSuburbPeerLinks(slug, normalizedClusterKey, template.nearby, 4);
+  const nearby = getSuburbPeerLinks(slug, normalizedClusterKey, template.nearby, 5);
 
   // Phase 12: Title Variation System
   const titleVariants = ['quote', 'local', 'experts', 'fast'];
@@ -3007,6 +3274,7 @@ ${renderValueCardSection({
   cards: adviceCards,
   soft: true,
 })}
+${['cost guide', 'accurate moving quotes', 'cheap vs fixed price removals'].includes(topic) ? renderQuoteModelComparison({ module: 'guide-quote-model-comparison' }) : ''}
 
 ${renderRouteCardSection({
   module: 'guide-services',
@@ -3049,6 +3317,44 @@ ${renderQuoteStrip({
   pageType: 'guide',
 })}
 </main>`;
+}
+
+function renderQuoteModelComparison({ module = 'quote-model-comparison', soft = false } = {}) {
+  return `<section class="section${soft ? ' section-soft' : ''}" data-generated-module="${escapeAttribute(module)}">
+  <div class="container">
+    ${renderSectionHeading(
+      'Quote comparison',
+      'Hourly rates vs fixed-price moving quotes',
+      'Both quote models can be legitimate, but they create different risks when access, inventory, or timing is unclear.',
+    )}
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Quote model</th>
+            <th scope="col">How it works</th>
+            <th scope="col">Best fit</th>
+            <th scope="col">Main risk</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Hourly removalist quote</th>
+            <td>Charged by time, usually influenced by movers, truck size, access, travel, and delays.</td>
+            <td>Simple moves where the inventory and access are genuinely predictable.</td>
+            <td>Stairs, lifts, traffic, parking, or extra items can push the final cost higher.</td>
+          </tr>
+          <tr>
+            <th scope="row">Fixed-price moving quote</th>
+            <td>Quoted from the route, inventory, property access, timing, packing, and handling brief.</td>
+            <td>Customers who want cost control before booking and fewer hourly surprises.</td>
+            <td>The quote only stays accurate when the supplied move details are accurate.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>`;
 }
 
 function buildGuideAdviceCards(topic) {
@@ -3162,6 +3468,7 @@ ${renderValueCardSection({
   cards: buildCommercialFactorCards(page),
   soft: true,
 })}
+${['cheap-removalists-adelaide', 'affordable-removalists-adelaide', 'removalist-cost-adelaide', 'moving-quotes-adelaide', 'fixed-price-removalists-adelaide', 'budget-removalists-adelaide'].includes(page.slug) ? renderQuoteModelComparison({ module: 'commercial-quote-model-comparison' }) : ''}
 ${renderRouteCardSection({
   module: 'commercial-services',
   eyebrow: 'Related services',
@@ -3245,6 +3552,12 @@ function getSuburbPeerLinks(slug, clusterKey, templateNearby = [], limit = 4) {
     const match = suburbDataByName.get(name);
     if (match && match.slug !== slug) {
       slugs.push(match.slug);
+    }
+  }
+
+  for (const fallbackSlug of ['north-adelaide', 'prospect', 'norwood', 'glenelg', 'marion', 'mawson-lakes', 'salisbury', 'modbury', 'henley-beach']) {
+    if (fallbackSlug !== slug) {
+      slugs.push(fallbackSlug);
     }
   }
 

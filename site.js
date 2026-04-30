@@ -1,11 +1,16 @@
 import {
+  getStoredAttribution,
   initAnalytics,
   trackCallClick,
+  trackEmailClick,
+  trackFormSuccess,
   trackFormStart,
   trackFormSubmit,
   trackMobileMenuOpen,
   trackOutboundClick,
   trackQuoteClick,
+  trackPricePageCTA,
+  trackSuburbCTA,
   trackServiceCTA,
 } from "./analytics.mjs";
 
@@ -278,7 +283,26 @@ function isServiceContextPage() {
     || document.body.classList.contains("page-guide-article");
 }
 
+function isSuburbContextPage() {
+  return document.body.classList.contains("page-suburb");
+}
+
+function isPriceContextPage() {
+  return [
+    "/cheap-removalists-adelaide/",
+    "/affordable-removalists-adelaide/",
+    "/removalist-cost-adelaide/",
+    "/moving-quotes-adelaide/",
+    "/fixed-price-removalists-adelaide/",
+    "/budget-removalists-adelaide/",
+  ].includes(window.location.pathname);
+}
+
 function inferClickLocation(anchor) {
+  const explicitLocation = anchor.getAttribute("data-lead-location");
+  if (explicitLocation) {
+    return explicitLocation;
+  }
   if (anchor.closest("#sticky-cta")) {
     return "sticky_cta";
   }
@@ -293,6 +317,25 @@ function inferClickLocation(anchor) {
 
 function trackQuoteSubmission() {
   trackFormSubmit("quote_form");
+}
+
+function attachAttributionFields(form) {
+  const attribution = getStoredAttribution();
+  Object.entries(attribution).forEach(([key, value]) => {
+    if (typeof value === "string" && value) {
+      ensureHiddenField(form, key, value);
+    }
+  });
+}
+
+function setupSuccessPageTracking() {
+  const node = document.querySelector("[data-conversion-success]");
+  if (!node) {
+    return;
+  }
+
+  const formName = node.getAttribute("data-form-name") || "quote_form";
+  trackFormSuccess(formName);
 }
 
 function setupConversionTracking() {
@@ -327,6 +370,11 @@ function setupConversionTracking() {
       return;
     }
 
+    if (href.startsWith("mailto:")) {
+      trackEmailClick(inferClickLocation(anchor));
+      return;
+    }
+
     const isOutbound = /^https?:\/\//i.test(href) && !href.startsWith(window.location.origin);
     if (isOutbound) {
       trackOutboundClick(href);
@@ -338,7 +386,11 @@ function setupConversionTracking() {
     }
 
     trackQuoteClick(inferClickLocation(anchor));
-    if (isServiceContextPage()) {
+    if (isPriceContextPage()) {
+      trackPricePageCTA(window.location.pathname);
+    } else if (isSuburbContextPage()) {
+      trackSuburbCTA(window.location.pathname);
+    } else if (isServiceContextPage()) {
       trackServiceCTA(window.location.pathname);
     }
   });
@@ -382,6 +434,7 @@ function setQuoteFormSubmitting(form, isSubmitting) {
 }
 
 async function submitQuoteForm(form, payload) {
+  attachAttributionFields(form);
   const formData = new FormData(form);
   Object.entries(payload).forEach(([fieldName, value]) => {
     formData.set(fieldName, value);
@@ -465,6 +518,7 @@ function setupQuoteForms() {
           "success",
         );
         setQuoteFormSubmitting(form, false);
+        window.location.assign("/thank-you/");
       } catch (error) {
         console.error(error);
         setQuoteFormFeedback(
@@ -622,3 +676,4 @@ setupRevealAnimations();
 setupStickyCta();
 setupConversionTracking();
 setupFooterSocialLinks();
+setupSuccessPageTracking();

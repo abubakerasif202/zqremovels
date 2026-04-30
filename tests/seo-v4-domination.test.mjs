@@ -44,7 +44,8 @@ test('homepage metadata, schema, and crawl directives match v4 targets', async (
   const description = homepage.match(/<meta name="description" content="([^"]+)"/)?.[1] || '';
   const h1Count = (homepage.match(/<h1\b/gi) || []).length;
 
-  assert.ok(title.length >= 50 && title.length <= 60, `title length out of range: ${title.length}`);
+  assert.equal(title, 'Removalists Adelaide | Affordable Fixed-Price Movers | ZQ Removals');
+  assert.ok(title.length >= 50 && title.length <= 70, `title length out of range: ${title.length}`);
   assert.ok(description.length >= 120 && description.length <= 160, `description length out of range: ${description.length}`);
   assert.equal(h1Count, 1);
   assert.match(homepage, /<link rel="canonical" href="https:\/\/zqremovals\.au\/" \/>/);
