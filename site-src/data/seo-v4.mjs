@@ -3,6 +3,13 @@ const BUSINESS_NAME = 'ZQ Removals';
 const PHONE = '+61 433 819 989';
 const DEFAULT_OG_IMAGE = `${SITE_URL}/zq-removals-social-share.webp`;
 const DEFAULT_LOGO = `${SITE_URL}/brand-logo.webp`;
+const ABN_FORMATTED = '97 954 095 119';
+const ABN_MACHINE = '97954095119';
+
+export const businessIdentifiers = {
+  abnFormatted: ABN_FORMATTED,
+  abnMachine: ABN_MACHINE,
+};
 
 function toAbsoluteUrl(pathname) {
   return pathname.startsWith('http') ? pathname : `${SITE_URL}${pathname}`;
@@ -58,6 +65,12 @@ export const localBusinessSchema = {
   logo: DEFAULT_LOGO,
   hasMap: seoConfig.socialProfiles[0],
   sameAs: seoConfig.socialProfiles,
+  taxID: ABN_MACHINE,
+  identifier: {
+    '@type': 'PropertyValue',
+    name: 'ABN',
+    value: ABN_MACHINE,
+  },
   priceRange: '$$',
   address: {
     '@type': 'PostalAddress',
@@ -84,7 +97,94 @@ const interstateRouteData = [
   ['adelaide-to-brisbane-removals', 'Brisbane', 'Adelaide to Brisbane', 'approx. 2,000km via Newell Hwy', 'A1'],
   ['adelaide-to-canberra-removals', 'Canberra', 'Adelaide to Canberra', 'approx. 1,160km via Sturt Hwy', 'M23'],
   ['adelaide-to-perth-removals', 'Perth', 'Adelaide to Perth', 'approx. 2,700km via Eyre Hwy', 'A1'],
+  ['adelaide-to-sydney-removalists', 'Sydney NSW', 'Adelaide to Sydney', 'approx. 1,375km via Sturt Hwy and Hume Hwy', 'A20 / M31'],
+  ['adelaide-to-melbourne-removalists', 'Melbourne VIC', 'Adelaide to Melbourne', 'approx. 730km via Western Hwy', 'A8'],
+  ['adelaide-to-western-sydney-removalists', 'Western Sydney NSW', 'Adelaide to Western Sydney', 'approx. 1,320km via Sturt Hwy and Hume Hwy', 'A20 / M31'],
+  ['adelaide-to-smithfield-nsw-removalists', 'Smithfield NSW', 'Adelaide to Smithfield NSW', 'approx. 1,335km via Sturt Hwy and Hume Hwy', 'A20 / M31'],
 ];
+
+const interstateRouteProfilesV7 = {
+  'adelaide-to-sydney-removalists': {
+    titleSuffix: 'Removalists From Adelaide',
+    description:
+      'Adelaide to Sydney removalists for interstate moves that start in Adelaide and need pickup access, packing, route timing, and Sydney delivery notes reviewed before quoting.',
+    destinationLabel: 'Sydney NSW',
+    intro:
+      'This route is for customers moving from Adelaide to Sydney who need an interstate removals plan built around Adelaide pickup details and destination access in NSW.',
+    destinationPlanning:
+      'Sydney delivery planning should cover apartment lifts, loading zones, strata rules, parking pressure, and handover timing without implying a Sydney base.',
+  },
+  'adelaide-to-melbourne-removalists': {
+    titleSuffix: 'Removalists From Adelaide',
+    description:
+      'Adelaide to Melbourne removalists for interstate moves starting in Adelaide, with access, packing, timing, and Melbourne delivery notes scoped before booking.',
+    destinationLabel: 'Melbourne VIC',
+    intro:
+      'This route is for Adelaide customers relocating to Melbourne who want a quote based on inventory, property access, packing needs, and delivery conditions at the Victorian end.',
+    destinationPlanning:
+      'Melbourne delivery planning should cover building access, loading restrictions, lift bookings, inner-city timing, and suburban carry distance without claiming a Melbourne base.',
+  },
+  'adelaide-to-western-sydney-removalists': {
+    titleSuffix: 'Removalists From Adelaide',
+    description:
+      'Adelaide to Western Sydney removalists for interstate moves from Adelaide into western Sydney suburbs, with access, inventory, and destination handover details reviewed first.',
+    destinationLabel: 'Western Sydney NSW',
+    intro:
+      'This route is for Adelaide pickups heading into Western Sydney where the destination may be a house, townhouse, apartment, warehouse-adjacent property, or mixed residential-commercial address.',
+    destinationPlanning:
+      'Western Sydney delivery planning should cover driveway access, estate streets, industrial-adjacent loading areas, apartment lifts, parking rules, and delivery windows without presenting a NSW base.',
+  },
+  'adelaide-to-smithfield-nsw-removalists': {
+    titleSuffix: 'Removalists From Adelaide',
+    description:
+      'Adelaide to Smithfield NSW removalists for interstate moves from Adelaide, clearly separated from Smithfield SA and Smithfield Plains local Adelaide searches.',
+    destinationLabel: 'Smithfield NSW',
+    intro:
+      'This page is specifically for interstate removals from Adelaide to Smithfield NSW. It is not a Smithfield SA or Smithfield Plains local Adelaide suburb page.',
+    destinationPlanning:
+      'Smithfield NSW delivery planning should cover Western Sydney access, parking, warehouse-adjacent streets, house or townhouse entries, and handover timing without claiming a local NSW base.',
+    disambiguation:
+      'Smithfield NSW is a Western Sydney destination. For local northern Adelaide routes near Smithfield SA or Smithfield Plains, use the Adelaide suburb and northern Adelaide pages instead.',
+  },
+};
+
+export const hyperlocalProfilesV7 = {
+  'glenelg': {
+    council: 'City of Holdfast Bay',
+    context: 'Anzac Highway, Moseley Square, beachside apartments, and parking pressure',
+    access: 'Glenelg moves need parking notes because apartment entries and shared frontage can slow the first load.',
+    roads: 'Anzac Highway is the main corridor to flag when timing or demand may affect the booking window.',
+    properties: 'Common property types include beachside apartments, townhouses, older homes, and mixed-use addresses.',
+  },
+  'salisbury': {
+    council: 'City of Salisbury',
+    context: 'Main North Road, Northern Expressway, Andrews Farm proximity, and mixed residential or light industrial access',
+    access: 'Salisbury jobs should capture driveway position, industrial-adjacent loading space, unit access, and garage-heavy inventory before quoting.',
+    roads: 'Main North Road and the Northern Expressway can shape timing when the route heads north, links back toward Andrews Farm, or joins a broader Adelaide move.',
+    properties: 'Common property types include family homes, units, storage-linked moves, light industrial stock, and small office inventory.',
+  },
+  'adelaide-cbd': {
+    council: 'City of Adelaide',
+    context: 'loading zones, apartment towers, lift bookings, and timed building access',
+    access: 'CBD moves should start with loading-zone rules, service-lift windows, concierge instructions, and shared corridor requirements.',
+    roads: 'City-grid timing can change quickly around North Terrace, King William Street, Grenfell Street, and other central access points.',
+    properties: 'Common property types include apartment towers, offices, mixed-use suites, compact city units, and managed buildings.',
+  },
+  'marion': {
+    council: 'City of Marion',
+    context: 'Marion Road, South Road, retail and residential traffic, and mixed house or unit moves',
+    access: 'Marion moves should note shopping-precinct traffic, shared unit access, townhouse stairs, driveway position, and clinic or office inventory when relevant.',
+    roads: 'Marion Road and South Road are the main corridor references to include when route timing or truck positioning may affect the day.',
+    properties: 'Common property types include family homes, units, clinics, small offices, townhouses, and mixed residential-commercial addresses.',
+  },
+  'norwood': {
+    council: 'City of Norwood Payneham & St Peters',
+    context: 'The Parade, tighter streets, older homes, and careful furniture access',
+    access: 'Norwood moves should capture kerbside stopping options, narrower entries, stairs, older-home layouts, and careful furniture handling needs.',
+    roads: 'The Parade is the key local reference when timing, retail activity, or tighter street access could affect loading.',
+    properties: 'Common property types include older homes, terrace-style properties, apartments, townhouses, shopfront-adjacent spaces, and small offices.',
+  },
+};
 
 export const imageAssets = {
   homepage: {
@@ -1426,7 +1526,7 @@ const commercialPages = [
       {
         question: 'Are there any hidden fees in your fixed quote?',
         answer:
-          'No. Our fixed-price quotes include travel, fuel, insurance, and equipment. As long as the inventory and access match the brief, the price is guaranteed.',
+          'The quote should list the included travel, fuel, equipment, access assumptions, and any owner-confirmed insurance details. As long as the inventory and access match the brief, the agreed scope stays clear.',
       },
       {
         question: 'Why can fixed-price removals suit Adelaide moves?',
@@ -1481,7 +1581,7 @@ const commercialPages = [
       {
         question: 'What are the hidden costs of cheap movers?',
         answer:
-          'Common hidden costs include depot-to-depot travel fees, fuel surcharges, stairs fees, and lack of transit insurance coverage.',
+          'Common hidden costs include depot-to-depot travel fees, fuel surcharges, stairs fees, unclear cover wording, and unlisted access conditions.',
       },
     ],
   },
@@ -2182,18 +2282,58 @@ function buildSuburbIntroParagraphs({ suburb, intro, logisticsLabel, nearby, clu
   const clusterLabel = formatClusterLabel(clusterKey).toLowerCase();
   const supportServices = supportProfile.services.slice(0, 2).map((item) => item.label).join(' and ');
 
+  if (suburb === 'Glenelg') {
+    return [
+      'Removalists near Glenelg need coastal access planning because parking and apartment entries can slow the day.',
+      `If you are comparing removalists near ${suburb} or affordable removalists ${suburb}, check parking, access, stairs, lifts, and timing before the quote is confirmed.`,
+      `Keep ${suburb} linked to the Adelaide hub, nearby routes like ${nearby.map((item) => item.suburb).join(', ')}, and the most useful services for ${clusterLabel} moves, including ${supportServices}.`,
+    ];
+  }
+
   return [
-    `${intro} If you are comparing removalists near ${suburb} or affordable removalists ${suburb}, check parking, access, stairs, lifts, furniture volume, and timing. A fixed-price quote for ${suburb} moves should be based on the real access path, not a vague headline rate.`,
-    `${suburb} moves usually perform better when the quote is based on the real access path, the inventory mix, and the timing pressure on the street or in the building. For this suburb, that often means clarifying ${logisticsLabel} before labour, vehicle setup, and the unload order are locked in.`,
-    `This page is designed as a stronger local entry point, not a thin suburb mention. It keeps ${suburb} connected to the Adelaide removals hub, nearby comparison routes like ${nearby.map((item) => item.suburb).join(', ')}, and the most useful services for ${clusterLabel} moves, including ${supportServices}.`,
+    `${intro} If you are comparing removalists near ${suburb}, check access, stairs, lifts, and timing.`,
+    `${suburb} quotes work best when they reflect access and inventory. For this suburb, that often means clarifying ${logisticsLabel} before the job is locked in.`,
+    `This page keeps ${suburb} linked to nearby routes like ${nearby.map((item) => item.suburb).join(', ')}, and routes for ${clusterLabel} moves.`,
   ];
 }
 
 function buildSuburbSummaryCards({ suburb, logisticsLabel, supportProfile, traits }) {
+  if (suburb === 'Glenelg') {
+    return [
+      {
+        title: `Local service summary for ${suburb}`,
+        copy: `${suburb} jobs are scoped around ${logisticsLabel}, not a generic suburb template.`,
+        points: [
+          'Local and Adelaide-wide routes scoped from one brief',
+          'Inventory, access, and timing reviewed before scheduling',
+          'Premium handling without a long sales loop',
+        ],
+      },
+      {
+        title: 'What improves quote accuracy',
+        copy: 'The strongest enquiry explains property type, access, parking, and the main furniture items.',
+        points: [
+          'Pickup and delivery suburbs confirmed early',
+          'Heavy or fragile items listed up front',
+          'Property access notes included before move day',
+        ],
+      },
+      {
+        title: 'Best-fit service paths',
+      copy: `${supportProfile.services.slice(0, 2).map((item) => item.label).join(' and ')} stay relevant for this brief.`,
+        points: [
+          'Apartment access stays tied to loading and timing',
+          'Packing and furniture handling can be scoped together',
+          'Broader Adelaide links stay visible for comparison',
+        ],
+      },
+    ];
+  }
+
   return [
     {
       title: `Local service summary for ${suburb}`,
-      copy: `${suburb} jobs can flow into house removals, apartment work, packing support, storage staging, or interstate handoff depending on the route. The common thread is that the job is scoped around ${logisticsLabel}, not a generic suburb template.`,
+      copy: `${suburb} jobs can flow into house removals, apartment work, packing, or handoff. The job is scoped around ${logisticsLabel}`,
       points: [
         'Local and Adelaide-wide routes scoped from one brief',
         'Inventory, access, and timing reviewed before scheduling',
@@ -2202,7 +2342,7 @@ function buildSuburbSummaryCards({ suburb, logisticsLabel, supportProfile, trait
     },
     {
       title: 'What improves quote accuracy',
-      copy: `The strongest enquiry explains the property type, stair or lift setup, parking position, and whether the move includes bulky furniture, storage, packing, or a second stop.`,
+      copy: `The strongest enquiry explains property type, stairs or lifts, parking, and furniture, storage, or packing.`,
       points: [
         'Pickup and delivery suburbs confirmed early',
         'Heavy or fragile items listed up front',
@@ -2211,7 +2351,7 @@ function buildSuburbSummaryCards({ suburb, logisticsLabel, supportProfile, trait
     },
     {
       title: 'Best-fit service paths',
-      copy: `The related services for ${suburb} follow the local access pattern rather than forcing the same route through every page. That is why ${supportProfile.services.slice(0, 2).map((item) => item.label).join(' and ')} sit close to this suburb brief.`,
+      copy: `The related services for ${suburb} follow the local access pattern. That is why ${supportProfile.services.slice(0, 2).map((item) => item.label).join(' and ')} sit close to this brief.`,
       points: [
         traits.includes('apartment') ? 'Apartment access stays tied to loading, lifts, and timing' : 'Residential access stays tied to property layout and carry path',
         traits.includes('storage') ? 'Storage staging can be added without breaking the route plan' : 'Packing and furniture handling can be scoped in the same job',
@@ -2228,7 +2368,7 @@ function buildSuburbLogisticsCards({ suburb, logisticsLabel, clusterKey, nearby 
   return [
     {
       title: `${clusterLabel} access checks`,
-      copy: `${suburb} sits inside a ${clusterLabel.toLowerCase()} pattern where route timing, street position, and the carry path can change the labour plan quickly.`,
+      copy: `${suburb} sits in a ${clusterLabel.toLowerCase()} pattern where route timing, street position, and carry path can change the labour plan quickly.`,
       points: [
         `Nearby route comparisons include ${nearby.slice(0, 2).map((item) => item.suburb).join(' and ')}`,
         `${toTitle(logisticsLabel)} should be mentioned before the quote is approved`,
@@ -2538,7 +2678,7 @@ function buildCommercialFactorCards(page) {
     ],
     'budget-removalists-adelaide': [
       { title: 'What protects the budget', copy: 'Clear scope, accurate access notes, and no hidden inventory are the best ways to keep a budget move predictable.' },
-      { title: 'Where cheap becomes risky', copy: 'Weak inclusions, rushed handling, missing insurance context, or unlisted access conditions can turn a low headline into poor value.' },
+      { title: 'Where cheap becomes risky', copy: 'Weak inclusions, rushed handling, unclear cover wording, or unlisted access conditions can turn a low headline into poor value.' },
       { title: 'How ZQ positions value', copy: 'The goal is affordable fixed-price options with careful handling, not a race to the lowest low-quality promise.' },
     ],
   };
@@ -2858,8 +2998,9 @@ function makeRedirectPage({ output, canonical, title, description, destinationPa
 
 function makeInterstateRoutePage([slug, destination, routeName, distance, highway]) {
   const canonical = buildCanonical(`/${slug}/`);
-  const title = buildTitle(`${routeName} Removalists`, 'interstate');
-  const description = buildDescription(`Professional ${routeName} removalists. Direct, fixed-price interstate moving from Adelaide to ${destination} (${distance}). Includes full transit protection and experienced crew.`);
+  const profile = getInterstateRouteProfile({ slug, destination, routeName, distance, highway });
+  const title = buildTitle(profile.seoTitle, 'interstate');
+  const description = buildDescription(profile.description);
   const support = getInterstateSupportProfile(slug);
 
   return {
@@ -2881,9 +3022,9 @@ function makeInterstateRoutePage([slug, destination, routeName, distance, highwa
       JSON.stringify(buildLocalBusinessSchema()),
       JSON.stringify(buildServiceSchema({
         id: canonical,
-        name: `${routeName} Removals`,
-        serviceType: 'Interstate Removals',
-        areaServed: ['Adelaide', destination],
+        name: `${routeName} interstate removals from Adelaide`,
+        serviceType: 'Interstate removals from Adelaide',
+        areaServed: ['Adelaide', profile.destinationLabel, 'Australia'],
         description,
       })),
       JSON.stringify(buildBreadcrumbSchema([
@@ -2891,6 +3032,7 @@ function makeInterstateRoutePage([slug, destination, routeName, distance, highwa
         { name: 'Interstate Removals', url: `${SITE_URL}/interstate-removals-adelaide/` },
         { name: routeName, url: canonical },
       ], canonical)),
+      JSON.stringify(buildFAQSchema(profile.faqItems, canonical)),
     ],
     contentHtml: renderInterstateContent({ slug, destination, routeName, distance, highway, support }),
   };
@@ -3094,19 +3236,108 @@ function renderOverviewPage() {
   return `<main id="main-content"><section class="section"><div class="container"><h1>ZQ SEO V4</h1><p>Centralised SEO architecture for scalable Adelaide local landing pages, service pages, guides, and automated sitemap generation.</p></div></section></main>`;
 }
 
+function getInterstateRouteProfile({ slug, destination, routeName, distance, highway }) {
+  const configured = interstateRouteProfilesV7[slug] || {};
+  const destinationLabel = configured.destinationLabel || destination;
+  const isRemovalistsRoute = slug.endsWith('-removalists');
+  const routeType = isRemovalistsRoute ? 'removalists' : 'removals';
+  const baseIntro =
+    configured.intro ||
+    `This route is for interstate removals from Adelaide to ${destinationLabel}, with pickup access, inventory, packing needs, route timing, and destination handover reviewed before the quote is confirmed.`;
+
+  return {
+    destinationLabel,
+    routeType,
+    seoTitle: `${routeName} ${configured.titleSuffix || (isRemovalistsRoute ? 'Removalists From Adelaide' : 'Removals')}`,
+    description:
+      configured.description ||
+      `${routeName} ${routeType} from Adelaide with route-specific planning, inventory review, packing notes, access checks, and destination handover timing.`,
+    intro: baseIntro,
+    destinationPlanning:
+      configured.destinationPlanning ||
+      `${destinationLabel} delivery planning should cover parking, carry distance, building access, lift bookings where relevant, and handover timing without implying ZQ Removals has a local destination office.`,
+    disambiguation: configured.disambiguation || '',
+    whoFor: [
+      'Households leaving Adelaide for an interstate home, unit, townhouse, or apartment.',
+      'Customers who need packing, furniture handling, access notes, or a staged delivery plan included in the same quote brief.',
+      'Business or mixed-inventory moves where desks, documents, monitors, stock, or storage stops must be separated from household items.',
+    ],
+    routePlanning: [
+      `The ${distance} route via ${highway} should be planned around realistic pickup, transit, and delivery windows.`,
+      'Availability depends on crew schedule, route grouping, inventory volume, access conditions, and preferred dates.',
+      'The quote should include pickup and delivery property types, parking notes, stairs, lifts, heavy items, fragile items, and packing scope.',
+    ],
+    pickupPlanning: [
+      'Confirm the Adelaide pickup suburb, property type, driveway or loading-zone position, stairs, lifts, and any body-corporate or building rules.',
+      'List heavy furniture, fragile pieces, whitegoods, garage stock, office equipment, and items that need to be loaded or delivered first.',
+    ],
+    deliveryPlanning: [
+      configured.destinationPlanning ||
+        `${destinationLabel} delivery planning should cover truck stopping options, access rules, carry distance, stairs, lifts, and key handover timing.`,
+      'Destination access notes should be supplied before the quote is approved so the delivery side is not treated as a generic endpoint.',
+    ],
+    packingNotes: [
+      'Interstate moves reward cleaner packing, stronger labelling, and careful separation of fragile, heavy, office, and priority-room items.',
+      'Cartons, wrapping, furniture blankets, and item grouping should be discussed before the move date so the load order supports the delivery plan.',
+    ],
+    quoteFactors: [
+      'Inventory volume and truck space',
+      'Access at both addresses',
+      'Packing and protection scope',
+      'Preferred date and route availability',
+      'Heavy, fragile, office, storage, or multi-stop items',
+    ],
+    faqItems: buildInterstateRouteFaqItems({ routeName, destinationLabel, disambiguation: configured.disambiguation }),
+  };
+}
+
+function buildInterstateRouteFaqItems({ routeName, destinationLabel, disambiguation = '' }) {
+  const items = [
+    {
+      question: `Do you offer ${routeName} removalists from Adelaide?`,
+      answer: `Yes. ZQ Removals can quote interstate removals from Adelaide to ${destinationLabel} after reviewing route, access, inventory, packing, and timing details.`,
+    },
+    {
+      question: 'Is this a destination local-office page?',
+      answer: `No. This page describes interstate removals from Adelaide to ${destinationLabel}. It does not claim a local office at the destination.`,
+    },
+    {
+      question: 'What details make the interstate quote more accurate?',
+      answer: 'Pickup and delivery suburbs, property types, stairs, lifts, parking, inventory volume, heavy items, fragile items, packing needs, and preferred dates all improve quote accuracy.',
+    },
+    {
+      question: 'Are route dates subject to availability?',
+      answer: 'Yes. Interstate scheduling is subject to availability because crew timing, route grouping, inventory size, and access at both addresses all affect the booking window.',
+    },
+    {
+      question: 'What should be packed differently for interstate removals?',
+      answer: 'Fragile, heavy, office, and priority-room items should be labelled clearly and packed for longer handling windows so the delivery sequence is easier to manage.',
+    },
+  ];
+
+  if (disambiguation) {
+    items.splice(1, 0, {
+      question: 'Is this page for Smithfield NSW or Smithfield SA?',
+      answer: disambiguation,
+    });
+  }
+
+  return items;
+}
+
 function buildInterstatePricingCards({ destination, distance, highway }) {
   return [
     {
-      title: 'Inventory-Based Volume',
-      copy: 'Interstate quotes are primarily driven by the volume of your inventory. We review your list to ensure the truck size and load weight are perfectly matched.',
+      title: 'Inventory-based volume',
+      copy: 'Interstate quotes are shaped by inventory volume, large furniture, fragile items, and whether the load includes household, office, storage, or mixed-use items.',
       points: [
         'Room-by-room inventory review',
         'Large furniture items measured',
-        'Transparent cubic-metre estimates',
+        'Truck space and load sequence checked before quoting',
       ],
     },
     {
-      title: 'Access & Logistics',
+      title: 'Access and logistics',
       copy: `The distance to ${destination} is fixed, but access at both ends can change the plan. We account for everything from service lifts to narrow street positioning.`,
       points: [
         'Loading dock coordination',
@@ -3115,12 +3346,12 @@ function buildInterstatePricingCards({ destination, distance, highway }) {
       ],
     },
     {
-      title: 'Transit & Protection',
-      copy: `For the ${distance} journey via the ${highway}, professional wrapping and transit insurance are standard to ensure your furniture arrives in showroom condition.`,
+      title: 'Packing and handover notes',
+      copy: `For the ${distance} journey via ${highway}, wrapping, carton quality, labelling, and handover notes need to be discussed before the booking is confirmed.`,
       points: [
-        'Premium furniture blankets',
-        'High-grade shrink wrapping',
-        'Standard transit insurance included',
+        'Furniture blankets and wrapping scope discussed',
+        'Fragile and priority items labelled',
+        'Owner-confirmed insurance details can be added when provided',
       ],
     },
   ];
@@ -3148,8 +3379,16 @@ function buildInterstateWindowCards({ destination, distance }) {
 
 function renderInterstateContent({ slug, destination, routeName, distance, highway, support }) {
   const cta = 'Get a Fixed-Price Quote';
+  const profile = getInterstateRouteProfile({ slug, destination, routeName, distance, highway });
   const pricingCards = buildInterstatePricingCards({ destination, distance, highway });
   const windowCards = buildInterstateWindowCards({ destination, distance });
+  const requiredLinkCards = [
+    { eyebrow: 'Service hub', title: 'Interstate removals Adelaide', copy: 'Use the service hub for the broader long-distance move process from Adelaide.', href: '/services/interstate-removals-adelaide/', cta: 'Open interstate service' },
+    { eyebrow: 'Quote path', title: 'Moving quotes Adelaide', copy: 'Send the route, access, inventory, timing, and packing notes for review.', href: '/moving-quotes-adelaide/', cta: 'Prepare moving quote' },
+    { eyebrow: 'Price model', title: 'Fixed-price removalists Adelaide', copy: 'Review how fixed-price quoting works when the scope is clear.', href: '/fixed-price-removalists-adelaide/', cta: 'Review fixed-price moving' },
+    { eyebrow: 'Checklist', title: 'Interstate moving checklist Adelaide', copy: 'Use the checklist to prepare both addresses and the handover details.', href: '/adelaide-moving-guides/interstate-moving-checklist-adelaide/', cta: 'Open interstate checklist' },
+    { eyebrow: 'Quote form', title: 'Request a fixed-price quote', copy: 'Submit the move brief once the key route and access details are ready.', href: '/contact-us/#quote-form', cta: 'Request quote' },
+  ];
   const serviceCards = support.services.map((item, index) => ({
     eyebrow: index === 0 ? 'Interstate service' : 'Service fit',
     title: toTitle(item.label),
@@ -3175,17 +3414,17 @@ function renderInterstateContent({ slug, destination, routeName, distance, highw
   return `<main id="main-content" data-generated-page="interstate-v5">
 ${renderPageHero({
   eyebrow: 'Interstate Removals Adelaide',
-  title: `${routeName} removalists for fixed-price, direct relocations`,
-  lead: `Moving from Adelaide to ${destination} is ${distance}. We provide a direct, fixed-price interstate service designed for reliability and clear timing.`,
+  title: `${profile.seoTitle} with route-specific planning`,
+  lead: profile.intro,
   supporting: [
-    `Direct transit via the ${highway} with no double handling and full transit protection.`,
-    `A professional ${routeName} move brief should account for inventory depth and specific property access at both ends.`,
+    `The ${distance} route via ${highway} should be scoped around inventory depth, access at both ends, and realistic delivery timing.`,
+    'This is an Adelaide-origin interstate removals page, not a claim of a destination office.',
   ],
   points: [
-    'Direct transit with one truck and one crew',
-    'Fixed pricing inclusive of GST and insurance',
-    'Route expertise across the major highway networks',
-    `Reliable delivery windows for ${destination}`,
+    'Interstate removals from Adelaide to the destination',
+    'Fixed-price quote after route and access review',
+    'Packing and inventory notes scoped before booking',
+    'Subject to availability for preferred dates',
   ],
   primaryCta: { href: '/contact-us/#quote-form', label: cta },
   secondaryCta: { href: '/interstate-removals-adelaide/', label: 'View all routes' },
@@ -3197,6 +3436,36 @@ ${renderPageHero({
   ],
 })}
 
+${renderAeoAnswerBlock({
+  module: 'interstate-aeo-answer',
+  question: `Can ZQ Removals help with ${routeName} moves?`,
+  answer: `Yes. ZQ Removals can quote ${routeName} interstate removals from Adelaide after reviewing access, inventory, packing, timing, and destination handover details.`,
+  links: [
+    { href: '/services/interstate-removals-adelaide/', label: 'Interstate removals service' },
+    { href: '/moving-quotes-adelaide/', label: 'Moving quotes Adelaide' },
+    { href: '/contact-us/#quote-form', label: 'Request route quote' },
+  ],
+})}
+${profile.disambiguation ? renderTextSection({
+  module: 'route-disambiguation',
+  eyebrow: 'Destination clarity',
+  heading: 'Is this Smithfield NSW or Smithfield SA?',
+  intro: profile.disambiguation,
+  paragraphs: [
+    'Use this page only when the move leaves Adelaide for Smithfield NSW in Western Sydney. For Smithfield SA, Smithfield Plains, or other northern Adelaide moves, use the local Adelaide suburb and northern Adelaide hub pages.',
+  ],
+}) : ''}
+${renderValueCardSection({
+  module: 'route-who-for',
+  eyebrow: 'Route fit',
+  heading: `Who this ${routeName} route is for`,
+  intro: `Use this page when the move starts in Adelaide and the destination is ${profile.destinationLabel}.`,
+  cards: profile.whoFor.map((copy, index) => ({
+    title: ['Household interstate moves', 'Packing or furniture-heavy routes', 'Business or mixed inventory'][index] || 'Route fit',
+    copy,
+  })),
+  soft: true,
+})}
 ${renderValueCardSection({
   module: 'interstate-pricing',
   eyebrow: 'Pricing Logic',
@@ -3204,26 +3473,75 @@ ${renderValueCardSection({
   intro: `Interstate pricing depends on a transparent cubic-metre model combined with the specific access detail of your ${destination} route.`,
   cards: pricingCards,
 })}
-
 ${renderValueCardSection({
-  module: 'interstate-windows',
-  eyebrow: 'Timing & Logistics',
-  heading: `Planning your ${destination} delivery window`,
-  intro: `Moving ${distance} requires an organized schedule. We provide clear windows for both pickup and final delivery.`,
-  cards: windowCards,
+  module: 'route-planning-considerations',
+  eyebrow: 'Route planning considerations',
+  heading: `Route planning considerations for ${routeName}`,
+  intro: 'Interstate work should be planned from the actual brief, not from a generic city-to-city label.',
+  cards: profile.routePlanning.map((copy, index) => ({
+    title: ['Route timing', 'Subject to availability', 'Quote inputs'][index] || 'Planning note',
+    copy,
+  })),
   soft: true,
 })}
 
 ${renderValueCardSection({
-  module: 'interstate-planning',
-  eyebrow: 'Route planning',
-  heading: `How the ${routeName} route is managed`,
-  intro: `Moving interstate requires a practical order of operations. We plan the ${distance} transit to ensure efficiency and safety.`,
-  cards: [
-    { title: 'Direct Transit Path', copy: 'Your goods stay on the same vehicle from Adelaide pickup to final delivery. No depots, no sub-contractors, no double handling.' },
-    { title: 'Fixed-Price Clarity', copy: 'We quote based on your specific inventory and access. The price we provide is fixed, so you can plan your budget with confidence.' },
-    { title: 'Highway Logistics', copy: `Our crews are experienced with the ${highway} and the specific delivery conditions in ${destination}, from city towers to suburban streets.` },
-  ],
+  module: 'interstate-windows',
+  eyebrow: 'Timing & Logistics',
+  heading: `Planning your ${profile.destinationLabel} delivery window`,
+  intro: `Moving ${distance} requires an organized schedule. We provide clear windows for both pickup and final delivery.`,
+  cards: windowCards,
+})}
+
+${renderValueCardSection({
+  module: 'adelaide-pickup-planning',
+  eyebrow: 'Pickup planning in Adelaide',
+  heading: `Pickup planning in Adelaide for ${routeName}`,
+  intro: 'The Adelaide end sets the foundation for the whole route.',
+  cards: profile.pickupPlanning.map((copy, index) => ({
+    title: ['Access at origin', 'Inventory and priority items'][index] || 'Pickup note',
+    copy,
+  })),
+  soft: true,
+})}
+${renderValueCardSection({
+  module: 'destination-delivery-planning',
+  eyebrow: 'Delivery planning at destination',
+  heading: `Delivery planning in ${profile.destinationLabel}`,
+  intro: 'The destination end should be reviewed before the booking is accepted.',
+  cards: profile.deliveryPlanning.map((copy, index) => ({
+    title: ['Destination access', 'Handover notes'][index] || 'Delivery note',
+    copy,
+  })),
+})}
+${renderValueCardSection({
+  module: 'inventory-packing-notes',
+  eyebrow: 'Inventory and packing notes',
+  heading: `Inventory and packing notes for ${routeName}`,
+  intro: 'Interstate loads benefit from cleaner grouping, labelling, and quote detail.',
+  cards: profile.packingNotes.map((copy, index) => ({
+    title: ['Packing quality', 'Load sequence'][index] || 'Packing note',
+    copy,
+  })),
+  soft: true,
+})}
+${renderValueCardSection({
+  module: 'route-quote-factors',
+  eyebrow: 'Quote factors',
+  heading: `Quote factors for ${routeName}`,
+  intro: 'These are the details to send before asking for a fixed-price route review.',
+  cards: profile.quoteFactors.map((copy) => ({
+    title: copy,
+    copy: `${copy} should be described clearly so the Adelaide-to-destination route can be scoped without assumptions.`,
+  })),
+})}
+${renderRouteCardSection({
+  module: 'required-route-links',
+  eyebrow: 'Next steps',
+  heading: 'Route links to keep the brief moving',
+  intro: 'These pages connect the interstate route to service, quote, price, checklist, and enquiry paths.',
+  cards: requiredLinkCards,
+  soft: true,
 })}
 ${renderRouteCardSection({
   module: 'related-services',
@@ -3251,10 +3569,17 @@ ${renderRouteCardSection({
 ${renderQuoteStrip({
   eyebrow: 'Request a Quote',
   heading: `Get your fixed-price quote for ${routeName}`,
-  copy: `Plan your move to ${destination} with a clear, professional price and reliable transit window.`,
+  copy: `Plan your move to ${profile.destinationLabel} with a clear route brief. Preferred dates and route timing are subject to availability after access and inventory review.`,
   primaryCta: { href: '/contact-us/#quote-form', label: 'Get Fixed-Price Quote' },
   secondaryCta: { href: '/interstate-removals-adelaide/', label: 'View All Routes' },
   pageType: 'interstate',
+})}
+${renderFaqSectionBlock({
+  module: 'interstate-route-faq',
+  eyebrow: 'Route FAQ',
+  heading: `Questions people ask about ${routeName} removalists`,
+  intro: 'These answers keep the route accurate without claiming a destination office or unsupported credentials.',
+  items: profile.faqItems,
 })}
 </main>`;
 }
@@ -3371,7 +3696,7 @@ ${renderValueCardSection({
   module: 'local-service-summary',
   eyebrow: 'Local service summary',
   heading: `How ${suburb} jobs are scoped before move day`,
-  intro: `The quote should reflect local access, route timing, and the service type that best fits the move.`,
+    intro: `The quote should reflect access and timing.`,
   cards: buildSuburbSummaryCards({ suburb, logisticsLabel, supportProfile, traits: buildSuburbTraits(logisticsLabel, clusterKey) }).slice(0, 1),
 })}
 ${renderValueCardSection({
@@ -3385,12 +3710,13 @@ ${renderTextSection({
   module: 'local-insights',
   eyebrow: 'Local insights',
   heading: `Parking, property type, and traffic notes for ${suburb}`,
-  intro: `${suburb} needs its own move plan because parking, apartments, houses, and timing pressure change the way the job should be staffed.`,
+      intro: `${suburb} needs its own move plan because parking, apartments, houses, and timing pressure change staffing.`,
   paragraphs: [
     `Parking in ${suburb} should be treated as an access variable. Driveways, kerbside stopping, loading zones, shared frontage, visitor bays, and longer carries can all change timing, so those notes belong in the quote request.`,
     `Apartment and townhouse moves usually need service lifts, stairs, corridor, and loading-area notes, while house moves depend more on volume, garage stock, outdoor items, and room order. Traffic can shift with school periods, shopping strips, commute windows, and coastal or corridor demand.`,
   ],
 })}
+${renderHyperlocalAuthoritySection({ slug, suburb })}
 ${renderValueCardSection({
   module: 'move-types',
   eyebrow: 'Move types',
@@ -3526,6 +3852,16 @@ ${renderPageHero({
   pageType: 'guide',
 })}
 ${renderGuideTocSection({ title, intentProfile })}
+${renderAeoAnswerBlock({
+  module: 'guide-aeo-answer',
+  question: `How should you use this ${topic} guide?`,
+  answer: `Use this ${topic} guide to answer the planning question first, then turn the route, access, inventory, timing, and packing notes into a quote-ready Adelaide move brief.`,
+  links: [
+    { href: '/contact-us/#quote-form', label: 'Request a quote' },
+    { href: '/moving-quotes-adelaide/', label: 'Moving quotes Adelaide' },
+    { href: '/fixed-price-removalists-adelaide/', label: 'Fixed-price removalists Adelaide' },
+  ],
+})}
 ${renderTextSection({
   id: 'guide-purpose',
   module: 'guide-purpose',
@@ -3634,6 +3970,107 @@ function renderQuoteModelComparison({ module = 'quote-model-comparison', soft = 
 </section>`;
 }
 
+function renderAeoAnswerBlock({ module = 'aeo-answer', eyebrow = 'Quick answer', question, answer, support = [], links = [], soft = true }) {
+  return `<section class="section${soft ? ' section-soft' : ''}" data-generated-module="${escapeAttribute(module)}" data-ai-overview-answer="true">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow">${escapeHtml(eyebrow)}</span>
+      <h2>${escapeHtml(question)}</h2>
+      <p>${escapeHtml(answer)}</p>
+    </div>
+    ${support.length > 0 ? `<div class="value-grid">
+      ${support.map((item) => `<article class="value-card">
+        <h3>${escapeHtml(item.title)}</h3>
+        <p>${escapeHtml(item.copy)}</p>
+      </article>`).join('')}
+    </div>` : ''}
+    ${links.length > 0 ? `<div class="inline-link-group" style="margin-top: 1.5rem; justify-content: flex-start;">
+      ${links.map((item) => `<a href="${escapeAttribute(normalizeInternalHref(item.href))}">${escapeHtml(item.label)}</a>`).join('')}
+    </div>` : ''}
+  </div>
+</section>`;
+}
+
+function getCommercialAeoProfile(page) {
+  const profiles = {
+    'removalist-cost-adelaide': {
+      question: 'How much do removalists cost in Adelaide?',
+      answer: 'Removalist cost in Adelaide depends on the route, access, inventory, truck needs, timing, and packing scope. A useful quote should review those details before giving a final fixed-price option.',
+    },
+    'moving-quotes-adelaide': {
+      question: 'What details help you get a better moving quote in Adelaide?',
+      answer: 'A better Adelaide moving quote starts with pickup and delivery suburbs, property type, access notes, inventory, preferred date, and packing needs. Those details reduce guesswork and make fixed-price quoting more reliable.',
+    },
+    'fixed-price-removalists-adelaide': {
+      question: 'When is a fixed-price removalist quote useful?',
+      answer: 'A fixed-price removalist quote is useful when the route, inventory, access, and timing details are clear before booking. It can reduce hourly surprises when stairs, lifts, parking, or traffic could otherwise change the final cost.',
+    },
+    'office-relocation-adelaide': {
+      question: 'How should an Adelaide office relocation be planned?',
+      answer: 'An Adelaide office relocation should be planned around downtime, building access, IT equipment, desks, files, and the restart order. The move brief should be confirmed before the booking is approved.',
+    },
+  };
+
+  return profiles[page.slug] || {
+    question: `What should you confirm before booking ${page.title.toLowerCase()}?`,
+    answer: 'Confirm the route, access, inventory, timing, packing needs, and any heavy or fragile items before accepting a removalist quote. A clearer brief makes the move easier to scope and safer to schedule.',
+  };
+}
+
+function renderHyperlocalAuthoritySection({ slug, suburb }) {
+  const profile = hyperlocalProfilesV7[slug];
+  if (!profile) {
+    return '';
+  }
+
+  const links = [
+    { href: '/house-removals-adelaide/', label: 'House removals Adelaide' },
+    { href: '/furniture-removalists-adelaide/', label: 'Furniture removalists Adelaide' },
+    { href: '/office-removals-adelaide/', label: 'Office removals Adelaide' },
+    { href: '/moving-quotes-adelaide/', label: 'Moving quotes Adelaide' },
+    { href: '/fixed-price-removalists-adelaide/', label: 'Fixed-price removalists Adelaide' },
+    { href: '/adelaide-moving-guides/suburb-move-preparation-adelaide/', label: 'Suburb move preparation guide' },
+  ];
+
+  return `${renderAeoAnswerBlock({
+    module: 'hyperlocal-v7-answer',
+    eyebrow: 'Hyper-local move planning',
+    question: `What should you plan for when moving in ${suburb}?`,
+    answer: `${suburb} moves should be planned around council context, access, parking, road timing, and property type rather than distance. ${profile.council} context and routes such as ${profile.context} can shape the quote brief.`,
+    soft: false,
+  })}
+<section class="section section-soft" data-generated-module="hyperlocal-v7">
+  <div class="container">
+    ${renderSectionHeading(
+      'Local authority framework',
+      `${suburb} access, roads, and property context`,
+      'These notes use broad public local context only. Exact parking approvals, building rules, and move windows still need to be confirmed for the specific address.',
+    )}
+    <div class="value-grid">
+      <article class="value-card">
+        <h3>Council and local context</h3>
+        <p>${escapeHtml(`${profile.council}: ${profile.context}.`)}</p>
+      </article>
+      <article class="value-card">
+        <h3>Access and parking considerations</h3>
+        <p>${escapeHtml(profile.access)}</p>
+      </article>
+      <article class="value-card">
+        <h3>Road and logistics considerations</h3>
+        <p>${escapeHtml(profile.roads)}</p>
+      </article>
+      <article class="value-card">
+        <h3>Common property types</h3>
+        <p>${escapeHtml(profile.properties)}</p>
+      </article>
+    </div>
+    <div class="inline-link-group" style="margin-top: 1.5rem; justify-content: flex-start;">
+      ${links.map((item) => `<a href="${escapeAttribute(normalizeInternalHref(item.href))}">${escapeHtml(item.label)}</a>`).join('')}
+    </div>
+  </div>
+</section>`;
+}
+
 function buildGuideAdviceCards(topic, slug = '') {
   const v5Cards = {
     'moving-cost-adelaide-2026': [
@@ -3643,7 +4080,7 @@ function buildGuideAdviceCards(topic, slug = '') {
       },
       {
         title: 'Ask what is included before comparing',
-        copy: 'Travel, fuel, furniture blankets, insurance context, extra stops, heavy items, and after-hours timing should be clear before the quote is accepted.',
+        copy: 'Travel, fuel, furniture blankets, cover wording, extra stops, heavy items, and after-hours timing should be clear before the quote is accepted.',
       },
       {
         title: 'Use fixed pricing when scope is clear',
@@ -3821,6 +4258,7 @@ function renderCommercialContent(page, canonical, image) {
   const suburbLinks = ensureLinkDepth(profile.suburbs, seoV5DefaultSuburbLinks, 6);
   const guideLinks = ensureLinkDepth(profile.guides, seoV5DefaultGuideLinks, 4);
   const siblingLinks = ensureLinkDepth(profile.siblings, seoV5DefaultServiceLinks, 4);
+  const aeoProfile = getCommercialAeoProfile(page);
   const serviceCards = serviceLinks.map((item, index) => ({
     eyebrow: index === 0 ? 'Core service' : 'Related service',
     title: toTitle(item.label),
@@ -3868,6 +4306,16 @@ ${renderPageHero({
     { label: page.title },
   ],
   pageType: 'money',
+})}
+${renderAeoAnswerBlock({
+  module: 'commercial-aeo-answer',
+  question: aeoProfile.question,
+  answer: aeoProfile.answer,
+  links: [
+    { href: '/moving-quotes-adelaide/', label: 'Moving quotes Adelaide' },
+    { href: '/fixed-price-removalists-adelaide/', label: 'Fixed-price removalists Adelaide' },
+    { href: '/contact-us/#quote-form', label: 'Request a quote' },
+  ],
 })}
 ${renderValueCardSection({
   module: 'commercial-intent-profile',
@@ -4157,6 +4605,10 @@ export function getInterstateSupportProfile(routeSlug) {
   const allRoutes = [
     { href: '/adelaide-to-melbourne-removals/', label: 'Adelaide to Melbourne' },
     { href: '/adelaide-to-sydney-removals/', label: 'Adelaide to Sydney' },
+    { href: '/adelaide-to-melbourne-removalists/', label: 'Adelaide to Melbourne removalists' },
+    { href: '/adelaide-to-sydney-removalists/', label: 'Adelaide to Sydney removalists' },
+    { href: '/adelaide-to-western-sydney-removalists/', label: 'Adelaide to Western Sydney' },
+    { href: '/adelaide-to-smithfield-nsw-removalists/', label: 'Adelaide to Smithfield NSW' },
     { href: '/adelaide-to-brisbane-removals/', label: 'Adelaide to Brisbane' },
     { href: '/adelaide-to-canberra-removals/', label: 'Adelaide to Canberra' },
     { href: '/adelaide-to-perth-removals/', label: 'Adelaide to Perth' },
@@ -4169,9 +4621,12 @@ export function getInterstateSupportProfile(routeSlug) {
       { href: '/removalists-adelaide/', label: 'Adelaide removals hub' },
     ],
     services: [
+      { href: '/services/interstate-removals-adelaide/', label: 'interstate removals service' },
       { href: '/packing-services-adelaide/', label: 'full packing and protection' },
       { href: '/furniture-removalists-adelaide/', label: 'specialist furniture handling' },
       { href: '/office-removals-adelaide/', label: 'interstate office relocations' },
+      { href: '/moving-quotes-adelaide/', label: 'moving quotes Adelaide' },
+      { href: '/fixed-price-removalists-adelaide/', label: 'fixed-price removalists Adelaide' },
     ],
     guides: [
       { href: '/adelaide-moving-guides/interstate-moving-checklist-adelaide/', label: 'interstate moving checklist' },

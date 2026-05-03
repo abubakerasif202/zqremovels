@@ -1,7 +1,7 @@
 import { copyFile, cp, mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { transform } from 'lightningcss';
-import { buildCanonical, buildDescription, buildFAQSchema, buildImageObjectSchema, buildLocalBusinessSchema, buildOGTags, buildServiceSchema, buildTitle, buildTwitterTags, getGeneratedPages, getRouteCoverageReport, getSeoV5IntentProfile, getSuburbLinkProfile, mergePagesByOutput, normalizeInternalHref, seoConfig } from '../site-src/data/seo-v4.mjs';
+import { buildCanonical, buildDescription, buildFAQSchema, buildImageObjectSchema, buildLocalBusinessSchema, buildOGTags, buildServiceSchema, buildTitle, buildTwitterTags, businessIdentifiers, getGeneratedPages, getRouteCoverageReport, getSeoV5IntentProfile, getSuburbLinkProfile, mergePagesByOutput, normalizeInternalHref, seoConfig } from '../site-src/data/seo-v4.mjs';
 
 const workspaceRoot = process.cwd();
 
@@ -2630,6 +2630,12 @@ function buildBusinessJsonLd(page) {
       logo: defaultLogoImage,
       hasMap: googleBusinessProfileUrl,
       sameAs: companySameAsProfiles,
+      taxID: businessIdentifiers.abnMachine,
+      identifier: {
+        '@type': 'PropertyValue',
+        name: 'ABN',
+        value: businessIdentifiers.abnMachine,
+      },
       priceRange: '$$',
       serviceType: [
         'Local removals',
@@ -2919,10 +2925,11 @@ function getServiceSchemaConfig(page) {
     };
   }
 
-  if (output.startsWith('adelaide-to-') && output.endsWith('-removals/index.html')) {
+  if (output.startsWith('adelaide-to-') && /-(removals|removalists)\/index\.html$/.test(output)) {
     const route = output
       .replace(/\/index\.html$/, '')
       .replace(/^adelaide-to-/, 'Adelaide to ')
+      .replace(/-removalists$/, '')
       .replace(/-removals$/, '')
       .replaceAll('-', ' ');
 
@@ -3101,11 +3108,37 @@ function normalizeJsonLdBlocks(page) {
     try {
       const value = JSON.parse(jsonLd);
       const normalized = normalizeJsonLdValue(value, page);
-      return JSON.stringify(normalized, null, 2);
+      return JSON.stringify(sanitizeJsonLdTrustClaims(normalized), null, 2);
     } catch {
-      return jsonLd;
+      return sanitizeTrustClaimText(jsonLd);
     }
   });
+}
+
+function sanitizeJsonLdTrustClaims(value) {
+  if (Array.isArray(value)) {
+    return value.map((entry) => sanitizeJsonLdTrustClaims(entry));
+  }
+
+  if (!value || typeof value !== 'object') {
+    return typeof value === 'string' ? sanitizeTrustClaimText(value) : value;
+  }
+
+  return Object.fromEntries(
+    Object.entries(value).map(([key, entry]) => [key, sanitizeJsonLdTrustClaims(entry)]),
+  );
+}
+
+function sanitizeTrustClaimText(value = '') {
+  return String(value)
+    .replace(/Yes\. ZQ Removals is fully insured\. Your furniture is covered from the moment our team begins loading to the moment everything is placed in your new home\./gi, 'ABN and insurance details can be added here once confirmed by the business owner.')
+    .replace(/Yes\. All ZQ Removals interstate jobs are fully insured\. Ask for details when requesting your quote\./gi, 'ABN and insurance details can be added here once confirmed by the business owner.')
+    .replace(/Yes\. ZQ Removals carries full insurance for commercial removal jobs\. We can provide proof of insurance if required by your building manager\./gi, 'ABN and insurance details can be added here once confirmed by the business owner.')
+    .replace(/ZQ Removals is fully insured on every job\./gi, 'ABN and insurance details can be added here once confirmed by the business owner.')
+    .replace(/fully insured/gi, 'ABN and insurance details available once owner-confirmed')
+    .replace(/transit insurance as standard/gi, 'owner-confirmed cover details available on request')
+    .replace(/complete transit insurance included on every job for your total peace of mind\./gi, 'ABN and insurance details can be added here once confirmed by the business owner.')
+    .replace(/standard transit insurance included/gi, 'owner-confirmed cover details available on request');
 }
 
 function normalizeJsonLdValue(value, page) {
@@ -3217,6 +3250,12 @@ function normalizeMovingCompanyNode(node) {
     logo: defaultLogoImage,
     hasMap: googleBusinessProfileUrl,
     sameAs: Array.from(new Set([...companySameAsProfiles, ...sameAs].filter(Boolean))),
+    taxID: businessIdentifiers.abnMachine,
+    identifier: {
+      '@type': 'PropertyValue',
+      name: 'ABN',
+      value: businessIdentifiers.abnMachine,
+    },
     priceRange: '$$',
     serviceType: [
       'Local removals',
@@ -3526,12 +3565,7 @@ function getBodyClasses(page) {
   } else if (
     output === 'interstate-removals-adelaide/index.html' ||
     output === 'interstate-removalists-adelaide/index.html' ||
-    output === 'adelaide-to-melbourne-removals/index.html' ||
-    output === 'adelaide-to-sydney-removals/index.html' ||
-    output === 'adelaide-to-brisbane-removals/index.html' ||
-    output === 'adelaide-to-canberra-removals/index.html' ||
-    output === 'adelaide-to-perth-removals/index.html' ||
-    output === 'adelaide-to-queensland-removals/index.html'
+    (output.startsWith('adelaide-to-') && /-(removals|removalists)\/index\.html$/.test(output))
   ) {
     classes.push('page-interstate');
   } else if (output === 'office-removals-adelaide/index.html') {
@@ -4814,7 +4848,7 @@ function suburbWordCount(profile) {
 }
 
 function sanitizePublicCopy(content) {
-  return content
+  return sanitizeTrustClaimText(content)
     .replaceAll(
       'and the nearby routes are named explicitly here.',
       'and the nearby areas we commonly cover.',
@@ -5936,6 +5970,7 @@ async function renderSitemaps(pages, renderedHtmlByOutput = new Map()) {
       page.output === 'packing-services-adelaide/index.html' ||
       page.output === 'furniture-removalists-adelaide/index.html' ||
       page.output === 'interstate-removals-adelaide/index.html' ||
+      page.generatedKind === 'interstate-route' ||
       page.output === 'adelaide-to-melbourne-removals/index.html' ||
       page.output === 'adelaide-to-sydney-removals/index.html' ||
       page.output === 'adelaide-to-brisbane-removals/index.html' ||

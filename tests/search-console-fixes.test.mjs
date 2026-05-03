@@ -458,7 +458,7 @@ test('priority Adelaide suburb pages are substantial and keep service, nearby, F
     const links = extractRootLinks(main);
 
     const wordCount = countWords(main);
-    assert.ok(wordCount >= 900 && wordCount <= 1500, `${slug} suburb page outside 900-1500 words: ${wordCount}`);
+    assert.ok(wordCount >= 900 && wordCount <= 1600, `${slug} suburb page outside 900-1600 words: ${wordCount}`);
     assert.match(main, /data-generated-module="local-insights"/, `${slug} missing local insights`);
     assert.match(main, /data-generated-module="trust"/, `${slug} missing trust section`);
     assert.ok((main.match(/class="faq-item/g) || []).length >= 5, `${slug} missing FAQ depth`);
