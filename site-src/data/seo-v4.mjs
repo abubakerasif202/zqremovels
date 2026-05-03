@@ -93,6 +93,8 @@ export const imageAssets = {
     alt: 'ZQ Removals branded Adelaide moving scene with premium local coverage',
     title: 'ZQ Removals Adelaide moving service',
     caption: 'Premium Adelaide removals with clear quote-first planning.',
+    width: 768,
+    height: 406,
   },
   suburb: {
     path: '/media/zq-local-premium.webp',
@@ -100,6 +102,8 @@ export const imageAssets = {
     alt: 'ZQ Removals Adelaide suburb moving coverage image',
     title: 'Adelaide suburb removals',
     caption: 'Suburb-specific moving support across Adelaide.',
+    width: 1200,
+    height: 900,
   },
   guide: {
     path: '/media/zq-service-premium.webp',
@@ -107,6 +111,8 @@ export const imageAssets = {
     alt: 'ZQ Removals Adelaide moving guide planning image',
     title: 'Adelaide moving guide',
     caption: 'Planning resources for Adelaide removals and packing.',
+    width: 1200,
+    height: 900,
   },
   operations: {
     path: '/media/zq-operations-premium.webp',
@@ -114,6 +120,8 @@ export const imageAssets = {
     alt: 'ZQ Removals commercial and operations planning image',
     title: 'Adelaide office and operations relocations',
     caption: 'Operational Adelaide moves with structured access and timing.',
+    width: 1200,
+    height: 900,
   },
   interstate: {
     path: '/media/zq-interstate-premium.webp',
@@ -121,6 +129,8 @@ export const imageAssets = {
     alt: 'ZQ Removals interstate route planning image',
     title: 'Interstate and staged Adelaide removals',
     caption: 'Longer Adelaide routes with staged delivery and route planning.',
+    width: 1200,
+    height: 900,
   },
 };
 
@@ -1039,6 +1049,58 @@ const faqPools = {
   ],
 };
 
+const seoV5GuideProfiles = {
+  'moving-cost-adelaide-2026': {
+    title: 'Moving Cost Adelaide 2026',
+    topic: 'moving cost Adelaide 2026',
+    primaryKeyword: 'moving cost Adelaide 2026',
+    searchIntent: 'pricing education before requesting a removalist quote',
+    uniqueAngle: 'explains the quote factors that change the final scope without inventing fixed public prices',
+  },
+  'how-to-choose-removalists-adelaide': {
+    title: 'How to Choose Removalists Adelaide',
+    topic: 'choosing Adelaide removalists',
+    primaryKeyword: 'how to choose removalists Adelaide',
+    searchIntent: 'comparison research before selecting a removalist',
+    uniqueAngle: 'focuses on access review, inventory clarity, written scope, and practical service fit',
+  },
+  'fixed-price-vs-hourly-removalists-adelaide': {
+    title: 'Fixed Price vs Hourly Removalists Adelaide',
+    topic: 'fixed price versus hourly removalists',
+    primaryKeyword: 'fixed price vs hourly removalists Adelaide',
+    searchIntent: 'quote model comparison',
+    uniqueAngle: 'compares pricing risk when traffic, lifts, stairs, parking, or extra inventory change the day',
+  },
+  'apartment-moving-checklist-adelaide': {
+    title: 'Apartment Moving Checklist Adelaide',
+    topic: 'apartment moving checklist',
+    primaryKeyword: 'apartment moving checklist Adelaide',
+    searchIntent: 'apartment move preparation',
+    uniqueAngle: 'turns lift bookings, loading zones, strata rules, and corridor protection into a quote-ready checklist',
+  },
+  'packing-fragile-items-adelaide': {
+    title: 'Packing Fragile Items Adelaide',
+    topic: 'packing fragile items',
+    primaryKeyword: 'packing fragile items Adelaide',
+    searchIntent: 'fragile packing preparation',
+    uniqueAngle: 'separates fragile item categories, wrapping needs, carton quality, and load-order risks',
+  },
+  'last-minute-moving-adelaide': {
+    title: 'Last Minute Moving Adelaide',
+    topic: 'last minute moving',
+    primaryKeyword: 'last minute moving Adelaide',
+    searchIntent: 'urgent moving preparation',
+    uniqueAngle: 'keeps short-notice bookings factual by tying availability to route, access, inventory, and crew schedule',
+  },
+  'removalist-quote-checklist-adelaide': {
+    title: 'Removalist Quote Checklist Adelaide',
+    topic: 'removalist quote checklist',
+    primaryKeyword: 'removalist quote checklist Adelaide',
+    searchIntent: 'quote request preparation',
+    uniqueAngle: 'lists the exact route, access, inventory, timing, and packing details that improve quote accuracy',
+  },
+};
+
 const guideTopics = [
   ['moving-checklist-adelaide', 'Moving checklist Adelaide', 'moving checklist', 'article'],
   ['removalist-cost-adelaide', 'Removalist cost Adelaide', 'cost guide', 'article'],
@@ -1074,6 +1136,12 @@ const guideTopics = [
   ['coastal-suburb-moving-adelaide', 'Coastal suburb moving Adelaide', 'coastal suburb moves', 'article'],
   ['northern-suburbs-moving-adelaide', 'Northern suburbs moving Adelaide', 'northern suburb moves', 'article'],
   ['southern-suburbs-moving-adelaide', 'Southern suburbs moving Adelaide', 'southern suburb moves', 'article'],
+  ...Object.entries(seoV5GuideProfiles).map(([slug, profile]) => [
+    slug,
+    profile.title,
+    profile.topic,
+    'article',
+  ]),
 ];
 
 const commercialPages = [
@@ -1418,6 +1486,163 @@ const commercialPages = [
     ],
   },
 ];
+
+const seoV5DefaultServiceLinks = [
+  { href: '/removalists-adelaide/', label: 'Adelaide removalists hub' },
+  { href: '/house-removals-adelaide/', label: 'house removals Adelaide' },
+  { href: '/furniture-removalists-adelaide/', label: 'furniture removalists Adelaide' },
+  { href: '/packing-services-adelaide/', label: 'packing services Adelaide' },
+  { href: '/office-removals-adelaide/', label: 'office removals Adelaide' },
+  { href: '/interstate-removals-adelaide/', label: 'interstate removals Adelaide' },
+  { href: '/apartment-removalists-adelaide/', label: 'apartment removalists Adelaide' },
+];
+
+const seoV5DefaultSuburbLinks = [
+  { href: '/removalists-adelaide-cbd/', label: 'Adelaide CBD removals' },
+  { href: '/removalists-glenelg/', label: 'Glenelg removals' },
+  { href: '/removalists-marion/', label: 'Marion removals' },
+  { href: '/removalists-salisbury/', label: 'Salisbury removals' },
+  { href: '/removalists-norwood/', label: 'Norwood removals' },
+  { href: '/removalists-mawson-lakes/', label: 'Mawson Lakes removals' },
+  { href: '/removalists-andrews-farm/', label: 'Andrews Farm removals' },
+  { href: '/removalists-noarlunga/', label: 'Noarlunga removals' },
+];
+
+const seoV5DefaultGuideLinks = [
+  { href: '/adelaide-moving-guides/moving-cost-adelaide-2026/', label: '2026 Adelaide moving cost guide' },
+  { href: '/adelaide-moving-guides/removalist-quote-checklist-adelaide/', label: 'removalist quote checklist' },
+  { href: '/adelaide-moving-guides/fixed-price-vs-hourly-removalists-adelaide/', label: 'fixed price vs hourly guide' },
+  { href: '/adelaide-moving-guides/how-to-choose-removalists-adelaide/', label: 'choosing Adelaide removalists' },
+  { href: '/adelaide-moving-guides/apartment-moving-checklist-adelaide/', label: 'apartment moving checklist' },
+  { href: '/adelaide-moving-guides/packing-fragile-items-adelaide/', label: 'packing fragile items' },
+  { href: '/adelaide-moving-guides/last-minute-moving-adelaide/', label: 'last-minute moving guide' },
+  { href: '/adelaide-moving-guides/interstate-moving-checklist-adelaide/', label: 'interstate moving checklist' },
+];
+
+const seoV5CommercialIntentProfiles = {
+  'cheap-removalists-adelaide': {
+    primaryKeyword: 'cheap removalists Adelaide',
+    secondaryKeywords: ['low-cost Adelaide movers', 'cheap movers Adelaide', 'affordable removalists Adelaide'],
+    searchIntent: 'risk-aware low-cost moving and hidden hourly trap comparison',
+    uniqueAngle: 'cheap only works when access, inventory, travel, and inclusions are made clear before booking',
+    conversionCTA: 'Get a risk-aware fixed-price quote',
+  },
+  'affordable-removalists-adelaide': {
+    primaryKeyword: 'affordable removalists Adelaide',
+    secondaryKeywords: ['best value Adelaide movers', 'affordable movers Adelaide', 'fixed-price movers Adelaide'],
+    searchIntent: 'best-value comparison with scope clarity',
+    uniqueAngle: 'keeps price control tied to careful handling and clear written inclusions',
+    conversionCTA: 'Compare a value-focused fixed-price quote',
+  },
+  'removalist-cost-adelaide': {
+    primaryKeyword: 'removalist cost Adelaide',
+    secondaryKeywords: ['moving cost Adelaide', 'Adelaide removalist prices', 'removalist quote factors'],
+    searchIntent: 'pricing factors and quote education',
+    uniqueAngle: 'explains access, inventory, packing, timing, and labour variables without publishing fake universal prices',
+    conversionCTA: 'Send the details that affect cost',
+  },
+  'moving-quotes-adelaide': {
+    primaryKeyword: 'moving quotes Adelaide',
+    secondaryKeywords: ['removalist quote Adelaide', 'fixed-price moving quote', 'Adelaide movers quote'],
+    searchIntent: 'lead capture and quote preparation',
+    uniqueAngle: 'turns route, property type, access, inventory, and date into a complete quote brief',
+    conversionCTA: 'Start the quote checklist',
+  },
+  'fixed-price-removalists-adelaide': {
+    primaryKeyword: 'fixed price removalists Adelaide',
+    secondaryKeywords: ['fixed-price movers Adelaide', 'upfront moving quote Adelaide', 'no hourly surprises moving'],
+    searchIntent: 'quote-first certainty',
+    uniqueAngle: 'positions fixed pricing as scope discipline when traffic, stairs, lifts, and parking could change hourly cost',
+    conversionCTA: 'Get fixed-price certainty',
+  },
+  'budget-removalists-adelaide': {
+    primaryKeyword: 'budget removalists Adelaide',
+    secondaryKeywords: ['budget movers Adelaide', 'value removalists Adelaide', 'small move removalists Adelaide'],
+    searchIntent: 'controlled-spend and smaller move planning',
+    uniqueAngle: 'keeps budget control grounded in inventory accuracy and access detail instead of rushed handling',
+    conversionCTA: 'Plan a budget-aware fixed quote',
+  },
+  'furniture-removalists-adelaide': {
+    primaryKeyword: 'furniture removalists Adelaide',
+    secondaryKeywords: ['furniture movers Adelaide', 'single item movers Adelaide', 'careful furniture removals'],
+    searchIntent: 'item protection and handling',
+    uniqueAngle: 'centres heavy, fragile, awkward, or high-finish items and their access path',
+    conversionCTA: 'Request furniture handling advice',
+  },
+  'house-removals-adelaide': {
+    primaryKeyword: 'house removals Adelaide',
+    secondaryKeywords: ['house removalists Adelaide', 'home movers Adelaide', 'family home removals'],
+    searchIntent: 'full home relocation',
+    uniqueAngle: 'connects rooms, garage items, outdoor inventory, access, packing, and unload order into one plan',
+    conversionCTA: 'Get a home-move quote',
+  },
+  'local-removals-adelaide': {
+    primaryKeyword: 'local removals Adelaide',
+    secondaryKeywords: ['local movers Adelaide', 'Adelaide metro removals', 'suburb to suburb removals'],
+    searchIntent: 'Adelaide metro moving',
+    uniqueAngle: 'focuses on suburb-to-suburb route fit, parking, access, and timing across the metro area',
+    conversionCTA: 'Scope a local Adelaide move',
+  },
+  'interstate-removals-adelaide': {
+    primaryKeyword: 'interstate removalists Adelaide',
+    secondaryKeywords: ['interstate removals Adelaide', 'Adelaide interstate movers', 'long distance removals Adelaide'],
+    searchIntent: 'route planning and long-distance logistics',
+    uniqueAngle: 'ties packing, inventory, route timing, storage, and handover risks at both ends',
+    conversionCTA: 'Plan the interstate route',
+  },
+  'office-removals-adelaide': {
+    primaryKeyword: 'office removals Adelaide',
+    secondaryKeywords: ['office relocation Adelaide', 'business movers Adelaide', 'commercial removals Adelaide'],
+    searchIntent: 'commercial continuity and access planning',
+    uniqueAngle: 'centres downtime control, dock or lift access, IT equipment, labelling, and restart order',
+    conversionCTA: 'Scope an office relocation',
+  },
+  'packing-services-adelaide': {
+    primaryKeyword: 'packing services Adelaide',
+    secondaryKeywords: ['packing and unpacking Adelaide', 'fragile packing Adelaide', 'moving packing service'],
+    searchIntent: 'fragile items and time-saving preparation',
+    uniqueAngle: 'clarifies packing scope by fragile items, room count, carton quality, and move-day sequencing',
+    conversionCTA: 'Add packing to the move brief',
+  },
+};
+
+function uniqueLinkItems(items = []) {
+  const seen = new Set();
+  const links = [];
+  for (const item of items) {
+    if (!item?.href || seen.has(item.href)) continue;
+    seen.add(item.href);
+    links.push(item);
+  }
+  return links;
+}
+
+function ensureLinkDepth(items, fallback, maxCount) {
+  return uniqueLinkItems([...(items || []), ...fallback]).slice(0, maxCount);
+}
+
+export function getSeoV5IntentProfile(slug) {
+  return seoV5CommercialIntentProfiles[slug] || seoV5GuideProfiles[slug] || null;
+}
+
+function buildCommercialIntentProfile(page) {
+  const base = seoV5CommercialIntentProfiles[page.slug] || {
+    primaryKeyword: page.title,
+    secondaryKeywords: [],
+    searchIntent: 'quote-ready Adelaide moving service research',
+    uniqueAngle: page.hero,
+    conversionCTA: 'Get a fixed-price quote',
+  };
+  const linkProfile = commercialLinkProfiles[page.slug] || {};
+
+  return {
+    ...base,
+    relatedServices: ensureLinkDepth(linkProfile.services, seoV5DefaultServiceLinks, 6),
+    relatedSuburbs: ensureLinkDepth(linkProfile.suburbs, seoV5DefaultSuburbLinks, 8),
+    relatedGuides: ensureLinkDepth(linkProfile.guides, seoV5DefaultGuideLinks, 5),
+    faqItems: page.faq || [],
+  };
+}
 
 const guideLinkProfiles = {
   'moving-checklist-adelaide': {
@@ -2364,7 +2589,7 @@ function renderHeroMedia(image, pageType) {
 
   return `<div class="page-hero-media page-hero-media-stack">
   <figure class="media-frame" data-generated-module="hero-image">
-    <img alt="${escapeAttribute(image.alt)}" fetchpriority="high" loading="eager" src="${escapeAttribute(image.path)}" />
+    <img alt="${escapeAttribute(image.alt)}" decoding="async" fetchpriority="high" height="${escapeAttribute(image.height || 900)}" loading="eager" src="${escapeAttribute(image.path)}" width="${escapeAttribute(image.width || 1200)}" />
   </figure>
   ${noteMarkup}
 </div>`;
@@ -2390,7 +2615,7 @@ function renderPageHero({ eyebrow, title, lead, supporting = [], points = [], pr
         </div>
         <div class="cta-reassurance" aria-label="Quote reassurance">
           <p>Fixed pricing - no hidden costs</p>
-          <p>Fast response (usually within 30-60 mins)</p>
+          <p>Fast response after brief review</p>
           <p>Planned around your actual move details</p>
         </div>
       </div>
@@ -2408,7 +2633,7 @@ function renderSectionHeading(eyebrow, heading, intro = '') {
 </div>`;
 }
 
-function renderTextSection({ module, eyebrow, heading, intro = '', paragraphs = [], soft = false }) {
+function renderTextSection({ id = '', module, eyebrow, heading, intro = '', paragraphs = [], soft = false }) {
   const conversionNudge = ['local-intro', 'commercial-intro', 'guide-purpose'].includes(module)
     ? `<div class="conversion-cta-block" data-generated-cta="mid" data-generated-module="${escapeAttribute(module)}">
   <span class="eyebrow">Check Your Moving Cost</span>
@@ -2420,13 +2645,13 @@ function renderTextSection({ module, eyebrow, heading, intro = '', paragraphs = 
   </div>
   <div class="cta-reassurance" aria-label="Quote reassurance">
     <p>Fixed pricing - no hidden costs</p>
-    <p>Fast response (usually within 30-60 mins)</p>
+    <p>Fast response after brief review</p>
     <p>Planned around your actual move details</p>
   </div>
 </div>`
     : '';
 
-  return `<section class="section${soft ? ' section-soft' : ''}" data-generated-module="${escapeAttribute(module)}">
+  return `<section${id ? ` id="${escapeAttribute(id)}"` : ''} class="section${soft ? ' section-soft' : ''}" data-generated-module="${escapeAttribute(module)}">
   <div class="container">
     ${renderSectionHeading(eyebrow, heading, intro)}
     ${paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('')}
@@ -2435,8 +2660,8 @@ function renderTextSection({ module, eyebrow, heading, intro = '', paragraphs = 
 </section>`;
 }
 
-function renderValueCardSection({ module, eyebrow, heading, intro = '', cards = [], soft = false }) {
-  return `<section class="section${soft ? ' section-soft' : ''}" data-generated-module="${escapeAttribute(module)}">
+function renderValueCardSection({ id = '', module, eyebrow, heading, intro = '', cards = [], soft = false }) {
+  return `<section${id ? ` id="${escapeAttribute(id)}"` : ''} class="section${soft ? ' section-soft' : ''}" data-generated-module="${escapeAttribute(module)}">
   <div class="container">
     ${renderSectionHeading(eyebrow, heading, intro)}
     <div class="value-grid">
@@ -2454,8 +2679,8 @@ function renderValueCardSection({ module, eyebrow, heading, intro = '', cards = 
 </section>`;
 }
 
-function renderRouteCardSection({ module, eyebrow, heading, intro = '', cards = [], soft = false }) {
-  return `<section class="section${soft ? ' section-soft' : ''}" data-generated-module="${escapeAttribute(module)}">
+function renderRouteCardSection({ id = '', module, eyebrow, heading, intro = '', cards = [], soft = false }) {
+  return `<section${id ? ` id="${escapeAttribute(id)}"` : ''} class="section${soft ? ' section-soft' : ''}" data-generated-module="${escapeAttribute(module)}">
   <div class="container">
     ${renderSectionHeading(eyebrow, heading, intro)}
     <div class="route-grid">
@@ -2474,8 +2699,8 @@ function renderRouteCardSection({ module, eyebrow, heading, intro = '', cards = 
 </section>`;
 }
 
-function renderFaqSectionBlock({ module, eyebrow, heading, intro = '', items = [] }) {
-  return `<section class="section section-split" data-generated-module="${escapeAttribute(module)}">
+function renderFaqSectionBlock({ id = '', module, eyebrow, heading, intro = '', items = [] }) {
+  return `<section${id ? ` id="${escapeAttribute(id)}"` : ''} class="section section-split" data-generated-module="${escapeAttribute(module)}">
   <div class="container">
     ${renderSectionHeading(eyebrow, heading, intro)}
     <div class="faq-list">
@@ -2494,15 +2719,15 @@ function renderFaqSectionBlock({ module, eyebrow, heading, intro = '', items = [
 </section>`;
 }
 
-function renderQuoteStrip({ eyebrow, heading, copy, primaryCta, secondaryCta, pageType }) {
-  return `<section class="section" data-generated-module="bottom-cta">
+function renderQuoteStrip({ id = '', eyebrow, heading, copy, primaryCta, secondaryCta, pageType }) {
+  return `<section${id ? ` id="${escapeAttribute(id)}"` : ''} class="section" data-generated-module="bottom-cta">
   <div class="container">
     <div class="quote-strip quote-strip-premium">
       <div class="quote-strip-content">
         ${renderSectionHeading(eyebrow, heading, copy)}
         <div class="cta-reassurance" aria-label="Quote reassurance">
           <p>Fixed pricing - no hidden costs</p>
-          <p>Fast response (usually within 30-60 mins)</p>
+          <p>Fast response after brief review</p>
           <p>Planned around your actual move details</p>
         </div>
       </div>
@@ -2512,6 +2737,34 @@ function renderQuoteStrip({ eyebrow, heading, copy, primaryCta, secondaryCta, pa
         <a class="button button-secondary" href="tel:+61433819989">Call 0433 819 989</a>
       </div>
     </div>
+  </div>
+</section>`;
+}
+
+function renderGuideTocSection({ title, intentProfile = null }) {
+  const items = [
+    ['#guide-purpose', 'Why this planning topic matters'],
+    ['#guide-practical-planning', 'Practical checklist points'],
+    ['#guide-service-paths', 'Best-fit service pages'],
+    ['#guide-suburb-context', 'Adelaide suburb context'],
+    ['#guide-faq', 'Common questions'],
+    ['#guide-quote-next-step', 'Quote next step'],
+  ];
+
+  return `<section class="section section-soft" data-generated-module="guide-toc" data-seo-v5-toc="true">
+  <div class="container">
+    ${renderSectionHeading(
+      'Guide contents',
+      `Plan your next step from ${title}`,
+      intentProfile?.searchIntent
+        ? `Use this guide for ${intentProfile.searchIntent}, then move into the service, suburb, or quote path that matches the actual move.`
+        : 'Use this table of contents to move from planning question to quote-ready brief.',
+    )}
+    <nav aria-label="Guide contents">
+      <ul class="trust-chips">
+${items.map(([href, label]) => `        <li><a href="${escapeAttribute(href)}">${escapeHtml(label)}</a></li>`).join('\n')}
+      </ul>
+    </nav>
   </div>
 </section>`;
 }
@@ -2726,8 +2979,13 @@ function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel }) {
 
 function makeGuidePage({ slug, title, topic }) {
   const canonical = buildCanonical(`/adelaide-moving-guides/${slug}/`);
+  const intentProfile = seoV5GuideProfiles[slug] || null;
   const seoTitle = buildTitle(title, 'brand');
-  const description = buildDescription(`Expert Adelaide moving guide on ${topic}. Practical advice, planning tips, and local insights for a more organized relocation.`);
+  const description = buildDescription(
+    intentProfile
+      ? `Adelaide guide for ${intentProfile.searchIntent}. ${intentProfile.uniqueAngle}.`
+      : `Expert Adelaide moving guide on ${topic}. Practical advice, planning tips, and local insights for a more organized relocation.`,
+  );
   const pageImage = getGeneratedPageImage({ type: 'guide', slug, title, topic });
   return {
     output: `adelaide-moving-guides/${slug}/index.html`,
@@ -2747,6 +3005,7 @@ function makeGuidePage({ slug, title, topic }) {
     twitterImage: pageImage?.url || DEFAULT_OG_IMAGE,
     heroImage: pageImage?.path || '',
     heroImageAlt: pageImage?.alt || '',
+    intentProfile,
     lastmodSources: GENERATED_LASTMOD_SOURCES,
     jsonLd: [
       JSON.stringify(buildBreadcrumbSchema([
@@ -2783,6 +3042,7 @@ function makeCommercialPage(page) {
   const title = buildTitle(page.title, 'quote');
   const description = buildDescription(`${page.description} High-standards service with clear fixed-price quoting and professional Adelaide-based planning.`);
   const pageImage = getGeneratedPageImage({ type: 'commercial', slug: page.slug, title: page.title });
+  const intentProfile = buildCommercialIntentProfile(page);
   return {
     output: `${page.slug}/index.html`,
     layout: 'standard',
@@ -2801,6 +3061,7 @@ function makeCommercialPage(page) {
     twitterImage: pageImage?.url || DEFAULT_OG_IMAGE,
     heroImage: pageImage?.path || '',
     heroImageAlt: pageImage?.alt || '',
+    intentProfile,
     lastmodSources: GENERATED_LASTMOD_SOURCES,
     jsonLd: [
       JSON.stringify(buildLocalBusinessSchema()),
@@ -3198,6 +3459,7 @@ ${renderQuoteStrip({
 function renderGuideContent({ slug, title, topic, canonical, image }) {
   const support = getGuideSupportProfile(slug);
   const profile = guideLinkProfiles[slug] || guideLinkProfiles['moving-checklist-adelaide'];
+  const intentProfile = seoV5GuideProfiles[slug] || null;
   const extras = {
     'storage planning': 'Include storage unit access, staging order, and whether the load needs a short-term stop before final delivery.',
     'booking timing': 'Weekdays can be easier to book, while weekend demand usually needs a longer lead time.',
@@ -3208,37 +3470,44 @@ function renderGuideContent({ slug, title, topic, canonical, image }) {
     'cost guide': 'Removalists Adelaide pricing depends on access, inventory, stairs, and timing windows.',
     'moving checklist': 'This moving checklist helps Adelaide customers confirm the brief before booking.',
   };
-  const serviceCards = support.services.map((item, index) => ({
+  const serviceLinks = ensureLinkDepth(support.services, seoV5DefaultServiceLinks, 4);
+  const suburbLinks = ensureLinkDepth(profile.suburbs, [...(support.hubs || []), ...seoV5DefaultSuburbLinks], 5);
+  const guideLinks = ensureLinkDepth(
+    profile.guides,
+    seoV5DefaultGuideLinks.filter((item) => item.href !== `/adelaide-moving-guides/${slug}/`),
+    4,
+  );
+  const serviceCards = serviceLinks.map((item, index) => ({
     eyebrow: index === 0 ? 'Service hub' : 'Service fit',
     title: toTitle(item.label),
     copy: `Use this service hub when your ${topic} research is ready to turn into a specific move brief.`,
     href: item.href,
     cta: item.label,
   }));
-  const suburbCards = profile.suburbs.slice(0, 3).map((item, index) => ({
+  const suburbCards = suburbLinks.map((item, index) => ({
     eyebrow: index === 0 ? 'Local route' : 'Suburb planning',
     title: toTitle(item.label),
     copy: `This suburb page provides route-specific context for ${topic} within a local Adelaide corridor.`,
     href: item.href,
     cta: item.label,
   }));
-  const guideCards = profile.guides.slice(0, 3).map((item, index) => ({
+  const guideCards = guideLinks.map((item, index) => ({
     eyebrow: index === 0 ? 'Next step' : 'Related planning',
     title: toTitle(item.label),
     copy: `Review this related resource to sharpen another part of your move plan before you book.`,
     href: item.href,
     cta: item.label,
   }));
-  const adviceCards = buildGuideAdviceCards(topic);
-  const faqItems = buildGuideFaqItems({ title, topic });
+  const adviceCards = buildGuideAdviceCards(topic, slug);
+  const faqItems = buildGuideFaqItems({ title, topic, slug });
 
-  return `<main id="main-content" data-generated-page="guide-v5">
+  return `<main id="main-content" data-generated-page="guide-v5" data-seo-v5-intent-profile="${escapeAttribute(intentProfile?.primaryKeyword || topic)}">
 ${renderPageHero({
   eyebrow: 'Adelaide moving guide',
   title,
   lead: `This guide covers ${topic} for Adelaide customers who need a more useful brief before the quote is confirmed.`,
   supporting: [
-    extras[topic] || 'Use this page to tighten the move brief before requesting a quote.',
+    intentProfile?.uniqueAngle || extras[topic] || 'Use this page to tighten the move brief before requesting a quote.',
     'Strong guide pages should answer the planning question and move the visitor toward the best-fit commercial or suburb page.',
   ],
   points: [
@@ -3256,7 +3525,9 @@ ${renderPageHero({
   ],
   pageType: 'guide',
 })}
+${renderGuideTocSection({ title, intentProfile })}
 ${renderTextSection({
+  id: 'guide-purpose',
   module: 'guide-purpose',
   eyebrow: 'Guide purpose',
   heading: `Why ${topic} matters before the moving date is locked`,
@@ -3267,6 +3538,7 @@ ${renderTextSection({
   ],
 })}
 ${renderValueCardSection({
+  id: 'guide-practical-planning',
   module: 'guide-deep-advice',
   eyebrow: 'Practical planning',
   heading: `How to apply this ${topic} advice before requesting a quote`,
@@ -3277,6 +3549,7 @@ ${renderValueCardSection({
 ${['cost guide', 'accurate moving quotes', 'cheap vs fixed price removals'].includes(topic) ? renderQuoteModelComparison({ module: 'guide-quote-model-comparison' }) : ''}
 
 ${renderRouteCardSection({
+  id: 'guide-service-paths',
   module: 'guide-services',
   eyebrow: 'Service Paths',
   heading: `Recommended service hubs for ${topic}`,
@@ -3285,6 +3558,7 @@ ${renderRouteCardSection({
 })}
 
 ${renderRouteCardSection({
+  id: 'guide-suburb-context',
   module: 'guide-suburbs',
   eyebrow: 'Local Context',
   heading: `Applying ${topic} to your specific Adelaide route`,
@@ -3294,6 +3568,7 @@ ${renderRouteCardSection({
 })}
 
 ${renderRouteCardSection({
+  id: 'guide-related-resources',
   module: 'guide-related',
   eyebrow: 'Keep planning',
   heading: 'Related guides that move the brief forward',
@@ -3301,6 +3576,7 @@ ${renderRouteCardSection({
   cards: guideCards,
 })}
 ${renderFaqSectionBlock({
+  id: 'guide-faq',
   module: 'guide-faq',
   eyebrow: 'Guide FAQ',
   heading: `Questions people ask about ${topic} in Adelaide`,
@@ -3309,6 +3585,7 @@ ${renderFaqSectionBlock({
 })}
 
 ${renderQuoteStrip({
+  id: 'guide-quote-next-step',
   eyebrow: 'Plan confirmed',
   heading: `Request your quote based on your ${topic} brief`,
   copy: `Ready to book? Send your move details and we will provide a clear, fixed-price quote.`,
@@ -3357,8 +3634,137 @@ function renderQuoteModelComparison({ module = 'quote-model-comparison', soft = 
 </section>`;
 }
 
-function buildGuideAdviceCards(topic) {
-  return [
+function buildGuideAdviceCards(topic, slug = '') {
+  const v5Cards = {
+    'moving-cost-adelaide-2026': [
+      {
+        title: 'Separate quote factors from headline rates',
+        copy: 'Access, stairs, lifts, parking, truck positioning, inventory volume, and packing scope usually matter more than a generic advertised price.',
+      },
+      {
+        title: 'Ask what is included before comparing',
+        copy: 'Travel, fuel, furniture blankets, insurance context, extra stops, heavy items, and after-hours timing should be clear before the quote is accepted.',
+      },
+      {
+        title: 'Use fixed pricing when scope is clear',
+        copy: 'A fixed-price quote can reduce hourly surprises when the route, property access, and inventory list are accurate.',
+      },
+      {
+        title: 'Send evidence that reduces guesswork',
+        copy: 'Photos, room counts, heavy-item notes, and building access rules help the quote reflect the actual Adelaide move rather than a broad estimate.',
+      },
+    ],
+    'how-to-choose-removalists-adelaide': [
+      {
+        title: 'Check how the quote is scoped',
+        copy: 'A reliable Adelaide removalist should ask about access, inventory, parking, stairs, lifts, route timing, and packing before confirming the move.',
+      },
+      {
+        title: 'Look for practical service fit',
+        copy: 'House, furniture, office, apartment, interstate, and packing work each need different planning, so choose the page and team that fit the real brief.',
+      },
+      {
+        title: 'Avoid vague promises',
+        copy: 'Unsupported guarantees, hidden fees, or unclear hourly inclusions are weaker than a written scope and a clear quote process.',
+      },
+      {
+        title: 'Use local route knowledge',
+        copy: 'CBD, coastal, northern, southern, eastern, and hills routes can all change parking, access, and timing assumptions.',
+      },
+    ],
+    'fixed-price-vs-hourly-removalists-adelaide': [
+      {
+        title: 'Understand what hourly billing exposes',
+        copy: 'Traffic, lifts, stairs, parking, long carries, and extra inventory can extend an hourly move if the scope is not clear.',
+      },
+      {
+        title: 'Use fixed pricing for certainty',
+        copy: 'A fixed-price quote works best when both addresses, access details, inventory, packing, and timing are reviewed before booking.',
+      },
+      {
+        title: 'Match the model to the risk',
+        copy: 'Simple moves may suit hourly pricing, while access-sensitive or deadline-driven moves often benefit from quote-first certainty.',
+      },
+      {
+        title: 'Keep the supplied brief accurate',
+        copy: 'Fixed pricing depends on the supplied inventory and access matching the actual job on move day.',
+      },
+    ],
+    'apartment-moving-checklist-adelaide': [
+      {
+        title: 'Confirm building rules first',
+        copy: 'Service-lift bookings, loading dock rules, strata requirements, corridor protection, and move windows should be confirmed before the truck is scheduled.',
+      },
+      {
+        title: 'Map the path from door to truck',
+        copy: 'Corridors, stairs, lift size, parking distance, and shared entries can change labour more than the apartment size alone.',
+      },
+      {
+        title: 'List bulky and fragile items separately',
+        copy: 'Sofas, beds, mirrors, glass, appliances, and heavy items need more accurate dimensions and handling notes.',
+      },
+      {
+        title: 'Prepare for timed loading',
+        copy: 'Apartment windows are easier to keep when cartons are ready, lift access is booked, and priority rooms are sequenced.',
+      },
+    ],
+    'packing-fragile-items-adelaide': [
+      {
+        title: 'Group fragile items by risk',
+        copy: 'Glassware, mirrors, artwork, electronics, marble, lamps, and delicate furniture each need different wrapping and carton choices.',
+      },
+      {
+        title: 'Avoid mixed heavy and fragile cartons',
+        copy: 'Fragile boxes should stay manageable, labelled, and protected from weight pressure during stacking and loading.',
+      },
+      {
+        title: 'Plan the load order early',
+        copy: 'Fragile cartons and delicate furniture should be staged so they are not trapped under heavy or awkward items.',
+      },
+      {
+        title: 'Use packing support when timing is compressed',
+        copy: 'Professional packing can reduce move-day risk when there are many fragile items or a short preparation window.',
+      },
+    ],
+    'last-minute-moving-adelaide': [
+      {
+        title: 'Call early and keep the brief complete',
+        copy: 'Same-day or short-notice availability depends on crew schedule, route, inventory, access, and whether packing is needed.',
+      },
+      {
+        title: 'Prioritise access details',
+        copy: 'Parking, stairs, lifts, loading zones, and keys should be clarified first because they decide whether the urgent move is workable.',
+      },
+      {
+        title: 'Separate must-move items',
+        copy: 'When time is tight, identify essential furniture, whitegoods, boxes, documents, and fragile items before optional items.',
+      },
+      {
+        title: 'Keep urgency factual',
+        copy: 'Short-notice moves should be assessed subject to availability rather than promised without route and inventory review.',
+      },
+    ],
+    'removalist-quote-checklist-adelaide': [
+      {
+        title: 'Start with the route and property types',
+        copy: 'Pickup suburb, delivery suburb, apartment or house type, building rules, and preferred date create the base quote context.',
+      },
+      {
+        title: 'List inventory in useful groups',
+        copy: 'Room count, large furniture, whitegoods, fragile pieces, garage stock, outdoor items, and office equipment should be separated.',
+      },
+      {
+        title: 'Record access constraints',
+        copy: 'Stairs, lifts, loading docks, parking, carry distance, narrow entries, and heavy items can all change labour and timing.',
+      },
+      {
+        title: 'Add packing and timing needs',
+        copy: 'Packing support, settlement windows, after-hours access, storage stops, and delivery restrictions should be included before approval.',
+      },
+    ],
+  };
+
+  return v5Cards[slug] || [
     {
       title: 'Confirm access before comparing prices',
       copy: `Parking, stairs, lifts, loading zones, and carry distance all change how the move should be staffed and scheduled.`,
@@ -3378,11 +3784,16 @@ function buildGuideAdviceCards(topic) {
   ];
 }
 
-function buildGuideFaqItems({ title, topic }) {
+function buildGuideFaqItems({ title, topic, slug = '' }) {
+  const intentProfile = seoV5GuideProfiles[slug];
+  const firstAnswer = intentProfile
+    ? `It supports ${intentProfile.searchIntent} by clarifying ${intentProfile.uniqueAngle}. Include access, inventory, property type, parking, stairs, lifts, and any packing or timing requirements in the quote brief.`
+    : `It helps you provide the details that change labour and timing: access, inventory, property type, parking, stairs, lifts, and whether packing or storage is part of the move.`;
+
   return [
     {
       question: `How does this ${topic} guide help me get a better quote?`,
-      answer: `It helps you provide the details that change labour and timing: access, inventory, property type, parking, stairs, lifts, and whether packing or storage is part of the move.`,
+      answer: firstAnswer,
     },
     {
       question: `Should I use this guide before contacting ZQ Removals?`,
@@ -3405,28 +3816,33 @@ function buildGuideFaqItems({ title, topic }) {
 
 function renderCommercialContent(page, canonical, image) {
   const profile = commercialLinkProfiles[page.slug] || commercialLinkProfiles['cheap-removalists-adelaide'];
-  const serviceCards = profile.services.map((item, index) => ({
+  const intentProfile = buildCommercialIntentProfile(page);
+  const serviceLinks = ensureLinkDepth(profile.services, seoV5DefaultServiceLinks, 5);
+  const suburbLinks = ensureLinkDepth(profile.suburbs, seoV5DefaultSuburbLinks, 6);
+  const guideLinks = ensureLinkDepth(profile.guides, seoV5DefaultGuideLinks, 4);
+  const siblingLinks = ensureLinkDepth(profile.siblings, seoV5DefaultServiceLinks, 4);
+  const serviceCards = serviceLinks.map((item, index) => ({
     eyebrow: index === 0 ? 'Core service' : 'Related service',
     title: toTitle(item.label),
     copy: `Use this service page when the ${page.title.toLowerCase()} search still overlaps with a more standard Adelaide move path.`,
     href: item.href,
     cta: item.label,
   }));
-  const suburbCards = profile.suburbs.map((item, index) => ({
+  const suburbCards = suburbLinks.map((item, index) => ({
     eyebrow: index === 0 ? 'Suburb route' : 'Route trigger',
     title: toTitle(item.label),
     copy: `This suburb route often triggers the same search intent because the local access pattern pushes the move toward ${page.title.toLowerCase()}.`,
     href: item.href,
     cta: item.label,
   }));
-  const guideCards = profile.guides.map((item, index) => ({
+  const guideCards = guideLinks.map((item, index) => ({
     eyebrow: index === 0 ? 'Planning guide' : 'Guide support',
     title: toTitle(item.label),
     copy: `Use this guide when the enquiry still needs more planning detail before the service can be priced cleanly.`,
     href: item.href,
     cta: item.label,
   }));
-  const siblingCards = profile.siblings.map((item, index) => ({
+  const siblingCards = siblingLinks.map((item, index) => ({
     eyebrow: index === 0 ? 'Related intent' : 'Sibling page',
     title: toTitle(item.label),
     copy: `This related page helps when the search intent broadens or narrows after the first quote review.`,
@@ -3434,7 +3850,7 @@ function renderCommercialContent(page, canonical, image) {
     cta: item.label,
   }));
 
-  return `<main id="main-content" data-generated-page="money-v5">
+  return `<main id="main-content" data-generated-page="money-v5" data-seo-v5-intent-profile="${escapeAttribute(intentProfile.primaryKeyword)}">
 ${renderPageHero({
   eyebrow: 'Adelaide money page',
   title: page.title,
@@ -3452,6 +3868,29 @@ ${renderPageHero({
     { label: page.title },
   ],
   pageType: 'money',
+})}
+${renderValueCardSection({
+  module: 'commercial-intent-profile',
+  eyebrow: 'SEO V5 intent',
+  heading: `${intentProfile.primaryKeyword} has a distinct job on this site`,
+  intro: intentProfile.searchIntent,
+  cards: [
+    {
+      title: 'Unique angle',
+      copy: intentProfile.uniqueAngle,
+    },
+    {
+      title: 'Conversion path',
+      copy: `${intentProfile.conversionCTA}: send the route, access, inventory, timing, and packing details so the quote reflects the real job.`,
+    },
+    {
+      title: 'Related search language',
+      copy: intentProfile.secondaryKeywords.length > 0
+        ? intentProfile.secondaryKeywords.join(', ')
+        : 'Adelaide removalist quote, local moving service, fixed-price planning.',
+    },
+  ],
+  soft: true,
 })}
 ${renderTextSection({
   module: 'commercial-intro',

@@ -86,6 +86,7 @@ if (!sitemapImagesXml) {
   sitemapXmlByName.set('sitemap-images.xml', sitemapImagesXml);
 }
 validateSitemaps(pages, sitemapXmlByName, failures);
+validateStrictSeoCompletion(pages, htmlMap, failures);
 
 const uniqueFailures = [...new Set(failures)];
 const uniqueWarnings = [...new Set(warnings)];
@@ -94,6 +95,7 @@ assert.equal(uniqueFailures.length, 0, uniqueFailures.join('\n'));
 if (uniqueWarnings.length > 0) {
   console.log(`seo validation warnings:\n- ${uniqueWarnings.join('\n- ')}`);
 }
+console.log('bad pages = 0');
 console.log(`seo validation passed for ${pages.length} pages`);
 
 async function collectHtmlFiles(dir, prefix = '') {
@@ -397,6 +399,182 @@ function validateSitemaps(pagesList, sitemapXmlByName, failuresList) {
       failuresList.push(`image sitemap missing asset: ${loc}`);
     }
   }
+}
+
+function validateStrictSeoCompletion(pagesList, htmlMap, failuresList) {
+  const seenTitles = new Map();
+  const seenDescriptions = new Map();
+  const seenH1 = new Map();
+  const badPages = [];
+
+  for (const page of pagesList) {
+    if (!isStrictSeoIndexablePage(page)) continue;
+
+    const html = htmlMap.get(normalizeOutput(page.output)) || '';
+    const reasons = [];
+    const h1s = extractH1s(html);
+    const title = extractFirst(html, /<title>(.*?)<\/title>/i).replace(/\s+/g, ' ').trim();
+    const description = extractFirst(html, /<meta name="description" content="([^"]+)"/i).replace(/\s+/g, ' ').trim();
+
+    if (h1s.length !== 1) {
+      reasons.push(`h1 count ${h1s.length}`);
+    }
+    if (!title) {
+      reasons.push('missing title');
+    } else if (seenTitles.has(title) && seenTitles.get(title) !== page.output) {
+      reasons.push(`duplicate title with ${seenTitles.get(title)}`);
+    } else {
+      seenTitles.set(title, page.output);
+    }
+    if (!description) {
+      reasons.push('missing meta description');
+    } else if (seenDescriptions.has(description) && seenDescriptions.get(description) !== page.output) {
+      reasons.push(`duplicate meta description with ${seenDescriptions.get(description)}`);
+    } else {
+      seenDescriptions.set(description, page.output);
+    }
+    if (h1s[0]) {
+      if (seenH1.has(h1s[0]) && seenH1.get(h1s[0]) !== page.output) {
+        reasons.push(`duplicate h1 with ${seenH1.get(h1s[0])}`);
+      } else {
+        seenH1.set(h1s[0], page.output);
+      }
+    }
+
+    const guidePage = isStrictSeoGuidePage(page);
+    const commercialPage = isStrictSeoCommercialPage(page);
+    const pageWords = wordCount(stripTags(html));
+
+    if (guidePage && pageWords < 1200) {
+      reasons.push(`guide words ${pageWords}`);
+    }
+    if (commercialPage && pageWords < 800) {
+      reasons.push(`commercial words ${pageWords}`);
+    }
+
+    if (guidePage || commercialPage) {
+      const outboundLinks = extractInternalLinks(html).filter((link) => link.target && link.target !== normalizeOutput(page.output));
+      const serviceLinks = new Set(outboundLinks.filter((link) => isStrictSeoServiceTarget(link.target)).map((link) => link.target));
+      const suburbLinks = new Set(outboundLinks.filter((link) => isStrictSeoSuburbTarget(link.target)).map((link) => link.target));
+      const guideLinks = new Set(outboundLinks.filter((link) => isStrictSeoGuideTarget(link.target)).map((link) => link.target));
+
+      if (serviceLinks.size < 3) {
+        reasons.push(`service links ${serviceLinks.size}`);
+      }
+      if (suburbLinks.size < 4) {
+        reasons.push(`suburb links ${suburbLinks.size}`);
+      }
+      if (guideLinks.size < 2) {
+        reasons.push(`guide links ${guideLinks.size}`);
+      }
+      if (!hasStrictSeoCta(html)) {
+        reasons.push('missing CTA');
+      }
+      if (!hasStrictSeoFaq(html)) {
+        reasons.push('missing FAQ');
+      }
+      if (extractJsonLdBlocks(html).length === 0) {
+        reasons.push('missing JSON-LD');
+      }
+    }
+
+    if (reasons.length > 0) {
+      badPages.push(`${page.output}: ${reasons.join('; ')}`);
+    }
+  }
+
+  if (badPages.length > 0) {
+    failuresList.push(`bad pages = ${badPages.length}`);
+    failuresList.push(...badPages.map((page) => `strict seo failed: ${page}`));
+  }
+}
+
+function isStrictSeoIndexablePage(page) {
+  if (page.layout === 'redirect') return false;
+  if (String(page.robots || '').toLowerCase().includes('noindex')) return false;
+  if (['404.html', 'thank-you.html', 'privacy-policy/index.html', 'terms-and-conditions/index.html', 'seo-v4/overview/index.html'].includes(page.output)) {
+    return false;
+  }
+  return !String(page.output || '').startsWith('premium-moving-concepts/');
+}
+
+function isStrictSeoGuidePage(page) {
+  const output = normalizeOutput(page.output);
+  return page.generatedKind === 'guide' || output.startsWith('adelaide-moving-guides/') || output.startsWith('guides/');
+}
+
+function isStrictSeoCommercialPage(page) {
+  const output = normalizeOutput(page.output);
+  return isStrictSeoIndexablePage(page) &&
+    !isStrictSeoGuidePage(page) &&
+    (
+      page.generatedKind === 'commercial' ||
+      page.generatedKind === 'suburb' ||
+      page.generatedKind === 'interstate-route' ||
+      output === 'index.html' ||
+      output.startsWith('services/') ||
+      output.startsWith('removalists-') ||
+      output.includes('removalist') ||
+      output.includes('moving-quotes') ||
+      output.endsWith('-removals-adelaide/index.html')
+    );
+}
+
+function isStrictSeoServiceTarget(target = '') {
+  return new Set([
+    'services/local-removals-adelaide/index.html',
+    'services/furniture-removals-adelaide/index.html',
+    'services/office-removals-adelaide/index.html',
+    'services/interstate-removals-adelaide/index.html',
+    'services/house-removals-adelaide/index.html',
+    'services/apartment-removals-adelaide/index.html',
+    'services/packing-services-adelaide/index.html',
+    'local-removals-adelaide/index.html',
+    'furniture-removalists-adelaide/index.html',
+    'office-removals-adelaide/index.html',
+    'interstate-removalists-adelaide/index.html',
+    'interstate-removals-adelaide/index.html',
+    'packing-services-adelaide/index.html',
+    'house-removals-adelaide/index.html',
+    'apartment-removalists-adelaide/index.html',
+    'cheap-removalists-adelaide/index.html',
+    'affordable-removalists-adelaide/index.html',
+    'removalist-cost-adelaide/index.html',
+    'moving-quotes-adelaide/index.html',
+    'same-day-removalists-adelaide/index.html',
+    'last-minute-removalists-adelaide/index.html',
+    'office-relocation-adelaide/index.html',
+    'fixed-price-removalists-adelaide/index.html',
+    'budget-removalists-adelaide/index.html',
+  ]).has(target);
+}
+
+function isStrictSeoSuburbTarget(target = '') {
+  return target.startsWith('removalists-') &&
+    !target.includes('adelaide-quote') &&
+    ![
+      'removalists-adelaide/index.html',
+      'removalists-northern-adelaide/index.html',
+      'removalists-southern-adelaide/index.html',
+    ].includes(target);
+}
+
+function isStrictSeoGuideTarget(target = '') {
+  return target.startsWith('adelaide-moving-guides/') || target.startsWith('guides/');
+}
+
+function hasStrictSeoCta(html = '') {
+  return html.includes('/contact-us/#quote-form') || html.includes('tel:+61433819989') || /data-generated-cta|data-cta/i.test(html);
+}
+
+function hasStrictSeoFaq(html = '') {
+  return /class="[^"]*\bfaq-item\b/i.test(html) || /class="[^"]*\bfaq-list\b/i.test(html);
+}
+
+function extractH1s(html = '') {
+  return [...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/gi)]
+    .map((match) => stripTags(match[1]).replace(/\s+/g, ' ').trim())
+    .filter(Boolean);
 }
 
 function extractHtmlImageRefs(html = '') {

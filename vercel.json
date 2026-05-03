@@ -4,50 +4,91 @@
   "trailingSlash": true,
   "headers": [
     {
-      "source": "/(sitemap.*\\.xml)",
+      "source": "/sitemap.xml",
       "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/xml"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600"
-        }
+        { "key": "Content-Type", "value": "application/xml" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
       ]
     },
     {
-      "source": "/(.*)",
+      "source": "/sitemap-pages.xml",
       "headers": [
-        {
-          "key": "Strict-Transport-Security",
-          "value": "max-age=31536000; includeSubDomains; preload"
-        },
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "SAMEORIGIN"
-        },
-        {
-          "key": "Permissions-Policy",
-          "value": "geolocation=(), microphone=(), camera=()"
-        }
+        { "key": "Content-Type", "value": "application/xml" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
       ]
     },
     {
-      "source": "/(premium-site.min.css|site.js|fonts/(.*)|media/(.*)|brand-logo(.*)\\.webp|zq-removals-social-share\\.webp)",
+      "source": "/sitemap-services.xml",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
+        { "key": "Content-Type", "value": "application/xml" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
+      ]
+    },
+    {
+      "source": "/sitemap-suburbs.xml",
+      "headers": [
+        { "key": "Content-Type", "value": "application/xml" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
+      ]
+    },
+    {
+      "source": "/sitemap-guides.xml",
+      "headers": [
+        { "key": "Content-Type", "value": "application/xml" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
+      ]
+    },
+    {
+      "source": "/sitemap-images.xml",
+      "headers": [
+        { "key": "Content-Type", "value": "application/xml" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
+      ]
+    },
+    {
+      "source": "/:path*",
+      "headers": [
+        { "key": "Strict-Transport-Security", "value": "max-age=31536000; includeSubDomains; preload" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Permissions-Policy", "value": "geolocation=(), microphone=(), camera=()" }
+      ]
+    },
+    {
+      "source": "/premium-site.min.css",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/site.js",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/fonts/:path*",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/media/:path*",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/brand-logo.webp",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/zq-removals-social-share.webp",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     }
   ],
@@ -55,218 +96,61 @@
     {
       "source": "/:path*",
       "has": [
-        {
-          "type": "host",
-          "value": "www.zqremovals.au"
-        }
+        { "type": "host", "value": "www.zqremovals.au" }
       ],
       "destination": "https://zqremovals.au/:path*",
       "permanent": true
     },
-    {
-      "source": "/index.html",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/:path*/index.html",
-      "destination": "/:path*/",
-      "permanent": true
-    },
-    {
-      "source": "/interstate-removalists-adelaide",
-      "destination": "/interstate-removals-adelaide/",
-      "permanent": true
-    },
-    {
-      "source": "/interstate-removalists-adelaide/",
-      "destination": "/interstate-removals-adelaide/",
-      "permanent": true
-    },
-    {
-      "source": "/interstate-removalists-adelaide/index.html",
-      "destination": "/interstate-removals-adelaide/",
-      "permanent": true
-    },
-    {
-      "source": "/local-removals-adelaide",
-      "destination": "/house-removals-adelaide/",
-      "permanent": true
-    },
-    {
-      "source": "/local-removals-adelaide/",
-      "destination": "/house-removals-adelaide/",
-      "permanent": true
-    },
-    {
-      "source": "/local-removals-adelaide/index.html",
-      "destination": "/house-removals-adelaide/",
-      "permanent": true
-    },
-    {
-      "source": "/interstate-removals",
-      "destination": "/interstate-removals-adelaide/",
-      "permanent": true
-    },
-    {
-      "source": "/interstate-removals/",
-      "destination": "/interstate-removals-adelaide/",
-      "permanent": true
-    },
-    {
-      "source": "/interstate-removals/adelaide-to-melbourne",
-      "destination": "/adelaide-to-melbourne-removals/",
-      "permanent": true
-    },
-    {
-      "source": "/interstate-removals/adelaide-to-melbourne/",
-      "destination": "/adelaide-to-melbourne-removals/",
-      "permanent": true
-    },
-    {
-      "source": "/interstate-removals/adelaide-to-sydney",
-      "destination": "/adelaide-to-sydney-removals/",
-      "permanent": true
-    },
-    {
-      "source": "/interstate-removals/adelaide-to-sydney/",
-      "destination": "/adelaide-to-sydney-removals/",
-      "permanent": true
-    },
-    {
-      "source": "/glenelg.html",
-      "destination": "/removalists-glenelg/",
-      "permanent": true
-    },
-    {
-      "source": "/about.html",
-      "destination": "/about/",
-      "permanent": true
-    },
-    {
-      "source": "/contact-us.html",
-      "destination": "/contact-us/",
-      "permanent": true
-    },
-    {
-      "source": "/house-removals-adelaide.html",
-      "destination": "/house-removals-adelaide/",
-      "permanent": true
-    },
-    {
-      "source": "/interstate-removals-adelaide.html",
-      "destination": "/interstate-removals-adelaide/",
-      "permanent": true
-    },
-    {
-      "source": "/office-removals-adelaide.html",
-      "destination": "/office-removals-adelaide/",
-      "permanent": true
-    },
-    {
-      "source": "/packing-services-adelaide.html",
-      "destination": "/packing-services-adelaide/",
-      "permanent": true
-    },
-    {
-      "source": "/furniture-removalists-adelaide.html",
-      "destination": "/furniture-removalists-adelaide/",
-      "permanent": true
-    },
-    {
-      "source": "/removalists-adelaide.html",
-      "destination": "/removalists-adelaide/",
-      "permanent": true
-    },
-    {
-      "source": "/adelaide-moving-guides/:slug.html",
-      "destination": "/adelaide-moving-guides/:slug/",
-      "permanent": true
-    },
-    {
-      "source": "/adelaide-to-:slug.html",
-      "destination": "/adelaide-to-:slug/",
-      "permanent": true
-    },
-    {
-      "source": "/removalists-:slug.html",
-      "destination": "/removalists-:slug/",
-      "permanent": true
-    },
-    {
-      "source": "/removalists-semore",
-      "destination": "/removalists-semaphore/",
-      "permanent": true
-    },
-    {
-      "source": "/removalists-semore/",
-      "destination": "/removalists-semaphore/",
-      "permanent": true
-    },
-    {
-      "source": "/removalists-semore/index.html",
-      "destination": "/removalists-semaphore/",
-      "permanent": true
-    },
-    {
-      "source": "/adelaide-cbd.html",
-      "destination": "/removalists-adelaide-cbd/",
-      "permanent": true
-    },
-    {
-      "source": "/salisbury.html",
-      "destination": "/removalists-salisbury/",
-      "permanent": true
-    },
-    {
-      "source": "/privacy",
-      "destination": "/privacy-policy/",
-      "permanent": true
-    },
-    {
-      "source": "/privacy/",
-      "destination": "/privacy-policy/",
-      "permanent": true
-    },
-    {
-      "source": "/privacy-policy",
-      "destination": "/privacy-policy/",
-      "permanent": true
-    },
-    {
-      "source": "/privacy-policy.html",
-      "destination": "/privacy-policy/",
-      "permanent": true
-    },
-    {
-      "source": "/privacy.html",
-      "destination": "/privacy-policy/",
-      "permanent": true
-    },
-    {
-      "source": "/terms",
-      "destination": "/terms-and-conditions/",
-      "permanent": true
-    },
-    {
-      "source": "/terms/",
-      "destination": "/terms-and-conditions/",
-      "permanent": true
-    },
-    {
-      "source": "/terms-and-conditions",
-      "destination": "/terms-and-conditions/",
-      "permanent": true
-    },
-    {
-      "source": "/terms-and-conditions.html",
-      "destination": "/terms-and-conditions/",
-      "permanent": true
-    },
-    {
-      "source": "/terms.html",
-      "destination": "/terms-and-conditions/",
-      "permanent": true
-    }
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/:path*/index.html", "destination": "/:path*/", "permanent": true },
+
+    { "source": "/interstate-removalists-adelaide", "destination": "/interstate-removals-adelaide/", "permanent": true },
+    { "source": "/interstate-removalists-adelaide/", "destination": "/interstate-removals-adelaide/", "permanent": true },
+    { "source": "/interstate-removalists-adelaide/index.html", "destination": "/interstate-removals-adelaide/", "permanent": true },
+
+    { "source": "/local-removals-adelaide", "destination": "/house-removals-adelaide/", "permanent": true },
+    { "source": "/local-removals-adelaide/", "destination": "/house-removals-adelaide/", "permanent": true },
+    { "source": "/local-removals-adelaide/index.html", "destination": "/house-removals-adelaide/", "permanent": true },
+
+    { "source": "/interstate-removals", "destination": "/interstate-removals-adelaide/", "permanent": true },
+    { "source": "/interstate-removals/", "destination": "/interstate-removals-adelaide/", "permanent": true },
+
+    { "source": "/interstate-removals/adelaide-to-melbourne", "destination": "/adelaide-to-melbourne-removals/", "permanent": true },
+    { "source": "/interstate-removals/adelaide-to-melbourne/", "destination": "/adelaide-to-melbourne-removals/", "permanent": true },
+    { "source": "/interstate-removals/adelaide-to-sydney", "destination": "/adelaide-to-sydney-removals/", "permanent": true },
+    { "source": "/interstate-removals/adelaide-to-sydney/", "destination": "/adelaide-to-sydney-removals/", "permanent": true },
+
+    { "source": "/glenelg.html", "destination": "/removalists-glenelg/", "permanent": true },
+    { "source": "/about.html", "destination": "/about/", "permanent": true },
+    { "source": "/contact-us.html", "destination": "/contact-us/", "permanent": true },
+    { "source": "/house-removals-adelaide.html", "destination": "/house-removals-adelaide/", "permanent": true },
+    { "source": "/interstate-removals-adelaide.html", "destination": "/interstate-removals-adelaide/", "permanent": true },
+    { "source": "/office-removals-adelaide.html", "destination": "/office-removals-adelaide/", "permanent": true },
+    { "source": "/packing-services-adelaide.html", "destination": "/packing-services-adelaide/", "permanent": true },
+    { "source": "/furniture-removalists-adelaide.html", "destination": "/furniture-removalists-adelaide/", "permanent": true },
+    { "source": "/removalists-adelaide.html", "destination": "/removalists-adelaide/", "permanent": true },
+
+    { "source": "/adelaide-moving-guides/:slug.html", "destination": "/adelaide-moving-guides/:slug/", "permanent": true },
+    { "source": "/adelaide-to-:slug.html", "destination": "/adelaide-to-:slug/", "permanent": true },
+    { "source": "/removalists-:slug.html", "destination": "/removalists-:slug/", "permanent": true },
+
+    { "source": "/removalists-semore", "destination": "/removalists-semaphore/", "permanent": true },
+    { "source": "/removalists-semore/", "destination": "/removalists-semaphore/", "permanent": true },
+    { "source": "/removalists-semore/index.html", "destination": "/removalists-semaphore/", "permanent": true },
+
+    { "source": "/adelaide-cbd.html", "destination": "/removalists-adelaide-cbd/", "permanent": true },
+    { "source": "/salisbury.html", "destination": "/removalists-salisbury/", "permanent": true },
+
+    { "source": "/privacy", "destination": "/privacy-policy/", "permanent": true },
+    { "source": "/privacy/", "destination": "/privacy-policy/", "permanent": true },
+    { "source": "/privacy-policy", "destination": "/privacy-policy/", "permanent": true },
+    { "source": "/privacy-policy.html", "destination": "/privacy-policy/", "permanent": true },
+    { "source": "/privacy.html", "destination": "/privacy-policy/", "permanent": true },
+
+    { "source": "/terms", "destination": "/terms-and-conditions/", "permanent": true },
+    { "source": "/terms/", "destination": "/terms-and-conditions/", "permanent": true },
+    { "source": "/terms-and-conditions", "destination": "/terms-and-conditions/", "permanent": true },
+    { "source": "/terms-and-conditions.html", "destination": "/terms-and-conditions/", "permanent": true },
+    { "source": "/terms.html", "destination": "/terms-and-conditions/", "permanent": true }
   ]
 }

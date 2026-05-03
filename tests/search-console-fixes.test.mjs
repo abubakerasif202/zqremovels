@@ -531,8 +531,8 @@ test('conversion prompts keep mobile call, above-fold quote access, and qualifie
   assert.match(template, /sticky-mobile-cta/);
   assert.match(template, /href="tel:\+61433819989"[^>]*>Call Now<\/a>/);
   assert.match(hero, /hero-quote-form/);
-  assert.match(hero, /Limited slots this week/i);
-  assert.match(hero, /Same-day bookings available subject to/i);
+  assert.match(hero, /Booking subject to availability/i);
+  assert.match(hero, /Same-day bookings are assessed/i);
 });
 
 test('v6 homepage targets premium Adelaide removalists and above-fold CTAs', () => {
