@@ -38,14 +38,18 @@ const partials = {
 const staticPages = JSON.parse(await readFile(path.join(srcRoot, 'pages.json'), 'utf8'));
 const generatedPages = getGeneratedPages();
 const pages = mergePagesByOutput(staticPages, generatedPages);
+const buildEnv = { ...process.env };
 const preferredSiteOrigin = seoConfig.siteUrl;
 const legacySiteOrigin = seoConfig.siteUrl;
 const defaultSocialImage = seoConfig.defaultOgImage;
 const defaultLogoImage = seoConfig.defaultLogo;
 const googleBusinessProfileUrl = 'https://share.google/Y04mpt9RTflWP3iRl';
 const companySameAsProfiles = Array.from(new Set([googleBusinessProfileUrl]));
-const googleSiteVerificationToken =
-  process.env.GOOGLE_SITE_VERIFICATION?.trim() || '';
+function getBuildEnvValue(name) {
+  return (process.env[name] ?? buildEnv[name] ?? '').trim();
+}
+
+const googleSiteVerificationToken = getBuildEnvValue('GOOGLE_SITE_VERIFICATION');
 const SUBURB_PAGE_WORD_MIN = 600;
 const SUBURB_PAGE_WORD_MAX = 900;
 const SUBURB_CONDITION_HEADING_WORDS = 4;
@@ -2178,7 +2182,7 @@ const localProofProfiles = {
     eyebrow: 'Local proof',
     heading: 'Route signals that usually show up on Andrews Farm moves.',
     intro:
-      'This area tends to behave like a family-home and garage-stock brief, not a generic metro transfer.',
+      'This area tends to behave like a family-home and garage-stock brief, not a generic metro transfer. People comparing affordable removalists Andrews Farm options usually need driveway, garage, and carry-distance notes before the quote is final.',
     cards: [
       {
         title: 'Driveway and frontage access matter',
@@ -4635,6 +4639,9 @@ function renderSuburbV4Section(page) {
         Tailored support for ${escapeHtml(profile.region)} moves where inventory and access 
         complexity change the move brief. Nearby corridors include ${profile.nearbyCorridors.join(', ')}.
       </p>
+      <p>
+        People searching for removalists near ${escapeHtml(profile.suburb)} often compare affordable removalists ${escapeHtml(profile.suburb)} options and want a fixed-price quote for ${escapeHtml(profile.suburb)} moves before they book.
+      </p>
     </div>
     <div class="route-grid">
 ${cards}
@@ -5835,18 +5842,18 @@ function escapeAttribute(value = '') {
 }
 
 function renderTrackingHeadScripts() {
-  const gaId = process.env.VITE_GA_MEASUREMENT_ID;
-  const gtmId = process.env.VITE_GTM_ID;
-  const googleAdsConversionId = process.env.VITE_GOOGLE_ADS_CONVERSION_ID;
-  const googleAdsLeadLabel = process.env.VITE_GOOGLE_ADS_LEAD_LABEL;
-  const metaPixelId = process.env.VITE_META_PIXEL_ID;
+  const gaId = getBuildEnvValue('VITE_GA_MEASUREMENT_ID') || getBuildEnvValue('GA_MEASUREMENT_ID');
+  const gtmId = getBuildEnvValue('VITE_GTM_ID') || getBuildEnvValue('GTM_ID');
+  const googleAdsConversionId = getBuildEnvValue('VITE_GOOGLE_ADS_CONVERSION_ID') || getBuildEnvValue('GOOGLE_ADS_CONVERSION_ID');
+  const googleAdsLeadLabel = getBuildEnvValue('VITE_GOOGLE_ADS_LEAD_LABEL') || getBuildEnvValue('GOOGLE_ADS_LEAD_LABEL');
+  const metaPixelId = getBuildEnvValue('VITE_META_PIXEL_ID') || getBuildEnvValue('META_PIXEL_ID');
 
   const config = {
-    gaMeasurementId: gaId || '',
-    gtmId: gtmId || '',
-    googleAdsConversionId: googleAdsConversionId || '',
-    googleAdsLeadLabel: googleAdsLeadLabel || '',
-    metaPixelId: metaPixelId || '',
+    gaMeasurementId: gaId,
+    gtmId,
+    googleAdsConversionId,
+    googleAdsLeadLabel,
+    metaPixelId,
   };
 
   let html = `
@@ -5895,7 +5902,7 @@ fbq('track','PageView');
 }
 
 function renderTrackingBodyTop() {
-  const gtmId = process.env.VITE_GTM_ID;
+  const gtmId = getBuildEnvValue('VITE_GTM_ID');
   if (!gtmId) return "";
   return `
 <noscript>

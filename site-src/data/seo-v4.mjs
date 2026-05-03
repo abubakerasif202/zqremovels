@@ -611,7 +611,7 @@ const suburbData = [
   ['elizabeth-vale', 'Elizabeth Vale', 'Elizabeth Vale', 'northern', 'unit and townhouse access'],
   ['blakeview', 'Blakeview', 'Blakeview', 'northern', 'estate homes and school-run timing'],
   ['gawler', 'Gawler', 'Gawler', 'northern fringe', 'townhouse and family-home staging'],
-  ['andrews-farm', 'Andrews Farm', 'Andrews Farm', 'northern', 'new-build and estate moves'],
+  ['andrews-farm', 'Andrews Farm', 'Andrews Farm', 'northern', 'new-build and estate moves with affordable removalists Andrews Farm search intent, removalists near Andrews Farm, and fixed-price quote for Andrews Farm moves'],
   ['mawson-lakes', 'Mawson Lakes', 'Mawson Lakes', 'northern', 'apartment lift and estate access'],
   ['norwood', 'Norwood', 'Norwood', 'eastern', 'terraces and mixed residential-commercial access'],
   ['reynella', 'Reynella', 'Reynella', 'southern', 'family-home and storage-linked moves'],
@@ -2291,8 +2291,8 @@ function buildSuburbIntroParagraphs({ suburb, intro, logisticsLabel, nearby, clu
   }
 
   return [
-    `${intro} If you are comparing removalists near ${suburb}, check access, stairs, lifts, and timing.`,
-    `${suburb} quotes work best when they reflect access and inventory. For this suburb, that often means clarifying ${logisticsLabel} before the job is locked in.`,
+    `${intro} If you are comparing removalists near ${suburb} or affordable removalists ${suburb}, check access, stairs, lifts, and timing. Ask for a fixed-price quote for ${suburb} moves when ready.`,
+    `${suburb} quotes work best when they reflect access and inventory. For this suburb, that often means clarifying ${logisticsLabel} before the job is locked in and asking for a fixed-price quote for ${suburb} moves where possible.`,
     `This page keeps ${suburb} linked to nearby routes like ${nearby.map((item) => item.suburb).join(', ')}, and routes for ${clusterLabel} moves.`,
   ];
 }
@@ -3673,6 +3673,7 @@ ${renderPageHero({
   lead: `${suburb} moves work best when the route, the access pattern, and the inventory mix are reviewed together before the quote is approved.`,
   supporting: [
     `${suburb} sits inside the ${formatClusterLabel(clusterKey).toLowerCase()} cluster, so the booking path should reflect local access pressure rather than a generic metro assumption.`,
+    `People comparing removalists near ${suburb} or affordable removalists ${suburb} often want a fixed-price quote for ${suburb} moves before they book.`,
   ],
   points: buildSuburbHighlights({ suburb, logisticsLabel, clusterKey, nearby }),
   primaryCta: { href: '/contact-us/#quote-form', label: cta },
