@@ -2508,12 +2508,12 @@ function buildCommercialFactorCards(page) {
     ],
     'same-day-removalists-adelaide': [
       { title: 'What makes same-day viable', copy: 'A workable schedule, fast access confirmation, and an inventory summary that can be priced without guesswork.' },
-      { title: 'What usually causes delays', copy: 'Parking uncertainty, building restrictions, and heavy items that were never listed in the first call.' },
+      { title: 'What usually causes delays', copy: 'Parking uncertainty, building restrictions, and heavy items that were never listed in the first call. Same-day bookings stay subject to availability.' },
       { title: 'Where the page helps', copy: 'Urgent Adelaide moves that still need a sensible plan, not a rushed commitment with missing scope.' },
     ],
     'last-minute-removalists-adelaide': [
       { title: 'What the team needs first', copy: 'Addresses, preferred date, property type, and the key access risks that could affect labour and timing.' },
-      { title: 'How to avoid price drift', copy: 'Supply the move brief once, clearly, so the quote reflects the real route instead of a short-notice assumption.' },
+      { title: 'How to avoid price drift', copy: 'Supply the move brief once, clearly, so the quote reflects the real route instead of a short-notice assumption. Last-minute bookings stay subject to availability.' },
       { title: 'Where this page fits', copy: 'Searchers who are already urgent but still want a premium-standard operator and cleaner communication.' },
     ],
     'apartment-removalists-adelaide': [
