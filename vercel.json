@@ -102,7 +102,6 @@
       "permanent": true
     },
     { "source": "/index.html", "destination": "/", "permanent": true },
-    { "source": "/:path*/index.html", "destination": "/:path*/", "permanent": true },
 
     { "source": "/interstate-removalists-adelaide", "destination": "/interstate-removals-adelaide/", "permanent": true },
     { "source": "/interstate-removalists-adelaide/", "destination": "/interstate-removals-adelaide/", "permanent": true },
@@ -138,19 +137,26 @@
     { "source": "/removalists-semore/", "destination": "/removalists-semaphore/", "permanent": true },
     { "source": "/removalists-semore/index.html", "destination": "/removalists-semaphore/", "permanent": true },
 
+    { "source": "/adelaide-cbd", "destination": "/removalists-adelaide-cbd/", "permanent": true },
+    { "source": "/adelaide-cbd/", "destination": "/removalists-adelaide-cbd/", "permanent": true },
     { "source": "/adelaide-cbd.html", "destination": "/removalists-adelaide-cbd/", "permanent": true },
+    { "source": "/adelaide-cbd/index.html", "destination": "/removalists-adelaide-cbd/", "permanent": true },
     { "source": "/salisbury.html", "destination": "/removalists-salisbury/", "permanent": true },
 
     { "source": "/privacy", "destination": "/privacy-policy/", "permanent": true },
     { "source": "/privacy/", "destination": "/privacy-policy/", "permanent": true },
+    { "source": "/privacy/index.html", "destination": "/privacy-policy/", "permanent": true },
     { "source": "/privacy-policy", "destination": "/privacy-policy/", "permanent": true },
     { "source": "/privacy-policy.html", "destination": "/privacy-policy/", "permanent": true },
     { "source": "/privacy.html", "destination": "/privacy-policy/", "permanent": true },
 
     { "source": "/terms", "destination": "/terms-and-conditions/", "permanent": true },
     { "source": "/terms/", "destination": "/terms-and-conditions/", "permanent": true },
+    { "source": "/terms/index.html", "destination": "/terms-and-conditions/", "permanent": true },
     { "source": "/terms-and-conditions", "destination": "/terms-and-conditions/", "permanent": true },
     { "source": "/terms-and-conditions.html", "destination": "/terms-and-conditions/", "permanent": true },
-    { "source": "/terms.html", "destination": "/terms-and-conditions/", "permanent": true }
+    { "source": "/terms.html", "destination": "/terms-and-conditions/", "permanent": true },
+
+    { "source": "/:path*/index.html", "destination": "/:path*/", "permanent": true }
   ]
 }

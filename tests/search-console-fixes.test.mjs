@@ -174,6 +174,72 @@ test('vercel redirects cover legacy html aliases for crawlable pages and route f
   assert.equal(redirects.get('/removalists-:slug.html'), '/removalists-:slug/');
 });
 
+test('search console not-found validation URLs have direct legacy redirects', () => {
+  const vercelConfig = JSON.parse(readFileSync(path.join(root, 'vercel.json'), 'utf8'));
+  const redirects = new Map(
+    vercelConfig.redirects.map(({ source, destination }) => [source, destination]),
+  );
+
+  for (const [source, destination] of [
+    ['/adelaide-cbd', '/removalists-adelaide-cbd/'],
+    ['/adelaide-cbd/', '/removalists-adelaide-cbd/'],
+    ['/adelaide-cbd.html', '/removalists-adelaide-cbd/'],
+    ['/adelaide-cbd/index.html', '/removalists-adelaide-cbd/'],
+    ['/privacy', '/privacy-policy/'],
+    ['/privacy/', '/privacy-policy/'],
+    ['/privacy.html', '/privacy-policy/'],
+    ['/privacy/index.html', '/privacy-policy/'],
+    ['/privacy-policy.html', '/privacy-policy/'],
+    ['/terms', '/terms-and-conditions/'],
+    ['/terms/', '/terms-and-conditions/'],
+    ['/terms.html', '/terms-and-conditions/'],
+    ['/terms/index.html', '/terms-and-conditions/'],
+    ['/terms-and-conditions.html', '/terms-and-conditions/'],
+  ]) {
+    assert.equal(redirects.get(source), destination, `${source} should redirect directly`);
+  }
+
+  const catchAllIndexPosition = vercelConfig.redirects.findIndex(({ source }) => source === '/:path*/index.html');
+  for (const source of [
+    '/adelaide-cbd/index.html',
+    '/interstate-removalists-adelaide/index.html',
+    '/local-removals-adelaide/index.html',
+    '/privacy/index.html',
+    '/removalists-semore/index.html',
+    '/terms/index.html',
+  ]) {
+    const position = vercelConfig.redirects.findIndex((redirect) => redirect.source === source);
+    assert.ok(position >= 0, `${source} redirect is missing`);
+    assert.ok(
+      position < catchAllIndexPosition,
+      `${source} should be matched before /:path*/index.html`,
+    );
+  }
+});
+
+test('search console not-found validation aliases have static noindex fallback pages', () => {
+  const sitemap = [
+    'sitemap-pages.xml',
+    'sitemap-services.xml',
+    'sitemap-suburbs.xml',
+    'sitemap-guides.xml',
+  ].map((file) => readDist(file)).join('\n');
+
+  for (const [output, canonical, refresh] of [
+    ['adelaide-cbd.html', 'https://zqremovals.au/removalists-adelaide-cbd/', '0; url=/removalists-adelaide-cbd/'],
+    ['privacy.html', 'https://zqremovals.au/privacy-policy/', '0; url=/privacy-policy/'],
+    [path.join('privacy', 'index.html'), 'https://zqremovals.au/privacy-policy/', '0; url=/privacy-policy/'],
+    ['terms.html', 'https://zqremovals.au/terms-and-conditions/', '0; url=/terms-and-conditions/'],
+    [path.join('terms', 'index.html'), 'https://zqremovals.au/terms-and-conditions/', '0; url=/terms-and-conditions/'],
+  ]) {
+    const html = readDist(output);
+    assert.match(html, /<meta name="robots" content="noindex,nofollow" \/>/);
+    assert.match(html, new RegExp(`<link rel="canonical" href="${canonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}" \\/>`));
+    assert.match(html, new RegExp(`<meta http-equiv="refresh" content="${refresh.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}" \\/>`));
+    assert.doesNotMatch(sitemap, new RegExp(output.replace(/\\/g, '/').replace(/index\\.html$/, '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  }
+});
+
 test('critical generated pages do not contain broken internal links', () => {
   const criticalPages = [
     'index.html',
