@@ -91,10 +91,10 @@ test('generated sitemap and canonicals stay on the apex host', () => {
   assert.doesNotMatch(sitemap, /https:\/\/www\.zqremovals\.au\//);
   assert.match(sitemap, /<sitemapindex/);
   assert.match(homepage, /<link rel="canonical" href="https:\/\/zqremovals\.au\/" \/>/);
-  assert.match(homepage, /<title>Adelaide Removalists Near Me \| 5-Star Local Movers \| ZQ Removals<\/title>/);
+  assert.match(homepage, /<title>Adelaide Removalists \| Fixed-Price Quote \| ZQ Removals<\/title>/);
   assert.match(
     homepage,
-    /<meta name="description" content="Looking for trusted Adelaide removalists near you\? ZQ Removals provides 5-star local, house, office, furniture and interstate moving services\. Get a fast quote today\." \/>/,
+    /<meta name="description" content="Adelaide Removalists with a Fixed-Price Quote and Local Adelaide service\. Call 0433 819 989 for house, office, furniture, and interstate moves\." \/>/,
   );
   assert.match(
     interstateHub,
@@ -613,9 +613,9 @@ test('v6 homepage targets premium Adelaide removalists and above-fold CTAs', () 
   const homepage = readDist('index.html');
   const hero = homepage.match(/<section class="hero-shell[\s\S]*?<\/section>/i)?.[0] || '';
 
-  assert.match(homepage, /<title>Adelaide Removalists Near Me \| 5-Star Local Movers \| ZQ Removals<\/title>/);
-  assert.match(homepage, /<meta name="description" content="Looking for trusted Adelaide removalists near you\? ZQ Removals provides 5-star local, house, office, furniture and interstate moving services\. Get a fast quote today\."/i);
-  assert.match(hero, /<h1>Adelaide Removalists Near Me<\/h1>/);
+  assert.match(homepage, /<title>Adelaide Removalists \| Fixed-Price Quote \| ZQ Removals<\/title>/);
+  assert.match(homepage, /<meta name="description" content="Adelaide Removalists with a Fixed-Price Quote and Local Adelaide service\. Call 0433 819 989 for house, office, furniture, and interstate moves\."/i);
+  assert.match(hero, /<h1>Adelaide Removalists<\/h1>/);
   assert.match(hero, /href="tel:\+61433819989"[^>]*>Call 0433 819 989<\/a>/);
   assert.match(hero, /href="\/contact-us\/#quote-form"[^>]*>Get Free Quote<\/a>/);
   assert.match(hero, /Same Day &amp; Local Moves|Same Day & Local Moves/);

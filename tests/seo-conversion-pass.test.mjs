@@ -25,11 +25,11 @@ test('homepage targets Adelaide removalists with the new commercial headline and
 
   assert.match(
     homepage,
-    /<h1[^>]*>Adelaide Removalists Near Me<\/h1>/i,
+    /<h1[^>]*>Adelaide Removalists<\/h1>/i,
   );
   assert.match(
     homepage,
-    /Looking for trusted Adelaide removalists near you\? ZQ Removals provides 5-star local, house, office, furniture and interstate moving services\. Get a fast quote today\./i,
+    /Looking for Adelaide removalists with a Fixed-Price Quote and a Local Adelaide team\? Call 0433 819 989 for careful local, house, office, furniture, and interstate moves\./i,
   );
   assert.match(homepage, /href="\/house-removals-adelaide\/"/);
   assert.match(homepage, /href="\/furniture-removalists-adelaide\/"/);

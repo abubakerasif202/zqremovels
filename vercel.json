@@ -137,6 +137,10 @@
     { "source": "/removalists-semore/", "destination": "/removalists-semaphore/", "permanent": true },
     { "source": "/removalists-semore/index.html", "destination": "/removalists-semaphore/", "permanent": true },
 
+    { "source": "/:slug(.*-cheap-move.*)", "destination": "/affordable-removalists-adelaide/", "permanent": true },
+    { "source": "/:slug(.*-budget-movers.*)", "destination": "/affordable-removalists-adelaide/", "permanent": true },
+    { "source": "/:slug(.*-discount-removals.*)", "destination": "/affordable-removalists-adelaide/", "permanent": true },
+
     { "source": "/adelaide-cbd", "destination": "/removalists-adelaide-cbd/", "permanent": true },
     { "source": "/adelaide-cbd/", "destination": "/removalists-adelaide-cbd/", "permanent": true },
     { "source": "/adelaide-cbd.html", "destination": "/removalists-adelaide-cbd/", "permanent": true },
