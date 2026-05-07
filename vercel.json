@@ -140,6 +140,8 @@
     { "source": "/:slug(.*-cheap-move.*)", "destination": "/affordable-removalists-adelaide/", "permanent": true },
     { "source": "/:slug(.*-budget-movers.*)", "destination": "/affordable-removalists-adelaide/", "permanent": true },
     { "source": "/:slug(.*-discount-removals.*)", "destination": "/affordable-removalists-adelaide/", "permanent": true },
+    { "source": "/cheap-removalist-adelaide", "destination": "/affordable-removalists-adelaide/", "permanent": true },
+    { "source": "/house-removals-adelaide", "destination": "/house-removalists-adelaide/", "permanent": true },
 
     { "source": "/adelaide-cbd", "destination": "/removalists-adelaide-cbd/", "permanent": true },
     { "source": "/adelaide-cbd/", "destination": "/removalists-adelaide-cbd/", "permanent": true },
