@@ -64,9 +64,13 @@ test('seo v5 technical metadata is canonical, complete, and unique on indexable 
     assert.match(html, /<meta name="robots" content="[^"]+"/i, `${page.output} robots`);
     assert.match(html, /<meta property="og:title" content="[^"]+"/i, `${page.output} og:title`);
     assert.match(html, /<meta property="og:description" content="[^"]+"/i, `${page.output} og:description`);
+    assert.match(html, /<meta property="og:url" content="https:\/\/zqremovals\.au\/[^"]*"/i, `${page.output} og:url`);
     assert.match(html, /<meta property="og:url" content="https:\/\/zqremovals\.au\//i, `${page.output} og:url`);
     assert.match(html, /<meta property="og:image" content="https:\/\/zqremovals\.au\//i, `${page.output} og:image`);
     assert.match(html, /<meta name="twitter:card" content="summary_large_image"/i, `${page.output} twitter card`);
+    assert.match(html, /<meta name="twitter:title" content="[^"]+"/i, `${page.output} twitter:title`);
+    assert.match(html, /<meta name="twitter:description" content="[^"]+"/i, `${page.output} twitter:description`);
+    assert.match(html, /<meta name="twitter:image" content="https:\/\/zqremovals\.au\//i, `${page.output} twitter:image`);
     assert.ok(title.length >= 20 && title.length <= 85, `${page.output} title length ${title.length}`);
     assert.ok(description.length >= 60 && description.length <= 190, `${page.output} description length ${description.length}`);
 
@@ -180,6 +184,12 @@ test('seo v5 internal links resolve and indexable pages have discovery links', (
       assert.ok(links.includes('/contact-us/#quote-form'), `${page.output} missing quote CTA`);
       assert.match(main, /href="tel:\+61433819989"/, `${page.output} missing phone CTA`);
     }
+  }
+});
+
+test('seo v5 sitemap files never include the www homepage variant', () => {
+  for (const file of ['sitemap.xml', 'sitemap-index.xml', 'sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml', 'sitemap-images.xml']) {
+    assert.doesNotMatch(readDist(file), /https:\/\/www\.zqremovals\.au\//i, `${file} must not include the www host`);
   }
 });
 
