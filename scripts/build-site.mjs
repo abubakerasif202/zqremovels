@@ -2540,6 +2540,14 @@ function renderHead(page, content) {
     `<meta name="twitter:image:alt" content="${escapeAttribute(imageAlt)}" />`,
   ];
 
+  if (process.env.GA_MEASUREMENT_ID) {
+    tags.push(
+      '<link rel="preconnect" href="https://www.googletagmanager.com" />',
+      `<script async src="https://www.googletagmanager.com/gtag/js?id=${process.env.GA_MEASUREMENT_ID}"></script>`,
+      `<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${process.env.GA_MEASUREMENT_ID}');</script>`,
+    );
+  }
+
   if (googleSiteVerificationToken) {
     tags.push(
       `<meta name="google-site-verification" content="${escapeAttribute(googleSiteVerificationToken)}" />`,
@@ -3253,7 +3261,9 @@ function normalizeMovingCompanyNode(node) {
     image: defaultSocialImage,
     logo: defaultLogoImage,
     hasMap: googleBusinessProfileUrl,
-    sameAs: Array.from(new Set([...companySameAsProfiles, ...sameAs].filter(Boolean))),
+    sameAs: Array.from(
+      new Set([...companySameAsProfiles, 'https://share.google/Y04mpt9RTflWP3iRl', ...sameAs].filter(Boolean)),
+    ),
     taxID: businessIdentifiers.abnMachine,
     identifier: {
       '@type': 'PropertyValue',

@@ -128,19 +128,19 @@
   {
     "output": "about/index.html",
     "layout": "standard",
-    "title": "About ZQ Removals | Adelaide Moving Service Background",
-    "description": "About ZQ Removals: Adelaide service base, public business details, representative move briefs, and how local and interstate quotes are scoped.",
+    "title": "About ZQ Removals | Adelaide's Premium Relocation Experts",
+    "description": "About ZQ Removals: operational history, zero-damage focus, fleet capabilities, and how local and interstate quotes are scoped.",
     "canonical": "https://zqremovals.au/about/",
     "robots": "index,follow,max-image-preview:large",
     "themeColor": "#10151d",
-    "ogTitle": "About ZQ Removals | Adelaide Moving Service Background",
-    "ogDescription": "See the ZQ Removals service base, public business details, representative move briefs, and quote-first planning process.",
+    "ogTitle": "About ZQ Removals | Adelaide's Premium Relocation Experts",
+    "ogDescription": "See the ZQ Removals operational history, zero-damage focus, fleet capabilities, and quote-first planning process.",
     "ogType": "website",
     "ogUrl": "https://zqremovals.au/about/",
     "ogImage": "https://zqremovals.au/brand-logo.png",
     "twitterCard": "summary_large_image",
-    "twitterTitle": "About ZQ Removals | Adelaide Moving Service Background",
-    "twitterDescription": "See the ZQ Removals service base, public business details, representative move briefs, and quote-first planning process.",
+    "twitterTitle": "About ZQ Removals | Adelaide's Premium Relocation Experts",
+    "twitterDescription": "See the ZQ Removals operational history, zero-damage focus, fleet capabilities, and quote-first planning process.",
     "twitterImage": "https://zqremovals.au/brand-logo.png",
     "refresh": "",
     "jsonLd": [
@@ -653,6 +653,52 @@
       "{\n        \"@context\": \"https://schema.org\",\n        \"@graph\": [\n          {\n            \"@type\": \"MovingCompany\",\n            \"@id\": \"https://zqremovals.au/#business\",\n            \"name\": \"ZQ Removals\",\n            \"url\": \"https://zqremovals.au/\",\n            \"telephone\": \"+61 433 819 989\",\n            \"address\": {\n              \"@type\": \"PostalAddress\",\n              \"addressLocality\": \"Andrews Farm\",\n              \"addressRegion\": \"SA\",\n              \"postalCode\": \"5114\",\n              \"addressCountry\": \"AU\"\n            }\n          },\n          {\n            \"@type\": \"WebPage\",\n            \"@id\": \"https://zqremovals.au/adelaide-to-sydney-removals/#webpage\",\n            \"url\": \"https://zqremovals.au/adelaide-to-sydney-removals/\",\n            \"name\": \"Adelaide to Sydney Removals | Fixed-Price Interstate Movers\",\n            \"description\": \"Adelaide to Sydney removals with fixed-price planning, multi-day route coordination, and destination access management.\"\n          },\n          {\n            \"@type\": \"BreadcrumbList\",\n            \"@id\": \"https://zqremovals.au/adelaide-to-sydney-removals/#breadcrumb\",\n            \"itemListElement\": [\n              {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Home\",\n                \"item\": \"https://zqremovals.au/\"\n              },\n              {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Interstate Removals Adelaide\",\n                \"item\": \"https://zqremovals.au/interstate-removals-adelaide/\"\n              },\n              {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Adelaide to Sydney Removals\",\n                \"item\": \"https://zqremovals.au/adelaide-to-sydney-removals/\"\n              }\n            ]\n          },\n          {\n            \"@type\": \"Service\",\n            \"@id\": \"https://zqremovals.au/adelaide-to-sydney-removals/#service\",\n            \"name\": \"Adelaide to Sydney Removals\",\n            \"serviceType\": \"Interstate removals from Adelaide to Sydney\",\n            \"provider\": {\n              \"@id\": \"https://zqremovals.au/#business\"\n            },\n            \"areaServed\": [\"Adelaide\", \"Sydney\", \"Australia\"],\n            \"offers\": {\n              \"@type\": \"Offer\",\n              \"priceCurrency\": \"AUD\",\n              \"description\": \"Fixed-price interstate quote after route, access, and inventory review.\"\n            }\n          }\n        ]\n      }"
     ],
     "contentFile": "content/adelaide-to-sydney-removals/index.html"
+  },
+  {
+    "output": "adelaide-to-western-sydney-removals/index.html",
+    "layout": "standard",
+    "title": "Adelaide to Western Sydney Removals | Interstate Movers | ZQ Removals",
+    "description": "Adelaide-origin interstate removals to Western Sydney with route planning, access coordination, and fixed-price quoting from ZQ Removals.",
+    "canonical": "https://zqremovals.au/adelaide-to-western-sydney-removals/",
+    "robots": "index,follow,max-image-preview:large",
+    "themeColor": "#0A192F",
+    "ogTitle": "Adelaide to Western Sydney Removals | Interstate Movers | ZQ Removals",
+    "ogDescription": "Adelaide-origin interstate removals to Western Sydney with route planning, access coordination, and fixed-price quoting.",
+    "ogType": "website",
+    "ogUrl": "https://zqremovals.au/adelaide-to-western-sydney-removals/",
+    "ogImage": "https://zqremovals.au/zq-removals-social-share.webp",
+    "twitterCard": "summary_large_image",
+    "twitterTitle": "Adelaide to Western Sydney Removals | Interstate Movers | ZQ Removals",
+    "twitterDescription": "Adelaide-origin interstate removals to Western Sydney with route planning, access coordination, and fixed-price quoting.",
+    "twitterImage": "https://zqremovals.au/zq-removals-social-share.webp",
+    "refresh": "",
+    "jsonLd": [
+      "{\n        \"@context\": \"https://schema.org\",\n        \"@graph\": [\n          {\n            \"@type\": \"MovingCompany\",\n            \"@id\": \"https://zqremovals.au/#business\",\n            \"name\": \"ZQ Removals\",\n            \"url\": \"https://zqremovals.au/\",\n            \"telephone\": \"+61 433 819 989\",\n            \"address\": {\n              \"@type\": \"PostalAddress\",\n              \"addressLocality\": \"Andrews Farm\",\n              \"addressRegion\": \"SA\",\n              \"postalCode\": \"5114\",\n              \"addressCountry\": \"AU\"\n            }\n          },\n          {\n            \"@type\": \"WebPage\",\n            \"@id\": \"https://zqremovals.au/adelaide-to-western-sydney-removals/#webpage\",\n            \"url\": \"https://zqremovals.au/adelaide-to-western-sydney-removals/\",\n            \"name\": \"Adelaide to Western Sydney Removals | Fixed-Price Interstate Movers\",\n            \"description\": \"Adelaide-origin interstate removals to Western Sydney with route planning, access coordination, and fixed-price quoting.\"\n          },\n          {\n            \"@type\": \"BreadcrumbList\",\n            \"@id\": \"https://zqremovals.au/adelaide-to-western-sydney-removals/#breadcrumb\",\n            \"itemListElement\": [\n              {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Home\",\n                \"item\": \"https://zqremovals.au/\"\n              },\n              {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Interstate Removals Adelaide\",\n                \"item\": \"https://zqremovals.au/interstate-removals-adelaide/\"\n              },\n              {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Adelaide to Western Sydney Removals\",\n                \"item\": \"https://zqremovals.au/adelaide-to-western-sydney-removals/\"\n              }\n            ]\n          },\n          {\n            \"@type\": \"Service\",\n            \"@id\": \"https://zqremovals.au/adelaide-to-western-sydney-removals/#service\",\n            \"name\": \"Adelaide to Western Sydney Removals\",\n            \"serviceType\": \"Adelaide-origin interstate removals to Western Sydney\",\n            \"provider\": {\n              \"@id\": \"https://zqremovals.au/#business\"\n            },\n            \"areaServed\": [\"Adelaide\", \"Western Sydney\", \"Australia\"],\n            \"offers\": {\n              \"@type\": \"Offer\",\n              \"priceCurrency\": \"AUD\",\n              \"description\": \"Fixed-price interstate quote after route, access, and inventory review.\"\n            }\n          }\n        ]\n      }"
+    ],
+    "contentFile": "content/adelaide-to-western-sydney-removals/index.html"
+  },
+  {
+    "output": "adelaide-to-smithfield-nsw-removals/index.html",
+    "layout": "standard",
+    "title": "Adelaide to Smithfield NSW Removals | Interstate Movers | ZQ Removals",
+    "description": "Adelaide-origin interstate removals to Smithfield NSW with route planning, access coordination, and fixed-price quoting from ZQ Removals.",
+    "canonical": "https://zqremovals.au/adelaide-to-smithfield-nsw-removals/",
+    "robots": "index,follow,max-image-preview:large",
+    "themeColor": "#0A192F",
+    "ogTitle": "Adelaide to Smithfield NSW Removals | Interstate Movers | ZQ Removals",
+    "ogDescription": "Adelaide-origin interstate removals to Smithfield NSW with route planning, access coordination, and fixed-price quoting.",
+    "ogType": "website",
+    "ogUrl": "https://zqremovals.au/adelaide-to-smithfield-nsw-removals/",
+    "ogImage": "https://zqremovals.au/zq-removals-social-share.webp",
+    "twitterCard": "summary_large_image",
+    "twitterTitle": "Adelaide to Smithfield NSW Removals | Interstate Movers | ZQ Removals",
+    "twitterDescription": "Adelaide-origin interstate removals to Smithfield NSW with route planning, access coordination, and fixed-price quoting.",
+    "twitterImage": "https://zqremovals.au/zq-removals-social-share.webp",
+    "refresh": "",
+    "jsonLd": [
+      "{\n        \"@context\": \"https://schema.org\",\n        \"@graph\": [\n          {\n            \"@type\": \"MovingCompany\",\n            \"@id\": \"https://zqremovals.au/#business\",\n            \"name\": \"ZQ Removals\",\n            \"url\": \"https://zqremovals.au/\",\n            \"telephone\": \"+61 433 819 989\",\n            \"address\": {\n              \"@type\": \"PostalAddress\",\n              \"addressLocality\": \"Andrews Farm\",\n              \"addressRegion\": \"SA\",\n              \"postalCode\": \"5114\",\n              \"addressCountry\": \"AU\"\n            }\n          },\n          {\n            \"@type\": \"WebPage\",\n            \"@id\": \"https://zqremovals.au/adelaide-to-smithfield-nsw-removals/#webpage\",\n            \"url\": \"https://zqremovals.au/adelaide-to-smithfield-nsw-removals/\",\n            \"name\": \"Adelaide to Smithfield NSW Removals | Fixed-Price Interstate Movers\",\n            \"description\": \"Adelaide-origin interstate removals to Smithfield NSW with route planning, access coordination, and fixed-price quoting.\"\n          },\n          {\n            \"@type\": \"BreadcrumbList\",\n            \"@id\": \"https://zqremovals.au/adelaide-to-smithfield-nsw-removals/#breadcrumb\",\n            \"itemListElement\": [\n              {\n                \"@type\": \"ListItem\",\n                \"position\": 1,\n                \"name\": \"Home\",\n                \"item\": \"https://zqremovals.au/\"\n              },\n              {\n                \"@type\": \"ListItem\",\n                \"position\": 2,\n                \"name\": \"Interstate Removals Adelaide\",\n                \"item\": \"https://zqremovals.au/interstate-removals-adelaide/\"\n              },\n              {\n                \"@type\": \"ListItem\",\n                \"position\": 3,\n                \"name\": \"Adelaide to Smithfield NSW Removals\",\n                \"item\": \"https://zqremovals.au/adelaide-to-smithfield-nsw-removals/\"\n              }\n            ]\n          },\n          {\n            \"@type\": \"Service\",\n            \"@id\": \"https://zqremovals.au/adelaide-to-smithfield-nsw-removals/#service\",\n            \"name\": \"Adelaide to Smithfield NSW Removals\",\n            \"serviceType\": \"Adelaide-origin interstate removals to Smithfield NSW\",\n            \"provider\": {\n              \"@id\": \"https://zqremovals.au/#business\"\n            },\n            \"areaServed\": [\"Adelaide\", \"Smithfield NSW\", \"Australia\"],\n            \"offers\": {\n              \"@type\": \"Offer\",\n              \"priceCurrency\": \"AUD\",\n              \"description\": \"Fixed-price interstate quote after route, access, and inventory review.\"\n            }\n          }\n        ]\n      }"
+    ],
+    "contentFile": "content/adelaide-to-smithfield-nsw-removals/index.html"
   },
   {
     "output": "adelaide-to-brisbane-removals/index.html",
