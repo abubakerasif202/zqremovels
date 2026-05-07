@@ -231,6 +231,11 @@ export function trackMobileMenuOpen() {
   sendMetaCustom("mobile_menu_open", payload);
 }
 
+export function trackStickyCtaClick(location = "sticky_cta") {
+  const payload = withAttribution({ category: "conversion", label: "sticky_cta_click", location });
+  dispatchEvent("sticky_cta_click", payload);
+}
+
 export function trackOutboundClick(url) {
   if (!url) return;
   const payload = { category: "engagement", label: "outbound_link", url };

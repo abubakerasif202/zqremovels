@@ -173,3 +173,27 @@ test("route tracking emits page_view after history changes", async () => {
 
   global.window = originalWindow;
 });
+
+test("trackStickyCtaClick pushes payload to dataLayer", async () => {
+  const moduleUrl = pathToFileURL(path.join(root, "analytics.mjs")).href;
+  const analytics = await import(`${moduleUrl}?sticky=${Date.now()}${Math.random()}`);
+
+  const originalWindow = global.window;
+  const dataLayer = [];
+  global.window = {
+    location: { pathname: "/", search: "" },
+    history: { pushState() {}, replaceState() {} },
+    addEventListener() {},
+    dataLayer,
+    __analyticsConfig: { gtmId: "GTM-TESTV2" },
+  };
+
+  analytics.trackStickyCtaClick("test_location");
+
+  const entry = dataLayer.find((e) => e.event === "sticky_cta_click");
+  assert.ok(entry, "Event 'sticky_cta_click' should be in dataLayer");
+  assert.equal(entry.label, "sticky_cta_click");
+  assert.equal(entry.location, "test_location");
+
+  global.window = originalWindow;
+});
