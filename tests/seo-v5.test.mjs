@@ -100,9 +100,9 @@ test('seo v5 guide cluster exists with TOC, FAQ, schema, links, and quote paths'
 });
 
 test('seo v5 json-ld parses and only publishes supported business facts', () => {
-  for (const htmlFile of walkHtmlFiles(distDir)) {
-    const relativePath = path.relative(distDir, htmlFile).replace(/\\/g, '/');
-    const html = readFileSync(htmlFile, 'utf8');
+  for (const page of indexablePages()) {
+    const relativePath = page.output;
+    const html = readDist(page.output);
     const visibleFaq = hasVisibleFaqContent(html);
 
     for (const jsonLd of extractJsonLd(html)) {
@@ -159,7 +159,7 @@ test('seo v5 sitemap and robots output is clean, canonical, grouped, and duplica
 });
 
 test('seo v5 internal links resolve and indexable pages have discovery links', () => {
-  const existingOutputs = new Set(walkHtmlFiles(distDir).map((file) => path.relative(distDir, file).replace(/\\/g, '/')));
+  const existingOutputs = new Set(indexablePages().map((page) => page.output));
 
   for (const page of indexablePages()) {
     const html = readDist(page.output);
@@ -225,12 +225,11 @@ function readDist(relativePath) {
 }
 
 function walkHtmlFiles(dir, results = []) {
-  for (const entry of readdirSync(dir)) {
-    const fullPath = path.join(dir, entry);
-    const stats = statSync(fullPath);
-    if (stats.isDirectory()) {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
       walkHtmlFiles(fullPath, results);
-    } else if (entry.endsWith('.html')) {
+    } else if (entry.isFile() && entry.name.endsWith('.html')) {
       results.push(fullPath);
     }
   }
