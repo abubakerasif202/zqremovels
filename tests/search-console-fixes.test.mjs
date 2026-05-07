@@ -91,11 +91,17 @@ test('generated sitemap and canonicals stay on the apex host', () => {
   assert.doesNotMatch(sitemap, /https:\/\/www\.zqremovals\.au\//);
   assert.match(sitemap, /<sitemapindex/);
   assert.match(homepage, /<link rel="canonical" href="https:\/\/zqremovals\.au\/" \/>/);
+  assert.match(homepage, /<title>Adelaide Removalists Near Me \| 5-Star Local Movers \| ZQ Removals<\/title>/);
+  assert.match(
+    homepage,
+    /<meta name="description" content="Looking for trusted Adelaide removalists near you\? ZQ Removals provides 5-star local, house, office, furniture and interstate moving services\. Get a fast quote today\." \/>/,
+  );
   assert.match(
     interstateHub,
     /<link rel="canonical" href="https:\/\/zqremovals\.au\/interstate-removals-adelaide\/" \/>/,
   );
   assert.match(robots, /Sitemap: https:\/\/zqremovals\.au\/sitemap-index\.xml/);
+  assert.equal((homepage.match(/<h1\b/gi) || []).length, 1, 'homepage must have exactly one h1');
 });
 
 test('sitemap xml files start with a clean xml declaration', () => {
@@ -339,15 +345,17 @@ test('indexable pages expose complete unique metadata and one matching canonical
     assert.ok(title, `missing title for ${page.output}`);
     assert.ok(description, `missing meta description for ${page.output}`);
     assert.deepEqual(canonicals, [page.canonical], `canonical mismatch for ${page.output}`);
-    assert.ok(h1s.length >= 1, `missing h1 for ${page.output}`);
+    assert.equal(h1s.length, 1, `expected exactly one h1 for ${page.output}`);
     assert.ok(h1s.every(Boolean), `empty h1 for ${page.output}`);
     assert.ok(h2Count >= 1, `missing h2 structure for ${page.output}`);
     assert.match(html, /<meta property="og:title" content="[^"]+"/i, `missing og:title for ${page.output}`);
     assert.match(html, /<meta property="og:description" content="[^"]+"/i, `missing og:description for ${page.output}`);
+    assert.match(html, /<meta property="og:url" content="https:\/\/zqremovals\.au\/[^"]*"/i, `missing og:url for ${page.output}`);
     assert.match(html, /<meta property="og:image" content="https:\/\/zqremovals\.au\/[^"]+"/i, `missing apex og:image for ${page.output}`);
     assert.match(html, /<meta name="twitter:card" content="summary_large_image"/i, `missing twitter card for ${page.output}`);
     assert.match(html, /<meta name="twitter:title" content="[^"]+"/i, `missing twitter:title for ${page.output}`);
     assert.match(html, /<meta name="twitter:description" content="[^"]+"/i, `missing twitter:description for ${page.output}`);
+    assert.match(html, /<meta name="twitter:image" content="https:\/\/zqremovals\.au\/[^"]+"/i, `missing twitter:image for ${page.output}`);
 
     assert.ok(!seenTitles.has(title), `duplicate title: ${title}`);
     assert.ok(!seenDescriptions.has(description), `duplicate description: ${description}`);
@@ -605,9 +613,9 @@ test('v6 homepage targets premium Adelaide removalists and above-fold CTAs', () 
   const homepage = readDist('index.html');
   const hero = homepage.match(/<section class="hero-shell[\s\S]*?<\/section>/i)?.[0] || '';
 
-  assert.match(homepage, /<title>Removalists Adelaide \| Affordable Fixed-Price Movers \| ZQ Removals<\/title>/);
-  assert.match(homepage, /<meta name="description" content="[^"]*Adelaide removalists[^"]*affordable fixed-price options[^"]*house[^"]*furniture[^"]*office/i);
-  assert.match(hero, /<h1>Premium Adelaide Removalists<\/h1>/);
+  assert.match(homepage, /<title>Adelaide Removalists Near Me \| 5-Star Local Movers \| ZQ Removals<\/title>/);
+  assert.match(homepage, /<meta name="description" content="Looking for trusted Adelaide removalists near you\? ZQ Removals provides 5-star local, house, office, furniture and interstate moving services\. Get a fast quote today\."/i);
+  assert.match(hero, /<h1>Adelaide Removalists Near Me<\/h1>/);
   assert.match(hero, /href="tel:\+61433819989"[^>]*>Call 0433 819 989<\/a>/);
   assert.match(hero, /href="\/contact-us\/#quote-form"[^>]*>Get Free Quote<\/a>/);
   assert.match(hero, /Same Day &amp; Local Moves|Same Day & Local Moves/);

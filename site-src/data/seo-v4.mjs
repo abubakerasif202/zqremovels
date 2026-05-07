@@ -191,7 +191,7 @@ export const imageAssets = {
     path: '/media/home-local-hero-branded.webp',
     url: toAbsoluteUrl('/media/home-local-hero-branded.webp'),
     alt: 'ZQ Removals branded Adelaide moving scene with premium local coverage',
-    title: 'ZQ Removals Adelaide moving service',
+    title: 'Adelaide Removalists Near Me | 5-Star Local Movers | ZQ Removals',
     caption: 'Premium Adelaide removals with clear quote-first planning.',
     width: 768,
     height: 406,
@@ -1876,8 +1876,8 @@ const guideLinkProfiles = {
       { href: '/removalists-noarlunga/', label: 'southern suburb planning' },
     ],
     guides: [
-      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
-      { href: '/adelaide-moving-guides/moving-checklist-adelaide/', label: 'moving checklist' },
+      { href: '/guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
+      { href: '/guides/moving-house-checklist-adelaide/', label: 'moving checklist' },
     ],
     commercial: [
       { href: '/cheap-removalists-adelaide/', label: 'cheap removalists' },
@@ -1917,9 +1917,9 @@ const commercialLinkProfiles = {
       { href: '/removalists-marion/', label: 'Marion local moving quotes' },
     ],
     guides: [
-      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
-      { href: '/adelaide-moving-guides/how-to-get-accurate-removalist-quotes-adelaide/', label: 'accurate quote guide' },
-      { href: '/adelaide-moving-guides/cheap-vs-fixed-price-removalists-adelaide/', label: 'cheap vs fixed price guide' },
+      { href: '/guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
+      { href: '/guides/removalist-cost-adelaide/', label: 'accurate quote guide' },
+      { href: '/guides/cheap-vs-fixed-price-removalists-adelaide/', label: 'cheap vs fixed price guide' },
     ],
     siblings: [
       { href: '/cheap-removalists-adelaide/', label: 'cheap removalists Adelaide' },
@@ -1940,9 +1940,9 @@ const commercialLinkProfiles = {
       { href: '/removalists-salisbury/', label: 'Salisbury northern quote factors' },
     ],
     guides: [
-      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'full cost guide' },
-      { href: '/adelaide-moving-guides/how-to-get-accurate-removalist-quotes-adelaide/', label: 'accurate quote guide' },
-      { href: '/adelaide-moving-guides/cheap-vs-fixed-price-removalists-adelaide/', label: 'hourly vs fixed-price guide' },
+      { href: '/guides/removalist-cost-adelaide/', label: 'full cost guide' },
+      { href: '/guides/removalist-cost-adelaide/', label: 'accurate quote guide' },
+      { href: '/guides/cheap-vs-fixed-price-removalists-adelaide/', label: 'hourly vs fixed-price guide' },
     ],
     siblings: [
       { href: '/moving-quotes-adelaide/', label: 'moving quotes Adelaide' },
@@ -3386,7 +3386,7 @@ function renderInterstateContent({ slug, destination, routeName, distance, highw
     { eyebrow: 'Service hub', title: 'Interstate removals Adelaide', copy: 'Use the service hub for the broader long-distance move process from Adelaide.', href: '/services/interstate-removals-adelaide/', cta: 'Open interstate service' },
     { eyebrow: 'Quote path', title: 'Moving quotes Adelaide', copy: 'Send the route, access, inventory, timing, and packing notes for review.', href: '/moving-quotes-adelaide/', cta: 'Prepare moving quote' },
     { eyebrow: 'Price model', title: 'Fixed-price removalists Adelaide', copy: 'Review how fixed-price quoting works when the scope is clear.', href: '/fixed-price-removalists-adelaide/', cta: 'Review fixed-price moving' },
-    { eyebrow: 'Checklist', title: 'Interstate moving checklist Adelaide', copy: 'Use the checklist to prepare both addresses and the handover details.', href: '/adelaide-moving-guides/interstate-moving-checklist-adelaide/', cta: 'Open interstate checklist' },
+    { eyebrow: 'Checklist', title: 'Interstate moving checklist Adelaide', copy: 'Use the checklist to prepare both addresses and the handover details.', href: '/guides/interstate-moving-from-adelaide/', cta: 'Open interstate checklist' },
     { eyebrow: 'Quote form', title: 'Request a fixed-price quote', copy: 'Submit the move brief once the key route and access details are ready.', href: '/contact-us/#quote-form', cta: 'Request quote' },
   ];
   const serviceCards = support.services.map((item, index) => ({

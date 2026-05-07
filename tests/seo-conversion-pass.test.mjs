@@ -25,11 +25,11 @@ test('homepage targets Adelaide removalists with the new commercial headline and
 
   assert.match(
     homepage,
-    /<h1[^>]*>Premium Adelaide Removalists<\/h1>/i,
+    /<h1[^>]*>Adelaide Removalists Near Me<\/h1>/i,
   );
   assert.match(
     homepage,
-    /Affordable Fixed-Price Moving Options for house moves, furniture removals, local relocations, apartments, offices, and interstate routes/i,
+    /Looking for trusted Adelaide removalists near you\? ZQ Removals provides 5-star local, house, office, furniture and interstate moving services\. Get a fast quote today\./i,
   );
   assert.match(homepage, /href="\/house-removals-adelaide\/"/);
   assert.match(homepage, /href="\/furniture-removalists-adelaide\/"/);

@@ -9,6 +9,7 @@ import {
   trackMobileMenuOpen,
   trackOutboundClick,
   trackQuoteClick,
+  trackStickyCtaClick,
   trackPricePageCTA,
   trackSuburbCTA,
   trackServiceCTA,
@@ -385,7 +386,13 @@ function setupConversionTracking() {
       return;
     }
 
-    trackQuoteClick(inferClickLocation(anchor));
+    const location = inferClickLocation(anchor);
+    if (anchor.closest("#sticky-cta")) {
+      trackStickyCtaClick(location);
+    } else {
+      trackQuoteClick(location);
+    }
+
     if (isPriceContextPage()) {
       trackPricePageCTA(window.location.pathname);
     } else if (isSuburbContextPage()) {
