@@ -149,6 +149,7 @@ test('seo v5 sitemap and robots output is clean, canonical, grouped, and duplica
     const xml = readDist(sitemap);
     assert.match(xml, /^<\?xml version="1\.0" encoding="UTF-8"\?>\n/, `${sitemap} declaration`);
     assert.doesNotMatch(xml, /^\s+<\?xml/, `${sitemap} leading whitespace`);
+    assert.doesNotMatch(xml, /https:\/\/www\.zqremovals\.au\//i, `${sitemap} mixed www host`);
     const locs = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
     assert.equal(locs.length, new Set(locs).size, `${sitemap} duplicate loc values`);
     for (const loc of locs) {
