@@ -34,7 +34,7 @@ for (const page of pages) {
   }
   const canonical = extractFirst(html, /<link rel="canonical" href="([^"]+)"/i);
   const title = extractFirst(html, /<title>(.*?)<\/title>/i);
-  const h1 = extractFirst(html, /<h1>(.*?)<\/h1>/i);
+  const h1 = extractFirst(html, /<h1\b[^>]*>([\s\S]*?)<\/h1>/i);
   if (!canonical) failures.push(`missing canonical: ${page.output}`);
   if (!title) failures.push(`missing title: ${page.output}`);
   if (!h1) failures.push(`missing h1: ${page.output}`);

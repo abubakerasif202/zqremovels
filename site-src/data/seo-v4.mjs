@@ -278,11 +278,15 @@ export function mergePagesByOutput(...pageGroups) {
 }
 
 export function buildTitle(partial, variant = 'brand') {
-  if (partial.includes('|')) return clampText(partial, seoConfig.titleMaxLength);
+  if (variant !== 'quote' && partial.includes('|')) return clampText(partial, seoConfig.titleMaxLength);
+  if (variant === 'quote' && partial.includes('|')) {
+    const branded = partial.trim().endsWith('ZQ Removals') ? partial : `${partial} | ZQ Removals`;
+    return clampText(branded, seoConfig.titleMaxLength);
+  }
   
   const templates = {
     brand: `${partial} | ZQ Removals`,
-    quote: `${partial} | Get a Fixed-Price Quote`,
+    quote: `${partial} | Fixed-Price Quote | ZQ Removals`,
     local: `${partial} | Local Adelaide Removalists`,
     interstate: `${partial} | Direct Interstate Moving`,
     urgent: `${partial} | Urgent & Last Minute Movers`,
