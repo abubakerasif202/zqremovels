@@ -11,6 +11,7 @@
     "seo:validate": "node scripts/seo-validate.mjs"
   },
   "devDependencies": {
+    "@lhci/cli": "^0.15.1",
     "lightningcss": "^1.32.0"
   },
   "dependencies": {
