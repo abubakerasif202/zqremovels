@@ -2,7 +2,7 @@ import { existsSync } from 'node:fs';
 import { readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-import { getGeneratedPages, getRouteCoverageReport, getSuburbDataset, mergePagesByOutput, seoConfig } from '../site-src/data/seo-v4.mjs';
+import { getGeneratedPages, getRouteCoverageReport, getSuburbDataset, mergePagesByOutput, seoConfig, zqServiceSitemapOutputs } from '../site-src/data/seo-v4.mjs';
 
 const root = process.cwd();
 const distRoot = path.join(root, 'site-dist');
@@ -522,6 +522,7 @@ function isStrictSeoCommercialPage(page) {
 
 function isStrictSeoServiceTarget(target = '') {
   return new Set([
+    ...zqServiceSitemapOutputs,
     'services/local-removals-adelaide/index.html',
     'services/furniture-removals-adelaide/index.html',
     'services/office-removals-adelaide/index.html',

@@ -1,3 +1,14 @@
+import { zqGuideIntentProfiles, zqGuidePages } from './zq-blog-guides.mjs';
+import { zqGuideLinkProfiles, zqServiceLinkProfiles } from './zq-internal-links.mjs';
+import {
+  zqServiceAeoProfiles,
+  zqServiceFactorCards,
+  zqServiceHighlights,
+  zqServiceIntentProfiles,
+  zqServicePages,
+  zqServiceSitemapOutputs,
+} from './zq-services.mjs';
+
 const SITE_URL = 'https://zqremovals.au';
 const BUSINESS_NAME = 'ZQ Removals';
 const PHONE = '+61 433 819 989';
@@ -10,6 +21,8 @@ export const businessIdentifiers = {
   abnFormatted: ABN_FORMATTED,
   abnMachine: ABN_MACHINE,
 };
+
+export { zqServiceSitemapOutputs };
 
 function toAbsoluteUrl(pathname) {
   return pathname.startsWith('http') ? pathname : `${SITE_URL}${pathname}`;
@@ -1246,6 +1259,13 @@ const guideTopics = [
     profile.topic,
     'article',
   ]),
+  ...zqGuidePages.map(({ slug, title, topic, type = 'article', basePath = 'adelaide-moving-guides' }) => [
+    slug,
+    title,
+    topic,
+    type,
+    basePath,
+  ]),
 ];
 
 const commercialPages = [
@@ -1589,6 +1609,7 @@ const commercialPages = [
       },
     ],
   },
+  ...zqServicePages,
 ];
 
 const seoV5DefaultServiceLinks = [
@@ -1708,6 +1729,7 @@ const seoV5CommercialIntentProfiles = {
     uniqueAngle: 'clarifies packing scope by fragile items, room count, carton quality, and move-day sequencing',
     conversionCTA: 'Add packing to the move brief',
   },
+  ...zqServiceIntentProfiles,
 };
 
 function uniqueLinkItems(items = []) {
@@ -1726,7 +1748,7 @@ function ensureLinkDepth(items, fallback, maxCount) {
 }
 
 export function getSeoV5IntentProfile(slug) {
-  return seoV5CommercialIntentProfiles[slug] || seoV5GuideProfiles[slug] || null;
+  return seoV5CommercialIntentProfiles[slug] || seoV5GuideProfiles[slug] || zqGuideIntentProfiles[slug] || null;
 }
 
 function buildCommercialIntentProfile(page) {
@@ -1887,6 +1909,7 @@ const guideLinkProfiles = {
       { href: '/cheap-removalists-adelaide/', label: 'cheap removalists' },
     ],
   },
+  ...zqGuideLinkProfiles,
 };
 
 const commercialLinkProfiles = {
@@ -2165,6 +2188,7 @@ const commercialLinkProfiles = {
       { href: '/moving-quotes-adelaide/', label: 'moving quotes Adelaide' },
     ],
   },
+  ...zqServiceLinkProfiles,
 };
 
 function formatClusterLabel(clusterKey) {
@@ -2564,6 +2588,7 @@ function buildGuideChecklistCards(topic) {
 
 function buildCommercialHighlights(page) {
   const defaults = {
+    ...zqServiceHighlights,
     'cheap-removalists-adelaide': [
       'Accurate scoping keeps low-cost quotes realistic',
       'Budget-friendly routes still need premium handling standards',
@@ -2630,6 +2655,7 @@ function buildCommercialHighlights(page) {
 
 function buildCommercialFactorCards(page) {
   const cards = {
+    ...zqServiceFactorCards,
     'cheap-removalists-adelaide': [
       { title: 'What keeps the quote lean', copy: 'Accurate inventory, clear access notes, and a realistic route brief stop cheap quotes from drifting later.' },
       { title: 'Where value is protected', copy: 'Careful handling, transparent inclusions, and less rework matter more than chasing the lowest headline number.' },
@@ -2942,8 +2968,8 @@ export function getGeneratedPages() {
     destinationPath: '/removalists-semaphore/',
   }));
 
-  for (const [slug, title, topic, type] of guideTopics) {
-    pages.push(makeGuidePage({ slug, title, topic, type }));
+  for (const [slug, title, topic, type, basePath] of guideTopics) {
+    pages.push(makeGuidePage({ slug, title, topic, type, basePath }));
   }
 
   for (const page of commercialPages) {
@@ -2953,7 +2979,15 @@ export function getGeneratedPages() {
   return pages;
 }
 
-const GENERATED_LASTMOD_SOURCES = ['site-src/data/seo-v4.mjs', 'scripts/build-site.mjs'];
+const GENERATED_LASTMOD_SOURCES = [
+  'site-src/data/seo-v4.mjs',
+  'site-src/data/zq-blog-guides.mjs',
+  'site-src/data/zq-internal-links.mjs',
+  'site-src/data/zq-seo-pages.mjs',
+  'site-src/data/zq-services.mjs',
+  'site-src/data/zq-suburbs.mjs',
+  'scripts/build-site.mjs',
+];
 
 function makeStaticPage(page) {
   return {
@@ -3123,9 +3157,9 @@ function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel }) {
   };
 }
 
-function makeGuidePage({ slug, title, topic }) {
-  const canonical = buildCanonical(`/adelaide-moving-guides/${slug}/`);
-  const intentProfile = seoV5GuideProfiles[slug] || null;
+function makeGuidePage({ slug, title, topic, basePath = 'adelaide-moving-guides' }) {
+  const canonical = buildCanonical(`/${basePath}/${slug}/`);
+  const intentProfile = seoV5GuideProfiles[slug] || (basePath === 'guides' ? zqGuideIntentProfiles[slug] : null);
   const seoTitle = buildTitle(title, 'brand');
   const description = buildDescription(
     intentProfile
@@ -3134,7 +3168,7 @@ function makeGuidePage({ slug, title, topic }) {
   );
   const pageImage = getGeneratedPageImage({ type: 'guide', slug, title, topic });
   return {
-    output: `adelaide-moving-guides/${slug}/index.html`,
+    output: `${basePath}/${slug}/index.html`,
     layout: 'standard',
     generatedKind: 'guide',
     title: seoTitle,
@@ -3999,6 +4033,7 @@ function renderAeoAnswerBlock({ module = 'aeo-answer', eyebrow = 'Quick answer',
 
 function getCommercialAeoProfile(page) {
   const profiles = {
+    ...zqServiceAeoProfiles,
     'removalist-cost-adelaide': {
       question: 'How much do removalists cost in Adelaide?',
       answer: 'Removalist cost in Adelaide depends on the route, access, inventory, truck needs, timing, and packing scope. A useful quote should review those details before giving a final fixed-price option.',
