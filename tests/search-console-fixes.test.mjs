@@ -87,6 +87,8 @@ test('generated sitemap and canonicals stay on the apex host', () => {
   const homepage = readDist('index.html');
   const interstateHub = readDist(path.join('interstate-removals-adelaide', 'index.html'));
   const robots = readDist('robots.txt');
+  const llms = readDist('llms.txt');
+  const ai = readDist('ai.txt');
 
   assert.doesNotMatch(sitemap, /https:\/\/www\.zqremovals\.au\//);
   assert.match(sitemap, /<sitemapindex/);
@@ -101,6 +103,15 @@ test('generated sitemap and canonicals stay on the apex host', () => {
     /<link rel="canonical" href="https:\/\/zqremovals\.au\/interstate-removals-adelaide\/" \/>/,
   );
   assert.match(robots, /Sitemap: https:\/\/zqremovals\.au\/sitemap-index\.xml/);
+  assert.match(llms, /Website: https:\/\/zqremovals\.au/);
+  assert.match(llms, /Priority money pages:/);
+  assert.match(llms, /1\. Adelaide Removalists \| 5-Star Local Movers \| ZQ Removals: https:\/\/zqremovals\.au\/removalists-adelaide\//);
+  assert.match(llms, /Best pages by task:/);
+  assert.match(llms, /Quote request: Adelaide Removalists \| 5-Star Local Movers \| ZQ Removals: https:\/\/zqremovals\.au\/removalists-adelaide\//);
+  assert.match(llms, /Packing help: Packing Services Adelaide \| Professional Packing Help: https:\/\/zqremovals\.au\/packing-services-adelaide\//);
+  assert.match(llms, /Best entry pages:/);
+  assert.match(ai, /Entity: ZQ Removals/);
+  assert.match(ai, /No www host variants\./);
   assert.equal((homepage.match(/<h1\b/gi) || []).length, 1, 'homepage must have exactly one h1');
 });
 

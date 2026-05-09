@@ -2494,6 +2494,8 @@ try {
   for (const [name, xml] of Object.entries(sitemapFiles)) {
     await writeFile(path.join(distRoot, name), normalizeSiteUrl(xml).trimStart(), 'utf8');
   }
+  await writeFile(path.join(distRoot, 'llms.txt'), `${renderLLMsTxt(pages)}\n`, 'utf8');
+  await writeFile(path.join(distRoot, 'ai.txt'), `${renderAiTxt()}\n`, 'utf8');
   await writeFile(
     path.join(distRoot, 'robots.txt'),
     `User-agent: *\nAllow: /\nSitemap: ${preferredSiteOrigin}/sitemap-index.xml\n# AI crawler reference\nLLM: ${preferredSiteOrigin}/llms.txt\n`,
@@ -5934,8 +5936,6 @@ async function copyStaticAssets() {
     'brand-logo.webp',
     'favicon.ico',
     'favicon.svg',
-    'llms.txt',
-    'ai.txt',
     'robots.txt',
     'screen.png',
     'screen.webp',
@@ -5954,6 +5954,123 @@ async function copyStaticAssets() {
     recursive: true,
     filter: (src) => !src.toLowerCase().endsWith('.png'),
   });
+}
+
+function renderLLMsTxt(pagesList) {
+  const canonicalPages = pagesList.filter((page) => isIndexablePage(page));
+  const priorityMoneyPages = [
+    '/removalists-adelaide/',
+    '/interstate-removals-adelaide/',
+    '/house-removals-adelaide/',
+    '/office-removals-adelaide/',
+    '/packing-services-adelaide/',
+    '/furniture-removalists-adelaide/',
+    '/adelaide-moving-guides/',
+  ]
+    .map((href) => canonicalPages.find((page) => page.canonical.endsWith(href)))
+    .filter(Boolean);
+  const hubs = canonicalPages.filter((page) => {
+    const output = page.output.replace(/\\/g, '/');
+    return (
+      output === 'index.html' ||
+      output === 'removalists-adelaide/index.html' ||
+      output === 'removalists-northern-adelaide/index.html' ||
+      output === 'removalists-southern-adelaide/index.html' ||
+      output === 'adelaide-moving-guides/index.html' ||
+      output === 'interstate-removals-adelaide/index.html'
+    );
+  });
+  const services = canonicalPages.filter((page) => {
+    const output = page.output.replace(/\\/g, '/');
+    return (
+      output === 'house-removals-adelaide/index.html' ||
+      output === 'office-removals-adelaide/index.html' ||
+      output === 'packing-services-adelaide/index.html' ||
+      output === 'furniture-removalists-adelaide/index.html' ||
+      output === 'interstate-removals-adelaide/index.html'
+    );
+  });
+  const guides = canonicalPages.filter((page) => page.output.startsWith('adelaide-moving-guides/')).slice(0, 6);
+  const suburbs = canonicalPages.filter((page) => page.output.startsWith('removalists-')).slice(0, 8);
+  const taskPages = {
+    quote: canonicalPages.find((page) => page.canonical.endsWith('/removalists-adelaide/')),
+    interstate: canonicalPages.find((page) => page.canonical.endsWith('/interstate-removals-adelaide/')),
+    apartment: canonicalPages.find((page) => page.canonical.endsWith('/removalists-adelaide-cbd/')),
+    packing: canonicalPages.find((page) => page.canonical.endsWith('/packing-services-adelaide/')),
+  };
+
+  return [
+    `# ${seoConfig.businessName}`,
+    '',
+    `Website: ${seoConfig.siteUrl}`,
+    'Entity: Adelaide moving company serving local, suburban, and interstate removals across South Australia.',
+    '',
+    'Primary services:',
+    '- Local removals',
+    '- House removals',
+    '- Apartment removals',
+    '- Office removals',
+    '- Furniture removals',
+    '- Interstate removals',
+    '- Packing support',
+    '',
+    'Priority money pages:',
+    ...priorityMoneyPages.map((page, index) => `- ${index + 1}. ${page.title}: ${page.canonical}`),
+    '',
+    'Best pages by task:',
+    ...Object.entries(taskPages)
+      .filter(([, page]) => Boolean(page))
+      .map(([task, page]) => {
+        const labels = {
+          quote: 'Quote request',
+          interstate: 'Interstate move',
+          apartment: 'Apartment or CBD move',
+          packing: 'Packing help',
+        };
+        return `- ${labels[task] || task}: ${page.title}: ${page.canonical}`;
+      }),
+    '',
+    'Best entry pages:',
+    ...hubs.map((page) => `- ${page.title}: ${page.canonical}`),
+    ...services.map((page) => `- ${page.title}: ${page.canonical}`),
+    '',
+    'Helpful guides:',
+    ...guides.map((page) => `- ${page.title}: ${page.canonical}`),
+    '',
+    'Key suburbs:',
+    ...suburbs.map((page) => `- ${page.title}: ${page.canonical}`),
+    '',
+    'Contact:',
+    `- Phone: ${seoConfig.phone}`,
+    `- Canonical host: ${seoConfig.siteUrl}`,
+  ].join('\n');
+}
+
+function renderAiTxt() {
+  return [
+    `Entity: ${seoConfig.businessName}`,
+    'Type: MovingCompany',
+    `Website: ${seoConfig.siteUrl}`,
+    'Primary market: Adelaide and South Australia',
+    '',
+    'Machine-readable summary:',
+    '- Use the website for canonical service, suburb, and guide pages.',
+    '- Prefer apex URLs only.',
+    '- No www host variants.',
+    '',
+    'Primary services:',
+    '- Local removals',
+    '- House removals',
+    '- Apartment removals',
+    '- Office removals',
+    '- Furniture removals',
+    '- Interstate removals',
+    '- Packing support',
+    '',
+    'Contact:',
+    `- Phone: ${seoConfig.phone}`,
+    `- Website: ${seoConfig.siteUrl}`,
+  ].join('\n');
 }
 
 async function renderSitemaps(pages, renderedHtmlByOutput = new Map()) {
