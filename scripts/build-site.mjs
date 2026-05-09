@@ -1,7 +1,7 @@
 import { copyFile, cp, mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { transform } from 'lightningcss';
-import { buildCanonical, buildDescription, buildFAQSchema, buildImageObjectSchema, buildLocalBusinessSchema, buildOGTags, buildServiceSchema, buildTitle, buildTwitterTags, businessIdentifiers, getGeneratedPages, getRouteCoverageReport, getSeoV5IntentProfile, getSuburbLinkProfile, mergePagesByOutput, normalizeInternalHref, seoConfig } from '../site-src/data/seo-v4.mjs';
+import { buildCanonical, buildDescription, buildFAQSchema, buildImageObjectSchema, buildLocalBusinessSchema, buildOGTags, buildServiceSchema, buildTitle, buildTwitterTags, businessIdentifiers, getGeneratedPages, getRouteCoverageReport, getSeoV5IntentProfile, getSuburbLinkProfile, mergePagesByOutput, normalizeInternalHref, seoConfig, zqServiceSitemapOutputs } from '../site-src/data/seo-v4.mjs';
 
 const workspaceRoot = process.cwd();
 
@@ -57,6 +57,7 @@ const SUBURB_PADDING_PARAGRAPH =
   'Every move is reviewed for access, inventory, and timing before scheduling, so clients receive a practical plan supported by experienced local movers.';
 const sourceMtimeCache = new Map();
 const imageAssetExistsCache = new Map();
+const generatedServiceSitemapOutputSet = new Set(zqServiceSitemapOutputs);
 const heroImageRouteRules = {
   interstatePrefix: 'adelaide-to-',
   interstateKeyword: 'interstate',
@@ -5964,7 +5965,11 @@ function renderLLMsTxt(pagesList) {
     '/house-removals-adelaide/',
     '/office-removals-adelaide/',
     '/packing-services-adelaide/',
+    '/furniture-removals-adelaide/',
     '/furniture-removalists-adelaide/',
+    '/apartment-removals-adelaide/',
+    '/local-removalists-adelaide/',
+    '/moving-company-adelaide/',
     '/adelaide-moving-guides/',
   ]
     .map((href) => canonicalPages.find((page) => page.canonical.endsWith(href)))
@@ -5986,7 +5991,11 @@ function renderLLMsTxt(pagesList) {
       output === 'house-removals-adelaide/index.html' ||
       output === 'office-removals-adelaide/index.html' ||
       output === 'packing-services-adelaide/index.html' ||
+      output === 'furniture-removals-adelaide/index.html' ||
       output === 'furniture-removalists-adelaide/index.html' ||
+      output === 'apartment-removals-adelaide/index.html' ||
+      output === 'local-removalists-adelaide/index.html' ||
+      output === 'moving-company-adelaide/index.html' ||
       output === 'interstate-removals-adelaide/index.html'
     );
   });
@@ -6103,6 +6112,7 @@ async function renderSitemaps(pages, renderedHtmlByOutput = new Map()) {
       page.output === 'packing-services-adelaide/index.html' ||
       page.output === 'furniture-removalists-adelaide/index.html' ||
       page.output === 'interstate-removals-adelaide/index.html' ||
+      generatedServiceSitemapOutputSet.has(page.output.replace(/\\/g, '/')) ||
       page.generatedKind === 'interstate-route' ||
       page.output === 'adelaide-to-melbourne-removals/index.html' ||
       page.output === 'adelaide-to-sydney-removals/index.html' ||
