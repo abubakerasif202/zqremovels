@@ -3317,8 +3317,7 @@ function usesDefaultSocialImage(value = '') {
     value.includes('/brand-logo.png') ||
     value.includes('/brand-logo.webp') ||
     value.includes('/zq-removals-social-share.png') ||
-    value.includes('/zq-removals-social-share.webp') ||
-    value.includes('/media/Gemini_Generated_Image')
+    value.includes('/zq-removals-social-share.webp')
   );
 }
 
@@ -3655,7 +3654,7 @@ function transformContent(content, page) {
   next = next.replace(/<script\b[^>]*type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/gi, '');
   next = sanitizePublicCopy(next);
 
-  // Legacy Gemini PNG references in content are hero images; map them to lighter route-intent hero assets.
+  // Legacy PNG hero references are mapped to lighter route-intent hero assets.
   next = next.replace(
     /\/media\/Gemini_Generated_Image_[^"'<\s]*\.png/g,
     getOptimizedPageHeroImage(page),
