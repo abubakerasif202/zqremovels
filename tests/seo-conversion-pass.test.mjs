@@ -29,7 +29,11 @@ test('homepage targets Adelaide removalists with the new commercial headline and
   );
   assert.match(
     homepage,
-    /Need a 5-Star Adelaide removalist\? ZQ Removals covers Andrews Farm and the wider Adelaide region\. Call 0433 819 989 for a fixed-price quote and careful furniture handling\./i,
+    /Need a 5-Star Adelaide removalist\? ZQ Removals covers Andrews Farm and the wider Adelaide region\./i,
+  );
+  assert.match(
+    homepage,
+    /Call 0433 819 989 for a fixed-price quote and careful furniture handling\./i,
   );
   assert.match(homepage, /href="\/house-removals-adelaide\/"/);
   assert.match(homepage, /href="\/furniture-removalists-adelaide\/"/);
