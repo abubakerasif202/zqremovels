@@ -2499,7 +2499,7 @@ try {
   await writeFile(path.join(distRoot, 'ai.txt'), `${renderAiTxt()}\n`, 'utf8');
   await writeFile(
     path.join(distRoot, 'robots.txt'),
-    `User-agent: *\nAllow: /\nSitemap: ${preferredSiteOrigin}/sitemap-index.xml\n# AI crawler reference\nLLM: ${preferredSiteOrigin}/llms.txt\n`,
+    `User-agent: *\nAllow: /\nSitemap: ${preferredSiteOrigin}/sitemap-index.xml\n`,
     'utf8',
   );
   await writeRouteCoverageReport();
@@ -3542,7 +3542,6 @@ function decorateLeadTracking(html, page) {
       let next = match;
       next = addAttributeIfMissing(next, 'data-lead-event', 'phone_click');
       next = addAttributeIfMissing(next, 'data-lead-location', location);
-      next = addAttributeIfMissing(next, 'aria-label', 'Call ZQ Removals on 0433 819 989');
       return next;
     })
     .replace(/<a\b(?![^>]*\sdata-lead-event=)([^>]*href="mailto:[^"]+"[^>]*)>/gi, (match) => {

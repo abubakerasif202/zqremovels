@@ -192,6 +192,7 @@ main { display: block; }
 }
 
 .section { padding: var(--space-8) 0; }
+
 .section-soft {
   background-color: #f4f0e7;
   color: var(--text-on-light);
@@ -352,6 +353,19 @@ main { display: block; }
   opacity: 0.6;
 }
 
+.bg-light .eyebrow,
+.section-mist .eyebrow,
+.section-soft .eyebrow {
+  color: #6f4f14;
+}
+
+.bg-light .eyebrow::after,
+.section-mist .eyebrow::after,
+.section-soft .eyebrow::after {
+  background-color: currentColor;
+  opacity: 0.75;
+}
+
 .button {
   display: inline-flex;
   align-items: center;
@@ -409,14 +423,16 @@ main { display: block; }
 }
 
 .bg-light .button-secondary,
-.section-mist .button-secondary {
+.section-mist .button-secondary,
+.section-soft .button-secondary {
   color: var(--text-on-light);
   border-color: rgba(7, 17, 31, 0.2);
   background: transparent;
 }
 
 .bg-light .button-secondary:hover,
-.section-mist .button-secondary:hover {
+.section-mist .button-secondary:hover,
+.section-soft .button-secondary:hover {
   background: rgba(7, 17, 31, 0.04);
   border-color: var(--text-on-light);
 }
@@ -462,6 +478,21 @@ main { display: block; }
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+}
+
+.bg-light .button-link,
+.section-mist .button-link,
+.section-soft .button-link,
+.bg-light .inline-link-group a,
+.section-mist .inline-link-group a,
+.section-soft .inline-link-group a,
+.bg-light .route-card small,
+.section-mist .route-card small,
+.section-soft .route-card small,
+.bg-light .testimonial-card span,
+.section-mist .testimonial-card span,
+.section-soft .testimonial-card span {
+  color: #6f4f14;
 }
 
 .button-link::after {
@@ -1390,6 +1421,13 @@ textarea:focus:not(:focus-visible) {
   border-radius: var(--radius);
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-soft);
+}
+
+.section-soft .editorial-panel,
+.section-soft .editorial-panel li,
+.section-soft .editorial-panel p,
+.section-soft .editorial-panel a {
+  color: var(--text-on-dark);
 }
 
 .editorial-ledger { display: grid; gap: 1.5rem; }
@@ -2329,6 +2367,12 @@ textarea:focus:not(:focus-visible) {
   background-position: center;
 }
 
+@media (max-width: 767px) {
+  .section-soft-team-bg {
+    background-image: none;
+  }
+}
+
 .label-space-top {
   margin-top: 1.5rem;
 }
@@ -2349,6 +2393,12 @@ textarea:focus:not(:focus-visible) {
   background: url('/media/home-local-hero-branded.webp') center/cover no-repeat;
   opacity: 0.2;
   filter: grayscale(45%) brightness(1.12) contrast(110%);
+}
+
+@media (max-width: 767px) {
+  .section-reassurance-pull::before {
+    background-image: none;
+  }
 }
 
 .reassurance-quote {

@@ -59,7 +59,7 @@ test('homepage metadata, schema, and crawl directives match v4 targets', async (
 
   assert.ok(llms.includes('ZQ Removals'));
   assert.match(robots, /Sitemap: https:\/\/zqremovals\.au\/sitemap-index\.xml/);
-  assert.match(robots, /LLM: https:\/\/zqremovals\.au\/llms\.txt/);
+  assert.doesNotMatch(robots, /^LLM:/m);
   assert.match(sitemapIndex, /<sitemapindex/);
   assert.match(servicesSitemap, /https:\/\/zqremovals\.au\/services\/local-removals-adelaide\//);
 });

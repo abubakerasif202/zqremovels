@@ -1,8 +1,16 @@
+const path = require('path');
+
+const chromeUserDataDir = path.join(__dirname, '.lhci-chrome').replace(/\\/g, '/');
+
 module.exports = {
   ci: {
     collect: {
       staticDistDir: './site-dist',
       url: ['/', '/contact-us/', '/removalists-adelaide/'],
+      numberOfRuns: 1,
+      settings: {
+        chromeFlags: `--user-data-dir=${chromeUserDataDir} --disable-gpu --no-sandbox`,
+      },
     },
     assert: {
       assertions: {
