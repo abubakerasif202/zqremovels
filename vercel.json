@@ -137,10 +137,19 @@
     { "source": "/interstate-removals", "destination": "/interstate-removals-adelaide/", "permanent": true },
     { "source": "/interstate-removals/", "destination": "/interstate-removals-adelaide/", "permanent": true },
 
-    { "source": "/interstate-removals/adelaide-to-melbourne", "destination": "/adelaide-to-melbourne-removals/", "permanent": true },
-    { "source": "/interstate-removals/adelaide-to-melbourne/", "destination": "/adelaide-to-melbourne-removals/", "permanent": true },
-    { "source": "/interstate-removals/adelaide-to-sydney", "destination": "/adelaide-to-sydney-removals/", "permanent": true },
-    { "source": "/interstate-removals/adelaide-to-sydney/", "destination": "/adelaide-to-sydney-removals/", "permanent": true },
+    { "source": "/interstate-removals/adelaide-to-melbourne", "destination": "/adelaide-to-melbourne-removalists/", "permanent": true },
+    { "source": "/interstate-removals/adelaide-to-melbourne/", "destination": "/adelaide-to-melbourne-removalists/", "permanent": true },
+    { "source": "/interstate-removals/adelaide-to-sydney", "destination": "/adelaide-to-sydney-removalists/", "permanent": true },
+    { "source": "/interstate-removals/adelaide-to-sydney/", "destination": "/adelaide-to-sydney-removalists/", "permanent": true },
+
+    { "source": "/adelaide-to-melbourne-removals", "destination": "/adelaide-to-melbourne-removalists/", "permanent": true },
+    { "source": "/adelaide-to-melbourne-removals/", "destination": "/adelaide-to-melbourne-removalists/", "permanent": true },
+    { "source": "/adelaide-to-melbourne-removals/index.html", "destination": "/adelaide-to-melbourne-removalists/", "permanent": true },
+    { "source": "/adelaide-to-melbourne-removals.html", "destination": "/adelaide-to-melbourne-removalists/", "permanent": true },
+    { "source": "/adelaide-to-sydney-removals", "destination": "/adelaide-to-sydney-removalists/", "permanent": true },
+    { "source": "/adelaide-to-sydney-removals/", "destination": "/adelaide-to-sydney-removalists/", "permanent": true },
+    { "source": "/adelaide-to-sydney-removals/index.html", "destination": "/adelaide-to-sydney-removalists/", "permanent": true },
+    { "source": "/adelaide-to-sydney-removals.html", "destination": "/adelaide-to-sydney-removalists/", "permanent": true },
 
     { "source": "/glenelg.html", "destination": "/removalists-glenelg/", "permanent": true },
     { "source": "/about.html", "destination": "/about/", "permanent": true },

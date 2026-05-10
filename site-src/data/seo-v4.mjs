@@ -105,8 +105,6 @@ export const localBusinessSchema = {
 };
 
 const interstateRouteData = [
-  ['adelaide-to-melbourne-removals', 'Melbourne', 'Adelaide to Melbourne', 'approx. 730km via Western Hwy', 'A8'],
-  ['adelaide-to-sydney-removals', 'Sydney', 'Adelaide to Sydney', 'approx. 1,375km via Sturt Hwy', 'M31'],
   ['adelaide-to-brisbane-removals', 'Brisbane', 'Adelaide to Brisbane', 'approx. 2,000km via Newell Hwy', 'A1'],
   ['adelaide-to-canberra-removals', 'Canberra', 'Adelaide to Canberra', 'approx. 1,160km via Sturt Hwy', 'M23'],
   ['adelaide-to-perth-removals', 'Perth', 'Adelaide to Perth', 'approx. 2,700km via Eyre Hwy', 'A1'],
@@ -3032,6 +3030,22 @@ export function getGeneratedPages() {
   }
 
   pages.push(makeRedirectPage({
+    output: 'adelaide-to-melbourne-removals/index.html',
+    canonical: buildCanonical('/adelaide-to-melbourne-removalists/'),
+    title: buildTitle('Adelaide to Melbourne Removals Redirect'),
+    description: buildDescription('This Adelaide to Melbourne removals alias now redirects to the canonical Adelaide to Melbourne removalists page.'),
+    destinationPath: '/adelaide-to-melbourne-removalists/',
+  }));
+
+  pages.push(makeRedirectPage({
+    output: 'adelaide-to-sydney-removals/index.html',
+    canonical: buildCanonical('/adelaide-to-sydney-removalists/'),
+    title: buildTitle('Adelaide to Sydney Removals Redirect'),
+    description: buildDescription('This Adelaide to Sydney removals alias now redirects to the canonical Adelaide to Sydney removalists page.'),
+    destinationPath: '/adelaide-to-sydney-removalists/',
+  }));
+
+  pages.push(makeRedirectPage({
     output: 'removalists-semore/index.html',
     canonical: buildCanonical('/removalists-semaphore/'),
     title: buildTitle('Semaphore Removalists Redirect'),
@@ -4741,8 +4755,6 @@ function getClusterSupportProfile(clusterKey) {
 
 export function getInterstateSupportProfile(routeSlug) {
   const allRoutes = [
-    { href: '/adelaide-to-melbourne-removals/', label: 'Adelaide to Melbourne' },
-    { href: '/adelaide-to-sydney-removals/', label: 'Adelaide to Sydney' },
     { href: '/adelaide-to-melbourne-removalists/', label: 'Adelaide to Melbourne removalists' },
     { href: '/adelaide-to-sydney-removalists/', label: 'Adelaide to Sydney removalists' },
     { href: '/adelaide-to-western-sydney-removalists/', label: 'Adelaide to Western Sydney' },

@@ -1637,12 +1637,12 @@ const seoSupportProfiles = {
       },
     ],
     supportLinks: [
-      { url: '/adelaide-to-melbourne-removals/', label: 'See Adelaide to Melbourne removals' },
-      { url: '/adelaide-to-sydney-removals/', label: 'See Adelaide to Sydney removals' },
+      { url: '/adelaide-to-melbourne-removalists/', label: 'See Adelaide to Melbourne removalists' },
+      { url: '/adelaide-to-sydney-removalists/', label: 'See Adelaide to Sydney removalists' },
       { url: '/adelaide-moving-guides/', label: 'Browse every planning guide' },
     ],
   },
-  'adelaide-to-melbourne-removals/index.html': {
+  'adelaide-to-melbourne-removalists/index.html': {
     eyebrow: 'Melbourne route planning',
     heading: 'Use the route guides before an Adelaide to Melbourne departure is priced.',
     intro:
@@ -1669,7 +1669,7 @@ const seoSupportProfiles = {
       { url: '/packing-services-adelaide/', label: 'Add interstate packing support' },
     ],
   },
-  'adelaide-to-sydney-removals/index.html': {
+  'adelaide-to-sydney-removalists/index.html': {
     eyebrow: 'Sydney route planning',
     heading: 'Use the route guides before an Adelaide to Sydney departure is priced.',
     intro:
@@ -4042,8 +4042,8 @@ function isStrictSeoFaqOutput(output) {
   return [
     'index.html',
     'adelaide-moving-guides/index.html',
-    'adelaide-to-melbourne-removals/index.html',
-    'adelaide-to-sydney-removals/index.html',
+    'adelaide-to-melbourne-removalists/index.html',
+    'adelaide-to-sydney-removalists/index.html',
     'adelaide-to-brisbane-removals/index.html',
     'adelaide-to-canberra-removals/index.html',
     'adelaide-to-perth-removals/index.html',
@@ -5212,8 +5212,8 @@ function getRelatedLinksProfile(page) {
 
   if (
     output === 'interstate-removals-adelaide/index.html' ||
-    output === 'adelaide-to-melbourne-removals/index.html' ||
-    output === 'adelaide-to-sydney-removals/index.html' ||
+    output === 'adelaide-to-melbourne-removalists/index.html' ||
+    output === 'adelaide-to-sydney-removalists/index.html' ||
     output === 'adelaide-to-brisbane-removals/index.html' ||
     output === 'adelaide-to-canberra-removals/index.html' ||
     output === 'adelaide-to-perth-removals/index.html' ||
@@ -5224,16 +5224,16 @@ function getRelatedLinksProfile(page) {
         ? [
             {
               eyebrow: 'Route page',
-              title: 'Adelaide to Melbourne removals',
+              title: 'Adelaide to Melbourne removalists',
               copy: 'See the Melbourne route page for destination-specific planning and quote context.',
-              url: '/adelaide-to-melbourne-removals/',
+              url: '/adelaide-to-melbourne-removalists/',
               cta: 'View Adelaide to Melbourne',
             },
             {
               eyebrow: 'Route page',
-              title: 'Adelaide to Sydney removals',
+              title: 'Adelaide to Sydney removalists',
               copy: 'See the Sydney route page for longer-haul timing, access, and packing considerations.',
-              url: '/adelaide-to-sydney-removals/',
+              url: '/adelaide-to-sydney-removalists/',
               cta: 'View Adelaide to Sydney',
             },
             {
@@ -6118,8 +6118,6 @@ async function renderSitemaps(pages, renderedHtmlByOutput = new Map()) {
       page.output === 'interstate-removals-adelaide/index.html' ||
       generatedServiceSitemapOutputSet.has(page.output.replace(/\\/g, '/')) ||
       page.generatedKind === 'interstate-route' ||
-      page.output === 'adelaide-to-melbourne-removals/index.html' ||
-      page.output === 'adelaide-to-sydney-removals/index.html' ||
       page.output === 'adelaide-to-brisbane-removals/index.html' ||
       page.output === 'adelaide-to-canberra-removals/index.html' ||
       page.output === 'adelaide-to-perth-removals/index.html' ||

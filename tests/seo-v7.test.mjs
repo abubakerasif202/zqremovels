@@ -102,6 +102,45 @@ test('seo v7 interstate route pages exist, are canonical, indexed, and avoid des
   assert.match(smithfield, /not a Smithfield SA or Smithfield Plains/i);
 });
 
+test('priority interstate removals aliases redirect to removalists without sitemap cannibalization', () => {
+  const pairs = [
+    ['adelaide-to-sydney-removals', 'adelaide-to-sydney-removalists'],
+    ['adelaide-to-melbourne-removals', 'adelaide-to-melbourne-removalists'],
+  ];
+  const sitemap = [
+    readDist('sitemap-pages.xml'),
+    readDist('sitemap-services.xml'),
+    readDist('sitemap-suburbs.xml'),
+    readDist('sitemap-guides.xml'),
+  ].join('\n');
+  const vercel = JSON.parse(readFileSync(path.join(root, 'vercel.json'), 'utf8'));
+  const redirects = vercel.redirects || [];
+  const redirectSources = new Set(redirects.map((redirect) => redirect.source));
+
+  for (const [aliasSlug, canonicalSlug] of pairs) {
+    const aliasHtml = readDist(path.join(aliasSlug, 'index.html'));
+    const canonicalHtml = readDist(path.join(canonicalSlug, 'index.html'));
+    const canonicalUrl = `${canonicalHost}/${canonicalSlug}/`;
+    const aliasUrl = `${canonicalHost}/${aliasSlug}/`;
+
+    assert.match(canonicalHtml, new RegExp(`<link rel="canonical" href="${escapeRegex(canonicalUrl)}"`), canonicalSlug);
+    assert.doesNotMatch(canonicalHtml, new RegExp(escapeRegex(aliasUrl)), `${canonicalSlug} leaks alias URL`);
+    assert.match(aliasHtml, /<meta name="robots" content="noindex,nofollow"/i, `${aliasSlug} must be noindex redirect`);
+    assert.match(aliasHtml, new RegExp(`<link rel="canonical" href="${escapeRegex(canonicalUrl)}"`), `${aliasSlug} canonical`);
+    assert.match(aliasHtml, new RegExp(`<meta http-equiv="refresh" content="0; url=/${canonicalSlug}/"`), `${aliasSlug} refresh`);
+    assert.doesNotMatch(sitemap, new RegExp(escapeRegex(aliasUrl)), `${aliasSlug} must not be in sitemap`);
+    assert.equal((sitemap.match(new RegExp(escapeRegex(canonicalUrl), 'g')) || []).length, 1, `${canonicalSlug} sitemap count`);
+
+    for (const source of [`/${aliasSlug}`, `/${aliasSlug}/`, `/${aliasSlug}/index.html`, `/${aliasSlug}.html`]) {
+      const redirect = redirects.find((candidate) => candidate.source === source);
+      assert.ok(redirect, `missing redirect for ${source}`);
+      assert.equal(redirect.destination, `/${canonicalSlug}/`, `${source} destination`);
+      assert.equal(redirect.permanent, true, `${source} must be permanent`);
+      assert.equal(redirectSources.has(redirect.destination), false, `${source} chains through ${redirect.destination}`);
+    }
+  }
+});
+
 test('route pages include the required service, quote, price, guide, and contact links', () => {
   for (const slug of routeSlugs) {
     const html = readDist(path.join(slug, 'index.html'));
