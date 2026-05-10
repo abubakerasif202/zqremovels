@@ -186,6 +186,19 @@ test('schema parses and keeps review, taxID, insurance, and AFRA guardrails safe
   }
 });
 
+test('vercel security headers include the safe defaults required by the audit', () => {
+  const vercel = JSON.parse(readFileSync(path.join(root, 'vercel.json'), 'utf8'));
+  const rootHeaders = vercel.headers.find((entry) => entry.source === '/:path*')?.headers || [];
+  const headerMap = new Map(rootHeaders.map((item) => [String(item.key).toLowerCase(), item.value]));
+
+  assert.equal(headerMap.get('x-content-type-options'), 'nosniff');
+  assert.equal(headerMap.get('x-frame-options'), 'SAMEORIGIN');
+  assert.equal(headerMap.get('referrer-policy'), 'strict-origin-when-cross-origin');
+  assert.equal(headerMap.get('permissions-policy'), 'geolocation=(), microphone=(), camera=()');
+  assert.match(headerMap.get('content-security-policy') || '', /default-src 'self'/i);
+  assert.match(headerMap.get('content-security-policy') || '', /form-action 'self' https:\/\/formsubmit\.co https:\/\/api\.web3forms\.com/i);
+});
+
 test('existing SEO validator passes after v7 changes', () => {
   const output = execFileSync(process.execPath, [path.join(root, 'scripts', 'seo-validate.mjs')], {
     cwd: root,

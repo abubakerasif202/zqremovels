@@ -2766,16 +2766,17 @@ function renderHeroMedia(image, pageType) {
 }
 
 function renderPageHero({ eyebrow, title, lead, supporting = [], points = [], primaryCta, secondaryCta, image, breadcrumbs, pageType }) {
+  const heroTitle = buildHeroHeading(title, pageType);
   return `<section class="hero-shell page-hero-shell-premium" data-generated-module="hero-title">
   <div class="container">
     ${renderBreadcrumbMarkup(breadcrumbs)}
     <div class="page-hero-grid">
       <div class="page-hero-copy">
         <span class="eyebrow">${escapeHtml(eyebrow)}</span>
-        <h1>${escapeHtml(title)}</h1>
+        <h1>${escapeHtml(heroTitle)}</h1>
         <p class="lead">${escapeHtml(lead)}</p>
         ${supporting.length > 0 ? `<div class="page-hero-support-grid">${supporting.map((item) => `<p class="field-note page-hero-support-note">${escapeHtml(item)}</p>`).join('')}</div>` : ''}
-        ${points.length > 0 ? `<ul aria-label="${escapeAttribute(title)} highlights" class="route-meta route-meta-premium">
+        ${points.length > 0 ? `<ul aria-label="${escapeAttribute(heroTitle)} highlights" class="route-meta route-meta-premium">
           ${points.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}
         </ul>` : ''}
         <div class="cta-cluster" data-generated-cta="top" data-generated-page-type="${escapeAttribute(pageType)}">
@@ -2801,6 +2802,29 @@ function renderSectionHeading(eyebrow, heading, intro = '') {
   <h2>${escapeHtml(heading)}</h2>
   ${intro ? `<p>${escapeHtml(intro)}</p>` : ''}
 </div>`;
+}
+
+function buildHeroHeading(title, pageType) {
+  let heading = String(title || '').replace(/\s*\|\s*ZQ Removals$/i, '').trim();
+  heading = heading.replace(/\s*\|\s*(Fixed-Price Quote|Local Adelaide Removalists|Direct Interstate Moving|Urgent & Last Minute Movers|Professional Local Experts|Fast Service & Clear Pricing)$/i, '').trim();
+  heading = heading.replace(/\s+\bfor\b\s+the\b.*$/i, '').trim();
+  heading = heading.replace(/\s+\bwith\b\s+clear\b.*$/i, '').trim();
+
+  if (heading.length > 60) {
+    heading = heading
+      .replace(/\s+for\s+(city apartments, offices, and tower relocations|coastal apartments, homes, and beachside moves|terraces, townhouses, and eastern corridor moves|homes, storage transfers, and northern Adelaide moves|house moves, units, and organised northside relocations|house moves, units, and southern Adelaide relocations|modern homes, apartments, and northern relocations)$/i, '')
+      .replace(/\s+for\s+(.*)$/i, '')
+      .trim();
+  }
+
+  if (heading.length > 60) {
+    heading = heading
+      .replace(/\s+(Adelaide|SA|VIC|NSW|QLD)\b/g, '')
+      .replace(/\s{2,}/g, ' ')
+      .trim();
+  }
+
+  return heading || String(title || '').trim();
 }
 
 function renderTextSection({ id = '', module, eyebrow, heading, intro = '', paragraphs = [], soft = false }) {
@@ -3982,6 +4006,7 @@ function renderQuoteModelComparison({ module = 'quote-model-comparison', soft = 
     )}
     <div class="table-wrap">
       <table>
+        <caption>Comparison of hourly and fixed-price Adelaide moving quotes.</caption>
         <thead>
           <tr>
             <th scope="col">Quote model</th>

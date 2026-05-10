@@ -513,7 +513,7 @@ const suburbPageProfiles = {
     suburb: 'Northern Adelaide',
     nearby: 'Salisbury, Elizabeth, Andrews Farm, Mawson Lakes, Blakeview, and Gawler',
     eyebrow: 'Removalists Northern Suburbs Adelaide',
-    h1: 'Removalists Northern Suburbs Adelaide for family homes, estates, and northside coverage.',
+    h1: 'Northern Adelaide removalists for family homes and estates.',
     hero:
       'Northern Adelaide moves often involve family homes, estates, and unit access where driveway setup, stairs, and garage inventory change labour time quickly.',
     highlights: [
@@ -6091,12 +6091,16 @@ async function renderSitemaps(pages, renderedHtmlByOutput = new Map()) {
     'sitemap-images.xml': [],
   };
   const sitemapLastmods = Object.fromEntries(Object.keys(grouped).map((name) => [name, []]));
+  const seenCanonicalLocs = new Set();
 
   for (const page of pages) {
     if (!shouldIncludeInSitemap(page)) continue;
+    const canonicalLoc = String(page.canonical || '').trim();
+    if (!canonicalLoc || seenCanonicalLocs.has(canonicalLoc)) continue;
+    seenCanonicalLocs.add(canonicalLoc);
     const lastmod = await getPageLastmod(page);
     const entry = `  <url>
-    <loc>${escapeHtml(page.canonical)}</loc>
+    <loc>${escapeHtml(canonicalLoc)}</loc>
     <lastmod>${lastmod}</lastmod>
   </url>`;
 

@@ -161,6 +161,17 @@ test('seo v5 sitemap and robots output is clean, canonical, grouped, and duplica
       assert.doesNotMatch(loc, /\/404\.html|\/thank-you\/|premium-moving-concepts/i, `${sitemap} utility loc ${loc}`);
     }
   }
+
+  const canonicalBySitemap = new Map();
+  const allNormalLocs = new Map();
+  for (const sitemap of ['sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml']) {
+    const locs = [...readDist(sitemap).matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
+    canonicalBySitemap.set(sitemap, new Set(locs));
+    for (const loc of locs) {
+      assert.equal(allNormalLocs.has(loc), false, `${loc} appears in more than one normal sitemap`);
+      allNormalLocs.set(loc, sitemap);
+    }
+  }
 });
 
 test('seo v5 internal links resolve and indexable pages have discovery links', () => {
@@ -187,6 +198,19 @@ test('seo v5 internal links resolve and indexable pages have discovery links', (
   }
 });
 
+test('seo v5 indexable pages have complete twitter cards and concise hero headings', () => {
+  for (const page of indexablePages()) {
+    const html = readDist(page.output);
+    assert.match(html, /<meta name="twitter:card" content="summary_large_image" \/>/i, `${page.output} missing twitter:card`);
+    assert.match(html, /<meta name="twitter:title" content="[^"]+" \/>/i, `${page.output} missing twitter:title`);
+    assert.match(html, /<meta name="twitter:description" content="[^"]+" \/>/i, `${page.output} missing twitter:description`);
+
+    const h1 = textMatch(html, /<h1\b[^>]*>([\s\S]*?)<\/h1>/i).replace(/\s+/g, ' ').trim();
+    assert.ok(h1.length <= 80 || page.output === 'index.html', `${page.output} H1 too long: ${h1.length}`);
+    assert.equal((html.match(/<h1\b/gi) || []).length, 1, `${page.output} should have exactly one H1`);
+  }
+});
+
 test('seo v5 sitemap files never include the www homepage variant', () => {
   for (const file of ['sitemap.xml', 'sitemap-index.xml', 'sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml', 'sitemap-images.xml']) {
     assert.doesNotMatch(readDist(file), /https:\/\/www\.zqremovals\.au\//i, `${file} must not include the www host`);
@@ -205,6 +229,15 @@ test('seo v5 required schema types exist on homepage, service pages, nested page
 
   for (const page of indexablePages().filter((candidate) => candidate.output.includes('/'))) {
     assert.ok(schemaTypes(readDist(page.output)).has('BreadcrumbList'), `${page.output} missing BreadcrumbList schema`);
+  }
+});
+
+test('seo v5 pages with tables include accessible captions', () => {
+  for (const page of indexablePages()) {
+    const html = readDist(page.output);
+    if (/<table\b/i.test(html)) {
+      assert.match(html, /<caption>[\s\S]*?<\/caption>/i, `${page.output} table missing caption`);
+    }
   }
 });
 

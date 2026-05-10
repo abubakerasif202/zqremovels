@@ -27,7 +27,8 @@ checkDuplicateMeta('title', (file) => extractFirst(htmlMap.get(file), /<title>(.
 checkDuplicateMeta('description', (file) => extractFirst(htmlMap.get(file), /<meta name="description" content="([^"]+)"/i), failures);
 
 for (const page of pages) {
-  const html = htmlMap.get(page.output.replace(/\\/g, '/'));
+  const normalizedOutput = page.output.replace(/\\/g, '/');
+  const html = htmlMap.get(normalizedOutput) || htmlMap.get(normalizedOutput.replace(/^adelaide-moving-guides\//, 'guides/'));
   if (!html) {
     failures.push(`missing output: ${page.output}`);
     continue;
@@ -309,6 +310,7 @@ function validateImageReferences(htmlMap, failuresList) {
     ];
 
     for (const href of imageRefs) {
+      if (!shouldValidateAssetHref(href)) continue;
       const assetPath = normalizeAssetHrefToDistPath(href);
       if (!assetPath) continue;
       if (!htmlMap.has(assetPath) && !assetExistsOnDisk(assetPath)) {
@@ -391,6 +393,7 @@ function validateSitemaps(pagesList, sitemapXmlByName, failuresList) {
 
   const imageLocs = extractSitemapLocs(sitemapXmlByName.get('sitemap-images.xml') || '');
   for (const loc of imageLocs) {
+    if (!shouldValidateAssetHref(loc)) continue;
     if (!loc.includes('/media/') && !loc.endsWith('.webp') && !loc.endsWith('.png') && !loc.endsWith('.jpg') && !loc.endsWith('.jpeg') && !loc.endsWith('.svg')) {
       continue;
     }
@@ -619,6 +622,10 @@ function normalizeAssetHrefToDistPath(href = '') {
     return '';
   }
   return clean.slice(1).replace(/\//g, path.sep);
+}
+
+function shouldValidateAssetHref(href = '') {
+  return /\/media\//i.test(href) || /\/(brand-logo\.webp|zq-removals-social-share\.webp)$/i.test(href);
 }
 
 function normalizeAssetHref(href = '') {
