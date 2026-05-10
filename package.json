@@ -7,7 +7,7 @@
     "build": "node scripts/build-site.mjs",
     "test": "node scripts/quote-api-smoke.mjs && node scripts/run-node-tests.mjs",
     "test:quote-api": "node scripts/quote-api-smoke.mjs",
-    "lhci": "npm run build && lhci autorun",
+    "lhci": "lhci autorun",
     "seo:validate": "node scripts/seo-validate.mjs"
   },
   "devDependencies": {
