@@ -45,6 +45,7 @@ const defaultSocialImage = seoConfig.defaultOgImage;
 const defaultLogoImage = seoConfig.defaultLogo;
 const googleBusinessProfileUrl = 'https://share.google/Y04mpt9RTflWP3iRl';
 const companySameAsProfiles = Array.from(new Set([googleBusinessProfileUrl]));
+const confirmedTrustCredentialText = `ZQ Removals ABN ${businessIdentifiers.abnFormatted}. Insurance documentation can be confirmed before booking when requested in the quote brief.`;
 function getBuildEnvValue(name) {
   return (process.env[name] ?? buildEnv[name] ?? '').trim();
 }
@@ -2558,8 +2559,6 @@ function renderHead(page, content) {
   }
 
   if (page.layout !== 'redirect') {
-    tags.push('<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />');
-    tags.push('<link rel="preload" href="/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin />');
     tags.push('<link rel="stylesheet" href="/premium-site.min.css" />');
   }
 
@@ -3146,13 +3145,14 @@ function sanitizeJsonLdTrustClaims(value) {
 
 function sanitizeTrustClaimText(value = '') {
   return String(value)
-    .replace(/Yes\. ZQ Removals is fully insured\. Your furniture is covered from the moment our team begins loading to the moment everything is placed in your new home\./gi, 'ABN and insurance details can be added here once confirmed by the business owner.')
-    .replace(/Yes\. All ZQ Removals interstate jobs are fully insured\. Ask for details when requesting your quote\./gi, 'ABN and insurance details can be added here once confirmed by the business owner.')
-    .replace(/Yes\. ZQ Removals carries full insurance for commercial removal jobs\. We can provide proof of insurance if required by your building manager\./gi, 'ABN and insurance details can be added here once confirmed by the business owner.')
-    .replace(/ZQ Removals is fully insured on every job\./gi, 'ABN and insurance details can be added here once confirmed by the business owner.')
+    .replace(/ABN and insurance details can be added here once confirmed by the business owner\./gi, confirmedTrustCredentialText)
+    .replace(/Yes\. ZQ Removals is fully insured\. Your furniture is covered from the moment our team begins loading to the moment everything is placed in your new home\./gi, confirmedTrustCredentialText)
+    .replace(/Yes\. All ZQ Removals interstate jobs are fully insured\. Ask for details when requesting your quote\./gi, confirmedTrustCredentialText)
+    .replace(/Yes\. ZQ Removals carries full insurance for commercial removal jobs\. We can provide proof of insurance if required by your building manager\./gi, confirmedTrustCredentialText)
+    .replace(/ZQ Removals is fully insured on every job\./gi, confirmedTrustCredentialText)
     .replace(/fully insured/gi, 'ABN and insurance details available once owner-confirmed')
     .replace(/transit insurance as standard/gi, 'owner-confirmed cover details available on request')
-    .replace(/complete transit insurance included on every job for your total peace of mind\./gi, 'ABN and insurance details can be added here once confirmed by the business owner.')
+    .replace(/complete transit insurance included on every job for your total peace of mind\./gi, confirmedTrustCredentialText)
     .replace(/standard transit insurance included/gi, 'owner-confirmed cover details available on request');
 }
 
@@ -4532,6 +4532,39 @@ function injectResponsiveSrcset(html, responsiveVariants) {
     return parts.join(', ');
   }
 
+  function getAttribute(attrs, name) {
+    return attrs.match(new RegExp(`\\b${name}="([^"]*)"`, 'i'))?.[1] || '';
+  }
+
+  function getResponsiveSizes(attrs, srcUrl) {
+    const explicitSizes = getAttribute(attrs, 'data-sizes');
+    if (explicitSizes) return explicitSizes;
+
+    const className = getAttribute(attrs, 'class');
+    const isHeroLike =
+      /\bhero\b|fetchpriority="high"|loading="eager"/i.test(attrs) ||
+      /(?:hero|home-local|interstate-route|packing-station|office-relocation|furniture-wrapping|suburb-|local-move|cbd-apartment)/i.test(srcUrl);
+
+    if (isHeroLike) {
+      return '(max-width: 768px) 100vw, 960px';
+    }
+
+    if (/detail|logo|icon|avatar/i.test(className)) {
+      return '(max-width: 700px) 50vw, 320px';
+    }
+
+    return '(max-width: 700px) 100vw, (max-width: 1200px) 50vw, 600px';
+  }
+
+  function withResponsiveAttributes(attrs, srcset, sizes) {
+    const cleanedAttrs = attrs
+      .replace(/\s+srcset="[^"]*"/i, '')
+      .replace(/\s+sizes="[^"]*"/i, '')
+      .replace(/\s+data-sizes="[^"]*"/i, '');
+
+    return `${cleanedAttrs} srcset="${srcset}" sizes="${sizes}"`;
+  }
+
   // Update <source> elements inside <picture> that have a single WebP srcset URL.
   let result = html.replace(/<source\b([^>]*?)\s*\/?>/gi, (match, attrs) => {
     const srcsetMatch = attrs.match(/\bsrcset="(\/media\/([^",\s]+\.webp))"/i);
@@ -4539,12 +4572,9 @@ function injectResponsiveSrcset(html, responsiveVariants) {
     const [, srcUrl, encodedName] = srcsetMatch;
     const srcset = buildSrcset(srcUrl, encodedName);
     if (!srcset) return match;
-    const sizesStr = '(max-width: 600px) 480px, 960px';
+    const sizesStr = getResponsiveSizes(attrs, srcUrl);
     const selfClose = match.trimEnd().endsWith('/>') ? ' /' : '';
-    const updatedAttrs = attrs.replace(
-      /\bsrcset="[^"]*"/i,
-      `srcset="${srcset}" sizes="${sizesStr}"`,
-    );
+    const updatedAttrs = withResponsiveAttributes(attrs, srcset, sizesStr);
     return `<source${updatedAttrs}${selfClose}>`;
   });
 
@@ -4561,10 +4591,11 @@ function injectResponsiveSrcset(html, responsiveVariants) {
     const srcset = buildSrcset(srcUrl, encodedName);
     if (!srcset) return match;
 
-    const sizesStr = '(max-width: 600px) 480px, 960px';
+    const sizesStr = getResponsiveSizes(attrs, srcUrl);
     // Preserve self-closing style if the original used />.
     const selfClose = match.trimEnd().endsWith('/>') ? ' /' : '';
-    return `<img${attrs} srcset="${srcset}" sizes="${sizesStr}"${selfClose}>`;
+    const updatedAttrs = withResponsiveAttributes(attrs, srcset, sizesStr);
+    return `<img${updatedAttrs}${selfClose}>`;
   });
 
   return result;

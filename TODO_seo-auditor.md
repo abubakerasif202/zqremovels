@@ -20,25 +20,25 @@
 
 ### 1. Crawlability and Indexing
 
-- [ ] **SEO-FIND-1.1 — robots.txt is minimal but functional**
+- [x] **SEO-FIND-1.1 — robots.txt is minimal but functional**
   - **Location**: `/robots.txt`
   - **Description**: `robots.txt` contains `User-agent: * / Allow: /` and the correct sitemap declaration (`Sitemap: https://zqremovals.au/sitemap.xml`). No blocking rules are present. All indexable pages are reachable. No unintentional `Disallow` directives were found.
   - **Impact**: Low (no active problem; baseline confirmed clean)
   - **Recommendation**: No changes needed. Monitor after any Vercel config or build-script changes to ensure the sitemap URL stays accurate.
 
-- [ ] **SEO-FIND-1.2 — Sitemap is generated at build time and not committed to the repo**
+- [x] **SEO-FIND-1.2 — Sitemap is generated at build time and not committed to the repo**
   - **Location**: `scripts/build-site.mjs` → `renderSitemap(pages)` → `site-dist/sitemap.xml`
   - **Description**: The sitemap is produced dynamically from `pages.json` during `npm run build` and written to `site-dist/`. It is not committed to the repository. If a deployment fails silently or an old deploy is cached, the sitemap could drift from the live page set.
   - **Impact**: Medium — stale or missing sitemap slows new page discovery in Google Search Console
   - **Recommendation**: After every production deployment, re-submit `https://zqremovals.au/sitemap.xml` in Search Console (see `GOOGLE_SEARCH_CONSOLE_PLAN.md`). Consider adding a post-deploy smoke test that fetches `/sitemap.xml` and asserts a `200` status and a non-empty response body.
 
-- [ ] **SEO-FIND-1.3 — Lower-priority suburb pages are absent from the primary navigation**
+- [x] **SEO-FIND-1.3 — Lower-priority suburb pages are absent from the primary navigation**
   - **Location**: `site-src/partials/header.html` (desktop and mobile nav)
   - **Description**: The navigation includes five featured suburb pages (Adelaide CBD, Marion, Salisbury, Elizabeth, Glenelg). Seven additional suburb pages (Norwood, North Adelaide, Hallett Cove, Seaford, Southern Adelaide, Mawson Lakes, Andrews Farm) are reachable only from the footer and from the `removalists-adelaide` hub. No breadcrumb or context link is missing, but these pages sit at click depth ≥ 3 from the homepage for a user following only nav links.
   - **Impact**: Medium — pages outside the primary nav accumulate less internal link equity and may be crawled less frequently
   - **Recommendation**: Ensure all suburb pages are listed in the `/removalists-adelaide/` hub with clear anchor text links. Confirm the footer lists every suburb page (it currently does). Consider adding a "More suburbs" section to the desktop nav dropdown or a sitemap-style directory page at `/removalists-adelaide/all-suburbs/` if the suburb count grows.
 
-- [ ] **SEO-FIND-1.4 — `noindex` directive is applied only to non-commercial concept pages**
+- [x] **SEO-FIND-1.4 — `noindex` directive is applied only to non-commercial concept pages**
   - **Location**: `site-src/pages.json` (pages with `"robots": "noindex,nofollow"`)
   - **Description**: Pages under `/premium-moving-concepts/` are correctly set to `noindex,nofollow`. All other commercial, suburb, route, and guide pages are set to `index,follow,max-image-preview:large`. No unintentional `noindex` was found.
   - **Impact**: Low (no active problem; confirmed correct)
@@ -298,25 +298,25 @@
 
 ### Immediate (0–2 weeks)
 
-- [ ] **SEO-REC-1.1 — Add Google Analytics 4 and quote conversion tracking**
+- [x] **SEO-REC-1.1 — Add Google Analytics 4 and quote conversion tracking**
   - **Priority**: Critical
   - **Effort**: 2–4 hours
   - **Expected Outcome**: Organic traffic, landing page performance, and quote-form conversion rate become visible; data available within 24 hours of deployment
   - **Validation**: Open GA4 Realtime report and submit a test quote from the homepage form. Confirm a `quote_submitted` event appears in the event stream. Check that the `source_page` parameter is populated.
 
-- [ ] **SEO-REC-1.2 — Set `noindex,nofollow` on the thank-you page and exclude it from the sitemap**
+- [x] **SEO-REC-1.2 — Set `noindex,nofollow` on the thank-you page and exclude it from the sitemap**
   - **Priority**: High
   - **Effort**: 30 minutes
   - **Expected Outcome**: Thank-you page removed from the Google index; no crawl budget wasted on a zero-value URL
   - **Validation**: After deployment, use Google Search Console URL Inspection on `https://zqremovals.au/thank-you.html` and confirm it is not indexed. Check that the URL does not appear in `sitemap.xml`.
 
-- [ ] **SEO-REC-1.3 — Convert hero image to WebP and rename with a descriptive filename**
+- [x] **SEO-REC-1.3 — Convert hero image to WebP and rename with a descriptive filename**
   - **Priority**: High
   - **Effort**: 1–2 hours
   - **Expected Outcome**: Reduced hero image file size (typically 25–35% smaller than PNG at equivalent quality), improved LCP score on the homepage, improved image search discoverability
   - **Validation**: Run PageSpeed Insights on the homepage before and after. Confirm LCP improvement. Inspect the served response header to verify `Content-Type: image/webp`.
 
-- [ ] **SEO-REC-1.4 — Add `sameAs` to `MovingCompany` schema with verified Google Business Profile URL**
+- [x] **SEO-REC-1.4 — Add `sameAs` to `MovingCompany` schema with verified Google Business Profile URL**
   - **Priority**: High
   - **Effort**: 30 minutes
   - **Expected Outcome**: Stronger entity disambiguation in the Knowledge Graph; potential improvement in local pack eligibility
