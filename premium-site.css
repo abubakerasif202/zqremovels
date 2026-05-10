@@ -1826,23 +1826,41 @@ textarea:focus:not(:focus-visible) {
 }
 
 .trust-item-bg-service {
-  background-image: linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/media/zq-service-premium.webp');
+  background-color: rgba(255, 255, 255, 0.92);
   background-size: cover;
 }
 
 .trust-item-bg-local {
-  background-image: linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/media/zq-local-premium.webp');
+  background-color: rgba(255, 255, 255, 0.92);
   background-size: cover;
 }
 
 .trust-item-bg-operations {
-  background-image: linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/media/custom-operations-source.webp');
+  background-color: rgba(255, 255, 255, 0.92);
   background-size: cover;
 }
 
 .trust-item-bg-interstate {
-  background-image: linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/media/zq-interstate-premium.webp');
+  background-color: rgba(255, 255, 255, 0.92);
   background-size: cover;
+}
+
+@media (min-width: 768px) {
+  .trust-item-bg-service {
+    background-image: linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/media/zq-service-premium.webp');
+  }
+
+  .trust-item-bg-local {
+    background-image: linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/media/zq-local-premium.webp');
+  }
+
+  .trust-item-bg-operations {
+    background-image: linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/media/custom-operations-source.webp');
+  }
+
+  .trust-item-bg-interstate {
+    background-image: linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/media/zq-interstate-premium.webp');
+  }
 }
 
 
@@ -2232,14 +2250,11 @@ textarea:focus:not(:focus-visible) {
 }
 
 .step-visual-operations {
-  background-image: url('/media/custom-operations-source.webp');
   background-size: cover;
+  background-color: var(--color-bg-soft);
 }
 
 .step-visual-route {
-  background-image:
-    linear-gradient(180deg, rgba(7, 17, 31, 0.08), rgba(7, 17, 31, 0.22)),
-    url('/media/zq-operations-premium.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -2247,28 +2262,60 @@ textarea:focus:not(:focus-visible) {
 }
 
 .step-visual-service {
-  background-image: url('/media/zq-service-premium.webp');
   background-size: cover;
+  background-color: var(--color-bg-soft);
 }
 
 .step-visual-local {
-  background-image: url('/media/zq-local-premium.webp');
   background-size: cover;
+  background-color: var(--color-bg-soft);
 }
 
 .route-card-bg-service {
-  background-image: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url('/media/zq-service-premium.webp');
+  background-color: rgba(255, 255, 255, 0.95);
   background-size: cover;
 }
 
 .route-card-bg-operations {
-  background-image: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url('/media/custom-operations-source.webp');
+  background-color: rgba(255, 255, 255, 0.95);
   background-size: cover;
 }
 
 .route-card-bg-interstate {
-  background-image: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url('/media/zq-interstate-premium.webp');
+  background-color: rgba(255, 255, 255, 0.95);
   background-size: cover;
+}
+
+@media (min-width: 768px) {
+  .step-visual-operations {
+    background-image: url('/media/custom-operations-source.webp');
+  }
+
+  .step-visual-route {
+    background-image:
+      linear-gradient(180deg, rgba(7, 17, 31, 0.08), rgba(7, 17, 31, 0.22)),
+      url('/media/zq-operations-premium.webp');
+  }
+
+  .step-visual-service {
+    background-image: url('/media/zq-service-premium.webp');
+  }
+
+  .step-visual-local {
+    background-image: url('/media/zq-local-premium.webp');
+  }
+
+  .route-card-bg-service {
+    background-image: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url('/media/zq-service-premium.webp');
+  }
+
+  .route-card-bg-operations {
+    background-image: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url('/media/custom-operations-source.webp');
+  }
+
+  .route-card-bg-interstate {
+    background-image: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url('/media/zq-interstate-premium.webp');
+  }
 }
 
 .route-icon {

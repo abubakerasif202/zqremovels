@@ -21,5 +21,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Build static site
+        run: npm run build
+
       - name: Run Lighthouse CI
         run: npm run lhci
