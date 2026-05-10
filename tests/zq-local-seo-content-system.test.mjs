@@ -161,8 +161,8 @@ function textMatch(text, pattern) {
 
 function stripTags(text = '') {
   return text
-    .replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, ' ')
-    .replace(/<style\b[^>]*>[\s\S]*?<\/style\s*>/gi, ' ')
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script(?:\s+[^>]*)?>/gi, ' ')
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style(?:\s+[^>]*)?>/gi, ' ')
     .replace(/<[^>]+>/g, ' ');
 }
 
