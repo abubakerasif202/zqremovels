@@ -8,13 +8,19 @@
     "test": "node scripts/quote-api-smoke.mjs && node scripts/run-node-tests.mjs",
     "test:quote-api": "node scripts/quote-api-smoke.mjs",
     "lhci": "lhci autorun",
-    "seo:validate": "node scripts/seo-validate.mjs"
+    "seo:validate": "node scripts/seo-validate.mjs",
+    "gsc:auth": "node scripts/gsc-auth.mjs",
+    "gsc:fetch": "node scripts/gsc-fetch.mjs",
+    "gsc:opportunities": "node scripts/gsc-analyze-opportunities.mjs",
+    "gsc:submit-sitemap": "node scripts/gsc-submit-sitemap.mjs"
   },
   "devDependencies": {
     "@lhci/cli": "^0.15.1",
+    "googleapis": "^171.4.0",
     "lightningcss": "^1.32.0"
   },
   "dependencies": {
+    "googleapis": "^171.4.0",
     "sharp": "^0.34.5"
   }
 }

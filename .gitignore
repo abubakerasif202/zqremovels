@@ -17,3 +17,8 @@ node_modules/
 # Env
 .env*
 /net-commander
+
+# Google Search Console local secrets
+secrets/
+.gsc-token.json
+data/gsc/*.raw.json
