@@ -756,6 +756,29 @@ const suburbDataByName = new Map(
   ]),
 );
 
+const suburbSeoOverrides = {
+  'hyde-park': {
+    title: 'Hyde Park Removalists | Compact Street Moves | ZQ Removals',
+    description: 'Hyde Park removalists for compact streets, premium homes, and careful local move planning in inner south Adelaide.',
+  },
+  'malvern': {
+    title: 'Malvern Removalists | Villa & Townhouse Moves | ZQ Removals',
+    description: 'Malvern removalists for villa and townhouse moves, with careful access planning for inner south Adelaide homes.',
+  },
+  'medindie': {
+    title: 'Medindie Removalists | Premium Home Moves | ZQ Removals',
+    description: 'Medindie removalists for premium homes and estate access, with quote detail matched to the actual move brief.',
+  },
+  'unley': {
+    title: 'Unley Removalists | Townhouse & Villa Moves | ZQ Removals',
+    description: 'Unley removalists for townhouse and villa access, with planning that reflects the tighter inner south route.',
+  },
+  'toorak-gardens': {
+    title: 'Toorak Gardens Removalists | Premium Access Moves | ZQ Removals',
+    description: 'Toorak Gardens removalists for premium access, careful handling, and clear quote planning in eastern Adelaide.',
+  },
+};
+
 const suburbsByClusterKey = suburbData.reduce((map, [slug, suburb, region, clusterKey, logisticsLabel]) => {
   const normalizedKey = normalizeClusterKey(clusterKey);
   const current = map.get(normalizedKey) || [];
@@ -2509,8 +2532,32 @@ function buildSuburbMoveTypeCards({ suburb, logisticsLabel, clusterKey }) {
   return cards.slice(0, 3);
 }
 
-function buildSuburbFaqItems({ suburb, logisticsLabel, nearby, clusterKey }) {
+function buildSuburbFaqItems({ slug, suburb, logisticsLabel, nearby, clusterKey }) {
+  const exactMatchFaq = {
+    'hyde-park': {
+      question: 'What should Hyde Park removalists quote for first?',
+      answer: 'Hyde Park removalists should quote the access pattern first, then the inventory, stair runs, parking, and timing so the brief matches the compact inner south route.',
+    },
+    'malvern': {
+      question: 'What should Malvern removalists confirm before pricing?',
+      answer: 'Malvern removalists should confirm the villa or townhouse access, the furniture list, parking, and any carry distance so the quote reflects the actual move.',
+    },
+    'medindie': {
+      question: 'What should Medindie removalists include in the quote brief?',
+      answer: 'Medindie removalists should include the home layout, access details, inventory, and any premium handling needs so the booking is priced around the real job.',
+    },
+    'unley': {
+      question: 'What should Unley removalists check before booking?',
+      answer: 'Unley removalists should check townhouse or villa access, the number of rooms, parking, and any fragile or bulky items that need careful handling.',
+    },
+    'toorak-gardens': {
+      question: 'What should Toorak Gardens removalists quote on first?',
+      answer: 'Toorak Gardens removalists should quote access, inventory, and careful-handling requirements first so the eastern suburbs brief stays accurate.',
+    },
+  }[slug];
+
   return [
+    ...(exactMatchFaq ? [exactMatchFaq] : []),
     {
       question: `Do you service ${suburb}?`,
       answer: `Yes. ZQ Removals services ${suburb} and nearby Adelaide suburbs with fixed-price quotes based on the route, property access, inventory, and timing requirements.`,
@@ -3106,14 +3153,18 @@ function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel }) {
   const template = clusterTemplates[normalizedClusterKey] || clusterTemplates.northern;
   const intro = template.intro.replaceAll('{suburb}', suburb);
   const nearby = getSuburbPeerLinks(slug, normalizedClusterKey, template.nearby, 5);
+  const seoOverride = suburbSeoOverrides[slug] || {};
 
   // Phase 12: Title Variation System
   const titleVariants = ['quote', 'local', 'experts', 'fast'];
   const charCodeSum = suburb.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
   const variant = titleVariants[charCodeSum % titleVariants.length];
 
-  const title = buildTitle(`${suburb} Removalists`, variant);
-  const description = buildDescription(`Professional ${suburb} removalists specializing in ${logisticsLabel}. Get a reliable, fixed-price quote for your ${region} Adelaide house or unit move.`);
+  const title = buildTitle(seoOverride.title || `${suburb} Removalists`, variant);
+  const description = buildDescription(
+    seoOverride.description
+      || `Professional ${suburb} removalists specializing in ${logisticsLabel}. Get a reliable, fixed-price quote for your ${region} Adelaide house or unit move.`,
+  );
   const support = getClusterSupportProfile(normalizedClusterKey);
   const pageImage = getGeneratedPageImage({
     type: 'suburb',
@@ -3122,7 +3173,7 @@ function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel }) {
     clusterKey: normalizedClusterKey,
     logisticsLabel,
   });
-  const faqItems = buildSuburbFaqItems({ suburb, logisticsLabel, nearby, clusterKey: normalizedClusterKey });
+  const faqItems = buildSuburbFaqItems({ slug, suburb, logisticsLabel, nearby, clusterKey: normalizedClusterKey });
 
   return {
     output: `removalists-${slug}/index.html`,
@@ -3243,8 +3294,29 @@ function makeGuidePage({ slug, title, topic, basePath = 'adelaide-moving-guides'
 
 function makeCommercialPage(page) {
   const canonical = buildCanonical(page.canonical);
-  const title = buildTitle(page.title, 'quote');
-  const description = buildDescription(`${page.description} High-standards service with clear fixed-price quoting and professional Adelaide-based planning.`);
+  const commercialSeoOverrides = {
+    'moving-quotes-adelaide': {
+      title: 'Moving Quotes Adelaide | Fixed-Price Quote Help | ZQ Removals',
+      description: 'Moving quotes Adelaide for house, furniture, office, apartment, and same-day jobs. Share the route, access, inventory, and date for a clear fixed-price review.',
+    },
+    'fixed-price-removalists-adelaide': {
+      title: 'Fixed-Price Removalists Adelaide | Upfront Quotes | ZQ Removals',
+      description: 'Fixed-price removalists Adelaide for upfront quoting on house, office, and apartment moves. Useful when the route, access, and inventory are already clear.',
+    },
+    'budget-removalists-adelaide': {
+      title: 'Budget Removalists Adelaide | Affordable Fixed Quotes | ZQ Removals',
+      description: 'Budget removalists Adelaide for customers comparing affordable fixed-price moving options, careful handling, and clear scope before booking.',
+    },
+    'house-removals-adelaide': {
+      title: 'House Removals Adelaide | Home & Townhouse Movers | ZQ Removals',
+      description: 'House removals Adelaide for homes, units, and townhouses with planning around access, inventory, timing, and furniture protection.',
+    },
+  };
+  const seoOverride = commercialSeoOverrides[page.slug] || {};
+  const title = buildTitle(seoOverride.title || page.title, 'quote');
+  const description = buildDescription(
+    seoOverride.description || `${page.description} High-standards service with clear fixed-price quoting and professional Adelaide-based planning.`,
+  );
   const pageImage = getGeneratedPageImage({ type: 'commercial', slug: page.slug, title: page.title });
   const intentProfile = buildCommercialIntentProfile(page);
   return {
