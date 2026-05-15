@@ -257,20 +257,10 @@ test('search console not-found validation aliases have static noindex fallback p
   }
 });
 
-test('critical generated pages do not contain broken internal links', () => {
-  const criticalPages = [
-    'index.html',
-    path.join('removalists-adelaide', 'index.html'),
-    path.join('interstate-removals-adelaide', 'index.html'),
-    path.join('office-removals-adelaide', 'index.html'),
-    path.join('packing-services-adelaide', 'index.html'),
-    path.join('furniture-removalists-adelaide', 'index.html'),
-    path.join('house-removals-adelaide', 'index.html'),
-    path.join('adelaide-moving-guides', 'index.html'),
-  ];
-
-  for (const relativePath of criticalPages) {
-    const html = readDist(relativePath);
+test('generated pages do not contain broken internal links', () => {
+  for (const htmlFile of walkHtmlFiles(distDir)) {
+    const relativePath = path.relative(distDir, htmlFile).replace(/\\/g, '/');
+    const html = readFileSync(htmlFile, 'utf8');
     for (const match of html.matchAll(/href="([^"]+)"/g)) {
       const href = match[1];
       if (!href.startsWith('/') || href.startsWith('//')) {
@@ -282,17 +272,23 @@ test('critical generated pages do not contain broken internal links', () => {
         continue;
       }
 
-      let targetPath;
+      const targetCandidates = [];
       if (cleanHref === '/') {
-        targetPath = path.join(distDir, 'index.html');
+        targetCandidates.push(path.join(distDir, 'index.html'));
       } else if (cleanHref.endsWith('/')) {
-        targetPath = path.join(distDir, cleanHref.slice(1), 'index.html');
+        targetCandidates.push(path.join(distDir, cleanHref.slice(1), 'index.html'));
       } else {
-        targetPath = path.join(distDir, cleanHref.slice(1));
+        targetCandidates.push(
+          path.join(distDir, cleanHref.slice(1)),
+          path.join(distDir, cleanHref.slice(1), 'index.html'),
+        );
+        if (!cleanHref.endsWith('.html')) {
+          targetCandidates.push(path.join(distDir, `${cleanHref.slice(1)}.html`));
+        }
       }
 
       assert.ok(
-        statSync(targetPath, { throwIfNoEntry: false }),
+        targetCandidates.some((targetPath) => statSync(targetPath, { throwIfNoEntry: false })),
         `broken internal link in ${relativePath}: ${href}`,
       );
     }
