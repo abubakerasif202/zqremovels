@@ -21,8 +21,8 @@
         </div>
 
         <div class="cta-cluster">
-          <a class="button button-primary" href="tel:+61433819989">Call 0433 819 989</a>
-          <a class="button button-secondary" href="/contact-us/#quote-form">Get Free Quote</a>
+          <a class="button button-primary" href="/contact-us/#quote-form">Get Free Quote</a>
+          <a class="button button-secondary" href="tel:+61433819989">Call 0433 819 989</a>
           <a class="button button-secondary" href="/same-day-removalists-adelaide/">Same Day & Local Moves</a>
         </div>
 
@@ -33,12 +33,22 @@
           <div class="field-grid">
             <label><span>Name</span><input name="name" required type="text" /></label>
             <label><span>Phone</span><input name="phone" required type="tel" /></label>
+            <label><span>Pickup Suburb</span><input autocomplete="address-level2" name="pickup_suburb" placeholder="e.g. Adelaide CBD" required type="text" /></label>
+            <label><span>Delivery Suburb</span><input autocomplete="address-level2" name="dropoff_suburb" placeholder="e.g. Glenelg" required type="text" /></label>
+            <label>
+              <span>Move Type</span>
+              <select name="move_scope" required>
+                <option selected value="">Select move type</option>
+                <option value="house-removal">House</option>
+                <option value="office-relocation">Office</option>
+                <option value="furniture-removal">Furniture</option>
+                <option value="interstate-removal">Interstate</option>
+              </select>
+            </label>
+            <label><span>Preferred Date</span><input name="move_date" type="date" /></label>
           </div>
-          <label>
-            <span>Move details</span>
-            <textarea name="message" required rows="3" placeholder="Pickup suburb, delivery suburb, move type, and preferred date."></textarea>
-          </label>
           <input name="email" type="email" placeholder="Email address" />
+          <input name="message" type="hidden" value="Submitted from the homepage mobile-optimized quick quote form." />
           <button class="button button-primary wide" type="submit">Send Quick Quote Brief</button>
           <p aria-live="polite" class="form-feedback" data-form-feedback role="status"></p>
         </form>
@@ -58,13 +68,14 @@
       <div class="home-hero-visual reveal-on-scroll">
         <div class="hero-media-main">
           <picture>
-            <source srcset="/media/home-local-hero-branded.webp" type="image/webp" />
+            <source srcset="/media/adelaide-removalists-team-truck.webp" type="image/webp" />
             <img
               alt="Our professional removals team and truck on a real Adelaide move."
               decoding="async"
               height="406"
-              loading="lazy"
-              src="/media/home-local-hero-branded.webp"
+              loading="eager"
+              fetchpriority="high"
+              src="/media/adelaide-removalists-team-truck.webp"
               width="768"
             />
           </picture>

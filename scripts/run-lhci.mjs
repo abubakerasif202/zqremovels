@@ -76,7 +76,7 @@ failures.push(
   ).map((msg) => `/contact-us/: ${msg}`),
 );
 
-const homeHeroBytes = await fileBytes('media/home-local-hero-branded.webp');
+const homeHeroBytes = await fileBytes('media/adelaide-removalists-team-truck.webp');
 const contactHeroBytes = await fileBytes('media/contact-quote-branded.webp');
 const logoBytes = await fileBytes('brand-logo-64.webp');
 

@@ -13,7 +13,7 @@ TARGETS = [
     (ROOT / 'zq-removals-social-share.png', ROOT / 'zq-removals-social-share.webp', 86),
 ]
 RESIZED_TARGETS = [
-    (ROOT / 'media' / 'home-local-hero-branded.png', ROOT / 'media' / 'home-local-hero-branded.webp', 768, 406, 88),
+    (ROOT / 'media' / 'adelaide-removalists-team-truck.png', ROOT / 'media' / 'adelaide-removalists-team-truck.webp', 768, 406, 88),
     (ROOT / 'media' / 'contact-quote-branded.png', ROOT / 'media' / 'contact-quote-branded.webp', 768, 573, 86),
 ]
 CUSTOM_GRID_SOURCE = ROOT / 'media' / 'custom-photo-pack-grid.png'

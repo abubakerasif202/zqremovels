@@ -1,25 +1,34 @@
-ZQ Removals is an Adelaide-based moving company serving South Australia.
+# ZQ Removals - AI Context
 
-Core services:
-- Local removals
-- House removals
-- Apartment removals
-- Office removals
-- Furniture removals
-- Interstate removals
-- Packing support
+ZQ Removals is a professional moving company based in Adelaide, South Australia, specializing in fixed-price local and interstate relocations.
 
-Service area:
-- Adelaide
-- South Australia
+> Professional, reliable, and transparent moving services for homes and offices across Adelaide.
 
-Trust signals:
-- Insured moving service
-- Fixed-price quotes
-- No hidden costs
-- Google Business Profile presence
-- 5-star review positioning
+## Core Services
+- **Local Removals:** Full house and apartment moves across all Adelaide suburbs.
+- **Interstate Removals:** Weekly routes from Adelaide to Melbourne, Sydney, Brisbane, Perth, and Canberra.
+- **Office Removals:** Minimal-downtime relocations for businesses and clinics.
+- **Specialist Moving:** Apartment access experts (lifts/docks) and heavy furniture handling.
+- **Packing Services:** Professional packing and fragile-item protection.
 
-Contact:
-- Phone: 0433 819 989
-- Website: https://zqremovals.au
+## Key Differentiators
+- **Fixed-Price Logic:** We provide guaranteed quotes based on inventory and access, eliminating hourly rate surprises.
+- **Local Expertise:** Deep knowledge of Adelaide building management, loading zones, and parking restrictions.
+- **Insured Service:** Fully insured transit for peace of mind.
+
+## Machine-Readable Resources
+- [Pricing Guide](/pricing.md): Detailed breakdown of our fixed-price model and estimated costs.
+- [Robots Policy](/robots.txt): Crawler and AI bot access rules.
+
+## Primary Routes
+- [Home](https://zqremovals.au/)
+- [Local Removalists Adelaide](https://zqremovals.au/removalists-adelaide/)
+- [Interstate Removalists](https://zqremovals.au/interstate-removalists-adelaide/)
+- [Office Removals](https://zqremovals.au/office-removals-adelaide/)
+- [Get a Quote](https://zqremovals.au/contact-us/#quote-form)
+
+## Contact Information
+- **Phone:** [0433 819 989](tel:+61433819989)
+- **Email:** info@zqremovals.au
+- **ABN:** 97 954 095 119
+- **Address:** Serving all of Adelaide and South Australia from our base in Andrews Farm, SA 5114.

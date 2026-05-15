@@ -76,8 +76,8 @@ export const localBusinessSchema = {
   telephone: PHONE,
   image: DEFAULT_OG_IMAGE,
   logo: DEFAULT_LOGO,
-  hasMap: seoConfig.socialProfiles[0],
-  sameAs: seoConfig.socialProfiles,
+  hasMap: 'https://share.google/Y04mpt9RTflWP3iRl',
+  sameAs: ['https://share.google/Y04mpt9RTflWP3iRl'],
   taxID: ABN_MACHINE,
   identifier: {
     '@type': 'PropertyValue',
@@ -199,8 +199,8 @@ export const hyperlocalProfilesV7 = {
 
 export const imageAssets = {
   homepage: {
-    path: '/media/home-local-hero-branded.webp',
-    url: toAbsoluteUrl('/media/home-local-hero-branded.webp'),
+    path: '/media/adelaide-removalists-team-truck.webp',
+    url: toAbsoluteUrl('/media/adelaide-removalists-team-truck.webp'),
     alt: 'ZQ Removals branded Adelaide moving scene with premium local coverage',
     title: 'Adelaide Removalists Near Me | 5-Star Local Movers | ZQ Removals',
     caption: 'Premium Adelaide removals with clear quote-first planning.',
@@ -3282,6 +3282,7 @@ function makeGuidePage({ slug, title, topic, basePath = 'adelaide-moving-guides'
         { name: 'Adelaide Moving Guides', url: `${SITE_URL}/adelaide-moving-guides/` },
         { name: title, url: canonical },
       ], canonical)),
+      JSON.stringify(buildFAQSchema(buildGuideFaqItems({ title, topic, slug }), canonical)),
       ...(pageImage
         ? [JSON.stringify(buildImageObjectSchema({
             id: canonical,

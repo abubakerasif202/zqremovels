@@ -1,0 +1,310 @@
+claude-review	Run Claude Code Review	´╗┐2026-05-09T07:45:18.8116169Z ##[group]Run anthropics/claude-code-action@v1
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8116542Z with:
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8117235Z   claude_code_oauth_token: ***
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8117668Z   plugin_marketplaces: https://github.com/anthropics/claude-code.git
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8118107Z   plugins: code-review@claude-code-plugins
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8118516Z   prompt: /code-review:code-review abubakerasif202/zqremovels/pull/41
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8118910Z   trigger_phrase: @claude
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8119177Z   label_trigger: claude
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8119424Z   branch_prefix: claude/
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8119666Z   use_bedrock: false
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8119896Z   use_vertex: false
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8120118Z   use_foundry: false
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8120347Z   use_sticky_comment: false
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8121046Z   classify_inline_comments: true
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8121352Z   use_commit_signing: false
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8121608Z   bot_id: 41898282
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8121833Z   bot_name: claude[bot]
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8122118Z   track_progress: false
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8122365Z   include_fix_links: true
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8122613Z   display_report: false
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8122861Z   show_full_output: false
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8123107Z ##[endgroup]
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8309277Z ##[group]Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8309961Z with:
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8310304Z   bun-version: 1.3.6
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8311192Z   token: ***
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8311570Z   no-cache: false
+claude-review	Run Claude Code Review	2026-05-09T07:45:18.8311937Z ##[endgroup]
+claude-review	Run Claude Code Review	2026-05-09T07:45:19.3283105Z Downloading a new version of Bun: https://github.com/oven-sh/bun/releases/download/bun-v1.3.6/bun-linux-x64.zip
+claude-review	Run Claude Code Review	2026-05-09T07:45:19.6485518Z [command]/usr/bin/unzip -o -q /home/runner/work/_temp/acc23f27-fab5-4936-9516-362a52baa9fa.zip
+claude-review	Run Claude Code Review	2026-05-09T07:45:20.3571506Z [command]/home/runner/.bun/bin/bun --revision
+claude-review	Run Claude Code Review	2026-05-09T07:45:20.3607979Z 1.3.6+d530ed993
+claude-review	Run Claude Code Review	2026-05-09T07:45:20.3747460Z ##[group]Run cd ${GITHUB_ACTION_PATH}
+claude-review	Run Claude Code Review	2026-05-09T07:45:20.3747867Z ^[[36;1mcd ${GITHUB_ACTION_PATH}^[[0m
+claude-review	Run Claude Code Review	2026-05-09T07:45:20.3748153Z ^[[36;1mbun install --production^[[0m
+claude-review	Run Claude Code Review	2026-05-09T07:45:20.3775643Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+claude-review	Run Claude Code Review	2026-05-09T07:45:20.3776024Z ##[endgroup]
+claude-review	Run Claude Code Review	2026-05-09T07:45:20.3860830Z bun install v1.3.6 (d530ed99)
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.8457411Z 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.8457942Z + @actions/core@1.11.1
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.8458420Z + @actions/github@6.0.1
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.8458895Z + @anthropic-ai/claude-agent-sdk@0.2.138
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.8459484Z + @modelcontextprotocol/sdk@1.16.0
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.8459997Z + @octokit/graphql@8.2.2
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.8460769Z + @octokit/rest@21.1.1
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.8461224Z + @octokit/webhooks-types@7.6.1
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.8461700Z + node-fetch@3.3.2
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.8462093Z + shell-quote@1.8.3
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.8462437Z + zod@3.25.76
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.8462592Z 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.8462758Z 161 packages installed [1460.00ms]
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9089053Z ##[group]Run bun --no-env-file \
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9089384Z ^[[36;1mbun --no-env-file \^[[0m
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9089742Z ^[[36;1m  --config="${GITHUB_ACTION_PATH}/bunfig.toml" \^[[0m
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9090352Z ^[[36;1m  --tsconfig-override="${GITHUB_ACTION_PATH}/tsconfig.json" \^[[0m
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9090995Z ^[[36;1m  run ${GITHUB_ACTION_PATH}/src/entrypoints/run.ts^[[0m
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9111966Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9112288Z env:
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9112457Z   MODE: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9112730Z   PROMPT: /code-review:code-review abubakerasif202/zqremovels/pull/41
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9113083Z   TRIGGER_PHRASE: @claude
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9113288Z   ASSIGNEE_TRIGGER: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9113485Z   LABEL_TRIGGER: claude
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9113682Z   BASE_BRANCH: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9113862Z   BRANCH_PREFIX: claude/
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9114075Z   BRANCH_NAME_TEMPLATE: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9114279Z   OVERRIDE_GITHUB_TOKEN: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9114488Z   ALLOWED_BOTS: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9114868Z   ALLOWED_NON_WRITE_USERS: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9115095Z   CLAUDE_CODE_SUBPROCESS_ENV_SCRUB: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9115348Z   CLAUDE_CODE_SCRIPT_CAPS: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9115568Z   INCLUDE_COMMENTS_BY_ACTOR: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9115795Z   EXCLUDE_COMMENTS_BY_ACTOR: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9116010Z   GITHUB_RUN_ID: 25595674075
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9116223Z   USE_STICKY_COMMENT: false
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9116441Z   CLASSIFY_INLINE_COMMENTS: true
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9116940Z   DEFAULT_WORKFLOW_TOKEN: ***
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9117180Z   USE_COMMIT_SIGNING: false
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9117399Z   SSH_SIGNING_KEY: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9117590Z   BOT_ID: 41898282
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9117773Z   BOT_NAME: claude[bot]
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9117981Z   TRACK_PROGRESS: false
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9118185Z   INCLUDE_FIX_LINKS: true
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9118409Z   ADDITIONAL_PERMISSIONS: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9118622Z   CLAUDE_ARGS: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9122555Z   ALL_INPUTS: {
+claude-review	Run Claude Code Review	  "claude_code_oauth_token": "***",
+claude-review	Run Claude Code Review	  "plugin_marketplaces": "https://github.com/anthropics/claude-code.git",
+claude-review	Run Claude Code Review	  "plugins": "code-review@claude-code-plugins",
+claude-review	Run Claude Code Review	  "prompt": "/code-review:code-review abubakerasif202/zqremovels/pull/41",
+claude-review	Run Claude Code Review	  "trigger_phrase": "@claude",
+claude-review	Run Claude Code Review	  "assignee_trigger": "",
+claude-review	Run Claude Code Review	  "label_trigger": "claude",
+claude-review	Run Claude Code Review	  "base_branch": "",
+claude-review	Run Claude Code Review	  "branch_prefix": "claude/",
+claude-review	Run Claude Code Review	  "branch_name_template": "",
+claude-review	Run Claude Code Review	  "allowed_bots": "",
+claude-review	Run Claude Code Review	  "allowed_non_write_users": "",
+claude-review	Run Claude Code Review	  "include_comments_by_actor": "",
+claude-review	Run Claude Code Review	  "exclude_comments_by_actor": "",
+claude-review	Run Claude Code Review	  "settings": "",
+claude-review	Run Claude Code Review	  "anthropic_api_key": "",
+claude-review	Run Claude Code Review	  "github_token": "",
+claude-review	Run Claude Code Review	  "use_bedrock": "false",
+claude-review	Run Claude Code Review	  "use_vertex": "false",
+claude-review	Run Claude Code Review	  "use_foundry": "false",
+claude-review	Run Claude Code Review	  "claude_args": "",
+claude-review	Run Claude Code Review	  "additional_permissions": "",
+claude-review	Run Claude Code Review	  "use_sticky_comment": "false",
+claude-review	Run Claude Code Review	  "classify_inline_comments": "true",
+claude-review	Run Claude Code Review	  "use_commit_signing": "false",
+claude-review	Run Claude Code Review	  "ssh_signing_key": "",
+claude-review	Run Claude Code Review	  "bot_id": "41898282",
+claude-review	Run Claude Code Review	  "bot_name": "claude[bot]",
+claude-review	Run Claude Code Review	  "track_progress": "false",
+claude-review	Run Claude Code Review	  "include_fix_links": "true",
+claude-review	Run Claude Code Review	  "path_to_claude_code_executable": "",
+claude-review	Run Claude Code Review	  "path_to_bun_executable": "",
+claude-review	Run Claude Code Review	  "display_report": "false",
+claude-review	Run Claude Code Review	  "show_full_output": "false"
+claude-review	Run Claude Code Review	}
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9126229Z   INPUT_PROMPT_FILE: /home/runner/work/_temp/claude-prompts/claude-prompt.txt
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9126605Z   INPUT_SETTINGS: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9127049Z   INPUT_EXPERIMENTAL_SLASH_COMMANDS_DIR: /home/runner/work/_actions/anthropics/claude-code-action/v1/slash-commands
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9127569Z   INPUT_PATH_TO_CLAUDE_CODE_EXECUTABLE: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9127829Z   INPUT_PATH_TO_BUN_EXECUTABLE: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9128075Z   INPUT_SHOW_FULL_OUTPUT: false
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9128300Z   DISPLAY_REPORT: false
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9128551Z   INPUT_PLUGINS: code-review@claude-code-plugins
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9128955Z   INPUT_PLUGIN_MARKETPLACES: https://github.com/anthropics/claude-code.git
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9129337Z   PATH_TO_CLAUDE_CODE_EXECUTABLE: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9129572Z   NODE_VERSION: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9129756Z   ANTHROPIC_API_KEY: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9130363Z   CLAUDE_CODE_OAUTH_TOKEN: ***
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9130733Z   ANTHROPIC_BASE_URL: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9130951Z   ANTHROPIC_CUSTOM_HEADERS: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9131179Z   CLAUDE_CODE_USE_BEDROCK: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9131548Z   CLAUDE_CODE_USE_VERTEX: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9131756Z   CLAUDE_CODE_USE_FOUNDRY: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9131961Z   AWS_REGION: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9132167Z   AWS_ACCESS_KEY_ID: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9132388Z   AWS_SECRET_ACCESS_KEY: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9132596Z   AWS_SESSION_TOKEN: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9132794Z   AWS_BEARER_TOKEN_BEDROCK: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9133014Z   ANTHROPIC_BEDROCK_BASE_URL: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9133246Z   ANTHROPIC_VERTEX_PROJECT_ID: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9133465Z   CLOUD_ML_REGION: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9133674Z   GOOGLE_APPLICATION_CREDENTIALS: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9133923Z   ANTHROPIC_VERTEX_BASE_URL: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9134147Z   VERTEX_REGION_CLAUDE_3_5_HAIKU: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9134385Z   VERTEX_REGION_CLAUDE_3_5_SONNET: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9134627Z   VERTEX_REGION_CLAUDE_3_7_SONNET: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9134859Z   ANTHROPIC_FOUNDRY_RESOURCE: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9135223Z   ANTHROPIC_FOUNDRY_BASE_URL: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9135448Z   ANTHROPIC_DEFAULT_SONNET_MODEL: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9135711Z   ANTHROPIC_DEFAULT_HAIKU_MODEL: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9135955Z   ANTHROPIC_DEFAULT_OPUS_MODEL: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9136174Z   MCP_TIMEOUT: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9136360Z   MCP_TOOL_TIMEOUT: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9136560Z   MAX_MCP_OUTPUT_TOKENS: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9136778Z   CLAUDE_CODE_ENABLE_TELEMETRY: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9137013Z   OTEL_METRICS_EXPORTER: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9137217Z   OTEL_LOGS_EXPORTER: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9137426Z   OTEL_EXPORTER_OTLP_PROTOCOL: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9137656Z   OTEL_EXPORTER_OTLP_ENDPOINT: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9137886Z   OTEL_EXPORTER_OTLP_HEADERS: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9138117Z   OTEL_METRIC_EXPORT_INTERVAL: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9138345Z   OTEL_LOGS_EXPORT_INTERVAL: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9138575Z   OTEL_RESOURCE_ATTRIBUTES: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:21.9138791Z ##[endgroup]
+claude-review	Run Claude Code Review	2026-05-09T07:45:22.1268392Z Auto-detected mode: agent for event: pull_request
+claude-review	Run Claude Code Review	2026-05-09T07:45:22.1269121Z Requesting OIDC token...
+claude-review	Run Claude Code Review	2026-05-09T07:45:22.1271756Z Attempt 1 of 3...
+claude-review	Run Claude Code Review	2026-05-09T07:45:22.3744853Z OIDC token successfully obtained
+claude-review	Run Claude Code Review	2026-05-09T07:45:22.3745418Z Exchanging OIDC token for app token...
+claude-review	Run Claude Code Review	2026-05-09T07:45:22.3745865Z Attempt 1 of 3...
+claude-review	Run Claude Code Review	2026-05-09T07:45:23.6111117Z App token successfully obtained
+claude-review	Run Claude Code Review	2026-05-09T07:45:23.6113419Z Using GITHUB_TOKEN from OIDC
+claude-review	Run Claude Code Review	2026-05-09T07:45:23.6130760Z Checking permissions for actor: abubakerasif202
+claude-review	Run Claude Code Review	2026-05-09T07:45:23.8424324Z Permission level retrieved: admin
+claude-review	Run Claude Code Review	2026-05-09T07:45:23.8424819Z Actor has write access: admin
+claude-review	Run Claude Code Review	2026-05-09T07:45:23.8425078Z Mode: agent
+claude-review	Run Claude Code Review	2026-05-09T07:45:23.8425410Z Context prompt: /code-review:code-review abubakerasif202/zqremovels/pull/41
+claude-review	Run Claude Code Review	2026-05-09T07:45:23.8425942Z Trigger result: true
+claude-review	Run Claude Code Review	2026-05-09T07:45:23.8426373Z Preparing with mode: agent for event: pull_request
+claude-review	Run Claude Code Review	2026-05-09T07:45:24.0267369Z Actor type: User
+claude-review	Run Claude Code Review	2026-05-09T07:45:24.0267822Z Verified human actor: abubakerasif202
+claude-review	Run Claude Code Review	2026-05-09T07:45:24.0272166Z Configuring git authentication for non-signing mode
+claude-review	Run Claude Code Review	2026-05-09T07:45:24.0273017Z Configuring git user...
+claude-review	Run Claude Code Review	2026-05-09T07:45:24.0273753Z Setting git user as claude[bot]...
+claude-review	Run Claude Code Review	2026-05-09T07:45:24.0313238Z Ô£ô Set git user as claude[bot]
+claude-review	Run Claude Code Review	2026-05-09T07:45:24.0313752Z Removing existing git authentication headers...
+claude-review	Run Claude Code Review	2026-05-09T07:45:24.0328546Z Ô£ô Removed existing authentication headers
+claude-review	Run Claude Code Review	2026-05-09T07:45:24.0329137Z Updating remote URL with authentication...
+claude-review	Run Claude Code Review	2026-05-09T07:45:24.0345239Z Ô£ô Updated remote URL with authentication token
+claude-review	Run Claude Code Review	2026-05-09T07:45:24.0345864Z Git authentication configured successfully
+claude-review	Run Claude Code Review	2026-05-09T07:45:24.0360412Z Installing Claude Code v2.1.138...
+claude-review	Run Claude Code Review	2026-05-09T07:45:24.0361156Z Installation attempt 1...
+claude-review	Run Claude Code Review	2026-05-09T07:45:25.4269616Z Setting up Claude Code...
+claude-review	Run Claude Code Review	2026-05-09T07:45:26.0204918Z 
+claude-review	Run Claude Code Review	2026-05-09T07:45:26.0445942Z Checking installation status...
+claude-review	Run Claude Code Review	2026-05-09T07:45:27.6988462Z Installing Claude Code native build 2.1.138...
+claude-review	Run Claude Code Review	2026-05-09T07:45:33.0330608Z Setting up launcher and shell integration...
+claude-review	Run Claude Code Review	2026-05-09T07:45:33.0331697Z Ô£ö Claude Code successfully installed!
+claude-review	Run Claude Code Review	2026-05-09T07:45:33.0332033Z 
+claude-review	Run Claude Code Review	2026-05-09T07:45:33.0332189Z   Version: 2.1.138
+claude-review	Run Claude Code Review	2026-05-09T07:45:33.0332755Z 
+claude-review	Run Claude Code Review	2026-05-09T07:45:33.0332940Z   Location: ~/.local/bin/claude
+claude-review	Run Claude Code Review	2026-05-09T07:45:33.0333248Z 
+claude-review	Run Claude Code Review	2026-05-09T07:45:33.0333254Z 
+claude-review	Run Claude Code Review	2026-05-09T07:45:35.0359884Z   Next: Run claude --help to get started
+claude-review	Run Claude Code Review	2026-05-09T07:45:35.1254340Z 
+claude-review	Run Claude Code Review	2026-05-09T07:45:35.1255006Z Ô£à Installation complete!
+claude-review	Run Claude Code Review	2026-05-09T07:45:35.1255306Z 
+claude-review	Run Claude Code Review	2026-05-09T07:45:35.1267379Z Claude Code installed successfully
+claude-review	Run Claude Code Review	2026-05-09T07:45:35.1275252Z Restoring .claude, .mcp.json, .claude.json, .gitmodules, .ripgreprc, CLAUDE.md, CLAUDE.local.md, .husky from origin/main (PR head is untrusted)
+claude-review	Run Claude Code Review	2026-05-09T07:45:35.5565101Z From https://github.com/abubakerasif202/zqremovels
+claude-review	Run Claude Code Review	2026-05-09T07:45:35.5565557Z  * branch            main       -> FETCH_HEAD
+claude-review	Run Claude Code Review	2026-05-09T07:45:35.5565863Z  * [new branch]      main       -> origin/main
+claude-review	Run Claude Code Review	2026-05-09T07:45:35.7193356Z Setting up Claude settings at: /home/runner/.claude/settings.json
+claude-review	Run Claude Code Review	2026-05-09T07:45:35.7194233Z Creating .claude directory...
+claude-review	Run Claude Code Review	2026-05-09T07:45:35.7221210Z No existing settings file found, creating new one
+claude-review	Run Claude Code Review	2026-05-09T07:45:35.7221901Z Updated settings with enableAllProjectMcpServers: true
+claude-review	Run Claude Code Review	2026-05-09T07:45:35.7222835Z Settings saved successfully
+claude-review	Run Claude Code Review	2026-05-09T07:45:35.7228930Z Adding 1 marketplace(s)...
+claude-review	Run Claude Code Review	2026-05-09T07:45:35.7229902Z Adding marketplace: https://github.com/anthropics/claude-code.git
+claude-review	Run Claude Code Review	2026-05-09T07:45:36.8795936Z Adding marketplaceÔÇªRefreshing marketplace cache (timeout: 120s)ÔÇª
+claude-review	Run Claude Code Review	2026-05-09T07:45:36.8796932Z Cloning repository (timeout: 120s): https://github.com/anthropics/claude-code.git
+claude-review	Run Claude Code Review	2026-05-09T07:45:36.8797745Z Clone complete, validating marketplaceÔÇª
+claude-review	Run Claude Code Review	2026-05-09T07:45:36.8798276Z Cleaning up old marketplace cacheÔÇª
+claude-review	Run Claude Code Review	2026-05-09T07:45:36.8799124Z Ô£ö Successfully added marketplace: claude-code-plugins (declared in user settings)
+claude-review	Run Claude Code Review	2026-05-09T07:45:36.8898182Z Ô£ô Successfully added marketplace: https://github.com/anthropics/claude-code.git
+claude-review	Run Claude Code Review	2026-05-09T07:45:36.8900929Z Installing 1 plugin(s)...
+claude-review	Run Claude Code Review	2026-05-09T07:45:36.8902108Z Installing plugin: code-review@claude-code-plugins
+claude-review	Run Claude Code Review	2026-05-09T07:45:37.4304297Z Installing plugin "code-review@claude-code-plugins"...Ô£ö Successfully installed plugin: code-review@claude-code-plugins (scope: user)
+claude-review	Run Claude Code Review	2026-05-09T07:45:37.6919517Z Ô£ô Successfully installed: code-review@claude-code-plugins
+claude-review	Run Claude Code Review	2026-05-09T07:45:37.6937153Z Running Claude Code via SDK (full output hidden for security)...
+claude-review	Run Claude Code Review	2026-05-09T07:45:37.6938150Z Rerun in debug mode or enable `show_full_output: true` in your workflow file for full output.
+claude-review	Run Claude Code Review	2026-05-09T07:45:37.6939053Z Running Claude with prompt from file: /home/runner/work/_temp/claude-prompts/claude-prompt.txt
+claude-review	Run Claude Code Review	2026-05-09T07:45:37.6939605Z SDK options: {
+claude-review	Run Claude Code Review	2026-05-09T07:45:37.6939833Z   "systemPrompt": {
+claude-review	Run Claude Code Review	2026-05-09T07:45:37.6940061Z     "type": "preset",
+claude-review	Run Claude Code Review	2026-05-09T07:45:37.6940307Z     "preset": "claude_code"
+claude-review	Run Claude Code Review	2026-05-09T07:45:37.6940814Z   },
+claude-review	Run Claude Code Review	2026-05-09T07:45:37.6941240Z   "pathToClaudeCodeExecutable": "/home/runner/.local/bin/claude",
+claude-review	Run Claude Code Review	2026-05-09T07:45:37.6941713Z   "settingSources": [
+claude-review	Run Claude Code Review	2026-05-09T07:45:37.6941946Z     "user",
+claude-review	Run Claude Code Review	2026-05-09T07:45:37.6942162Z     "project",
+claude-review	Run Claude Code Review	2026-05-09T07:45:37.6942364Z     "local"
+claude-review	Run Claude Code Review	2026-05-09T07:45:37.6942563Z   ]
+claude-review	Run Claude Code Review	2026-05-09T07:45:37.6942747Z }
+claude-review	Run Claude Code Review	2026-05-09T07:45:38.1404845Z {
+claude-review	Run Claude Code Review	2026-05-09T07:45:38.1405554Z   "type": "system",
+claude-review	Run Claude Code Review	2026-05-09T07:45:38.1405964Z   "subtype": "init",
+claude-review	Run Claude Code Review	2026-05-09T07:45:38.1406396Z   "message": "Claude Code initialized",
+claude-review	Run Claude Code Review	2026-05-09T07:45:38.1406938Z   "model": "claude-sonnet-4-6"
+claude-review	Run Claude Code Review	2026-05-09T07:45:38.1407385Z }
+claude-review	Run Claude Code Review	2026-05-09T07:45:40.9962705Z {
+claude-review	Run Claude Code Review	2026-05-09T07:45:40.9963131Z   "type": "result",
+claude-review	Run Claude Code Review	2026-05-09T07:45:40.9963501Z   "subtype": "success",
+claude-review	Run Claude Code Review	2026-05-09T07:45:40.9963892Z   "is_error": true,
+claude-review	Run Claude Code Review	2026-05-09T07:45:40.9964238Z   "duration_ms": 2908,
+claude-review	Run Claude Code Review	2026-05-09T07:45:40.9964585Z   "num_turns": 1,
+claude-review	Run Claude Code Review	2026-05-09T07:45:40.9964918Z   "total_cost_usd": 0,
+claude-review	Run Claude Code Review	2026-05-09T07:45:40.9965300Z   "permission_denials_count": 0
+claude-review	Run Claude Code Review	2026-05-09T07:45:40.9965699Z }
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2514859Z SDK execution error: 55 | `);this.baseURL=J.baseURL,this._baseURLIsExplicit=Y.__baseURLIsExplicit??!!$,this.timeout=J.timeout??HU.DEFAULT_TIMEOUT,this.logger=J.logger??console;let W="warn";this.logLevel=W,this.logLevel=fG(J.logLevel,"ClientOptions.logLevel",this)??fG(M$("ANTHROPIC_LOG"),"process.env['ANTHROPIC_LOG']",this)??W,this.fetchOptions=J.fetchOptions,this.maxRetries=J.maxRetries??2,this.fetch=J.fetch??yN(),f(this,tJ,hN,"f");let G=M$("ANTHROPIC_CUSTOM_HEADERS");if(G){let H={};for(let q of G.split(`
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2522031Z 56 | `)){let V=q.indexOf(":");if(V>=0)H[q.substring(0,V).trim()]=q.substring(V+1).trim()}J.defaultHeaders={...H,...J.defaultHeaders}}let U=Y.__auth;if(delete J.__auth,delete J.__baseURLIsExplicit,this._options=J,this.apiKey=typeof Q==="string"?Q:null,this.authToken=X,U){if(this._authState=U,!this._baseURLIsExplicit&&U.baseURL)this.baseURL=U.baseURL}else if(this._authState={provider:null,tokenCache:null,resolution:null,error:null,extraHeaders:{}},this.apiKey==null&&this.authToken==null){let H=J.credentials??null;if(H)this._authState.provider=H,this._authState.tokenCache=this._makeTokenCache(H);else if(J.config!=null){let q=hG(J.config,this._credentialResolverOptions());this._authState.provider=q.provider,this._authState.tokenCache=this._makeTokenCache(q.provider),this._authState.extraHeaders=q.extraHeaders,this._applyCredentialBaseURL(q.baseURL)}else if(J.profile!=null)this._authState.resolution=this._resolveDefaultCredentials(J.profile);else this._authState.resolution=this._resolveDefaultCredentials()}}_applyCrede
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2527096Z 57 | `),M8=Iv($,{recursive:!0}).then(()=>{}).catch(()=>{}),M8}function yw(){return fw(),V0??null}function F6($){if(V0===null)return;let X=`${new Date().toISOString()} ${$}
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2531174Z 58 | `;fw().then(()=>{if(V0)Av(V0,X).catch(()=>{})})}function Rv(){this.__data__=new B1,this.size=0}var gw=Rv;function Pv($){var Q=this.__data__,X=Q.delete($);return this.size=Q.size,X}var hw=Pv;function Ev($){return this.__data__.get($)}var uw=Ev;function bv($){return this.__data__.has($)}var mw=bv;var Sv=200;function _v($,Q){var X=this.__data__;if(X instanceof B1){var Y=X.__data__;if(!DJ||Y.length<Sv-1)return Y.push([$,Q]),this.size=++X.size,this;X=this.__data__=new u9(Y)}return X.set($,Q),this.size=X.size,this}var lw=_v;function L8($){var Q=this.__data__=new B1($);this.size=Q.size}L8.prototype.clear=gw;L8.prototype.delete=hw;L8.prototype.get=uw;L8.prototype.has=mw;L8.prototype.set=lw;var cw=L8;var kv=function(){try{var $=Q8(Object,"defineProperty");return $({},"",{}),$}catch(Q){}}(),j8=kv;function vv($,Q,X){if(Q=="__proto__"&&j8)j8($,Q,{configurable:!0,enumerable:!0,value:X,writable:!0});else $[Q]=X}var A8=vv;var Cv=Object.prototype,Tv=Cv.hasOwnProperty;function xv($,Q,X){var Y=$[Q];if(!(Tv.call($,Q)&&q1(Y,X))|
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2534628Z 59 | `))$=B$($);let Y=`${new Date().toISOString()} [${Q.toUpperCase()}] ${sO($.trim())}
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2537751Z 60 | `;if(X2()){nO(Y);return}$x().write(Y)}function G2(){return J2()??bU??process.env.CLAUDE_CODE_DEBUG_LOGS_DIR??_U(p6(),"debug",`${OU()}.txt`)}var U2=x$(async()=>{try{let $=G2(),Q=Q2($),X=_U(Q,"latest");await RU(X).catch(()=>{}),await iT($,X)}catch{}});var iY$=(()=>{let $=process.env.CLAUDE_CODE_SLOW_OPERATION_THRESHOLD_MS;if($!==void 0){let Q=Number($);if(!Number.isNaN(Q)&&Q>=0)return Q}return 1/0})();var Qx={[Symbol.dispose](){}};function Xx(){return Qx}var v$=Xx;function B$($,Q,X){let J=[];try{const Y=F$(J,v$`JSON.stringify(${$})`,0);return JSON.stringify($,Q,X)}catch(W){var G=W,U=1}finally{Z$(J,G,U)}}var l$=($,Q)=>{let Y=[];try{const X=F$(Y,v$`JSON.parse(${$})`,0);return typeof Q>"u"?JSON.parse($):JSON.parse($,Q)}catch(J){var W=J,G=1}finally{Z$(Y,W,G)}};function P4($,Q){let Y=[];try{const X=F$(Y,v$`structuredClone(${$})`,0);return structuredClone($,Q)}catch(J){var W=J,G=1}finally{Z$(Y,W,G)}}function Jx($){let Q=$.trim();return Q.startsWith("{")&&Q.endsWith("}")}function H2($,Q){let X={...$};if(Q){let Y=Q.ena
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2541136Z 
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2541488Z error: Claude Code returned an error result: Failed to authenticate. API Error: 401 Invalid authentication credentials
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2542383Z       at readMessages (/home/runner/work/_actions/anthropics/claude-code-action/v1/node_modules/@anthropic-ai/claude-agent-sdk/sdk.mjs:60:18248)
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2543074Z 
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2543665Z Internal error: directory mismatch for directory "/home/runner/work/_actions/anthropics/claude-code-action/v1/tsconfig.json", fd 4. You don't need to do anything, but this indicates a bug.
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2561296Z ##[error]Action failed with error: SDK execution error: Error: Claude Code returned an error result: Failed to authenticate. API Error: 401 Invalid authentication credentials
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2585763Z ##[error]Process completed with exit code 1.
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2637144Z ##[group]Run BUN_BIN="${GITHUB_ACTION_PATH}/bin/bun"
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2637526Z ^[[36;1mBUN_BIN="${GITHUB_ACTION_PATH}/bin/bun"^[[0m
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2637837Z ^[[36;1m[ -x "$BUN_BIN" ] || BUN_BIN="bun"^[[0m
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2638279Z ^[[36;1m"$BUN_BIN" --no-env-file \^[[0m
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2638591Z ^[[36;1m  --config="${GITHUB_ACTION_PATH}/bunfig.toml" \^[[0m
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2639012Z ^[[36;1m  --tsconfig-override="${GITHUB_ACTION_PATH}/tsconfig.json" \^[[0m
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2639520Z ^[[36;1m  run ${GITHUB_ACTION_PATH}/src/entrypoints/post-buffered-inline-comments.ts^[[0m
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2660857Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2661200Z env:
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2661592Z   GITHUB_TOKEN: ***
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2661828Z   REPO_OWNER: abubakerasif202
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2662077Z   REPO_NAME: zqremovels
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2662297Z   PR_NUMBER: 41
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2662503Z   ANTHROPIC_API_KEY: 
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.2662716Z ##[endgroup]
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.3021730Z Internal error: directory mismatch for directory "/home/runner/work/_actions/anthropics/claude-code-action/v1/tsconfig.json", fd 4. You don't need to do anything, but this indicates a bug.
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.3023257Z No buffered inline comments
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.3083193Z ##[group]Run curl -L \
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.3083463Z ^[[36;1mcurl -L \^[[0m
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.3083691Z ^[[36;1m  -X DELETE \^[[0m
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.3083971Z ^[[36;1m  -H "Accept: application/vnd.github+json" \^[[0m
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.3084558Z ^[[36;1m  -H "Authorization: ***" \^[[0m
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.3084878Z ^[[36;1m  -H "X-GitHub-Api-Version: 2022-11-28" \^[[0m
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.3085290Z ^[[36;1m  ${GITHUB_API_URL:-https://api.github.com}/installation/token^[[0m
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.3106616Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.3106956Z ##[endgroup]
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.3195982Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.3196561Z                                  Dload  Upload   Total   Spent    Left  Speed
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.3196992Z 
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.5407337Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+claude-review	Run Claude Code Review	2026-05-09T07:45:41.5408062Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0

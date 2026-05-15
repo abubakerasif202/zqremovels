@@ -1,0 +1,440 @@
+lighthouse	Run Lighthouse CI	´╗┐2026-05-09T07:54:58.6224598Z ##[group]Run npm run lhci
+lighthouse	Run Lighthouse CI	2026-05-09T07:54:58.6224904Z ^[[36;1mnpm run lhci^[[0m
+lighthouse	Run Lighthouse CI	2026-05-09T07:54:58.6252645Z shell: /usr/bin/bash -e {0}
+lighthouse	Run Lighthouse CI	2026-05-09T07:54:58.6252904Z ##[endgroup]
+lighthouse	Run Lighthouse CI	2026-05-09T07:54:58.7448741Z 
+lighthouse	Run Lighthouse CI	2026-05-09T07:54:58.7449455Z > zq-static-site@1.0.0 lhci
+lighthouse	Run Lighthouse CI	2026-05-09T07:54:58.7449950Z > lhci autorun
+lighthouse	Run Lighthouse CI	2026-05-09T07:54:58.7450162Z 
+lighthouse	Run Lighthouse CI	2026-05-09T07:54:59.2962243Z Ô£à  .lighthouseci/ directory writable
+lighthouse	Run Lighthouse CI	2026-05-09T07:54:59.2965343Z Ô£à  Configuration file found
+lighthouse	Run Lighthouse CI	2026-05-09T07:54:59.3485858Z Ô£à  Chrome installation found
+lighthouse	Run Lighthouse CI	2026-05-09T07:54:59.3486971Z ÔÜá´©Å   GitHub token not set
+lighthouse	Run Lighthouse CI	2026-05-09T07:54:59.3487524Z Healthcheck passed!
+lighthouse	Run Lighthouse CI	2026-05-09T07:54:59.3537319Z 
+lighthouse	Run Lighthouse CI	2026-05-09T07:54:59.6370816Z Started a web server on port 45979...
+lighthouse	Run Lighthouse CI	2026-05-09T07:54:59.6374435Z Running Lighthouse 3 time(s) on http://localhost:45979/
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5463224Z Run #1...failed!
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5470011Z Error: Lighthouse failed with exit code 1
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5471262Z     at ChildProcess.<anonymous> (/home/runner/work/zqremovels/zqremovels/node_modules/@lhci/cli/src/collect/node-runner.js:120:21)
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5472689Z     at ChildProcess.emit (node:events:524:28)
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5473447Z     at ChildProcess._handle.onexit (node:internal/child_process:293:12)
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5474073Z {
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5474446Z   "lighthouseVersion": "12.6.1",
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5474978Z   "requestedUrl": "http://localhost:45979/",
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5475624Z   "mainDocumentUrl": "http://localhost:45979/",
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5476219Z   "finalDisplayedUrl": "http://localhost:45979/",
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5476861Z   "finalUrl": "http://localhost:45979/",
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5477379Z   "fetchTime": "2026-05-09T07:55:08.442Z",
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5477826Z   "gatherMode": "navigation",
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5478209Z   "runtimeError": {
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5478553Z     "code": "ERRORED_DOCUMENT_REQUEST",
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5479846Z     "message": "Lighthouse was unable to reliably load the page you requested. Make sure you are testing the correct URL and that the server is properly responding to all requests. (Status code: 404)"
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5481048Z   },
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5481307Z   "runWarnings": [
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5482678Z     "Lighthouse was unable to reliably load the page you requested. Make sure you are testing the correct URL and that the server is properly responding to all requests. (Status code: 404)"
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5483785Z   ],
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5484600Z   "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/147.0.0.0 Safari/537.36",
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5485387Z   "environment": {
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5486227Z     "hostUserAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/147.0.0.0 Safari/537.36",
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5487057Z     "benchmarkIndex": 2286,
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5487384Z     "credits": {}
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5487666Z   },
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5487903Z   "audits": {
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5488171Z     "is-on-https": {
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5488488Z       "id": "is-on-https",
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5488810Z       "title": "Uses HTTPS",
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5499449Z       "description": "All sites should be protected with HTTPS, even ones that don't handle sensitive data. This includes avoiding [mixed content](https://developers.google.com/web/fundamentals/security/prevent-mixed-content/what-is-mixed-content), where some resources are loaded over HTTP despite the initial request being served over HTTPS. HTTPS prevents intruders from tampering with or passively listening in on the communications between your app and your users, and is a prerequisite for HTTP/2 and many new web platform APIs. [Learn more about HTTPS](https://developer.chrome.com/docs/lighthouse/pwa/is-on-https/).",
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5503215Z       "score": null,
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5503642Z       "scoreDisplayMode": "error",
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5504964Z       "errorMessage": "Lighthouse was unable to reliably load the page you requested. Make sure you are testing the correct URL and that the server is properly responding to all requests. (Status code: 404)",
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5514160Z       "errorStack": "LighthouseError: ERRORED_DOCUMENT_REQUEST\n    at getNetworkError (file:///home/runner/work/zqremovels/zqremovels/node_modules/lighthouse/core/lib/navigation-error.js:61:14)\n    at getPageLoadError (file:///home/runner/work/zqremovels/zqremovels/node_modules/lighthouse/core/lib/navigation-error.js:162:24)\n    at _computeNavigationResult (file:///home/runner/work/zqremovels/zqremovels/node_modules/lighthouse/core/gather/navigation-runner.js:146:7)\n    at async gatherFn (file:///home/runner/work/zqremovels/zqremovels/node_modules/lighthouse/core/gather/navigation-runner.js:300:23)\n    at async Runner.gather (file:///home/runner/work/zqremovels/zqremovels/node_modules/lighthouse/core/runner.js:211:25)\n    at async navigationGather (file:///home/runner/work/zqremovels/zqremovels/node_modules/lighthouse/core/gather/navigation-runner.js:306:21)\n    at async navigation (file:///home/runner/work/zqremovels/zqremovels/node_modules/lighthouse/core/index.js:58:24)\n    at async runLighthouse (file:///home/runner/work/zqremovels/zqremovels/node_modules/lighthouse/cli/run.js:210:26)\n    at async file:///home/runner/work/zqremovels/zqremovels/node_modules/lighthouse/cli/index.js:10:1"
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5521569Z     },
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5522100Z     "redirects-http": {
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5522433Z       "id": "redirects-http",
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5522902Z       "title": "Redirects HTTP traffic to HTTPS",
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5524473Z       "description": "Make sure that you redirect all HTTP traffic to HTTPS in order to enable secure web features for all your users. [Learn more](https://developer.chrome.com/docs/lighthouse/pwa/redirects-http/).",
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5525774Z       "score": null,
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5526138Z       "scoreDisplayMode": "error",
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5527573Z       "errorMessage": "Lighthouse was unable to reliably load the page you requested. Make sure you are testing the correct URL and that the server is properly responding to all requests. (Status code: 404)",
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5529348Z       "errorStack": "LighthouseError: ERRORED_DOCUMENT_REQUEST\n    at getNetworkError (file:///home/ru
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5530341Z 2026-05-09T07:55:00.395Z LH:ChromeLauncher Waiting for browser.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5531101Z 2026-05-09T07:55:00.395Z LH:ChromeLauncher Waiting for browser...
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5532007Z 2026-05-09T07:55:00.901Z LH:ChromeLauncher Waiting for browser.....
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5532793Z 2026-05-09T07:55:01.402Z LH:ChromeLauncher Waiting for browser.......
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5533681Z 2026-05-09T07:55:01.904Z LH:ChromeLauncher Waiting for browser.........
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5534546Z 2026-05-09T07:55:02.405Z LH:ChromeLauncher Waiting for browser...........
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5535394Z 2026-05-09T07:55:02.906Z LH:ChromeLauncher Waiting for browser.............
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5536207Z 2026-05-09T07:55:03.408Z LH:ChromeLauncher Waiting for browser...............
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5537050Z 2026-05-09T07:55:03.909Z LH:ChromeLauncher Waiting for browser.................
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5537897Z 2026-05-09T07:55:04.411Z LH:ChromeLauncher Waiting for browser...................
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5538772Z 2026-05-09T07:55:04.912Z LH:ChromeLauncher Waiting for browser.....................
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5539698Z 2026-05-09T07:55:05.414Z LH:ChromeLauncher Waiting for browser.......................
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5540627Z 2026-05-09T07:55:05.915Z LH:ChromeLauncher Waiting for browser.........................
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5541581Z 2026-05-09T07:55:06.417Z LH:ChromeLauncher Waiting for browser...........................
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5543447Z 2026-05-09T07:55:06.418Z LH:ChromeLauncher Waiting for browser...........................^[[32mÔ£ô^[[0m
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5544329Z 2026-05-09T07:55:07.420Z LH:status Connecting to browser
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5544962Z 2026-05-09T07:55:07.427Z LH:status Navigating to about:blank
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5545864Z 2026-05-09T07:55:07.437Z LH:status Benchmarking machine
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5546585Z 2026-05-09T07:55:08.443Z LH:status Preparing target for navigation mode
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5547239Z 2026-05-09T07:55:08.458Z LH:status Cleaning origin data
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5547839Z 2026-05-09T07:55:08.462Z LH:status Cleaning browser cache
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5548586Z 2026-05-09T07:55:08.468Z LH:status Preparing network conditions
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5549475Z 2026-05-09T07:55:08.507Z LH:status Navigating to http://localhost:45979/
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5551695Z 2026-05-09T07:55:11.080Z LH:NavigationRunner:error Lighthouse was unable to reliably load the page you requested. Make sure you are testing the correct URL and that the server is properly responding to all requests. (Status code: 404) http://localhost:45979/
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5553863Z 2026-05-09T07:55:11.090Z LH:status Analyzing and running audits...
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5554560Z 2026-05-09T07:55:11.092Z LH:status Auditing: Uses HTTPS
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5555397Z 2026-05-09T07:55:11.093Z LH:is-on-https:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5556326Z 2026-05-09T07:55:11.095Z LH:status Auditing: Redirects HTTP traffic to HTTPS
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5557288Z 2026-05-09T07:55:11.095Z LH:redirects-http:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5558491Z 2026-05-09T07:55:11.096Z LH:status Auditing: Has a `<meta name="viewport">` tag with `width` or `initial-scale`
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5559610Z 2026-05-09T07:55:11.096Z LH:viewport:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5560471Z 2026-05-09T07:55:11.097Z LH:status Auditing: First Contentful Paint
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5561474Z 2026-05-09T07:55:11.097Z LH:first-contentful-paint:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5562619Z 2026-05-09T07:55:11.098Z LH:status Auditing: Largest Contentful Paint
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5563657Z 2026-05-09T07:55:11.098Z LH:largest-contentful-paint:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5564648Z 2026-05-09T07:55:11.099Z LH:status Auditing: First Meaningful Paint
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5565631Z 2026-05-09T07:55:11.099Z LH:first-meaningful-paint:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5566451Z 2026-05-09T07:55:11.100Z LH:status Auditing: Speed Index
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5566973Z 2026-05-09T07:55:11.100Z LH:speed-index:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5567484Z 2026-05-09T07:55:11.100Z LH:status Auditing: Screenshot Thumbnails
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5568044Z 2026-05-09T07:55:11.101Z LH:screenshot-thumbnails:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5568816Z 2026-05-09T07:55:11.101Z LH:status Auditing: Final Screenshot
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5569480Z 2026-05-09T07:55:11.101Z LH:final-screenshot:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5570012Z 2026-05-09T07:55:11.101Z LH:status Auditing: Total Blocking Time
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5570575Z 2026-05-09T07:55:11.101Z LH:total-blocking-time:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5571433Z 2026-05-09T07:55:11.102Z LH:status Auditing: Max Potential First Input Delay
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5572555Z 2026-05-09T07:55:11.102Z LH:max-potential-fid:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5573429Z 2026-05-09T07:55:11.102Z LH:status Auditing: Cumulative Layout Shift
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5574359Z 2026-05-09T07:55:11.102Z LH:cumulative-layout-shift:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5575493Z 2026-05-09T07:55:11.103Z LH:status Auditing: No browser errors logged to the console
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5576487Z 2026-05-09T07:55:11.103Z LH:errors-in-console:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5577382Z 2026-05-09T07:55:11.104Z LH:status Auditing: Initial server response time was short
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5578351Z 2026-05-09T07:55:11.104Z LH:server-response-time:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5579484Z 2026-05-09T07:55:11.105Z LH:status Auditing: Time to Interactive
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5580256Z 2026-05-09T07:55:11.105Z LH:interactive:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5581109Z 2026-05-09T07:55:11.105Z LH:status Auditing: User Timing marks and measures
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5582145Z 2026-05-09T07:55:11.105Z LH:user-timings:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5582975Z 2026-05-09T07:55:11.111Z LH:status Auditing: Avoid chaining critical requests
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5583931Z 2026-05-09T07:55:11.111Z LH:critical-request-chains:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5584741Z 2026-05-09T07:55:11.111Z LH:status Auditing: Avoid multiple page redirects
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5585445Z 2026-05-09T07:55:11.112Z LH:redirects:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5586024Z 2026-05-09T07:55:11.112Z LH:status Auditing: Displays images with correct aspect ratio
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5586629Z 2026-05-09T07:55:11.112Z LH:image-aspect-ratio:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5587222Z 2026-05-09T07:55:11.113Z LH:status Auditing: Serves images with appropriate resolution
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5587835Z 2026-05-09T07:55:11.113Z LH:image-size-responsive:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5588379Z 2026-05-09T07:55:11.113Z LH:status Auditing: Avoids deprecated APIs
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5588905Z 2026-05-09T07:55:11.114Z LH:deprecations:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5589434Z 2026-05-09T07:55:11.114Z LH:status Auditing: Avoids third-party cookies
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5590147Z 2026-05-09T07:55:11.114Z LH:third-party-cookies:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5591078Z 2026-05-09T07:55:11.115Z LH:status Auditing: Minimizes main-thread work
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5592242Z 2026-05-09T07:55:11.115Z LH:mainthread-work-breakdown:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5593215Z 2026-05-09T07:55:11.116Z LH:status Auditing: JavaScript execution time
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5594143Z 2026-05-09T07:55:11.116Z LH:bootup-time:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5595031Z 2026-05-09T07:55:11.117Z LH:status Auditing: Preconnect to required origins
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5595996Z 2026-05-09T07:55:11.117Z LH:uses-rel-preconnect:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5597031Z 2026-05-09T07:55:11.117Z LH:status Auditing: All text remains visible during webfont loads
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5598005Z 2026-05-09T07:55:11.117Z LH:font-display:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5598482Z 2026-05-09T07:55:11.118Z LH:status Auditing: Diagnostics
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5598967Z 2026-05-09T07:55:11.118Z LH:diagnostics:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5599453Z 2026-05-09T07:55:11.118Z LH:status Auditing: Network Requests
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5599971Z 2026-05-09T07:55:11.118Z LH:network-requests:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5600507Z 2026-05-09T07:55:11.118Z LH:status Auditing: Network Round Trip Times
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5601024Z 2026-05-09T07:55:11.118Z LH:network-rtt:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5601516Z 2026-05-09T07:55:11.119Z LH:status Auditing: Server Backend Latencies
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5602280Z 2026-05-09T07:55:11.119Z LH:network-server-latency:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5602803Z 2026-05-09T07:55:11.119Z LH:status Auditing: Tasks
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5603316Z 2026-05-09T07:55:11.119Z LH:main-thread-tasks:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5603792Z 2026-05-09T07:55:11.119Z LH:status Auditing: Metrics
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5604257Z 2026-05-09T07:55:11.119Z LH:metrics:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5604739Z 2026-05-09T07:55:11.119Z LH:status Auditing: Resources Summary
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5605263Z 2026-05-09T07:55:11.119Z LH:resource-summary:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5605981Z 2026-05-09T07:55:11.119Z LH:status Auditing: Minimize third-party usage
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5606547Z 2026-05-09T07:55:11.119Z LH:third-party-summary:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5607154Z 2026-05-09T07:55:11.120Z LH:status Auditing: Lazy load third-party resources with facades
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5607773Z 2026-05-09T07:55:11.120Z LH:third-party-facades:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5608349Z 2026-05-09T07:55:11.121Z LH:status Auditing: Largest Contentful Paint element
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5609014Z 2026-05-09T07:55:11.121Z LH:largest-contentful-paint-element:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5609831Z 2026-05-09T07:55:11.121Z LH:status Auditing: Largest Contentful Paint image was not lazily loaded
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5610613Z 2026-05-09T07:55:11.121Z LH:lcp-lazy-loaded:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5611511Z 2026-05-09T07:55:11.122Z LH:status Auditing: Avoid large layout shifts
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5612605Z 2026-05-09T07:55:11.122Z LH:layout-shifts:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5613517Z 2026-05-09T07:55:11.123Z LH:status Auditing: Avoid long main-thread tasks
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5614411Z 2026-05-09T07:55:11.123Z LH:long-tasks:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5615308Z 2026-05-09T07:55:11.123Z LH:status Auditing: Avoid non-composited animations
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5616359Z 2026-05-09T07:55:11.123Z LH:non-composited-animations:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5617486Z 2026-05-09T07:55:11.124Z LH:status Auditing: Image elements have explicit `width` and `height`
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5618451Z 2026-05-09T07:55:11.124Z LH:unsized-images:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5618991Z 2026-05-09T07:55:11.124Z LH:status Auditing: Page has valid source maps
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5619553Z 2026-05-09T07:55:11.124Z LH:valid-source-maps:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5620123Z 2026-05-09T07:55:11.125Z LH:status Auditing: Preload Largest Contentful Paint image
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5620743Z 2026-05-09T07:55:11.125Z LH:prioritize-lcp-image:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5621344Z 2026-05-09T07:55:11.126Z LH:status Auditing: Ensure CSP is effective against XSS attacks
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5622182Z 2026-05-09T07:55:11.126Z LH:csp-xss:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5623004Z 2026-05-09T07:55:11.126Z LH:status Auditing: Use a strong HSTS policy
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5623511Z 2026-05-09T07:55:11.126Z LH:has-hsts:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5624075Z 2026-05-09T07:55:11.127Z LH:status Auditing: Ensure proper origin isolation with COOP
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5624673Z 2026-05-09T07:55:11.127Z LH:origin-isolation:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5625258Z 2026-05-09T07:55:11.127Z LH:status Auditing: Mitigate clickjacking with XFO or CSP
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5625892Z 2026-05-09T07:55:11.127Z LH:clickjacking-mitigation:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5626453Z 2026-05-09T07:55:11.128Z LH:status Auditing: Script Treemap Data
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5627007Z 2026-05-09T07:55:11.128Z LH:script-treemap-data:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5627575Z 2026-05-09T07:55:11.128Z LH:status Auditing: `[accesskey]` values are unique
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5628133Z 2026-05-09T07:55:11.128Z LH:accesskeys:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5628707Z 2026-05-09T07:55:11.128Z LH:status Auditing: `[aria-*]` attributes match their roles
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5629317Z 2026-05-09T07:55:11.129Z LH:aria-allowed-attr:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5629917Z 2026-05-09T07:55:11.129Z LH:status Auditing: Uses ARIA roles only on compatible elements
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5630673Z 2026-05-09T07:55:11.129Z LH:aria-allowed-role:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5631528Z 2026-05-09T07:55:11.130Z LH:status Auditing: `button`, `link`, and `menuitem` elements have accessible names
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5632791Z 2026-05-09T07:55:11.130Z LH:aria-command-name:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5633924Z 2026-05-09T07:55:11.131Z LH:status Auditing: ARIA attributes are used as specified for the element's role
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5635069Z 2026-05-09T07:55:11.131Z LH:aria-conditional-attr:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5636059Z 2026-05-09T07:55:11.131Z LH:status Auditing: Deprecated ARIA roles were not used
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5637222Z 2026-05-09T07:55:11.131Z LH:aria-deprecated-role:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5638485Z 2026-05-09T07:55:11.132Z LH:status Auditing: Elements with `role="dialog"` or `role="alertdialog"` have accessible names.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5639468Z 2026-05-09T07:55:11.132Z LH:aria-dialog-name:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5640141Z 2026-05-09T07:55:11.133Z LH:status Auditing: `[aria-hidden="true"]` is not present on the document `<body>`
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5641072Z 2026-05-09T07:55:11.133Z LH:aria-hidden-body:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5642391Z 2026-05-09T07:55:11.134Z LH:status Auditing: `[aria-hidden="true"]` elements do not contain focusable descendents
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5643534Z 2026-05-09T07:55:11.134Z LH:aria-hidden-focus:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5644166Z 2026-05-09T07:55:11.135Z LH:status Auditing: ARIA input fields have accessible names
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5644807Z 2026-05-09T07:55:11.135Z LH:aria-input-field-name:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5645419Z 2026-05-09T07:55:11.136Z LH:status Auditing: ARIA `meter` elements have accessible names
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5646018Z 2026-05-09T07:55:11.136Z LH:aria-meter-name:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5646630Z 2026-05-09T07:55:11.137Z LH:status Auditing: ARIA `progressbar` elements have accessible names
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5647271Z 2026-05-09T07:55:11.137Z LH:aria-progressbar-name:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5647931Z 2026-05-09T07:55:11.142Z LH:status Auditing: Elements use only permitted ARIA attributes
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5648677Z 2026-05-09T07:55:11.143Z LH:aria-prohibited-attr:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5649464Z 2026-05-09T07:55:11.143Z LH:status Auditing: `[role]`s have all required `[aria-*]` attributes
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5650275Z 2026-05-09T07:55:11.143Z LH:aria-required-attr:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5651228Z 2026-05-09T07:55:11.144Z LH:status Auditing: Elements with an ARIA `[role]` that require children to contain a specific `[role]` have all required children.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5652417Z 2026-05-09T07:55:11.144Z LH:aria-required-children:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5653097Z 2026-05-09T07:55:11.145Z LH:status Auditing: `[role]`s are contained by their required parent element
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5653760Z 2026-05-09T07:55:11.145Z LH:aria-required-parent:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5654307Z 2026-05-09T07:55:11.146Z LH:status Auditing: `[role]` values are valid
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5654822Z 2026-05-09T07:55:11.146Z LH:aria-roles:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5655523Z 2026-05-09T07:55:11.147Z LH:status Auditing: Elements with the `role=text` attribute do not have focusable descendents.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5656191Z 2026-05-09T07:55:11.147Z LH:aria-text:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5656730Z 2026-05-09T07:55:11.147Z LH:status Auditing: ARIA toggle fields have accessible names
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5657521Z 2026-05-09T07:55:11.148Z LH:aria-toggle-field-name:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5658150Z 2026-05-09T07:55:11.148Z LH:status Auditing: ARIA `tooltip` elements have accessible names
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5658757Z 2026-05-09T07:55:11.148Z LH:aria-tooltip-name:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5659367Z 2026-05-09T07:55:11.149Z LH:status Auditing: ARIA `treeitem` elements have accessible names
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5659978Z 2026-05-09T07:55:11.150Z LH:aria-treeitem-name:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5660554Z 2026-05-09T07:55:11.150Z LH:status Auditing: `[aria-*]` attributes have valid values
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5661282Z 2026-05-09T07:55:11.150Z LH:aria-valid-attr-value:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5662091Z 2026-05-09T07:55:11.151Z LH:status Auditing: `[aria-*]` attributes are valid and not misspelled
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5662710Z 2026-05-09T07:55:11.151Z LH:aria-valid-attr:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5663262Z 2026-05-09T07:55:11.152Z LH:status Auditing: Buttons have an accessible name
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5663806Z 2026-05-09T07:55:11.152Z LH:button-name:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5664434Z 2026-05-09T07:55:11.153Z LH:status Auditing: The page contains a heading, skip link, or landmark region
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5665042Z 2026-05-09T07:55:11.153Z LH:bypass:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5665691Z 2026-05-09T07:55:11.154Z LH:status Auditing: Background and foreground colors have a sufficient contrast ratio
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5666362Z 2026-05-09T07:55:11.154Z LH:color-contrast:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5667205Z 2026-05-09T07:55:11.154Z LH:status Auditing: `<dl>`'s contain only properly-ordered `<dt>` and `<dd>` groups, `<script>`, `<template>` or `<div>` elements.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5667974Z 2026-05-09T07:55:11.155Z LH:definition-list:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5668583Z 2026-05-09T07:55:11.155Z LH:status Auditing: Definition list items are wrapped in `<dl>` elements
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5669154Z 2026-05-09T07:55:11.155Z LH:dlitem:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5669672Z 2026-05-09T07:55:11.156Z LH:status Auditing: Document has a `<title>` element
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5670253Z 2026-05-09T07:55:11.156Z LH:document-title:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5670774Z 2026-05-09T07:55:11.157Z LH:status Auditing: ARIA IDs are unique
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5671320Z 2026-05-09T07:55:11.157Z LH:duplicate-id-aria:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5672070Z 2026-05-09T07:55:11.158Z LH:status Auditing: All heading elements contain content.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5672663Z 2026-05-09T07:55:11.158Z LH:empty-heading:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5673238Z 2026-05-09T07:55:11.159Z LH:status Auditing: No form fields have multiple labels
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5673890Z 2026-05-09T07:55:11.160Z LH:form-field-multiple-labels:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5674535Z 2026-05-09T07:55:11.160Z LH:status Auditing: `<frame>` or `<iframe>` elements have a title
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5675149Z 2026-05-09T07:55:11.160Z LH:frame-title:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5675806Z 2026-05-09T07:55:11.161Z LH:status Auditing: Heading elements appear in a sequentially-descending order
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5676446Z 2026-05-09T07:55:11.161Z LH:heading-order:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5677290Z 2026-05-09T07:55:11.162Z LH:status Auditing: `<html>` element has a `[lang]` attribute
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5678239Z 2026-05-09T07:55:11.162Z LH:html-has-lang:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5679301Z 2026-05-09T07:55:11.162Z LH:status Auditing: `<html>` element has a valid value for its `[lang]` attribute
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5680278Z 2026-05-09T07:55:11.162Z LH:html-lang-valid:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5681122Z 2026-05-09T07:55:11.163Z LH:status Auditing: `<html>` element has an `[xml:lang]` attribute with the same base language as the `[lang]` attribute.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5682125Z 2026-05-09T07:55:11.163Z LH:html-xml-lang-mismatch:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5682740Z 2026-05-09T07:55:11.164Z LH:status Auditing: Identical links have the same purpose.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5683421Z 2026-05-09T07:55:11.164Z LH:identical-links-same-purpose:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5684196Z 2026-05-09T07:55:11.171Z LH:status Auditing: Image elements have `[alt]` attributes
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5684753Z 2026-05-09T07:55:11.172Z LH:image-alt:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5685429Z 2026-05-09T07:55:11.172Z LH:status Auditing: Image elements do not have `[alt]` attributes that are redundant text.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5686146Z 2026-05-09T07:55:11.173Z LH:image-redundant-alt:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5686729Z 2026-05-09T07:55:11.174Z LH:status Auditing: Input buttons have discernible text.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5687313Z 2026-05-09T07:55:11.174Z LH:input-button-name:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5688121Z 2026-05-09T07:55:11.175Z LH:status Auditing: `<input type="image">` elements have `[alt]` text
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5689170Z 2026-05-09T07:55:11.175Z LH:input-image-alt:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5690351Z 2026-05-09T07:55:11.176Z LH:status Auditing: Elements with visible text labels have matching accessible names.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5691626Z 2026-05-09T07:55:11.176Z LH:label-content-name-mismatch:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5692845Z 2026-05-09T07:55:11.177Z LH:status Auditing: Form elements have associated labels
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5693768Z 2026-05-09T07:55:11.177Z LH:label:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5694630Z 2026-05-09T07:55:11.177Z LH:status Auditing: Document has a main landmark.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5695588Z 2026-05-09T07:55:11.177Z LH:landmark-one-main:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5696532Z 2026-05-09T07:55:11.178Z LH:status Auditing: Links have a discernible name
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5697419Z 2026-05-09T07:55:11.178Z LH:link-name:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5698466Z 2026-05-09T07:55:11.179Z LH:status Auditing: Links are distinguishable without relying on color.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5699565Z 2026-05-09T07:55:11.179Z LH:link-in-text-block:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5700969Z 2026-05-09T07:55:11.179Z LH:status Auditing: Lists contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5702343Z 2026-05-09T07:55:11.179Z LH:list:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5703595Z 2026-05-09T07:55:11.180Z LH:status Auditing: List items (`<li>`) are contained within `<ul>`, `<ol>` or `<menu>` parent elements
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5704797Z 2026-05-09T07:55:11.180Z LH:listitem:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5705844Z 2026-05-09T07:55:11.181Z LH:status Auditing: The document does not use `<meta http-equiv="refresh">`
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5706839Z 2026-05-09T07:55:11.181Z LH:meta-refresh:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5708341Z 2026-05-09T07:55:11.182Z LH:status Auditing: `[user-scalable="no"]` is not used in the `<meta name="viewport">` element and the `[maximum-scale]` attribute is not less than 5.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5709747Z 2026-05-09T07:55:11.182Z LH:meta-viewport:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5710731Z 2026-05-09T07:55:11.183Z LH:status Auditing: `<object>` elements have alternate text
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5711993Z 2026-05-09T07:55:11.184Z LH:object-alt:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5713001Z 2026-05-09T07:55:11.184Z LH:status Auditing: Select elements have associated label elements.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5714044Z 2026-05-09T07:55:11.184Z LH:select-name:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5714915Z 2026-05-09T07:55:11.185Z LH:status Auditing: Skip links are focusable.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5715805Z 2026-05-09T07:55:11.185Z LH:skip-link:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5716814Z 2026-05-09T07:55:11.186Z LH:status Auditing: No element has a `[tabindex]` value greater than 0
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5718075Z 2026-05-09T07:55:11.186Z LH:tabindex:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5719282Z 2026-05-09T07:55:11.187Z LH:status Auditing: Tables have different content in the summary attribute and `<caption>`.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5720527Z 2026-05-09T07:55:11.187Z LH:table-duplicate-name:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5722079Z 2026-05-09T07:55:11.188Z LH:status Auditing: Tables use `<caption>` instead of cells with the `[colspan]` attribute to indicate a caption.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5723515Z 2026-05-09T07:55:11.188Z LH:table-fake-caption:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5724610Z 2026-05-09T07:55:11.188Z LH:status Auditing: Touch targets have sufficient size and spacing.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5725612Z 2026-05-09T07:55:11.189Z LH:target-size:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5726749Z 2026-05-09T07:55:11.189Z LH:status Auditing: `<td>` elements in a large `<table>` have one or more table headers.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5727657Z 2026-05-09T07:55:11.189Z LH:td-has-header:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5728639Z 2026-05-09T07:55:11.190Z LH:status Auditing: Cells in a `<table>` element that use the `[headers]` attribute refer to table cells within the same table.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5729431Z 2026-05-09T07:55:11.190Z LH:td-headers-attr:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5730479Z 2026-05-09T07:55:11.191Z LH:status Auditing: `<th>` elements and elements with `[role="columnheader"/"rowheader"]` have data cells they describe.
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5731268Z 2026-05-09T07:55:11.191Z LH:th-has-data-cells:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5732068Z 2026-05-09T07:55:11.191Z LH:status Auditing: `[lang]` attributes have a valid value
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5732644Z 2026-05-09T07:55:11.191Z LH:valid-lang:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5733340Z 2026-05-09T07:55:11.192Z LH:status Auditing: `<video>` elements contain a `<track>` element with `[kind="captions"]`
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5734032Z 2026-05-09T07:55:11.192Z LH:video-caption:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5734600Z 2026-05-09T07:55:11.193Z LH:status Auditing: Custom controls have associated labels
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5735217Z 2026-05-09T07:55:11.193Z LH:custom-controls-labels:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5735802Z 2026-05-09T07:55:11.193Z LH:status Auditing: Custom controls have ARIA roles
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5736484Z 2026-05-09T07:55:11.193Z LH:custom-controls-roles:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5737134Z 2026-05-09T07:55:11.193Z LH:status Auditing: User focus is not accidentally trapped in a region
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5737845Z 2026-05-09T07:55:11.193Z LH:focus-traps:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5738432Z 2026-05-09T07:55:11.193Z LH:status Auditing: Interactive controls are keyboard focusable
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5739051Z 2026-05-09T07:55:11.193Z LH:focusable-controls:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5739779Z 2026-05-09T07:55:11.193Z LH:status Auditing: Interactive elements indicate their purpose and state
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5740700Z 2026-05-09T07:55:11.193Z LH:interactive-element-affordance:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5741319Z 2026-05-09T07:55:11.193Z LH:status Auditing: The page has a logical tab order
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5742089Z 2026-05-09T07:55:11.193Z LH:logical-tab-order:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5742761Z 2026-05-09T07:55:11.193Z LH:status Auditing: The user's focus is directed to new content added to the page
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5743470Z 2026-05-09T07:55:11.193Z LH:managed-focus:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5744103Z 2026-05-09T07:55:11.193Z LH:status Auditing: Offscreen content is hidden from assistive technology
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5744920Z 2026-05-09T07:55:11.193Z LH:offscreen-content-hidden:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5745596Z 2026-05-09T07:55:11.193Z LH:status Auditing: HTML5 landmark elements are used to improve navigation
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5746228Z 2026-05-09T07:55:11.193Z LH:use-landmarks:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5746814Z 2026-05-09T07:55:11.193Z LH:status Auditing: Visual order on the page follows DOM order
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5747440Z 2026-05-09T07:55:11.193Z LH:visual-order-follows-dom:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5748061Z 2026-05-09T07:55:11.193Z LH:status Auditing: Uses efficient cache policy on static assets
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5748669Z 2026-05-09T07:55:11.193Z LH:uses-long-cache-ttl:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5749229Z 2026-05-09T07:55:11.194Z LH:status Auditing: Avoids enormous network payloads
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5749804Z 2026-05-09T07:55:11.194Z LH:total-byte-weight:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5750338Z 2026-05-09T07:55:11.195Z LH:status Auditing: Defer offscreen images
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5750872Z 2026-05-09T07:55:11.195Z LH:offscreen-images:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5751449Z 2026-05-09T07:55:11.195Z LH:status Auditing: Eliminate render-blocking resources
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5752242Z 2026-05-09T07:55:11.195Z LH:render-blocking-resources:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5752775Z 2026-05-09T07:55:11.196Z LH:status Auditing: Minify CSS
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5753274Z 2026-05-09T07:55:11.196Z LH:unminified-css:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5753777Z 2026-05-09T07:55:11.196Z LH:status Auditing: Minify JavaScript
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5754328Z 2026-05-09T07:55:11.196Z LH:unminified-javascript:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5754854Z 2026-05-09T07:55:11.197Z LH:status Auditing: Reduce unused CSS
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5755366Z 2026-05-09T07:55:11.197Z LH:unused-css-rules:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5755892Z 2026-05-09T07:55:11.204Z LH:status Auditing: Reduce unused JavaScript
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5756452Z 2026-05-09T07:55:11.204Z LH:unused-javascript:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5757005Z 2026-05-09T07:55:11.204Z LH:status Auditing: Serve images in next-gen formats
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5757589Z 2026-05-09T07:55:11.205Z LH:modern-image-formats:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5758136Z 2026-05-09T07:55:11.205Z LH:status Auditing: Efficiently encode images
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5758694Z 2026-05-09T07:55:11.205Z LH:uses-optimized-images:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5759234Z 2026-05-09T07:55:11.206Z LH:status Auditing: Enable text compression
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5759793Z 2026-05-09T07:55:11.206Z LH:uses-text-compression:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5760325Z 2026-05-09T07:55:11.206Z LH:status Auditing: Properly size images
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5760886Z 2026-05-09T07:55:11.206Z LH:uses-responsive-images:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5761649Z 2026-05-09T07:55:11.207Z LH:status Auditing: Use video formats for animated content
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5762439Z 2026-05-09T07:55:11.207Z LH:efficient-animated-content:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5763092Z 2026-05-09T07:55:11.208Z LH:status Auditing: Remove duplicate modules in JavaScript bundles
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5763714Z 2026-05-09T07:55:11.208Z LH:duplicated-javascript:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5764353Z 2026-05-09T07:55:11.208Z LH:status Auditing: Avoid serving legacy JavaScript to modern browsers
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5764974Z 2026-05-09T07:55:11.208Z LH:legacy-javascript:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5765623Z 2026-05-09T07:55:11.209Z LH:status Auditing: Page has the HTML doctype
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5766124Z 2026-05-09T07:55:11.209Z LH:doctype:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5766616Z 2026-05-09T07:55:11.210Z LH:status Auditing: Properly defines charset
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5767113Z 2026-05-09T07:55:11.210Z LH:charset:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5767638Z 2026-05-09T07:55:11.210Z LH:status Auditing: Avoids an excessive DOM size
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5768170Z 2026-05-09T07:55:11.211Z LH:dom-size:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5768797Z 2026-05-09T07:55:11.211Z LH:status Auditing: Avoids requesting the geolocation permission on page load
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5769488Z 2026-05-09T07:55:11.211Z LH:geolocation-on-start:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5770152Z 2026-05-09T07:55:11.212Z LH:status Auditing: No issues in the `Issues` panel in Chrome Devtools
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5770787Z 2026-05-09T07:55:11.212Z LH:inspector-issues:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5771334Z 2026-05-09T07:55:11.213Z LH:status Auditing: Avoids `document.write()`
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5772079Z 2026-05-09T07:55:11.213Z LH:no-document-write:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5772646Z 2026-05-09T07:55:11.214Z LH:status Auditing: Detected JavaScript libraries
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5773201Z 2026-05-09T07:55:11.214Z LH:js-libraries:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5773858Z 2026-05-09T07:55:11.214Z LH:status Auditing: Avoids requesting the notification permission on page load
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5774535Z 2026-05-09T07:55:11.214Z LH:notification-on-start:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5775171Z 2026-05-09T07:55:11.215Z LH:status Auditing: Allows users to paste into input fields
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5775814Z 2026-05-09T07:55:11.216Z LH:paste-preventing-inputs:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5776340Z 2026-05-09T07:55:11.216Z LH:status Auditing: Use HTTP/2
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5776817Z 2026-05-09T07:55:11.216Z LH:uses-http2:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5777433Z 2026-05-09T07:55:11.217Z LH:status Auditing: Uses passive listeners to improve scrolling performance
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5778154Z 2026-05-09T07:55:11.217Z LH:uses-passive-event-listeners:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5778777Z 2026-05-09T07:55:11.217Z LH:status Auditing: Document has a meta description
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5779350Z 2026-05-09T07:55:11.218Z LH:meta-description:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5779929Z 2026-05-09T07:55:11.218Z LH:status Auditing: Page has successful HTTP status code
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5780510Z 2026-05-09T07:55:11.218Z LH:http-status-code:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5781053Z 2026-05-09T07:55:11.219Z LH:status Auditing: Document uses legible font sizes
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5781594Z 2026-05-09T07:55:11.219Z LH:font-size:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5782308Z 2026-05-09T07:55:11.219Z LH:status Auditing: Links have descriptive text
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5782964Z 2026-05-09T07:55:11.220Z LH:link-text:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5783451Z 2026-05-09T07:55:11.220Z LH:status Auditing: Links are crawlable
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5784001Z 2026-05-09T07:55:11.220Z LH:crawlable-anchors:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5784813Z 2026-05-09T07:55:11.221Z LH:status Auditing: Page isnÔÇÖt blocked from indexing
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5785385Z 2026-05-09T07:55:11.221Z LH:is-crawlable:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5785891Z 2026-05-09T07:55:11.221Z LH:status Auditing: robots.txt is valid
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5786389Z 2026-05-09T07:55:11.221Z LH:robots-txt:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5787047Z 2026-05-09T07:55:11.222Z LH:status Auditing: Document has a valid `hreflang`
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5787604Z 2026-05-09T07:55:11.222Z LH:hreflang:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5788138Z 2026-05-09T07:55:11.223Z LH:status Auditing: Document has a valid `rel=canonical`
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5788692Z 2026-05-09T07:55:11.223Z LH:canonical:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5789194Z 2026-05-09T07:55:11.224Z LH:status Auditing: Structured data is valid
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5789737Z 2026-05-09T07:55:11.224Z LH:structured-data:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5790379Z 2026-05-09T07:55:11.225Z LH:status Auditing: Page didn't prevent back/forward cache restoration
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5790962Z 2026-05-09T07:55:11.225Z LH:bf-cache:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5791472Z 2026-05-09T07:55:11.226Z LH:status Auditing: Use efficient cache lifetimes
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5792230Z 2026-05-09T07:55:11.226Z LH:cache-insight:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5792744Z 2026-05-09T07:55:11.227Z LH:status Auditing: Layout shift culprits
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5793304Z 2026-05-09T07:55:11.227Z LH:cls-culprits-insight:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5793856Z 2026-05-09T07:55:11.235Z LH:status Auditing: Document request latency
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5794432Z 2026-05-09T07:55:11.235Z LH:document-latency-insight:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5794981Z 2026-05-09T07:55:11.236Z LH:status Auditing: Optimize DOM size
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5795504Z 2026-05-09T07:55:11.236Z LH:dom-size-insight:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5796013Z 2026-05-09T07:55:11.237Z LH:status Auditing: Duplicated JavaScript
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5796635Z 2026-05-09T07:55:11.237Z LH:duplicated-javascript-insight:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5797195Z 2026-05-09T07:55:11.237Z LH:status Auditing: Font display
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5797732Z 2026-05-09T07:55:11.237Z LH:font-display-insight:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5798245Z 2026-05-09T07:55:11.238Z LH:status Auditing: Forced reflow
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5798794Z 2026-05-09T07:55:11.238Z LH:forced-reflow-insight:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5799333Z 2026-05-09T07:55:11.238Z LH:status Auditing: Improve image delivery
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5799911Z 2026-05-09T07:55:11.239Z LH:image-delivery-insight:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5800421Z 2026-05-09T07:55:11.239Z LH:status Auditing: INP by phase
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5801019Z 2026-05-09T07:55:11.239Z LH:interaction-to-next-paint-insight:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5801615Z 2026-05-09T07:55:11.240Z LH:status Auditing: LCP request discovery
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5802454Z 2026-05-09T07:55:11.240Z LH:lcp-discovery-insight:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5802986Z 2026-05-09T07:55:11.240Z LH:status Auditing: LCP by phase
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5803526Z 2026-05-09T07:55:11.241Z LH:lcp-phases-insight:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5804213Z 2026-05-09T07:55:11.241Z LH:status Auditing: Legacy JavaScript
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5804799Z 2026-05-09T07:55:11.241Z LH:legacy-javascript-insight:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5805328Z 2026-05-09T07:55:11.242Z LH:status Auditing: Modern HTTP
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5805850Z 2026-05-09T07:55:11.242Z LH:modern-http-insight:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5806386Z 2026-05-09T07:55:11.242Z LH:status Auditing: Network dependency tree
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5807013Z 2026-05-09T07:55:11.243Z LH:network-dependency-tree-insight:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5807611Z 2026-05-09T07:55:11.243Z LH:status Auditing: Render blocking requests
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5808308Z 2026-05-09T07:55:11.243Z LH:render-blocking-insight:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5808824Z 2026-05-09T07:55:11.244Z LH:status Auditing: 3rd parties
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5809343Z 2026-05-09T07:55:11.244Z LH:third-parties-insight:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5809913Z 2026-05-09T07:55:11.244Z LH:status Auditing: Optimize viewport for mobile
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5810470Z 2026-05-09T07:55:11.244Z LH:viewport-insight:warn Caught exception: ERRORED_DOCUMENT_REQUEST
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5810943Z 2026-05-09T07:55:11.245Z LH:status Generating results...
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5811373Z 2026-05-09T07:55:11.327Z LH:ChromeLauncher Killing Chrome instance 2442
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5813350Z Runtime error encountered: Lighthouse was unable to reliably load the page you requested. Make sure you are testing the correct URL and that the server is properly responding to all requests. (Status code: 404)
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5814093Z 
+lighthouse	Run Lighthouse CI	2026-05-09T07:55:22.5824968Z ##[error]Process completed with exit code 1.

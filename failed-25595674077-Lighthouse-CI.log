@@ -1,0 +1,10 @@
+lighthouse	Run Lighthouse CI	´╗┐2026-05-09T07:45:24.0428214Z ##[group]Run npm run lhci
+lighthouse	Run Lighthouse CI	2026-05-09T07:45:24.0428529Z ^[[36;1mnpm run lhci^[[0m
+lighthouse	Run Lighthouse CI	2026-05-09T07:45:24.0450816Z shell: /usr/bin/bash -e {0}
+lighthouse	Run Lighthouse CI	2026-05-09T07:45:24.0451057Z ##[endgroup]
+lighthouse	Run Lighthouse CI	2026-05-09T07:45:24.1738086Z 
+lighthouse	Run Lighthouse CI	2026-05-09T07:45:24.1738993Z > zq-static-site@1.0.0 lhci
+lighthouse	Run Lighthouse CI	2026-05-09T07:45:24.1739752Z > lhci autorun
+lighthouse	Run Lighthouse CI	2026-05-09T07:45:24.1739894Z 
+lighthouse	Run Lighthouse CI	2026-05-09T07:45:24.1790155Z sh: 1: lhci: not found
+lighthouse	Run Lighthouse CI	2026-05-09T07:45:24.1884729Z ##[error]Process completed with exit code 127.

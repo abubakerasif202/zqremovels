@@ -33,7 +33,10 @@ const templates = {
 const partials = {
   header: await readFile(path.join(srcRoot, 'partials', 'header.html'), 'utf8'),
   footer: await readFile(path.join(srcRoot, 'partials', 'footer.html'), 'utf8'),
+  criticalCss: await readFile(path.join(srcRoot, 'data', 'critical.css'), 'utf8').catch(() => ''),
 };
+
+const minifiedCriticalCss = minifyCss(partials.criticalCss);
 
 const staticPages = JSON.parse(await readFile(path.join(srcRoot, 'pages.json'), 'utf8'));
 const generatedPages = getGeneratedPages();
@@ -2544,6 +2547,15 @@ function renderHead(page, content) {
     `<meta name="twitter:image:alt" content="${escapeAttribute(imageAlt)}" />`,
   ];
 
+  if (page.id === 'home' || page.id === 'index' || page.layout === 'standard') {
+    // Only preload on homepage or pages likely to have the hero above the fold
+    // Since index.html is the main one using this image, we can be specific or broad.
+    // The user asked for "homepage/major landing pages using that image above the fold".
+    if (page.id === 'home' || page.id === 'index' || page.id === '/') {
+      tags.push('<link rel="preload" as="image" href="/media/adelaide-removalists-team-truck.webp" type="image/webp" fetchpriority="high" />');
+    }
+  }
+
   if (process.env.GA_MEASUREMENT_ID) {
     tags.push(
       '<link rel="preconnect" href="https://www.googletagmanager.com" />',
@@ -2559,6 +2571,7 @@ function renderHead(page, content) {
   }
 
   if (page.layout !== 'redirect') {
+    tags.push(`<style>${minifiedCriticalCss}</style>`);
     tags.push('<link rel="stylesheet" href="/premium-site.min.css" />');
   }
 
@@ -3273,7 +3286,7 @@ function normalizeMovingCompanyNode(node) {
       name: 'ABN',
       value: businessIdentifiers.abnMachine,
     },
-    priceRange: '$$',
+    priceRange: priceRange || '$$',
     serviceType: [
       'Local removals',
       'Interstate removals',

@@ -422,6 +422,75 @@ function setupFooterSocialLinks() {
   section.hidden = false;
 }
 
+function setupMobileFooterAccordion() {
+  const mobileQuery = window.matchMedia("(max-width: 768px)");
+  const panels = Array.from(
+    document.querySelectorAll(".footer-link-groups .footer-panel:not([data-social-section])"),
+  );
+
+  if (panels.length === 0) {
+    return;
+  }
+
+  panels.forEach((panel) => {
+    const header = panel.querySelector(".footer-title");
+    const list = panel.querySelector(".footer-link-list");
+
+    if (!header || !list) {
+      return;
+    }
+
+    header.setAttribute("role", "button");
+    header.setAttribute("tabindex", "0");
+    header.setAttribute("aria-controls", list.id || "");
+
+    if (!list.id) {
+      list.id = `footer-links-${header.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
+      header.setAttribute("aria-controls", list.id);
+    }
+
+    let indicator = header.querySelector(".footer-accordion-indicator");
+    if (!indicator) {
+      indicator = document.createElement("span");
+      indicator.className = "footer-accordion-indicator";
+      indicator.setAttribute("aria-hidden", "true");
+      header.appendChild(indicator);
+    }
+
+    const syncPanel = () => {
+      const isMobile = mobileQuery.matches;
+      const isOpen = panel.classList.contains("is-open");
+      header.setAttribute("aria-expanded", isMobile && isOpen ? "true" : "false");
+      indicator.textContent = isOpen ? "-" : "+";
+    };
+
+    const togglePanel = () => {
+      if (!mobileQuery.matches) {
+        return;
+      }
+      panel.classList.toggle("is-open");
+      syncPanel();
+    };
+
+    header.addEventListener("click", togglePanel);
+    header.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") {
+        return;
+      }
+      event.preventDefault();
+      togglePanel();
+    });
+
+    syncPanel();
+    mobileQuery.addEventListener("change", () => {
+      if (!mobileQuery.matches) {
+        panel.classList.remove("is-open");
+      }
+      syncPanel();
+    });
+  });
+}
+
 function setQuoteFormSubmitting(form, isSubmitting) {
   const submitButton = form.querySelector('button[type="submit"]');
   if (!submitButton) {
@@ -679,8 +748,19 @@ setupFormState();
 setupQuoteForms();
 setupLocalFormPreview();
 setupHeaderState();
-setupRevealAnimations();
-setupStickyCta();
-setupConversionTracking();
-setupFooterSocialLinks();
-setupSuccessPageTracking();
+
+// Defer non-critical UI and animations
+const deferWork = () => {
+  setupRevealAnimations();
+  setupStickyCta();
+  setupConversionTracking();
+  setupFooterSocialLinks();
+  setupMobileFooterAccordion();
+  setupSuccessPageTracking();
+};
+
+if ("requestIdleCallback" in window) {
+  window.requestIdleCallback(deferWork, { timeout: 2000 });
+} else {
+  setTimeout(deferWork, 200);
+}

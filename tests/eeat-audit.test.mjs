@@ -82,8 +82,8 @@ test('build injects env-driven analytics tags and uses the social share image fa
 test('homepage hero serves the current WebP asset and dimensions', () => {
   const homepage = readDist('index.html');
 
-  assert.match(homepage, /<picture>[\s\S]*?<source[^>]+srcset="[^"]*\/media\/home-local-hero-branded[^"]*"[^>]+type="image\/webp"/i);
-  assert.match(homepage, /<img[^>]+src="\/media\/home-local-hero-branded\.webp"/i);
+  assert.match(homepage, /<picture>[\s\S]*?<source[^>]+srcset="[^"]*\/media\/adelaide-removalists-team-truck[^"]*"[^>]+type="image\/webp"/i);
+  assert.match(homepage, /<img[^>]+src="\/media\/adelaide-removalists-team-truck\.webp"/i);
   assert.match(homepage, /<img[^>]+width="768"/i);
   assert.match(homepage, /<img[^>]+height="406"/i);
 });
