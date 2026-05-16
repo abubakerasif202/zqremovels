@@ -76,8 +76,13 @@ export const localBusinessSchema = {
   telephone: PHONE,
   image: DEFAULT_OG_IMAGE,
   logo: DEFAULT_LOGO,
+  description: 'Fixed-price Adelaide removalists specializing in house, apartment, and office moves with careful furniture handling.',
   hasMap: seoConfig.socialProfiles[0],
-  sameAs: seoConfig.socialProfiles,
+  sameAs: [
+    ...seoConfig.socialProfiles,
+    'https://www.facebook.com/zqremovals/',
+    'https://www.instagram.com/zqremovals/',
+  ],
   taxID: ABN_MACHINE,
   identifier: {
     '@type': 'PropertyValue',
@@ -91,6 +96,35 @@ export const localBusinessSchema = {
     addressRegion: 'SA',
     postalCode: '5114',
     addressCountry: 'AU',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: -34.6947,
+    longitude: 138.6834,
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '07:00',
+      closes: '19:00',
+    },
+  ],
+  areaServed: [
+    { '@type': 'City', name: 'Adelaide' },
+    { '@type': 'State', name: 'South Australia' },
+  ],
+  knowsAbout: [
+    'House Removals',
+    'Apartment Moving',
+    'Office Relocation',
+    'Furniture Protection',
+    'Interstate Removals',
+    'Packing Services',
+  ],
+  brand: {
+    '@type': 'Brand',
+    name: 'ZQ Removals',
   },
   contactPoint: [
     {
@@ -333,6 +367,26 @@ export function buildTwitterTags({ title, description, image = DEFAULT_OG_IMAGE 
     twitterDescription: description,
     twitterImage: image,
   };
+}
+
+export function renderHomepageAeoBlock() {
+  const profile = zqServiceAeoProfiles['homepage'];
+  const support = zqServiceFactorCards['homepage'];
+  
+  return renderAeoAnswerBlock({
+    module: 'homepage-aeo-answer',
+    eyebrow: 'Quick Answer',
+    question: profile.question,
+    answer: profile.answer,
+    support: support,
+    links: [
+      { href: '/removalists-adelaide/', label: 'Local Removals' },
+      { href: '/house-removals-adelaide/', label: 'House Removals' },
+      { href: '/fixed-price-removalists-adelaide/', label: 'Fixed Pricing' },
+      { href: '/contact-us/#quote-form', label: 'Get Quote' },
+    ],
+    soft: true,
+  });
 }
 
 export function buildLocalBusinessSchema() {
@@ -616,47 +670,47 @@ function normalizeClusterKey(clusterKey) {
 }
 
 const suburbData = [
-  ['adelaide-cbd', 'Adelaide CBD', 'Adelaide CBD', 'CBD', 'tower and lift planning'],
-  ['north-adelaide', 'North Adelaide', 'North Adelaide', 'CBD fringe', 'heritage access and parking'],
-  ['glenelg', 'Glenelg', 'Glenelg', 'coastal', 'beachside apartments, coastal parking and weekend access'],
-  ['marion', 'Marion', 'Marion', 'southern', 'family homes and mixed-use access'],
-  ['salisbury', 'Salisbury', 'Salisbury', 'northern', 'family homes, northern driveway access and large furniture'],
-  ['elizabeth', 'Elizabeth', 'Elizabeth', 'northern', 'family-home access and staging'],
+  ['adelaide-cbd', 'Adelaide CBD', 'Adelaide CBD', 'CBD', 'tower and lift planning', { hasOffice: true, hasPacking: true, hasApartment: true }],
+  ['north-adelaide', 'North Adelaide', 'North Adelaide', 'CBD fringe', 'heritage access and parking', { hasPacking: true, hasApartment: true }],
+  ['glenelg', 'Glenelg', 'Glenelg', 'coastal', 'beachside apartments, coastal parking and weekend access', { hasOffice: true, hasPacking: true, hasApartment: true }],
+  ['marion', 'Marion', 'Marion', 'southern', 'family homes and mixed-use access', { hasOffice: true, hasPacking: true }],
+  ['salisbury', 'Salisbury', 'Salisbury', 'northern', 'family homes, northern driveway access and large furniture', { hasOffice: true, hasPacking: true }],
+  ['elizabeth', 'Elizabeth', 'Elizabeth', 'northern', 'family-home access and staging', { hasPacking: true }],
   ['elizabeth-downs', 'Elizabeth Downs', 'Elizabeth Downs', 'northern', 'larger inventory and driveway access'],
   ['elizabeth-vale', 'Elizabeth Vale', 'Elizabeth Vale', 'northern', 'unit and townhouse access'],
   ['blakeview', 'Blakeview', 'Blakeview', 'northern', 'estate homes and school-run timing'],
   ['gawler', 'Gawler', 'Gawler', 'northern fringe', 'townhouse and family-home staging'],
   ['andrews-farm', 'Andrews Farm', 'Andrews Farm', 'northern', 'new-build and estate moves with affordable removalists Andrews Farm search intent, removalists near Andrews Farm, and fixed-price quote for Andrews Farm moves'],
-  ['mawson-lakes', 'Mawson Lakes', 'Mawson Lakes', 'northern', 'apartment lift and estate access'],
-  ['norwood', 'Norwood', 'Norwood', 'eastern', 'terraces and mixed residential-commercial access'],
+  ['mawson-lakes', 'Mawson Lakes', 'Mawson Lakes', 'northern', 'apartment lift and estate access', { hasOffice: true, hasPacking: true, hasApartment: true }],
+  ['norwood', 'Norwood', 'Norwood', 'eastern', 'terraces and mixed residential-commercial access', { hasOffice: true, hasPacking: true }],
   ['reynella', 'Reynella', 'Reynella', 'southern', 'family-home and storage-linked moves'],
   ['seaford', 'Seaford', 'Seaford', 'coastal', 'coastal family-home access'],
   ['noarlunga', 'Noarlunga', 'Noarlunga', 'southern coastal', 'storage and corridor planning'],
   ['morphett-vale', 'Morphett Vale', 'Morphett Vale', 'southern', 'garage-heavy and townhouse moves'],
-  ['hallett-cove', 'Hallett Cove', 'Hallett Cove', 'coastal', 'hill access and apartment moves'],
-  ['glenunga', 'Glenunga', 'Glenunga', 'eastern', 'premium apartment and villa access'],
-  ['burnside', 'Burnside', 'Burnside', 'eastern', 'heritage and premium home moves'],
-  ['prospect', 'Prospect', 'Prospect', 'inner north', 'character homes and apartment access'],
-  ['unley', 'Unley', 'Unley', 'inner south', 'townhouse and villa access'],
+  ['hallett-cove', 'Hallett Cove', 'Hallett Cove', 'coastal', 'hill access and apartment moves', { hasApartment: true }],
+  ['glenunga', 'Glenunga', 'Glenunga', 'eastern', 'premium apartment and villa access', { hasApartment: true }],
+  ['burnside', 'Burnside', 'Burnside', 'eastern', 'heritage and premium home moves', { hasPacking: true }],
+  ['prospect', 'Prospect', 'Prospect', 'inner north', 'character homes and apartment access', { hasApartment: true, hasPacking: true }],
+  ['unley', 'Unley', 'Unley', 'inner south', 'townhouse and villa access', { hasPacking: true }],
   ['goodwood', 'Goodwood', 'Goodwood', 'inner south', 'rail corridor and shared access'],
   ['kensington-gardens', 'Kensington Gardens', 'Kensington Gardens', 'eastern', 'family-home moves'],
-  ['stepney', 'Stepney', 'Stepney', 'inner east', 'mixed-use and compact streets'],
+  ['stepney', 'Stepney', 'Stepney', 'inner east', 'mixed-use and compact streets', { hasOffice: true }],
   ['trinity-gardens', 'Trinity Gardens', 'Trinity Gardens', 'eastern', 'compact access and family homes'],
   ['fullarton', 'Fullarton', 'Fullarton', 'eastern', 'family homes and unit access'],
   ['st-peters', 'St Peters', 'St Peters', 'eastern', 'heritage and larger home inventory'],
   ['magill', 'Magill', 'Magill', 'eastern', 'family-home and university-adjacent moves'],
   ['campbelltown', 'Campbelltown', 'Campbelltown', 'eastern', 'home and unit relocations'],
   ['athelstone', 'Athelstone', 'Athelstone', 'eastern hills', 'driveway and slope access'],
-  ['modbury', 'Modbury', 'Modbury', 'north-eastern', 'family homes and shopping precinct access'],
+  ['modbury', 'Modbury', 'Modbury', 'north-eastern', 'family homes and shopping precinct access', { hasOffice: true }],
   ['munno-para', 'Munno Para', 'Munno Para', 'northern growth', 'estate homes and new-build relocations'],
   ['parafield-gardens', 'Parafield Gardens', 'Parafield Gardens', 'northern', 'family homes and wide loads'],
   ['pennington', 'Pennington', 'Pennington', 'western', 'mixed residential and industrial access'],
-  ['port-adelaide', 'Port Adelaide', 'Port Adelaide', 'western', 'heritage and dockside access'],
-  ['west-lakes', 'West Lakes', 'West Lakes', 'western', 'waterfront homes and unit access'],
-  ['henley-beach', 'Henley Beach', 'Henley Beach', 'coastal', 'beachside apartments and homes'],
+  ['port-adelaide', 'Port Adelaide', 'Port Adelaide', 'western', 'heritage and dockside access', { hasOffice: true }],
+  ['west-lakes', 'West Lakes', 'West Lakes', 'western', 'waterfront homes and unit access', { hasApartment: true }],
+  ['henley-beach', 'Henley Beach', 'Henley Beach', 'coastal', 'beachside apartments and homes', { hasApartment: true, hasPacking: true }],
   ['grange', 'Grange', 'Grange', 'coastal', 'premium coastal homes and parking'],
-  ['semaphore', 'Semaphore', 'Semaphore', 'coastal', 'beachfront apartments and tight access'],
-  ['brighton', 'Brighton', 'Brighton', 'coastal', 'family homes and apartment access'],
+  ['semaphore', 'Semaphore', 'Semaphore', 'coastal', 'beachfront apartments and tight access', { hasApartment: true }],
+  ['brighton', 'Brighton', 'Brighton', 'coastal', 'family homes and apartment access', { hasApartment: true }],
   ['somerton-park', 'Somerton Park', 'Somerton Park', 'coastal', 'coastal villa moves'],
   ['hove', 'Hove', 'Hove', 'coastal', 'apartment and townhouse access'],
   ['seacliff', 'Seacliff', 'Seacliff', 'coastal', 'slope and coastal access'],
@@ -665,15 +719,15 @@ const suburbData = [
   ['woodcroft', 'Woodcroft', 'Woodcroft', 'southern', 'family homes and storage'],
   ['christies-beach', 'Christies Beach', 'Christies Beach', 'coastal', 'coastal homes and units'],
   ['port-noarlunga', 'Port Noarlunga', 'Port Noarlunga', 'coastal', 'tight beach access and apartments'],
-  ['oaklands-park', 'Oaklands Park', 'Oaklands Park', 'southern', 'retail-adjacent and home moves'],
-  ['edwardstown', 'Edwardstown', 'Edwardstown', 'south-west', 'mixed commercial and residential access'],
-  ['melrose-park', 'Melrose Park', 'Melrose Park', 'south-west', 'family homes and offices'],
+  ['oaklands-park', 'Oaklands Park', 'Oaklands Park', 'southern', 'retail-adjacent and home moves', { hasOffice: true }],
+  ['edwardstown', 'Edwardstown', 'Edwardstown', 'south-west', 'mixed commercial and residential access', { hasOffice: true }],
+  ['melrose-park', 'Melrose Park', 'Melrose Park', 'south-west', 'family homes and offices', { hasOffice: true }],
   ['findon', 'Findon', 'Findon', 'western', 'family homes and wider driveways'],
   ['seaton', 'Seaton', 'Seaton', 'western', 'coastal-adjacent homes'],
   ['fulham', 'Fulham', 'Fulham', 'western', 'family and apartment moves'],
   ['kidman-park', 'Kidman Park', 'Kidman Park', 'western', 'compact suburban access'],
   ['largs-bay', 'Largs Bay', 'Largs Bay', 'coastal', 'coastal access and parking'],
-  ['new-port', 'New Port', 'New Port', 'western', 'apartment and harbour-side moves'],
+  ['new-port', 'New Port', 'New Port', 'western', 'apartment and harbour-side moves', { hasApartment: true }],
   ['croydon', 'Croydon', 'Croydon', 'inner west', 'character homes and compact streets'],
   ['kilburn', 'Kilburn', 'Kilburn', 'inner north', 'light industrial and home moves'],
   ['ferryden-park', 'Ferryden Park', 'Ferryden Park', 'west-north', 'mixed-access housing'],
@@ -689,13 +743,13 @@ const suburbData = [
   ['west-croydon', 'West Croydon', 'West Croydon', 'inner west', 'compact streets and terraces'],
   ['glandore', 'Glandore', 'Glandore', 'south-west', 'home and office links'],
   ['kings-park', 'Kings Park', 'Kings Park', 'inner west', 'small blocks and townhouse access'],
-  ['mitcham', 'Mitcham', 'Mitcham', 'hills', 'premium home and driveway planning'],
+  ['mitcham', 'Mitcham', 'Mitcham', 'hills', 'premium home and driveway planning', { hasPacking: true }],
   ['urrbrae', 'Urrbrae', 'Urrbrae', 'east hills', 'school zone and house moves'],
   ['clarence-park', 'Clarence Park', 'Clarence Park', 'inner south', 'compact streets and villas'],
   ['west-beach', 'West Beach', 'West Beach', 'coastal', 'coastal homes and airport-side access'],
   ['torrensville', 'Torrensville', 'Torrensville', 'western', 'mixed housing and apartments'],
-  ['mile-end', 'Mile End', 'Mile End', 'western', 'warehouse and home moves'],
-  ['henley-beach-south', 'Henley Beach South', 'Henley Beach South', 'coastal', 'beachfront apartment moves'],
+  ['mile-end', 'Mile End', 'Mile End', 'western', 'warehouse and home moves', { hasOffice: true }],
+  ['henley-beach-south', 'Henley Beach South', 'Henley Beach South', 'coastal', 'beachfront apartment moves', { hasApartment: true }],
   ['albert-park', 'Albert Park', 'Albert Park', 'western', 'family homes and tighter streets'],
   ['birkenhead', 'Birkenhead', 'Birkenhead', 'western', 'port-side access'],
   ['seaton-south', 'Seaton South', 'Seaton South', 'western', 'suburban access and unit moves'],
@@ -708,7 +762,7 @@ const suburbData = [
   ['st-marys', 'St Marys', 'St Marys', 'southern', 'townhouse and apartment access'],
   ['dudley-park', 'Dudley Park', 'Dudley Park', 'western', 'mixed housing and access'],
   ['glengowrie', 'Glengowrie', 'Glengowrie', 'coastal', 'coastal townhouses and homes'],
-  ['somerton-park-west', 'Somerton Park West', 'Somerton Park West', 'coastal', 'beachside streets and apartments'],
+  ['somerton-park-west', 'Somerton Park West', 'Somerton Park West', 'coastal', 'beachside streets and apartments', { hasApartment: true }],
   ['victor-harbor-road', 'Victor Harbor Road Corridor', 'Victor Harbor Road Corridor', 'southern coastal', 'route planning and longer corridor moves'],
   ['yatala-vale', 'Yatala Vale', 'Yatala Vale', 'north-eastern', 'larger homes and hill-adjacent access'],
   ['linden-park', 'Linden Park', 'Linden Park', 'eastern', 'premium homes and driveways'],
@@ -741,16 +795,16 @@ const suburbData = [
 ];
 
 const suburbDataBySlug = new Map(
-  suburbData.map(([slug, suburb, region, clusterKey, logisticsLabel]) => [
+  suburbData.map(([slug, suburb, region, clusterKey, logisticsLabel, intents = {}]) => [
     slug,
-    { slug, suburb, region, clusterKey, logisticsLabel },
+    { slug, suburb, region, clusterKey, logisticsLabel, intents },
   ]),
 );
 
 const suburbDataByName = new Map(
-  suburbData.map(([slug, suburb, region, clusterKey, logisticsLabel]) => [
+  suburbData.map(([slug, suburb, region, clusterKey, logisticsLabel, intents = {}]) => [
     suburb,
-    { slug, suburb, region, clusterKey, logisticsLabel },
+    { slug, suburb, region, clusterKey, logisticsLabel, intents },
   ]),
 );
 
@@ -3021,12 +3075,31 @@ export function getGeneratedPages() {
     extra: true,
   }));
 
-  for (const [slug, suburb, region, clusterKey, logisticsLabel] of suburbData) {
-    pages.push(makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel }));
+  for (const [slug, suburb, region, clusterKey, logisticsLabel, intents = {}] of suburbData) {
+    pages.push(makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel, intents }));
+
+    if (intents.hasOffice) {
+      pages.push(makeServiceSuburbPage({ service: 'office-removals', slug, suburb, region, clusterKey, logisticsLabel }));
+    }
+    if (intents.hasPacking) {
+      pages.push(makeServiceSuburbPage({ service: 'packing-services', slug, suburb, region, clusterKey, logisticsLabel }));
+    }
+    if (intents.hasApartment) {
+      pages.push(makeServiceSuburbPage({ service: 'apartment-removalists', slug, suburb, region, clusterKey, logisticsLabel }));
+    }
   }
 
   for (const route of interstateRouteData) {
     pages.push(makeInterstateRoutePage(route));
+  }
+
+  for (const route of localRoutePairs) {
+    const page = makeLocalRoutePage(route);
+    if (page) pages.push(page);
+  }
+
+  for (const comparison of comparisonData) {
+    pages.push(makeComparisonPage(comparison));
   }
 
   pages.push(makeRedirectPage({
@@ -3161,7 +3234,541 @@ function makeInterstateRoutePage([slug, destination, routeName, distance, highwa
   };
 }
 
-function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel }) {
+const comparisonData = [
+  {
+    slug: 'fixed-price-vs-hourly-removalists-adelaide',
+    title: 'Fixed Price vs Hourly Removalists Adelaide | Move Comparison',
+    description: 'Compare fixed-price moving quotes vs hourly rates for Adelaide removals. We review costs, risks, and which model provides the best value for your house move.',
+    h1: 'Fixed price vs hourly removalists: Which is better for your Adelaide move?',
+    subjectA: 'Fixed Price Quote',
+    subjectB: 'Hourly Rate',
+    intro: 'Choosing between a fixed-price quote and an hourly rate is one of the most important decisions when booking removalists in Adelaide. One offers total cost control, while the other offers flexibility for small, simple jobs.',
+    pointsA: ['Total cost certainty before move day', 'No extra charges for traffic or parking delays', 'Includes comprehensive inventory review'],
+    pointsB: ['Flexible for very small, single-item moves', 'Lower barrier to booking quickly', 'Ideal for simple storage transfers'],
+    winner: 'Fixed Price (Best for certainty and budget control)',
+  },
+  {
+    slug: 'professional-packers-vs-diy-packing-adelaide',
+    title: 'Professional Packers vs DIY Packing Adelaide | Cost & Value',
+    description: 'Is professional packing worth it? Compare DIY packing vs hiring expert packers in Adelaide. We review protection, timing, and damage risks.',
+    h1: 'Professional packers vs DIY packing: Is the cost worth the convenience?',
+    subjectA: 'Professional Packing',
+    subjectB: 'DIY Packing',
+    intro: 'Packing is often the most time-consuming part of any move. Deciding between hiring professionals or doing it yourself depends on your budget, timeline, and the fragility of your items.',
+    pointsA: ['Zero stress and massive time savings', 'Professional materials used for better protection', 'Organized and labeled for faster unpacking'],
+    pointsB: ['Cheaper upfront cost (only material cost)', 'Full control over how items are grouped', 'Pack at your own pace over several weeks'],
+    winner: 'Professional Packing (Best for fragile items and busy schedules)',
+  },
+  {
+    slug: 'interstate-removalists-vs-backloading-adelaide',
+    title: 'Interstate Removalists vs Backloading Adelaide | Comparison',
+    description: 'Compare full-service interstate removals vs backloading from Adelaide. Review delivery windows, handling risks, and pricing differences.',
+    h1: 'Interstate removalists vs backloading: Comparing cost and reliability',
+    subjectA: 'Full Interstate Service',
+    subjectB: 'Backloading',
+    intro: 'When moving interstate from Adelaide, you can choose a dedicated truck or a shared "backload" space. Each has a different impact on your delivery window and handling safety.',
+    pointsA: ['Direct transit with a specific delivery date', 'Lower risk of items being mixed or lost', 'Your items are the priority for the crew'],
+    pointsB: ['Most affordable option for long distance', 'Good for small loads that aren\'t time-sensitive', 'Utilizes empty space on returning trucks'],
+    winner: 'Full Service (Best for reliable delivery windows)',
+  },
+];
+
+function makeComparisonPage(data) {
+  const output = `${data.slug}/index.html`;
+  const canonical = buildCanonical(`/${data.slug}/`);
+  const title = buildTitle(data.title);
+  const description = buildDescription(data.description);
+  const faqItems = buildComparisonFaqItems(data);
+
+  return {
+    output,
+    layout: 'standard',
+    generatedKind: 'comparison',
+    title,
+    description,
+    canonical,
+    robots: seoConfig.robots,
+    ogTitle: title,
+    ogDescription: description,
+    ogUrl: canonical,
+    ogImage: DEFAULT_OG_IMAGE,
+    twitterTitle: title,
+    twitterDescription: description,
+    twitterImage: DEFAULT_OG_IMAGE,
+    lastmodSources: GENERATED_LASTMOD_SOURCES,
+    jsonLd: [
+      JSON.stringify(buildLocalBusinessSchema()),
+      JSON.stringify(buildBreadcrumbSchema([
+        { name: 'Home', url: SITE_URL },
+        { name: 'Adelaide Moving Guides', url: `${SITE_URL}/adelaide-moving-guides/` },
+        { name: data.title, url: canonical },
+      ], canonical)),
+      JSON.stringify(buildFAQSchema(faqItems, canonical)),
+    ],
+    contentHtml: renderComparisonContent(data, faqItems),
+  };
+}
+
+function buildComparisonFaqItems(data) {
+  return [
+    {
+      question: `Is ${data.subjectA} better than ${data.subjectB}?`,
+      answer: `It depends on your move. ${data.subjectA} is generally better for budget control and risk management, while ${data.subjectB} offers more flexibility for very small, simple jobs.`,
+    },
+    {
+      question: `Which option is more cost-effective for an Adelaide move?`,
+      answer: `While ${data.subjectB} might have a lower starting rate, ${data.subjectA} often provides better value by locking in the price regardless of traffic, parking delays, or loading speed.`,
+    },
+    {
+      question: `Can I get a quote for both ${data.subjectA} and ${data.subjectB}?`,
+      answer: `Yes. ZQ Removals can provide fixed-price quotes based on your specific inventory and access, which removes the uncertainty of hourly rates.`,
+    },
+  ];
+}
+
+function renderComparisonContent(data, faqItems) {
+  return `<main id="main-content" data-generated-page="comparison-v5">
+${renderPageHero({
+  eyebrow: 'Service Comparison',
+  title: data.h1,
+  lead: data.intro,
+  supporting: [
+    `Choosing the right model for your move ensures you don't overpay and your belongings arrive safely.`,
+    `We have compared ${data.subjectA} and ${data.subjectB} based on typical Adelaide relocation data.`,
+  ],
+  points: [
+    { title: 'Cost Analysis', copy: `Comparing ${data.subjectA} value` },
+    { title: 'Risk Review', copy: `Evaluating ${data.subjectB} trade-offs` },
+    { title: 'Best Fit', copy: data.winner },
+  ],
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Get a Fixed Quote' },
+  secondaryCta: { href: '/removalists-adelaide/', label: 'View Services' },
+  image: null,
+  breadcrumbs: [
+    { href: '/', label: 'Home' },
+    { href: '/adelaide-moving-guides/', label: 'Guides' },
+    { label: 'Comparison' },
+  ],
+  pageType: 'guide',
+})}
+
+<section class="section section-soft">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow">Head to Head</span>
+      <h2>${data.subjectA} vs ${data.subjectB}</h2>
+      <p class="lede">Review the key differences to find the best match for your moving requirements.</p>
+    </div>
+    
+    <div class="value-grid">
+      <article class="value-card">
+        <h3>${data.subjectA}</h3>
+        <p>This model is built around predictability and professional handling.</p>
+        <ul>
+          ${data.pointsA.map(p => `<li>${escapeHtml(p)}</li>`).join('\n')}
+        </ul>
+      </article>
+      <article class="value-card">
+        <h3>${data.subjectB}</h3>
+        <p>This model focuses on flexibility and initial cost savings.</p>
+        <ul>
+          ${data.pointsB.map(p => `<li>${escapeHtml(p)}</li>`).join('\n')}
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+${renderQuoteModelComparison({ module: 'comparison-quote-table', soft: false })}
+
+${renderTextSection({
+  module: 'comparison-verdict',
+  eyebrow: 'The Verdict',
+  heading: `Which one should you choose?`,
+  intro: `Ultimately, the decision comes down to your risk tolerance and the complexity of the move.`,
+  paragraphs: [
+    `For most house moves in Adelaide, the **${data.subjectA}** model is superior because it removes the "unknown" factors like heavy traffic or difficult access from your final bill. It puts the responsibility of accurate quoting on the removalist, not the customer.`,
+    `However, if you are only moving a few items and have easy access at both ends, the **${data.subjectB}** might save you a small amount—provided everything goes perfectly on the day.`,
+  ],
+})}
+
+${renderFaqSectionBlock({
+  module: 'comparison-faq',
+  eyebrow: 'Questions',
+  heading: `Common questions about ${data.subjectA} vs ${data.subjectB}`,
+  intro: 'We help you weigh the risks and rewards of different moving models.',
+  items: faqItems,
+})}
+
+${renderQuoteStrip({
+  eyebrow: 'Ready to decide?',
+  heading: `Get your fixed-price ${data.subjectA.toLowerCase()} quote`,
+  copy: `Skip the hourly surprises. Send your move details today for a guaranteed price.`,
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Request Quote' },
+  secondaryCta: { href: '/adelaide-moving-guides/', label: 'More Planning Guides' },
+  pageType: 'guide',
+})}
+</main>`;
+}
+
+const localRoutePairs = [
+  ['adelaide-cbd', 'glenelg'],
+  ['adelaide-cbd', 'marion'],
+  ['adelaide-cbd', 'salisbury'],
+  ['adelaide-cbd', 'norwood'],
+  ['adelaide-cbd', 'mawson-lakes'],
+  ['glenelg', 'marion'],
+  ['glenelg', 'henley-beach'],
+  ['marion', 'noarlunga'],
+  ['salisbury', 'mawson-lakes'],
+  ['norwood', 'burnside'],
+  ['prospect', 'mawson-lakes'],
+  ['unley', 'mitcham'],
+  ['brighton', 'glenelg'],
+  ['modbury', 'salisbury'],
+  ['port-adelaide', 'west-lakes'],
+  ['elizabeth', 'gawler'],
+];
+
+function makeLocalRoutePage([originSlug, destSlug]) {
+  const origin = suburbDataBySlug.get(originSlug);
+  const dest = suburbDataBySlug.get(destSlug);
+  
+  if (!origin || !dest) return null;
+
+  const slug = `moving-from-${originSlug}-to-${destSlug}`;
+  const output = `${slug}/index.html`;
+  const canonical = buildCanonical(`/${slug}/`);
+  
+  const title = buildTitle(`Moving from ${origin.suburb} to ${dest.suburb}`);
+  const description = buildDescription(`Professional removalists for moves from ${origin.suburb} to ${dest.suburb}. We plan around ${origin.logisticsLabel} at pickup and ${dest.logisticsLabel} at delivery.`);
+  
+  const faqItems = [
+    {
+      question: `How long does it take to move from ${origin.suburb} to ${dest.suburb}?`,
+      answer: `Most local moves between ${origin.suburb} and ${dest.suburb} can be completed in a single day. The exact timing depends on the volume of furniture and access details like ${origin.logisticsLabel}.`,
+    },
+    {
+      question: `Do you provide fixed quotes for ${origin.suburb} to ${dest.suburb} moves?`,
+      answer: `Yes. We specialize in fixed-price quotes. Send us the details for both your ${origin.suburb} and ${dest.suburb} addresses to get started.`,
+    },
+  ];
+
+  return {
+    output,
+    layout: 'standard',
+    generatedKind: 'local-route',
+    title,
+    description,
+    canonical,
+    robots: seoConfig.robots,
+    ogTitle: title,
+    ogDescription: description,
+    ogUrl: canonical,
+    ogImage: DEFAULT_OG_IMAGE,
+    twitterTitle: title,
+    twitterDescription: description,
+    twitterImage: DEFAULT_OG_IMAGE,
+    lastmodSources: GENERATED_LASTMOD_SOURCES,
+    jsonLd: [
+      JSON.stringify(buildLocalBusinessSchema()),
+      JSON.stringify(buildServiceSchema({
+        id: canonical,
+        name: `Moving from ${origin.suburb} to ${dest.suburb}`,
+        serviceType: 'Local Suburb-to-Suburb Removals',
+        areaServed: [origin.suburb, dest.suburb, 'Adelaide'],
+        description,
+      })),
+      JSON.stringify(buildBreadcrumbSchema([
+        { name: 'Home', url: SITE_URL },
+        { name: 'Removalists Adelaide', url: `${SITE_URL}/removalists-adelaide/` },
+        { name: `Moving from ${origin.suburb} to ${dest.suburb}`, url: canonical },
+      ], canonical)),
+      JSON.stringify(buildFAQSchema(faqItems, canonical)),
+    ],
+    contentHtml: renderLocalRouteContent({ origin, dest, faqItems }),
+  };
+}
+
+function renderLocalRouteContent({ origin, dest, faqItems }) {
+  return `<main id="main-content" data-generated-page="local-route-v5">
+${renderPageHero({
+  eyebrow: 'Local Route Planning',
+  title: `Moving from ${origin.suburb} to ${dest.suburb} with ZQ Removals`,
+  lead: `Planning a relocation from ${origin.suburb} to ${dest.suburb}? We specialize in suburb-to-suburb moves across Adelaide, ensuring a smooth transition between these two areas.`,
+  supporting: [
+    `Our crew handles the unique challenges of ${origin.suburb} pickups—including ${origin.logisticsLabel}—and ensures your delivery in ${dest.suburb} is managed with the same care.`,
+    `We provide fixed-price quotes for this specific route so you have total certainty on moving day.`,
+  ],
+  points: [
+    { title: 'Route Expertise', copy: `Moves between ${origin.region} and ${dest.region}` },
+    { title: 'Access Planning', copy: `Coordinating ${origin.suburb} to ${dest.suburb} logistics` },
+    { title: 'Fixed Pricing', copy: 'Clear quotes without hidden hourly fees' },
+  ],
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Get Route Quote' },
+  secondaryCta: { href: '/removalists-adelaide/', label: 'All Service Areas' },
+  image: null,
+  breadcrumbs: [
+    { href: '/', label: 'Home' },
+    { href: '/removalists-adelaide/', label: 'Removalists Adelaide' },
+    { label: `Moving ${origin.suburb} to ${dest.suburb}` },
+  ],
+  pageType: 'suburb',
+})}
+${renderTextSection({
+  module: 'local-route-intro',
+  eyebrow: 'Route Logistics',
+  heading: `Your move from ${origin.suburb} to ${dest.suburb}`,
+  intro: `A move between these suburbs involves connecting the ${origin.region} cluster with the ${dest.region} area.`,
+  paragraphs: [
+    `Whether you are moving from a family home in ${origin.suburb} to a unit in ${dest.suburb}, or vice versa, we manage the entire process. We account for local factors like ${origin.logisticsLabel} during the load and ${dest.logisticsLabel} during the unload to keep your move on schedule.`,
+    `Our fixed-price model is ideal for moves between ${origin.suburb} and ${dest.suburb} because it removes the stress of traffic delays or access issues affecting your final price. We review your inventory and both addresses to provide a single, reliable quote.`,
+  ],
+})}
+${renderRouteCardSection({
+  module: 'local-route-links',
+  eyebrow: 'Local area info',
+  heading: 'Explore the suburbs on your route',
+  intro: 'Get more specific logistics advice for your pickup and delivery locations.',
+  cards: [
+    {
+      eyebrow: 'Pickup Suburb',
+      title: `${origin.suburb} Removalists`,
+      copy: `Specific logistics for ${origin.suburb}, including ${origin.logisticsLabel}.`,
+      href: `/removalists-${origin.slug}/`,
+      cta: `View ${origin.suburb}`,
+    },
+    {
+      eyebrow: 'Delivery Suburb',
+      title: `${dest.suburb} Removalists`,
+      copy: `Delivery details for ${dest.suburb}, including ${dest.logisticsLabel}.`,
+      href: `/removalists-${dest.slug}/`,
+      cta: `View ${dest.suburb}`,
+    },
+  ],
+})}
+${renderFaqSectionBlock({
+  module: 'local-route-faq',
+  eyebrow: 'Questions',
+  heading: `Frequently asked about moves from ${origin.suburb} to ${dest.suburb}`,
+  intro: 'Common questions to help you prepare for your relocation.',
+  items: faqItems,
+})}
+${renderQuoteStrip({
+  eyebrow: 'Ready to move?',
+  heading: `Get your ${origin.suburb} to ${dest.suburb} quote`,
+  copy: `Send us the details for both addresses so we can build a practical plan for your move.`,
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Request Fixed Quote' },
+  secondaryCta: { href: '/removalists-adelaide/', label: 'Adelaide Coverage' },
+  pageType: 'suburb',
+})}
+</main>`;
+}
+
+const serviceSuburbTemplates = {
+  'office-removals': {
+    title: 'Office Removals {suburb} | Business Relocations',
+    description: 'Relocating your business? Expert office removals in {suburb} for clinics, studios, and corporate spaces with {logisticsLabel} planned.',
+    eyebrow: 'Business relocations',
+    h1: 'Office removals {suburb} for clinics, studios, and corporate relocations',
+    hero: 'Moving your business in {suburb}? We handle the logistics so you can focus on your work. From IT equipment to office furniture, our team ensures a smooth transition with {logisticsLabel} considered.',
+    primaryKeyword: 'Office removals',
+  },
+  'packing-services': {
+    title: 'Packing Services {suburb} | Full House Packing',
+    description: 'Need help packing? Professional packing services in {suburb} for homes and apartments. We handle fragile items and heavy furniture with care.',
+    eyebrow: 'Packing & Protection',
+    h1: 'Packing services {suburb} for homes, units, and apartments',
+    hero: 'Take the stress out of moving with professional packing in {suburb}. Our team uses high-quality materials to protect your belongings, focusing on {logisticsLabel} during the process.',
+    primaryKeyword: 'Packing services',
+  },
+  'apartment-removalists': {
+    title: 'Apartment Removalists {suburb} | Lift & Access Experts',
+    description: 'Moving apartment in {suburb}? We specialize in tight access, lift bookings, and loading zone planning for stress-free unit relocations.',
+    eyebrow: 'Apartment specialists',
+    h1: 'Apartment removalists {suburb} for units, towers, and tight access',
+    hero: 'Specialist apartment movers in {suburb}. We coordinate with building management and plan around {logisticsLabel} to keep your move on schedule.',
+    primaryKeyword: 'Apartment removalists',
+  },
+};
+
+function makeServiceSuburbPage({ service, slug, suburb, region, clusterKey, logisticsLabel }) {
+  const template = serviceSuburbTemplates[service];
+  const output = `${service}-${slug}/index.html`;
+  const canonical = buildCanonical(`/${service}-${slug}/`);
+  
+  const title = buildTitle(template.title.replaceAll('{suburb}', suburb));
+  const description = buildDescription(template.description.replaceAll('{suburb}', suburb).replaceAll('{logisticsLabel}', logisticsLabel));
+  
+  const faqItems = buildServiceSuburbFaqItems({ service, suburb, logisticsLabel });
+
+  return {
+    output,
+    layout: 'standard',
+    generatedKind: 'service-suburb',
+    title,
+    description,
+    canonical,
+    robots: seoConfig.robots,
+    ogTitle: title,
+    ogDescription: description,
+    ogUrl: canonical,
+    ogImage: DEFAULT_OG_IMAGE,
+    twitterTitle: title,
+    twitterDescription: description,
+    twitterImage: DEFAULT_OG_IMAGE,
+    lastmodSources: GENERATED_LASTMOD_SOURCES,
+    jsonLd: [
+      JSON.stringify(buildLocalBusinessSchema()),
+      JSON.stringify(buildServiceSchema({
+        id: canonical,
+        name: `${template.primaryKeyword} ${suburb}`,
+        serviceType: `${template.primaryKeyword} support for ${suburb} moves`,
+        areaServed: [suburb, region, ...seoConfig.serviceAreas],
+        description,
+      })),
+      JSON.stringify(buildBreadcrumbSchema([
+        { name: 'Home', url: SITE_URL },
+        { name: 'Removalists Adelaide', url: `${SITE_URL}/removalists-adelaide/` },
+        { name: `Removalists ${suburb}`, url: `${SITE_URL}/removalists-${slug}/` },
+        { name: `${template.primaryKeyword} ${suburb}`, url: canonical },
+      ], canonical)),
+      JSON.stringify(buildFAQSchema(faqItems, canonical)),
+    ],
+    contentHtml: renderServiceSuburbContent({
+      service,
+      slug,
+      suburb,
+      region,
+      logisticsLabel,
+      clusterKey,
+      template,
+      faqItems,
+    }),
+  };
+}
+
+function buildServiceSuburbFaqItems({ service, suburb, logisticsLabel }) {
+  const isOffice = service === 'office-removals';
+  const isPacking = service === 'packing-services';
+  
+  return [
+    {
+      question: `Do you provide ${service.replace('-', ' ')} in ${suburb}?`,
+      answer: `Yes. ZQ Removals regularly handles ${service.replace('-', ' ')} across ${suburb}, including jobs that involve ${logisticsLabel}.`,
+    },
+    {
+      question: isOffice ? `How much do ${suburb} office moves cost?` : `How much does ${service.replace('-', ' ')} cost in ${suburb}?`,
+      answer: `Cost depends on inventory volume, access types, and timing. We provide fixed-price quotes for ${suburb} after reviewing the brief.`,
+    },
+    {
+      question: isPacking ? `Can you pack my whole house in ${suburb}?` : `Do you handle fragile furniture in ${suburb}?`,
+      answer: `Yes. We provide full-service handling and professional protection for all items during the ${suburb} move process.`,
+    },
+    {
+      question: `How do I book a quote for ${suburb}?`,
+      answer: `Send the addresses, preferred move date, and any notes about ${logisticsLabel} through our quote form.`,
+    },
+  ];
+}
+
+function renderServiceSuburbContent({ service, slug, suburb, region, logisticsLabel, clusterKey, template, faqItems }) {
+  const supportProfile = getClusterSupportProfile(clusterKey);
+  const cta = getSuburbCtaTheme(clusterKey);
+
+  return `<main id="main-content" data-generated-page="service-suburb-v5">
+${renderPageHero({
+  eyebrow: template.eyebrow,
+  title: template.h1.replaceAll('{suburb}', suburb),
+  lead: template.hero.replaceAll('{suburb}', suburb).replaceAll('{logisticsLabel}', logisticsLabel),
+  supporting: [
+    `Our crew understands the local ${suburb} access patterns, whether you are moving near ${region} or across the wider Adelaide metro area.`,
+    `We provide fixed-price quotes for ${template.primaryKeyword.toLowerCase()} so you have certainty before move day.`,
+  ],
+  points: [
+    { title: 'Local Knowledge', copy: `Planned around ${logisticsLabel}` },
+    { title: 'Fixed Pricing', copy: 'No hidden fees after review' },
+    { title: 'Careful Handling', copy: 'Fully insured and protected' },
+  ],
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Get Fixed-Price Quote' },
+  secondaryCta: { href: `/removalists-${slug}/`, label: `View ${suburb} Removalists` },
+  image: null,
+  breadcrumbs: [
+    { href: '/', label: 'Home' },
+    { href: '/removalists-adelaide/', label: 'Removalists Adelaide' },
+    { href: `/removalists-${slug}/`, label: suburb },
+    { label: template.primaryKeyword },
+  ],
+  pageType: 'suburb',
+})}
+${renderAeoAnswerBlock({
+  module: 'service-suburb-aeo-answer',
+  question: `What makes ${template.primaryKeyword.toLowerCase()} in ${suburb} different?`,
+  answer: `${template.primaryKeyword} in ${suburb} is shaped by the local ${logisticsLabel} constraints. ZQ Removals reviews these details alongside the inventory and route to provide a fixed-price quote that avoids move-day surprises.`,
+  links: [
+    { href: '/moving-quotes-adelaide/', label: 'Moving quotes Adelaide' },
+    { href: '/fixed-price-removalists-adelaide/', label: 'Fixed-price removalists' },
+    { href: '/contact-us/#quote-form', label: 'Request a quote' },
+  ],
+})}
+${renderTextSection({
+  module: 'service-suburb-intro',
+  eyebrow: 'Service Overview',
+  heading: `${template.primaryKeyword} in ${suburb} with clear access planning`,
+  intro: `Moving can be complex when ${logisticsLabel} is involved. This page helps you plan the specific details for your ${suburb} relocations.`,
+  paragraphs: [
+    `When you search for ${template.primaryKeyword.toLowerCase()} in ${suburb}, you are usually looking for more than just a truck. You need a team that knows how to navigate ${logisticsLabel} without causing delays or damage. We have built our reputation on being the most reliable movers in the ${region} area by focusing on these details early.`,
+    `Whether it is an office relocation, a full house pack, or an apartment move, we ensure the equipment and crew size match the actual job. We don't just guess—we review the brief and provide a quote that reflects the reality of moving in ${suburb}.`,
+  ],
+})}
+${renderRouteCardSection({
+  module: 'service-suburb-links',
+  eyebrow: 'Related pages',
+  heading: `More ways we support ${suburb} moves`,
+  intro: 'Choose the service or planning guide that best matches your next step.',
+  cards: [
+    {
+      eyebrow: 'Main Suburb Page',
+      title: `${suburb} Removalists`,
+      copy: `General house moving and local removalist support for the ${suburb} area.`,
+      href: `/removalists-${slug}/`,
+      cta: 'View suburb page',
+    },
+    {
+      eyebrow: 'Core Service',
+      title: toTitle(service),
+      copy: `Learn more about our specialist ${service.replace('-', ' ')} across Adelaide.`,
+      href: `/${service}-adelaide/`,
+      cta: 'View service page',
+    },
+    {
+      eyebrow: 'Regional Hub',
+      title: `${region} Adelaide Removals`,
+      copy: `Broad coverage and route planning across the ${region} cluster.`,
+      href: supportProfile.hubs[0].href,
+      cta: 'View region hub',
+    },
+  ],
+})}
+${renderFaqSectionBlock({
+  module: 'service-suburb-faq',
+  eyebrow: 'Questions',
+  heading: `Questions about ${template.primaryKeyword.toLowerCase()} in ${suburb}`,
+  intro: 'We have answered the most common questions to help you prepare your brief.',
+  items: faqItems,
+})}
+${renderQuoteStrip({
+  eyebrow: 'Ready to book',
+  heading: `Get your ${suburb} ${template.primaryKeyword.toLowerCase()} quote`,
+  copy: `Include your addresses, large items, and any notes about ${logisticsLabel} so we can provide an accurate price.`,
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Request Quote' },
+  secondaryCta: { href: `/removalists-${slug}/`, label: `Back to ${suburb}` },
+  pageType: 'suburb',
+})}
+</main>`;
+}
+
+function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel, intents = {} }) {
   const canonical = buildCanonical(`/removalists-${slug}/`);
   const normalizedClusterKey = normalizeClusterKey(clusterKey);
   const template = clusterTemplates[normalizedClusterKey] || clusterTemplates.northern;
@@ -3833,6 +4440,16 @@ ${renderPageHero({
     { label: suburb },
   ],
   pageType: 'suburb',
+})}
+${renderAeoAnswerBlock({
+  module: 'suburb-aeo-answer',
+  question: `What should I look for in ${suburb} removalists?`,
+  answer: `Look for removalists in ${suburb} who review the ${logisticsLabel} constraints, property access, and inventory before quoting. A fixed-price quote is often safer than an hourly rate for moves involving stairs, lifts, or tight entries.`,
+  links: [
+    { href: '/moving-quotes-adelaide/', label: 'Moving quotes Adelaide' },
+    { href: '/fixed-price-removalists-adelaide/', label: 'Fixed-price removalists' },
+    { href: '/contact-us/#quote-form', label: 'Request a quote' },
+  ],
 })}
 ${renderTextSection({
   module: 'local-intro',

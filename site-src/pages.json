@@ -845,9 +845,7 @@
     "twitterDescription": "Need a 5-Star Adelaide removalist? ZQ Removals covers Andrews Farm & Adelaide wide. Call 0433 819 989 for a fixed-price quote and careful furniture handling.",
     "twitterImage": "https://zqremovals.au/zq-removals-social-share.webp",
     "refresh": "",
-    "jsonLd": [
-      "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"MovingCompany\",\n  \"@id\": \"https://zqremovals.au/#localbusiness\",\n  \"name\": \"ZQ Removals Adelaide\",\n  \"url\": \"https://zqremovals.au/\",\n  \"telephone\": \"+61 433 819 989\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"Andrews Farm SA 5114\",\n    \"addressLocality\": \"Andrews Farm\",\n    \"addressRegion\": \"SA\",\n    \"postalCode\": \"5114\",\n    \"addressCountry\": \"AU\"\n  },\n  \"areaServed\": \"Adelaide\"\n}"
-    ],
+    "jsonLd": [],
     "contentFile": "content/index.html"
   },
   {

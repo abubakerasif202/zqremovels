@@ -1,7 +1,27 @@
 import { copyFile, cp, mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { transform } from 'lightningcss';
-import { buildCanonical, buildDescription, buildFAQSchema, buildImageObjectSchema, buildLocalBusinessSchema, buildOGTags, buildServiceSchema, buildTitle, buildTwitterTags, businessIdentifiers, getGeneratedPages, getRouteCoverageReport, getSeoV5IntentProfile, getSuburbLinkProfile, mergePagesByOutput, normalizeInternalHref, seoConfig, zqServiceSitemapOutputs } from '../site-src/data/seo-v4.mjs';
+import {
+  buildCanonical,
+  buildDescription,
+  buildFAQSchema,
+  buildImageObjectSchema,
+  buildLocalBusinessSchema,
+  buildOGTags,
+  buildServiceSchema,
+  buildTitle,
+  buildTwitterTags,
+  businessIdentifiers,
+  getGeneratedPages,
+  getRouteCoverageReport,
+  getSeoV5IntentProfile,
+  getSuburbLinkProfile,
+  mergePagesByOutput,
+  normalizeInternalHref,
+  renderHomepageAeoBlock,
+  seoConfig,
+  zqServiceSitemapOutputs,
+} from '../site-src/data/seo-v4.mjs';
 
 const workspaceRoot = process.cwd();
 
@@ -2632,62 +2652,7 @@ function buildBusinessJsonLd(page) {
     return '';
   }
 
-  return JSON.stringify(
-    {
-      '@context': 'https://schema.org',
-      '@type': 'MovingCompany',
-      '@id': 'https://zqremovals.au/#business',
-      name: 'ZQ Removals',
-      url: 'https://zqremovals.au/',
-      telephone: '+61433819989',
-      image: defaultSocialImage,
-      logo: defaultLogoImage,
-      hasMap: googleBusinessProfileUrl,
-      sameAs: companySameAsProfiles,
-      taxID: businessIdentifiers.abnMachine,
-      identifier: {
-        '@type': 'PropertyValue',
-        name: 'ABN',
-        value: businessIdentifiers.abnMachine,
-      },
-      priceRange: '$$',
-      serviceType: [
-        'Local removals',
-        'Interstate removals',
-        'Office removals',
-        'Furniture removals',
-        'House removals',
-      ],
-      areaServed: [
-        'Adelaide',
-        'South Australia',
-        'Adelaide CBD',
-        'Northern suburbs',
-        'Southern suburbs',
-        'Western suburbs',
-        'Eastern suburbs',
-      ],
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Andrews Farm',
-        addressRegion: 'SA',
-        postalCode: '5114',
-        addressCountry: 'AU',
-      },
-      contactPoint: [
-        {
-          '@type': 'ContactPoint',
-          contactType: 'customer service',
-          telephone: '+61433819989',
-          areaServed: ['Adelaide', 'South Australia', 'Australia'],
-          availableLanguage: ['en'],
-          url: 'https://zqremovals.au/contact-us/',
-        },
-      ],
-    },
-    null,
-    2,
-  );
+  return JSON.stringify(buildLocalBusinessSchema(), null, 2);
 }
 
 function buildOrganizationJsonLd(page) {
@@ -3693,6 +3658,13 @@ function transformContent(content, page) {
       .replaceAll('/zq-removals-social-share.png', '/zq-removals-social-share.webp')
       .replaceAll('/brand-logo.png', '/brand-logo.webp')
       .replaceAll('/screen.png', '/screen.webp');
+    
+    const aeoBlock = renderHomepageAeoBlock();
+    if (next.includes('class="section section-soft customer-reviews"')) {
+      next = next.replace('<section class="section section-soft customer-reviews">', `${aeoBlock}\n<section class="section section-soft customer-reviews">`);
+    } else {
+      next = next.replace('</main>', `${aeoBlock}\n</main>`);
+    }
   }
 
   if (next.includes('class="hero-section"')) {
@@ -6135,10 +6107,13 @@ async function renderSitemaps(pages, renderedHtmlByOutput = new Map()) {
     <lastmod>${lastmod}</lastmod>
   </url>`;
 
-    if (page.output.startsWith('adelaide-moving-guides/') || page.output.startsWith('guides/')) {
+    if (page.output.startsWith('adelaide-moving-guides/') || page.output.startsWith('guides/') || page.generatedKind === 'comparison') {
       grouped['sitemap-guides.xml'].push(entry);
       sitemapLastmods['sitemap-guides.xml'].push(lastmod);
-    } else if (page.output.startsWith('removalists-')) {
+    } else if (page.generatedKind === 'service-suburb') {
+      grouped['sitemap-services.xml'].push(entry);
+      sitemapLastmods['sitemap-services.xml'].push(lastmod);
+    } else if (page.output.startsWith('removalists-') || page.generatedKind === 'local-route') {
       grouped['sitemap-suburbs.xml'].push(entry);
       sitemapLastmods['sitemap-suburbs.xml'].push(lastmod);
     } else if (

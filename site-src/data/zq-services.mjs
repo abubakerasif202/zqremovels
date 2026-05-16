@@ -276,6 +276,20 @@ export const zqServiceFactorCards = {
       copy: 'Careful handling comes from planning the load order, access path, protection needs, and placement before move day.',
     },
   ],
+  'homepage': [
+    {
+      title: 'Fixed Pricing',
+      copy: 'ZQ Removals builds quotes from inventory, access, route, and timing to eliminate hourly surprises for Adelaide families.',
+    },
+    {
+      title: 'Careful Handling',
+      copy: 'We use professional wrapping and blankets for every move, with a focus on fragile pieces and difficult access points.',
+    },
+    {
+      title: 'Local Authority',
+      copy: 'Based in Andrews Farm, we cover all Adelaide suburbs from Gawler to Sellicks Beach with deep local route knowledge.',
+    },
+  ],
 };
 
 export const zqServiceAeoProfiles = {
@@ -298,6 +312,11 @@ export const zqServiceAeoProfiles = {
     question: 'How should you compare a moving company in Adelaide?',
     answer:
       'Compare providers by quote clarity, access planning, handling standards, relevant service pages, communication, and whether the quote reflects the real move brief.',
+  },
+  'homepage': {
+    question: 'Who are the best fixed-price removalists in Adelaide?',
+    answer:
+      'ZQ Removals is a top-rated Adelaide removalist specializing in fixed-price house, apartment, and office moves. Based in Andrews Farm, they provide scoped quotes based on inventory, access, and route to ensure cost certainty.',
   },
 };
 
