@@ -830,22 +830,24 @@
   {
     "output": "index.html",
     "layout": "standard",
-    "title": "Adelaide Removalists | Fixed-Price Movers | ZQ Removals",
-    "description": "Need Adelaide removalists? ZQ Removals covers Andrews Farm and metro Adelaide with fixed-price quotes and careful furniture handling.",
+    "title": "Adelaide Removalists | Fixed-Price Local Movers | ZQ Removals",
+    "description": "Need a 5-Star Adelaide removalist? ZQ Removals covers Andrews Farm & Adelaide wide. Call 0433 819 989 for a fixed-price quote and careful furniture handling.",
     "canonical": "https://zqremovals.au/",
     "robots": "index,follow,max-image-preview:large",
     "themeColor": "#0A192F",
-    "ogTitle": "Adelaide Removalists | Fixed-Price Movers | ZQ Removals",
-    "ogDescription": "Need Adelaide removalists? ZQ Removals covers Andrews Farm and metro Adelaide with fixed-price quotes and careful furniture handling.",
+    "ogTitle": "Adelaide Removalists | Fixed-Price Local Movers | ZQ Removals",
+    "ogDescription": "Need a 5-Star Adelaide removalist? ZQ Removals covers Andrews Farm & Adelaide wide. Call 0433 819 989 for a fixed-price quote and careful furniture handling.",
     "ogType": "website",
     "ogUrl": "https://zqremovals.au/",
     "ogImage": "https://zqremovals.au/zq-removals-social-share.webp",
     "twitterCard": "summary_large_image",
-    "twitterTitle": "Adelaide Removalists | Fixed-Price Movers | ZQ Removals",
-    "twitterDescription": "Need Adelaide removalists? ZQ Removals covers Andrews Farm and metro Adelaide with fixed-price quotes and careful furniture handling.",
+    "twitterTitle": "Adelaide Removalists | Fixed-Price Local Movers | ZQ Removals",
+    "twitterDescription": "Need a 5-Star Adelaide removalist? ZQ Removals covers Andrews Farm & Adelaide wide. Call 0433 819 989 for a fixed-price quote and careful furniture handling.",
     "twitterImage": "https://zqremovals.au/zq-removals-social-share.webp",
     "refresh": "",
-    "jsonLd": [],
+    "jsonLd": [
+      "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"MovingCompany\",\n  \"@id\": \"https://zqremovals.au/#localbusiness\",\n  \"name\": \"ZQ Removals Adelaide\",\n  \"url\": \"https://zqremovals.au/\",\n  \"telephone\": \"+61 433 819 989\",\n  \"aggregateRating\": {\n    \"@type\": \"AggregateRating\",\n    \"ratingValue\": \"5.0\",\n    \"reviewCount\": \"38\"\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"Andrews Farm SA 5114\",\n    \"addressLocality\": \"Andrews Farm\",\n    \"addressRegion\": \"SA\",\n    \"postalCode\": \"5114\",\n    \"addressCountry\": \"AU\"\n  },\n  \"areaServed\": \"Adelaide\"\n}"
+    ],
     "contentFile": "content/index.html"
   },
   {
