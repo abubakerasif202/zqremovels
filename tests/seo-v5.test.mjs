@@ -140,7 +140,8 @@ test('seo v5 sitemap and robots output is clean, canonical, grouped, and duplica
   assert.match(robots, /User-agent: \*/);
   assert.match(robots, /Allow: \//);
   assert.match(robots, /Sitemap: https:\/\/zqremovals\.au\/sitemap-index\.xml/);
-  assert.match(robots, /LLM: https:\/\/zqremovals\.au\/llms\.txt/);
+  assert.doesNotMatch(robots, /^LLM:/m);
+  assert.match(robots, /# https:\/\/zqremovals\.au\/llms\.txt/);
 
   const expectedSitemaps = [
     'sitemap-pages.xml',

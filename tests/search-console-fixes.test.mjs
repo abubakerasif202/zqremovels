@@ -93,10 +93,10 @@ test('generated sitemap and canonicals stay on the apex host', () => {
   assert.doesNotMatch(sitemap, /https:\/\/www\.zqremovals\.au\//);
   assert.match(sitemap, /<sitemapindex/);
   assert.match(homepage, /<link rel="canonical" href="https:\/\/zqremovals\.au\/" \/>/);
-  assert.match(homepage, /<title>Adelaide Removalists \| Fixed-Price Local Movers \| ZQ Removals<\/title>/);
+  assert.match(homepage, /<title>Adelaide Removalists \| Fixed-Price Movers \| ZQ Removals<\/title>/);
   assert.match(
     homepage,
-    /<meta name="description" content="Need a 5-Star Adelaide removalist\? ZQ Removals covers Andrews Farm &amp; Adelaide wide\. Call 0433 819 989 for a fixed-price quote and careful furniture handling\." \/>/,
+    /<meta name="description" content="Need Adelaide removalists\? ZQ Removals covers Andrews Farm and metro Adelaide with fixed-price quotes and careful furniture handling\." \/>/,
   );
   assert.match(
     interstateHub,
@@ -162,6 +162,82 @@ test('sitemap contains only intended indexable routes', () => {
       `unexpected sitemap inclusion for ${page.output}`,
     );
   }
+});
+
+test('visible breadcrumbs are rendered on key page types and align with JSON-LD', () => {
+  const pagesToCheck = [
+    ['index.html', ['aria-label="Breadcrumb"', 'li aria-current="page">Home']],
+    [path.join('removalists-adelaide', 'index.html'), ['aria-label="Breadcrumb"', '/">Home</a>', 'Removalists Adelaide']],
+    [path.join('removalists-salisbury', 'index.html'), ['aria-label="Breadcrumb"', '/">Home</a>', 'Salisbury']],
+    [path.join('adelaide-moving-guides', 'removalists-cost-adelaide', 'index.html'), ['aria-label="Breadcrumb"', 'Adelaide Moving Guides', 'Removalist Cost Adelaide']],
+    [path.join('adelaide-to-sydney-removals', 'index.html'), ['aria-label="Breadcrumb"', 'Interstate Removals', 'Adelaide to Sydney Removals']],
+  ];
+
+  for (const [output, needles] of pagesToCheck) {
+    const html = readDist(output);
+    for (const needle of needles) {
+      assert.match(html, new RegExp(needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `missing breadcrumb text ${needle} in ${output}`);
+    }
+  }
+
+  const breadcrumbJsonLdCount = [...walkHtmlFiles(distDir)].reduce((count, htmlFile) => {
+    const html = readFileSync(htmlFile, 'utf8');
+    return count + (html.match(/"@type": "BreadcrumbList"/g) || []).length;
+  }, 0);
+  assert.ok(breadcrumbJsonLdCount > 0, 'expected BreadcrumbList JSON-LD to remain present');
+});
+
+test('breadcrumb and faq schema do not duplicate within a single page', () => {
+  for (const htmlFile of walkHtmlFiles(distDir)) {
+    const html = readFileSync(htmlFile, 'utf8');
+    const breadcrumbCount = (html.match(/"@type": "BreadcrumbList"/g) || []).length;
+    const faqCount = (html.match(/"@type": "FAQPage"/g) || []).length;
+
+    assert.ok(breadcrumbCount <= 1, `duplicate BreadcrumbList schema found in ${path.relative(distDir, htmlFile)}`);
+    assert.ok(faqCount <= 1, `duplicate FAQPage schema found in ${path.relative(distDir, htmlFile)}`);
+  }
+});
+
+test('key titles and descriptions stay within safe SEO length guardrails', () => {
+  const keyPages = [
+    ['index.html', 60, 160],
+    ['removalists-adelaide/index.html', 60, 160],
+    ['adelaide-moving-guides/removalists-cost-adelaide/index.html', 60, 160],
+    ['removalists-salisbury/index.html', 60, 160],
+    ['removalists-glenelg/index.html', 60, 160],
+    ['removalists-adelaide-cbd/index.html', 60, 160],
+  ];
+
+  for (const [output, maxTitle, maxDescription] of keyPages) {
+    const page = pages.find((entry) => entry.output === output);
+    assert.ok(page, `missing page metadata for ${output}`);
+    assert.ok(page.title.length <= maxTitle, `${output} title is too long: ${page.title.length}`);
+    assert.ok(page.description.length <= maxDescription, `${output} description is too long: ${page.description.length}`);
+  }
+});
+
+test('robots and AI crawler files stay standards-compliant', () => {
+  const robots = readDist('robots.txt');
+  const llms = readDist('llms.txt');
+  const llmsFull = readDist('llms-full.txt');
+
+  assert.match(robots, /^User-agent: \*\r?\nAllow: \/\r?\nSitemap: https:\/\/zqremovals\.au\/sitemap-index\.xml/m);
+  assert.doesNotMatch(robots, /^LLM:/m);
+  assert.match(llms, /Website: https:\/\/zqremovals\.au/);
+  assert.match(llmsFull, /Entity: ZQ Removals/);
+});
+
+test('responsive image handling keeps hero images sized and prioritized correctly', () => {
+  const homepage = readDist('index.html');
+  const heroImg = homepage.match(/<picture>[\s\S]*?<img[\s\S]*?<\/picture>/i)?.[0] || '';
+
+  assert.match(heroImg, /srcset="[^"]*\/media\/responsive\/home-local-hero-branded-480w\.webp 480w/i);
+  assert.match(heroImg, /sizes="[^"]*"/i);
+  assert.match(heroImg, /width="768"/i);
+  assert.match(heroImg, /height="406"/i);
+  assert.match(heroImg, /loading="lazy"/i);
+  assert.doesNotMatch(heroImg, /fetchpriority="high"/i);
+  assert.match(homepage, /<img[^>]+loading="lazy"[^>]+src="\/media\/zq-service-premium\.webp"/i);
 });
 
 test('vercel redirects cover legacy html aliases for crawlable pages and route families', () => {
@@ -620,8 +696,8 @@ test('v6 homepage targets premium Adelaide removalists and above-fold CTAs', () 
   const homepage = readDist('index.html');
   const hero = homepage.match(/<section class="hero-shell[\s\S]*?<\/section>/i)?.[0] || '';
 
-  assert.match(homepage, /<title>Adelaide Removalists \| Fixed-Price Local Movers \| ZQ Removals<\/title>/);
-  assert.match(homepage, /<meta name="description" content="Need a 5-Star Adelaide removalist\? ZQ Removals covers Andrews Farm &amp; Adelaide wide\. Call 0433 819 989 for a fixed-price quote and careful furniture handling\."/i);
+  assert.match(homepage, /<title>Adelaide Removalists \| Fixed-Price Movers \| ZQ Removals<\/title>/);
+  assert.match(homepage, /<meta name="description" content="Need Adelaide removalists\? ZQ Removals covers Andrews Farm and metro Adelaide with fixed-price quotes and careful furniture handling\."/i);
   assert.match(hero, /<h1[^>]*>Adelaide Removalists<\/h1>/);
   assert.match(hero, /href="tel:\+61433819989"[^>]*>Call 0433 819 989<\/a>/);
   assert.match(hero, /href="\/contact-us\/#quote-form"[^>]*>Get Free Quote<\/a>/);

@@ -2489,7 +2489,7 @@ try {
 
     const head = `${renderHead(page, content)}\n${renderTrackingHeadScripts()}`.trim();
     const bodyAttributes = renderBodyAttributes(page);
-    const bodyTop = [renderTrackingBodyTop(), renderBodyTop(page)].filter(Boolean).join('\n');
+    const bodyTop = [renderTrackingBodyTop(), renderBodyTop(page, content)].filter(Boolean).join('\n');
     const template = templates[page.layout] ?? templates.standard;
 
     const html = template
@@ -5927,8 +5927,80 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>`;
 }
 
-function renderBodyTop(page) {
-  return '';
+function renderBodyTop(page, content) {
+  return renderVisibleBreadcrumbs(page, content);
+}
+
+function renderVisibleBreadcrumbs(page, content) {
+  if (hasVisibleBreadcrumb(content)) {
+    return '';
+  }
+
+  const items = buildVisibleBreadcrumbItems(page);
+  if (items.length === 0) {
+    return '';
+  }
+
+  const currentIndex = items.length - 1;
+  const listItems = items
+    .map((item, index) => {
+      const isCurrent = index === currentIndex;
+      if (!item.href || isCurrent) {
+        return `<li aria-current="page">${escapeHtml(item.label)}</li>`;
+      }
+      return `<li><a href="${escapeAttribute(item.href)}">${escapeHtml(item.label)}</a></li>`;
+    })
+    .join('\n          ');
+
+  return `<nav aria-label="Breadcrumb" class="breadcrumb reveal-on-scroll">
+  <ol>
+          ${listItems}
+  </ol>
+</nav>`;
+}
+
+function hasVisibleBreadcrumb(content) {
+  return /<nav[^>]*aria-label="Breadcrumb"[^>]*>/i.test(content);
+}
+
+function buildVisibleBreadcrumbItems(page) {
+  const items = [{ label: 'Home', href: '/' }];
+  const output = page.output.replace(/\\/g, '/');
+
+  if (output === 'index.html') {
+    return items;
+  }
+
+  if (output === 'adelaide-moving-guides/index.html') {
+    items.push({ label: 'Adelaide Moving Guides', href: '/adelaide-moving-guides/' });
+    return items;
+  }
+
+  if (output.startsWith('adelaide-moving-guides/')) {
+    items.push({ label: 'Adelaide Moving Guides', href: '/adelaide-moving-guides/' });
+    items.push({ label: cleanHtmlText(page.title || 'Guide') });
+    return items;
+  }
+
+  if (output.startsWith('removalists-')) {
+    items.push({ label: 'Suburb Removalists', href: '/removalists-adelaide/' });
+    items.push({ label: cleanHtmlText(page.title || 'Suburb') });
+    return items;
+  }
+
+  if (output.startsWith('adelaide-to-') && /-(removals|removalists)\/index\.html$/.test(output)) {
+    items.push({ label: 'Interstate Removals', href: '/interstate-removals-adelaide/' });
+    items.push({ label: cleanHtmlText(page.title || 'Route') });
+    return items;
+  }
+
+  if (output.includes('removals') || output.includes('removalists') || output.startsWith('services/')) {
+    items.push({ label: 'Services', href: '/house-removals-adelaide/' });
+    items.push({ label: cleanHtmlText(page.title || 'Service') });
+    return items;
+  }
+
+  return items;
 }
 
 async function copyStaticAssets() {

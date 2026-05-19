@@ -14,19 +14,24 @@ if (testFiles.length === 0) {
   process.exit(1);
 }
 
-const child = spawn(
-  process.execPath,
-  ['--test', '--test-concurrency=1', ...testFiles],
-  {
-    cwd: root,
-    stdio: 'inherit',
-  },
-);
+for (const testFile of testFiles) {
+  await new Promise((resolve) => {
+    const child = spawn(process.execPath, ['--test', testFile], {
+      cwd: root,
+      stdio: 'inherit',
+    });
 
-child.on('exit', (code, signal) => {
-  if (signal) {
-    console.error(`node --test terminated by ${signal}`);
-    process.exit(1);
-  }
-  process.exit(code ?? 1);
-});
+    child.on('exit', (code, signal) => {
+      if (signal) {
+        console.error(`node --test ${testFile} terminated by ${signal}`);
+        process.exit(1);
+      }
+
+      if ((code ?? 1) !== 0) {
+        process.exit(code ?? 1);
+      }
+
+      resolve();
+    });
+  });
+}

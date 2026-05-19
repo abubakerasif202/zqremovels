@@ -44,7 +44,7 @@ test('homepage metadata, schema, and crawl directives match v4 targets', async (
   const description = homepage.match(/<meta name="description" content="([^"]+)"/)?.[1] || '';
   const h1Count = (homepage.match(/<h1\b/gi) || []).length;
 
-  assert.equal(title, 'Adelaide Removalists | Fixed-Price Local Movers | ZQ Removals');
+  assert.equal(title, 'Adelaide Removalists | Fixed-Price Movers | ZQ Removals');
   assert.ok(title.length >= 50 && title.length <= 70, `title length out of range: ${title.length}`);
   assert.ok(description.length >= 120 && description.length <= 162, `description length out of range: ${description.length}`);
   assert.equal(h1Count, 1);
@@ -59,7 +59,8 @@ test('homepage metadata, schema, and crawl directives match v4 targets', async (
 
   assert.ok(llms.includes('ZQ Removals'));
   assert.match(robots, /Sitemap: https:\/\/zqremovals\.au\/sitemap-index\.xml/);
-  assert.match(robots, /LLM: https:\/\/zqremovals\.au\/llms\.txt/);
+  assert.doesNotMatch(robots, /^LLM:/m);
+  assert.match(robots, /# https:\/\/zqremovals\.au\/llms\.txt/);
   assert.match(sitemapIndex, /<sitemapindex/);
   assert.match(servicesSitemap, /https:\/\/zqremovals\.au\/services\/local-removals-adelaide\//);
 });

@@ -48,7 +48,7 @@ test('footer and homepage include the price-page links and cost-conscious messag
     assert.match(homepage, new RegExp(`href="/${slug}/"`), `${slug} missing from homepage source`);
   }
 
-  assert.match(homepage, /Fixed-Price Local Movers in Adelaide/i);
+  assert.match(homepage, /Fixed-Price Movers/i);
   assert.match(contact, /Quote Preparation Checklist/i);
 });
 
@@ -69,13 +69,10 @@ test('build output keeps apex canonical host and excludes unsupported review sch
 });
 
 test('sitemap still contains the price pages', () => {
-  const sitemap = [
-    readFileSync(path.join(distDir, 'sitemap-index.xml'), 'utf8'),
-    readFileSync(path.join(distDir, 'sitemap-pages.xml'), 'utf8'),
-    readFileSync(path.join(distDir, 'sitemap-services.xml'), 'utf8'),
-    readFileSync(path.join(distDir, 'sitemap-suburbs.xml'), 'utf8'),
-    readFileSync(path.join(distDir, 'sitemap-guides.xml'), 'utf8'),
-  ].join('\n');
+  const sitemapFiles = ['sitemap-index.xml', 'sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml'];
+  const sitemap = sitemapFiles
+    .map((file) => readFileSync(path.join(distDir, file), 'utf8'))
+    .join('\n');
   for (const slug of ['cheap-removalists-adelaide', 'affordable-removalists-adelaide', 'removalist-cost-adelaide', 'moving-quotes-adelaide', 'fixed-price-removalists-adelaide']) {
     assert.match(sitemap, new RegExp(`https://zqremovals\\.au/${slug}/`), slug);
   }

@@ -29,7 +29,7 @@ test('homepage targets Adelaide removalists with the new commercial headline and
   );
   assert.match(
     homepage,
-    /Need a 5-Star Adelaide removalist\? ZQ Removals covers Andrews Farm and the wider Adelaide region\./i,
+    /Need Adelaide removalists\? ZQ Removals covers Andrews Farm and metro Adelaide with fixed-price quotes and careful furniture handling\./i,
   );
   assert.match(
     homepage,
@@ -521,4 +521,23 @@ test('generated-page lastmod follows source file mtimes and image sitemap is pow
   assert.equal(cheapLastmod[1], expectedLastmod);
   assert.match(imageSitemap, /<image:loc>https:\/\/zqremovals\.au\/media\/zq-local-premium\.webp<\/image:loc>/);
   assert.match(imageSitemap, /<image:loc>https:\/\/zqremovals\.au\/media\/zq-service-premium\.webp<\/image:loc>/);
+});
+
+test('premium stylesheet includes clear responsive media queries', () => {
+  const css = readFileSync(path.join(root, 'premium-site.css'), 'utf8');
+
+  assert.match(css, /@media \(max-width: 1023px\)/);
+  assert.match(css, /@media \(min-width: 768px\)/);
+  assert.match(css, /@media \(min-width: 1024px\)/);
+});
+
+test('important pages keep accessible image alt text and dimensions', () => {
+  const homepage = readDist('index.html');
+  const contactPage = readDist(path.join('contact-us', 'index.html'));
+
+  for (const html of [homepage, contactPage]) {
+    assert.doesNotMatch(html, /<img(?![^>]*\balt=")[^>]*>/i);
+    assert.doesNotMatch(html, /<img(?![^>]*\bwidth=")[^>]*>/i);
+    assert.doesNotMatch(html, /<img(?![^>]*\bheight=")[^>]*>/i);
+  }
 });
