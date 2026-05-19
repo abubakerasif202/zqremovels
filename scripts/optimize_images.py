@@ -5,12 +5,12 @@ from PIL import Image, ImageEnhance, ImageOps
 
 ROOT = Path(__file__).resolve().parents[1]
 TARGETS = [
-    (ROOT / 'brand-logo.png', ROOT / 'brand-logo.webp', 90),
-    (ROOT / 'brand-logo.png', ROOT / 'brand-logo-64.webp', 80),
-    (ROOT / 'brand-logo.png', ROOT / 'brand-logo-256.webp', 82),
-    (ROOT / 'brand-logo.png', ROOT / 'brand-logo-96.webp', 80),
-    (ROOT / 'screen.png', ROOT / 'screen.webp', 84),
-    (ROOT / 'zq-removals-social-share.png', ROOT / 'zq-removals-social-share.webp', 86),
+    (ROOT / 'brand-logo.png', ROOT / 'brand-logo.webp', 90, None),
+    (ROOT / 'brand-logo.png', ROOT / 'brand-logo-64.webp', 80, (64, 64)),
+    (ROOT / 'brand-logo.png', ROOT / 'brand-logo-256.webp', 82, (256, 256)),
+    (ROOT / 'brand-logo.png', ROOT / 'brand-logo-96.webp', 80, (96, 96)),
+    (ROOT / 'screen.png', ROOT / 'screen.webp', 84, None),
+    (ROOT / 'zq-removals-social-share.png', ROOT / 'zq-removals-social-share.webp', 86, None),
 ]
 RESIZED_TARGETS = [
     (ROOT / 'media' / 'home-local-hero-branded.png', ROOT / 'media' / 'home-local-hero-branded.webp', 768, 406, 88),
@@ -166,14 +166,20 @@ CUSTOM_GRID_VARIANTS = [
 RESAMPLING = getattr(Image, 'Resampling', Image)
 
 
-def build_webp(source: Path, target: Path, quality: int) -> None:
+def build_webp(source: Path, target: Path, quality: int, size: tuple[int, int] | None = None) -> None:
     if not source.exists():
         return
     if target.exists() and target.stat().st_mtime >= source.stat().st_mtime:
-        return
+        if not size:
+            return
+        with Image.open(target) as existing:
+            if existing.size == size:
+                return
 
     with Image.open(source) as image:
         converted = image.convert('RGBA') if image.mode in {'RGBA', 'LA'} else image.convert('RGB')
+        if size:
+            converted = ImageOps.contain(converted, size, method=RESAMPLING.LANCZOS)
         converted.save(target, 'WEBP', quality=quality, method=6)
 
 
@@ -234,8 +240,8 @@ def get_photo_variants() -> list[dict[str, object]]:
 
 
 if __name__ == '__main__':
-    for source, target, quality in TARGETS:
-        build_webp(source, target, quality)
+    for source, target, quality, size in TARGETS:
+        build_webp(source, target, quality, size)
         print(f'optimized {target.relative_to(ROOT)}')
     for source, target, width, height, quality in RESIZED_TARGETS:
         build_resized_webp(source, target, width, height, quality)

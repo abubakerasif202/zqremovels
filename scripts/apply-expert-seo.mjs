@@ -17,8 +17,8 @@ async function applyExpertSEO() {
     
     const homeIndex = pages.findIndex(p => p.output === 'index.html');
     if (homeIndex !== -1) {
-      pages[homeIndex].title = "Adelaide Removalists | Fixed-Price Local Movers | ZQ Removals";
-      pages[homeIndex].description = "Need a 5-Star Adelaide removalist? ZQ Removals covers Andrews Farm & Adelaide wide. Call 0433 819 989 for a fixed-price quote and careful furniture handling.";
+      pages[homeIndex].title = "Adelaide Removalists | Fixed-Price Movers | ZQ Removals";
+      pages[homeIndex].description = "Need Adelaide removalists? ZQ Removals covers Andrews Farm and metro Adelaide with fixed-price quotes and careful furniture handling.";
       pages[homeIndex].ogTitle = pages[homeIndex].title;
       pages[homeIndex].ogDescription = pages[homeIndex].description;
       pages[homeIndex].twitterTitle = pages[homeIndex].title;

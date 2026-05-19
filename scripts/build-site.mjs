@@ -4491,7 +4491,7 @@ function injectResponsiveSrcset(html, responsiveVariants) {
     const encodedBase = encodedName.replace(/\.webp$/, '');
 
     const parts = [];
-    for (const w of [480, 960]) {
+    for (const w of [320, 480, 960]) {
       const variantFile = `${baseName}-${w}w.webp`;
       if (responsiveVariants.has(variantFile)) {
         // Encode only spaces (not parentheses) to match the convention used
@@ -4517,6 +4517,14 @@ function injectResponsiveSrcset(html, responsiveVariants) {
     const isHeroLike =
       /\bhero\b|fetchpriority="high"|loading="eager"/i.test(attrs) ||
       /(?:hero|home-local|interstate-route|packing-station|office-relocation|furniture-wrapping|suburb-|local-move|cbd-apartment)/i.test(srcUrl);
+
+    if (/\bhero-media-secondary\b/.test(className)) {
+      return '(max-width: 768px) 45vw, 280px';
+    }
+
+    if (/\bhome-story-media-main\b/.test(className)) {
+      return '(max-width: 700px) 100vw, (max-width: 1200px) 45vw, 480px';
+    }
 
     if (isHeroLike) {
       return '(max-width: 768px) 100vw, 960px';
@@ -5879,13 +5887,25 @@ window.__analyticsConfig = ${JSON.stringify(config)};
 
   if (gaId) {
     html += `
-<script async src="https://www.googletagmanager.com/gtag/js?id=${gaId}"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 window.gtag = gtag;
-gtag('js', new Date());
-gtag('config', '${gaId}');
+window.__loadGtag = function(){
+  if (window.__gtagLoaded) return;
+  window.__gtagLoaded = true;
+  var script = document.createElement('script');
+  script.async = true;
+  script.src = 'https://www.googletagmanager.com/gtag/js?id=${gaId}';
+  document.head.appendChild(script);
+  gtag('js', new Date());
+  gtag('config', '${gaId}');
+};
+if ('requestIdleCallback' in window) {
+  requestIdleCallback(window.__loadGtag, { timeout: 3500 });
+} else {
+  window.addEventListener('load', function(){ setTimeout(window.__loadGtag, 1200); }, { once: true });
+}
 </script>`;
   }
 

@@ -10,7 +10,7 @@
  */
 
 import sharp from 'sharp';
-import { readdir, mkdir, stat, writeFile } from 'node:fs/promises';
+import { readdir, mkdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -19,8 +19,8 @@ const projectRoot = path.resolve(__dirname, '..');
 const mediaDir = path.join(projectRoot, 'media');
 const responsiveDir = path.join(mediaDir, 'responsive');
 
-// Responsive widths to generate for hero images.
-const RESPONSIVE_WIDTHS = [480, 960];
+// Responsive widths to generate for hero and supporting images.
+const RESPONSIVE_WIDTHS = [320, 480, 960];
 
 // Max width for the main (full-size) image in dist.
 // Gemini images are 1600px wide but rendered at 960px; cap at 1200px.
@@ -39,21 +39,15 @@ async function getFiles(dir, ext) {
     .map((e) => e.name);
 }
 
-async function recompressWebp(srcPath, destPath, opts = {}) {
-  const { maxWidth = MAX_DISPLAY_WIDTH, quality = WEBP_QUALITY } = opts;
-  const meta = await sharp(srcPath).metadata();
-  const pipeline = sharp(srcPath);
-
-  if (meta.width > maxWidth) {
-    pipeline.resize({ width: maxWidth, withoutEnlargement: true });
-  }
-
-  await pipeline.webp({ quality }).toFile(destPath);
-}
-
 async function generateResponsiveVariant(srcPath, outDir, baseName, width) {
   const outName = `${baseName}-${width}w.webp`;
   const outPath = path.join(outDir, outName);
+  try {
+    await stat(outPath);
+    return outName;
+  } catch {
+    // Missing variants are generated below.
+  }
   await sharp(srcPath)
     .resize({ width, withoutEnlargement: true })
     .webp({ quality: WEBP_QUALITY })
@@ -83,16 +77,9 @@ async function main() {
 
     const sizeBefore = await fileSizeKb(srcPath);
 
-    // Re-compress in-place via a temp buffer then write.
+    // Keep source assets stable in normal runs; generate missing responsive
+    // variants from the committed source image.
     const meta = await sharp(srcPath).metadata();
-    const maxWidth = isSocialShare ? 1536 : MAX_DISPLAY_WIDTH;
-    const pipeline = sharp(srcPath);
-    if (meta.width > maxWidth) {
-      pipeline.resize({ width: maxWidth, withoutEnlargement: true });
-    }
-    const buf = await pipeline.webp({ quality }).toBuffer();
-    await writeFile(srcPath, buf);
-
     const sizeAfter = await fileSizeKb(srcPath);
     console.log(`✔  ${file.padEnd(52)} ${sizeBefore}KB → ${sizeAfter}KB`);
 

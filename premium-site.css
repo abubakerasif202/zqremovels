@@ -1594,8 +1594,17 @@ textarea:focus:not(:focus-visible) {
 .hero-quick-trust {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 1.5rem;
   margin: 0.5rem 0 1rem;
+}
+
+.home-trust-logo {
+  width: 76px;
+  height: 76px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
 }
 
 .hero-trust-bar-v5 {
