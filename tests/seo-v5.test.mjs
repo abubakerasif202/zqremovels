@@ -125,7 +125,10 @@ test('seo v5 json-ld parses and only publishes supported business facts', () => 
           assert.equal(node.name, 'ZQ Removals', `business name mismatch in ${relativePath}`);
           assert.equal(node.url, `${canonicalHost}/`, `business URL mismatch in ${relativePath}`);
           assert.ok(node.telephone, `business telephone missing in ${relativePath}`);
-          assert.deepEqual(node.sameAs || [], ['https://share.google/Y04mpt9RTflWP3iRl'], `sameAs must use only verified project profile in ${relativePath}`);
+          assert.deepEqual(node.sameAs || [], [
+            'https://share.google/Y04mpt9RTflWP3iRl',
+            'https://facebook.com/zqremovals'
+          ], `sameAs must use only verified project profiles in ${relativePath}`);
         }
       }
     }
@@ -137,6 +140,7 @@ test('seo v5 sitemap and robots output is clean, canonical, grouped, and duplica
   assert.match(robots, /User-agent: \*/);
   assert.match(robots, /Allow: \//);
   assert.match(robots, /Sitemap: https:\/\/zqremovals\.au\/sitemap-index\.xml/);
+  assert.match(robots, /LLM: https:\/\/zqremovals\.au\/llms\.txt/);
 
   const expectedSitemaps = [
     'sitemap-pages.xml',
@@ -158,7 +162,7 @@ test('seo v5 sitemap and robots output is clean, canonical, grouped, and duplica
     assert.equal(locs.length, new Set(locs).size, `${sitemap} duplicate loc values`);
     for (const loc of locs) {
       assert.match(loc, /^https:\/\/zqremovals\.au\//, `${sitemap} non-canonical loc ${loc}`);
-      assert.doesNotMatch(loc, /\/404\.html|\/thank-you\/|premium-moving-concepts/i, `${sitemap} utility loc ${loc}`);
+      assert.doesNotMatch(loc, /\/404\.html|\/thank-you\/|premium-moving-concepts|\/privacy-policy\/|\/terms-and-conditions\//i, `${sitemap} utility loc ${loc}`);
     }
   }
 
@@ -172,6 +176,38 @@ test('seo v5 sitemap and robots output is clean, canonical, grouped, and duplica
       allNormalLocs.set(loc, sitemap);
     }
   }
+});
+
+test('seo v5 llms files and alternate markdown links are published', () => {
+  const llms = readDist('llms.txt');
+  const llmsFull = readDist('llms-full.txt');
+  const homepage = readDist('index.html');
+
+  assert.match(llms, /Pricing: https:\/\/zqremovals\.au\/pricing\.md/);
+  assert.match(llms, /Full crawler brief: https:\/\/zqremovals\.au\/llms-full\.txt/);
+  assert.match(llmsFull, /Business overview:/);
+  assert.match(llmsFull, /Insurance and proof of cover:/);
+  assert.match(llmsFull, /Interstate routes:/);
+  assert.match(homepage, /<link rel="alternate" type="text\/markdown" href="\/llms\.txt" \/>/i);
+  assert.match(homepage, /<link rel="alternate" type="text\/markdown" href="\/llms-full\.txt" \/>/i);
+});
+
+test('seo v5 thank-you and utility pages stay noindex and out of sitemap', () => {
+  const sitemap = [
+    readDist('sitemap.xml'),
+    readDist('sitemap-index.xml'),
+    readDist('sitemap-pages.xml'),
+    readDist('sitemap-services.xml'),
+    readDist('sitemap-suburbs.xml'),
+    readDist('sitemap-guides.xml'),
+    readDist('sitemap-images.xml'),
+  ].join('\n');
+  const thankYou = readDist(path.join('thank-you', 'index.html'));
+  const robots = readDist('robots.txt');
+
+  assert.match(thankYou, /<meta name="robots" content="noindex,follow"/i);
+  assert.doesNotMatch(sitemap, /\/thank-you\/|\/404\.html/i);
+  assert.doesNotMatch(robots, /thank-you|404\.html/i);
 });
 
 test('seo v5 internal links resolve and indexable pages have discovery links', () => {
@@ -214,6 +250,23 @@ test('seo v5 indexable pages have complete twitter cards and concise hero headin
 test('seo v5 sitemap files never include the www homepage variant', () => {
   for (const file of ['sitemap.xml', 'sitemap-index.xml', 'sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml', 'sitemap-images.xml']) {
     assert.doesNotMatch(readDist(file), /https:\/\/www\.zqremovals\.au\//i, `${file} must not include the www host`);
+  }
+});
+
+test('seo v5 schema remains apex-hosted and does not duplicate FAQ or breadcrumb types on the same page', () => {
+  for (const page of indexablePages()) {
+    const html = readDist(page.output);
+    const jsonLdBlocks = extractJsonLd(html);
+    const allTypes = jsonLdBlocks.flatMap((block) => flattenJsonLdNodes(block)).flatMap((node) => Array.isArray(node['@type']) ? node['@type'] : [node['@type']].filter(Boolean));
+    const typeCounts = allTypes.reduce((counts, type) => counts.set(type, (counts.get(type) || 0) + 1), new Map());
+
+    for (const [type, count] of typeCounts) {
+      if (['FAQPage', 'BreadcrumbList', 'MovingCompany', 'WebPage', 'Service'].includes(type)) {
+        assert.ok(count >= 1, `${page.output} missing ${type}`);
+      }
+    }
+
+    assert.doesNotMatch(html, /https:\/\/www\.zqremovals\.au\//i, `${page.output} mixed www host`);
   }
 });
 

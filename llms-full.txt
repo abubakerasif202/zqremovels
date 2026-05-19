@@ -1,0 +1,81 @@
+Entity: ZQ Removals
+Type: MovingCompany
+Website: https://zqremovals.au
+Phone: +61 433 819 989
+ABN: 97 954 095 119
+
+Business overview:
+- Adelaide-based moving company for local, interstate, residential, and commercial jobs.
+- Fixed-price quoting is built from the move brief.
+- Apex canonical URLs are used across the site.
+
+Services:
+- Local removals
+- House removals
+- Apartment removals
+- Office removals
+- Furniture removals
+- Interstate removals
+- Packing support
+
+Service areas:
+- Adelaide metro
+- South Australia
+- Interstate routes from Adelaide to major capitals
+
+Adelaide suburbs:
+- Adelaide CBD
+- Glenelg
+- Marion
+- Norwood
+- Salisbury
+- Elizabeth
+- Mawson Lakes
+- Prospect
+- Unley
+- Brighton
+
+Pricing model:
+- Quote inputs include inventory, access, stairs, lifts, parking, carry distance, packing scope, and timing windows.
+- Final pricing is based on the confirmed brief.
+
+Trust signals:
+- Google Business Profile presence.
+- Verified ABN published in structured data and footer.
+- Insurance documentation can be confirmed before booking when requested in the quote brief.
+
+FAQs:
+- What affects a moving quote? Inventory, access, timing, route, and packing scope.
+- Do apartments need extra planning? Yes, because lifts, parking, and access matter.
+- Are interstate moves different? Yes, because pickup and delivery details both affect the plan.
+
+Moving process:
+- Share the move brief through the quote form or by phone.
+- Confirm access, inventory, and timing before booking.
+- Receive a fixed-price proposal for the confirmed scope.
+- Complete the move with the agreed service plan.
+
+Insurance and proof of cover:
+- Insurance documentation can be confirmed before booking when requested in the quote brief.
+- No unsupported coverage claims are published in schema or public copy.
+
+Packing support:
+- Full and partial packing support is available for fragile, awkward, or time-sensitive moves.
+- Packing scope should be stated up front so the proposal reflects the real labour plan.
+
+Interstate routes:
+- Adelaide to Brisbane
+- Adelaide to Canberra
+- Adelaide to Melbourne
+- Adelaide to Perth
+- Adelaide to Sydney
+- Adelaide to Western Sydney
+- Adelaide to Smithfield NSW
+
+Resources:
+- Pricing: https://zqremovals.au/pricing.md
+- llms.txt: https://zqremovals.au/llms.txt
+
+Contact details:
+- Phone: +61 433 819 989
+- Website: https://zqremovals.au

@@ -58,7 +58,10 @@ export const seoConfig = {
   businessName: BUSINESS_NAME,
   phone: PHONE,
   serviceAreas: ['Adelaide', 'South Australia', 'Australia'],
-  socialProfiles: ['https://share.google/Y04mpt9RTflWP3iRl'],
+  socialProfiles: [
+    'https://share.google/Y04mpt9RTflWP3iRl',
+    'https://facebook.com/zqremovals'
+  ],
   defaultOgImage: DEFAULT_OG_IMAGE,
   defaultLogo: DEFAULT_LOGO,
   robots: 'index,follow,max-image-preview:large',
@@ -72,17 +75,13 @@ export const localBusinessSchema = {
   '@type': 'MovingCompany',
   '@id': `${SITE_URL}/#business`,
   name: BUSINESS_NAME,
-  url: SITE_URL,
+  url: `${SITE_URL}/`,
   telephone: PHONE,
   image: DEFAULT_OG_IMAGE,
   logo: DEFAULT_LOGO,
   description: 'Fixed-price Adelaide removalists specializing in house, apartment, and office moves with careful furniture handling.',
   hasMap: seoConfig.socialProfiles[0],
-  sameAs: [
-    ...seoConfig.socialProfiles,
-    'https://www.facebook.com/zqremovals/',
-    'https://www.instagram.com/zqremovals/',
-  ],
+  sameAs: seoConfig.socialProfiles,
   taxID: ABN_MACHINE,
   identifier: {
     '@type': 'PropertyValue',
@@ -97,19 +96,6 @@ export const localBusinessSchema = {
     postalCode: '5114',
     addressCountry: 'AU',
   },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: -34.6947,
-    longitude: 138.6834,
-  },
-  openingHoursSpecification: [
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      opens: '07:00',
-      closes: '19:00',
-    },
-  ],
   areaServed: [
     { '@type': 'City', name: 'Adelaide' },
     { '@type': 'State', name: 'South Australia' },
@@ -203,24 +189,23 @@ export const hyperlocalProfilesV7 = {
   },
   'salisbury': {
     council: 'City of Salisbury',
-    context: 'Main North Road, Northern Expressway, Andrews Farm proximity, and mixed residential or light industrial access',
-    access: 'Salisbury jobs should capture driveway position, industrial-adjacent loading space, unit access, and garage-heavy inventory before quoting.',
-    roads: 'Main North Road and the Northern Expressway can shape timing when the route heads north, links back toward Andrews Farm, or joins a broader Adelaide move.',
-    properties: 'Common property types include family homes, units, storage-linked moves, light industrial stock, and small office inventory.',
+    context: 'Main North Road, Northern Expressway, and mixed residential access',
+    access: 'Salisbury jobs should capture driveway position, unit access, and garage inventory before quoting.',
+    roads: 'Main North Road and the Northern Expressway can shape timing when the route heads north or joins a broader Adelaide move.',
+    properties: 'Common property types include family homes, units, storage-linked moves, and small office inventory.',
   },
   'adelaide-cbd': {
     council: 'City of Adelaide',
-    context: 'loading zones, apartment towers, lift bookings, and timed building access',
-    access: 'CBD moves should start with loading-zone rules, service-lift windows, concierge instructions, and shared corridor requirements.',
-    roads: 'City-grid timing can change quickly around North Terrace, King William Street, Grenfell Street, and other central access points.',
-    properties: 'Common property types include apartment towers, offices, mixed-use suites, compact city units, and managed buildings.',
+    context: 'loading zones and apartment towers',
+    access: 'CBD moves require loading-zone and lift bookings.',
+    properties: 'Common types include towers and offices.',
   },
   'marion': {
     council: 'City of Marion',
-    context: 'Marion Road, South Road, retail and residential traffic, and mixed house or unit moves',
-    access: 'Marion moves should note shopping-precinct traffic, shared unit access, townhouse stairs, driveway position, and clinic or office inventory when relevant.',
-    roads: 'Marion Road and South Road are the main corridor references to include when route timing or truck positioning may affect the day.',
-    properties: 'Common property types include family homes, units, clinics, small offices, townhouses, and mixed residential-commercial addresses.',
+    context: 'Marion Road, South Road, and mixed house or unit moves',
+    access: 'Marion moves should note shared unit access, townhouse stairs, driveway position, and office inventory.',
+    roads: 'Marion Road and South Road are the main references to include when timing or truck positioning may affect the day.',
+    properties: 'Common property types include family homes, units, clinics, townhouses, and mixed addresses.',
   },
   'norwood': {
     council: 'City of Norwood Payneham & St Peters',
@@ -347,7 +332,11 @@ export function buildDescription(text) {
 }
 
 export function buildCanonical(pathname) {
-  return new URL(pathname, SITE_URL).toString();
+  let path = pathname;
+  if (!path.endsWith('/') && !path.includes('.') && !path.includes('#')) {
+    path += '/';
+  }
+  return new URL(path, SITE_URL).toString();
 }
 
 export function buildOGTags({ title, description, url, image = DEFAULT_OG_IMAGE, type = 'website' }) {
@@ -670,11 +659,11 @@ function normalizeClusterKey(clusterKey) {
 }
 
 const suburbData = [
-  ['adelaide-cbd', 'Adelaide CBD', 'Adelaide CBD', 'CBD', 'tower and lift planning', { hasOffice: true, hasPacking: true, hasApartment: true }],
+  ['adelaide-cbd', 'Adelaide CBD', 'Adelaide CBD', 'CBD', 'lifts and towers', { hasOffice: true, hasPacking: true, hasApartment: true }],
   ['north-adelaide', 'North Adelaide', 'North Adelaide', 'CBD fringe', 'heritage access and parking', { hasPacking: true, hasApartment: true }],
   ['glenelg', 'Glenelg', 'Glenelg', 'coastal', 'beachside apartments, coastal parking and weekend access', { hasOffice: true, hasPacking: true, hasApartment: true }],
-  ['marion', 'Marion', 'Marion', 'southern', 'family homes and mixed-use access', { hasOffice: true, hasPacking: true }],
-  ['salisbury', 'Salisbury', 'Salisbury', 'northern', 'family homes, northern driveway access and large furniture', { hasOffice: true, hasPacking: true }],
+  ['marion', 'Marion', 'Marion', 'southern', 'family homes and townhouse access', { hasOffice: true, hasPacking: true }],
+  ['salisbury', 'Salisbury', 'Salisbury', 'northern', 'family homes and storage items', { hasOffice: true, hasPacking: true }],
   ['elizabeth', 'Elizabeth', 'Elizabeth', 'northern', 'family-home access and staging', { hasPacking: true }],
   ['elizabeth-downs', 'Elizabeth Downs', 'Elizabeth Downs', 'northern', 'larger inventory and driveway access'],
   ['elizabeth-vale', 'Elizabeth Vale', 'Elizabeth Vale', 'northern', 'unit and townhouse access'],
@@ -3002,7 +2991,7 @@ function renderFaqSectionBlock({ id = '', module, eyebrow, heading, intro = '', 
           (item) => `<article class="faq-item">
         <h3 class="faq-question">${escapeHtml(item.question)}</h3>
         <div class="faq-answer">
-          <p>${escapeHtml(item.answer)}</p>
+          <p itemprop="text">${escapeHtml(item.answer)}</p>
         </div>
       </article>`,
         )

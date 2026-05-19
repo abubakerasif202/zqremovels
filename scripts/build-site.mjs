@@ -64,7 +64,10 @@ const legacySiteOrigin = seoConfig.siteUrl;
 const defaultSocialImage = seoConfig.defaultOgImage;
 const defaultLogoImage = seoConfig.defaultLogo;
 const googleBusinessProfileUrl = 'https://share.google/Y04mpt9RTflWP3iRl';
-const companySameAsProfiles = Array.from(new Set([googleBusinessProfileUrl]));
+const companySameAsProfiles = [
+  googleBusinessProfileUrl,
+  'https://facebook.com/zqremovals'
+];
 const confirmedTrustCredentialText = `ZQ Removals ABN ${businessIdentifiers.abnFormatted}. Insurance documentation can be confirmed before booking when requested in the quote brief.`;
 function getBuildEnvValue(name) {
   return (process.env[name] ?? buildEnv[name] ?? '').trim();
@@ -247,7 +250,6 @@ const suburbPageProfiles = {
     ],
     intro: [
       'People looking for removalists in Salisbury usually want a straightforward move with no surprises. In practice, northern suburb routes can still become complex when access, storage transfers, or mixed inventory are not scoped early. We review the full brief before pricing so the plan matches the actual load and destination conditions.',
-      'From properties near Commercial Road to surrounding streets feeding into Salisbury Highway, parking setup and carry distance can shift labour time even on short routes. Our process is to confirm property access, list key items, and stage by priority so unloading runs smoothly at the new address.',
     ],
     conditions: [
       'Planning driveway and street positioning for home and unit pickups',
@@ -273,7 +275,6 @@ const suburbPageProfiles = {
     ],
     trust: [
       'ZQ Removals is known for practical planning, careful handling, and clear communication across Adelaide’s north. Our experienced movers focus on predictability, not rushed assumptions.',
-      'Clients choose us when they want a quote that reflects real access and inventory conditions. That trust is built by consistent move-day execution and transparent updates from booking through handover.',
     ],
     services:
       'Before booking, explore our Adelaide local removals, packing assistance, office relocations, furniture moving service, and interstate removals support.',
@@ -2517,6 +2518,7 @@ try {
     await writeFile(path.join(distRoot, name), normalizeSiteUrl(xml).trimStart(), 'utf8');
   }
   await writeFile(path.join(distRoot, 'llms.txt'), `${renderLLMsTxt(pages)}\n`, 'utf8');
+  await writeFile(path.join(distRoot, 'llms-full.txt'), `${renderLLMsFullTxt(pages)}\n`, 'utf8');
   await writeFile(path.join(distRoot, 'ai.txt'), `${renderAiTxt()}\n`, 'utf8');
   await writeFile(
     path.join(distRoot, 'robots.txt'),
@@ -2564,14 +2566,6 @@ function renderHead(page, content) {
     `<meta name="twitter:image:alt" content="${escapeAttribute(imageAlt)}" />`,
   ];
 
-  if (process.env.GA_MEASUREMENT_ID) {
-    tags.push(
-      '<link rel="preconnect" href="https://www.googletagmanager.com" />',
-      `<script async src="https://www.googletagmanager.com/gtag/js?id=${process.env.GA_MEASUREMENT_ID}"></script>`,
-      `<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${process.env.GA_MEASUREMENT_ID}');</script>`,
-    );
-  }
-
   if (googleSiteVerificationToken) {
     tags.push(
       `<meta name="google-site-verification" content="${escapeAttribute(googleSiteVerificationToken)}" />`,
@@ -2580,6 +2574,8 @@ function renderHead(page, content) {
 
   if (page.layout !== 'redirect') {
     tags.push('<link rel="stylesheet" href="/premium-site.min.css" />');
+    tags.push('<link rel="alternate" type="text/markdown" href="/llms.txt" />');
+    tags.push('<link rel="alternate" type="text/markdown" href="/llms-full.txt" />');
   }
 
   for (const stylesheet of page.extraStylesheets || []) {
@@ -2652,7 +2648,12 @@ function buildBusinessJsonLd(page) {
     return '';
   }
 
-  return JSON.stringify(buildLocalBusinessSchema(), null, 2);
+  const schema = buildLocalBusinessSchema();
+  if (page.output.includes('guide')) {
+    delete schema.geo;
+    delete schema.openingHoursSpecification;
+  }
+  return JSON.stringify(schema, null, 2);
 }
 
 function buildOrganizationJsonLd(page) {
@@ -3445,7 +3446,7 @@ function isNoindexPage(page) {
 }
 
 function isUtilityOutput(output) {
-  return output === '404.html' || output === 'thank-you.html';
+  return output === '404.html' || output === 'thank-you.html' || output === 'thank-you/index.html';
 }
 
 function isPreviewOutput(output) {
@@ -6055,6 +6056,96 @@ function renderLLMsTxt(pagesList) {
     'Contact:',
     `- Phone: ${seoConfig.phone}`,
     `- Canonical host: ${seoConfig.siteUrl}`,
+    '',
+    'References:',
+    '- Pricing: https://zqremovals.au/pricing.md',
+    '- Full crawler brief: https://zqremovals.au/llms-full.txt',
+  ].join('\n');
+}
+
+function renderLLMsFullTxt() {
+  return [
+    `Entity: ${seoConfig.businessName}`,
+    'Type: MovingCompany',
+    `Website: ${seoConfig.siteUrl}`,
+    `Phone: ${seoConfig.phone}`,
+    'ABN: 97 954 095 119',
+    '',
+    'Business overview:',
+    '- Adelaide-based moving company for local, interstate, residential, and commercial jobs.',
+    '- Fixed-price quoting is built from the move brief.',
+    '- Apex canonical URLs are used across the site.',
+    '',
+    'Services:',
+    '- Local removals',
+    '- House removals',
+    '- Apartment removals',
+    '- Office removals',
+    '- Furniture removals',
+    '- Interstate removals',
+    '- Packing support',
+    '',
+    'Service areas:',
+    '- Adelaide metro',
+    '- South Australia',
+    '- Interstate routes from Adelaide to major capitals',
+    '',
+    'Adelaide suburbs:',
+    '- Adelaide CBD',
+    '- Glenelg',
+    '- Marion',
+    '- Norwood',
+    '- Salisbury',
+    '- Elizabeth',
+    '- Mawson Lakes',
+    '- Prospect',
+    '- Unley',
+    '- Brighton',
+    '',
+    'Pricing model:',
+    '- Quote inputs include inventory, access, stairs, lifts, parking, carry distance, packing scope, and timing windows.',
+    '- Final pricing is based on the confirmed brief.',
+    '',
+    'Trust signals:',
+    '- Google Business Profile presence.',
+    '- Verified ABN published in structured data and footer.',
+    '- Insurance documentation can be confirmed before booking when requested in the quote brief.',
+    '',
+    'FAQs:',
+    '- What affects a moving quote? Inventory, access, timing, route, and packing scope.',
+    '- Do apartments need extra planning? Yes, because lifts, parking, and access matter.',
+    '- Are interstate moves different? Yes, because pickup and delivery details both affect the plan.',
+    '',
+    'Moving process:',
+    '- Share the move brief through the quote form or by phone.',
+    '- Confirm access, inventory, and timing before booking.',
+    '- Receive a fixed-price proposal for the confirmed scope.',
+    '- Complete the move with the agreed service plan.',
+    '',
+    'Insurance and proof of cover:',
+    '- Insurance documentation can be confirmed before booking when requested in the quote brief.',
+    '- No unsupported coverage claims are published in schema or public copy.',
+    '',
+    'Packing support:',
+    '- Full and partial packing support is available for fragile, awkward, or time-sensitive moves.',
+    '- Packing scope should be stated up front so the proposal reflects the real labour plan.',
+    '',
+    'Interstate routes:',
+    '- Adelaide to Brisbane',
+    '- Adelaide to Canberra',
+    '- Adelaide to Melbourne',
+    '- Adelaide to Perth',
+    '- Adelaide to Sydney',
+    '- Adelaide to Western Sydney',
+    '- Adelaide to Smithfield NSW',
+    '',
+    'Resources:',
+    '- Pricing: https://zqremovals.au/pricing.md',
+    '- llms.txt: https://zqremovals.au/llms.txt',
+    '',
+    'Contact details:',
+    `- Phone: ${seoConfig.phone}`,
+    `- Website: ${seoConfig.siteUrl}`,
   ].join('\n');
 }
 

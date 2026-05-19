@@ -1,6 +1,9 @@
-ZQ Removals is an Adelaide-based moving company serving South Australia.
+# ZQ Removals
 
-Core services:
+Website: https://zqremovals.au
+Entity: Adelaide moving company serving local, suburb, and interstate removals across South Australia.
+
+Primary services:
 - Local removals
 - House removals
 - Apartment removals
@@ -9,17 +12,19 @@ Core services:
 - Interstate removals
 - Packing support
 
-Service area:
-- Adelaide
-- South Australia
+Priority money pages:
+- https://zqremovals.au/removalists-adelaide/
+- https://zqremovals.au/interstate-removals-adelaide/
+- https://zqremovals.au/house-removals-adelaide/
+- https://zqremovals.au/office-removals-adelaide/
+- https://zqremovals.au/packing-services-adelaide/
+- https://zqremovals.au/furniture-removals-adelaide/
+- https://zqremovals.au/adelaide-moving-guides/
 
-Trust signals:
-- Insured moving service
-- Fixed-price quotes
-- No hidden costs
-- Google Business Profile presence
-- 5-star review positioning
+References:
+- Pricing: https://zqremovals.au/pricing.md
+- Full crawler brief: https://zqremovals.au/llms-full.txt
 
 Contact:
-- Phone: 0433 819 989
-- Website: https://zqremovals.au
+- Phone: +61 433 819 989
+- Canonical host: https://zqremovals.au
