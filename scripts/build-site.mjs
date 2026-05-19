@@ -2522,7 +2522,7 @@ try {
   await writeFile(path.join(distRoot, 'ai.txt'), `${renderAiTxt()}\n`, 'utf8');
   await writeFile(
     path.join(distRoot, 'robots.txt'),
-    `User-agent: *\nAllow: /\nSitemap: ${preferredSiteOrigin}/sitemap-index.xml\n# AI crawler reference\nLLM: ${preferredSiteOrigin}/llms.txt\n`,
+    `User-agent: *\nAllow: /\nSitemap: ${preferredSiteOrigin}/sitemap-index.xml\n# AI crawler references:\n# ${preferredSiteOrigin}/llms.txt\n# ${preferredSiteOrigin}/llms-full.txt\n`,
     'utf8',
   );
   await writeRouteCoverageReport();
@@ -6448,3 +6448,4 @@ function escapeCsv(value) {
   }
   return text;
 }
+
