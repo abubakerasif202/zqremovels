@@ -313,7 +313,7 @@ export function buildTitle(partial, variant = 'brand') {
     const branded = partial.trim().endsWith('ZQ Removals') ? partial : `${partial} | ZQ Removals`;
     return clampText(branded, seoConfig.titleMaxLength);
   }
-  
+
   const templates = {
     brand: `${partial} | ZQ Removals`,
     quote: `${partial} | Fixed-Price Quote | ZQ Removals`,
@@ -323,7 +323,7 @@ export function buildTitle(partial, variant = 'brand') {
     experts: `${partial} | Professional Local Experts`,
     fast: `${partial} | Fast Service & Clear Pricing`,
   };
-  
+
   return clampText(templates[variant] || templates.brand, seoConfig.titleMaxLength);
 }
 
@@ -361,7 +361,7 @@ export function buildTwitterTags({ title, description, image = DEFAULT_OG_IMAGE 
 export function renderHomepageAeoBlock() {
   const profile = zqServiceAeoProfiles['homepage'];
   const support = zqServiceFactorCards['homepage'];
-  
+
   return renderAeoAnswerBlock({
     module: 'homepage-aeo-answer',
     eyebrow: 'Quick Answer',
@@ -2988,10 +2988,10 @@ function renderFaqSectionBlock({ id = '', module, eyebrow, heading, intro = '', 
     <div class="faq-list">
       ${items
         .map(
-          (item) => `<article class="faq-item">
-        <h3 class="faq-question">${escapeHtml(item.question)}</h3>
-        <div class="faq-answer">
-          <p itemprop="text">${escapeHtml(item.answer)}</p>
+          (item) => `<article class="faq-item" itemscope itemtype="https://schema.org/Question">
+        <h3 class="faq-question" itemprop="name">${escapeHtml(item.question)}</h3>
+        <div class="faq-answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+          <div itemprop="text"><p>${escapeHtml(item.answer)}</p></div>
         </div>
       </article>`,
         )
@@ -3348,7 +3348,7 @@ ${renderPageHero({
       <h2>${data.subjectA} vs ${data.subjectB}</h2>
       <p class="lede">Review the key differences to find the best match for your moving requirements.</p>
     </div>
-    
+
     <div class="value-grid">
       <article class="value-card">
         <h3>${data.subjectA}</h3>
@@ -3422,16 +3422,16 @@ const localRoutePairs = [
 function makeLocalRoutePage([originSlug, destSlug]) {
   const origin = suburbDataBySlug.get(originSlug);
   const dest = suburbDataBySlug.get(destSlug);
-  
+
   if (!origin || !dest) return null;
 
   const slug = `moving-from-${originSlug}-to-${destSlug}`;
   const output = `${slug}/index.html`;
   const canonical = buildCanonical(`/${slug}/`);
-  
+
   const title = buildTitle(`Moving from ${origin.suburb} to ${dest.suburb}`);
   const description = buildDescription(`Professional removalists for moves from ${origin.suburb} to ${dest.suburb}. We plan around ${origin.logisticsLabel} at pickup and ${dest.logisticsLabel} at delivery.`);
-  
+
   const faqItems = [
     {
       question: `How long does it take to move from ${origin.suburb} to ${dest.suburb}?`,
@@ -3585,10 +3585,10 @@ function makeServiceSuburbPage({ service, slug, suburb, region, clusterKey, logi
   const template = serviceSuburbTemplates[service];
   const output = `${service}-${slug}/index.html`;
   const canonical = buildCanonical(`/${service}-${slug}/`);
-  
+
   const title = buildTitle(template.title.replaceAll('{suburb}', suburb));
   const description = buildDescription(template.description.replaceAll('{suburb}', suburb).replaceAll('{logisticsLabel}', logisticsLabel));
-  
+
   const faqItems = buildServiceSuburbFaqItems({ service, suburb, logisticsLabel });
 
   return {
@@ -3640,7 +3640,7 @@ function makeServiceSuburbPage({ service, slug, suburb, region, clusterKey, logi
 function buildServiceSuburbFaqItems({ service, suburb, logisticsLabel }) {
   const isOffice = service === 'office-removals';
   const isPacking = service === 'packing-services';
-  
+
   return [
     {
       question: `Do you provide ${service.replace('-', ' ')} in ${suburb}?`,

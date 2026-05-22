@@ -3508,7 +3508,8 @@ function decorateLeadTracking(html, page) {
       let next = match;
       next = addAttributeIfMissing(next, 'data-lead-event', 'phone_click');
       next = addAttributeIfMissing(next, 'data-lead-location', location);
-      next = addAttributeIfMissing(next, 'aria-label', 'Call ZQ Removals on 0433 819 989');
+      // Remove specific aria-label injection to allow visible text to be the accessible name,
+      // avoiding WCAG 2.5.3 (Label in Name) mismatches.
       return next;
     })
     .replace(/<a\b(?![^>]*\sdata-lead-event=)([^>]*href="mailto:[^"]+"[^>]*)>/gi, (match) => {
@@ -3629,7 +3630,69 @@ function transformContent(content, page) {
     getOptimizedPageHeroImage(page),
   );
 
-  // Luxury UI transformations for static content
+  if (page.output === 'index.html') {
+    next = next
+      .replaceAll('/zq-removals-social-share.png', '/zq-removals-social-share.webp')
+      .replaceAll('/brand-logo.png', '/brand-logo.webp')
+      .replaceAll('/screen.png', '/screen.webp');
+
+    const aeoBlock = renderHomepageAeoBlock();
+    if (next.includes('class="section section-soft customer-reviews"')) {
+      next = next.replace('<section class="section section-soft customer-reviews">', `${aeoBlock}\n<section class="section section-soft customer-reviews">`);
+    } else {
+      next = next.replace('</main>', `${aeoBlock}\n</main>`);
+    }
+  }
+
+  if (next.includes('class="hero-section"')) {
+    next = next.replaceAll('/brand-logo.png', '/zq-removals-social-share.webp');
+  }
+
+  next = next.replace(/href="([^"]+)"/g, (match, href) => {
+    const normalizedHref = normalizeInternalHref(href);
+    return normalizedHref === href ? match : `href="${escapeAttribute(normalizedHref)}"`;
+  });
+
+  next = injectSeoV5GuideToc(next, page);
+  next = injectSeoV5GuideFaq(next, page);
+  next = injectLeadMachineHiddenFields(next);
+
+  const skipSupplemental = page.generatedKind === 'suburb';
+  const proofSection = skipSupplemental ? '' : renderLocalProofSection(page);
+  const faqSection = skipSupplemental ? '' : renderFaqSection(page, next);
+  const seoSupport = skipSupplemental ? '' : renderSeoSupportSection(page);
+  const relatedLinks = skipSupplemental ? '' : renderRelatedLinksSection(page);
+  const authoritySection = skipSupplemental ? '' : renderAuthoritySection(page);
+  const serviceMoneyUpgrade = renderServiceMoneyUpgrade(page);
+  const guideHubExpansion = renderGuideHubExpansion(page);
+  const commercialServiceCta = renderCommercialServiceCta(page);
+  const leadMachineCta = renderLeadMachineCta(page);
+  const seoV5IntentProfile = renderSeoV5IntentProfile(page);
+  const seoV5LinkHub = renderSeoV5InternalLinkHub(page);
+  const strictSeoCompletion = renderStrictSeoCompletionSection(page, next);
+
+  const supplementalSections = [
+    commercialServiceCta,
+    guideHubExpansion,
+    serviceMoneyUpgrade,
+    leadMachineCta,
+    seoV5IntentProfile,
+    seoV5LinkHub,
+    strictSeoCompletion,
+    proofSection,
+    faqSection,
+    seoSupport,
+    authoritySection,
+    relatedLinks
+  ]
+    .filter(Boolean)
+    .join('\n');
+
+  if (supplementalSections && next.includes('</main>')) {
+    next = next.replace('</main>', `${supplementalSections}\n</main>`);
+  }
+
+  // Luxury UI and Schema.org transformations (Applied AFTER supplemental content injection)
   next = next
     .replaceAll('class="hero-shell"', 'class="hero-shell hero-shell-luxury"')
     .replaceAll('class="section-heading"', 'class="section-heading reveal-on-scroll"')
@@ -3654,55 +3717,8 @@ function transformContent(content, page) {
     },
   );
 
-  if (page.output === 'index.html') {
-    next = next
-      .replaceAll('/zq-removals-social-share.png', '/zq-removals-social-share.webp')
-      .replaceAll('/brand-logo.png', '/brand-logo.webp')
-      .replaceAll('/screen.png', '/screen.webp');
-    
-    const aeoBlock = renderHomepageAeoBlock();
-    if (next.includes('class="section section-soft customer-reviews"')) {
-      next = next.replace('<section class="section section-soft customer-reviews">', `${aeoBlock}\n<section class="section section-soft customer-reviews">`);
-    } else {
-      next = next.replace('</main>', `${aeoBlock}\n</main>`);
-    }
-  }
-
-  if (next.includes('class="hero-section"')) {
-    next = next.replaceAll('/brand-logo.png', '/zq-removals-social-share.webp');
-  }
-
-  next = next.replace(/href="([^"]+)"/g, (match, href) => {
-    const normalizedHref = normalizeInternalHref(href);
-    return normalizedHref === href ? match : `href="${escapeAttribute(normalizedHref)}"`;
-  });
-  next = injectSeoV5GuideToc(next, page);
-  next = injectSeoV5GuideFaq(next, page);
-  next = injectLeadMachineHiddenFields(next);
-
-  const skipSupplemental = page.generatedKind === 'suburb';
-  const proofSection = skipSupplemental ? '' : renderLocalProofSection(page);
-  const faqSection = skipSupplemental ? '' : renderFaqSection(page, next);
-  const seoSupport = skipSupplemental ? '' : renderSeoSupportSection(page);
-  const relatedLinks = skipSupplemental ? '' : renderRelatedLinksSection(page);
-  const authoritySection = skipSupplemental ? '' : renderAuthoritySection(page);
-  const serviceMoneyUpgrade = renderServiceMoneyUpgrade(page);
-  const guideHubExpansion = renderGuideHubExpansion(page);
-  const leadMachineCta = renderLeadMachineCta(page);
-  const seoV5IntentProfile = renderSeoV5IntentProfile(page);
-  const seoV5LinkHub = renderSeoV5InternalLinkHub(page);
-  const strictSeoCompletion = renderStrictSeoCompletionSection(page, next);
-  const supplementalSections = [guideHubExpansion, serviceMoneyUpgrade, leadMachineCta, seoV5IntentProfile, seoV5LinkHub, strictSeoCompletion, proofSection, faqSection, seoSupport, authoritySection, relatedLinks]
-    .filter(Boolean)
-    .join('\n');
-
-  if (supplementalSections && next.includes('</main>')) {
-    next = next.replace('</main>', `${supplementalSections}\n</main>`);
-  }
-
   return next;
 }
-
 function injectSeoV5GuideToc(content, page) {
   const output = page.output || '';
   const isGuideArticle =
@@ -3755,17 +3771,23 @@ function injectSeoV5GuideFaq(content, page) {
       <p class="lede">These answers keep the guide tied to a practical Adelaide moving quote brief.</p>
     </div>
     <div class="faq-list faq-list-premium">
-      <article class="faq-item reveal-on-scroll">
-        <h3 class="faq-question">How does this guide help with a fixed-price quote?</h3>
-        <div class="faq-answer"><p>It helps you prepare access, inventory, timing, suburb, and packing details before the quote is reviewed.</p></div>
+      <article class="faq-item reveal-on-scroll" itemscope itemtype="https://schema.org/Question">
+        <h3 class="faq-question" itemprop="name">How does this guide help with a fixed-price quote?</h3>
+        <div class="faq-answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+          <div itemprop="text"><p>It helps you prepare access, inventory, timing, suburb, and packing details before the quote is reviewed.</p></div>
+        </div>
       </article>
-      <article class="faq-item reveal-on-scroll">
-        <h3 class="faq-question">Should I read a service page after this guide?</h3>
-        <div class="faq-answer"><p>Yes. Use the house, furniture, office, packing, apartment, or interstate page that best matches the main risk in the move.</p></div>
+      <article class="faq-item reveal-on-scroll" itemscope itemtype="https://schema.org/Question">
+        <h3 class="faq-question" itemprop="name">Should I read a service page after this guide?</h3>
+        <div class="faq-answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+          <div itemprop="text"><p>Yes. Use the house, furniture, office, packing, apartment, or interstate page that best matches the main risk in the move.</p></div>
+        </div>
       </article>
-      <article class="faq-item reveal-on-scroll">
-        <h3 class="faq-question">Do suburb conditions change the advice?</h3>
-        <div class="faq-answer"><p>Yes. CBD, coastal, northern, southern, eastern, and hills suburbs can change parking, access, timing, and handling assumptions.</p></div>
+      <article class="faq-item reveal-on-scroll" itemscope itemtype="https://schema.org/Question">
+        <h3 class="faq-question" itemprop="name">Do suburb conditions change the advice?</h3>
+        <div class="faq-answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+          <div itemprop="text"><p>Yes. CBD, coastal, northern, southern, eastern, and hills suburbs can change parking, access, timing, and handling assumptions.</p></div>
+        </div>
       </article>
     </div>
   </div>
@@ -4180,9 +4202,11 @@ function renderStrictFaqSection(page) {
       <p class="lede">These answers keep the page tied to practical Adelaide moving decisions, quote clarity, and real access planning.</p>
     </div>
     <div class="faq-list faq-list-premium">
-${items.map(([question, answer]) => `<article class="faq-item reveal-on-scroll">
-  <h3 class="faq-question">${escapeHtml(question)}</h3>
-  <div class="faq-answer"><p>${escapeHtml(answer)}</p></div>
+${items.map(([question, answer]) => `<article class="faq-item reveal-on-scroll" itemscope itemtype="https://schema.org/Question">
+  <h3 class="faq-question" itemprop="name">${escapeHtml(question)}</h3>
+  <div class="faq-answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+    <div itemprop="text"><p>${escapeHtml(answer)}</p></div>
+  </div>
 </article>`).join('\n')}
     </div>
   </div>
@@ -4252,6 +4276,52 @@ ${guides.map(([href, title, cta]) => `<article class="route-card reveal-on-scrol
   <p>Focused Adelaide advice that supports a clearer move brief before requesting a fixed-price quote.</p>
   <footer><a class="button-link" href="${escapeAttribute(href)}">${escapeHtml(cta)}</a></footer>
 </article>`).join('\n')}
+    </div>
+  </div>
+</section>`;
+}
+
+function renderCommercialServiceCta(page) {
+  const output = page.output || '';
+  if (!isIndexablePage(page)) {
+    return '';
+  }
+
+  const isGuideArticle =
+    (output.startsWith('adelaide-moving-guides/') && output !== 'adelaide-moving-guides/index.html') ||
+    (output.startsWith('guides/') && output !== 'guides/index.html');
+
+  if (!isGuideArticle) {
+    return '';
+  }
+
+  // Keep this CTA separate from the guide TOC anchor so the link-hub section remains the sole
+  // `guide-next-step` target on article pages.
+  return `
+<section class="section section-soft" data-commercial-cta="guide-hub">
+  <div class="container">
+    <div class="section-heading reveal-on-scroll">
+      <span class="eyebrow">Move into the quote path</span>
+      <h2>Ready to turn the guide into a real move brief?</h2>
+      <p class="lede">Choose the service path that matches the job type, or move directly to the quote form for a fixed-price proposal.</p>
+    </div>
+    <div class="route-grid">
+      <article class="route-card reveal-on-scroll">
+        <h3><a href="/house-removals-adelaide/">House Removals</a></h3>
+        <p>Full-service residential moves with room-by-room planning.</p>
+      </article>
+      <article class="route-card reveal-on-scroll">
+        <h3><a href="/office-removals-adelaide/">Office Removals</a></h3>
+        <p>Commercial relocations focused on business continuity and setup.</p>
+      </article>
+      <article class="route-card reveal-on-scroll">
+        <h3><a href="/interstate-removals-adelaide/">Interstate Removals</a></h3>
+        <p>Long-distance routes from Adelaide to major capital cities.</p>
+      </article>
+      <article class="route-card reveal-on-scroll">
+        <h3><a href="/removalists-adelaide/">Fixed-Price Quote</a></h3>
+        <p>Submit your move brief for a confirmed fixed-price proposal.</p>
+      </article>
     </div>
   </div>
 </section>`;
@@ -4660,7 +4730,7 @@ function renderSuburbV4Section(page) {
       <span class="eyebrow">Service Expansion</span>
       <h2 id="${sectionId}">${escapeHtml(profile.ctaTheme)}</h2>
       <p>
-        Tailored support for ${escapeHtml(profile.region)} moves where inventory and access 
+        Tailored support for ${escapeHtml(profile.region)} moves where inventory and access
         complexity change the move brief. Nearby corridors include ${profile.nearbyCorridors.join(', ')}.
       </p>
       <p>
@@ -6120,7 +6190,7 @@ function renderLLMsTxt(pagesList) {
     '- Packing support',
     '',
     'Priority money pages:',
-    ...priorityMoneyPages.map((page, index) => `- ${index + 1}. ${page.title}: ${page.canonical}`),
+    ...priorityMoneyPages.map((page, index) => `- ${index + 1}. [${page.title}](${page.canonical})`),
     '',
     'Best pages by task:',
     ...Object.entries(taskPages)
@@ -6132,18 +6202,18 @@ function renderLLMsTxt(pagesList) {
           apartment: 'Apartment or CBD move',
           packing: 'Packing help',
         };
-        return `- ${labels[task] || task}: ${page.title}: ${page.canonical}`;
+        return `- [${labels[task] || task}: ${page.title}](${page.canonical})`;
       }),
     '',
     'Best entry pages:',
-    ...hubs.map((page) => `- ${page.title}: ${page.canonical}`),
-    ...services.map((page) => `- ${page.title}: ${page.canonical}`),
+    ...hubs.map((page) => `- [${page.title}](${page.canonical})`),
+    ...services.map((page) => `- [${page.title}](${page.canonical})`),
     '',
     'Helpful guides:',
-    ...guides.map((page) => `- ${page.title}: ${page.canonical}`),
+    ...guides.map((page) => `- [${page.title}](${page.canonical})`),
     '',
     'Key suburbs:',
-    ...suburbs.map((page) => `- ${page.title}: ${page.canonical}`),
+    ...suburbs.map((page) => `- [${page.title}](${page.canonical})`),
     '',
     'Contact:',
     `- Phone: ${seoConfig.phone}`,
@@ -6540,4 +6610,3 @@ function escapeCsv(value) {
   }
   return text;
 }
-

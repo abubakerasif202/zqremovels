@@ -105,10 +105,10 @@ test('generated sitemap and canonicals stay on the apex host', () => {
   assert.match(robots, /Sitemap: https:\/\/zqremovals\.au\/sitemap-index\.xml/);
   assert.match(llms, /Website: https:\/\/zqremovals\.au/);
   assert.match(llms, /Priority money pages:/);
-  assert.match(llms, /1\. Adelaide Removalists \| 5-Star Local Movers \| ZQ Removals: https:\/\/zqremovals\.au\/removalists-adelaide\//);
+  assert.match(llms, /\[Adelaide Removalists \| 5-Star Local Movers \| ZQ Removals\]\(https:\/\/zqremovals\.au\/removalists-adelaide\/\)/);
   assert.match(llms, /Best pages by task:/);
-  assert.match(llms, /Quote request: Adelaide Removalists \| 5-Star Local Movers \| ZQ Removals: https:\/\/zqremovals\.au\/removalists-adelaide\//);
-  assert.match(llms, /Packing help: Packing Services Adelaide \| Professional Packing Help: https:\/\/zqremovals\.au\/packing-services-adelaide\//);
+  assert.match(llms, /\[Quote request: Adelaide Removalists \| 5-Star Local Movers \| ZQ Removals\]\(https:\/\/zqremovals\.au\/removalists-adelaide\/\)/);
+  assert.match(llms, /\[Packing help: Packing Services Adelaide \| Professional Packing Help\]\(https:\/\/zqremovals\.au\/packing-services-adelaide\/\)/);
   assert.match(llms, /Best entry pages:/);
   assert.match(ai, /Entity: ZQ Removals/);
   assert.match(ai, /No www host variants\./);
@@ -481,10 +481,30 @@ test('json-ld is valid, host-consistent, and uses only supported business facts'
         if (types.includes('MovingCompany')) {
           assert.equal(node.name, 'ZQ Removals', `MovingCompany name mismatch in ${relativePath}`);
           assert.equal(node.url, 'https://zqremovals.au/', `MovingCompany URL mismatch in ${relativePath}`);
-          assert.ok(node.telephone, `MovingCompany missing telephone in ${relativePath}`);
-          assert.ok(Array.isArray(node.sameAs) && node.sameAs.includes('https://share.google/Y04mpt9RTflWP3iRl'), `MovingCompany missing sameAs in ${relativePath}`);
+          assert.equal(normalizeTelephone(node.telephone), '+61433819989', `MovingCompany telephone mismatch in ${relativePath}`);
+          assert.deepEqual(
+            node.sameAs,
+            ['https://share.google/Y04mpt9RTflWP3iRl', 'https://facebook.com/zqremovals'],
+            `MovingCompany sameAs mismatch in ${relativePath}`,
+          );
+          assert.equal(node.taxID, '97954095119', `MovingCompany ABN mismatch in ${relativePath}`);
+          assert.deepEqual(
+            node.identifier,
+            { '@type': 'PropertyValue', name: 'ABN', value: '97954095119' },
+            `MovingCompany identifier mismatch in ${relativePath}`,
+          );
+          assert.equal(node.address?.['@type'], 'PostalAddress', `MovingCompany address type mismatch in ${relativePath}`);
+          assert.equal(node.address?.addressLocality, 'Andrews Farm', `MovingCompany address locality mismatch in ${relativePath}`);
+          assert.equal(node.address?.addressRegion, 'SA', `MovingCompany address region mismatch in ${relativePath}`);
+          assert.equal(node.address?.postalCode, '5114', `MovingCompany address postal code mismatch in ${relativePath}`);
+          assert.equal(node.address?.addressCountry, 'AU', `MovingCompany address country mismatch in ${relativePath}`);
+          assert.ok(schemaValueNames(node.areaServed).includes('Adelaide'), `MovingCompany areaServed missing Adelaide in ${relativePath}`);
           assert.equal(node.openingHours, undefined, `unverified openingHours published in ${relativePath}`);
           assert.equal(node.openingHoursSpecification, undefined, `unverified openingHoursSpecification published in ${relativePath}`);
+          if (node.founder !== undefined) {
+            assert.equal(node.founder?.['@type'], 'Person', `founder must be a Person in ${relativePath}`);
+            assert.equal(node.founder?.name, 'Qasim Ali', `founder mismatch in ${relativePath}`);
+          }
         }
       }
     }
@@ -509,6 +529,77 @@ test('required schema types exist on local, service, suburb, guide, FAQ, and bre
     for (const type of requiredTypes) {
       assert.ok(foundTypes.has(type), `${file} missing ${type} schema`);
     }
+  }
+});
+
+test('guide article schema preserves dates and the commercial CTA stays unique', () => {
+  const articleOutput = path.join('adelaide-moving-guides', 'moving-cost-adelaide-2026', 'index.html');
+  const sourceOutput = articleOutput.replace(/\\/g, '/');
+  const articleHtml = readDist(articleOutput);
+  const hubHtml = readDist(path.join('adelaide-moving-guides', 'index.html'));
+  const generalGuideHtml = readDist(path.join('guides', 'how-to-choose-removalists-adelaide', 'index.html'));
+  const sourcePage = pages.find((page) => page.output === sourceOutput);
+
+  assert.ok(sourcePage, `missing source metadata for ${articleOutput}`);
+  assert.equal((articleHtml.match(/data-commercial-cta="guide-hub"/g) || []).length, 1, `${articleOutput} should include one commercial CTA`);
+  assert.equal((articleHtml.match(/id="guide-next-step"/g) || []).length, 1, `${articleOutput} should keep a single guide-next-step anchor`);
+  assert.equal((hubHtml.match(/data-commercial-cta="guide-hub"/g) || []).length, 0, 'guide hub must not receive the commercial CTA');
+  assert.equal((generalGuideHtml.match(/data-commercial-cta="guide-hub"/g) || []).length, 1, 'guides article should include the commercial CTA');
+
+  const articleBlocks = extractJsonLd(articleHtml);
+  const articleNodes = articleBlocks.flatMap((jsonLd) => flattenJsonLdNodes(jsonLd));
+  const faqSchema = articleNodes.find((node) => nodeTypes(node).includes('FAQPage'));
+  assert.ok(faqSchema, `missing FAQPage node in ${articleOutput}`);
+
+  const faqBlocks = [...articleHtml.matchAll(/<article\b[^>]*class="[^"]*\bfaq-item\b[^"]*"[\s\S]*?<\/article>/gi)].map((match) => match[0]);
+  assert.equal(faqBlocks.length, faqSchema.mainEntity.length, `${articleOutput} visible FAQ count should match FAQPage JSON-LD`);
+  for (const block of faqBlocks) {
+    assert.match(block, /<article\b[^>]*itemscope[^>]*itemtype="https:\/\/schema\.org\/Question"/i, 'FAQ item missing Question microdata');
+    assert.match(block, /<h3\b[^>]*itemprop="name"/i, 'FAQ question missing name microdata');
+    assert.match(block, /<div\b[^>]*itemprop="acceptedAnswer"[^>]*itemscope[^>]*itemtype="https:\/\/schema\.org\/Answer"/i, 'FAQ answer missing Answer microdata');
+    assert.match(block, /<div\b[^>]*itemprop="text"\s*>\s*<p>/i, 'FAQ answer text nesting is malformed');
+    assert.doesNotMatch(block, /<p\b[^>]*itemprop="text"/i, 'FAQ answer paragraph should not carry itemprop="text" directly');
+    assert.equal((block.match(/itemprop="text"/g) || []).length, 1, 'FAQ answer text itemprop should appear once per block');
+  }
+
+  const builtArticle = articleNodes.find((node) => nodeTypes(node).some((type) => type === 'Article' || type === 'BlogPosting'));
+  assert.ok(builtArticle, `missing Article/BlogPosting node in ${articleOutput}`);
+
+  const sourceArticle = sourcePage.jsonLd
+    .map((block) => JSON.parse(block))
+    .flatMap((jsonLd) => flattenJsonLdNodes(jsonLd))
+    .find((node) => nodeTypes(node).some((type) => type === 'Article' || type === 'BlogPosting'));
+
+  assert.ok(sourceArticle, `missing source Article/BlogPosting node for ${articleOutput}`);
+  assert.deepEqual(builtArticle['@type'], sourceArticle['@type'], 'Article @type must stay normalized');
+  assert.equal(builtArticle.headline, sourceArticle.headline, 'Article headline changed unexpectedly');
+  assert.equal(builtArticle.description, sourceArticle.description, 'Article description changed unexpectedly');
+  assert.deepEqual(builtArticle.mainEntityOfPage, sourceArticle.mainEntityOfPage, 'Article mainEntityOfPage changed unexpectedly');
+  assert.deepEqual(builtArticle.author, sourceArticle.author, 'Article author changed unexpectedly');
+  assert.deepEqual(builtArticle.publisher, sourceArticle.publisher, 'Article publisher changed unexpectedly');
+  assert.equal(builtArticle.datePublished, sourceArticle.datePublished, 'Article datePublished changed unexpectedly');
+  assert.equal(builtArticle.dateModified, sourceArticle.dateModified, 'Article dateModified changed unexpectedly');
+  if (sourceArticle.image) {
+    assert.deepEqual(builtArticle.image, sourceArticle.image, 'Article image changed unexpectedly');
+  }
+});
+
+test('commercial CTA only appears on the expected guide article pages', () => {
+  const actualPages = pages.filter((page) => readDist(page.output).includes('data-commercial-cta="guide-hub"'));
+
+  assert.ok(actualPages.length > 0, 'expected guide articles should render the commercial CTA');
+  for (const page of actualPages) {
+    const isGuideArticle =
+      (page.output.startsWith('adelaide-moving-guides/') && page.output !== 'adelaide-moving-guides/index.html') ||
+      (page.output.startsWith('guides/') && page.output !== 'guides/index.html');
+    const robots = (page.robots || '').toLowerCase();
+
+    assert.ok(isGuideArticle, `${page.output} should be a guide article`);
+    assert.notEqual(page.layout, 'redirect', `${page.output} must not be a redirect`);
+    assert.ok(!robots.includes('noindex'), `${page.output} must stay indexable`);
+    assert.notEqual(page.output, '404.html', `${page.output} must not be a utility page`);
+    assert.notEqual(page.output, 'thank-you.html', `${page.output} must not be a utility page`);
+    assert.notEqual(page.output, 'thank-you/index.html', `${page.output} must not be a utility page`);
   }
 });
 
@@ -553,6 +644,22 @@ function flattenJsonLdNodes(value) {
   }
 
   return nodes;
+}
+
+function nodeTypes(node) {
+  return Array.isArray(node?.['@type']) ? node['@type'] : [node?.['@type']].filter(Boolean);
+}
+
+function schemaValueNames(value) {
+  const items = Array.isArray(value) ? value : [value];
+  return items
+    .filter(Boolean)
+    .map((item) => (typeof item === 'string' ? item : item?.name || ''))
+    .filter(Boolean);
+}
+
+function normalizeTelephone(value = '') {
+  return String(value).replace(/\s+/g, '');
 }
 
 test('priority Adelaide suburb pages are substantial and keep service, nearby, FAQ, and CTA paths', () => {
