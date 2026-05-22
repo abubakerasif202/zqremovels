@@ -722,7 +722,7 @@ test('priority Adelaide suburb pages are substantial and keep service, nearby, F
     const links = extractRootLinks(main);
 
     const wordCount = countWords(main);
-    assert.ok(wordCount >= 900 && wordCount <= 1600, `${slug} suburb page outside 900-1600 words: ${wordCount}`);
+    assert.ok(wordCount >= 900 && wordCount <= 1700, `${slug} suburb page outside 900-1700 words: ${wordCount}`);
     assert.match(main, /data-generated-module="local-insights"/, `${slug} missing local insights`);
     assert.match(main, /data-generated-module="trust"/, `${slug} missing trust section`);
     assert.ok((main.match(/class="faq-item/g) || []).length >= 5, `${slug} missing FAQ depth`);
@@ -805,11 +805,13 @@ test('v6 homepage targets premium Adelaide removalists and above-fold CTAs', () 
 
   assert.match(homepage, /<title>Adelaide Removalists \| Fixed-Price Movers \| ZQ Removals<\/title>/);
   assert.match(homepage, /<meta name="description" content="Need Adelaide removalists\? ZQ Removals covers Andrews Farm and metro Adelaide with fixed-price quotes and careful furniture handling\."/i);
-  assert.match(hero, /<h1[^>]*>Adelaide Removalists<\/h1>/);
-  assert.match(hero, /href="tel:\+61433819989"[^>]*>Call 0433 819 989<\/a>/);
+  assert.match(hero, /<h1[^>]*>Adelaide Removalists for fast, careful local moves\.<\/h1>/);
+  assert.match(hero, /Call <a href="tel:\+61433819989"[^>]*>0433 819 989<\/a> for a quick quote review\./i);
   assert.match(hero, /href="\/contact-us\/#quote-form"[^>]*>Get Free Quote<\/a>/);
   assert.match(hero, /Same Day &amp; Local Moves|Same Day & Local Moves/);
-  for (const phrase of ['Local Adelaide team', 'Careful furniture handling', 'Fixed-price quote options', 'Fast response', '5.0 Google Rating', '38 Google Reviews']) {
+  assert.match(hero, /class="rating-stars"/i);
+  assert.match(hero, /class="rating-star"/i);
+  for (const phrase of ['Local Movers', 'Fast Quotes', 'Careful Handling', 'Affordable Rates', '5.0\/5 on Google', '38 verified reviews']) {
     assert.match(hero, new RegExp(phrase, 'i'));
   }
   for (const href of [
@@ -860,6 +862,51 @@ test('v6 generated suburb pages include near-me wording, five nearby links, serv
     assert.match(main, new RegExp(`Can you move furniture in ${suburbName}\\?`, 'i'), `${slug} missing furniture FAQ`);
     assert.match(main, new RegExp(`same-day removals near ${suburbName}`, 'i'), `${slug} missing same-day FAQ`);
     assert.match(main, new RegExp(`quote for ${suburbName}`, 'i'), `${slug} missing quote FAQ`);
+  }
+});
+
+test('route hub, guide hub, and suburb service pages keep orphaned pages linked', () => {
+  const removalistsHub = readDist('removalists-adelaide/index.html');
+  const guideHub = readDist(path.join('adelaide-moving-guides', 'index.html'));
+  const cbdSuburb = readDist(path.join('removalists-adelaide-cbd', 'index.html'));
+
+  const routeHrefs = [
+    '/moving-from-adelaide-cbd-to-glenelg/',
+    '/moving-from-adelaide-cbd-to-marion/',
+    '/moving-from-adelaide-cbd-to-salisbury/',
+    '/moving-from-adelaide-cbd-to-norwood/',
+    '/moving-from-adelaide-cbd-to-mawson-lakes/',
+    '/moving-from-glenelg-to-marion/',
+    '/moving-from-glenelg-to-henley-beach/',
+    '/moving-from-marion-to-noarlunga/',
+    '/moving-from-salisbury-to-mawson-lakes/',
+    '/moving-from-norwood-to-burnside/',
+    '/moving-from-prospect-to-mawson-lakes/',
+    '/moving-from-unley-to-mitcham/',
+    '/moving-from-brighton-to-glenelg/',
+    '/moving-from-modbury-to-salisbury/',
+    '/moving-from-port-adelaide-to-west-lakes/',
+    '/moving-from-elizabeth-to-gawler/',
+  ];
+
+  for (const href of routeHrefs) {
+    assert.match(removalistsHub, new RegExp(`href="${href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`), href);
+  }
+
+  for (const href of [
+    '/fixed-price-vs-hourly-removalists-adelaide/',
+    '/professional-packers-vs-diy-packing-adelaide/',
+    '/interstate-removalists-vs-backloading-adelaide/',
+  ]) {
+    assert.match(guideHub, new RegExp(`href="${href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`), href);
+  }
+
+  for (const href of [
+    '/office-removals-adelaide-cbd/',
+    '/packing-services-adelaide-cbd/',
+    '/apartment-removalists-adelaide-cbd/',
+  ]) {
+    assert.match(cbdSuburb, new RegExp(`href="${href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`), href);
   }
 });
 

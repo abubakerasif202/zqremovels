@@ -48,7 +48,7 @@ test('footer and homepage include the price-page links and cost-conscious messag
     assert.match(homepage, new RegExp(`href="/${slug}/"`), `${slug} missing from homepage source`);
   }
 
-  assert.match(homepage, /Fixed-Price Movers/i);
+  assert.match(homepage, /fixed-price quotes/i);
   assert.match(contact, /Quote Preparation Checklist/i);
 });
 

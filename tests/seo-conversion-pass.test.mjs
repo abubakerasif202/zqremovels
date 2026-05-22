@@ -25,16 +25,18 @@ test('homepage targets Adelaide removalists with the new commercial headline and
 
   assert.match(
     homepage,
-    /<h1[^>]*>Adelaide Removalists<\/h1>/i,
+    /<h1[^>]*>Adelaide Removalists for fast, careful local moves\.<\/h1>/i,
   );
   assert.match(
     homepage,
-    /Need Adelaide removalists\? ZQ Removals covers Andrews Farm and metro Adelaide with fixed-price quotes and careful furniture handling\./i,
+    /Need a removalist who quotes clearly, turns up on time, and handles furniture with care\? ZQ Removals covers Andrews Farm and metro Adelaide with fixed-price quotes, careful handling, and fast response\./i,
   );
   assert.match(
     homepage,
-    /Call 0433 819 989 for a fixed-price quote and careful furniture handling\./i,
+    /Prefer to talk it through\? Call <a href="tel:\+61433819989"[^>]*>0433 819 989<\/a> for a quick quote review\./i,
   );
+  assert.match(homepage, /class="rating-stars"/i);
+  assert.match(homepage, /class="rating-star"/i);
   assert.match(homepage, /href="\/house-removals-adelaide\/"/);
   assert.match(homepage, /href="\/furniture-removalists-adelaide\/"/);
   assert.match(homepage, /href="\/office-removals-adelaide\/"/);

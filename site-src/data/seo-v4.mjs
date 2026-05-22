@@ -3836,6 +3836,7 @@ function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel, inte
       logisticsLabel,
       nearby,
       clusterKey: normalizedClusterKey,
+      intents,
       image: pageImage,
       faqItems,
     }),
@@ -4361,7 +4362,64 @@ function buildSuburbComplexityCards({ suburb, logisticsLabel, clusterKey }) {
   ];
 }
 
-function renderSuburbContent({ slug, suburb, region, intro, logisticsLabel, nearby, clusterKey, image, faqItems }) {
+function buildSuburbLocalServiceCards({ slug, suburb, intents }) {
+  const localCards = [];
+
+  if (intents?.hasOffice) {
+    localCards.push({
+      href: `/office-removals-${slug}/`,
+      label: `office removals ${suburb}`,
+      title: 'Office removals',
+      copy: 'Office planning.',
+      cta: 'Open office page',
+    });
+  }
+
+  if (intents?.hasPacking) {
+    localCards.push({
+      href: `/packing-services-${slug}/`,
+      label: `packing services ${suburb}`,
+      title: 'Packing services',
+      copy: 'Packing support.',
+      cta: 'Open packing page',
+    });
+  }
+
+  if (intents?.hasApartment) {
+    localCards.push({
+      href: `/apartment-removalists-${slug}/`,
+      label: `apartment removalists ${suburb}`,
+      title: 'Apartment removalists',
+      copy: 'Apartment access.',
+      cta: 'Open apartment page',
+    });
+  }
+
+  return localCards;
+}
+
+function buildSuburbServiceCards({ suburb, region, supportProfile }) {
+  const generalLinks = uniqueLinkItems([
+    ...(supportProfile.services || []),
+    { href: '/house-removals-adelaide/', label: 'house removals Adelaide' },
+    { href: '/furniture-removalists-adelaide/', label: 'furniture removalists Adelaide' },
+    { href: '/office-removals-adelaide/', label: 'office removals Adelaide' },
+    { href: '/packing-services-adelaide/', label: 'packing services Adelaide' },
+    { href: '/interstate-removals-adelaide/', label: 'interstate removals Adelaide' },
+  ]);
+
+  return generalLinks
+    .slice(0, 5)
+    .map((item, index) => ({
+      eyebrow: index === 0 ? 'Related service' : 'Service fit',
+      title: toTitle(item.label),
+      copy: `${item.label} stays relevant for ${suburb} because the move brief can still shift toward ${region.toLowerCase()} household work, packing, furniture handling, or a broader Adelaide route.`,
+      href: item.href,
+      cta: item.label,
+    }));
+}
+
+function renderSuburbContent({ slug, suburb, region, intro, logisticsLabel, nearby, clusterKey, intents, image, faqItems }) {
   const cta = getSuburbCtaTheme(clusterKey);
   const supportProfile = getClusterSupportProfile(clusterKey);
   const startHere = getSuburbStartHere(slug);
@@ -4374,23 +4432,8 @@ function renderSuburbContent({ slug, suburb, region, intro, logisticsLabel, near
     href: item.href,
     cta: item.label,
   }));
-  const coreServiceLinks = [
-    { href: '/house-removals-adelaide/', label: 'house removals Adelaide' },
-    { href: '/furniture-removalists-adelaide/', label: 'furniture removalists Adelaide' },
-    { href: '/office-removals-adelaide/', label: 'office removals Adelaide' },
-    { href: '/packing-services-adelaide/', label: 'packing services Adelaide' },
-    { href: '/interstate-removals-adelaide/', label: 'interstate removals Adelaide' },
-  ];
-  const serviceCards = [...supportProfile.services, ...coreServiceLinks]
-    .filter((item, index, items) => items.findIndex((candidate) => candidate.href === item.href) === index)
-    .slice(0, 5)
-    .map((item, index) => ({
-    eyebrow: index === 0 ? 'Related service' : 'Service fit',
-    title: toTitle(item.label),
-    copy: `${item.label} stays relevant for ${suburb} because the move brief can still shift toward ${region.toLowerCase()} household work, packing, furniture handling, or a broader Adelaide route.`,
-    href: item.href,
-    cta: item.label,
-  }));
+  const localServiceCards = buildSuburbLocalServiceCards({ slug, suburb, intents });
+  const serviceCards = buildSuburbServiceCards({ suburb, region, supportProfile });
   const guideCards = [
     { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
     ...supportProfile.guides,
@@ -4495,6 +4538,13 @@ ${renderRouteCardSection({
   cards: serviceCards,
   soft: true,
 })}
+${localServiceCards.length > 0 ? renderRouteCardSection({
+  module: 'local-service-pages',
+  eyebrow: 'Suburb-specific services',
+  heading: `Access-specific service pages for ${suburb}`,
+  intro: 'Keep the brief specific.',
+  cards: localServiceCards,
+}) : ''}
 ${renderRouteCardSection({
   module: 'related-guides',
   eyebrow: 'Related guides',
