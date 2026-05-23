@@ -2540,6 +2540,9 @@ function renderHead(page, content) {
       ? defaultSocialImage
       : page.twitterImage || ogImage;
   const imageAlt = page.ogImageAlt || page.ogTitle || page.title;
+  const robots = isLegacyGuideOutput(page.output)
+    ? 'noindex,follow'
+    : page.robots || 'index,follow,max-image-preview:large';
   const tags = [
     '<meta charset="utf-8" />',
     '<meta name="viewport" content="width=device-width, initial-scale=1" />',
@@ -2547,7 +2550,7 @@ function renderHead(page, content) {
     `<meta name="description" content="${escapeAttribute(page.description)}" />`,
     `<link rel="canonical" href="${escapeAttribute(page.canonical)}" />`,
     `<meta name="theme-color" content="${escapeAttribute(page.themeColor || '#0A192F')}" />`,
-    `<meta name="robots" content="${escapeAttribute(page.robots || 'index,follow,max-image-preview:large')}" />`,
+    `<meta name="robots" content="${escapeAttribute(robots)}" />`,
     '<link rel="icon" type="image/svg+xml" href="/favicon.svg" />',
     '<meta name="geo.region" content="AU-SA" />',
     '<meta name="geo.placename" content="Adelaide, South Australia" />',
@@ -3453,8 +3456,12 @@ function isPreviewOutput(output) {
   return output === 'premium-moving-concepts/index.html' || output.startsWith('premium-moving-concepts/');
 }
 
+function isLegacyGuideOutput(output) {
+  return output.startsWith('guides/');
+}
+
 function isIndexablePage(page) {
-  return !isRedirectPage(page) && !isNoindexPage(page) && !isUtilityOutput(page.output) && !isPreviewOutput(page.output);
+  return !isRedirectPage(page) && !isNoindexPage(page) && !isUtilityOutput(page.output) && !isPreviewOutput(page.output) && !isLegacyGuideOutput(page.output);
 }
 
 function shouldIncludeInSitemap(page) {
@@ -3717,7 +3724,21 @@ function transformContent(content, page) {
     },
   );
 
-  return next;
+  return stripVisibleHeadingPipes(next);
+}
+
+function stripVisibleHeadingPipes(content = '') {
+  return content.replace(/(<h[1-3]\b[^>]*>)([\s\S]*?)(<\/h[1-3]>)/gi, (match, open, inner, close) => {
+    if (!inner.includes('|')) {
+      return match;
+    }
+
+    const cleaned = inner
+      .replace(/\s*\|[\s\S]*?(?=(?:<\/?[^>]+>)*\s*$)/, '')
+      .trim();
+
+    return `${open}${cleaned}${close}`;
+  });
 }
 function injectSeoV5GuideToc(content, page) {
   const output = page.output || '';
@@ -3729,14 +3750,14 @@ function injectSeoV5GuideToc(content, page) {
     return content;
   }
 
-  const title = page.title?.replace(/\s*\|\s*ZQ Removals.*$/i, '') || 'this Adelaide moving guide';
+  const title = page.title?.replace(/\s*\|.*$/i, '').trim() || 'this Adelaide moving guide';
   const toc = `
 <section class="section section-soft" data-seo-v5-toc="true">
   <div class="container">
     <div class="section-heading reveal-on-scroll">
       <span class="eyebrow">Guide contents</span>
-      <h2>Use ${escapeHtml(title)} to prepare the move brief.</h2>
-      <p class="lede">Move from the planning question into the service, suburb, and quote path that fits the job.</p>
+      <h2>Plan the details for ${escapeHtml(title)}.</h2>
+      <p class="lede">Check the access, timing, packing, and quote details that can change the job on move day.</p>
     </div>
     <nav aria-label="Guide contents">
       <ul class="trust-chips">
@@ -3761,7 +3782,7 @@ function injectSeoV5GuideFaq(content, page) {
     return content;
   }
 
-  const title = page.title?.replace(/\s*\|\s*ZQ Removals.*$/i, '') || 'this Adelaide moving guide';
+  const title = page.title?.replace(/\s*\|.*$/i, '').trim() || 'this Adelaide moving guide';
   const faq = `
 <section class="section section-split" data-seo-v5-guide-faq="true">
   <div class="container">
@@ -4078,8 +4099,7 @@ function hasVisibleFaqSection(content = '') {
 
 function cleanSeoTitle(page) {
   return String(page.title || 'Adelaide moving page')
-    .replace(/\s*\|\s*ZQ Removals.*$/i, '')
-    .replace(/\s*\|\s*Guide.*$/i, '')
+    .replace(/\s*\|.*$/i, '')
     .trim();
 }
 
@@ -5054,10 +5074,10 @@ function getRelatedLinksProfile(page) {
 
   if (output === 'removalists-adelaide/index.html') {
     return {
-      eyebrow: 'Adelaide cluster links',
-      heading: 'Use the Adelaide hub to move deeper into the right cluster.',
+      eyebrow: 'Helpful next steps',
+      heading: 'Choose the page that best fits your move.',
       intro:
-        'Start with the corridor hub, the service page, or the planning guide that best matches the route before you request the final quote.',
+        'Start with the corridor, service, or planning guide that matches your route before requesting a fixed-price quote.',
       links: [
         {
           eyebrow: 'North corridor',
@@ -5135,10 +5155,10 @@ function getRelatedLinksProfile(page) {
 
   if (output === 'removalists-northern-adelaide/index.html') {
     return {
-      eyebrow: 'Northern cluster links',
-      heading: 'Use the northside hub to move from corridor research into the right page.',
+      eyebrow: 'Northern Adelaide planning',
+      heading: 'Match your northside move to the right service.',
       intro:
-        'Choose the suburb page, service page, or planning guide that matches the route once the access pattern and inventory are clearer.',
+        'Choose the suburb, service, or planning guide that reflects the access, inventory, and timing details for the job.',
       links: [
         {
           eyebrow: 'Apartment suburb',
@@ -5188,7 +5208,7 @@ function getRelatedLinksProfile(page) {
 
   if (output === 'removalists-southern-adelaide/index.html') {
     return {
-      eyebrow: 'Southern cluster links',
+      eyebrow: 'Southern Adelaide planning',
       heading: 'Use the southern hub to move from corridor intent into the best-fit page.',
       intro:
         'Choose the suburb page, service page, or guide that matches whether the route is coastal, family-home led, packing heavy, or interstate-ready.',

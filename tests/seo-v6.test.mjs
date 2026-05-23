@@ -38,15 +38,21 @@ test('seo v6 docs exist and keep the compliance rules explicit', () => {
   assert.match(reviewDoc, /ask every real customer fairly/i);
 });
 
-test('footer and homepage include the price-page links and cost-conscious messaging', () => {
+test('footer and homepage include clean price-path links and cost-conscious messaging', () => {
   const footer = readFileSync(path.join(root, 'site-src', 'partials', 'footer.html'), 'utf8');
   const homepage = readFileSync(path.join(root, 'site-src', 'content', 'index.html'), 'utf8');
   const contact = readFileSync(path.join(root, 'site-src', 'content', 'contact-us', 'index.html'), 'utf8');
 
   for (const slug of ['cheap-removalists-adelaide', 'affordable-removalists-adelaide', 'removalist-cost-adelaide', 'moving-quotes-adelaide', 'fixed-price-removalists-adelaide']) {
-    assert.match(footer, new RegExp(`href="/${slug}/"`), `${slug} missing from footer source`);
     assert.match(homepage, new RegExp(`href="/${slug}/"`), `${slug} missing from homepage source`);
   }
+
+  assert.match(footer, /href="\/adelaide-moving-guides\/removalists-cost-adelaide\/"/, 'pricing guide missing from footer source');
+  assert.match(footer, /href="\/removalists-adelaide-quote\/"/, 'quote form missing from footer source');
+  assert.match(footer, /href="\/fixed-price-removalists-adelaide\/"/, 'fixed-price service missing from footer source');
+  assert.doesNotMatch(footer, /href="\/cheap-removalists-adelaide\/"/, 'footer should not include exact-match cheap footer link');
+  assert.doesNotMatch(footer, /href="\/affordable-removalists-adelaide\/"/, 'footer should not include exact-match affordable footer link');
+  assert.doesNotMatch(footer, /href="\/budget-removalists-adelaide\/"/, 'footer should not include exact-match budget footer link');
 
   assert.match(homepage, /fixed-price quotes/i);
   assert.match(contact, /Quote Preparation Checklist/i);

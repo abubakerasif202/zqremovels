@@ -2733,6 +2733,14 @@ textarea:focus:not(:focus-visible) {
   border-radius: 18px 18px 0 0;
 }
 
+.sticky-mobile-cta .button {
+  min-height: 48px;
+  inline-size: 100%;
+  justify-content: center;
+  text-align: center;
+  white-space: normal;
+}
+
 @media (max-width: 1023px) {
   .sticky-mobile-cta.is-visible {
     transform: translateY(0);

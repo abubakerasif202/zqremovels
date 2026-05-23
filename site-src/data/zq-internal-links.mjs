@@ -13,7 +13,7 @@ export const zqServiceLinkProfiles = {
       { href: '/removalists-salisbury/', label: 'Salisbury larger-item moves' },
     ],
     guides: [
-      { href: '/guides/how-to-prepare-furniture-for-moving/', label: 'prepare furniture for moving' },
+      { href: '/adelaide-moving-guides/furniture-protection-guide-adelaide/', label: 'prepare furniture for moving' },
       { href: '/adelaide-moving-guides/moving-heavy-furniture-adelaide/', label: 'heavy furniture planning' },
       { href: '/adelaide-moving-guides/packing-fragile-items-adelaide/', label: 'fragile packing guide' },
     ],
@@ -38,7 +38,7 @@ export const zqServiceLinkProfiles = {
       { href: '/removalists-prospect/', label: 'Prospect townhouse moves' },
     ],
     guides: [
-      { href: '/guides/apartment-moving-tips-adelaide/', label: 'apartment moving tips Adelaide' },
+      { href: '/adelaide-moving-guides/apartment-moving-tips-adelaide/', label: 'apartment moving tips Adelaide' },
       { href: '/adelaide-moving-guides/apartment-moving-checklist-adelaide/', label: 'apartment moving checklist' },
       { href: '/adelaide-moving-guides/apartment-lift-bookings-adelaide/', label: 'lift booking guide' },
     ],
@@ -63,8 +63,8 @@ export const zqServiceLinkProfiles = {
       { href: '/removalists-mawson-lakes/', label: 'Mawson Lakes movers' },
     ],
     guides: [
-      { href: '/guides/moving-house-adelaide-checklist/', label: 'moving house Adelaide checklist' },
-      { href: '/guides/best-time-to-book-removalists-adelaide/', label: 'best time to book removalists' },
+      { href: '/adelaide-moving-guides/moving-house-checklist-adelaide/', label: 'moving house Adelaide checklist' },
+      { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'best time to book removalists' },
       { href: '/adelaide-moving-guides/suburb-move-preparation-adelaide/', label: 'suburb move preparation' },
     ],
     siblings: [
@@ -89,8 +89,8 @@ export const zqServiceLinkProfiles = {
       { href: '/removalists-salisbury/', label: 'Salisbury movers' },
     ],
     guides: [
-      { href: '/guides/how-much-do-removalists-cost-adelaide/', label: 'how much removalists cost' },
-      { href: '/guides/moving-house-adelaide-checklist/', label: 'moving house checklist' },
+      { href: '/adelaide-moving-guides/how-much-do-movers-cost-adelaide/', label: 'how much removalists cost' },
+      { href: '/adelaide-moving-guides/moving-house-checklist-adelaide/', label: 'moving house checklist' },
       { href: '/adelaide-moving-guides/how-to-choose-removalists-adelaide/', label: 'choosing Adelaide removalists' },
     ],
     siblings: [
@@ -116,8 +116,8 @@ export const zqGuideLinkProfiles = {
       { href: '/removalists-salisbury/', label: 'Salisbury route factors' },
     ],
     guides: [
-      { href: '/guides/moving-house-adelaide-checklist/', label: 'moving house checklist' },
-      { href: '/guides/best-time-to-book-removalists-adelaide/', label: 'booking timing guide' },
+      { href: '/adelaide-moving-guides/moving-house-checklist-adelaide/', label: 'moving house checklist' },
+      { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'booking timing guide' },
       { href: '/adelaide-moving-guides/removalist-quote-checklist-adelaide/', label: 'quote checklist' },
     ],
   },
@@ -135,7 +135,7 @@ export const zqGuideLinkProfiles = {
       { href: '/removalists-golden-grove/', label: 'Golden Grove family moves' },
     ],
     guides: [
-      { href: '/guides/how-much-do-removalists-cost-adelaide/', label: 'cost planning guide' },
+      { href: '/adelaide-moving-guides/how-much-do-movers-cost-adelaide/', label: 'cost planning guide' },
       { href: '/adelaide-moving-guides/packing-tips-adelaide/', label: 'packing tips' },
       { href: '/adelaide-moving-guides/suburb-move-preparation-adelaide/', label: 'suburb move preparation' },
     ],
@@ -154,7 +154,7 @@ export const zqGuideLinkProfiles = {
       { href: '/removalists-salisbury/', label: 'Salisbury route timing' },
     ],
     guides: [
-      { href: '/guides/moving-house-adelaide-checklist/', label: 'moving checklist' },
+      { href: '/adelaide-moving-guides/moving-house-checklist-adelaide/', label: 'moving checklist' },
       { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'booking timing guide' },
       { href: '/adelaide-moving-guides/interstate-moving-checklist-adelaide/', label: 'interstate checklist' },
     ],
@@ -175,7 +175,7 @@ export const zqGuideLinkProfiles = {
     guides: [
       { href: '/adelaide-moving-guides/moving-heavy-furniture-adelaide/', label: 'moving heavy furniture' },
       { href: '/adelaide-moving-guides/furniture-protection-guide-adelaide/', label: 'furniture protection guide' },
-      { href: '/guides/how-much-do-removalists-cost-adelaide/', label: 'cost factors' },
+      { href: '/adelaide-moving-guides/how-much-do-movers-cost-adelaide/', label: 'cost factors' },
     ],
   },
   'apartment-moving-tips-adelaide': {
@@ -194,7 +194,7 @@ export const zqGuideLinkProfiles = {
     guides: [
       { href: '/adelaide-moving-guides/apartment-moving-checklist-adelaide/', label: 'apartment checklist' },
       { href: '/adelaide-moving-guides/apartment-lift-bookings-adelaide/', label: 'lift booking guide' },
-      { href: '/guides/best-time-to-book-removalists-adelaide/', label: 'booking timing' },
+      { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'booking timing' },
     ],
   },
 };

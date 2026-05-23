@@ -846,7 +846,7 @@
     "twitterImage": "https://zqremovals.au/zq-removals-social-share.webp",
     "refresh": "",
     "jsonLd": [
-      "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"MovingCompany\",\n  \"@id\": \"https://zqremovals.au/#localbusiness\",\n  \"name\": \"ZQ Removals Adelaide\",\n  \"url\": \"https://zqremovals.au/\",\n  \"telephone\": \"+61 433 819 989\",\n  \"aggregateRating\": {\n    \"@type\": \"AggregateRating\",\n    \"ratingValue\": \"5.0\",\n    \"reviewCount\": \"38\"\n  },\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"streetAddress\": \"Andrews Farm SA 5114\",\n    \"addressLocality\": \"Andrews Farm\",\n    \"addressRegion\": \"SA\",\n    \"postalCode\": \"5114\",\n    \"addressCountry\": \"AU\"\n  },\n  \"areaServed\": \"Adelaide\"\n}"
+      "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"MovingCompany\",\n  \"@id\": \"https://zqremovals.au/#business\",\n  \"name\": \"ZQ Removals\",\n  \"url\": \"https://zqremovals.au/\",\n  \"telephone\": \"+61433819989\",\n  \"image\": \"https://zqremovals.au/zq-removals-social-share.webp\",\n  \"logo\": \"https://zqremovals.au/brand-logo.webp\",\n  \"priceRange\": \"$$\",\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"addressLocality\": \"Andrews Farm\",\n    \"addressRegion\": \"SA\",\n    \"postalCode\": \"5114\",\n    \"addressCountry\": \"AU\"\n  },\n  \"areaServed\": [\n    \"Adelaide\",\n    \"South Australia\",\n    \"Northern suburbs\",\n    \"Southern suburbs\"\n  ],\n  \"taxID\": \"97954095119\"\n}"
     ],
     "contentFile": "content/index.html"
   },

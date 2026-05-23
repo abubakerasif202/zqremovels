@@ -64,11 +64,16 @@ function isPreviewPage(page) {
   return page.output === 'premium-moving-concepts/index.html' || page.output.startsWith('premium-moving-concepts/');
 }
 
+function isLegacyGuidePage(page) {
+  return page.output.startsWith('guides/');
+}
+
 function shouldIncludeInSitemap(page) {
   return !isRedirectPage(page) &&
     !isNoindexPage(page) &&
     !isUtilityPage(page) &&
     !isPreviewPage(page) &&
+    !isLegacyGuidePage(page) &&
     page.output !== 'privacy-policy/index.html' &&
     page.output !== 'terms-and-conditions/index.html';
 }
@@ -537,7 +542,7 @@ test('guide article schema preserves dates and the commercial CTA stays unique',
   const sourceOutput = articleOutput.replace(/\\/g, '/');
   const articleHtml = readDist(articleOutput);
   const hubHtml = readDist(path.join('adelaide-moving-guides', 'index.html'));
-  const generalGuideHtml = readDist(path.join('guides', 'how-to-choose-removalists-adelaide', 'index.html'));
+  const generalGuideHtml = readDist(path.join('adelaide-moving-guides', 'how-to-choose-removalists-adelaide', 'index.html'));
   const sourcePage = pages.find((page) => page.output === sourceOutput);
 
   assert.ok(sourcePage, `missing source metadata for ${articleOutput}`);
@@ -793,7 +798,7 @@ test('conversion prompts keep mobile call, above-fold quote access, and qualifie
   const hero = homepage.match(/<section class="hero-shell[\s\S]*?<\/section>/i)?.[0] || '';
 
   assert.match(template, /sticky-mobile-cta/);
-  assert.match(template, /href="tel:\+61433819989"[^>]*>Call Now<\/a>/);
+  assert.match(template, /href="tel:\+61433819989"[^>]*>Call 0433 819 989<\/a>/);
   assert.match(hero, /hero-quote-form/);
   assert.match(hero, /Booking subject to availability/i);
   assert.match(hero, /Same-day bookings are assessed/i);

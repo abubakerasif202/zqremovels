@@ -8,7 +8,8 @@ const root = process.cwd();
 const distRoot = path.join(root, 'site-dist');
 const staticPages = JSON.parse(await readFile(path.join(root, 'site-src', 'pages.json'), 'utf8'));
 const generatedPages = getGeneratedPages();
-const pages = mergePagesByOutput(staticPages, generatedPages).filter((page) => page.robots !== 'noindex,follow' || page.extra);
+const pages = mergePagesByOutput(staticPages, generatedPages)
+  .filter((page) => (page.robots !== 'noindex,follow' || page.extra) && !normalizeOutput(page.output).startsWith('guides/'));
 const generatedSuburbOutputs = new Set(
   generatedPages.filter((page) => page.generatedKind === 'suburb').map((page) => normalizeOutput(page.output)),
 );

@@ -351,6 +351,7 @@ function isIndexablePage(page) {
     page.output !== 'privacy-policy/index.html' &&
     page.output !== 'terms-and-conditions/index.html' &&
     page.output !== 'seo-v4/overview/index.html' &&
+    !page.output.startsWith('guides/') &&
     !page.output.startsWith('premium-moving-concepts/');
 }
 
@@ -408,7 +409,6 @@ function isCommercialOrGuide(page) {
   return page.generatedKind === 'commercial' ||
     page.generatedKind === 'guide' ||
     page.output.startsWith('adelaide-moving-guides/') ||
-    page.output.startsWith('guides/') ||
     page.output.startsWith('services/');
 }
 

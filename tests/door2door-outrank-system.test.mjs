@@ -96,9 +96,9 @@ test('homepage, footer, services, and guides build the price-intent internal lin
     assert.match(homepage, new RegExp(`href="/${slug}/"`), `homepage missing ${slug}`);
   }
 
-  for (const slug of ['cheap-removalists-adelaide', 'affordable-removalists-adelaide', 'removalist-cost-adelaide', 'moving-quotes-adelaide']) {
-    assert.match(footerSource, new RegExp(`href="/${slug}/"`), `footer missing ${slug}`);
-  }
+  assert.match(footerSource, /href="\/adelaide-moving-guides\/removalists-cost-adelaide\/"/, 'footer missing pricing guide');
+  assert.match(footerSource, /href="\/removalists-adelaide-quote\/"/, 'footer missing quote path');
+  assert.doesNotMatch(footerSource, /href="\/(?:cheap|affordable|budget)-removalists-adelaide\/"/, 'footer should not expose price-keyword link grid');
 
   for (const slug of servicePages) {
     const html = readDist(path.join(slug, 'index.html'));

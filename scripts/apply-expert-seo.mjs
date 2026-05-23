@@ -24,7 +24,7 @@ async function applyExpertSEO() {
       pages[homeIndex].twitterTitle = pages[homeIndex].title;
       pages[homeIndex].twitterDescription = pages[homeIndex].description;
       
-      // Upgrade from LocalBusiness to MovingCompany with AggregateRating
+      // Upgrade from LocalBusiness to MovingCompany using only visible, verified business facts.
       pages[homeIndex].jsonLd = [
         JSON.stringify({
           "@context": "https://schema.org",
@@ -33,11 +33,6 @@ async function applyExpertSEO() {
           "name": "ZQ Removals Adelaide",
           "url": "https://zqremovals.au/",
           "telephone": "+61 433 819 989",
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "5.0",
-            "reviewCount": "38"
-          },
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "Andrews Farm SA 5114",

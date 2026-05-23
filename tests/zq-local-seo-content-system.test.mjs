@@ -79,7 +79,7 @@ test('requested guide pages are useful, schema-backed, in the guide sitemap, and
   const seenTitles = new Map();
   const seenDescriptions = new Map();
 
-  for (const { output, path: routePath } of zqSeoRouteManifest.guides) {
+  for (const { output, path: routePath } of zqSeoRouteManifest.guides.filter((route) => !route.output.startsWith('guides/'))) {
     const html = readDist(output);
     const main = extractMain(html);
     const links = uniqueInternalLinks(main);
@@ -136,7 +136,10 @@ test('new pages are discoverable from existing hub content and do not use unsupp
   const adelaideHub = readDist('removalists-adelaide/index.html');
   const footerBearingHtml = `${homepage}\n${adelaideHub}`;
 
-  for (const route of [...zqSeoRouteManifest.services, ...zqSeoRouteManifest.guides]) {
+  for (const route of [
+    ...zqSeoRouteManifest.services,
+    ...zqSeoRouteManifest.guides.filter((guide) => !guide.output.startsWith('guides/')),
+  ]) {
     assert.match(footerBearingHtml, new RegExp(`href="${escapeRegex(route.path)}"`), `${route.path} missing hub or footer link`);
   }
 
@@ -215,7 +218,7 @@ function countSuburbLinks(links) {
 }
 
 function countGuideLinks(links) {
-  return links.filter((href) => href.startsWith('/adelaide-moving-guides/') || href.startsWith('/guides/')).length;
+  return links.filter((href) => href.startsWith('/adelaide-moving-guides/')).length;
 }
 
 function assertResolvedLinks(links, sourceOutput) {

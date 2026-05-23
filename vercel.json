@@ -392,6 +392,31 @@
       "permanent": true
     },
     {
+      "source": "/guides/removalist-cost-adelaide/",
+      "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/guides/how-to-choose-removalists-adelaide/",
+      "destination": "/adelaide-moving-guides/how-to-choose-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/guides/moving-house-checklist-adelaide/",
+      "destination": "/adelaide-moving-guides/moving-house-checklist-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/guides/interstate-moving-from-adelaide/",
+      "destination": "/adelaide-moving-guides/interstate-moving-checklist-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/guides/cheap-vs-fixed-price-removalists-adelaide/",
+      "destination": "/adelaide-moving-guides/cheap-vs-fixed-price-removalists-adelaide/",
+      "permanent": true
+    },
+    {
       "source": "/adelaide-to-:slug.html",
       "destination": "/adelaide-to-:slug/",
       "permanent": true
