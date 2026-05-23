@@ -142,9 +142,9 @@ const interstateRouteData = [
 
 const interstateRouteProfilesV7 = {
   'adelaide-to-sydney-removalists': {
-    titleSuffix: 'Removalists From Adelaide',
+    titleSuffix: 'Removalists | ZQ Removals',
     description:
-      'Adelaide to Sydney removalists for interstate moves that start in Adelaide and need pickup access, packing, route timing, and Sydney delivery notes reviewed before quoting.',
+      'Adelaide to Sydney removalists with pickup access, packing, route timing, and Sydney delivery notes reviewed before quoting.',
     destinationLabel: 'Sydney NSW',
     intro:
       'This route is for customers moving from Adelaide to Sydney who need an interstate removals plan built around Adelaide pickup details and destination access in NSW.',
@@ -152,7 +152,7 @@ const interstateRouteProfilesV7 = {
       'Sydney delivery planning should cover apartment lifts, loading zones, strata rules, parking pressure, and handover timing without implying a Sydney base.',
   },
   'adelaide-to-melbourne-removalists': {
-    titleSuffix: 'Removalists From Adelaide',
+    titleSuffix: 'Removalists | ZQ Removals',
     description:
       'Adelaide to Melbourne removalists for interstate moves starting in Adelaide, with access, packing, timing, and Melbourne delivery notes scoped before booking.',
     destinationLabel: 'Melbourne VIC',
@@ -162,9 +162,9 @@ const interstateRouteProfilesV7 = {
       'Melbourne delivery planning should cover building access, loading restrictions, lift bookings, inner-city timing, and suburban carry distance without claiming a Melbourne base.',
   },
   'adelaide-to-western-sydney-removalists': {
-    titleSuffix: 'Removalists From Adelaide',
+    titleSuffix: 'Removalists | ZQ Removals',
     description:
-      'Adelaide to Western Sydney removalists for interstate moves from Adelaide into western Sydney suburbs, with access, inventory, and destination handover details reviewed first.',
+      'Adelaide to Western Sydney removalists with access, inventory, and destination handover details reviewed before quoting.',
     destinationLabel: 'Western Sydney NSW',
     intro:
       'This route is for Adelaide pickups heading into Western Sydney where the destination may be a house, townhouse, apartment, warehouse-adjacent property, or mixed residential-commercial address.',
@@ -172,7 +172,7 @@ const interstateRouteProfilesV7 = {
       'Western Sydney delivery planning should cover driveway access, estate streets, industrial-adjacent loading areas, apartment lifts, parking rules, and delivery windows without presenting a NSW base.',
   },
   'adelaide-to-smithfield-nsw-removalists': {
-    titleSuffix: 'Removalists From Adelaide',
+    titleSuffix: 'Removalists | ZQ Removals',
     description:
       'Adelaide to Smithfield NSW removalists for interstate moves from Adelaide, clearly separated from Smithfield SA and Smithfield Plains local Adelaide searches.',
     destinationLabel: 'Smithfield NSW',
@@ -508,7 +508,19 @@ export function getSuburbDataset() {
 function clampText(value, limit) {
   const text = String(value).trim().replace(/\s+/g, ' ');
   if (text.length <= limit) return text;
-  return `${text.slice(0, limit - 1).trimEnd()}…`;
+  const sentenceBoundary = Math.max(
+    text.lastIndexOf('.', limit),
+    text.lastIndexOf('?', limit),
+    text.lastIndexOf('!', limit),
+  );
+  if (sentenceBoundary >= Math.max(60, Math.floor(limit * 0.55))) {
+    return text.slice(0, sentenceBoundary + 1).trim();
+  }
+
+  const clipped = text.slice(0, limit);
+  const wordBoundary = clipped.lastIndexOf(' ');
+  const end = wordBoundary >= Math.floor(limit * 0.7) ? wordBoundary : limit;
+  return clipped.slice(0, end).replace(/[\s,;:|&-]+$/g, '').trim();
 }
 
 function escapeHtml(value) {
@@ -816,6 +828,10 @@ const suburbSeoOverrides = {
     title: 'Medindie Removalists | Premium Home Moves | ZQ Removals',
     description: 'Medindie removalists for premium homes and estate access, with quote detail matched to the actual move brief.',
   },
+  'colonel-light-gardens': {
+    title: 'Colonel Light Gardens Removalists | ZQ Removals',
+    description: 'Colonel Light Gardens removalists for heritage-style homes, careful access planning, inventory review, and fixed-price quote scoping.',
+  },
   'unley': {
     title: 'Unley Removalists | Townhouse & Villa Moves | ZQ Removals',
     description: 'Unley removalists for townhouse and villa access, with planning that reflects the tighter inner south route.',
@@ -823,6 +839,10 @@ const suburbSeoOverrides = {
   'toorak-gardens': {
     title: 'Toorak Gardens Removalists | Premium Access Moves | ZQ Removals',
     description: 'Toorak Gardens removalists for premium access, careful handling, and clear quote planning in eastern Adelaide.',
+  },
+  'victor-harbor-road': {
+    title: 'Victor Harbor Road Removalists | ZQ Removals',
+    description: 'Victor Harbor Road removalists for corridor moves, route timing, access planning, and fixed-price quote review.',
   },
 };
 
@@ -3437,7 +3457,7 @@ function makeLocalRoutePage([originSlug, destSlug]) {
   const canonical = buildCanonical(`/${slug}/`);
 
   const title = buildTitle(`Moving from ${origin.suburb} to ${dest.suburb}`);
-  const description = buildDescription(`Professional removalists for moves from ${origin.suburb} to ${dest.suburb}. We plan around ${origin.logisticsLabel} at pickup and ${dest.logisticsLabel} at delivery.`);
+  const description = buildDescription(`Moving from ${origin.suburb} to ${dest.suburb} with pickup planning for ${origin.logisticsLabel} and delivery access around ${dest.logisticsLabel}.`);
 
   const faqItems = [
     {
@@ -3564,7 +3584,7 @@ ${renderQuoteStrip({
 const serviceSuburbTemplates = {
   'office-removals': {
     title: 'Office Removals {suburb} | Business Relocations',
-    description: 'Relocating your business? Expert office removals in {suburb} for clinics, studios, and corporate spaces with {logisticsLabel} planned.',
+    description: 'Office removals in {suburb} for clinics, studios, and corporate spaces with access, timing, and restart planning.',
     eyebrow: 'Business relocations',
     h1: 'Office removals {suburb} for clinics, studios, and corporate relocations',
     hero: 'Moving your business in {suburb}? We handle the logistics so you can focus on your work. From IT equipment to office furniture, our team ensures a smooth transition with {logisticsLabel} considered.',
@@ -3572,15 +3592,15 @@ const serviceSuburbTemplates = {
   },
   'packing-services': {
     title: 'Packing Services {suburb} | Full House Packing',
-    description: 'Need help packing? Professional packing services in {suburb} for homes and apartments. We handle fragile items and heavy furniture with care.',
+    description: 'Packing services in {suburb} for homes, apartments, fragile rooms, and furniture protection before move day.',
     eyebrow: 'Packing & Protection',
     h1: 'Packing services {suburb} for homes, units, and apartments',
     hero: 'Take the stress out of moving with professional packing in {suburb}. Our team uses high-quality materials to protect your belongings, focusing on {logisticsLabel} during the process.',
     primaryKeyword: 'Packing services',
   },
   'apartment-removalists': {
-    title: 'Apartment Removalists {suburb} | Lift & Access Experts',
-    description: 'Moving apartment in {suburb}? We specialize in tight access, lift bookings, and loading zone planning for stress-free unit relocations.',
+    title: 'Apartment Movers {suburb} | Lift Access Planning',
+    description: 'Apartment removalists in {suburb} for lift bookings, tight access, loading zones, and shared-entry move planning.',
     eyebrow: 'Apartment specialists',
     h1: 'Apartment removalists {suburb} for units, towers, and tight access',
     hero: 'Specialist apartment movers in {suburb}. We coordinate with building management and plan around {logisticsLabel} to keep your move on schedule.',
@@ -3780,7 +3800,7 @@ function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel, inte
   const title = buildTitle(seoOverride.title || `${suburb} Removalists`, variant);
   const description = buildDescription(
     seoOverride.description
-      || `Professional ${suburb} removalists specializing in ${logisticsLabel}. Get a reliable, fixed-price quote for your ${region} Adelaide house or unit move.`,
+      || `${suburb} removalists for ${logisticsLabel}. Plan access, inventory, timing, and a fixed-price quote for your ${region} Adelaide move.`,
   );
   const support = getClusterSupportProfile(normalizedClusterKey);
   const pageImage = getGeneratedPageImage({
@@ -3856,7 +3876,7 @@ function makeGuidePage({ slug, title, topic, basePath = 'adelaide-moving-guides'
   const seoTitle = buildTitle(title, 'brand');
   const description = buildDescription(
     intentProfile
-      ? `Adelaide guide for ${intentProfile.searchIntent}. ${intentProfile.uniqueAngle}.`
+      ? `Adelaide guide for ${intentProfile.searchIntent}. Use it to plan access, timing, packing, quote details, and move-day risks before booking.`
       : `Expert Adelaide moving guide on ${topic}. Practical advice, planning tips, and local insights for a more organized relocation.`,
   );
   const pageImage = getGeneratedPageImage({ type: 'guide', slug, title, topic });
@@ -3925,6 +3945,18 @@ function makeCommercialPage(page) {
       title: 'Budget Removalists Adelaide | Affordable Fixed Quotes | ZQ Removals',
       description: 'Budget removalists Adelaide for customers comparing affordable fixed-price moving options, careful handling, and clear scope before booking.',
     },
+    'same-day-removalists-adelaide': {
+      title: 'Same Day Removalists Adelaide | Urgent Movers | ZQ Removals',
+      description: 'Same day removalists Adelaide for urgent home and apartment moves. Fast response depends on schedule, access, and inventory review.',
+    },
+    'apartment-removalists-adelaide': {
+      title: 'Apartment Removalists Adelaide | Unit Movers | ZQ Removals',
+      description: 'Apartment removalists Adelaide for units, towers, and townhouses with lift bookings, loading zones, careful handling, and fixed-price quotes.',
+    },
+    'cheap-vs-fixed-price-removalists-adelaide': {
+      title: 'Cheap vs Fixed Price Movers Adelaide | ZQ Removals',
+      description: 'Compare cheap removalists Adelaide with fixed-price movers so you can judge real value, scope, access risks, and move-day certainty.',
+    },
     'house-removals-adelaide': {
       title: 'House Removals Adelaide | Home & Townhouse Movers | ZQ Removals',
       description: 'House removals Adelaide for homes, units, and townhouses with planning around access, inventory, timing, and furniture protection.',
@@ -3933,7 +3965,7 @@ function makeCommercialPage(page) {
   const seoOverride = commercialSeoOverrides[page.slug] || {};
   const title = buildTitle(seoOverride.title || page.title, 'quote');
   const description = buildDescription(
-    seoOverride.description || `${page.description} High-standards service with clear fixed-price quoting and professional Adelaide-based planning.`,
+    seoOverride.description || page.description,
   );
   const pageImage = getGeneratedPageImage({ type: 'commercial', slug: page.slug, title: page.title });
   const intentProfile = buildCommercialIntentProfile(page);

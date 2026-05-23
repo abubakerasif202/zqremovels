@@ -63,7 +63,7 @@ failures.push(
     homeHtml,
     'home hero trust logo',
     '/brand-logo-96.webp',
-    ['width="76"', 'height="76"'],
+    ['width="62"', 'height="62"'],
   ).map((msg) => `/ : ${msg}`),
 );
 
