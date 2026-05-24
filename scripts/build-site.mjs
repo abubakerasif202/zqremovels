@@ -358,7 +358,7 @@ const suburbPageProfiles = {
       { href: '/removalists-adelaide/', label: 'All Adelaide suburb coverage' },
     ],
     intro: [
-      'People booking removalists in Elizabeth Vale usually want the job handled efficiently without losing care around heavier or fragile furniture. The main differences here tend to be access: units, shared entries, tighter parking, and longer carries that can add labour time quickly if they are not scoped early. We build the plan around those details before the quote is confirmed.',
+      'People booking removalists in Elizabeth Vale usually want the job handled efficiently without losing care around heavier or fragile furniture. The main differences here tend to be access: units, shared entries, tighter parking, and longer carries that can add labour time quickly if they are not scoped early. We build the plan around those details before the quote is reviewed.',
       'Elizabeth Vale also sits inside a broader northside moving corridor, so some briefs involve storage transfers, family home moves, or a route that links into Salisbury, Andrews Farm, and neighbouring suburbs. When the suburb is known, we recommend capturing the access notes and the item profile up front so the proposal stays realistic and the move day stays organised.',
     ],
     conditions: [
@@ -2104,7 +2104,7 @@ const seoSupportProfiles = {
     eyebrow: 'Seaford planning guides',
     heading: 'Use the right guide before the Seaford route is locked in.',
     intro:
-      'Seaford moves usually depend on coastal family-home access, southern travel time, and whether the brief stays local or becomes a longer departure. These guides tighten the plan before the quote is confirmed.',
+      'Seaford moves usually depend on coastal family-home access, southern travel time, and whether the brief stays local or becomes a longer departure. These guides tighten the plan before the quote is reviewed.',
     cards: [
       {
         guide: 'coastalAccess',
@@ -4361,7 +4361,7 @@ function renderServiceMoneyUpgrade(page) {
         ['Can packing be added to a house move?', 'Yes. Packing can be scoped as fragile-item help, room-by-room packing, or a broader preparation service.'],
         ['Should I book a weekday or weekend house move?', 'Weekdays can be easier to schedule, while weekends and month-end dates usually need earlier booking.'],
         ['Can you move garage and outdoor items?', 'Yes. Garage shelving, outdoor furniture, tools, and whitegoods should be listed so load order and truck space are planned.'],
-        ['Do apartment-style house moves need lift details?', 'Yes. If the property has lift, stair, or shared-entry access, include those notes before the quote is confirmed.'],
+        ['Do apartment-style house moves need lift details?', 'Yes. If the property has lift, stair, or shared-entry access, include those notes before the quote is reviewed.'],
         ['Can a local house move become an interstate brief?', 'Yes. If part or all of the inventory is moving interstate, the route, packing, and handover details should be scoped together.'],
         ['What is the best next step?', 'Send the route, access notes, and item list through the quote form or call if the booking window is urgent.'],
       ],
@@ -4458,18 +4458,18 @@ function renderServiceMoneyUpgrade(page) {
   const profile = profiles[page.output];
   if (!profile) return '';
   const relatedServiceCards = [
-    ['/house-removals-adelaide/', 'House removalists Adelaide', 'Plan a complete home move'],
-    ['/furniture-removalists-adelaide/', 'Furniture removalists Adelaide', 'Protect bulky and fragile pieces'],
-    ['/office-removals-adelaide/', 'Office removalists Adelaide', 'Coordinate business relocation'],
-    ['/apartment-removalists-adelaide/', 'Apartment removalists Adelaide', 'Manage lifts and loading zones'],
-    ['/packing-services-adelaide/', 'Packing services Adelaide', 'Prepare fragile rooms and cartons'],
-    ['/interstate-removals-adelaide/', 'Interstate removalists Adelaide', 'Plan long-distance routes'],
-    ['/cheap-removalists-adelaide/', 'Cheap removalists Adelaide', 'Compare affordable fixed-price options'],
-    ['/affordable-removalists-adelaide/', 'Affordable removalists Adelaide', 'Keep premium handling with budget-aware scope'],
-    ['/removalist-cost-adelaide/', 'Removalist cost Adelaide', 'Understand quote factors before booking'],
-    ['/moving-quotes-adelaide/', 'Moving quotes Adelaide', 'Request a clearer fixed-price quote'],
-    ['/fixed-price-removalists-adelaide/', 'Fixed-price removalists Adelaide', 'Avoid hourly surprises with scoped pricing'],
-    ['/budget-removalists-adelaide/', 'Budget removalists Adelaide', 'Plan a value-focused Adelaide move'],
+    ['/house-removals-adelaide/', 'Home move services', 'Plan a complete home move'],
+    ['/furniture-removalists-adelaide/', 'Furniture handling support', 'Protect bulky and fragile pieces'],
+    ['/office-removals-adelaide/', 'Office relocation planning', 'Coordinate business relocation'],
+    ['/apartment-removalists-adelaide/', 'Apartment access planning', 'Manage lifts and loading zones'],
+    ['/packing-services-adelaide/', 'Packing and preparation', 'Prepare fragile rooms and cartons'],
+    ['/interstate-removals-adelaide/', 'Interstate route planning', 'Plan long-distance routes'],
+    ['/cheap-removalists-adelaide/', 'Compare lower-cost options', 'Compare affordable fixed-price options'],
+    ['/affordable-removalists-adelaide/', 'Value-focused move planning', 'Keep premium handling with budget-aware scope'],
+    ['/removalist-cost-adelaide/', 'Understand quote factors', 'Understand quote factors before booking'],
+    ['/moving-quotes-adelaide/', 'Compare Adelaide quote options', 'Request a clearer fixed-price quote'],
+    ['/fixed-price-removalists-adelaide/', 'See fixed-price move options', 'Avoid hourly surprises with scoped pricing'],
+    ['/budget-removalists-adelaide/', 'Budget-aware Adelaide moves', 'Plan a value-focused Adelaide move'],
   ].filter(([href]) => href !== `/${page.output.replace(/index\.html$/, '')}`);
 
   return `
@@ -4492,14 +4492,14 @@ ${profile.cost.map(([title, copy]) => `<article class="value-card reveal-on-scro
   <div class="container">
     <div class="section-heading reveal-on-scroll">
       <span class="eyebrow">Related services</span>
-      <h2>Service paths that support ${escapeHtml(profile.label.toLowerCase())}.</h2>
+      <h2>Planning links for ${escapeHtml(profile.label.toLowerCase())}.</h2>
       <p class="lede">Move briefs often start with one service and then need packing, furniture, apartment, office, local, or interstate support once access and inventory are reviewed.</p>
     </div>
     <div class="route-grid">
 ${relatedServiceCards.slice(0, 8).map(([href, title, copy]) => `<article class="route-card reveal-on-scroll">
   <small>Related service</small>
   <h3>${escapeHtml(title)}</h3>
-  <p>${escapeHtml(copy)} before the quote is confirmed.</p>
+  <p>${escapeHtml(copy)}</p>
   <a class="button-link" href="${escapeAttribute(href)}">View ${escapeHtml(title)}</a>
 </article>`).join('\n')}
     </div>
@@ -4742,7 +4742,7 @@ function renderSuburbV4Section(page) {
         complexity change the move brief. Nearby corridors include ${profile.nearbyCorridors.join(', ')}.
       </p>
       <p>
-        People searching for removalists near ${escapeHtml(profile.suburb)} often compare affordable removalists ${escapeHtml(profile.suburb)} options and want a fixed-price quote for ${escapeHtml(profile.suburb)} moves before they book.
+        People comparing ${escapeHtml(profile.suburb)} moves usually want access notes, route context, and a fixed-price quote that reflects the real workload rather than a broad hourly estimate.
       </p>
     </div>
     <div class="route-grid">

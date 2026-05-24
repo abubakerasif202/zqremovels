@@ -50,9 +50,9 @@ test('footer and homepage include clean price-path links and cost-conscious mess
   assert.match(footer, /href="\/adelaide-moving-guides\/removalists-cost-adelaide\/"/, 'pricing guide missing from footer source');
   assert.match(footer, /href="\/removalists-adelaide-quote\/"/, 'quote form missing from footer source');
   assert.match(footer, /href="\/fixed-price-removalists-adelaide\/"/, 'fixed-price service missing from footer source');
-  assert.doesNotMatch(footer, /href="\/cheap-removalists-adelaide\/"/, 'footer should not include exact-match cheap footer link');
-  assert.doesNotMatch(footer, /href="\/affordable-removalists-adelaide\/"/, 'footer should not include exact-match affordable footer link');
-  assert.doesNotMatch(footer, /href="\/budget-removalists-adelaide\/"/, 'footer should not include exact-match budget footer link');
+  assert.match(footer, /href="\/cheap-removalists-adelaide\/"/, 'footer should include lower-cost planning path');
+  assert.match(footer, /href="\/affordable-removalists-adelaide\/"/, 'footer should include affordable planning path');
+  assert.doesNotMatch(footer, /cheap-removalists-adelaide[\s\S]{0,220}affordable-removalists-adelaide[\s\S]{0,220}budget-removalists-adelaide/i, 'footer should not include a dense exact-match price grid');
 
   assert.match(homepage, /fixed-price quotes/i);
   assert.match(contact, /Quote Preparation Checklist/i);

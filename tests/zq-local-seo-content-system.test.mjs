@@ -168,6 +168,57 @@ test('generated output avoids repeated template-artifact phrases', () => {
   }
 });
 
+test('footer and service hub links stay useful without exact-match overstuffing', () => {
+  const homepage = readDist('index.html');
+  const hub = readDist('removalists-adelaide/index.html');
+  const footerHtml = readFileSync(path.join(root, 'site-src', 'partials', 'footer.html'), 'utf8');
+
+  for (const href of [
+    '/house-removals-adelaide/',
+    '/furniture-removalists-adelaide/',
+    '/office-removals-adelaide/',
+    '/apartment-removalists-adelaide/',
+    '/removalist-cost-adelaide/',
+    '/cheap-removalists-adelaide/',
+    '/affordable-removalists-adelaide/',
+    '/removalists-glenelg/',
+    '/removalists-marion/',
+    '/removalists-salisbury/',
+  ]) {
+    assert.match(footerHtml, new RegExp(`href="${escapeRegex(href)}"`), `missing footer or hub link for ${href}`);
+  }
+
+  const denseFooterCluster = /Cheap Removalists Adelaide[\s\S]{0,220}Affordable Removalists Adelaide[\s\S]{0,220}Removalist Cost Adelaide[\s\S]{0,220}Moving Quotes Adelaide/i;
+  assert.doesNotMatch(footerHtml, denseFooterCluster, 'footer still contains an overly dense exact-match money-page cluster');
+  assert.match(homepage, /href="\/cheap-removalists-adelaide\/"|href="\/affordable-removalists-adelaide\/"|href="\/removalist-cost-adelaide\//i, 'homepage should still surface key pricing pages');
+  assert.match(hub, /href="\/contact-us\/#quote-form"/, 'adelaide hub should keep the quote CTA');
+});
+
+test('schema stays on canonical host and review schema requires visible proof', () => {
+  for (const output of zqExpectedGeneratedOutputs) {
+    const html = readDist(output);
+    const jsonLd = extractJsonLd(html);
+    const serialized = JSON.stringify(jsonLd);
+
+    assert.doesNotMatch(serialized, /https:\/\/www\.zqremovals\.au|localhost|\.vercel\.app/i, `${output} has non-canonical schema URL`);
+    assert.doesNotMatch(serialized, /reviewCount|ratingValue|AggregateRating/i, `${output} has unsupported rating schema`);
+
+    const hasReviewSchema = /"@type"\s*:\s*"?ReviewPage"?|"@type"\s*:\s*"?Review"?/i.test(serialized);
+    if (hasReviewSchema) {
+      assert.match(html, /verified reviews|Google Business Profile reviews|customer reviews/i, `${output} review schema lacks visible proof`);
+    }
+  }
+});
+
+test('homepage hero image is prioritized for mobile LCP', () => {
+  const homepage = readDist('index.html');
+  const heroImg = homepage.match(/<picture>[\s\S]*?<img[\s\S]*?<\/picture>/i)?.[0] || '';
+  assert.match(homepage, /<img[\s\S]*src="\/media\/home-local-hero-branded\.webp"/i);
+  assert.match(homepage, /fetchpriority="high"/i);
+  assert.match(homepage, /loading="eager"/i);
+  assert.doesNotMatch(heroImg, /loading="lazy"/i);
+});
+
 function readDist(relativePath) {
   return readFileSync(path.join(distDir, relativePath), 'utf8');
 }

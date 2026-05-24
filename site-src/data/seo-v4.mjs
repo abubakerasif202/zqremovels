@@ -2399,19 +2399,20 @@ function buildSuburbHighlights({ suburb, logisticsLabel, clusterKey, nearby }) {
 function buildSuburbIntroParagraphs({ suburb, intro, logisticsLabel, nearby, clusterKey, supportProfile }) {
   const clusterLabel = formatClusterLabel(clusterKey).toLowerCase();
   const supportServices = supportProfile.services.slice(0, 2).map((item) => item.label).join(' and ');
+  const routeNote = nearby.slice(0, 2).map((item) => item.suburb).join(' and ');
 
   if (suburb === 'Glenelg') {
     return [
-      'Removalists near Glenelg need coastal access planning because parking and apartment entries can slow the day.',
-      `If you are comparing removalists near ${suburb} or affordable removalists ${suburb}, check parking, access, stairs, lifts, and timing before the quote is confirmed.`,
-      `Keep ${suburb} linked to the Adelaide hub, nearby routes like ${nearby.map((item) => item.suburb).join(', ')}, and the most useful services for ${clusterLabel} moves, including ${supportServices}.`,
+      'Glenelg moves often need coastal access planning because beachside parking, apartment entries, and weekend traffic can slow the day.',
+      `Quote requests should mention parking position, stairs or lifts, carry distance, and any timing pressure so the fixed-price review reflects the real workload in ${suburb}.`,
+      `Keep ${suburb} linked to the Adelaide hub, nearby routes like ${routeNote}, and the most useful services for ${clusterLabel} moves, including ${supportServices}.`,
     ];
   }
 
   return [
-    `${intro} If you are comparing removalists near ${suburb} or affordable removalists ${suburb}, check access, stairs, lifts, and timing. Ask for a fixed-price quote for ${suburb} moves when ready.`,
-    `${suburb} quotes work best when they reflect access and inventory. For this suburb, that often means clarifying ${logisticsLabel} before the job is locked in and asking for a fixed-price quote for ${suburb} moves where possible.`,
-    `This page keeps ${suburb} linked to nearby routes like ${nearby.map((item) => item.suburb).join(', ')}, and routes for ${clusterLabel} moves.`,
+    `${intro} ${suburb} quotes work best when the route, access, and inventory are reviewed together rather than treated as a generic metro move.`,
+    `For ${suburb}, that usually means clarifying ${logisticsLabel}, the property type, and any parking or carry-distance issues before the fixed-price quote is confirmed.`,
+    `This page keeps ${suburb} linked to nearby routes like ${routeNote} and to ${clusterLabel} service patterns that help the booking brief stay accurate.`,
   ];
 }
 
@@ -2451,7 +2452,7 @@ function buildSuburbSummaryCards({ suburb, logisticsLabel, supportProfile, trait
   return [
     {
       title: `Local service summary for ${suburb}`,
-      copy: `${suburb} jobs can flow into house removals, apartment work, packing, or handoff. The job is scoped around ${logisticsLabel}`,
+      copy: `${suburb} jobs can flow into house removals, apartment work, packing, or handoff. The job is scoped around ${logisticsLabel} and the property type.`,
       points: [
         'Local and Adelaide-wide routes scoped from one brief',
         'Inventory, access, and timing reviewed before scheduling',
@@ -2486,7 +2487,7 @@ function buildSuburbLogisticsCards({ suburb, logisticsLabel, clusterKey, nearby 
   return [
     {
       title: `${clusterLabel} access checks`,
-      copy: `${suburb} sits in a ${clusterLabel.toLowerCase()} pattern where route timing, street position, and carry path can change the labour plan quickly.`,
+      copy: `${suburb} sits in a ${clusterLabel.toLowerCase()} pattern where route timing, street position, carry path, and parking pressure can change the labour plan quickly.`,
       points: [
         `Nearby route comparisons include ${nearby.slice(0, 2).map((item) => item.suburb).join(' and ')}`,
         `${toTitle(logisticsLabel)} should be mentioned before the quote is approved`,
@@ -2504,7 +2505,7 @@ function buildSuburbLogisticsCards({ suburb, logisticsLabel, clusterKey, nearby 
     },
     {
       title: 'Access notes worth mentioning',
-      copy: `The better the access notes, the less the move depends on assumptions. That keeps labour, timing, and handling expectations aligned.`,
+      copy: `The better the access notes, the less the move depends on assumptions. That keeps labour, timing, handling, and route expectations aligned.`,
       points: [
         'Stairs, service lifts, loading docks, or long carries',
         'Street parking limits, driveway slope, or narrow entries',
@@ -2520,7 +2521,7 @@ function buildSuburbMoveTypeCards({ suburb, logisticsLabel, clusterKey }) {
   const fallbackCards = [
     {
       title: 'Local household relocations',
-      copy: `${suburb} household moves still benefit from a room-by-room plan that matches the actual load and access path.`,
+      copy: `${suburb} household moves still benefit from a room-by-room plan that matches the actual load, access path, and priority rooms.`,
       points: ['Useful for standard Adelaide house and unit routes'],
     },
     {
@@ -2535,10 +2536,10 @@ function buildSuburbMoveTypeCards({ suburb, logisticsLabel, clusterKey }) {
     },
   ];
 
-  if (traits.includes('apartment')) {
+    if (traits.includes('apartment')) {
     cards.push({
       title: 'Apartment and unit moves',
-      copy: `${suburb} apartment jobs are best scoped around lift timing, corridor clearance, and the order bulky items enter or leave the building.`,
+      copy: `${suburb} apartment jobs are best scoped around lift timing, corridor clearance, loading windows, and the order bulky items enter or leave the building.`,
       points: ['Useful for towers, units, and tighter townhouse layouts'],
     });
   }
@@ -2546,7 +2547,7 @@ function buildSuburbMoveTypeCards({ suburb, logisticsLabel, clusterKey }) {
   if (traits.includes('family-home')) {
     cards.push({
       title: 'Family-home relocations',
-      copy: `${suburb} family-home moves often include garage stock, outdoor furniture, and a bigger room count than the first estimate suggests.`,
+      copy: `${suburb} family-home moves often include garage stock, outdoor furniture, sheds, and a bigger room count than the first estimate suggests.`,
       points: ['Useful when inventory size and room order affect the day'],
     });
   }
@@ -2570,7 +2571,7 @@ function buildSuburbMoveTypeCards({ suburb, logisticsLabel, clusterKey }) {
   if (traits.includes('coastal')) {
     cards.push({
       title: 'Coastal home and apartment work',
-      copy: `${suburb} coastal jobs need more deliberate loading because parking windows, beachside frontage, and exposed access points can extend the day.`,
+      copy: `${suburb} coastal jobs need more deliberate loading because parking windows, beachside frontage, weather exposure, and shared entries can extend the day.`,
       points: ['Useful for beachside homes, apartments, and shared entries'],
     });
   }
@@ -2841,7 +2842,7 @@ function getHeroMediaNote(pageType) {
     case 'suburb':
       return {
         eyebrow: 'Local route planning',
-        title: 'Suburb-level access matters before the quote is confirmed.',
+        title: 'Suburb-level access matters before the quote is reviewed.',
         copy: 'Apartment access, stair carries, parking pressure, storage stops, and corridor timing all change the brief.',
       };
     case 'guide':
@@ -4038,7 +4039,7 @@ function getInterstateRouteProfile({ slug, destination, routeName, distance, hig
   const routeType = isRemovalistsRoute ? 'removalists' : 'removals';
   const baseIntro =
     configured.intro ||
-    `This route is for interstate removals from Adelaide to ${destinationLabel}, with pickup access, inventory, packing needs, route timing, and destination handover reviewed before the quote is confirmed.`;
+    `This route is for interstate removals from Adelaide to ${destinationLabel}, with pickup access, inventory, packing needs, route timing, and destination handover reviewed before the quote is finalised.`;
 
   return {
     destinationLabel,
@@ -4510,7 +4511,7 @@ ${renderPageHero({
   lead: `${suburb} moves work best when the route, the access pattern, and the inventory mix are reviewed together before the quote is approved.`,
   supporting: [
     `${suburb} sits inside the ${formatClusterLabel(clusterKey).toLowerCase()} cluster, so the booking path should reflect local access pressure rather than a generic metro assumption.`,
-    `People comparing removalists near ${suburb} or affordable removalists ${suburb} often want a fixed-price quote for ${suburb} moves before they book.`,
+    `People comparing ${suburb} moves often want access notes, route context, and a fixed-price quote before they book.`,
   ],
   points: buildSuburbHighlights({ suburb, logisticsLabel, clusterKey, nearby }),
   primaryCta: { href: '/contact-us/#quote-form', label: cta },
@@ -4687,7 +4688,7 @@ function renderGuideContent({ slug, title, topic, canonical, image }) {
 ${renderPageHero({
   eyebrow: 'Adelaide moving guide',
   title: visibleTitle,
-    lead: `This guide covers ${topic} for Adelaide customers who need a more useful brief before the quote is confirmed.`,
+    lead: `This guide covers ${topic} for Adelaide customers who need a more useful brief before the quote is reviewed.`,
   supporting: [
     intentProfile?.uniqueAngle || extras[topic] || 'Use this page to tighten the move brief before requesting a quote.',
     'Use the notes to choose the service, suburb, or quote path that matches the actual move.',

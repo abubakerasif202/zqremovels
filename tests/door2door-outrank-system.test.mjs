@@ -97,8 +97,12 @@ test('homepage, footer, services, and guides build the price-intent internal lin
   }
 
   assert.match(footerSource, /href="\/adelaide-moving-guides\/removalists-cost-adelaide\/"/, 'footer missing pricing guide');
+  assert.match(footerSource, /href="\/removalist-cost-adelaide\/"/, 'footer missing removalist cost page');
+  assert.match(footerSource, /href="\/moving-quotes-adelaide\/"/, 'footer missing moving quotes page');
+  assert.match(footerSource, /href="\/cheap-removalists-adelaide\/"/, 'footer missing lower-cost page');
+  assert.match(footerSource, /href="\/affordable-removalists-adelaide\/"/, 'footer missing affordable page');
   assert.match(footerSource, /href="\/removalists-adelaide-quote\/"/, 'footer missing quote path');
-  assert.doesNotMatch(footerSource, /href="\/(?:cheap|affordable|budget)-removalists-adelaide\/"/, 'footer should not expose price-keyword link grid');
+  assert.doesNotMatch(footerSource, /Cheap Removalists Adelaide[\s\S]{0,220}Affordable Removalists Adelaide[\s\S]{0,220}Removalist Cost Adelaide[\s\S]{0,220}Moving Quotes Adelaide/i, 'footer should not expose a dense price-keyword cluster');
 
   for (const slug of servicePages) {
     const html = readDist(path.join(slug, 'index.html'));
@@ -124,9 +128,9 @@ test('priority suburb pages include near-me, affordable, fixed-price, nearby, se
     const suburb = slug.split('-').map((part) => part[0].toUpperCase() + part.slice(1)).join(' ');
     const links = extractRootLinks(main);
 
-    assert.match(main, new RegExp(`removalists near ${suburb}`, 'i'), slug);
-    assert.match(main, new RegExp(`affordable removalists ${suburb}`, 'i'), slug);
-    assert.match(main, new RegExp(`fixed-price quote for ${suburb} moves`, 'i'), slug);
+    assert.match(main, new RegExp(`${suburb} moves`, 'i'), slug);
+    assert.match(main, /fixed-price quote/i, slug);
+    assert.match(main, /access|parking|stairs|lifts|carry distance/i, slug);
     assert.ok(links.filter((href) => href.startsWith('/removalists-') && !href.includes(slug)).length >= 5, slug);
     assert.ok(links.filter((href) => servicePages.map((item) => `/${item}/`).includes(href)).length >= 3, slug);
     assert.match(main, /href="\/contact-us\/#quote-form"/, slug);

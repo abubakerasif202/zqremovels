@@ -240,8 +240,8 @@ test('responsive image handling keeps hero images sized and prioritized correctl
   assert.match(heroImg, /sizes="[^"]*"/i);
   assert.match(heroImg, /width="768"/i);
   assert.match(heroImg, /height="406"/i);
-  assert.match(heroImg, /loading="lazy"/i);
-  assert.doesNotMatch(heroImg, /fetchpriority="high"/i);
+  assert.match(heroImg, /loading="eager"/i);
+  assert.match(heroImg, /fetchpriority="high"/i);
   assert.match(homepage, /<img[^>]+loading="lazy"[^>]+src="\/media\/zq-service-premium\.webp"/i);
 });
 
@@ -860,12 +860,14 @@ test('v6 generated suburb pages include near-me wording, five nearby links, serv
     const suburbName = slug.split('-').map((part) => part[0].toUpperCase() + part.slice(1)).join(' ');
     const links = extractRootLinks(main);
 
-    assert.match(main, new RegExp(`removalists near ${suburbName}`, 'i'), `${slug} missing near-me wording`);
+    assert.match(main, new RegExp(`${suburbName} moves`, 'i'), `${slug} missing suburb move wording`);
+    assert.match(main, /fixed-price quote/i, `${slug} missing fixed-price quote wording`);
+    assert.match(main, /access|parking|stairs|lifts|carry distance/i, `${slug} missing access wording`);
     assert.ok(links.filter((href) => href.startsWith('/removalists-') && !href.includes(slug)).length >= 5, `${slug} missing five nearby suburb links`);
     assert.ok(links.filter((href) => ['/house-removals-adelaide/', '/furniture-removalists-adelaide/', '/office-removals-adelaide/', '/packing-services-adelaide/', '/interstate-removals-adelaide/'].includes(href)).length >= 3, `${slug} missing related service links`);
     assert.match(main, new RegExp(`Do you service ${suburbName}\\?`, 'i'), `${slug} missing service FAQ`);
     assert.match(main, new RegExp(`Can you move furniture in ${suburbName}\\?`, 'i'), `${slug} missing furniture FAQ`);
-    assert.match(main, new RegExp(`same-day removals near ${suburbName}`, 'i'), `${slug} missing same-day FAQ`);
+    assert.match(main, /same-day|urgent|last-minute/i, `${slug} missing urgency FAQ`);
     assert.match(main, new RegExp(`quote for ${suburbName}`, 'i'), `${slug} missing quote FAQ`);
   }
 });
