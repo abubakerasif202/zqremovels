@@ -150,6 +150,24 @@ test('new pages are discoverable from existing hub content and do not use unsupp
   }
 });
 
+test('generated output avoids repeated template-artifact phrases', () => {
+  const badPatterns = [
+    /\b(Your move is|You need|You may need)\s+\1\b/i,
+    /before booking before/i,
+    /Understand quote factors before booking before the quote is confirmed\./i,
+    /Questions people ask before using/i,
+    /service paths that support/i,
+    /Specialized relocation logistics for residential estates, commercial infrastructure, and major Australian interstate capital routes\./i,
+  ];
+
+  for (const output of zqExpectedGeneratedOutputs) {
+    const html = readDist(output);
+    for (const pattern of badPatterns) {
+      assert.doesNotMatch(html, pattern, `${output} contains a repeated template artifact`);
+    }
+  }
+});
+
 function readDist(relativePath) {
   return readFileSync(path.join(distDir, relativePath), 'utf8');
 }

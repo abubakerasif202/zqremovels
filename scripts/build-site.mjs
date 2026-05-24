@@ -1,5 +1,6 @@
 import { copyFile, cp, mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { transform } from 'lightningcss';
 import {
   buildCanonical,
@@ -23,24 +24,8 @@ import {
   zqServiceSitemapOutputs,
 } from '../site-src/data/seo-v4.mjs';
 
-const workspaceRoot = process.cwd();
-
-async function findProjectRoot() {
-  const candidates = [workspaceRoot, path.join(workspaceRoot, 'Downloads', 'zq')];
-
-  for (const candidate of candidates) {
-    try {
-      await stat(path.join(candidate, 'site-src', 'pages.json'));
-      return candidate;
-    } catch {
-      // Try the next layout.
-    }
-  }
-
-  return workspaceRoot;
-}
-
-const projectRoot = await findProjectRoot();
+const scriptDir = path.dirname(fileURLToPath(import.meta.url));
+const projectRoot = path.resolve(scriptDir, '..');
 const srcRoot = path.join(projectRoot, 'site-src');
 const distRoot = path.join(projectRoot, 'site-dist');
 
@@ -3724,6 +3709,7 @@ function transformContent(content, page) {
     },
   );
 
+  next = sanitizePublicCopy(next);
   return stripVisibleHeadingPipes(next);
 }
 
@@ -3788,7 +3774,7 @@ function injectSeoV5GuideFaq(content, page) {
   <div class="container">
     <div class="section-heading reveal-on-scroll">
       <span class="eyebrow">Guide FAQ</span>
-      <h2>Questions people ask before using ${escapeHtml(title)}.</h2>
+      <h2>${escapeHtml(normalizeFaqHeading(`Questions Adelaide customers ask before using ${title}.`))}</h2>
       <p class="lede">These answers keep the guide tied to a practical Adelaide moving quote brief.</p>
     </div>
     <div class="faq-list faq-list-premium">
@@ -4207,7 +4193,7 @@ function renderStrictFaqSection(page) {
           ['What is the fastest way to request this route?', 'Send the full route and inventory through the quote form, or call if the move date is close and availability needs to be checked quickly.'],
         ]
       : [
-          [`What details help with ${title.toLowerCase()}?`, 'The most useful details are pickup suburb, delivery suburb, property type, stairs, lifts, parking, carry distance, room count, large furniture, fragile items, packing needs, and move date.'],
+          [`What details help with ${title}?`, 'The most useful details are pickup suburb, delivery suburb, property type, stairs, lifts, parking, carry distance, room count, large furniture, fragile items, packing needs, and move date.'],
           ['Can I get a fixed-price quote?', 'Yes. A fixed-price quote can be reviewed after the route, access, inventory, timing, and handling requirements are clear.'],
           ['Which service page should I compare?', 'Compare house removals, furniture removals, office removals, packing services, apartment removals, and interstate removals depending on the main risk in the job.'],
           ['Do suburb details affect the quote?', 'Yes. CBD loading windows, coastal parking, southern and northern corridors, stairs, lifts, and mixed-use access can all change the required plan.'],
@@ -4218,7 +4204,7 @@ function renderStrictFaqSection(page) {
   <div class="container">
     <div class="section-heading reveal-on-scroll">
       <span class="eyebrow">${escapeHtml(eyebrow)}</span>
-      <h2>Questions people ask before using ${escapeHtml(title.toLowerCase())}.</h2>
+      <h2>${escapeHtml(normalizeFaqHeading(`Questions Adelaide customers ask before using ${title}.`))}</h2>
       <p class="lede">These answers keep the page tied to practical Adelaide moving decisions, quote clarity, and real access planning.</p>
     </div>
     <div class="faq-list faq-list-premium">
@@ -4314,6 +4300,8 @@ function renderCommercialServiceCta(page) {
   if (!isGuideArticle) {
     return '';
   }
+
+  const heading = normalizeFaqHeading('Questions Adelaide customers ask before move day.');
 
   // Keep this CTA separate from the guide TOC anchor so the link-hub section remains the sole
   // `guide-next-step` target on article pages.
@@ -4542,7 +4530,7 @@ ${profile.suburbs.map(([href, label]) => `<a href="${escapeAttribute(href)}">${e
   <div class="container">
     <div class="section-heading reveal-on-scroll">
       <span class="eyebrow">Service FAQ</span>
-      <h2>Questions people ask before booking ${escapeHtml(profile.label.toLowerCase())}.</h2>
+      <h2>${escapeHtml(normalizeFaqHeading(`Questions Adelaide customers ask before booking ${profile.label}.`))}</h2>
       <p class="lede">These answers focus on cost, access, timing, and the details that make the quote more accurate.</p>
     </div>
     <div class="faq-list faq-list-premium">
@@ -4969,7 +4957,7 @@ function suburbWordCount(profile) {
 }
 
 function sanitizePublicCopy(content) {
-  return sanitizeTrustClaimText(content)
+  return dedupeRepeatedPrefixText(sanitizeTrustClaimText(content))
     .replaceAll(
       'and the nearby routes are named explicitly here.',
       'and the nearby areas we commonly cover.',
@@ -4986,6 +4974,35 @@ function sanitizePublicCopy(content) {
       'are the route names that help the page match the way people actually search.',
       'are nearby areas people often mention when planning the move.',
     );
+}
+
+function dedupeRepeatedPrefixText(content = '') {
+  return content
+    .replace(/\b(Your move is|You need|You may need)\s+\1\b/gi, '$1')
+    .replace(/\bbefore booking before\b/gi, 'before booking')
+    .replace(/\bQuestions people ask before using\b/gi, 'Questions Adelaide customers ask before move day')
+    .replace(/\bservice paths that support\b/gi, 'service links that support');
+}
+
+function titleCaseLocalIntent(text = '') {
+  return text
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/\b(adelaide removalists|removalists adelaide|cheap removalists adelaide|affordable removalists adelaide|moving quotes adelaide|same-day removals adelaide|same day removals adelaide|last-minute removals adelaide|apartment removalists adelaide|furniture removalists adelaide)\b/gi, (match) =>
+      match
+        .split(' ')
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join(' '),
+    );
+}
+
+function normalizeFaqHeading(text = '') {
+  return titleCaseLocalIntent(text)
+    .replace(/^Questions people ask before locking in a local Adelaide move\./i, 'Questions Adelaide customers ask before move day.')
+    .replace(/^Questions people ask before approving an interstate Adelaide move\./i, 'Questions Adelaide customers ask before an interstate move.')
+    .replace(/^Questions people ask before booking (.+)$/i, 'Questions Adelaide customers ask before booking $1')
+    .replace(/^Questions people ask before using (.+)$/i, 'Questions Adelaide customers ask before using $1')
+    .replace(/^Common questions about (.+)$/i, 'Common questions about $1');
 }
 
 function renderAuthoritySection(page) {
@@ -5814,6 +5831,7 @@ function renderFaqSection(page, content) {
   }
 
   const sectionId = `${page.output.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}-faq`;
+  const heading = normalizeFaqHeading(profile.heading);
   const items = profile.items
     .map(
       ({ question, answer }) => `<article class="faq-item reveal-on-scroll">
@@ -5830,7 +5848,7 @@ function renderFaqSection(page, content) {
   <div class="container">
     <div class="section-heading reveal-on-scroll">
       <span class="eyebrow">${escapeHtml(profile.eyebrow)}</span>
-      <h2 id="${sectionId}">${escapeHtml(profile.heading)}</h2>
+      <h2 id="${sectionId}">${escapeHtml(heading)}</h2>
       <p class="lede">${escapeHtml(profile.intro)}</p>
     </div>
     <div class="faq-list faq-list-premium">

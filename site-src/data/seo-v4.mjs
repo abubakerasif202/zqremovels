@@ -2913,9 +2913,20 @@ function renderPageHero({ eyebrow, title, lead, supporting = [], points = [], pr
 function renderSectionHeading(eyebrow, heading, intro = '') {
   return `<div class="section-heading">
   <span class="eyebrow">${escapeHtml(eyebrow)}</span>
-  <h2>${escapeHtml(heading)}</h2>
+  <h2>${escapeHtml(normalizeGeneratedHeading(heading))}</h2>
   ${intro ? `<p>${escapeHtml(intro)}</p>` : ''}
 </div>`;
+}
+
+function normalizeGeneratedHeading(heading = '') {
+  return String(heading || '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/^Questions people ask before using\s+/i, 'Questions Adelaide customers ask before move day: ')
+    .replace(/^Questions people ask before booking\s+/i, 'Questions Adelaide customers ask before booking ')
+    .replace(/^Questions people ask before locking in a local Adelaide move\.?/i, 'Questions Adelaide customers ask before move day.')
+    .replace(/^Questions people ask before approving an interstate Adelaide move\.?/i, 'Questions Adelaide customers ask before an interstate move.')
+    .replace(/^Service paths that support\s+/i, 'Service links that support ');
 }
 
 function buildHeroHeading(title, pageType) {
@@ -4860,7 +4871,7 @@ function getCommercialAeoProfile(page) {
   };
 
   return profiles[page.slug] || {
-    question: `What should you confirm before booking ${cleanVisibleTitle(page.title).toLowerCase()}?`,
+    question: `What should you confirm before booking ${cleanVisibleTitle(page.title)}?`,
     answer: 'Confirm the route, access, inventory, timing, packing needs, and any heavy or fragile items before accepting a removalist quote. A clearer brief makes the move easier to scope and safer to schedule.',
   };
 }
