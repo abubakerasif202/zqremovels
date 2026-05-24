@@ -6,12 +6,13 @@ module.exports = {
     },
     assert: {
       assertions: {
-        'categories:performance': ['warn', { minScore: 0.8 }],
+        'categories:performance': ['warn', { minScore: 0.9 }],
         'categories:accessibility': ['warn', { minScore: 0.9 }],
         'categories:seo': ['error', { minScore: 0.9 }],
         'cumulative-layout-shift': ['warn', { maxNumericValue: 0.1 }],
         'largest-contentful-paint': ['warn', { maxNumericValue: 2500 }],
-        'total-blocking-time': ['warn', { maxNumericValue: 300 }],
+        'server-response-time': ['warn', { maxNumericValue: 800 }],
+        'total-blocking-time': ['warn', { maxNumericValue: 200 }],
       },
     },
     upload: {

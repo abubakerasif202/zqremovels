@@ -2,17 +2,27 @@
 
 ## Context
 
-- **Site URL**: `https://zqremovals.au/`
-- **Scope**: Full-site audit (all indexable routes under the root domain)
-- **Stack**: Custom Node.js static site generator (`scripts/build-site.mjs`) deployed on Vercel; frontend script `site.js`; source content in `site-src/`
-- **Target markets**: Australia — primary focus South Australia (Adelaide metro and surrounding suburbs); secondary focus interstate routes (Adelaide → Melbourne, Adelaide → Sydney)
-- **Languages / regions**: English (Australia) only; `lang="en-AU"` set in HTML template; no international variants required
-- **Primary business goals**:
-  - Drive inbound quote requests via the `/contact-us/` form and the homepage embedded form
-  - Rank for local Adelaide removalists queries and high-value suburban terms
-  - Capture interstate removal intent (Adelaide → Melbourne, Adelaide → Sydney)
-  - Build topical authority through the `/adelaide-moving-guides/` hub
-- **Primary keyword themes**: Adelaide removalists, local removals Adelaide, interstate removals Adelaide, office removals Adelaide, furniture removalists Adelaide, packing services Adelaide, suburb-level variations (e.g., "removalists Marion", "removalists Salisbury")
+- [ ] **SEO-CTX-1.1 Site Scope**:
+  - **Site URL**: `https://zqremovals.au/`
+  - **Scope**: Full root-domain audit of the generator-driven static site and live production headers.
+  - **Source of truth**: `site-src/`, `site-src/pages.json`, `site-src/data/*.mjs`, `site-src/content/**`, `scripts/build-site.mjs`, `vercel.json`, `tests/**`.
+  - **Generated evidence**: `npm run build` produced `320` HTML files; `node scripts/seo-validate.mjs` passed for `299` pages; output crawl found `288` indexable pages and `32` noindex pages.
+
+- [ ] **SEO-CTX-1.2 Market, Language, Geography**:
+  - **Target markets**: Adelaide metro, South Australia, and Adelaide-origin interstate routes.
+  - **Languages / regions**: English Australia; `en-AU`; no international language variants found or required.
+  - **International SEO status**: Hreflang, regional subfolders, currency localization, and geotargeting are not applicable unless the business launches non-Australian pages.
+
+- [ ] **SEO-CTX-1.3 Business Goals and Keyword Themes**:
+  - **Primary goals**: Increase qualified quote requests, improve local pack and organic visibility, defend premium/local Adelaide terms, and grow guide-assisted conversion paths.
+  - **Primary keyword themes**: `removalists Adelaide`, `Adelaide removalists`, `house removals Adelaide`, `furniture removalists Adelaide`, `office removals Adelaide`, `packing services Adelaide`, suburb removalists terms, fixed-price/budget mover terms, and `Adelaide to Sydney/Melbourne/Perth/Brisbane removals`.
+
+- [ ] **SEO-CTX-1.4 Evidence and Limitations**:
+  - **Local verification passed**: `npm run build`; `node scripts/seo-validate.mjs`; `node --test tests/search-console-fixes.test.mjs`; `node --test tests/seo-conversion-pass.test.mjs`; `node --test tests/eeat-audit.test.mjs`.
+  - **Live checks passed**: `robots.txt` returned `200`; `sitemap.xml` returned a sitemap index; apex, `www`, HTTP-to-HTTPS, `adelaide-cbd.html`, and `removalists-semore/` checks resolved without multi-hop defects in sampled requests.
+  - **Performance limitation**: PageSpeed Insights API returned `429 RESOURCE_EXHAUSTED`; local Lighthouse collection was attempted but the CLI appended a local port to the remote HTTPS URL and was stopped. Core Web Vitals field data must be captured in Search Console/CrUX or a correctly configured Lighthouse CI run.
+  - **Off-page limitation**: No Ahrefs/Semrush/Moz/GSC backlink export was available in this environment, so backlink toxicity and authority estimates require an external export before closure.
+  - **Guideline references**: Google Search Central SEO starter guide, robots/sitemaps/canonical guidance, structured data general guidelines, local business structured data guidelines, Rich Results Test, and web.dev Core Web Vitals/TTFB guidance.
 
 ---
 
@@ -20,659 +30,526 @@
 
 ### 1. Crawlability and Indexing
 
-- [x] **SEO-FIND-1.1 — robots.txt is minimal but functional**
-  - **Location**: `/robots.txt`
-  - **Description**: `robots.txt` contains `User-agent: * / Allow: /` and the correct sitemap declaration (`Sitemap: https://zqremovals.au/sitemap.xml`). No blocking rules are present. All indexable pages are reachable. No unintentional `Disallow` directives were found.
-  - **Impact**: Low (no active problem; baseline confirmed clean)
-  - **Recommendation**: No changes needed. Monitor after any Vercel config or build-script changes to ensure the sitemap URL stays accurate.
-
-- [x] **SEO-FIND-1.2 — Sitemap is generated at build time and not committed to the repo**
-  - **Location**: `scripts/build-site.mjs` → `renderSitemap(pages)` → `site-dist/sitemap.xml`
-  - **Description**: The sitemap is produced dynamically from `pages.json` during `npm run build` and written to `site-dist/`. It is not committed to the repository. If a deployment fails silently or an old deploy is cached, the sitemap could drift from the live page set.
-  - **Impact**: Medium — stale or missing sitemap slows new page discovery in Google Search Console
-  - **Recommendation**: After every production deployment, re-submit `https://zqremovals.au/sitemap.xml` in Search Console (see `GOOGLE_SEARCH_CONSOLE_PLAN.md`). Consider adding a post-deploy smoke test that fetches `/sitemap.xml` and asserts a `200` status and a non-empty response body.
-
-- [x] **SEO-FIND-1.3 — Lower-priority suburb pages are absent from the primary navigation**
-  - **Location**: `site-src/partials/header.html` (desktop and mobile nav)
-  - **Description**: The navigation includes five featured suburb pages (Adelaide CBD, Marion, Salisbury, Elizabeth, Glenelg). Seven additional suburb pages (Norwood, North Adelaide, Hallett Cove, Seaford, Southern Adelaide, Mawson Lakes, Andrews Farm) are reachable only from the footer and from the `removalists-adelaide` hub. No breadcrumb or context link is missing, but these pages sit at click depth ≥ 3 from the homepage for a user following only nav links.
-  - **Impact**: Medium — pages outside the primary nav accumulate less internal link equity and may be crawled less frequently
-  - **Recommendation**: Ensure all suburb pages are listed in the `/removalists-adelaide/` hub with clear anchor text links. Confirm the footer lists every suburb page (it currently does). Consider adding a "More suburbs" section to the desktop nav dropdown or a sitemap-style directory page at `/removalists-adelaide/all-suburbs/` if the suburb count grows.
-
-- [x] **SEO-FIND-1.4 — `noindex` directive is applied only to non-commercial concept pages**
-  - **Location**: `site-src/pages.json` (pages with `"robots": "noindex,nofollow"`)
-  - **Description**: Pages under `/premium-moving-concepts/` are correctly set to `noindex,nofollow`. All other commercial, suburb, route, and guide pages are set to `index,follow,max-image-preview:large`. No unintentional `noindex` was found.
-  - **Impact**: Low (no active problem; confirmed correct)
-  - **Recommendation**: Run a periodic check (e.g., using Google Search Console's Index Coverage report) to verify that noindex pages are excluded from the index and that no commercial page has accidentally been given a noindex directive after a pages.json edit.
-
-- [ ] **SEO-FIND-1.5 — Redirect chains are single-hop for all documented redirects**
-  - **Location**: `vercel.json` (redirects array)
-  - **Description**: All current redirects are single-hop 301 redirects. No multi-hop chains were identified. Old URL variants for `/interstate-removalists-adelaide/`, `/privacy-policy/`, and `/terms-and-conditions/` are properly redirected in one step.
-  - **Impact**: Low (no active problem)
-  - **Recommendation**: Review `vercel.json` whenever new redirects are added to confirm a new entry does not point to an already-redirected destination.
-
----
-
-### 2. Technical Health
-
-- [ ] **SEO-FIND-2.1 — No Google Analytics 4 or tag manager implementation found**
-  - **Location**: `site-src/templates/standard.html`, `site-src/templates/bare.html`
-  - **Description**: No GA4 `gtag.js` snippet, Google Tag Manager container, or equivalent analytics script is present in any template file or page content. Without analytics, organic traffic performance, conversion events, and bounce rate cannot be measured.
-  - **Impact**: High — without measurement, no SEO progress can be validated, ranked pages cannot be identified, and the quote-form conversion rate is invisible
-  - **Recommendation**: Add a GA4 measurement ID snippet to `site-src/templates/standard.html` in the `<head>` section. If Tag Manager is preferred, add the GTM container snippet instead. Configure a custom event for quote form submissions (`/api/quote` success response) so conversion rate from organic traffic is tracked.
-
-- [ ] **SEO-FIND-2.2 — No server-side Google Search Console verification tag in the HTML template**
-  - **Location**: `site-src/templates/standard.html`
-  - **Description**: Google Search Console ownership verification is described in `GOOGLE_SEARCH_CONSOLE_PLAN.md` as a DNS TXT method. If the DNS TXT record is removed or ownership is reset, there is no HTML-based fallback. The `<meta name="google-site-verification">` tag provides a secondary verification method.
-  - **Impact**: Medium — loss of DNS verification would disconnect Search Console data from the property
-  - **Recommendation**: Add `<meta name="google-site-verification" content="VERIFICATION_TOKEN" />` to `renderHead()` in `scripts/build-site.mjs` as a secondary ownership signal. Keep the DNS TXT record as the primary method.
-
-- [ ] **SEO-FIND-2.3 — HTTPS enforcement relies on Vercel platform settings**
-  - **Location**: Vercel project configuration (outside the repository)
-  - **Description**: HTTPS is not explicitly enforced via an `X-Forwarded-Proto` redirect in `vercel.json` or in any serverside config within the repo. Vercel enforces HTTPS by default for custom domains, so this is currently handled at the platform level. No HTTP URLs were found in any internal link or canonical.
-  - **Impact**: Low (platform handles enforcement; confirmed canonical URLs all use `https://`)
-  - **Recommendation**: Confirm that "Force HTTPS" and HSTS are enabled in the Vercel project settings. Add a check to the deployment runbook.
-
-- [ ] **SEO-FIND-2.4 — Hero image uses a non-descriptive AI-generated filename**
-  - **Location**: `site-src/content/index.html`, line 32: `src="/media/Gemini_Generated_Image_.png"`
-  - **Description**: The hero image file is named `Gemini_Generated_Image_.png`, which provides no keyword signal to image search indexers. Additionally, the file is in PNG format. A descriptive filename and a WebP format would improve image SEO and page load performance. The `alt` attribute on the image is already descriptive ("ZQ Removals movers loading wrapped furniture outside a suburban Adelaide home"), which is positive.
-  - **Impact**: Medium — image filename is an indexable signal; AI-generated imagery also reduces E-E-A-T trust vs. genuine operational photography
-  - **Recommendation**: Rename the image to `/media/adelaide-removalists-movers-loading-furniture.webp`, replace the AI-generated image with real operational photography when available, and update the `src` reference in `index.html` and in `scripts/build-site.mjs` (which uses `defaultSocialImage`). Until real photos are available, convert the PNG to WebP using the existing `scripts/optimize_images.py` script.
-
-- [ ] **SEO-FIND-2.5 — No preconnect or DNS-prefetch hints for third-party requests**
-  - **Location**: `scripts/build-site.mjs` → `renderHead()`
-  - **Description**: Fonts are self-hosted (`/fonts/inter-latin.woff2`, `/fonts/fraunces-latin.woff2`), and the `<link rel="preload">` hints for them are already present. The quote form submits to `/api/quote` (same origin). No significant third-party connections were identified in the templates. This is a positive finding — no wasted DNS-prefetch capacity or render-blocking third-party resources.
-  - **Impact**: Low (no active problem)
-  - **Recommendation**: If Google Analytics 4 or Tag Manager is added (SEO-FIND-2.1), add `<link rel="preconnect" href="https://www.googletagmanager.com" />` immediately before the GTM snippet to reduce connection latency.
-
-- [ ] **SEO-FIND-2.6 — CSS file is referenced as `.min.css` but minification is not verified in the build script**
-  - **Location**: `scripts/build-site.mjs`, line 1185: `copyFile(...'premium-site.css'..., ...'premium-site.min.css')`
-  - **Description**: The build script copies `premium-site.css` and renames it to `premium-site.min.css` without running any minification step. The `.min` suffix implies minification to browsers and CDN caches, but the file is actually full-size source CSS. This wastes transfer bytes and suggests a missing build step.
-  - **Impact**: Medium — unminified CSS adds unnecessary transfer weight, slowing TTFB and LCP on slower mobile connections
-  - **Recommendation**: Add a CSS minification step to `scripts/build-site.mjs` using a Node.js minifier such as `lightningcss` or `clean-css`. Alternatively, name the output file `premium-site.css` (drop the `.min` suffix) to avoid the misleading filename until minification is added.
-
-- [ ] **SEO-FIND-2.7 — No Core Web Vitals measurement or monitoring pipeline in place**
-  - **Location**: Repository-wide (no Lighthouse CI, no CrUX monitoring)
-  - **Description**: There is no Lighthouse CI configuration, no CrUX field data integration, and no performance budget enforced in the deployment pipeline. Core Web Vitals (LCP, FID/INP, CLS, TTFB) can only be checked manually via PageSpeed Insights. Without automated monitoring, regressions will not be detected until rankings or Search Console alerts surface them.
-  - **Impact**: High — undetected CWV regressions can depress rankings without any immediate alert
-  - **Recommendation**: Integrate Lighthouse CI (`@lhci/cli`) as a GitHub Actions step. Set budgets: LCP ≤ 2.5 s, CLS ≤ 0.1, TBT ≤ 200 ms. Monitor field data (CrUX) in the Search Console Core Web Vitals report weekly. See proposed code changes below.
-
----
-
-### 3. On-Page and Content
-
-- [ ] **SEO-FIND-3.1 — Title tags and meta descriptions are unique and within target length**
-  - **Location**: `site-src/pages.json`, all page entries; rendered via `renderHead()` in `scripts/build-site.mjs`
-  - **Description**: All 31 indexable pages have unique title tags and meta descriptions. Title lengths range from approximately 45 to 70 characters. Most core commercial pages are within the 50–60-character target. Meta descriptions are within 150–160 characters on commercial pages and slightly under on a few suburb pages. No duplicate titles or descriptions were found (confirmed by the post-build report in `SEO_AUDIT.md`).
-  - **Impact**: Low (no active problem; confirmed clean)
-  - **Recommendation**: Audit quarterly. Front-load the primary keyword in title tags where it is not already the first word. Consider adding a soft limit check to `scripts/build-site.mjs` that logs a warning when a title exceeds 65 characters or a description exceeds 165 characters.
-
-- [ ] **SEO-FIND-3.2 — Missing H1 on the brand-logo concept page (noindex route)**
-  - **Location**: `site-dist/premium-moving-concepts/brand-logo/index.html` (noindex)
-  - **Description**: The post-build audit in `SEO_AUDIT.md` noted that the only page missing an H1 is the brand-logo concept page, which is correctly set to noindex. No indexable page is missing an H1.
-  - **Impact**: Low (noindex page; no ranking impact)
-  - **Recommendation**: No action required for SEO. For internal consistency, an H1 could be added if the page is ever repurposed.
-
-- [ ] **SEO-FIND-3.3 — Lower-priority suburb pages lack the same depth of bespoke local content as top-five suburb pages**
-  - **Location**: Suburb pages for Norwood, North Adelaide, Hallett Cove, Seaford, Southern Adelaide, Mawson Lakes, Andrews Farm
-  - **Description**: The five priority suburb pages (Adelaide CBD, Marion, Salisbury, Elizabeth, Glenelg) were substantially rewritten as part of the previous SEO pass (see `SEO_AUDIT.md`). The seven lower-priority suburb pages receive rich local copy and scenario profiles from the build script (via `suburbPageProfiles`), but their source HTML in `site-src/content/` may still contain more generic language at the intro level.
-  - **Impact**: Medium — these pages compete for suburb-specific queries and could underperform if content quality is noticeably lower
-  - **Recommendation**: Review each lower-priority suburb page source HTML. Apply the same intro-copy quality bar: suburb-specific street references, concrete access-condition language, and three locally differentiated scenarios. Use the same `suburbPageProfiles` model already applied to top pages.
-
-- [ ] **SEO-FIND-3.4 — Guides hub and guide articles have useful content but no FAQ schema**
-  - **Location**: `site-src/content/adelaide-moving-guides/` and child guide articles
-  - **Description**: The FAQ schema generator (`buildFaqJsonLd`) relies on `<article class="faq-item">` markup with `<h3 class="faq-question">` and `<p itemprop="text">` children. Guide articles may contain question-and-answer sections formatted as plain headings and paragraphs rather than the required FAQ item markup pattern, preventing FAQ rich-result eligibility.
-  - **Impact**: Medium — FAQ rich results increase SERP real estate and CTR for informational queries
-  - **Recommendation**: Review guide articles that contain clear Q&A sections. Where applicable, wrap them in the expected FAQ markup pattern (`<article class="faq-item">`, `<h3 class="faq-question">`, `<p itemprop="text">`) so the dynamic FAQ JSON-LD generator picks them up. Only do this where the content genuinely answers questions.
-
-- [ ] **SEO-FIND-3.5 — No review or testimonial content with supporting E-E-A-T signals**
-  - **Location**: Site-wide (no review section, no authored content, no "About" page)
-  - **Description**: The site currently has no customer review section, testimonials, or "About ZQ Removals" page that establishes the experience and trustworthiness of the business. Google's E-E-A-T guidelines reward content that demonstrates first-hand experience. There is no staff name, business history, or operational credentials visible anywhere on the site.
-  - **Impact**: High — for a local service business competing in YMYL-adjacent local queries, missing E-E-A-T signals can suppress rankings relative to competitors with review content
-  - **Recommendation**: Add a short "About ZQ Removals" section (or page) describing when the business was founded, key service principles, and the team's background. Add a verified Google Business Profile link (already referenced in `index.html`) more prominently on the site. Consider embedding or linking to verifiable Google reviews on the homepage or service pages.
-
-- [ ] **SEO-FIND-3.6 — `<html lang="en-AU">` is set correctly; no hreflang needed**
-  - **Location**: `site-src/templates/standard.html`
-  - **Description**: The HTML `lang` attribute correctly specifies `en-AU`. The site targets a single language and region; no hreflang tags are required.
-  - **Impact**: Low (no active problem)
-  - **Recommendation**: No action required.
-
----
-
-### 4. Image Optimization
-
-- [ ] **SEO-FIND-4.1 — Hero image is in PNG format; WebP version not confirmed for the primary `<img>` element**
-  - **Location**: `site-src/content/index.html`, line 32
-  - **Description**: The hero `<img>` element references `/media/Gemini_Generated_Image_.png`. The repository contains a `scripts/optimize_images.py` script and `.webp` variants of some assets (e.g., `brand-logo.webp`, `zq-removals-social-share.webp`), but the hero image has not been converted. PNG files are typically larger than equivalent WebP images, increasing initial page weight and potentially worsening LCP.
-  - **Impact**: High — hero image is the LCP element on the homepage; serving PNG instead of WebP adds unnecessary bytes on every page view
-  - **Recommendation**: Run `scripts/optimize_images.py` to produce a WebP variant of the hero image. Update `src` in `index.html` to reference the WebP file. Use a `<picture>` element with a WebP `<source>` and a PNG/JPEG fallback for broad browser compatibility:
-
-    ```html
-    <picture>
-      <source
-        srcset="/media/adelaide-removalists-movers-loading-furniture.webp"
-        type="image/webp"
-      />
-      <img
-        alt="ZQ Removals movers loading wrapped furniture outside a suburban Adelaide home"
-        decoding="async"
-        fetchpriority="high"
-        height="1024"
-        loading="eager"
-        src="/media/adelaide-removalists-movers-loading-furniture.jpg"
-        width="1536"
-      />
-    </picture>
-    ```
-
-- [ ] **SEO-FIND-4.2 — Brand logo `<img>` has an empty `alt` attribute (correct for decorative use)**
-  - **Location**: `site-src/partials/header.html`, line 12
-  - **Description**: The brand logo image uses `alt=""` intentionally, because the adjacent `<span class="brand-copy">` element already contains the visible brand name "ZQ Removals". This is the correct accessible pattern for a decorative/redundant image.
-  - **Impact**: Low (no active problem; confirmed correct)
-  - **Recommendation**: No change needed.
-
-- [ ] **SEO-FIND-4.3 — `width` and `height` attributes are present on hero image but not audited across all content pages**
-  - **Location**: `site-src/content/**/*.html`
-  - **Description**: The hero image in `index.html` has explicit `width="1536"` and `height="1024"` attributes, which prevents CLS. However, other `<img>` elements in service pages, suburb pages, and guide articles have not been audited to confirm all carry explicit dimensions.
-  - **Impact**: Medium — missing `width`/`height` on visible images causes layout shift (CLS regression)
-  - **Recommendation**: Audit all `<img>` tags across `site-src/content/` to confirm each has both `width` and `height` set. Add a build-time warning in `scripts/build-site.mjs` if an `<img>` element lacks these attributes.
-
----
-
-### 5. Schema Markup
-
-- [ ] **SEO-FIND-5.1 — `MovingCompany` schema lacks `openingHours` and `priceRange`**
-  - **Location**: `scripts/build-site.mjs` → `normalizeMovingCompanyNode()`
-  - **Description**: The `MovingCompany` JSON-LD block normalised at build time includes `name`, `url`, `telephone`, `address`, and `contactPoint`, but does not include `openingHours` or `priceRange`. If this information is known and accurate, adding it makes the schema more complete and may improve local knowledge panel presentation.
-  - **Impact**: Low — schema is already valid; these fields are optional enhancements
-  - **Recommendation**: If the business has defined operating hours and a price range descriptor (e.g., `"$$"`), add them to `normalizeMovingCompanyNode()`:
-
-    ```js
-    openingHours: ['Mo-Fr 07:00-18:00', 'Sa 08:00-14:00'],
-    priceRange: '$$',
-    ```
-
-    Only add these fields if the values are accurate and will be kept current.
-
-- [ ] **SEO-FIND-5.2 — `MovingCompany` schema does not include `sameAs` links to Google Business Profile or social profiles**
-  - **Location**: `scripts/build-site.mjs` → `normalizeMovingCompanyNode()`
-  - **Description**: The `sameAs` property can link the schema entity to verified external profiles (Google Business Profile, Facebook page, LinkedIn). This strengthens the entity disambiguation signal for Google. The Google Business Profile URL is already referenced in the homepage content (`https://share.google/Y04mpt9RTflWP3iRl`).
-  - **Impact**: Medium — `sameAs` improves entity clarity in the Knowledge Graph
-  - **Recommendation**: Add `sameAs` to `normalizeMovingCompanyNode()` with the verified Google Business Profile URL and any other confirmed social profiles:
-
-    ```js
-    sameAs: [
-      'https://share.google/Y04mpt9RTflWP3iRl',
-      // Add Facebook, LinkedIn, etc. when verified
-    ],
-    ```
-
-- [ ] **SEO-FIND-5.3 — FAQ schema coverage confirmed on 29 of 31 indexable pages**
-  - **Location**: `scripts/build-site.mjs` → `buildFaqJsonLd()`; post-build report in `SEO_AUDIT.md`
-  - **Description**: The build produces FAQ schema dynamically from visible FAQ markup. The post-build report confirms 29 pages with FAQ schema. The two pages without FAQ schema are either noindex or do not contain FAQ-format content. No invisible or misleading FAQ schema is present.
-  - **Impact**: Low (no active problem; good coverage confirmed)
-  - **Recommendation**: Review the two indexable pages without FAQ schema to determine whether adding FAQ content would serve user intent. If so, add appropriate Q&A content following the existing markup pattern.
-
-- [ ] **SEO-FIND-5.4 — `BreadcrumbList` schema is present on 24 of 31 indexable pages**
-  - **Location**: `scripts/build-site.mjs` → `buildBreadcrumbJsonLd()`; post-build report in `SEO_AUDIT.md`
-  - **Description**: Breadcrumb schema is generated dynamically when visible breadcrumb navigation is present. Seven pages do not have breadcrumb schema, which likely includes the homepage and flat top-level pages (which legitimately have no breadcrumb hierarchy). No action is needed for pages that are genuinely top-level.
-  - **Impact**: Low (no active problem)
-  - **Recommendation**: Confirm that the pages without breadcrumb schema are all genuinely top-level (homepage, contact, privacy, terms). If any service or suburb page is missing breadcrumb schema, verify that the visible breadcrumb markup uses the expected HTML pattern.
-
----
-
-### 6. Internal Linking and URL Structure
-
-- [ ] **SEO-FIND-6.1 — Internal link structure is comprehensive; guide pages feed into commercial paths**
-  - **Location**: `scripts/build-site.mjs` → `seoSupportProfiles`, `seoGuideLibrary`, `localProofProfiles`; verified in `INTERNAL_LINKING_PLAN.md`
-  - **Description**: The build script injects related-link sections for all commercial, suburb, route, and guide pages. The homepage, service pages, route pages, and suburb pages all carry deliberate cross-links into the quote flow and between content clusters. Orphan pages were not detected.
-  - **Impact**: Low (no active problem; internal linking is strong)
-  - **Recommendation**: No immediate action required. Maintain the pattern when adding new pages.
-
-- [ ] **SEO-FIND-6.2 — Footer sitemap link is absent**
-  - **Location**: `site-src/partials/footer.html`
-  - **Description**: The footer provides comprehensive links to core services, suburb pages, interstate routes, and planning guides, but does not include a link to the XML sitemap (`/sitemap.xml`). While the sitemap is primarily for crawlers, a footer sitemap link is a minor trust and discoverability signal and is referenced in Google's own guidelines.
+- [ ] **SEO-FIND-1.1 Crawl and sitemap baseline is healthy**:
+  - **Location**: `https://zqremovals.au/robots.txt`, `https://zqremovals.au/sitemap.xml`, `scripts/build-site.mjs`
+  - **Description**: Production `robots.txt` allows crawling and points to `https://zqremovals.au/sitemap-index.xml`. Production `sitemap.xml` is a sitemap index with pages, services, suburbs, guides, and image sitemaps. Generated sitemap locations use the apex host.
   - **Impact**: Low
-  - **Recommendation**: Optionally add a link to `/sitemap.xml` in the footer bottom bar alongside Privacy Policy and Terms:
+  - **Effort**: Low
+  - **Recommendation**: Keep the sitemap index submitted in Google Search Console and validate after every deploy.
 
-    ```html
-    <a href="/sitemap.xml">Sitemap</a>
-    ```
+- [ ] **SEO-FIND-1.2 Indexability controls are passing locally**:
+  - **Location**: Generated `site-dist/**/*.html`, `site-src/pages.json`, `site-src/data/seo-v4.mjs`
+  - **Description**: Output crawl found `288` indexable pages and `32` noindex pages. Sequential regression tests passed sitemap, noindex, canonical, host-consistency, redirect, and broken-link checks.
+  - **Impact**: Low
+  - **Effort**: Low
+  - **Recommendation**: Keep the focused Search Console regression test as the release gate.
 
-- [ ] **SEO-FIND-6.3 — No dedicated Adelaide suburb directory / hub page**
-  - **Location**: `/removalists-adelaide/` (the current local hub)
-  - **Description**: The `/removalists-adelaide/` page acts as the local hub but presents suburbs as brief cards linking to individual pages. It does not provide a structured directory-style listing of all suburb pages. As the suburb count grows beyond 12, users and crawlers would benefit from a clearly organised directory.
-  - **Impact**: Medium — crawl efficiency and user navigation from the hub page could be improved as the site grows
-  - **Recommendation**: If more than 15 suburb pages are active, consider adding a structured directory section to `/removalists-adelaide/` that lists all suburb pages with brief descriptors, clearly grouped by geographic region (north, south, east, west, CBD).
+- [ ] **SEO-FIND-1.3 Sitemap loc count needs clearer reporting split**:
+  - **Location**: `site-dist/sitemap*.xml`
+  - **Description**: Combined sitemap extraction found `586` `<loc>` values because the count includes the sitemap index, page URLs, and image sitemap URLs. This is valid, but reporting should separate page URLs from image URLs to avoid Search Console triage confusion.
+  - **Impact**: Medium
+  - **Effort**: 1-2 hours
+  - **Recommendation**: Add a sitemap summary script that reports `indexable_page_locs`, `image_locs`, `noindex_exclusions`, and `redirect_exclusions` separately.
 
----
+- [ ] **SEO-FIND-1.4 Legacy redirects are healthy in sampled live checks**:
+  - **Location**: `vercel.json`, live URLs
+  - **Description**: Sampled redirects: `http://zqremovals.au/` to HTTPS in `1` hop; `https://www.zqremovals.au/` to apex in `1` hop; `adelaide-cbd.html` to `/removalists-adelaide-cbd/` in `1` hop; `/removalists-semore/` returns `308` to `/removalists-semaphore/`.
+  - **Impact**: Low
+  - **Effort**: Low
+  - **Recommendation**: Keep future legacy aliases as direct canonical-route redirects with trailing slash.
 
-### 7. User Experience
+### 2. Technical Health Assessment
 
-- [ ] **SEO-FIND-7.1 — Custom 404 page is present and correctly implemented**
-  - **Location**: `site-src/content/404.html`
-  - **Description**: A `404.html` source file exists and will be included in the build output. Vercel serves it for unmatched routes. The page content was not fully audited, but its existence confirms a custom error page is in place.
-  - **Impact**: Low (no active problem)
-  - **Recommendation**: Verify that the 404 page includes navigation links back to the homepage and the main service pages so users who land on a broken URL can recover without using the browser back button.
+- [ ] **SEO-FIND-2.1 Build health depends on platform-specific optional packages**:
+  - **Location**: `package-lock.json`, `node_modules/lightningcss`, `scripts/build-site.mjs`
+  - **Description**: Initial build failed with `Cannot find module '../lightningcss.linux-x64-gnu.node'`. Running `npm install` installed the missing optional native package and the build then passed.
+  - **Impact**: High
+  - **Effort**: 1-2 hours
+  - **Recommendation**: In CI and local runbooks, require `npm ci` after OS/runtime changes. Add a troubleshooting note for WSL/Linux optional dependencies.
 
-- [ ] **SEO-FIND-7.2 — Thank-you page is not excluded from the sitemap or from indexing**
-  - **Location**: `site-src/content/thank-you.html`; `site-src/pages.json`
-  - **Description**: The `/thank-you.html` page is reached after a successful quote submission. If this page is indexable and included in the sitemap, it could receive direct organic traffic, which provides no business value and could dilute crawl budget.
-  - **Impact**: Low–Medium — depending on current robots/sitemap configuration for this page
-  - **Recommendation**: Confirm in `pages.json` that the thank-you page is set to `"robots": "noindex,nofollow"` and is excluded from the sitemap output in `renderSitemap()`. If it is currently indexable, add the noindex directive immediately.
+- [ ] **SEO-FIND-2.2 NPM audit reports moderate and low dependency issues**:
+  - **Location**: `package.json`, `package-lock.json`
+  - **Description**: `npm audit --json` reported `8` vulnerabilities: `3` low and `5` moderate, mostly through `@lhci/cli`, `qs`, `uuid`, `tmp`, `ws`, and related transitive dependencies.
+  - **Impact**: Medium
+  - **Effort**: 0.5-1 day
+  - **Recommendation**: Run `npm audit fix` in a branch, verify `npm run build`, `npm test`, and Lighthouse tooling. Avoid `--force` unless the LHCI downgrade/major change is reviewed.
 
----
+- [ ] **SEO-FIND-2.3 HTTPS and security headers are strong in production**:
+  - **Location**: `vercel.json`, live response headers
+  - **Description**: Production responses include HSTS with preload, CSP, `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`, and `Permissions-Policy`. No mixed HTTP internal URLs were found in SEO validations.
+  - **Impact**: Low
+  - **Effort**: Low
+  - **Recommendation**: Keep the CSP updated when analytics or form providers change.
 
-### 8. Off-Page and Authority
+- [ ] **SEO-FIND-2.4 Analytics exists but depends on environment variables**:
+  - **Location**: `scripts/build-site.mjs`, `analytics.mjs`, `TRACKING_V2.md`
+  - **Description**: The generator can inject delayed GA4/GTM/Meta tracking and quote events. Tests confirm env-driven analytics hooks. Production tracking is only active when env vars such as `VITE_GA_MEASUREMENT_ID=G-MNHNPP0087` are set at build/deploy time.
+  - **Impact**: High
+  - **Effort**: 1-2 hours
+  - **Recommendation**: Verify Vercel production env vars and GA4 DebugView after deploy. Organic lead ROI cannot be trusted until GA4, GSC, and quote events are confirmed live.
 
-- [ ] **SEO-FIND-8.1 — Backlink profile has not been audited in this repository-level review**
-  - **Location**: Off-page (not visible in the repository)
-  - **Description**: No backlink data is available from repository inspection alone. Domain authority, toxic links, and link velocity cannot be assessed without third-party tools (Ahrefs, Semrush, Moz, or Google Search Console).
-  - **Impact**: High (unknown risk until audited externally)
-  - **Recommendation**: Connect the domain to Ahrefs or Semrush and run a full backlink audit. Identify referring domains, anchor text distribution, and any spammy or irrelevant links. If toxic links are identified, compile them in a Google disavow file and submit via Search Console.
+### 3. Site Performance and Core Web Vitals
 
-- [ ] **SEO-FIND-8.2 — Google Business Profile is linked from the homepage but not verified in schema**
-  - **Location**: `site-src/content/index.html` → Google Maps link; `scripts/build-site.mjs` → `normalizeMovingCompanyNode()`
-  - **Description**: The homepage links to the Google Business Profile (`https://share.google/Y04mpt9RTflWP3iRl`), but the `sameAs` array in `MovingCompany` schema does not reference this URL. The Google Business Profile should be claimed, fully completed (categories, photos, services, hours), and linked from schema for maximum local SEO benefit.
-  - **Impact**: High for local SEO — Google Business Profile is the primary local ranking factor for "near me" and suburb-level queries
-  - **Recommendation**: Verify the GBP is claimed, set the primary category to "Mover", and add the profile URL to `sameAs` in `MovingCompany` schema (as described in SEO-FIND-5.2).
+- [ ] **SEO-FIND-3.1 Field Core Web Vitals were not measurable from this environment**:
+  - **Location**: PageSpeed Insights API, Lighthouse CI attempt
+  - **Description**: PageSpeed Insights returned quota error `429 RESOURCE_EXHAUSTED`. Local LHCI was attempted but mis-targeted the remote URL as `https://zqremovals.au:<localPort>/`.
+  - **Impact**: High
+  - **Effort**: 2-4 hours
+  - **Recommendation**: Run PSI manually or with an authenticated quota, and fix LHCI config so it audits the local static dist URLs or the live URL directly. Track LCP <= 2.5s, INP <= 200ms, CLS <= 0.1, and TTFB <= 800ms per web.dev guidance.
 
----
+- [ ] **SEO-FIND-3.2 Static asset weight is mostly controlled**:
+  - **Location**: `site-dist/premium-site.min.css`, `site-dist/site.js`, `site-dist/media/**`
+  - **Description**: Built CSS is `72K`, JS is `20K`, homepage hero WebP is `44K`, contact hero WebP is `32K`. Largest discovered image asset is `zq-removals-social-share.webp` at `226,080` bytes.
+  - **Impact**: Medium
+  - **Effort**: 2-4 hours
+  - **Recommendation**: Add performance budgets for CSS <= 80KB, JS <= 30KB, and LCP image <= 100KB unless intentionally exempted.
 
-### 9. Analytics and Monitoring
+- [ ] **SEO-FIND-3.3 Live TTFB samples are acceptable but should be monitored**:
+  - **Location**: Live sampled URLs
+  - **Description**: Curl `time_starttransfer` samples: homepage `0.136s`, `/removalists-adelaide/` `0.428s`, `/contact-us/` `0.411s`, `/adelaide-moving-guides/moving-cost-adelaide-2026/` `0.384s`, `/removalists-semore/` redirect `0.100s`.
+  - **Impact**: Low
+  - **Effort**: Low
+  - **Recommendation**: Keep Vercel caching headers for immutable assets and monitor TTFB in CrUX/Search Console.
 
-- [ ] **SEO-FIND-9.1 — No analytics or conversion tracking is present in the repository**
-  - **Location**: `site-src/templates/standard.html`, `site-src/templates/bare.html`
-  - **Description**: As confirmed in SEO-FIND-2.1, no analytics snippet is present. Quote form submissions trigger a redirect to `/thank-you.html` via `site.js`, but this event is not tracked in any analytics system. Without tracking, the business cannot determine which pages, queries, or channels drive quote requests.
-  - **Impact**: High — no measurement = no data-driven optimisation
-  - **Recommendation**: Implement GA4 with a custom `quote_submitted` event fired on successful form submission in `site.js`. Track `source_page` (already captured in the form payload) as an event parameter to attribute conversions to landing pages.
+### 4. Mobile-Friendliness
 
-- [ ] **SEO-FIND-9.2 — No rank-tracking or Search Console performance monitoring is configured**
-  - **Location**: Off-platform (not visible in the repository)
-  - **Description**: The `GOOGLE_SEARCH_CONSOLE_PLAN.md` document describes the setup steps, but does not confirm that Search Console is connected or that rank tracking is active. Without Search Console data, impression/CTR regressions, index coverage issues, and Core Web Vitals field data alerts cannot be monitored.
-  - **Impact**: High — unmonitored site cannot detect drops until traffic falls significantly
-  - **Recommendation**: Complete the `GOOGLE_SEARCH_CONSOLE_PLAN.md` setup steps. Link GA4 to Search Console for combined query and behaviour reporting. Set up rank tracking for at least 20 target keywords in a tool such as Search Console, SerpRobot, or Semrush.
+- [ ] **SEO-FIND-4.1 Mobile readiness has regression coverage but needs live visual sampling**:
+  - **Location**: `premium-site.css`, `tests/search-console-fixes.test.mjs`, `tests/seo-conversion-pass.test.mjs`
+  - **Description**: Tests confirm responsive media queries, mobile call/quote access, image dimensions, and accessible markup. No live mobile screenshot audit was captured in this run.
+  - **Impact**: Medium
+  - **Effort**: 2-3 hours
+  - **Recommendation**: Add Playwright mobile screenshots for homepage, quote form, suburb page, service page, and guide article at 390px and 768px widths.
+
+- [ ] **SEO-FIND-4.2 AMP is not applicable**:
+  - **Location**: Site-wide
+  - **Description**: No AMP implementation exists. For this static local-service site, responsive HTML is the correct primary mobile strategy.
+  - **Impact**: Low
+  - **Effort**: None
+  - **Recommendation**: Do not add AMP unless a future analytics case proves a need.
+
+### 5. HTTPS and Security
+
+- [ ] **SEO-FIND-5.1 CSP allows inline scripts/styles for current implementation**:
+  - **Location**: `vercel.json`
+  - **Description**: CSP includes `'unsafe-inline'` for scripts and styles because the generator injects inline analytics/config and the site uses inline behavior. This is common for static sites but weaker than nonce/hash-based CSP.
+  - **Impact**: Medium
+  - **Effort**: 1-2 days
+  - **Recommendation**: Long-term, move inline scripts to bundled files or use CSP hashes/nonces. Short-term, keep provider allowlists narrow.
+
+### 6. Structured Data and Schema Markup
+
+- [ ] **SEO-FIND-6.1 JSON-LD is valid and host-consistent locally**:
+  - **Location**: Generated HTML, `scripts/build-site.mjs`, `site-src/data/seo-v4.mjs`
+  - **Description**: Output crawl found `0` JSON-LD parse errors. Sequential tests passed host consistency, supported business facts, required schema types, FAQ, breadcrumb, article, and service schema checks.
+  - **Impact**: Low
+  - **Effort**: Low
+  - **Recommendation**: Validate changed templates with Google Rich Results Test before deployment.
+
+- [ ] **SEO-FIND-6.2 Schema coverage is broad**:
+  - **Location**: Generated HTML
+  - **Description**: Output crawl detected `297` FAQ schema blocks, `296` breadcrumb blocks, and `320` MovingCompany occurrences. Schema matches visible FAQ and breadcrumb content according to local tests.
+  - **Impact**: Low
+  - **Effort**: Low
+  - **Recommendation**: Avoid adding duplicate FAQ/Breadcrumb blocks. Keep service and local business schema tied to visible content only.
+
+- [ ] **SEO-FIND-6.3 Rich Results evidence still needs live validation artifacts**:
+  - **Location**: Priority URLs
+  - **Description**: Local JSON-LD parsing passed, but no Google Rich Results Test screenshots or exported validation URLs were captured in this run.
+  - **Impact**: Medium
+  - **Effort**: 1-2 hours
+  - **Recommendation**: Validate homepage, `/removalists-adelaide/`, `/house-removals-adelaide/`, `/removalists-adelaide-cbd/`, and one guide URL in Rich Results Test after deploy.
+
+### 7. On-Page SEO Elements
+
+- [ ] **SEO-FIND-7.1 Metadata uniqueness is strong**:
+  - **Location**: Generated `site-dist/**/*.html`
+  - **Description**: Output crawl found `0` duplicate titles, `0` duplicate meta descriptions, and `0` indexable pages with invalid H1 count.
+  - **Impact**: Low
+  - **Effort**: Low
+  - **Recommendation**: Keep uniqueness assertions in CI.
+
+- [ ] **SEO-FIND-7.2 Some title tags exceed conservative 65-character guardrail**:
+  - **Location**: `site-src/pages.json`, generated pages
+  - **Description**: Sample long titles include `/office-removals-adelaide/` at `72`, `/house-removals-adelaide/` at `71`, `/furniture-removalists-adelaide/` at `71`, and several interstate/service pages at `68-70`.
+  - **Impact**: Medium
+  - **Effort**: 2-4 hours
+  - **Recommendation**: Shorten priority commercial titles to preserve primary keyword and CTA within likely SERP display width.
+
+- [ ] **SEO-FIND-7.3 Some meta descriptions are below 120 characters**:
+  - **Location**: Generated guide and apartment/service-suburb pages
+  - **Description**: Sample short descriptions include guide pages at `110-119` chars and several apartment-suburb pages at `112-117` chars.
+  - **Impact**: Low
+  - **Effort**: 3-5 hours
+  - **Recommendation**: Expand only priority pages where GSC shows impressions and low CTR. Do not bulk-pad descriptions without query evidence.
+
+- [ ] **SEO-FIND-7.4 E-E-A-T signals are materially improved but need proof assets**:
+  - **Location**: `/about/`, homepage, service pages, generated schema
+  - **Description**: Tests confirm the about page is built and surfaced, unsupported aggregate ratings are avoided, and generated pages use current WebP assets. The remaining gap is external proof: review screenshots, team/vehicle photography, insurance documentation notes, and real customer proof.
+  - **Impact**: High
+  - **Effort**: 1-2 weeks
+  - **Recommendation**: Add verified review widgets/quotes, real crew/vehicle images, service-area proof, and a documented review response workflow.
+
+### 8. Image Optimization
+
+- [ ] **SEO-FIND-8.1 Image accessibility and layout stability passed locally**:
+  - **Location**: Generated HTML and `tests/seo-conversion-pass.test.mjs`
+  - **Description**: Output crawl found `513` image tags, `0` missing alt attributes, and `0` missing width/height attributes.
+  - **Impact**: Low
+  - **Effort**: Low
+  - **Recommendation**: Keep the existing image-dimension tests and use WebP/AVIF for new imagery.
+
+- [ ] **SEO-FIND-8.2 Social share image is the largest raster asset**:
+  - **Location**: `site-dist/media/zq-removals-social-share.webp`
+  - **Description**: The largest discovered raster is `226KB`. This is acceptable for social sharing but should not become an LCP asset.
+  - **Impact**: Low
+  - **Effort**: 1 hour
+  - **Recommendation**: Keep social share assets separate from hero/LCP image paths and add a max-size check for route hero assets.
+
+### 9. Internal Linking and Anchor Text
+
+- [ ] **SEO-FIND-9.1 Internal linking regression tests pass**:
+  - **Location**: `tests/search-console-fixes.test.mjs`, `tests/seo-conversion-pass.test.mjs`
+  - **Description**: Tests passed for root-absolute internal hrefs, cluster discovery links, guide-to-money-page links, suburb-to-service links, route hub links, and no broken internal links.
+  - **Impact**: Low
+  - **Effort**: Low
+  - **Recommendation**: Keep cluster link generation centralized in `site-src/data/**` rather than patching generated HTML.
+
+- [ ] **SEO-FIND-9.2 Large generated footprint increases cannibalization risk**:
+  - **Location**: Generated suburb, service-suburb, comparison, guide, and route pages
+  - **Description**: The site now has `288` indexable pages. This supports long-tail coverage, but overlapping fixed-price, cheap, budget, quote, cost, and service-suburb terms can compete if GSC shows the wrong canonical ranking.
+  - **Impact**: High
+  - **Effort**: 1-2 weeks
+  - **Recommendation**: Use GSC query/page exports to map primary keyword ownership and consolidate or retarget pages with cannibalization.
+
+### 10. User Experience Signals
+
+- [ ] **SEO-FIND-10.1 Quote path is covered but engagement metrics are not verified live**:
+  - **Location**: Homepage, `/contact-us/`, `analytics.mjs`
+  - **Description**: Tests confirm quote forms and event hooks, but GA4 live data was not available to inspect bounce rate, dwell time, pages/session, organic landing-page conversion, or site search behavior.
+  - **Impact**: High
+  - **Effort**: 2-4 hours
+  - **Recommendation**: Confirm GA4 collection, quote submit events, click-to-call events, scroll depth, and organic landing-page conversion reports.
+
+- [ ] **SEO-FIND-10.2 Custom 404 exists and is noindex**:
+  - **Location**: `404.html`
+  - **Description**: The generated 404 page is noindex and built through the standard template.
+  - **Impact**: Low
+  - **Effort**: Low
+  - **Recommendation**: Ensure Vercel routes unknown paths to the custom 404 in production.
+
+### 11. Backlink Profile and Domain Trust
+
+- [ ] **SEO-FIND-11.1 Backlink toxicity cannot be closed without export data**:
+  - **Location**: External backlink tools / GSC Links report
+  - **Description**: No backlink export was available. Toxic links, anchor distribution, link velocity, broken backlinks, DA/PA equivalents, and competitor link gaps cannot be responsibly scored from repo data alone.
+  - **Impact**: High
+  - **Effort**: 0.5-1 day for export review
+  - **Recommendation**: Export GSC Links plus Ahrefs/Semrush/Moz data. Flag irrelevant/spam domains, exact-match anchor spikes, lost links, and redirectable broken backlinks.
+
+- [ ] **SEO-FIND-11.2 Off-page trust opportunity is local-first**:
+  - **Location**: Google Business Profile, local directories, supplier/partner links, community pages
+  - **Description**: Competitors in Adelaide removals commonly have stronger directory, review, and brand/entity footprints. ZQ should prioritize relevant local citations and editorial local proof over generic guest posting.
+  - **Impact**: High
+  - **Effort**: 1-3 months
+  - **Recommendation**: Build citations and earned links from Adelaide/local business directories, moving/storage partners, real estate/property managers, chambers, local sponsorships, and useful moving guides.
+
+### 12. Local SEO
+
+- [ ] **SEO-FIND-12.1 Google Business Profile is business-critical**:
+  - **Location**: GBP, `sameAs` schema, homepage/about links
+  - **Description**: The site references a Google profile URL and Facebook profile in schema. GBP optimization, categories, services, photos, reviews, Q&A, and NAP consistency need live verification.
+  - **Impact**: Critical
+  - **Effort**: 1-2 days initial, weekly maintenance
+  - **Recommendation**: Verify GBP primary category, service areas, hours, phone, booking URL, services, photos, review responses, and UTM-tagged website link.
+
+- [ ] **SEO-FIND-12.2 NAP consistency needs citation audit**:
+  - **Location**: Site schema, footer/contact, external citations
+  - **Description**: Local business schema and visible contact details must match every major citation. External citation data was not available in this run.
+  - **Impact**: High
+  - **Effort**: 1 week
+  - **Recommendation**: Audit Google, Apple Maps, Bing Places, Facebook, Yellow Pages, True Local, Oneflare/Hipages-style profiles if used, and local directories.
+
+### 13. Content Marketing and Promotion
+
+- [ ] **SEO-FIND-13.1 Guide library is substantial but needs distribution**:
+  - **Location**: `/adelaide-moving-guides/**`
+  - **Description**: Tests confirm a 30+ post guide cluster with service links and FAQ support. Organic value depends on refreshing, internal linking from money pages, and external distribution.
+  - **Impact**: High
+  - **Effort**: Ongoing
+  - **Recommendation**: Create quarterly refresh cycles for pricing, checklist, apartment, office, packing, and interstate guides; distribute through GBP posts, Facebook, citations, and partner outreach.
+
+### 14. International SEO
+
+- [ ] **SEO-FIND-14.1 International SEO is not applicable yet**:
+  - **Location**: Site-wide
+  - **Description**: The business targets Australia and uses one English-Australian site. No hreflang or currency/regulatory regional variants are needed.
+  - **Impact**: Low
+  - **Effort**: None
+  - **Recommendation**: Reassess only if non-Australian pages or multilingual content launch.
+
+### 15. Analytics and Monitoring
+
+- [ ] **SEO-FIND-15.1 Search Console workflow exists but needs data-backed prioritization**:
+  - **Location**: `scripts/gsc-*.mjs`, `docs/gsc-codex-workflow.md`, `GOOGLE_SEARCH_CONSOLE_PLAN.md`
+  - **Description**: Repo includes GSC scripts and planning docs. This audit did not have authenticated GSC performance/index data, so rankings, CTR, query gaps, and page-level ROI are not data-closed.
+  - **Impact**: High
+  - **Effort**: 0.5-1 day
+  - **Recommendation**: Pull last 16 months of GSC data, segment by page type, and prioritize pages with high impressions, low CTR, and quote-intent queries.
+
+- [ ] **SEO-FIND-15.2 Rank tracking and competitor dashboards are not verified**:
+  - **Location**: External rank tracker / dashboards
+  - **Description**: No configured rank tracker, keyword dashboard, or competitor content/backlink gap dashboard was available.
+  - **Impact**: Medium
+  - **Effort**: 1-2 days
+  - **Recommendation**: Track mobile and desktop rankings for Adelaide, suburb, service, route, and guide terms against competitors such as Door 2 Door Movers, Kent Removals & Storage, Grace Removals, Allied Moving Services, and local Adelaide removalists directories.
 
 ---
 
 ## Remediation Recommendations
 
-### Immediate (0–2 weeks)
+### Immediate
 
-- [x] **SEO-REC-1.1 — Add Google Analytics 4 and quote conversion tracking**
+- [ ] **SEO-REC-1.1 Fix reproducible dependency install path**:
+  - **Priority**: High
+  - **Effort**: 1-2 hours
+  - **Expected Outcome**: Prevents build failures from missing native optional dependencies.
+  - **Validation**: Fresh clone or clean CI runs `npm ci && npm run build`.
+
+- [ ] **SEO-REC-1.2 Verify production analytics and conversion events**:
   - **Priority**: Critical
-  - **Effort**: 2–4 hours
-  - **Expected Outcome**: Organic traffic, landing page performance, and quote-form conversion rate become visible; data available within 24 hours of deployment
-  - **Validation**: Open GA4 Realtime report and submit a test quote from the homepage form. Confirm a `quote_submitted` event appears in the event stream. Check that the `source_page` parameter is populated.
+  - **Effort**: 2-4 hours
+  - **Expected Outcome**: Organic leads, click-to-call actions, and quote submissions become measurable.
+  - **Validation**: GA4 DebugView shows page_view, quote submit, click-to-call, and organic landing-page events.
 
-- [x] **SEO-REC-1.2 — Set `noindex,nofollow` on the thank-you page and exclude it from the sitemap**
+- [ ] **SEO-REC-1.3 Capture Core Web Vitals field/lab evidence**:
   - **Priority**: High
-  - **Effort**: 30 minutes
-  - **Expected Outcome**: Thank-you page removed from the Google index; no crawl budget wasted on a zero-value URL
-  - **Validation**: After deployment, use Google Search Console URL Inspection on `https://zqremovals.au/thank-you.html` and confirm it is not indexed. Check that the URL does not appear in `sitemap.xml`.
+  - **Effort**: 2-4 hours
+  - **Expected Outcome**: Performance work is prioritized by measured LCP, INP, CLS, and TTFB rather than assumptions.
+  - **Validation**: PSI/GSC screenshots or exports for mobile and desktop priority pages.
 
-- [x] **SEO-REC-1.3 — Convert hero image to WebP and rename with a descriptive filename**
+- [ ] **SEO-REC-1.4 Validate structured data in Google tools**:
   - **Priority**: High
-  - **Effort**: 1–2 hours
-  - **Expected Outcome**: Reduced hero image file size (typically 25–35% smaller than PNG at equivalent quality), improved LCP score on the homepage, improved image search discoverability
-  - **Validation**: Run PageSpeed Insights on the homepage before and after. Confirm LCP improvement. Inspect the served response header to verify `Content-Type: image/webp`.
+  - **Effort**: 1-2 hours
+  - **Expected Outcome**: Rich-result eligibility is confirmed outside local JSON parsing.
+  - **Validation**: Rich Results Test URLs/screenshots for homepage, service, suburb, guide, and route templates.
 
-- [x] **SEO-REC-1.4 — Add `sameAs` to `MovingCompany` schema with verified Google Business Profile URL**
-  - **Priority**: High
-  - **Effort**: 30 minutes
-  - **Expected Outcome**: Stronger entity disambiguation in the Knowledge Graph; potential improvement in local pack eligibility
-  - **Validation**: After deployment, validate the updated schema using Google Rich Results Test on `https://zqremovals.au/`. Confirm `sameAs` is present in the rendered `MovingCompany` block.
+### Short-Term
 
-- [ ] **SEO-REC-1.5 — Confirm and optimise Google Business Profile**
-  - **Priority**: Critical
-  - **Effort**: 2–4 hours (one-time setup)
-  - **Expected Outcome**: Improved local pack and map visibility for "removalists Adelaide" and suburb-level queries; enables GBP review signals
-  - **Validation**: Search for "removalists Adelaide" and "ZQ Removals" on Google. Confirm the business Knowledge Panel appears with accurate details, photos, and a link to the website.
-
----
-
-### Short-term (2–6 weeks)
-
-- [ ] **SEO-REC-2.1 — Add CSS minification to the build pipeline**
-  - **Priority**: High
-  - **Effort**: 2–4 hours
-  - **Expected Outcome**: Reduced CSS transfer size (typically 20–40% for unminified source); improved TTFB and LCP
-  - **Validation**: Compare the byte size of `premium-site.min.css` before and after minification. Run PageSpeed Insights and check the "Minify CSS" opportunity is no longer flagged.
-
-- [ ] **SEO-REC-2.2 — Integrate Lighthouse CI into the GitHub Actions deployment pipeline**
-  - **Priority**: High
-  - **Effort**: 4–8 hours
-  - **Expected Outcome**: Automatic performance regression detection on every PR; prevents CWV degradation from slipping into production
-  - **Validation**: Submit a PR that intentionally increases LCP (e.g., remove `fetchpriority="high"` from the hero image). Confirm the Lighthouse CI step fails the budget check.
-
-- [ ] **SEO-REC-2.3 — Connect Google Search Console and complete initial indexing requests**
-  - **Priority**: Critical
-  - **Effort**: 1–2 hours
-  - **Expected Outcome**: Index coverage visible in Search Console; early impressions and clicks data available for optimisation
-  - **Validation**: Search Console shows domain property verified. Sitemap status is "Success". Core commercial pages return "URL is on Google" in URL Inspection.
-
-- [ ] **SEO-REC-2.4 — Audit and improve lower-priority suburb pages**
+- [ ] **SEO-REC-2.1 Shorten long priority titles**:
   - **Priority**: Medium
-  - **Effort**: 2–4 hours per page (7 pages)
-  - **Expected Outcome**: Improved relevance and depth for suburb-specific queries; potential ranking improvement for "removalists [suburb]" queries in the 7 under-optimised areas
-  - **Validation**: Post-update, re-run a content audit. Confirm each page has suburb-specific street name references, at least 600 words of unique content, and three differentiated scenario sections.
+  - **Effort**: 2-4 hours
+  - **Expected Outcome**: Better SERP readability and less title rewriting.
+  - **Validation**: Output crawl reports no priority title over `65` characters; monitor GSC CTR.
 
-- [ ] **SEO-REC-2.5 — Add E-E-A-T signals: About page and business story section**
-  - **Priority**: High
-  - **Effort**: 4–8 hours
-  - **Expected Outcome**: Improved E-E-A-T score for the domain; stronger trust signals for users and crawlers
-  - **Validation**: Use a manual E-E-A-T checklist to confirm: business founding date is stated, key principles are described, at least one team member is named, and the About page is linked from the footer.
-
----
-
-### Long-term (6–12 weeks)
-
-- [ ] **SEO-REC-3.1 — Replace AI-generated hero imagery with real operational photography**
-  - **Priority**: High
-  - **Effort**: Scheduling and production (weeks, not hours)
-  - **Expected Outcome**: Stronger visual trust signals for users; unique images improve CTR in image search and reduce duplicate-image risk; E-E-A-T improvement
-  - **Validation**: Replace `Gemini_Generated_Image_` references. Confirm new images appear in Google Image Search for branded queries. Monitor homepage bounce rate for improvement after swap.
-
-- [ ] **SEO-REC-3.2 — Add a structured suburb directory to `/removalists-adelaide/`**
+- [ ] **SEO-REC-2.2 Separate sitemap reporting by URL type**:
   - **Priority**: Medium
-  - **Effort**: 4–8 hours
-  - **Expected Outcome**: Improved crawl efficiency for suburb pages; better user navigation from the local hub; potential improvement in click depth metrics
-  - **Validation**: After adding the directory section, re-crawl the site and confirm all suburb pages are reachable within 2 clicks from the homepage.
+  - **Effort**: 1-2 hours
+  - **Expected Outcome**: Faster indexation triage in Search Console.
+  - **Validation**: CI output reports page sitemap count, image sitemap count, noindex exclusions, redirect exclusions.
 
-- [ ] **SEO-REC-3.3 — Expand FAQ schema coverage on guide articles**
+- [ ] **SEO-REC-2.3 Add Playwright mobile visual checks**:
   - **Priority**: Medium
-  - **Effort**: 1–2 hours per guide article
-  - **Expected Outcome**: FAQ rich results eligibility for informational queries; increased SERP real estate for guide content
-  - **Validation**: Run Google Rich Results Test on each updated guide article URL. Confirm FAQ schema is detected and valid.
+  - **Effort**: 0.5-1 day
+  - **Expected Outcome**: Mobile layout regressions and CTA/heading overlap are caught before deploy.
+  - **Validation**: CI artifacts include 390px/768px screenshots for priority templates.
 
-- [ ] **SEO-REC-3.4 — Build a customer review / testimonial section with verified signals**
-  - **Priority**: High
-  - **Effort**: 2–4 hours implementation; ongoing content collection
-  - **Expected Outcome**: Stronger E-E-A-T; potential AggregateRating schema eligibility once reviews are verified; improved user trust and dwell time
-  - **Validation**: At least 5 verified reviews displayed on the homepage or a dedicated reviews page. Schema validated with Google Rich Results Test.
-
-- [ ] **SEO-REC-3.5 — Establish quarterly content refresh cadence for high-traffic pages**
+- [ ] **SEO-REC-2.4 Review npm audit fixes safely**:
   - **Priority**: Medium
-  - **Effort**: 2–4 hours per refresh cycle
-  - **Expected Outcome**: Maintained content freshness signals; alignment with current market conditions and seasonal demand peaks (e.g., end-of-lease season)
-  - **Validation**: Set a recurring calendar reminder. Log each refresh date in a content changelog.
+  - **Effort**: 0.5-1 day
+  - **Expected Outcome**: Lower supply-chain/security risk without breaking LHCI/build tooling.
+  - **Validation**: `npm audit --json` has no high/critical issues and reduced moderate count; tests pass.
 
-- [ ] **SEO-REC-3.6 — Conduct external backlink audit and disavow toxic links**
+### Long-Term
+
+- [ ] **SEO-REC-3.1 Build GSC-led keyword ownership map**:
   - **Priority**: High
-  - **Effort**: 4–8 hours
-  - **Expected Outcome**: Reduced algorithmic penalty risk from spammy inbound links; cleaner anchor text profile
-  - **Validation**: Backlink audit completed in Ahrefs/Semrush. Disavow file submitted to Search Console if toxic links are found. Re-run audit quarterly.
+  - **Effort**: 1-2 weeks
+  - **Expected Outcome**: Cannibalization is reduced and priority pages are matched to the right query sets.
+  - **Validation**: Each high-value query has one preferred page, with GSC impressions/clicks monitored monthly.
+
+- [ ] **SEO-REC-3.2 Execute local authority campaign**:
+  - **Priority**: High
+  - **Effort**: 1-3 months
+  - **Expected Outcome**: Stronger local trust, citation consistency, and backlink relevance.
+  - **Validation**: New relevant referring domains, consistent NAP citations, GBP growth, and referral traffic.
+
+- [ ] **SEO-REC-3.3 Expand real-world E-E-A-T assets**:
+  - **Priority**: High
+  - **Effort**: 1-2 months
+  - **Expected Outcome**: Better trust and conversion from local service pages.
+  - **Validation**: Real photos, review proof, team/service credentials, and GBP review growth appear on priority pages.
+
+- [ ] **SEO-REC-3.4 Establish recurring content refresh calendar**:
+  - **Priority**: Medium
+  - **Effort**: Ongoing
+  - **Expected Outcome**: Pricing, guide, and suburb pages stay current and defensible.
+  - **Validation**: Quarterly updates to top guide/service pages; GSC freshness and CTR review.
 
 ---
 
 ## Proposed Code Changes
 
-### 1. Add `noindex` to the thank-you page in `pages.json`
-
-Find the entry for `thank-you.html` in `site-src/pages.json` and set:
-
-```diff
--  "robots": "index,follow"
-+  "robots": "noindex,nofollow"
-```
-
-And in `scripts/build-site.mjs`, ensure `renderSitemap()` skips pages where `page.robots` contains `noindex`:
-
-```js
-// In renderSitemap(), filter already applied for noindex pages — confirm this condition:
-const indexablePages = pages.filter(
-  (page) => !page.robots?.includes('noindex') && page.layout !== 'redirect',
-);
-```
-
----
-
-### 2. Add `sameAs` to `MovingCompany` schema normalisation
-
-In `scripts/build-site.mjs`, update `normalizeMovingCompanyNode()`:
+- [ ] **SEO-CODE-1.1 Add sitemap count reporting helper**:
+  - **Priority**: Medium
+  - **Effort**: 1-2 hours
+  - **Patch-style diff**:
 
 ```diff
- function normalizeMovingCompanyNode(node) {
-   return {
-     ...node,
-     '@id': 'https://zqremovals.au/#business',
-     name: 'ZQ Removals',
-     url: 'https://zqremovals.au/',
-     telephone: '+61 433 819 989',
-+    sameAs: [
-+      'https://share.google/Y04mpt9RTflWP3iRl',
-+    ],
-     address: {
-       '@type': 'PostalAddress',
-       addressLocality: 'Andrews Farm',
-       addressRegion: 'SA',
-       postalCode: '5114',
-       addressCountry: 'AU',
-       ...(node.address || {}),
-     },
-     contactPoint: [
-       {
-         '@type': 'ContactPoint',
-         contactType: 'customer service',
-         telephone: '+61 433 819 989',
-         areaServed: ['Adelaide', 'South Australia', 'Australia'],
-         availableLanguage: ['en'],
-         url: 'https://zqremovals.au/contact-us/',
+diff --git a/scripts/seo-validate.mjs b/scripts/seo-validate.mjs
+@@
++// Report sitemap composition separately so page URLs are not confused with image URLs.
++function summarizeSitemaps(distRoot) {
++  const groups = ['sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml', 'sitemap-images.xml'];
++  return Object.fromEntries(groups.map((file) => {
++    const xml = readFileSync(path.join(distRoot, file), 'utf8');
++    return [file, (xml.match(/<loc>/g) || []).length];
++  }));
++}
+```
+
+- [ ] **SEO-CODE-1.2 Tighten Lighthouse CI target and thresholds**:
+  - **Priority**: High
+  - **Effort**: 2-4 hours
+  - **Patch-style diff**:
+
+```diff
+diff --git a/.lighthouserc.cjs b/.lighthouserc.cjs
+@@
+     assert: {
+       assertions: {
+-        'categories:performance': ['warn', { minScore: 0.8 }],
++        'categories:performance': ['warn', { minScore: 0.9 }],
+         'categories:accessibility': ['warn', { minScore: 0.9 }],
+         'categories:seo': ['error', { minScore: 0.9 }],
+         'cumulative-layout-shift': ['warn', { maxNumericValue: 0.1 }],
+         'largest-contentful-paint': ['warn', { maxNumericValue: 2500 }],
+-        'total-blocking-time': ['warn', { maxNumericValue: 300 }],
++        'total-blocking-time': ['warn', { maxNumericValue: 200 }],
++        'server-response-time': ['warn', { maxNumericValue: 800 }],
        },
-     ],
-   };
- }
+     },
 ```
 
----
-
-### 3. Use a `<picture>` element for the homepage hero image with WebP source
-
-In `site-src/content/index.html`, replace:
+- [ ] **SEO-CODE-1.3 Add title/meta length report for priority pages**:
+  - **Priority**: Medium
+  - **Effort**: 2-4 hours
+  - **Patch-style diff**:
 
 ```diff
--<img
--  alt="ZQ Removals movers loading wrapped furniture outside a suburban Adelaide home"
--  decoding="async"
--  fetchpriority="high"
--  height="1024"
--  loading="eager"
--  src="/media/Gemini_Generated_Image_.png"
--  width="1536"
--/>
-+<picture>
-+  <source
-+    srcset="/media/adelaide-removalists-movers-loading-furniture.webp"
-+    type="image/webp"
-+  />
-+  <img
-+    alt="ZQ Removals movers loading wrapped furniture outside a suburban Adelaide home"
-+    decoding="async"
-+    fetchpriority="high"
-+    height="1024"
-+    loading="eager"
-+    src="/media/adelaide-removalists-movers-loading-furniture.jpg"
-+    width="1536"
-+  />
-+</picture>
+diff --git a/scripts/seo-validate.mjs b/scripts/seo-validate.mjs
+@@
++const metadataWarnings = pages
++  .filter((page) => page.indexable)
++  .filter((page) => page.title.length > 65 || page.description.length < 120 || page.description.length > 165)
++  .map((page) => ({
++    url: page.url,
++    titleLength: page.title.length,
++    descriptionLength: page.description.length,
++  }));
++if (metadataWarnings.length) {
++  console.warn('metadata warnings', metadataWarnings);
++}
 ```
 
-Also update `defaultSocialImage` in `scripts/build-site.mjs` to reference the new WebP asset once it has been created:
+- [ ] **SEO-CODE-1.4 Add mobile screenshot verification**:
+  - **Priority**: Medium
+  - **Effort**: 0.5-1 day
+  - **Patch-style diff**:
 
 ```diff
--const defaultSocialImage = 'https://zqremovals.au/media/Gemini_Generated_Image_.png';
-+const defaultSocialImage = 'https://zqremovals.au/media/zq-removals-social-share.webp';
-```
-
----
-
-### 4. Add CSS minification to the build pipeline
-
-Add `lightningcss` (zero-dependency, Rust-backed):
-
-```bash
-npm install --save-dev lightningcss
-```
-
-In `scripts/build-site.mjs`, replace the plain `copyFile` with a minification step:
-
-```diff
--await copyFile(
--  path.join(projectRoot, 'premium-site.css'),
--  path.join(distRoot, 'premium-site.min.css'),
--);
-+import { transform } from 'lightningcss';
-+// Note: `readFile` is already imported from 'node:fs/promises' at the top of build-site.mjs.
-+// Use the existing import directly; no alias is needed.
-+const rawCss = await readFile(path.join(projectRoot, 'premium-site.css'), 'utf8');
-+const { code: minCss } = transform({
-+  filename: 'premium-site.css',
-+  code: Buffer.from(rawCss),
-+  minify: true,
-+});
-+await writeFile(path.join(distRoot, 'premium-site.min.css'), minCss, 'utf8');
-```
-
----
-
-### 5. Add Google Analytics 4 snippet to the standard template
-
-In `scripts/build-site.mjs` → `renderHead()`, add the GA4 snippet after the `<link rel="stylesheet">` tag, guarded by a `page.gaId` or build-time environment variable:
-
-```js
-// Add this near the end of the tags array, before the closing of renderHead():
-if (process.env.GA_MEASUREMENT_ID) {
-  tags.push(
-    `<script async src="https://www.googletagmanager.com/gtag/js?id=${process.env.GA_MEASUREMENT_ID}"></script>`,
-    `<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${process.env.GA_MEASUREMENT_ID}');</script>`,
-  );
-}
-```
-
-Set `GA_MEASUREMENT_ID` as an environment variable in the Vercel project settings. Do not hard-code the measurement ID in the source.
-
----
-
-### 6. Lighthouse CI configuration (`.lighthouserc.cjs`)
-
-Create a `.lighthouserc.cjs` file in the repository root:
-
-```js
-module.exports = {
-  ci: {
-    collect: {
-      staticDistDir: './site-dist',
-      url: ['/', '/contact-us/', '/removalists-adelaide/'],
-    },
-    assert: {
-      assertions: {
-        'categories:performance': ['warn', { minScore: 0.8 }],
-        'categories:accessibility': ['warn', { minScore: 0.9 }],
-        'categories:seo': ['error', { minScore: 0.9 }],
-        'cumulative-layout-shift': ['warn', { maxNumericValue: 0.1 }],
-        'largest-contentful-paint': ['warn', { maxNumericValue: 2500 }],
-        'total-blocking-time': ['warn', { maxNumericValue: 300 }],
-      },
-    },
-    upload: {
-      target: 'temporary-public-storage',
-    },
-  },
-};
-```
-
-Add to `package.json` scripts:
-
-```diff
- "scripts": {
--  "build": "node scripts/build-site.mjs"
-+  "build": "node scripts/build-site.mjs",
-+  "lhci": "lhci autorun"
- }
+diff --git a/package.json b/package.json
+@@
+   "scripts": {
+     "build": "node scripts/build-site.mjs",
++    "test:visual-mobile": "playwright test tests/mobile-seo-visual.spec.ts",
+     "test": "node scripts/quote-api-smoke.mjs && node scripts/run-node-tests.mjs",
 ```
 
 ---
 
 ## Commands
 
-Run locally after code changes:
-
-```bash
-# Full site build
-npm run build
-
-# Verify sitemap was produced
-cat site-dist/sitemap.xml | grep '<url>' | wc -l
-
-# Verify no indexable page has noindex set accidentally.
-# The expected noindex outputs are listed explicitly so the check stays readable when new
-# legitimate noindex pages are added — just extend the EXPECTED_NOINDEX list below.
-node -e "
-const pages = require('./site-src/pages.json');
-const EXPECTED_NOINDEX = pages
-  .filter(p => p.robots?.includes('noindex'))
-  .map(p => p.output);
-const unexpected = pages.filter(
-  p => p.robots?.includes('noindex') && !EXPECTED_NOINDEX.includes(p.output)
-);
-if (unexpected.length) {
-  console.error('Unexpected noindex pages:', unexpected.map(p => p.output));
-  process.exit(1);
-}
-console.log('All noindex pages:', EXPECTED_NOINDEX);
-console.log('Check complete — update EXPECTED_NOINDEX if you intentionally add new noindex pages.');
-"
-
-# Check for img tags without width/height
-grep -rn '<img' site-src/content/ | grep -v 'width=' | grep -v 'brand-logo'
-
-# Validate schema after build (manual step: paste output URL into Rich Results Test)
-echo "Validate: https://search.google.com/test/rich-results?url=https://zqremovals.au/"
-```
-
-Run in CI (GitHub Actions) after adding Lighthouse CI:
+- [ ] **SEO-CMD-1.1 Local build**:
 
 ```bash
 npm ci
 npm run build
-npx @lhci/cli@0.14.x autorun
 ```
+
+- [ ] **SEO-CMD-1.2 Full regression suite**:
+
+```bash
+npm test
+```
+
+- [ ] **SEO-CMD-1.3 Focused SEO verification**:
+
+```bash
+node scripts/seo-validate.mjs
+node --test tests/search-console-fixes.test.mjs
+node --test tests/seo-conversion-pass.test.mjs
+node --test tests/eeat-audit.test.mjs
+```
+
+- [ ] **SEO-CMD-1.4 Live crawl smoke checks**:
+
+```bash
+curl -I https://zqremovals.au/robots.txt
+curl -I https://zqremovals.au/sitemap.xml
+curl -I -L https://www.zqremovals.au/
+curl -I -L https://zqremovals.au/adelaide-cbd.html
+```
+
+- [ ] **SEO-CMD-1.5 Performance and tracking checks**:
+
+```bash
+npx lhci collect --config=.lighthouserc.cjs
+npm audit --json
+node scripts/gsc-fetch.mjs
+node scripts/gsc-analyze-opportunities.mjs
+```
+
+---
+
+## Competitive Benchmarking and Keyword Opportunities
+
+- [ ] **SEO-COMP-1.1 Competitor set for tracking**:
+  - **Competitors**: Door 2 Door Movers, Kent Removals & Storage, Grace Removals, Allied Moving Services, Find a Mover directory results, and high-ranking local Adelaide removalist pages.
+  - **Benchmark metrics**: Ranking page type, title angle, reviews, GBP category/services, backlink count/quality, suburb coverage, interstate coverage, pricing content, and guide depth.
+  - **Validation**: Monthly mobile/desktop rank export for priority terms.
+
+- [ ] **SEO-COMP-1.2 High-intent keyword opportunities**:
+  - **Targets**: `fixed price removalists Adelaide`, `removalist cost Adelaide 2026`, `office relocation Adelaide CBD`, `apartment removalists Adelaide CBD`, `packing services Adelaide`, `furniture removalists Adelaide`, `Adelaide to Sydney removalists`, `Adelaide to Melbourne removalists`, and suburb combinations with access constraints.
+  - **Recommendation**: Prioritize pages already receiving impressions but low CTR before creating new pages.
+  - **Validation**: GSC query/page report confirms impressions, CTR, and average position before and after title/content changes.
+
+- [ ] **SEO-COMP-1.3 Content gap themes**:
+  - **Gaps**: Real pricing examples, lift/loading dock move planning, heavy item handling, moving with settlement dates, office downtime planning, packing timeline by move size, and suburb-specific access notes.
+  - **Recommendation**: Refresh existing guide pages first; create new guides only when query data shows a distinct intent.
+  - **Validation**: New or refreshed pages gain impressions without cannibalizing money pages.
 
 ---
 
 ## Quality Assurance Task Checklist
 
-Before finalising and deploying any SEO changes, verify:
-
-- [ ] All findings reference specific URLs, code lines, or measurable metrics ✓
-- [ ] Tool results are noted for each critical finding (confirmed via repository inspection and build output logs)
-- [ ] Competitor benchmark data has not been collected in this audit (requires external tooling — SEO-FIND-8.1 flags this gap)
-- [ ] Recommendations cite Google guidelines or documented best practices ✓
-- [ ] Code examples are provided for all technical fixes (meta tags, schema, image format, CSS minification, analytics) ✓
-- [ ] Validation steps are included for every recommendation ✓
-- [ ] ROI projections are noted qualitatively (analytics and GBP setup will unlock quantitative measurement)
-
-### Post-implementation verification checklist
-
-- [ ] `thank-you.html` is `noindex` and absent from `sitemap.xml`
-- [ ] `sameAs` is present in `MovingCompany` JSON-LD — validated via Rich Results Test
-- [ ] Hero image is served as WebP — verified via browser DevTools Network tab
-- [ ] CSS is minified in the build output — verified via byte size comparison
-- [ ] GA4 fires on page load and `quote_submitted` fires on form success — verified in GA4 Realtime
-- [ ] Search Console is connected, sitemap submitted, and core pages are indexed
-- [ ] Lighthouse CI passes performance, accessibility, and SEO score thresholds on the homepage and contact page
-- [ ] Google Business Profile is claimed, fully completed, and linked in schema `sameAs`
-- [ ] Backlink audit is complete; disavow file submitted if toxic links were found
-- [ ] Content refresh schedule is recorded in a shared document or calendar
+- [ ] **SEO-QA-1.1 Findings reference evidence**: Local command outputs, generated counts, live header checks, and code locations are included above.
+- [ ] **SEO-QA-1.2 Critical tool evidence gap**: PageSpeed/Rich Results screenshots still need manual capture because PSI was quota-blocked and Rich Results Test was not accessible from CLI.
+- [ ] **SEO-QA-1.3 Competitor benchmark gap**: Competitor priorities are identified, but authority/backlink/ranking data requires external exports.
+- [ ] **SEO-QA-1.4 Google guideline coverage**: Recommendations align with Google Search Central guidance for crawlability, canonicalization, links, structured data, local business schema, and web.dev Core Web Vitals thresholds.
+- [ ] **SEO-QA-1.5 Code examples included**: Patch-style examples are provided for sitemap reporting, LHCI thresholds, metadata warnings, and visual testing.
+- [ ] **SEO-QA-1.6 Validation included**: Every recommendation includes a validation method.
+- [ ] **SEO-QA-1.7 ROI grounding**: ROI projections remain qualitative until GA4/GSC/rank/backlink exports are connected.
 
 ---
 
-## SEO Optimization Quality Task Checklist
+## Source References
 
-- [x] All crawlability and indexing issues are catalogued with specific URLs
-- [x] Core Web Vitals improvement actions are identified and scored (SEO-FIND-2.7, SEO-FIND-4.1, SEO-REC-2.1, SEO-REC-2.2)
-- [x] Title tags and meta descriptions are audited for every indexable page — confirmed clean
-- [x] Content quality assessment includes E-E-A-T gaps and specific suburb-level recommendations
-- [ ] Backlink profile is analyzed with toxic links flagged for action — **requires external tooling** (SEO-FIND-8.1)
-- [x] Structured data is validated and rich-snippet opportunities are identified (SEO-FIND-5.1, SEO-FIND-5.2, SEO-FIND-5.3, SEO-FIND-3.4)
-- [x] Every finding has an impact rating (Critical/High/Medium/Low) and an effort estimate
-- [x] Remediation roadmap is organised into Immediate, Short-term, and Long-term phases
+- [ ] **SEO-SRC-1.1 Google SEO Starter Guide**: https://developers.google.com/search/docs/fundamentals/seo-starter-guide
+- [ ] **SEO-SRC-1.2 Google robots.txt documentation**: https://developers.google.com/search/docs/crawling-indexing/robots/intro
+- [ ] **SEO-SRC-1.3 Google sitemap documentation**: https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview
+- [ ] **SEO-SRC-1.4 Google canonical documentation**: https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls
+- [ ] **SEO-SRC-1.5 Google structured data guidelines**: https://developers.google.com/search/docs/appearance/structured-data/sd-policies
+- [ ] **SEO-SRC-1.6 Google LocalBusiness structured data**: https://developers.google.com/search/docs/appearance/structured-data/local-business
+- [ ] **SEO-SRC-1.7 Google Rich Results Test**: https://search.google.com/test/rich-results
+- [ ] **SEO-SRC-1.8 web.dev Core Web Vitals**: https://web.dev/articles/vitals
+- [ ] **SEO-SRC-1.9 web.dev TTFB guidance**: https://web.dev/articles/ttfb

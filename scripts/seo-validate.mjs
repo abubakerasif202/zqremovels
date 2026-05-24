@@ -88,7 +88,10 @@ if (!sitemapImagesXml) {
   sitemapXmlByName.set('sitemap-images.xml', sitemapImagesXml);
 }
 validateSitemaps(pages, sitemapXmlByName, failures);
+const sitemapSummary = summarizeSitemaps(sitemapXmlByName);
+validateSitemapSummary(sitemapSummary, failures);
 validateStrictSeoCompletion(pages, htmlMap, failures);
+reportMetadataWarnings(pages, htmlMap);
 
 const uniqueFailures = [...new Set(failures)];
 const uniqueWarnings = [...new Set(warnings)];
@@ -98,6 +101,7 @@ if (uniqueWarnings.length > 0) {
   console.log(`seo validation warnings:\n- ${uniqueWarnings.join('\n- ')}`);
 }
 console.log('bad pages = 0');
+console.log(`sitemap summary = ${JSON.stringify(sitemapSummary)}`);
 console.log(`seo validation passed for ${pages.length} pages`);
 
 async function collectHtmlFiles(dir, prefix = '') {
@@ -401,6 +405,59 @@ function validateSitemaps(pagesList, sitemapXmlByName, failuresList) {
     const assetPath = normalizeAssetHrefToDistPath(loc);
     if (assetPath && !assetExistsOnDisk(assetPath)) {
       failuresList.push(`image sitemap missing asset: ${loc}`);
+    }
+  }
+}
+
+function summarizeSitemaps(sitemapXmlByName) {
+  const pageSitemapNames = ['sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml'];
+  const pageUrlCount = pageSitemapNames
+    .flatMap((name) => extractSitemapLocs(sitemapXmlByName.get(name) || ''))
+    .length;
+  const imageUrlCount = extractSitemapLocs(sitemapXmlByName.get('sitemap-images.xml') || '').length;
+  const indexSitemapCount = extractSitemapLocs(sitemapXmlByName.get('sitemap-index.xml') || '').length;
+
+  return {
+    indexSitemaps: indexSitemapCount,
+    pageUrls: pageUrlCount,
+    imageUrls: imageUrlCount,
+  };
+}
+
+function validateSitemapSummary(summary, failuresList) {
+  if (summary.indexSitemaps < 4) {
+    failuresList.push(`sitemap index too small: ${summary.indexSitemaps}`);
+  }
+  if (summary.pageUrls < 1) {
+    failuresList.push('sitemap page url count is zero');
+  }
+  if (summary.imageUrls < 1) {
+    failuresList.push('sitemap image url count is zero');
+  }
+}
+
+function reportMetadataWarnings(pagesList, htmlMap) {
+  const warnings = [];
+
+  for (const page of pagesList) {
+    if (!isStrictSeoIndexablePage(page)) continue;
+
+    const html = htmlMap.get(normalizeOutput(page.output)) || '';
+    const title = extractFirst(html, /<title>(.*?)<\/title>/i).replace(/\s+/g, ' ').trim();
+    const description = extractFirst(html, /<meta name="description" content="([^"]+)"/i).replace(/\s+/g, ' ').trim();
+
+    if (title.length > 65 || description.length < 120 || description.length > 165) {
+      warnings.push(`${page.output} title=${title.length} description=${description.length}`);
+    }
+  }
+
+  if (warnings.length > 0) {
+    console.log(`metadata warnings = ${warnings.length}`);
+    for (const warning of warnings.slice(0, 25)) {
+      console.log(`- ${warning}`);
+    }
+    if (warnings.length > 25) {
+      console.log(`- ... ${warnings.length - 25} more`);
     }
   }
 }

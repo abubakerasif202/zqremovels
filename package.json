@@ -7,6 +7,7 @@
     "build": "node scripts/build-site.mjs",
     "test": "node scripts/quote-api-smoke.mjs && node scripts/run-node-tests.mjs",
     "test:quote-api": "node scripts/quote-api-smoke.mjs",
+    "test:visual-mobile": "node scripts/run-lhci.mjs",
     "lhci": "lhci autorun",
     "seo:validate": "node scripts/seo-validate.mjs",
     "gsc:auth": "node scripts/gsc-auth.mjs",
