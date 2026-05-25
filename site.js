@@ -79,8 +79,14 @@ function setupHeaderDetails() {
 
   headerDetails.forEach((details) => {
     const summary = details.querySelector("summary");
+    if (summary) {
+      summary.setAttribute("aria-expanded", String(details.open));
+    }
 
     details.addEventListener("toggle", () => {
+      if (summary) {
+        summary.setAttribute("aria-expanded", String(details.open));
+      }
       if (!details.open) {
         return;
       }

@@ -176,6 +176,7 @@ test('visible breadcrumbs are rendered on key page types and align with JSON-LD'
     [path.join('removalists-salisbury', 'index.html'), ['aria-label="Breadcrumb"', '/">Home</a>', 'Salisbury']],
     [path.join('adelaide-moving-guides', 'removalists-cost-adelaide', 'index.html'), ['aria-label="Breadcrumb"', 'Adelaide Moving Guides', 'Removalist Cost Adelaide']],
     [path.join('adelaide-to-sydney-removals', 'index.html'), ['aria-label="Breadcrumb"', 'Interstate Removals', 'Adelaide to Sydney Removals']],
+    [path.join('moving-checklist-adelaide', 'index.html'), ['aria-label="Breadcrumb"', 'Adelaide Moving Checklist', 'Stress-Free Adelaide Moving Checklist']],
   ];
 
   for (const [output, needles] of pagesToCheck) {
@@ -201,6 +202,50 @@ test('breadcrumb and faq schema do not duplicate within a single page', () => {
     assert.ok(breadcrumbCount <= 1, `duplicate BreadcrumbList schema found in ${path.relative(distDir, htmlFile)}`);
     assert.ok(faqCount <= 1, `duplicate FAQPage schema found in ${path.relative(distDir, htmlFile)}`);
   }
+});
+
+test('adelaide moving checklist page is generated with clean seo, links, schema, and no remote vision-board assets', () => {
+  const output = path.join('moving-checklist-adelaide', 'index.html');
+  const html = readDist(output);
+  const main = extractMain(html);
+  const links = extractRootLinks(main);
+
+  assert.match(html, /<title>Adelaide Moving Checklist \| Stress-Free Move Planner \| ZQ Removals<\/title>/i);
+  assert.match(html, /<meta name="description" content="Plan your Adelaide move with ZQ Removals’ practical moving checklist\. Prepare inventory, access, packing, parking, lifts, and quote details before move day\." \/>/i);
+  assert.match(html, /<link rel="canonical" href="https:\/\/zqremovals\.au\/moving-checklist-adelaide\/" \/>/i);
+  assert.match(main, /<h1[^>]*>Stress-Free Adelaide Moving Checklist<\/h1>/i);
+  assert.match(main, /href="\/contact-us\/#quote-form"/i);
+  assert.match(main, /href="tel:\+61433819989"/i);
+  assert.ok(links.includes('/removalists-adelaide/'), 'missing moving quotes link');
+  assert.ok(links.includes('/adelaide-moving-guides/removalist-cost-adelaide/'), 'missing removalist cost link');
+  assert.ok(links.includes('/house-removals-adelaide/'), 'missing house removals link');
+  assert.ok(links.includes('/services/apartment-removals-adelaide/'), 'missing apartment removals link');
+  assert.ok(links.includes('/packing-services-adelaide/'), 'missing packing link');
+  assert.ok(links.includes('/contact-us/'), 'missing contact link');
+  assert.match(html, /"@type": "BreadcrumbList"/);
+  assert.match(html, /"@type": "Article"/);
+  assert.match(html, /"@type": "FAQPage"/);
+  assert.doesNotMatch(main, /opal\.google|lh3\.googleusercontent/i);
+  assert.doesNotMatch(main, /Product Vision Board 2024/i);
+  assert.doesNotMatch(main, /Surry Hills/i);
+  assert.doesNotMatch(main, /\bSydney\b/i);
+  assert.match(html, /sticky-mobile-cta/);
+});
+
+test('shared mobile UX markup stays accessible and compact', () => {
+  const template = readFileSync(path.join(root, 'site-src', 'templates', 'standard.html'), 'utf8');
+  const header = readFileSync(path.join(root, 'site-src', 'partials', 'header.html'), 'utf8');
+  const css = readFileSync(path.join(root, 'premium-site.css'), 'utf8');
+
+  assert.match(template, /<a class="button button-secondary" href="tel:\+61433819989">Call<\/a>/);
+  assert.match(template, /<a class="button button-primary" href="\/contact-us\/#quote-form">Get Quote<\/a>/);
+  assert.match(header, /aria-controls="mobile-nav-panel"/);
+  assert.match(header, /aria-expanded="false"/);
+  assert.ok(css.includes('html,'), 'missing global html selector');
+  assert.match(css, /overflow-x:\s*clip/i);
+  assert.match(css, /@media \(max-width: 640px\)/i);
+  assert.match(css, /\.sticky-mobile-cta\s*\{/i);
+  assert.match(css, /\.quote-form-premium input,\s*\.quote-form-premium select,\s*\.quote-form-premium textarea/i);
 });
 
 test('key titles and descriptions stay within safe SEO length guardrails', () => {

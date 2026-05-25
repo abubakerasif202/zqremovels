@@ -126,6 +126,29 @@
     "contentFile": "content/legacy-redirects/terms.html"
   },
   {
+    "output": "moving-checklist-adelaide/index.html",
+    "layout": "standard",
+    "title": "Adelaide Moving Checklist | Stress-Free Move Planner | ZQ Removals",
+    "description": "Plan your Adelaide move with ZQ Removals’ practical moving checklist. Prepare inventory, access, packing, parking, lifts, and quote details before move day.",
+    "canonical": "https://zqremovals.au/moving-checklist-adelaide/",
+    "robots": "index,follow,max-image-preview:large",
+    "themeColor": "#10151d",
+    "ogTitle": "Adelaide Moving Checklist | Stress-Free Move Planner | ZQ Removals",
+    "ogDescription": "Plan your Adelaide move with ZQ Removals’ practical moving checklist. Prepare inventory, access, packing, parking, lifts, and quote details before move day.",
+    "ogType": "article",
+    "ogUrl": "https://zqremovals.au/moving-checklist-adelaide/",
+    "ogImage": "https://zqremovals.au/zq-removals-social-share.webp",
+    "twitterCard": "summary_large_image",
+    "twitterTitle": "Adelaide Moving Checklist | Stress-Free Move Planner | ZQ Removals",
+    "twitterDescription": "Plan your Adelaide move with ZQ Removals’ practical moving checklist. Prepare inventory, access, packing, parking, lifts, and quote details before move day.",
+    "twitterImage": "https://zqremovals.au/zq-removals-social-share.webp",
+    "refresh": "",
+    "jsonLd": [
+      "{\n      \"@context\": \"https://schema.org\",\n      \"@graph\": [\n        {\n          \"@type\": \"WebPage\",\n          \"@id\": \"https://zqremovals.au/moving-checklist-adelaide/#webpage\",\n          \"url\": \"https://zqremovals.au/moving-checklist-adelaide/\",\n          \"name\": \"Stress-Free Adelaide Moving Checklist\",\n          \"description\": \"Plan your Adelaide move with ZQ Removals’ practical moving checklist. Prepare inventory, access, packing, parking, lifts, and quote details before move day.\"\n        },\n        {\n          \"@type\": \"Article\",\n          \"@id\": \"https://zqremovals.au/moving-checklist-adelaide/#article\",\n          \"headline\": \"Stress-Free Adelaide Moving Checklist\",\n          \"description\": \"Plan your Adelaide move with ZQ Removals’ practical moving checklist. Prepare inventory, access, packing, parking, lifts, and quote details before move day.\",\n          \"mainEntityOfPage\": {\n            \"@id\": \"https://zqremovals.au/moving-checklist-adelaide/#webpage\"\n          },\n          \"author\": {\n            \"@type\": \"Organization\",\n            \"name\": \"ZQ Removals\"\n          },\n          \"publisher\": {\n            \"@type\": \"Organization\",\n            \"name\": \"ZQ Removals\"\n          }\n        },\n        {\n          \"@type\": \"BreadcrumbList\",\n          \"@id\": \"https://zqremovals.au/moving-checklist-adelaide/#breadcrumbs\",\n          \"itemListElement\": [\n            {\n              \"@type\": \"ListItem\",\n              \"position\": 1,\n              \"name\": \"Home\",\n              \"item\": \"https://zqremovals.au/\"\n            },\n            {\n              \"@type\": \"ListItem\",\n              \"position\": 2,\n              \"name\": \"Adelaide Moving Checklist\",\n              \"item\": \"https://zqremovals.au/moving-checklist-adelaide/\"\n            }\n          ]\n        },\n        {\n          \"@type\": \"FAQPage\",\n          \"@id\": \"https://zqremovals.au/moving-checklist-adelaide/#faq\",\n          \"mainEntity\": [\n            {\n              \"@type\": \"Question\",\n              \"name\": \"Why does a checklist help before requesting a fixed-price quote?\",\n              \"acceptedAnswer\": {\n                \"@type\": \"Answer\",\n                \"text\": \"It helps you gather the inventory, access, packing, parking, and timing details that usually determine whether a fixed-price quote stays accurate.\"\n              }\n            },\n            {\n              \"@type\": \"Question\",\n              \"name\": \"What move details matter most for Adelaide pricing?\",\n              \"acceptedAnswer\": {\n                \"@type\": \"Answer\",\n                \"text\": \"Property type, stairs, lifts, loading zones, parking, fragile items, packing scope, and the full inventory all affect labour and vehicle planning.\"\n              }\n            },\n            {\n              \"@type\": \"Question\",\n              \"name\": \"Can this checklist help with apartment and office moves?\",\n              \"acceptedAnswer\": {\n                \"@type\": \"Answer\",\n                \"text\": \"Yes. It covers apartment access, office loading details, and the kind of move-day planning that keeps the quote brief clean for local and interstate jobs.\"\n              }\n            },\n            {\n              \"@type\": \"Question\",\n              \"name\": \"Should I call before filling out the quote form?\",\n              \"acceptedAnswer\": {\n                \"@type\": \"Answer\",\n                \"text\": \"If the move is urgent or the access is unusual, call first. Otherwise, use the quote form with the checklist details ready so the brief is specific.\"\n              }\n            }\n          ]\n        }\n      ]\n    }"
+    ],
+    "contentFile": "content/moving-checklist-adelaide/index.html"
+  },
+  {
     "output": "about/index.html",
     "layout": "standard",
     "title": "About ZQ Removals | Adelaide's Premium Relocation Experts",

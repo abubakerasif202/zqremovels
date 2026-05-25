@@ -91,4 +91,8 @@ test('mobile nav contrast classes remain explicit after css cleanup', async () =
   assert.match(css, /\.mobile-nav-link\{/i);
   assert.match(css, /#fff/i);
   assert.match(css, /\.sticky-mobile-cta.*button-secondary\{/i);
+  assert.match(css, /overflow-x:clip/i);
+  assert.match(css, /body\{[^}]*padding-bottom:calc\(/i);
+  assert.match(css, /@media \(max-width: 640px\)/i);
+  assert.match(css, /\.home-route-columns details/i);
 });
