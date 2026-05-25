@@ -237,7 +237,7 @@ test('shared mobile UX markup stays accessible and compact', () => {
   const header = readFileSync(path.join(root, 'site-src', 'partials', 'header.html'), 'utf8');
   const css = readFileSync(path.join(root, 'premium-site.css'), 'utf8');
 
-  assert.match(template, /<a class="button button-secondary" href="tel:\+61433819989">Call<\/a>/);
+  assert.match(template, /<a class="button button-secondary" href="tel:\+61433819989">Call 0433 819 989<\/a>/);
   assert.match(template, /<a class="button button-primary" href="\/contact-us\/#quote-form">Get Quote<\/a>/);
   assert.match(header, /aria-controls="mobile-nav-panel"/);
   assert.match(header, /aria-expanded="false"/);

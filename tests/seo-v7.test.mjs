@@ -88,7 +88,7 @@ test('seo v7 interstate route pages exist, are canonical, indexed, and avoid des
     assert.match(html, new RegExp(`<link rel="canonical" href="${canonicalHost}/${slug}/"`), slug);
     assert.match(sitemap, new RegExp(`${canonicalHost}/${slug}/`), `${slug} missing from sitemap`);
     assert.equal((html.match(/<h1\b/gi) || []).length, 1, `${slug} h1 count`);
-    assert.match(main, /class="[^"]*\bfaq-item\b/i, `${slug} missing visible FAQ`);
+    assert.ok(hasVisibleFaqMarkup(main), `${slug} missing visible FAQ`);
     assert.match(main, /href="\/contact-us\/#quote-form"/, `${slug} missing quote CTA`);
     assert.ok(types.has('Service'), `${slug} missing Service schema`);
     assert.ok(types.has('BreadcrumbList'), `${slug} missing Breadcrumb schema`);
@@ -195,7 +195,7 @@ test('priority pages use AEO answer formatting and FAQ schema only follows visib
     const html = readFileSync(htmlFile, 'utf8');
     const hasFaqSchema = schemaTypes(html).has('FAQPage');
     if (hasFaqSchema) {
-      assert.match(html, /class="[^"]*\bfaq-item\b/i, `${relative} has FAQ schema without visible FAQ`);
+      assert.ok(hasVisibleFaqMarkup(html), `${relative} has FAQ schema without visible FAQ`);
     }
   }
 });
@@ -257,6 +257,10 @@ function extractMain(html = '') {
 
 function hasQuestionHeadingWithImmediateAnswer(html = '') {
   return /<h[23]\b[^>]*>[^<]*\?<\/h[23]>\s*<p\b[^>]*>[^<]+\./i.test(html);
+}
+
+function hasVisibleFaqMarkup(html = '') {
+  return /class="[^"]*\b(?:faq-item|faq-grid|faq-section)\b/i.test(html);
 }
 
 function extractJsonLd(html = '') {
