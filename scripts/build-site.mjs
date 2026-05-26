@@ -5035,7 +5035,7 @@ function renderAuthoritySection(page) {
       <article class="proof-card reveal-on-scroll">
         <span class="proof-label">Fixed-Price Value</span>
         <h3>Why fixed pricing protects you</h3>
-        <p>Hourly rates reward slow work. Our fixed-price model guarantees your move cost upfront, providing total certainty regardless of traffic or unexpected route delays.</p>
+        <p>A fixed-price quote can improve cost clarity when the route, access, inventory, packing needs, and timing are accurately included in the confirmed scope.</p>
       </article>
       <article class="proof-card reveal-on-scroll">
         <span class="proof-label">Accountability</span>

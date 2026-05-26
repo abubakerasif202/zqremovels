@@ -73,7 +73,7 @@ export const seoConfig = {
   robots: 'index,follow,max-image-preview:large',
   titleTemplate: '%s | ZQ Removals',
   titleMaxLength: 68,
-  descriptionMaxLength: 160,
+  descriptionMaxLength: 155,
 };
 
 export const localBusinessSchema = {
@@ -314,27 +314,28 @@ export function mergePagesByOutput(...pageGroups) {
 }
 
 export function buildTitle(partial, variant = 'brand') {
-  if (variant !== 'quote' && partial.includes('|')) return clampText(partial, seoConfig.titleMaxLength);
+  const cleanedPartial = cleanupSeoPhraseRepeats(partial);
+  if (variant !== 'quote' && cleanedPartial.includes('|')) return clampText(cleanedPartial, seoConfig.titleMaxLength);
   if (variant === 'quote' && partial.includes('|')) {
-    const branded = partial.trim().endsWith('ZQ Removals') ? partial : `${partial} | ZQ Removals`;
-    return clampText(branded, seoConfig.titleMaxLength);
+    const branded = cleanedPartial.trim().endsWith('ZQ Removals') ? cleanedPartial : `${cleanedPartial} | ZQ Removals`;
+    return clampText(cleanupSeoPhraseRepeats(branded), seoConfig.titleMaxLength);
   }
 
   const templates = {
-    brand: `${partial} | ZQ Removals`,
-    quote: `${partial} | Fixed-Price Quote | ZQ Removals`,
-    local: `${partial} | Local Adelaide Removalists`,
-    interstate: `${partial} | Direct Interstate Moving`,
-    urgent: `${partial} | Urgent & Last Minute Movers`,
-    experts: `${partial} | Professional Local Experts`,
-    fast: `${partial} | Fast Service & Clear Pricing`,
+    brand: `${cleanedPartial} | ZQ Removals`,
+    quote: `${cleanedPartial} | Fixed-Price Quote | ZQ Removals`,
+    local: `${cleanedPartial} | Local Adelaide Removalists`,
+    interstate: `${cleanedPartial} | Direct Interstate Moving`,
+    urgent: `${cleanedPartial} | Urgent & Last Minute Movers`,
+    experts: `${cleanedPartial} | Professional Local Experts`,
+    fast: `${cleanedPartial} | Fast Service & Clear Pricing`,
   };
 
-  return clampText(templates[variant] || templates.brand, seoConfig.titleMaxLength);
+  return clampText(cleanupSeoPhraseRepeats(templates[variant] || templates.brand), seoConfig.titleMaxLength);
 }
 
 export function buildDescription(text) {
-  return clampText(text, seoConfig.descriptionMaxLength);
+  return clampText(cleanupSeoPhraseRepeats(text), seoConfig.descriptionMaxLength);
 }
 
 export function buildCanonical(pathname) {
@@ -509,18 +510,70 @@ function clampText(value, limit) {
   const text = String(value).trim().replace(/\s+/g, ' ');
   if (text.length <= limit) return text;
   const sentenceBoundary = Math.max(
-    text.lastIndexOf('.', limit),
-    text.lastIndexOf('?', limit),
-    text.lastIndexOf('!', limit),
+    text.lastIndexOf('.', limit - 1),
+    text.lastIndexOf('?', limit - 1),
+    text.lastIndexOf('!', limit - 1),
   );
   if (sentenceBoundary >= Math.max(60, Math.floor(limit * 0.55))) {
-    return text.slice(0, sentenceBoundary + 1).trim();
+    const sentenceCut = text.slice(0, sentenceBoundary + 1).trim();
+    if (sentenceCut.length <= limit) {
+      return sentenceCut;
+    }
   }
 
   const clipped = text.slice(0, limit);
   const wordBoundary = clipped.lastIndexOf(' ');
   const end = wordBoundary >= Math.floor(limit * 0.7) ? wordBoundary : limit;
   return clipped.slice(0, end).replace(/[\s,;:|&-]+$/g, '').trim();
+}
+
+function cleanupSeoPhraseRepeats(value) {
+  const parts = String(value ?? '')
+    .replace(/\s+/g, ' ')
+    .split('|')
+    .map((part) => part.trim())
+    .filter(Boolean);
+  const seenPhraseKeys = new Set();
+
+  return parts
+    .map((part) => {
+      const dedupedPart = dedupeSeoPhraseInsidePart(part);
+      const phraseKey = getDuplicateSeoPhraseKey(dedupedPart);
+      if (!phraseKey) return dedupedPart;
+      if (!seenPhraseKeys.has(phraseKey)) {
+        seenPhraseKeys.add(phraseKey);
+        return dedupedPart;
+      }
+
+      return dedupedPart
+        .replace(/\bLocal Adelaide Removalists\b/gi, 'Local Moving Support')
+        .replace(/\bAdelaide Removalists\b/gi, 'Adelaide Movers')
+        .replace(/\bRemovalists Adelaide\b/gi, 'Adelaide Movers')
+        .replace(/\s{2,}/g, ' ')
+        .trim();
+    })
+    .filter((part, index, items) => part && items.indexOf(part) === index)
+    .join(' | ');
+}
+
+function dedupeSeoPhraseInsidePart(value) {
+  let phraseCount = 0;
+  return String(value || '')
+    .replace(/\b(Removalists Adelaide|Adelaide Removalists)\b/gi, (match) => {
+      phraseCount += 1;
+      return phraseCount === 1 ? match : 'Adelaide movers';
+    })
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
+function getDuplicateSeoPhraseKey(value) {
+  const text = String(value || '').toLowerCase();
+  if (/\b(removalists adelaide|adelaide removalists)\b/.test(text)) {
+    return 'adelaide-removalists';
+  }
+
+  return '';
 }
 
 function escapeHtml(value) {
@@ -1358,6 +1411,29 @@ const guideTopics = [
   ]),
 ];
 
+const semrushQuoteFaqItems = [
+  {
+    question: 'How much do cheap removalists cost in Adelaide?',
+    answer: 'Adelaide move costs vary with inventory, route, stairs or lifts, parking and carry distance, packing, larger furniture, and the required timing. A low headline rate is not a final cost. Provide those details so ZQ Removals can review a fixed-price quote for the actual move brief.',
+  },
+  {
+    question: 'Are fixed-price removalists better than hourly removalists?',
+    answer: 'A fixed-price quote can make budgeting clearer when your Adelaide move scope is accurate. Hourly pricing may suit a simple, flexible job, but time can change with access or delays. Compare inclusions, access assumptions, furniture handling, packing scope, and any stated exclusions before choosing.',
+  },
+  {
+    question: 'What affects an Adelaide removalist quote?',
+    answer: 'An Adelaide removalist quote is shaped by pickup and delivery addresses, property type, inventory volume, stairs, lifts, parking, carry distance, large or fragile furniture, packing support, route distance, and timing. Sharing a clear brief helps the quote reflect the work required.',
+  },
+  {
+    question: 'Do removalists charge extra for stairs?',
+    answer: 'Stairs can affect an Adelaide moving quote because they change carry time, handling effort, and the way heavier items are moved safely. Tell the removalist about stairs, lifts, parking distance, tight entries, and bulky furniture before a price is confirmed so the scope is clear.',
+  },
+  {
+    question: 'How do I avoid surprise moving costs?',
+    answer: 'Before approving an Adelaide quote, provide both addresses, room or item list, stairs and lift notes, parking and loading access, heavy furniture, packing needs, timing constraints, and any storage stop. Ask for the included scope and flag changes before move day rather than relying on assumptions.',
+  },
+];
+
 const commercialPages = [
   {
     slug: 'cheap-removalists-adelaide',
@@ -1371,28 +1447,7 @@ const commercialPages = [
       'Cheap does not need to mean careless. The best low-cost Adelaide move is one where the brief is precise enough to avoid rework, waiting time, and last-minute scope changes.',
       'This page supports budget-conscious clients who still need a premium service standard, careful handling, and a clean move-day plan that avoids hidden extras.',
     ],
-    faq: [
-      {
-        question: 'How much do cheap removalists cost in Adelaide?',
-        answer: 'The final cost depends on inventory, access, stairs or lifts, distance, packing, timing, and heavy items. ZQ Removals does not publish unconfirmed prices; we provide a fixed-price quote after reviewing the move brief.',
-      },
-      {
-        question: 'How do I keep an Adelaide move affordable?',
-        answer: 'Provide an accurate inventory, clear access notes, and any packing requirements so the quote reflects the real job rather than a padded guess.',
-      },
-      {
-        question: 'Is the cheapest quote always the best value?',
-        answer: 'Not necessarily. Transparent labour time, included travel, and damage prevention usually matter more than the lowest headline price.',
-      },
-      {
-        question: 'Can cheap removalists still handle furniture carefully?',
-        answer: 'Yes. The affordable path should come from a clear scope and efficient planning, not from rushed handling or weak protection.',
-      },
-      {
-        question: 'Can I get a fixed-price quote for a budget move?',
-        answer: 'Yes. Send the route, inventory, property access, and date so the move can be quoted as an affordable fixed-price option.',
-      },
-    ],
+    faq: semrushQuoteFaqItems,
   },
   {
     slug: 'affordable-removalists-adelaide',
@@ -1406,13 +1461,7 @@ const commercialPages = [
       'Affordable removalists Adelaide searches often come from people who want price control without taking a risk on careless operators. ZQ Removals keeps the premium service standard while building the quote around the details that can reduce waste.',
       'A fixed-price option can be safer than a vague hourly estimate because it forces the move brief to be reviewed upfront: truck access, stairs, lifts, item list, packing, and timing windows all sit inside the quote conversation.',
     ],
-    faq: [
-      { question: 'What makes a removalist affordable without lowering quality?', answer: 'A clear inventory, realistic access notes, efficient loading order, and a fixed quote can reduce uncertainty while preserving careful handling.' },
-      { question: 'Do affordable removalists Adelaide include furniture handling?', answer: 'Yes. Furniture handling should be scoped into the quote, especially for bulky, fragile, antique, or apartment-access pieces.' },
-      { question: 'Can I get an affordable fixed-price quote?', answer: 'Yes. Submit the pickup suburb, delivery suburb, move date, property type, access notes, and key inventory for a fixed-price review.' },
-      { question: 'What affects an affordable Adelaide moving quote?', answer: 'Truck size, number of movers, stairs, lifts, distance, packing, heavy items, weekend timing, after-hours access, and parking all influence the quote.' },
-      { question: 'Do you service suburbs outside central Adelaide?', answer: 'Yes. ZQ Removals services Adelaide CBD, northern, southern, coastal, eastern, and western suburbs subject to route and schedule.' },
-    ],
+    faq: semrushQuoteFaqItems,
   },
   {
     slug: 'removalist-cost-adelaide',
@@ -1426,13 +1475,7 @@ const commercialPages = [
       'No useful Adelaide removalist cost page should pretend every move has the same price. A small unit with lift access, a family home with garage stock, and an office move with after-hours dock access all need different labour and timing assumptions.',
       'ZQ Removals uses fixed-price quote positioning to reduce hourly surprises. The aim is to review the details first, then provide a clear quote that reflects the actual route and handling requirements.',
     ],
-    faq: [
-      { question: 'How much does a removalist cost in Adelaide?', answer: 'The cost depends on truck size, number of movers, access, stairs, lifts, distance, packing, heavy items, and timing. We do not invent exact prices online; we quote after reviewing your move.' },
-      { question: 'Is hourly or fixed-price moving safer?', answer: 'A fixed-price quote can be safer when the scope is clear because it reduces the risk of traffic, access delays, or slow loading changing the final bill.' },
-      { question: 'What affects my moving quote most?', answer: 'Inventory volume, property access, stairs or lifts, truck parking, distance, packing needs, heavy items, and weekend or after-hours requirements usually have the biggest impact.' },
-      { question: 'Can packing change the removalist cost?', answer: 'Yes. Packing materials, fragile wrapping, full-home packing, and unpacking support all affect labour and preparation time.' },
-      { question: 'How do I get a more accurate quote?', answer: 'Send photos or a detailed list of large items, room count, stairs, lift details, parking notes, date, and both suburbs.' },
-    ],
+    faq: semrushQuoteFaqItems,
   },
   {
     slug: 'moving-quotes-adelaide',
@@ -1446,13 +1489,7 @@ const commercialPages = [
       'Moving quotes Adelaide searches are usually quote-ready. The strongest quote request gives enough information to avoid a vague estimate and turn the enquiry into a practical fixed-price option.',
       'ZQ Removals keeps the quote path simple: call for urgent bookings or send the form with pickup and delivery suburbs, property types, item list, preferred date, and any access notes.',
     ],
-    faq: [
-      { question: 'How do I request a moving quote in Adelaide?', answer: 'Call 0433 819 989 or use the quote form with your route, property type, date, item list, and access notes.' },
-      { question: 'What should I include in a moving quote request?', answer: 'Include pickup and delivery suburbs, stairs, lifts, parking, truck access, room count, heavy items, fragile pieces, packing needs, and timing constraints.' },
-      { question: 'Can I get a fixed-price moving quote?', answer: 'Yes. ZQ Removals provides fixed-price quote options after reviewing the move details.' },
-      { question: 'Do you quote furniture-only moves?', answer: 'Yes. Furniture-only quotes should include item dimensions, stairs or lift access, parking, and whether pieces need wrapping.' },
-      { question: 'Is calling faster than the quote form?', answer: 'For same-day or urgent moves, calling is usually fastest. The form is useful when you can provide a detailed written brief.' },
-    ],
+    faq: semrushQuoteFaqItems,
   },
   {
     slug: 'same-day-removalists-adelaide',
@@ -2900,7 +2937,7 @@ function renderPageHero({ eyebrow, title, lead, supporting = [], points = [], pr
           <a class="button button-secondary" href="tel:+61433819989">Call 0433 819 989</a>
         </div>
         <div class="cta-reassurance" aria-label="Quote reassurance">
-          <p>Fixed pricing - no hidden costs</p>
+          <p>Fixed-price options based on the confirmed scope</p>
           <p>Fast response after brief review</p>
           <p>Planned around your actual move details</p>
         </div>
@@ -2931,8 +2968,9 @@ function normalizeGeneratedHeading(heading = '') {
 }
 
 function buildHeroHeading(title, pageType) {
-  let heading = String(title || '').replace(/\s*\|\s*ZQ Removals$/i, '').trim();
+  let heading = cleanupSeoPhraseRepeats(title).replace(/\s*\|\s*ZQ Removals$/i, '').trim();
   heading = heading.replace(/\s*\|\s*(Fixed-Price Quote|Local Adelaide Removalists|Direct Interstate Moving|Urgent & Last Minute Movers|Professional Local Experts|Fast Service & Clear Pricing)$/i, '').trim();
+  heading = heading.split(/\s*\|\s*/)[0]?.trim() || heading;
   heading = heading.replace(/\s+\bfor\b\s+the\b.*$/i, '').trim();
   heading = heading.replace(/\s+\bwith\b\s+clear\b.*$/i, '').trim();
 
@@ -2953,18 +2991,24 @@ function buildHeroHeading(title, pageType) {
   return heading || String(title || '').trim();
 }
 
+function shouldRenderConversionNudge(module = '') {
+  const safeModule = String(module || '');
+  return ['local-intro', 'local-suburb-intro', 'commercial-intro', 'guide-purpose'].includes(safeModule)
+    || safeModule.endsWith('-intro');
+}
+
 function renderTextSection({ id = '', module, eyebrow, heading, intro = '', paragraphs = [], soft = false }) {
-  const conversionNudge = ['local-intro', 'commercial-intro', 'guide-purpose'].includes(module)
+  const conversionNudge = shouldRenderConversionNudge(module)
     ? `<div class="conversion-cta-block" data-generated-cta="mid" data-generated-module="${escapeAttribute(module)}">
-  <span class="eyebrow">Check Your Moving Cost</span>
-  <h3>Planning a move in Adelaide?</h3>
-  <p>Check your moving cost and get a fixed-price quote.</p>
+  <span class="eyebrow">${escapeHtml('Calculate Move Cost')}</span>
+  <h3>${escapeHtml('Request a Fixed-Price Adelaide Moving Quote')}</h3>
+  <p>${escapeHtml('Compare pricing with a clear brief: route, access, inventory, packing needs, and timing reviewed before booking.')}</p>
   <div class="cta-cluster">
-    <a class="button button-primary" href="/contact-us/#quote-form">Check Your Moving Cost</a>
-    <a class="button button-secondary" href="/contact-us/#quote-form">Request a Quote</a>
+    <a class="button button-primary" href="/contact-us/#quote-form">${escapeHtml('Get Free Fixed Quote')}</a>
+    <a class="button button-secondary" href="tel:+61433819989">${escapeHtml('Call Specialist Now')}</a>
   </div>
   <div class="cta-reassurance" aria-label="Quote reassurance">
-    <p>Fixed pricing - no hidden costs</p>
+    <p>Fixed-price options based on the confirmed scope</p>
     <p>Fast response after brief review</p>
     <p>Planned around your actual move details</p>
   </div>
@@ -3046,7 +3090,7 @@ function renderQuoteStrip({ id = '', eyebrow, heading, copy, primaryCta, seconda
       <div class="quote-strip-content">
         ${renderSectionHeading(eyebrow, heading, copy)}
         <div class="cta-reassurance" aria-label="Quote reassurance">
-          <p>Fixed pricing - no hidden costs</p>
+          <p>Fixed-price options based on the confirmed scope</p>
           <p>Fast response after brief review</p>
           <p>Planned around your actual move details</p>
         </div>
@@ -3057,6 +3101,36 @@ function renderQuoteStrip({ id = '', eyebrow, heading, copy, primaryCta, seconda
         <a class="button button-secondary" href="tel:+61433819989">Call 0433 819 989</a>
       </div>
     </div>
+  </div>
+</section>`;
+}
+
+function renderSemrushQuoteSupport(page) {
+  const targetSlugs = new Set([
+    'cheap-removalists-adelaide',
+    'affordable-removalists-adelaide',
+    'removalist-cost-adelaide',
+    'moving-quotes-adelaide',
+  ]);
+  if (!targetSlugs.has(page.slug)) return '';
+
+  return `<section class="section section-soft" data-semrush-answer-block="quote-cost">
+  <div class="container">
+    ${renderSectionHeading(
+      'Quick quote answers',
+      'What should an Adelaide moving quote include?',
+      'A useful quote brief lists the route, inventory, stairs or lifts, parking and carry distance, large furniture, packing support, and preferred timing before a fixed-price option is reviewed.',
+    )}
+    <p>These details help compare affordable and fixed-price options without assuming every lower-cost move has the same scope.</p>
+  </div>
+</section>
+<section class="section" data-real-video-placeholder="true">
+  <div class="container">
+    ${renderSectionHeading(
+      'Real move-day videos',
+      'Future video proof will show real Adelaide moving preparation.',
+      'No video is embedded until genuine footage is available. Future clips can demonstrate furniture protection, access checks, loading preparation, and the information customers should include in a quote brief.',
+    )}
   </div>
 </section>`;
 }
@@ -4713,6 +4787,16 @@ function buildSuburbComplexityCards({ suburb, logisticsLabel, clusterKey }) {
 function buildSuburbLocalServiceCards({ slug, suburb, intents }) {
   const localCards = [];
 
+  if (intents?.hasApartment) {
+    localCards.push({
+      href: `/apartment-removalists-${slug}/`,
+      label: `apartment removalists ${suburb}`,
+      title: 'Apartment removalists',
+      copy: 'Apartment access.',
+      cta: 'Open apartment page',
+    });
+  }
+
   if (intents?.hasOffice) {
     localCards.push({
       href: `/office-removals-${slug}/`,
@@ -4730,16 +4814,6 @@ function buildSuburbLocalServiceCards({ slug, suburb, intents }) {
       title: 'Packing services',
       copy: 'Packing support.',
       cta: 'Open packing page',
-    });
-  }
-
-  if (intents?.hasApartment) {
-    localCards.push({
-      href: `/apartment-removalists-${slug}/`,
-      label: `apartment removalists ${suburb}`,
-      title: 'Apartment removalists',
-      copy: 'Apartment access.',
-      cta: 'Open apartment page',
     });
   }
 
@@ -4889,7 +4963,7 @@ ${renderRouteCardSection({
 ${localServiceCards.length > 0 ? renderRouteCardSection({
   module: 'local-service-pages',
   eyebrow: 'Suburb-specific services',
-  heading: `Access-specific service pages for ${suburb}`,
+  heading: `Specialized ${suburb} Moving Options:`,
   intro: 'Keep the brief specific.',
   cards: localServiceCards,
 }) : ''}
@@ -5476,6 +5550,7 @@ ${renderAeoAnswerBlock({
     { href: '/contact-us/#quote-form', label: 'Request a quote' },
   ],
 })}
+${renderSemrushQuoteSupport(page)}
 ${renderValueCardSection({
   module: 'commercial-intent-profile',
   eyebrow: 'Move planning fit',

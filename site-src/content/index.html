@@ -113,8 +113,9 @@
             alt="Expert furniture wrapping and protection."
             class="hero-media-secondary"
             decoding="async"
+            fetchpriority="high"
             height="400"
-            loading="lazy"
+            loading="eager"
             src="/media/zq-service-premium.webp"
             width="600"
           />
@@ -387,8 +388,8 @@
               <label>Leave this field empty <input autocomplete="off" name="botcheck" tabindex="-1" type="text" /></label>
             </p>
             
-            <nav class="form-step-indicator">
-              <div class="step-pill is-active"><span>01</span> Move type</div>
+            <nav aria-label="Quote form progress" class="form-step-indicator">
+              <div aria-current="step" class="step-pill is-active"><span>01</span> Move type</div>
               <div class="step-pill"><span>02</span> Locations</div>
               <div class="step-pill"><span>03</span> Contact</div>
             </nav>

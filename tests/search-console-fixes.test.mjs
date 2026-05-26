@@ -3,7 +3,7 @@ import path from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
-import { getGeneratedPages, mergePagesByOutput } from '../site-src/data/seo-v4.mjs';
+import { buildDescription, buildTitle, getGeneratedPages, mergePagesByOutput } from '../site-src/data/seo-v4.mjs';
 
 const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
@@ -245,6 +245,9 @@ test('shared mobile UX markup stays accessible and compact', () => {
   assert.match(css, /overflow-x:\s*clip/i);
   assert.match(css, /@media \(max-width: 640px\)/i);
   assert.match(css, /\.sticky-mobile-cta\s*\{/i);
+  assert.match(css, /padding-bottom:\s*calc\(0\.75rem \+ env\(safe-area-inset-bottom,\s*0px\)\)/i);
+  assert.match(css, /outline:\s*2px solid var\(--zq-cta\)/i);
+  assert.match(css, /\.form-feedback\s*\{[\s\S]*?min-height:\s*1\.5rem/i);
   assert.match(css, /\.quote-form-premium input,\s*\.quote-form-premium select,\s*\.quote-form-premium textarea/i);
 });
 
@@ -266,6 +269,20 @@ test('key titles and descriptions stay within safe SEO length guardrails', () =>
   }
 });
 
+test('generated SEO helpers dedupe repeated Adelaide removalist phrases safely', () => {
+  const duplicatePhrasePattern = /(Removalists Adelaide[\s\S]*Adelaide Removalists|Adelaide Removalists[\s\S]*Removalists Adelaide)/i;
+  const title = buildTitle('Removalists Adelaide | Adelaide Removalists | ZQ Removals');
+  const quoteTitle = buildTitle('Adelaide Removalists | Removalists Adelaide', 'quote');
+  const description = buildDescription('Removalists Adelaide and Adelaide Removalists searches need a fixed-price quote with access, inventory, timing, and route detail before booking.');
+
+  assert.ok(title.length <= 68, `title too long: ${title.length}`);
+  assert.ok(quoteTitle.length <= 68, `quote title too long: ${quoteTitle.length}`);
+  assert.ok(description.length <= 155, `description too long: ${description.length}`);
+  assert.doesNotMatch(title, duplicatePhrasePattern);
+  assert.doesNotMatch(quoteTitle, duplicatePhrasePattern);
+  assert.doesNotMatch(description, duplicatePhrasePattern);
+});
+
 test('robots and AI crawler files stay standards-compliant', () => {
   const robots = readDist('robots.txt');
   const llms = readDist('llms.txt');
@@ -280,6 +297,7 @@ test('robots and AI crawler files stay standards-compliant', () => {
 test('responsive image handling keeps hero images sized and prioritized correctly', () => {
   const homepage = readDist('index.html');
   const heroImg = homepage.match(/<picture>[\s\S]*?<img[\s\S]*?<\/picture>/i)?.[0] || '';
+  const secondaryHeroImg = homepage.match(/<img[^>]+class="hero-media-secondary"[\s\S]*?>/i)?.[0] || '';
 
   assert.match(heroImg, /srcset="[^"]*\/media\/responsive\/home-local-hero-branded-480w\.webp 480w/i);
   assert.match(heroImg, /sizes="[^"]*"/i);
@@ -287,7 +305,9 @@ test('responsive image handling keeps hero images sized and prioritized correctl
   assert.match(heroImg, /height="406"/i);
   assert.match(heroImg, /loading="eager"/i);
   assert.match(heroImg, /fetchpriority="high"/i);
-  assert.match(homepage, /<img[^>]+loading="lazy"[^>]+src="\/media\/zq-service-premium\.webp"/i);
+  assert.match(secondaryHeroImg, /src="\/media\/zq-service-premium\.webp"/i);
+  assert.match(secondaryHeroImg, /loading="eager"/i);
+  assert.match(secondaryHeroImg, /fetchpriority="high"/i);
 });
 
 test('vercel redirects cover legacy html aliases for crawlable pages and route families', () => {

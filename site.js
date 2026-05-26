@@ -195,6 +195,68 @@ function setupFormState() {
   });
 }
 
+function updateFormStepAccessibility(form, activeStepIndex) {
+  const fieldsets = Array.from(form.querySelectorAll("fieldset.quote-form-group"));
+  if (fieldsets.length === 0) {
+    return;
+  }
+
+  const hasHiddenSteps = form.hasAttribute("data-multi-step-form");
+  if (!hasHiddenSteps || activeStepIndex < 0) {
+    fieldsets.forEach((fieldset) => {
+      fieldset.removeAttribute("aria-hidden");
+      fieldset.querySelectorAll("input, select, textarea").forEach((el) => {
+        if (el.getAttribute("tabindex") === "-1") {
+          el.removeAttribute("tabindex");
+        }
+      });
+    });
+    return;
+  }
+
+  fieldsets.forEach((fieldset, idx) => {
+    if (idx === activeStepIndex) {
+      fieldset.removeAttribute("aria-hidden");
+      fieldset.querySelectorAll("input, select, textarea").forEach((el) => el.removeAttribute("tabindex"));
+    } else {
+      fieldset.setAttribute("aria-hidden", "true");
+      fieldset.querySelectorAll("input, select, textarea").forEach((el) => el.setAttribute("tabindex", "-1"));
+    }
+  });
+}
+
+function setupQuoteFormStepAccessibility() {
+  quoteForms.forEach((form) => {
+    const fieldsets = Array.from(form.querySelectorAll("fieldset.quote-form-group"));
+    const stepPills = Array.from(form.querySelectorAll(".step-pill"));
+    if (fieldsets.length === 0) {
+      return;
+    }
+
+    const syncActiveStep = (activeStepIndex) => {
+      stepPills.forEach((pill, idx) => {
+        const isActive = idx === activeStepIndex;
+        pill.classList.toggle("is-active", isActive);
+        if (isActive) {
+          pill.setAttribute("aria-current", "step");
+        } else {
+          pill.removeAttribute("aria-current");
+        }
+      });
+
+      updateFormStepAccessibility(
+        form,
+        form.hasAttribute("data-multi-step-form") ? activeStepIndex : -1,
+      );
+    };
+
+    syncActiveStep(0);
+    fieldsets.forEach((fieldset, idx) => {
+      fieldset.addEventListener("focusin", () => syncActiveStep(idx));
+    });
+  });
+}
+
 const MIN_PHONE_NUMBER_LENGTH = 8;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -682,6 +744,7 @@ initAnalytics();
 setQuoteDateMinimum();
 setupHeaderDetails();
 setupFormState();
+setupQuoteFormStepAccessibility();
 setupQuoteForms();
 setupLocalFormPreview();
 setupHeaderState();
