@@ -921,9 +921,9 @@ test('v6 homepage targets premium Adelaide removalists and above-fold CTAs', () 
 
 test('v6 service pages carry CTR titles, related services, suburb links, FAQ and CTA', () => {
   const cases = [
-    ['furniture-removalists-adelaide/index.html', /Furniture Removalists Adelaide \| Careful Furniture Movers/i],
-    ['house-removals-adelaide/index.html', /House Removalists Adelaide \| Premium Home Moving Services/i],
-    ['office-removals-adelaide/index.html', /Office Removalists Adelaide \| Business Relocation Services/i],
+    ['furniture-removalists-adelaide/index.html', /Furniture Removalists Adelaide \| Careful Movers/i],
+    ['house-removals-adelaide/index.html', /House Removalists Adelaide \| Local Home Moves/i],
+    ['office-removals-adelaide/index.html', /Office Removalists Adelaide \| Business Relocations/i],
     ['apartment-removalists-adelaide/index.html', /Apartment Removalists Adelaide/i],
   ];
 

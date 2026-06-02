@@ -126,7 +126,7 @@ test('house removals page owns the residential keyword and old local-removals UR
 
   assert.match(
     houseRemovals,
-    /<title>House Removalists Adelaide \| Premium Home Moving Services \| ZQ Removals<\/title>/,
+    /<title>House Removalists Adelaide \| Local Home Moves \| ZQ Removals<\/title>/,
   );
   assert.match(houseRemovals, /<h1>House Removals Adelaide for Professional Home Moves<\/h1>/i);
   assert.match(houseRemovals, /href="\/removalists-marion\/"/);

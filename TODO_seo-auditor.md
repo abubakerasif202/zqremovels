@@ -168,7 +168,7 @@
   - **Effort**: Low
   - **Recommendation**: Keep uniqueness assertions in CI.
 
-- [ ] **SEO-FIND-7.2 Some title tags exceed conservative 65-character guardrail**:
+- [x] **SEO-FIND-7.2 Some title tags exceed conservative 65-character guardrail**:
   - **Location**: `site-src/pages.json`, generated pages
   - **Description**: Sample long titles include `/office-removals-adelaide/` at `72`, `/house-removals-adelaide/` at `71`, `/furniture-removalists-adelaide/` at `71`, and several interstate/service pages at `68-70`.
   - **Impact**: Medium
@@ -335,7 +335,7 @@
 
 ### Short-Term
 
-- [ ] **SEO-REC-2.1 Shorten long priority titles**:
+- [x] **SEO-REC-2.1 Shorten long priority titles**:
   - **Priority**: Medium
   - **Effort**: 2-4 hours
   - **Expected Outcome**: Better SERP readability and less title rewriting.
