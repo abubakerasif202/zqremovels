@@ -387,12 +387,47 @@
       "permanent": true
     },
     {
+      "source": "/adelaide-moving-guides/removalist-cost-adelaide",
+      "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/adelaide-moving-guides/removalist-cost-adelaide/",
+      "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/adelaide-moving-guides/removalist-cost-adelaide.html",
+      "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/adelaide-moving-guides/removalist-cost-adelaide/index.html",
+      "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
+      "permanent": true
+    },
+    {
       "source": "/adelaide-moving-guides/:slug.html",
       "destination": "/adelaide-moving-guides/:slug/",
       "permanent": true
     },
     {
+      "source": "/guides/removalist-cost-adelaide",
+      "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
+      "permanent": true
+    },
+    {
       "source": "/guides/removalist-cost-adelaide/",
+      "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/guides/removalist-cost-adelaide.html",
+      "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/guides/removalist-cost-adelaide/index.html",
       "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
       "permanent": true
     },

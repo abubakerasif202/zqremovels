@@ -1126,7 +1126,7 @@ const suburbV4Registry = {
 const seoGuideLibrary = {
   cost: {
     title: 'Removalists cost guide',
-    url: '/adelaide-moving-guides/removalist-cost-adelaide/',
+    url: '/adelaide-moving-guides/removalists-cost-adelaide/',
     cta: 'Read the pricing guide',
   },
   house: {
@@ -2525,7 +2525,7 @@ function renderHead(page, content) {
       ? defaultSocialImage
       : page.twitterImage || ogImage;
   const imageAlt = page.ogImageAlt || page.ogTitle || page.title;
-  const robots = isLegacyGuideOutput(page.output)
+  const robots = page.layout !== 'redirect' && isLegacyGuideOutput(page.output)
     ? 'noindex,follow'
     : page.robots || 'index,follow,max-image-preview:large';
   const tags = [
@@ -5322,7 +5322,7 @@ function getRelatedLinksProfile(page) {
           eyebrow: 'Planning guide',
           title: 'Removalist cost Adelaide',
           copy: 'Use the pricing guide when the household brief needs better cost framing before the quote is requested.',
-          url: '/adelaide-moving-guides/removalist-cost-adelaide/',
+          url: '/adelaide-moving-guides/removalists-cost-adelaide/',
           cta: 'Open the cost guide',
         },
       ],
@@ -5649,7 +5649,7 @@ function getRelatedLinksProfile(page) {
             eyebrow: 'Pricing',
             title: 'Removalist cost Adelaide',
             copy: 'Use the pricing guide when the next step is understanding labour, access, and timing pressure before comparing quotes.',
-            url: '/adelaide-moving-guides/removalist-cost-adelaide/',
+            url: '/adelaide-moving-guides/removalists-cost-adelaide/',
             cta: 'Read the cost guide',
           },
           {

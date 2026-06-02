@@ -217,7 +217,7 @@ test('adelaide moving checklist page is generated with clean seo, links, schema,
   assert.match(main, /href="\/contact-us\/#quote-form"/i);
   assert.match(main, /href="tel:\+61433819989"/i);
   assert.ok(links.includes('/removalists-adelaide/'), 'missing moving quotes link');
-  assert.ok(links.includes('/adelaide-moving-guides/removalist-cost-adelaide/'), 'missing removalist cost link');
+  assert.ok(links.includes('/adelaide-moving-guides/removalists-cost-adelaide/'), 'missing removalist cost link');
   assert.ok(links.includes('/house-removals-adelaide/'), 'missing house removals link');
   assert.ok(links.includes('/services/apartment-removals-adelaide/'), 'missing apartment removals link');
   assert.ok(links.includes('/packing-services-adelaide/'), 'missing packing link');
@@ -325,6 +325,8 @@ test('vercel redirects cover legacy html aliases for crawlable pages and route f
     ['/packing-services-adelaide.html', '/packing-services-adelaide/'],
     ['/furniture-removalists-adelaide.html', '/furniture-removalists-adelaide/'],
     ['/removalists-adelaide.html', '/removalists-adelaide/'],
+    ['/adelaide-moving-guides/removalist-cost-adelaide.html', '/adelaide-moving-guides/removalists-cost-adelaide/'],
+    ['/guides/removalist-cost-adelaide.html', '/adelaide-moving-guides/removalists-cost-adelaide/'],
   ]) {
     assert.equal(redirects.get(source), destination);
   }
@@ -358,6 +360,12 @@ test('search console not-found validation URLs have direct legacy redirects', ()
     ['/terms.html', '/terms-and-conditions/'],
     ['/terms/index.html', '/terms-and-conditions/'],
     ['/terms-and-conditions.html', '/terms-and-conditions/'],
+    ['/adelaide-moving-guides/removalist-cost-adelaide', '/adelaide-moving-guides/removalists-cost-adelaide/'],
+    ['/adelaide-moving-guides/removalist-cost-adelaide/', '/adelaide-moving-guides/removalists-cost-adelaide/'],
+    ['/adelaide-moving-guides/removalist-cost-adelaide/index.html', '/adelaide-moving-guides/removalists-cost-adelaide/'],
+    ['/guides/removalist-cost-adelaide', '/adelaide-moving-guides/removalists-cost-adelaide/'],
+    ['/guides/removalist-cost-adelaide/', '/adelaide-moving-guides/removalists-cost-adelaide/'],
+    ['/guides/removalist-cost-adelaide/index.html', '/adelaide-moving-guides/removalists-cost-adelaide/'],
   ]) {
     assert.equal(redirects.get(source), destination, `${source} should redirect directly`);
   }
@@ -370,6 +378,8 @@ test('search console not-found validation URLs have direct legacy redirects', ()
     '/privacy/index.html',
     '/removalists-semore/index.html',
     '/terms/index.html',
+    '/adelaide-moving-guides/removalist-cost-adelaide/index.html',
+    '/guides/removalist-cost-adelaide/index.html',
   ]) {
     const position = vercelConfig.redirects.findIndex((redirect) => redirect.source === source);
     assert.ok(position >= 0, `${source} redirect is missing`);
@@ -394,12 +404,26 @@ test('search console not-found validation aliases have static noindex fallback p
     [path.join('privacy', 'index.html'), 'https://zqremovals.au/privacy-policy/', '0; url=/privacy-policy/'],
     ['terms.html', 'https://zqremovals.au/terms-and-conditions/', '0; url=/terms-and-conditions/'],
     [path.join('terms', 'index.html'), 'https://zqremovals.au/terms-and-conditions/', '0; url=/terms-and-conditions/'],
+    [path.join('adelaide-moving-guides', 'removalist-cost-adelaide', 'index.html'), 'https://zqremovals.au/adelaide-moving-guides/removalists-cost-adelaide/', '0; url=/adelaide-moving-guides/removalists-cost-adelaide/'],
+    [path.join('guides', 'removalist-cost-adelaide', 'index.html'), 'https://zqremovals.au/adelaide-moving-guides/removalists-cost-adelaide/', '0; url=/adelaide-moving-guides/removalists-cost-adelaide/'],
   ]) {
     const html = readDist(output);
     assert.match(html, /<meta name="robots" content="noindex,nofollow" \/>/);
     assert.match(html, new RegExp(`<link rel="canonical" href="${canonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}" \\/>`));
     assert.match(html, new RegExp(`<meta http-equiv="refresh" content="${refresh.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}" \\/>`));
     assert.doesNotMatch(sitemap, new RegExp(output.replace(/\\/g, '/').replace(/index\\.html$/, '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  }
+});
+
+test('generated pages link to the canonical plural removalists cost guide', () => {
+  for (const htmlFile of walkHtmlFiles(distDir)) {
+    const relativePath = path.relative(distDir, htmlFile).replace(/\\/g, '/');
+    const html = readFileSync(htmlFile, 'utf8');
+    assert.doesNotMatch(
+      html,
+      /href="\/adelaide-moving-guides\/removalist-cost-adelaide\//,
+      `${relativePath} links to the deprecated singular cost guide route`,
+    );
   }
 });
 

@@ -1944,7 +1944,7 @@ const guideLinkProfiles = {
     ],
     guides: [
       { href: '/adelaide-moving-guides/moving-checklist-adelaide/', label: 'general move checklist' },
-      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'apartment move costs' },
+      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'apartment move costs' },
     ],
     commercial: [
       { href: '/apartment-removalists-adelaide/', label: 'apartment removalists' },
@@ -2012,7 +2012,7 @@ const guideLinkProfiles = {
     ],
     guides: [
       { href: '/adelaide-moving-guides/moving-checklist-adelaide/', label: 'moving checklist' },
-      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'cost guide' },
+      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'cost guide' },
     ],
     commercial: [
       { href: '/same-day-removalists-adelaide/', label: 'same-day removalists' },
@@ -2029,7 +2029,7 @@ const guideLinkProfiles = {
       { href: '/removalists-noarlunga/', label: 'southern suburb planning' },
     ],
     guides: [
-      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
+      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
       { href: '/adelaide-moving-guides/moving-house-checklist-adelaide/', label: 'moving checklist' },
     ],
     commercial: [
@@ -2050,7 +2050,7 @@ const commercialLinkProfiles = {
       { href: '/removalists-marion/', label: 'Marion move planning' },
     ],
     guides: [
-      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
+      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
       { href: '/adelaide-moving-guides/moving-checklist-adelaide/', label: 'moving checklist' },
     ],
     siblings: [
@@ -2071,8 +2071,8 @@ const commercialLinkProfiles = {
       { href: '/removalists-marion/', label: 'Marion local moving quotes' },
     ],
     guides: [
-      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
-      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'accurate quote guide' },
+      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
+      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'accurate quote guide' },
       { href: '/adelaide-moving-guides/cheap-vs-fixed-price-removalists-adelaide/', label: 'cheap vs fixed price guide' },
     ],
     siblings: [
@@ -2094,8 +2094,8 @@ const commercialLinkProfiles = {
       { href: '/removalists-salisbury/', label: 'Salisbury northern quote factors' },
     ],
     guides: [
-      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'full cost guide' },
-      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'accurate quote guide' },
+      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'full cost guide' },
+      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'accurate quote guide' },
       { href: '/adelaide-moving-guides/cheap-vs-fixed-price-removalists-adelaide/', label: 'hourly vs fixed-price guide' },
     ],
     siblings: [
@@ -2118,7 +2118,7 @@ const commercialLinkProfiles = {
     ],
     guides: [
       { href: '/adelaide-moving-guides/how-to-get-accurate-removalist-quotes-adelaide/', label: 'accurate removalist quotes' },
-      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
+      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
       { href: '/adelaide-moving-guides/moving-checklist-adelaide/', label: 'moving checklist' },
     ],
     siblings: [
@@ -2266,7 +2266,7 @@ const commercialLinkProfiles = {
       { href: '/removalists-norwood/', label: 'inner-east local moves' },
     ],
     guides: [
-      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
+      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
       { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'booking timing guide' },
     ],
     siblings: [
@@ -2284,7 +2284,7 @@ const commercialLinkProfiles = {
       { href: '/removalists-marion/', label: 'south-west value moves' },
     ],
     guides: [
-      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
+      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
       { href: '/adelaide-moving-guides/suburb-move-preparation-adelaide/', label: 'suburb move prep' },
     ],
     siblings: [
@@ -2305,7 +2305,7 @@ const commercialLinkProfiles = {
       { href: '/removalists-marion/', label: 'Marion value-focused moves' },
     ],
     guides: [
-      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'Adelaide cost guide' },
+      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'Adelaide cost guide' },
       { href: '/adelaide-moving-guides/cheap-vs-fixed-price-removalists-adelaide/', label: 'cheap vs fixed price guide' },
       { href: '/adelaide-moving-guides/how-to-get-accurate-removalist-quotes-adelaide/', label: 'accurate quote guide' },
     ],
@@ -3232,7 +3232,20 @@ export function getGeneratedPages() {
     destinationPath: '/removalists-semaphore/',
   }));
 
+  const canonicalCostGuidePath = '/adelaide-moving-guides/removalists-cost-adelaide/';
+  pages.push(makeRedirectPage({
+    output: 'adelaide-moving-guides/removalist-cost-adelaide/index.html',
+    canonical: buildCanonical(canonicalCostGuidePath),
+    title: buildTitle('Removalist Cost Adelaide Guide Redirect'),
+    description: buildDescription('This singular cost-guide URL now redirects to the canonical Adelaide removalists cost guide.'),
+    destinationPath: canonicalCostGuidePath,
+  }));
+
   for (const [slug, title, topic, type, basePath] of guideTopics) {
+    const normalizedBasePath = basePath || 'adelaide-moving-guides';
+    if (normalizedBasePath === 'adelaide-moving-guides' && slug === 'removalist-cost-adelaide') {
+      continue;
+    }
     pages.push(makeGuidePage({ slug, title, topic, type, basePath }));
   }
 
@@ -3294,7 +3307,7 @@ function makeRedirectPage({ output, canonical, title, description, destinationPa
     twitterImage: DEFAULT_OG_IMAGE,
     refresh: `0; url=${destinationPath}`,
     lastmodSources: GENERATED_LASTMOD_SOURCES,
-    contentHtml: `<main id="main-content"><section class="section"><div class="container"><h1>Redirecting to Semaphore removalists</h1><p><a href="${escapeAttribute(destinationPath)}">Continue to the corrected Semaphore removals page</a>.</p></div></section></main>`,
+    contentHtml: `<main id="main-content"><section class="section"><div class="container"><h1>Redirecting</h1><p><a href="${escapeAttribute(destinationPath)}">Continue to the canonical page</a>.</p></div></section></main>`,
   };
 }
 
@@ -4857,7 +4870,7 @@ function renderSuburbContent({ slug, suburb, region, intro, logisticsLabel, near
   const localServiceCards = buildSuburbLocalServiceCards({ slug, suburb, intents });
   const serviceCards = buildSuburbServiceCards({ suburb, region, supportProfile });
   const guideCards = [
-    { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
+    { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
     ...supportProfile.guides,
   ]
     .filter((item, index, items) => items.findIndex((candidate) => candidate.href === item.href) === index)
@@ -5728,7 +5741,7 @@ function getClusterSupportProfile(clusterKey) {
         { href: '/adelaide-moving-guides/apartment-moving-tips-adelaide/', label: 'apartment moving tips' },
         { href: '/adelaide-moving-guides/apartment-lift-bookings-adelaide/', label: 'apartment lift booking guide' },
         { href: '/adelaide-moving-guides/office-access-planning-adelaide-cbd/', label: 'CBD office access guide' },
-        { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'Adelaide removalist cost guide' },
+        { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'Adelaide removalist cost guide' },
       ],
     };
   }
@@ -5748,7 +5761,7 @@ function getClusterSupportProfile(clusterKey) {
       ],
       guides: [
         { href: '/adelaide-moving-guides/coastal-moving-access-adelaide/', label: 'coastal moving access guide' },
-        { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
+        { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
         { href: '/adelaide-moving-guides/storage-planning-adelaide/', label: 'storage planning guide' },
       ],
     };
@@ -5768,7 +5781,7 @@ function getClusterSupportProfile(clusterKey) {
         { href: '/furniture-removalists-adelaide/', label: 'furniture removalists southern suburbs' },
       ],
       guides: [
-        { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'Adelaide removalist costs' },
+        { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'Adelaide removalist costs' },
         { href: '/adelaide-moving-guides/suburb-move-preparation-adelaide/', label: 'suburb move preparation' },
         { href: '/adelaide-moving-guides/prepare-house-move-adelaide/', label: 'house move preparation guide' },
       ],
@@ -5789,7 +5802,7 @@ function getClusterSupportProfile(clusterKey) {
         { href: '/interstate-removals-adelaide/', label: 'interstate departures north' },
       ],
       guides: [
-        { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
+        { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
         { href: '/adelaide-moving-guides/suburb-move-preparation-adelaide/', label: 'suburb move preparation' },
         { href: '/adelaide-moving-guides/packing-checklist-adelaide/', label: 'packing checklist guide' },
       ],
@@ -5812,7 +5825,7 @@ function getClusterSupportProfile(clusterKey) {
       guides: [
         { href: '/adelaide-moving-guides/office-relocation-preparation-adelaide/', label: 'office relocation preparation' },
         { href: '/adelaide-moving-guides/apartment-moving-tips-adelaide/', label: 'apartment moving tips' },
-        { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'Adelaide removalist cost guide' },
+        { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'Adelaide removalist cost guide' },
       ],
     };
   }
@@ -5829,7 +5842,7 @@ function getClusterSupportProfile(clusterKey) {
     ],
     guides: [
       { href: '/adelaide-moving-guides/moving-checklist-adelaide/', label: 'moving checklist guide' },
-      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'removalist cost guide' },
+      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
       { href: '/adelaide-moving-guides/how-long-moves-take-adelaide/', label: 'move timing guide' },
     ],
   };
@@ -5863,7 +5876,7 @@ export function getInterstateSupportProfile(routeSlug) {
     guides: [
       { href: '/adelaide-moving-guides/interstate-moving-checklist-adelaide/', label: 'interstate moving checklist' },
       { href: '/adelaide-moving-guides/how-long-moves-take-adelaide/', label: 'interstate timing guide' },
-      { href: '/adelaide-moving-guides/removalist-cost-adelaide/', label: 'interstate cost factors' },
+      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'interstate cost factors' },
     ],
     siblings: allRoutes.filter(r => !r.href.includes(routeSlug)),
   };

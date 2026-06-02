@@ -110,14 +110,20 @@ test('homepage, footer, services, and guides build the price-intent internal lin
   }
 
   for (const guide of [
-    'adelaide-moving-guides/removalist-cost-adelaide/index.html',
+    'adelaide-moving-guides/removalists-cost-adelaide/index.html',
     'adelaide-moving-guides/how-to-get-accurate-removalist-quotes-adelaide/index.html',
     'adelaide-moving-guides/cheap-vs-fixed-price-removalists-adelaide/index.html',
   ]) {
     const html = readDist(guide);
     assert.match(html, /href="\/contact-us\/#quote-form"/, guide);
     assert.match(html, /href="\/cheap-removalists-adelaide\/"|href="\/removalist-cost-adelaide\/"|href="\/moving-quotes-adelaide\/"/, guide);
-    assert.match(html, /Hourly rates vs fixed-price moving quotes/, guide);
+    assert.match(
+      html,
+      guide.includes('removalists-cost-adelaide')
+        ? /hourly rates, fixed quotes/i
+        : /Hourly rates vs fixed-price moving quotes/,
+      guide,
+    );
   }
 });
 

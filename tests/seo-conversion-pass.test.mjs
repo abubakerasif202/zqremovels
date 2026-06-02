@@ -292,7 +292,7 @@ test('v5 suburb pages surface region-aware ctas, richer modules, and stronger li
   assert.match(glenelgPage, /href="tel:\+61433819989"[^>]*>Call Specialist Now/);
   assert.match(salisburyPage, /Get suburb-specific quote/i);
   assert.match(salisburyPage, /href="\/cheap-removalists-adelaide\/"/);
-  assert.match(salisburyPage, /href="\/adelaide-moving-guides\/suburb-move-preparation-adelaide\/"|href="\/adelaide-moving-guides\/removalist-cost-adelaide\/"/);
+  assert.match(salisburyPage, /href="\/adelaide-moving-guides\/suburb-move-preparation-adelaide\/"|href="\/adelaide-moving-guides\/removalists-cost-adelaide\/"/);
   assert.match(salisburyPage, /Specialized Salisbury Moving Options:/);
   assert.match(salisburyPage, /href="\/office-removals-salisbury\/"/);
   assert.match(salisburyPage, /href="\/packing-services-salisbury\/"/);
@@ -304,7 +304,7 @@ test('v5 suburb pages surface region-aware ctas, richer modules, and stronger li
   assert.match(reynellaPage, /Book family-home move/i);
   assert.match(reynellaPage, /href="\/storage-friendly-removals-adelaide\/"/);
   assert.match(norwoodPage, /Book access-aware move/i);
-  assert.match(norwoodPage, /href="\/adelaide-moving-guides\/removalist-cost-adelaide\/"/);
+  assert.match(norwoodPage, /href="\/adelaide-moving-guides\/removalists-cost-adelaide\/"/);
   assert.match(seafordPage, /coastal family-home access/i);
   assert.match(seafordPage, /Plan coastal move|coastal access planning/i);
 });
@@ -461,7 +461,7 @@ test('generated money pages are substantial, image-backed, and linked into subur
     {
       slug: 'cheap-removalists-adelaide',
       suburb: '/removalists-salisbury/',
-      guide: '/adelaide-moving-guides/removalist-cost-adelaide/',
+      guide: '/adelaide-moving-guides/removalists-cost-adelaide/',
       sibling: '/last-minute-removalists-adelaide/',
       image: '/media/home-local-hero-branded.webp',
     },
