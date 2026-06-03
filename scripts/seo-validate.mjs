@@ -88,7 +88,7 @@ if (!sitemapImagesXml) {
   sitemapXmlByName.set('sitemap-images.xml', sitemapImagesXml);
 }
 validateSitemaps(pages, sitemapXmlByName, failures);
-const sitemapSummary = summarizeSitemaps(sitemapXmlByName);
+const sitemapSummary = summarizeSitemaps(sitemapXmlByName, pages);
 validateSitemapSummary(sitemapSummary, failures);
 validateStrictSeoCompletion(pages, htmlMap, failures);
 reportMetadataWarnings(pages, htmlMap);
@@ -409,18 +409,35 @@ function validateSitemaps(pagesList, sitemapXmlByName, failuresList) {
   }
 }
 
-function summarizeSitemaps(sitemapXmlByName) {
+function summarizeSitemaps(sitemapXmlByName, pagesList) {
   const pageSitemapNames = ['sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml'];
+  const sitemapCounts = {};
+  for (const name of pageSitemapNames) {
+    sitemapCounts[name] = extractSitemapLocs(sitemapXmlByName.get(name) || '').length;
+  }
   const pageUrlCount = pageSitemapNames
     .flatMap((name) => extractSitemapLocs(sitemapXmlByName.get(name) || ''))
     .length;
   const imageUrlCount = extractSitemapLocs(sitemapXmlByName.get('sitemap-images.xml') || '').length;
   const indexSitemapCount = extractSitemapLocs(sitemapXmlByName.get('sitemap-index.xml') || '').length;
 
+  const redirectExclusions = pagesList.filter((p) => p.layout === 'redirect').length;
+  const noindexExclusions = pagesList.filter((p) =>
+    p.layout !== 'redirect' && (
+      String(p.robots || '').toLowerCase().includes('noindex') ||
+      p.output === '404.html' ||
+      p.output === 'thank-you.html' ||
+      p.output.startsWith('premium-moving-concepts/')
+    )
+  ).length;
+
   return {
     indexSitemaps: indexSitemapCount,
     pageUrls: pageUrlCount,
     imageUrls: imageUrlCount,
+    sitemapCounts,
+    noindexExclusions,
+    redirectExclusions,
   };
 }
 

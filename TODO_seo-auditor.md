@@ -341,7 +341,7 @@
   - **Expected Outcome**: Better SERP readability and less title rewriting.
   - **Validation**: Output crawl reports no priority title over `65` characters; monitor GSC CTR.
 
-- [ ] **SEO-REC-2.2 Separate sitemap reporting by URL type**:
+- [x] **SEO-REC-2.2 Separate sitemap reporting by URL type**:
   - **Priority**: Medium
   - **Effort**: 1-2 hours
   - **Expected Outcome**: Faster indexation triage in Search Console.
@@ -389,7 +389,7 @@
 
 ## Proposed Code Changes
 
-- [ ] **SEO-CODE-1.1 Add sitemap count reporting helper**:
+- [x] **SEO-CODE-1.1 Add sitemap count reporting helper**:
   - **Priority**: Medium
   - **Effort**: 1-2 hours
   - **Patch-style diff**:

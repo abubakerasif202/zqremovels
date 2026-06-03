@@ -684,7 +684,7 @@ function setupHeaderState() {
     siteHeader.classList.toggle("is-scrolled", window.scrollY > 18);
   };
 
-  syncState();
+  requestAnimationFrame(syncState);
   window.addEventListener("scroll", syncState, { passive: true });
 }
 
