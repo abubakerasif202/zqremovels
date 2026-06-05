@@ -1658,15 +1658,33 @@ const commercialPages = [
   },
   {
     slug: 'fixed-price-removalists-adelaide',
-    title: 'Fixed-Price Removalists Adelaide | Clear Quotes | ZQ Removals',
+    title: 'Fixed-Price Removalists Adelaide | Manual Review | ZQ Removals',
     description:
-      'Searching for fixed price removalists Adelaide? ZQ Removals offers upfront, guaranteed pricing with no hidden hourly surprises for house, office, and apartment moves.',
+      'Searching for fixed price removalists Adelaide? ZQ Removals offers manual quote review and upfront pricing for house, office, apartment, bulky item, and interstate moves before moving day.',
     canonical: '/fixed-price-removalists-adelaide/',
     type: 'money',
-    hero: 'Fixed-price moving eliminates the uncertainty of hourly rates. We provide a single, guaranteed price based on your specific move brief.',
+    hero: 'Fixed-price moving removes hourly uncertainty. We manually review the brief and give you a price before moving day, so the move is planned around the real scope instead of the clock.',
     sections: [
-      'Hourly rates can lead to "slow-walking" or unexpected costs if the truck gets stuck in Adelaide traffic or the lift is busy. Our fixed-price model means the price we quote is the price you pay, regardless of how long the day takes.',
-      'We review every brief properly—including stairs, parking, and furniture inventory—so we can commit to a price that stays stable from the first box to the last.',
+      'Hourly billing can create financial anxiety when traffic, parking, stairs, or lift delays make the move run longer than expected. A fixed price gives the customer a clear number before moving day and removes the guesswork from the invoice.',
+      'ZQ Removals manually reviews every brief so the quote reflects the inventory, access path, packing scope, and timing rather than a quick assumption. That is how we avoid hourly slow-walking and hidden moving-day surprises.',
+      'This approach suits house, apartment, office, bulky item, and interstate moving when the customer wants a calm, professional move with the price set in advance.',
+    ],
+    processSteps: [
+      {
+        title: 'Review the move brief',
+        copy: 'Confirm the addresses, property types, access notes, parking, inventory, timing, and any heavy or fragile items before the quote is approved.',
+        points: ['Manual quote review before booking', 'Access and inventory checked together', 'No guesswork around scope'],
+      },
+      {
+        title: 'Set the fixed price',
+        copy: 'Build the quote from the real move details so the number is clear before moving day and stays stable when the brief is accurate.',
+        points: ['Fixed price before moving day', 'Transparent inclusions confirmed', 'No hourly slow-walking'],
+      },
+      {
+        title: 'Move with certainty',
+        copy: 'On the day, the crew follows the agreed plan, protects the furniture, and places items calmly without hidden moving-day surprises.',
+        points: ['Careful handling maintained', 'Move-day surprises reduced', 'Professional handover completed'],
+      },
     ],
     faq: [
       {
@@ -1677,7 +1695,7 @@ const commercialPages = [
       {
         question: 'Are there any hidden fees in your fixed quote?',
         answer:
-          'The quote should list the included travel, fuel, equipment, access assumptions, and any owner-confirmed insurance details. As long as the inventory and access match the brief, the agreed scope stays clear.',
+          'The quote should list the included travel, fuel, equipment, access assumptions, and any owner-confirmed insurance details. As long as the inventory and access match the brief, the agreed scope stays clear and the price stays fixed.',
       },
       {
         question: 'Why can fixed-price removals suit Adelaide moves?',
@@ -1688,6 +1706,11 @@ const commercialPages = [
         question: 'What details do you need for a fixed-price quote?',
         answer:
           'Pickup and delivery suburbs, property type, access notes, item list, date, packing needs, and any heavy or fragile items.',
+      },
+      {
+        question: 'What does manual quote review mean?',
+        answer:
+          'Manual quote review means the job is checked by a person before the price is set, so access, inventory, timing, and handling needs are actually considered.',
       },
     ],
   },
@@ -1804,8 +1827,8 @@ const seoV5CommercialIntentProfiles = {
     primaryKeyword: 'fixed price removalists Adelaide',
     secondaryKeywords: ['fixed-price movers Adelaide', 'upfront moving quote Adelaide', 'no hourly surprises moving'],
     searchIntent: 'quote-first certainty',
-    uniqueAngle: 'positions fixed pricing as scope discipline when traffic, stairs, lifts, and parking could change hourly cost',
-    conversionCTA: 'Get fixed-price certainty',
+    uniqueAngle: 'positions fixed pricing as manual scope review when traffic, stairs, lifts, parking, and item handling could change hourly cost',
+    conversionCTA: 'Request a manual fixed-price review',
   },
   'budget-removalists-adelaide': {
     primaryKeyword: 'budget removalists Adelaide',
@@ -2260,18 +2283,26 @@ const commercialLinkProfiles = {
     services: [
       { href: '/removalists-adelaide/', label: 'Adelaide removals hub' },
       { href: '/house-removals-adelaide/', label: 'house removals with fixed pricing' },
+      { href: '/services/adelaide-cbd-apartment-removalists/', label: 'CBD apartment removalists' },
+      { href: '/services/office-removalists-adelaide/', label: 'office removalists Adelaide' },
+      { href: '/services/furniture-bulky-item-removalists-adelaide/', label: 'bulky item removals Adelaide' },
+      { href: '/services/interstate-removalists-adelaide/', label: 'interstate removalists Adelaide' },
     ],
     suburbs: [
       { href: '/removalists-adelaide-cbd/', label: 'CBD apartment fixed quotes' },
       { href: '/removalists-norwood/', label: 'inner-east local moves' },
+      { href: '/removalists-marion/', label: 'Marion route planning' },
+      { href: '/removalists-salisbury/', label: 'Salisbury route planning' },
     ],
     guides: [
       { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
       { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'booking timing guide' },
+      { href: '/adelaide-moving-guides/fixed-price-vs-hourly-removalists-adelaide/', label: 'fixed price vs hourly guide' },
     ],
     siblings: [
       { href: '/cheap-vs-fixed-price-removalists-adelaide/', label: 'cheap vs fixed price comparison' },
-      { href: '/apartment-removalists-adelaide/', label: 'apartment removals' },
+      { href: '/moving-quotes-adelaide/', label: 'moving quotes Adelaide' },
+      { href: '/budget-removalists-adelaide/', label: 'budget removalists Adelaide' },
     ],
   },
   'cheap-vs-fixed-price-removalists-adelaide': {
@@ -2787,7 +2818,7 @@ function buildCommercialHighlights(page) {
       'Built for moves that need more than one destination',
     ],
     'fixed-price-removalists-adelaide': [
-      'Fixed-price quote options built from the actual move brief',
+      'Manual quote review built from the actual move brief',
       'Useful when access, traffic, stairs, or lifts could change timing',
       'Designed for cost control without weakening service quality',
     ],
@@ -2854,8 +2885,8 @@ function buildCommercialFactorCards(page) {
       { title: 'Where this page fits', copy: 'Moves that need a storage stop, split handover, or wider route strategy before quoting.' },
     ],
     'fixed-price-removalists-adelaide': [
-      { title: 'What fixes the price', copy: 'The quote is built from route, inventory, access, packing, timing, and item-handling details.' },
-      { title: 'Why it can be safer', copy: 'A fixed-price quote can reduce exposure to traffic, lift delays, stairs, or slow hourly billing when the scope is accurate.' },
+      { title: 'Manual review first', copy: 'The quote is built from route, inventory, access, packing, timing, and item-handling details before moving day.' },
+      { title: 'Why it reduces anxiety', copy: 'A fixed-price quote can reduce exposure to traffic, lift delays, stairs, or slow hourly billing when the scope is accurate.' },
       { title: 'What must be accurate', copy: 'The supplied inventory and access notes need to match the job so the fixed price remains fair and workable.' },
     ],
     'budget-removalists-adelaide': [
@@ -3020,6 +3051,26 @@ function renderTextSection({ id = '', module, eyebrow, heading, intro = '', para
     ${renderSectionHeading(eyebrow, heading, intro)}
     ${paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('')}
     ${conversionNudge}
+  </div>
+</section>`;
+}
+
+function renderTimelineSection({ id = '', module, eyebrow, heading, intro = '', steps = [], soft = false }) {
+  return `<section${id ? ` id="${escapeAttribute(id)}"` : ''} class="section${soft ? ' section-soft' : ''}" data-generated-module="${escapeAttribute(module)}">
+  <div class="container">
+    ${renderSectionHeading(eyebrow, heading, intro)}
+    <div class="timeline-grid">
+      ${steps
+        .map(
+          (step, index) => `<article class="timeline-card">
+        <small>Step ${String(index + 1).padStart(2, '0')}</small>
+        <h3>${escapeHtml(step.title)}</h3>
+        <p>${escapeHtml(step.copy)}</p>
+        ${Array.isArray(step.points) && step.points.length > 0 ? `<ul>${step.points.map((point) => `<li>${escapeHtml(point)}</li>`).join('')}</ul>` : ''}
+      </article>`,
+        )
+        .join('')}
+    </div>
   </div>
 </section>`;
 }
@@ -4334,8 +4385,8 @@ function makeCommercialPage(page) {
       description: 'Moving quotes Adelaide for house, furniture, office, apartment, and same-day jobs. Share the route, access, inventory, and date for a clear fixed-price review.',
     },
     'fixed-price-removalists-adelaide': {
-      title: 'Fixed-Price Removalists Adelaide | Upfront Quotes | ZQ Removals',
-      description: 'Fixed-price removalists Adelaide for upfront quoting on house, office, and apartment moves. Useful when the route, access, and inventory are already clear.',
+      title: 'Fixed-Price Removalists Adelaide | Manual Review | ZQ Removals',
+      description: 'Fixed-price removalists Adelaide for manual quote review on house, office, apartment, bulky item, and interstate moves before moving day.',
     },
     'budget-removalists-adelaide': {
       title: 'Budget Removalists Adelaide | Affordable Fixed Quotes | ZQ Removals',
@@ -5247,7 +5298,7 @@ function getCommercialAeoProfile(page) {
     },
     'fixed-price-removalists-adelaide': {
       question: 'When is a fixed-price removalist quote useful?',
-      answer: 'A fixed-price removalist quote is useful when the route, inventory, access, and timing details are clear before booking. It can reduce hourly surprises when stairs, lifts, parking, or traffic could otherwise change the final cost.',
+      answer: 'A fixed-price removalist quote is useful when the route, inventory, access, and timing details are clear before booking. It can reduce hourly surprises, no hourly slow-walking, and no hidden moving-day surprises when the brief has been manually reviewed.',
     },
     'office-relocation-adelaide': {
       question: 'How should an Adelaide office relocation be planned?',
@@ -5500,7 +5551,7 @@ function renderCommercialContent(page, canonical, image) {
   const visibleTitle = cleanVisibleTitle(page.title);
   const visibleTitleLower = visibleTitle.toLowerCase();
   const intentProfile = buildCommercialIntentProfile(page);
-  const serviceLinks = ensureLinkDepth(profile.services, seoV5DefaultServiceLinks, 5);
+  const serviceLinks = ensureLinkDepth(profile.services, seoV5DefaultServiceLinks, 6);
   const suburbLinks = ensureLinkDepth(profile.suburbs, seoV5DefaultSuburbLinks, 6);
   const guideLinks = ensureLinkDepth(profile.guides, seoV5DefaultGuideLinks, 4);
   const siblingLinks = ensureLinkDepth(profile.siblings, seoV5DefaultServiceLinks, 4);
@@ -5594,6 +5645,14 @@ ${renderTextSection({
   intro: 'This page explains the move details that matter before a quote is requested.',
   paragraphs: page.sections,
 })}
+${Array.isArray(page.processSteps) && page.processSteps.length > 0 ? renderTimelineSection({
+  module: 'commercial-process',
+  eyebrow: 'How the review works',
+  heading: 'The steps we use before setting a fixed price',
+  intro: 'Manual review keeps the quote tied to the real job, not a rushed guess.',
+  steps: page.processSteps,
+  soft: true,
+}) : ''}
 ${renderValueCardSection({
   module: 'commercial-factors',
   eyebrow: 'What changes the quote',

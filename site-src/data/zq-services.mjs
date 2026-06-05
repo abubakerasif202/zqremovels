@@ -163,6 +163,222 @@ export const zqServicePages = [
       },
     ],
   },
+  {
+    slug: 'services/adelaide-cbd-apartment-removalists',
+    title: 'Adelaide CBD Apartment Removalists | Lift Access Planning | ZQ Removals',
+    description:
+      'Adelaide CBD apartment removalists for lift bookings, loading zones, and manual quote review before moving day.',
+    canonical: '/services/adelaide-cbd-apartment-removalists/',
+    type: 'service',
+    hero:
+      'Adelaide CBD apartment moves need lift windows, parking control, and clear load sequencing before move day.',
+    sections: [
+      'Use this page when the brief is city-led, apartment-led, or mixed-use and the building access rules will shape the quote more than travel distance.',
+      'ZQ Removals reviews the building notes, access path, inventory, and timing manually so you get a fixed price before moving day rather than a vague hourly estimate.',
+      'It also suits apartment, high-rise, commercial, fragile item, and interstate moving when the pickup or delivery side runs through the CBD.',
+    ],
+    processSteps: [
+      {
+        title: 'Confirm the building window',
+        copy: 'Check lift bookings, loading zone rules, parking, and any concierge or building-management instructions before the crew is assigned.',
+        points: ['Lift access and loading zones reviewed', 'Parking and carry distance confirmed', 'Move window aligned with building rules'],
+      },
+      {
+        title: 'Review the city brief',
+        copy: 'Manually review the inventory, fragile items, and access path so the fixed-price quote reflects the real apartment job.',
+        points: ['Inventory and item sizes listed', 'Manual quote review before booking', 'No hourly slow-walking or hidden surprises'],
+      },
+      {
+        title: 'Load and place by priority',
+        copy: 'Sequence the furniture, hallway protection, and destination placement so the move stays calm inside the approved window.',
+        points: ['Priority items unloaded first', 'Common-area protection maintained', 'Final placement checked before handover'],
+      },
+    ],
+    faq: [
+      {
+        question: 'What details help Adelaide CBD apartment removalists quote accurately?',
+        answer:
+          'Lift bookings, loading zones, stair counts, parking, carry distance, property type, and fragile items should all be supplied before the quote review.',
+      },
+      {
+        question: 'Do city apartment moves need manual quote review?',
+        answer:
+          'Yes. The CBD often adds access and timing variables, so manual review keeps the fixed-price quote aligned with the real job.',
+      },
+      {
+        question: 'Can you handle office or mixed-use CBD moves?',
+        answer:
+          'Yes. CBD jobs often mix apartments, offices, studios, and fragile items, so the route and access brief should be reviewed as one plan.',
+      },
+      {
+        question: 'Is this page only for apartments?',
+        answer:
+          'No. It also fits high-rise, commercial, fragile item, and interstate moving when the CBD address changes the access brief.',
+      },
+    ],
+  },
+  {
+    slug: 'services/office-removalists-adelaide',
+    title: 'Office Removalists Adelaide | Manual Review and Downtime Control | ZQ Removals',
+    description:
+      'Office removalists Adelaide for commercial relocations with manual quote review, dock access, IT handling, and staged restart planning.',
+    canonical: '/services/office-removalists-adelaide/',
+    type: 'service',
+    hero:
+      'Office moves need a stable plan for desks, monitors, files, and restart timing before a single workstation is touched.',
+    sections: [
+      'Use this page when the brief is commercial or mixed-use and downtime, dock access, and labelled unload order matter.',
+      'ZQ Removals reviews the move manually before quoting so you do not get a vague hourly estimate or a moving-day surprise.',
+      'It suits office, clinic, studio, high-rise, fragile item, and interstate moving where the business handover needs to stay orderly.',
+    ],
+    processSteps: [
+      {
+        title: 'Confirm downtime and access',
+        copy: 'Map the move window, loading dock, lift booking, after-hours access, and site contacts before any quote is finalised.',
+        points: ['Downtime window confirmed', 'Dock and lift access reviewed', 'Site contacts captured early'],
+      },
+      {
+        title: 'Review the business brief',
+        copy: 'List desks, IT equipment, files, and fragile items so the team can scope the commercial move manually and fairly.',
+        points: ['Workstations and monitors mapped', 'Files and archives separated', 'No hourly slow-walking'],
+      },
+      {
+        title: 'Stage the restart order',
+        copy: 'Unload by team, zone, or priority room so the office can come back online in a controlled sequence.',
+        points: ['Zone-based unload sequence', 'Priority equipment first', 'Handover checked before sign-off'],
+      },
+    ],
+    faq: [
+      {
+        question: 'Can you move our office after hours?',
+        answer:
+          'After-hours and weekend office moves can be assessed subject to availability. The quote should confirm access, crew timing, and restart priorities first.',
+      },
+      {
+        question: 'Do you handle IT equipment and workstations?',
+        answer:
+          'Yes. Monitors, docks, printers, desk groups, and other standard office equipment can be included when they are listed in the brief.',
+      },
+      {
+        question: 'How do you avoid hidden moving-day surprises?',
+        answer:
+          'By reviewing the access path, inventory, downtime window, and destination requirements manually before the quote is approved.',
+      },
+      {
+        question: 'Can packing be added to an office move?',
+        answer:
+          'Yes. Packing can be scoped into the brief when files, peripherals, or fragile equipment need extra protection before the move.',
+      },
+    ],
+  },
+  {
+    slug: 'services/furniture-bulky-item-removalists-adelaide',
+    title: 'Bulky Item Removalists Adelaide | Careful Handling | ZQ Removals',
+    description:
+      'Furniture and bulky item removalists Adelaide for sofas, beds, wardrobes, whitegoods, and fragile pieces with fixed-price review.',
+    canonical: '/services/furniture-bulky-item-removalists-adelaide/',
+    type: 'service',
+    hero:
+      'Bulky furniture needs the item size, access path, wrapping needs, and placement plan reviewed before the move is booked.',
+    sections: [
+      'Use this page for sofas, beds, wardrobes, whitegoods, antiques, mirrors, and single items when the move is driven by bulky or fragile pieces.',
+      'A manual review keeps the quote aligned with stairs, lifts, parking, long carries, disassembly, and the need for extra wrapping.',
+      'It connects naturally to house, apartment, office, and interstate moving when one heavy item becomes part of a wider brief.',
+    ],
+    processSteps: [
+      {
+        title: 'Measure the item profile',
+        copy: 'Confirm size, weight, finish, disassembly needs, and whether the item needs extra wrapping or padding before quoting.',
+        points: ['Size and finish noted', 'Disassembly checked', 'Wrapping scope confirmed'],
+      },
+      {
+        title: 'Review access and handling',
+        copy: 'Map stairs, lifts, long carries, parking, and tight turns so the job is scoped around the real handling path.',
+        points: ['Access path documented', 'Long carries considered', 'Parking and placement reviewed'],
+      },
+      {
+        title: 'Move with protection',
+        copy: 'Load carefully, keep fragile pieces protected, and place the item cleanly at destination without unnecessary rework.',
+        points: ['Protection applied in transit', 'Placement planned ahead', 'No hidden moving-day surprises'],
+      },
+    ],
+    faq: [
+      {
+        question: 'Can ZQ Removals move a single bulky item in Adelaide?',
+        answer:
+          'Yes. Single-item bulky moves can be quoted when the item, pickup suburb, delivery suburb, access, and timing are supplied clearly.',
+      },
+      {
+        question: 'What should I include in the quote request?',
+        answer:
+          'Item type, approximate size, whether it disassembles, access notes, stairs, lift details, parking, and any fragile or high-finish surfaces.',
+      },
+      {
+        question: 'How do you protect furniture during the move?',
+        answer:
+          'Wrapping, edge protection, blankets, and a planned load order help protect furniture and bulky items during transit.',
+      },
+      {
+        question: 'Can furniture-only handling be combined with a house or office move?',
+        answer:
+          'Yes. Bulky item handling can be quoted by itself or folded into a broader house, apartment, office, or interstate brief.',
+      },
+    ],
+  },
+  {
+    slug: 'services/interstate-removalists-adelaide',
+    title: 'Interstate Removalists Adelaide | Fixed Route Pricing | ZQ Removals',
+    description:
+      'Interstate removalists Adelaide for long-distance moves with route review, packing scope, and fixed prices before moving day.',
+    canonical: '/services/interstate-removalists-adelaide/',
+    type: 'service',
+    hero:
+      'Interstate moving should be scoped around both addresses, packing needs, and delivery windows before the truck leaves Adelaide.',
+    sections: [
+      'Use this page when the move leaves South Australia and the brief needs route planning, handover timing, and transit protection.',
+      'ZQ Removals manually reviews the inventory, access, and destination details so the quote is fixed before moving day instead of changing on the road.',
+      'It suits house, apartment, office, fragile item, and commercial moves when the destination needs precise timing and careful handover.',
+    ],
+    processSteps: [
+      {
+        title: 'Confirm both addresses',
+        copy: 'Review pickup and delivery property types, access notes, parking, and handover timing before the booking is approved.',
+        points: ['Origin and destination checked', 'Access at both ends reviewed', 'Timing windows captured early'],
+      },
+      {
+        title: 'Scope the route and packing',
+        copy: 'Lock in the route, inventory, fragile items, and packing requirements so the interstate quote stays clean and predictable.',
+        points: ['Packing scope included', 'Route timing reviewed', 'Manual quote review completed'],
+      },
+      {
+        title: 'Deliver with a clear handover',
+        copy: 'Sequence the load for transit, then deliver and place the items with the destination handover already planned.',
+        points: ['Load order staged for transit', 'Destination access followed', 'Fixed price before moving day'],
+      },
+    ],
+    faq: [
+      {
+        question: 'What makes an interstate quote more accurate?',
+        answer:
+          'Pickup and delivery suburbs, property types, access, stairs, lifts, parking, inventory volume, and packing scope all improve quote accuracy.',
+      },
+      {
+        question: 'Do both addresses matter on an interstate move?',
+        answer:
+          'Yes. The origin and destination both affect access, parking, carry distance, and handover timing, so both ends should be reviewed together.',
+      },
+      {
+        question: 'Does interstate packing need extra planning?',
+        answer:
+          'Usually yes. Longer transit windows make wrapping, labelling, and the load sequence more important for fragile or high-value items.',
+      },
+      {
+        question: 'How do you avoid hidden moving-day surprises?',
+        answer:
+          'The route, inventory, access, and timing are reviewed manually first so the quote reflects the actual interstate brief before departure.',
+      },
+    ],
+  },
 ];
 
 export const zqServiceIntentProfiles = {
@@ -194,6 +410,34 @@ export const zqServiceIntentProfiles = {
     uniqueAngle: 'positions service choice around quote clarity, access planning, handling standards, and the actual move type',
     conversionCTA: 'Compare a scoped moving quote',
   },
+  'services/adelaide-cbd-apartment-removalists': {
+    primaryKeyword: 'Adelaide CBD apartment removalists',
+    secondaryKeywords: ['CBD apartment movers Adelaide', 'tower movers Adelaide', 'high-rise apartment removals'],
+    searchIntent: 'city apartment access and lift-aware moving',
+    uniqueAngle: 'centres lift windows, loading zones, parking, and a manual quote review before the move is booked',
+    conversionCTA: 'Scope a CBD apartment move',
+  },
+  'services/office-removalists-adelaide': {
+    primaryKeyword: 'office removalists Adelaide',
+    secondaryKeywords: ['commercial movers Adelaide', 'office movers Adelaide', 'business relocation planning'],
+    searchIntent: 'commercial relocation and downtime control',
+    uniqueAngle: 'keeps office quoting tied to dock access, IT equipment, files, restart order, and manual review',
+    conversionCTA: 'Plan an office relocation',
+  },
+  'services/furniture-bulky-item-removalists-adelaide': {
+    primaryKeyword: 'furniture and bulky item removalists Adelaide',
+    secondaryKeywords: ['bulky item movers Adelaide', 'single item removals Adelaide', 'careful furniture moving'],
+    searchIntent: 'bulky item handling and protection',
+    uniqueAngle: 'focuses on item size, access path, wrapping, and placement rather than a generic move template',
+    conversionCTA: 'Request bulky item handling',
+  },
+  'services/interstate-removalists-adelaide': {
+    primaryKeyword: 'interstate removalists Adelaide',
+    secondaryKeywords: ['interstate movers Adelaide', 'long distance removals Adelaide', 'fixed route moving'],
+    searchIntent: 'route planning and long-distance logistics',
+    uniqueAngle: 'ties packing, inventory, route timing, destination access, and handover risk into one fixed-price review',
+    conversionCTA: 'Plan the interstate route',
+  },
 };
 
 export const zqServiceHighlights = {
@@ -216,6 +460,46 @@ export const zqServiceHighlights = {
     'Provider comparison framed around practical move details',
     'Useful when the service type is not yet fully decided',
     'Connects house, furniture, apartment, office, packing, and quote paths',
+  ],
+  'services/adelaide-cbd-apartment-removalists': [
+    'Lift bookings, loading zones, and city parking need to be reviewed first',
+    'Useful for apartment, high-rise, commercial, fragile item, and interstate moving',
+    'Built for manual quote review before a CBD move is approved',
+  ],
+  'services/office-removalists-adelaide': [
+    'Downtime control is part of the move brief',
+    'Useful for desks, monitors, files, and staged office resets',
+    'Connected to CBD and commercial access planning content',
+  ],
+  'services/furniture-bulky-item-removalists-adelaide': [
+    'Bulky item size and access path determine the handling plan',
+    'Useful for sofas, beds, wardrobes, whitegoods, and fragile pieces',
+    'Built to support house, apartment, office, and interstate moves',
+  ],
+  'services/interstate-removalists-adelaide': [
+    'Route timing and handover windows matter on both ends of the move',
+    'Useful for long-distance moves that need packing and destination access review',
+    'Built for fixed-price interstate quoting before moving day',
+  ],
+  'services/adelaide-cbd-apartment-removalists': [
+    'Lift bookings, loading zones, and city parking need to be reviewed first',
+    'Useful for apartment, high-rise, commercial, fragile item, and interstate moving',
+    'Built for manual quote review before a CBD move is approved',
+  ],
+  'services/office-removalists-adelaide': [
+    'Downtime control is part of the move brief',
+    'Useful for desks, monitors, files, and staged office resets',
+    'Connected to CBD and commercial access planning content',
+  ],
+  'services/furniture-bulky-item-removalists-adelaide': [
+    'Bulky item size and access path determine the handling plan',
+    'Useful for sofas, beds, wardrobes, whitegoods, and fragile pieces',
+    'Built to support house, apartment, office, and interstate moves',
+  ],
+  'services/interstate-removalists-adelaide': [
+    'Route timing and handover windows matter on both ends of the move',
+    'Useful for long-distance moves that need packing and destination access review',
+    'Built for fixed-price interstate quoting before moving day',
   ],
 };
 
@@ -276,6 +560,62 @@ export const zqServiceFactorCards = {
       copy: 'Careful handling comes from planning the load order, access path, protection needs, and placement before move day.',
     },
   ],
+  'services/adelaide-cbd-apartment-removalists': [
+    {
+      title: 'City access',
+      copy: 'Lift bookings, loading zones, parking pressure, and building rules need to be reviewed before the quote is approved.',
+    },
+    {
+      title: 'Manual review',
+      copy: 'A manual quote review keeps the CBD brief honest when apartment access or mixed-use conditions change the plan.',
+    },
+    {
+      title: 'Broader fit',
+      copy: 'Useful when the same city address also involves offices, fragile items, or an interstate route leaving Adelaide.',
+    },
+  ],
+  'services/office-removalists-adelaide': [
+    {
+      title: 'Downtime control',
+      copy: 'The quote should be shaped around business restart timing, not just the amount of furniture on site.',
+    },
+    {
+      title: 'IT and files',
+      copy: 'Workstations, monitors, documents, and archives need a clear handling sequence before move day.',
+    },
+    {
+      title: 'Fixed-price clarity',
+      copy: 'Manual review helps avoid hourly surprises when dock access, lifts, or after-hours timing affect the job.',
+    },
+  ],
+  'services/furniture-bulky-item-removalists-adelaide': [
+    {
+      title: 'Item profile',
+      copy: 'Size, weight, finish, and disassembly needs change how a bulky item should be moved and wrapped.',
+    },
+    {
+      title: 'Access path',
+      copy: 'Stairs, lifts, parking, long carries, and tight turns matter more than the suburb distance itself.',
+    },
+    {
+      title: 'Protection scope',
+      copy: 'Wrapping, edge protection, and load order should be agreed before fragile or awkward pieces are handled.',
+    },
+  ],
+  'services/interstate-removalists-adelaide': [
+    {
+      title: 'Route detail',
+      copy: 'Pickup and delivery addresses, travel timing, and destination access all affect the route-based quote.',
+    },
+    {
+      title: 'Packing scope',
+      copy: 'Long-distance moves need stronger labelling, wrapping, and load sequencing than most local jobs.',
+    },
+    {
+      title: 'Both ends matter',
+      copy: 'The origin and destination both need to be reviewed before a fixed interstate price can be confirmed.',
+    },
+  ],
   'homepage': [
     {
       title: 'Fixed Pricing',
@@ -288,6 +628,62 @@ export const zqServiceFactorCards = {
     {
       title: 'Local Authority',
       copy: 'Based in Andrews Farm, we cover all Adelaide suburbs from Gawler to Sellicks Beach with deep local route knowledge.',
+    },
+  ],
+  'services/adelaide-cbd-apartment-removalists': [
+    {
+      title: 'City access',
+      copy: 'Lift bookings, loading zones, parking pressure, and building rules need to be reviewed before the quote is approved.',
+    },
+    {
+      title: 'Manual review',
+      copy: 'A manual quote review keeps the CBD brief honest when apartment access or mixed-use conditions change the plan.',
+    },
+    {
+      title: 'Broader fit',
+      copy: 'Useful when the same city address also involves offices, fragile items, or an interstate route leaving Adelaide.',
+    },
+  ],
+  'services/office-removalists-adelaide': [
+    {
+      title: 'Downtime control',
+      copy: 'The quote should be shaped around business restart timing, not just the amount of furniture on site.',
+    },
+    {
+      title: 'IT and files',
+      copy: 'Workstations, monitors, documents, and archives need a clear handling sequence before move day.',
+    },
+    {
+      title: 'Fixed-price clarity',
+      copy: 'Manual review helps avoid hourly surprises when dock access, lifts, or after-hours timing affect the job.',
+    },
+  ],
+  'services/furniture-bulky-item-removalists-adelaide': [
+    {
+      title: 'Item profile',
+      copy: 'Size, weight, finish, and disassembly needs change how a bulky item should be moved and wrapped.',
+    },
+    {
+      title: 'Access path',
+      copy: 'Stairs, lifts, parking, long carries, and tight turns matter more than the suburb distance itself.',
+    },
+    {
+      title: 'Protection scope',
+      copy: 'Wrapping, edge protection, and load order should be agreed before fragile or awkward pieces are handled.',
+    },
+  ],
+  'services/interstate-removalists-adelaide': [
+    {
+      title: 'Route detail',
+      copy: 'Pickup and delivery addresses, travel timing, and destination access all affect the route-based quote.',
+    },
+    {
+      title: 'Packing scope',
+      copy: 'Long-distance moves need stronger labelling, wrapping, and load sequencing than most local jobs.',
+    },
+    {
+      title: 'Both ends matter',
+      copy: 'The origin and destination both need to be reviewed before a fixed interstate price can be confirmed.',
     },
   ],
 };
@@ -312,6 +708,26 @@ export const zqServiceAeoProfiles = {
     question: 'How should you compare a moving company in Adelaide?',
     answer:
       'Compare providers by quote clarity, access planning, handling standards, relevant service pages, communication, and whether the quote reflects the real move brief.',
+  },
+  'services/adelaide-cbd-apartment-removalists': {
+    question: 'What matters most for Adelaide CBD apartment removals?',
+    answer:
+      'Lift bookings, loading zones, parking pressure, building rules, stair or corridor access, and whether the move also touches office or mixed-use spaces all affect the quote.',
+  },
+  'services/office-removalists-adelaide': {
+    question: 'How should Adelaide office removals be quoted?',
+    answer:
+      'Office removals should be quoted around downtime control, access, IT equipment, files, and the restart order so the move supports the business rather than disrupting it.',
+  },
+  'services/furniture-bulky-item-removalists-adelaide': {
+    question: 'What should you confirm before booking a bulky item move?',
+    answer:
+      'Confirm the item size, weight, finish, disassembly needs, access path, stairs or lifts, parking, and whether wrapping or edge protection is required.',
+  },
+  'services/interstate-removalists-adelaide': {
+    question: 'What details make interstate removals from Adelaide more accurate?',
+    answer:
+      'Pickup and delivery addresses, access notes, parking, inventory volume, packing scope, and handover timing at both ends make interstate quoting more reliable.',
   },
   'homepage': {
     question: 'Who are the best fixed-price removalists in Adelaide?',

@@ -99,6 +99,102 @@ export const zqServiceLinkProfiles = {
       { href: '/fixed-price-removalists-adelaide/', label: 'fixed-price moving quotes' },
     ],
   },
+  'services/adelaide-cbd-apartment-removalists': {
+    services: [
+      { href: '/fixed-price-removalists-adelaide/', label: 'fixed-price quote review' },
+      { href: '/apartment-removalists-adelaide/', label: 'apartment removalists Adelaide' },
+      { href: '/office-removals-adelaide/', label: 'office removals Adelaide' },
+      { href: '/interstate-removals-adelaide/', label: 'interstate removals Adelaide' },
+    ],
+    suburbs: [
+      { href: '/removalists-adelaide-cbd/', label: 'Adelaide CBD moves' },
+      { href: '/removalists-north-adelaide/', label: 'North Adelaide access' },
+      { href: '/removalists-norwood/', label: 'Norwood inner-east routes' },
+      { href: '/removalists-mawson-lakes/', label: 'Mawson Lakes shared-access routes' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/apartment-lift-bookings-adelaide/', label: 'lift booking guide' },
+      { href: '/adelaide-moving-guides/office-access-planning-adelaide-cbd/', label: 'CBD office access guide' },
+      { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'booking timing guide' },
+    ],
+    siblings: [
+      { href: '/services/office-removalists-adelaide/', label: 'office removalists Adelaide' },
+      { href: '/services/furniture-bulky-item-removalists-adelaide/', label: 'bulky item removals' },
+      { href: '/moving-quotes-adelaide/', label: 'moving quotes Adelaide' },
+    ],
+  },
+  'services/office-removalists-adelaide': {
+    services: [
+      { href: '/fixed-price-removalists-adelaide/', label: 'fixed-price quote review' },
+      { href: '/office-relocation-adelaide/', label: 'office relocation Adelaide' },
+      { href: '/office-removals-adelaide/', label: 'office removals Adelaide' },
+      { href: '/interstate-removals-adelaide/', label: 'interstate removals Adelaide' },
+    ],
+    suburbs: [
+      { href: '/removalists-adelaide-cbd/', label: 'CBD office routes' },
+      { href: '/removalists-marion/', label: 'Marion commercial moves' },
+      { href: '/removalists-norwood/', label: 'Norwood commercial routes' },
+      { href: '/removalists-prospect/', label: 'Prospect business moves' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/office-relocation-preparation-adelaide/', label: 'office relocation prep' },
+      { href: '/adelaide-moving-guides/office-access-planning-adelaide-cbd/', label: 'office access planning' },
+      { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'booking timing guide' },
+    ],
+    siblings: [
+      { href: '/services/adelaide-cbd-apartment-removalists/', label: 'CBD apartment removalists' },
+      { href: '/services/furniture-bulky-item-removalists-adelaide/', label: 'bulky item removals' },
+      { href: '/services/interstate-removalists-adelaide/', label: 'interstate removals' },
+    ],
+  },
+  'services/furniture-bulky-item-removalists-adelaide': {
+    services: [
+      { href: '/fixed-price-removalists-adelaide/', label: 'fixed-price quote review' },
+      { href: '/furniture-removals-adelaide/', label: 'furniture removals Adelaide' },
+      { href: '/house-removals-adelaide/', label: 'house removals Adelaide' },
+      { href: '/packing-services-adelaide/', label: 'packing support' },
+    ],
+    suburbs: [
+      { href: '/removalists-glenelg/', label: 'Glenelg furniture access' },
+      { href: '/removalists-norwood/', label: 'Norwood tight-entry moves' },
+      { href: '/removalists-marion/', label: 'Marion household furniture routes' },
+      { href: '/removalists-salisbury/', label: 'Salisbury larger-item moves' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/moving-heavy-furniture-adelaide/', label: 'moving heavy furniture' },
+      { href: '/adelaide-moving-guides/furniture-protection-guide-adelaide/', label: 'furniture protection guide' },
+      { href: '/adelaide-moving-guides/packing-fragile-items-adelaide/', label: 'fragile packing guide' },
+    ],
+    siblings: [
+      { href: '/services/adelaide-cbd-apartment-removalists/', label: 'CBD apartment removalists' },
+      { href: '/services/office-removalists-adelaide/', label: 'office removalists Adelaide' },
+      { href: '/services/interstate-removalists-adelaide/', label: 'interstate removals Adelaide' },
+    ],
+  },
+  'services/interstate-removalists-adelaide': {
+    services: [
+      { href: '/fixed-price-removalists-adelaide/', label: 'fixed-price quote review' },
+      { href: '/interstate-removals-adelaide/', label: 'interstate removals Adelaide' },
+      { href: '/packing-services-adelaide/', label: 'packing services Adelaide' },
+      { href: '/house-removals-adelaide/', label: 'house removals Adelaide' },
+    ],
+    suburbs: [
+      { href: '/removalists-adelaide-cbd/', label: 'CBD departure routes' },
+      { href: '/removalists-marion/', label: 'Marion departure routes' },
+      { href: '/removalists-salisbury/', label: 'Salisbury departure routes' },
+      { href: '/removalists-glenelg/', label: 'Glenelg departure routes' },
+    ],
+    guides: [
+      { href: '/adelaide-moving-guides/interstate-moving-checklist-adelaide/', label: 'interstate moving checklist' },
+      { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'booking timing guide' },
+      { href: '/removalist-cost-adelaide/', label: 'removalist cost Adelaide' },
+    ],
+    siblings: [
+      { href: '/services/adelaide-cbd-apartment-removalists/', label: 'CBD apartment removalists' },
+      { href: '/services/office-removalists-adelaide/', label: 'office removalists Adelaide' },
+      { href: '/services/furniture-bulky-item-removalists-adelaide/', label: 'bulky item removals' },
+    ],
+  },
 };
 
 export const zqGuideLinkProfiles = {

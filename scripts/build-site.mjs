@@ -2444,7 +2444,14 @@ const localProofProfiles = {
 const releaseBuildLock = await acquireBuildLock();
 
 try {
-  await rm(distRoot, { recursive: true, force: true, maxRetries: 25, retryDelay: 200 });
+  try {
+    await rm(distRoot, { recursive: true, force: true, maxRetries: 25, retryDelay: 200 });
+  } catch (error) {
+    if (error?.code !== 'EBUSY') {
+      throw error;
+    }
+    console.warn(`Skipping clean build for ${distRoot} because the directory is busy; overwriting files in place.`);
+  }
   await mkdir(distRoot, { recursive: true });
   const premiumSiteCss = await readFile(path.join(projectRoot, 'premium-site.css'), 'utf8');
   const renderedHtmlByOutput = new Map();
