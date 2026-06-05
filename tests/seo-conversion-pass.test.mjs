@@ -91,7 +91,7 @@ test('generated html keeps internal hrefs root-absolute', () => {
   }
 });
 
-test('quote forms post directly to Web3Forms with the required contact field names', () => {
+test('quote forms post to /api/quote with attribution and the required contact field names', () => {
   const homepage = readDist('index.html');
   const contactPage = readDist(path.join('contact-us', 'index.html'));
   const clientScript = readDist('site.js');
@@ -108,14 +108,17 @@ test('quote forms post directly to Web3Forms with the required contact field nam
   assert.match(contactPage, /Get My Fixed-Price Quote/i);
   assert.match(contactPage, /Get your fixed-price quote in minutes/i);
   assert.match(contactPage, /What happens after you enquire/i);
-  assert.match(clientScript, /new FormData\(form\)/);
+  assert.match(clientScript, /const attribution = getStoredAttribution\(\);/);
+  assert.match(clientScript, /JSON\.stringify\(buildQuoteSubmissionPayload\(payload\)\)/);
   assert.match(clientScript, /function updateFormStepAccessibility\(form, activeStepIndex\)/);
   assert.match(clientScript, /fieldset\.setAttribute\("aria-hidden", "true"\)/);
   assert.match(clientScript, /el\.setAttribute\("tabindex", "-1"\)/);
-  assert.match(clientScript, /https:\/\/api\.web3forms\.com\/submit/);
-  assert.match(clientScript, /d928b483-d5f0-40d7-9eb1-44a56130ba63/);
-  assert.match(clientScript, /Accept:\s*"application\/json"/);
-  assert.doesNotMatch(clientScript, /fetch\("\/api\/quote"/);
+  assert.match(clientScript, /fetch\(QUOTE_API_ENDPOINT,/);
+  assert.match(clientScript, /"Content-Type": "application\/json"/);
+  assert.match(clientScript, /source_page: window\.location\.href/);
+  assert.match(clientScript, /attribution,/);
+  assert.doesNotMatch(clientScript, /api\.web3forms\.com/);
+  assert.doesNotMatch(clientScript, /d928b483-d5f0-40d7-9eb1-44a56130ba63/);
 });
 
 test('house removals page owns the residential keyword and old local-removals URL redirects to it', () => {

@@ -27,10 +27,7 @@ const quoteForms = Array.from(
 const quoteDateFields = Array.from(
   document.querySelectorAll('input[type="date"][name*="date"]'),
 );
-const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
-const WEB3FORMS_ACCESS_KEY = "d928b483-d5f0-40d7-9eb1-44a56130ba63";
-const WEB3FORMS_SUBJECT = "New ZQ Removals Quote Request";
-const WEB3FORMS_FROM_NAME = "ZQ Removals Website";
+const QUOTE_API_ENDPOINT = "/api/quote";
 const DEFAULT_QUOTE_ERROR_MESSAGE = "Could not send the request. Please try again.";
 const SOCIAL_PROFILES = {
   facebook: "",
@@ -70,6 +67,21 @@ function setQuoteDateMinimum() {
   quoteDateFields.forEach((field) => {
     field.min = minDate;
   });
+}
+
+function getTrimmedPayloadValue(payload, field) {
+  return String(payload[field] ?? "").trim();
+}
+
+function getFirstNonEmptyPayloadValue(payload, fields, fallback = "") {
+  for (const field of fields) {
+    const value = getTrimmedPayloadValue(payload, field);
+    if (value) {
+      return value;
+    }
+  }
+
+  return fallback;
 }
 
 function setupHeaderDetails() {
@@ -388,13 +400,32 @@ function trackQuoteSubmission() {
   trackFormSubmit("quote_form");
 }
 
-function attachAttributionFields(form) {
+function buildQuoteSubmissionPayload(payload) {
   const attribution = getStoredAttribution();
-  Object.entries(attribution).forEach(([key, value]) => {
-    if (typeof value === "string" && value) {
-      ensureHiddenField(form, key, value);
-    }
-  });
+
+  return {
+    botcheck: getFirstNonEmptyPayloadValue(payload, ["botcheck"]),
+    source_page: window.location.href,
+    attribution,
+    move_date: getFirstNonEmptyPayloadValue(payload, ["move_date", "preferred_move_date"]),
+    pickup_suburb: getFirstNonEmptyPayloadValue(payload, ["pickup_suburb"]),
+    dropoff_suburb: getFirstNonEmptyPayloadValue(payload, ["dropoff_suburb", "delivery_suburb"]),
+    move_scope: getFirstNonEmptyPayloadValue(payload, ["move_scope", "move_type"], "not-sure"),
+    property_type: getFirstNonEmptyPayloadValue(payload, ["property_type"], "not-sure"),
+    move_size: getFirstNonEmptyPayloadValue(payload, ["move_size"], "not-sure"),
+    pickup_access: getFirstNonEmptyPayloadValue(payload, ["pickup_access"], "not-sure"),
+    dropoff_access: getFirstNonEmptyPayloadValue(payload, ["dropoff_access"], "not-sure"),
+    packing_required: getFirstNonEmptyPayloadValue(payload, ["packing_required"], "not-sure"),
+    full_name: getFirstNonEmptyPayloadValue(payload, ["full_name", "name"]),
+    phone: getFirstNonEmptyPayloadValue(payload, ["phone"]),
+    email: getFirstNonEmptyPayloadValue(payload, ["email"]),
+    move_details: getFirstNonEmptyPayloadValue(payload, [
+      "move_details",
+      "message",
+      "access_notes",
+      "inventory_special_items",
+    ]),
+  };
 }
 
 function setupSuccessPageTracking() {
@@ -509,24 +540,15 @@ function setQuoteFormSubmitting(form, isSubmitting) {
 }
 
 async function submitQuoteForm(form, payload) {
-  attachAttributionFields(form);
-  const formData = new FormData(form);
-  Object.entries(payload).forEach(([fieldName, value]) => {
-    formData.set(fieldName, value);
-  });
-  formData.set("access_key", WEB3FORMS_ACCESS_KEY);
-  formData.set("subject", WEB3FORMS_SUBJECT);
-  formData.set("from_name", WEB3FORMS_FROM_NAME);
-  formData.set("source_page", window.location.href);
-
   let response;
   try {
-    response = await fetch(WEB3FORMS_ENDPOINT, {
+    response = await fetch(QUOTE_API_ENDPOINT, {
       method: "POST",
       headers: {
+        "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: formData,
+      body: JSON.stringify(buildQuoteSubmissionPayload(payload)),
     });
   } catch (error) {
     const requestError = new Error(DEFAULT_QUOTE_ERROR_MESSAGE);

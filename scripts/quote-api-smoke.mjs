@@ -24,9 +24,13 @@ function createResponse() {
   };
 }
 
-function createRequest(payload) {
+function createRequest(payload, headers = {}, remoteAddress = '127.0.0.1') {
   return {
     method: 'POST',
+    headers,
+    socket: {
+      remoteAddress,
+    },
     async *[Symbol.asyncIterator]() {
       yield JSON.stringify(payload);
     },
@@ -49,6 +53,16 @@ const validPayload = {
   email: 'test@example.com',
   move_details: 'Two sofas, a fridge, and stair access at the drop-off property.',
   source_page: 'https://zqremovals.au/contact-us/',
+  attribution: {
+    utm_source: 'google',
+    utm_medium: 'cpc',
+    utm_campaign: 'adelaide-removals',
+    utm_content: 'hero-cta',
+    utm_term: 'fixed-price-quote',
+    gclid: 'test-gclid',
+    fbclid: 'test-fbclid',
+    landing_page: 'https://zqremovals.au/?utm_source=google',
+  },
 };
 
 const simpleContactPayload = {
@@ -121,7 +135,19 @@ async function runLegacyKeySmoke() {
 
   try {
     const res = createResponse();
-    await handler(createRequest(validPayload), res);
+    await handler(
+      createRequest(
+        validPayload,
+        {
+          'x-forwarded-for': '203.0.113.10',
+          'x-vercel-ip-city': 'Adelaide%20CBD',
+          'x-vercel-ip-country-region': 'South Australia',
+          'x-vercel-ip-country': 'AU',
+          'x-vercel-ip-timezone': 'Australia/Adelaide',
+        },
+      ),
+      res,
+    );
 
     assert.equal(res.statusCode, 200);
     assert.equal(res.headers['content-type'], 'application/json');
@@ -135,6 +161,16 @@ async function runLegacyKeySmoke() {
     assert.equal(upstreamBody.source_page, validPayload.source_page);
     assert.equal(upstreamBody.dropoff_suburb, validPayload.dropoff_suburb);
     assert.equal(upstreamBody.move_scope, validPayload.move_scope);
+    assert.equal(upstreamBody.full_name, validPayload.full_name);
+    assert.equal(upstreamBody.move_details, validPayload.move_details);
+    assert.equal(upstreamBody.utm_source, validPayload.attribution.utm_source);
+    assert.equal(upstreamBody.utm_medium, validPayload.attribution.utm_medium);
+    assert.equal(upstreamBody.utm_campaign, validPayload.attribution.utm_campaign);
+    assert.equal(upstreamBody.gclid, validPayload.attribution.gclid);
+    assert.equal(upstreamBody.fbclid, validPayload.attribution.fbclid);
+    assert.equal(upstreamBody._edge_ip, '203.0.113.10');
+    assert.equal(upstreamBody._edge_location, 'Adelaide CBD, South Australia, AU');
+    assert.equal(upstreamBody._edge_timezone, 'Australia/Adelaide');
   } finally {
     if (originalFetch === undefined) {
       delete global.fetch;

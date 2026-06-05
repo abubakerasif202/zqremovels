@@ -1,3 +1,8 @@
+/**
+ * ZQ Removals - Production Lead Extraction & Telemetry Engine
+ * Engineered by FuckTheBug.com.au
+ */
+
 const QUOTE_REQUIRED_FIELDS = [
   "pickup_suburb",
   "dropoff_suburb",
@@ -12,6 +17,7 @@ const QUOTE_REQUIRED_FIELDS = [
   "email",
   "move_details",
 ];
+
 const LEGACY_QUOTE_REQUIRED_FIELDS = [
   "pickup_suburb",
   "delivery_suburb",
@@ -23,9 +29,27 @@ const LEGACY_QUOTE_REQUIRED_FIELDS = [
   "phone",
   "email",
 ];
+
 const CONTACT_REQUIRED_FIELDS = ["name", "email", "message"];
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const QUOTE_INDICATOR_FIELDS = [
+  "pickup_suburb",
+  "dropoff_suburb",
+  "delivery_suburb",
+  "move_scope",
+  "move_type",
+  "property_type",
+  "move_size",
+  "pickup_access",
+  "dropoff_access",
+  "packing_required",
+  "move_details",
+  "access_notes",
+  "inventory_special_items",
+  "preferred_move_date",
+  "move_date",
+];
 
 function sendJson(res, status, payload) {
   res.status(status).setHeader("Content-Type", "application/json");
@@ -44,16 +68,55 @@ function getTrimmedString(payload, field) {
   return String(payload[field] ?? "").trim();
 }
 
+function getFirstTrimmedString(payload, fields, fallback = "") {
+  for (const field of fields) {
+    const value = getTrimmedString(payload, field);
+    if (value) {
+      return value;
+    }
+  }
+
+  return fallback;
+}
+
 function hasAnyField(payload, fields) {
   return fields.some((field) => Object.prototype.hasOwnProperty.call(payload, field));
 }
 
-function normaliseSubmission(payload) {
+function extractEdgeGeoContext(req) {
+  return {
+    ip: req.headers["x-forwarded-for"] || req.socket.remoteAddress || "unknown",
+    city: req.headers["x-vercel-ip-city"] ? decodeURIComponent(req.headers["x-vercel-ip-city"]) : "Unknown",
+    region: req.headers["x-vercel-ip-country-region"] || "Unknown",
+    country: req.headers["x-vercel-ip-country"] || "Unknown",
+    timezone: req.headers["x-vercel-ip-timezone"] || "Unknown",
+  };
+}
+
+function normaliseSubmission(payload, geoContext) {
   const isSimpleContactSubmission =
     typeof payload === "object" &&
     payload !== null &&
+    !hasAnyField(payload, QUOTE_INDICATOR_FIELDS) &&
     (Object.prototype.hasOwnProperty.call(payload, "message") ||
       Object.prototype.hasOwnProperty.call(payload, "name"));
+
+  const clientAttribution =
+    payload.attribution && typeof payload.attribution === "object" ? payload.attribution : {};
+
+  const trackingMeta = {
+    _edge_ip: geoContext.ip,
+    _edge_location: `${geoContext.city}, ${geoContext.region}, ${geoContext.country}`,
+    _edge_timezone: geoContext.timezone,
+    utm_source: clientAttribution.utm_source || "organic",
+    utm_medium: clientAttribution.utm_medium || "direct",
+    utm_campaign: clientAttribution.utm_campaign || "",
+    utm_content: clientAttribution.utm_content || "",
+    utm_term: clientAttribution.utm_term || "",
+    gclid: clientAttribution.gclid || "",
+    fbclid: clientAttribution.fbclid || "",
+    landing_page: clientAttribution.landing_page || "",
+  };
 
   if (isSimpleContactSubmission) {
     for (const field of CONTACT_REQUIRED_FIELDS) {
@@ -80,6 +143,7 @@ function normaliseSubmission(payload) {
         phone: getTrimmedString(payload, "phone"),
         message: getTrimmedString(payload, "message"),
         source_page: getTrimmedString(payload, "source_page"),
+        ...trackingMeta,
       },
     };
   }
@@ -97,7 +161,25 @@ function normaliseSubmission(payload) {
     : QUOTE_REQUIRED_FIELDS;
 
   for (const field of requiredFields) {
-    if (!getTrimmedString(payload, field)) {
+    const value =
+              field === "full_name"
+        ? getFirstTrimmedString(payload, ["full_name", "name"])
+        : field === "dropoff_suburb"
+          ? getFirstTrimmedString(payload, ["dropoff_suburb", "delivery_suburb"])
+          : field === "move_scope"
+            ? getFirstTrimmedString(payload, ["move_scope", "move_type"], "not-sure")
+              : field === "move_details"
+              ? getFirstTrimmedString(payload, [
+                  "move_details",
+                  "message",
+                  "access_notes",
+                  "inventory_special_items",
+                ])
+              : field === "move_size" || field === "pickup_access" || field === "dropoff_access" || field === "packing_required"
+                ? getTrimmedString(payload, field) || "not-sure"
+                : getTrimmedString(payload, field);
+
+    if (!value) {
       return {
         error: { status: 400, message: `Missing field: ${field}` },
       };
@@ -114,7 +196,7 @@ function normaliseSubmission(payload) {
     return {
       upstreamPayload: {
         subject: "Quote request - ZQ Removals",
-        from_name: getTrimmedString(payload, "full_name"),
+        from_name: getFirstTrimmedString(payload, ["full_name", "name"]),
         botcheck: "",
         pickup_suburb: getTrimmedString(payload, "pickup_suburb"),
         delivery_suburb: getTrimmedString(payload, "delivery_suburb"),
@@ -123,10 +205,11 @@ function normaliseSubmission(payload) {
         preferred_move_date: getTrimmedString(payload, "preferred_move_date"),
         access_notes: getTrimmedString(payload, "access_notes"),
         inventory_special_items: getTrimmedString(payload, "inventory_special_items"),
-        full_name: getTrimmedString(payload, "full_name"),
+        full_name: getFirstTrimmedString(payload, ["full_name", "name"]),
         phone: getTrimmedString(payload, "phone"),
         email: getTrimmedString(payload, "email"),
         source_page: getTrimmedString(payload, "source_page"),
+        ...trackingMeta,
       },
     };
   }
@@ -134,24 +217,55 @@ function normaliseSubmission(payload) {
   return {
     upstreamPayload: {
       subject: "Quote request - ZQ Removals",
-      from_name: getTrimmedString(payload, "full_name"),
+      from_name: getFirstTrimmedString(payload, ["full_name", "name"]),
       botcheck: "",
-      move_date: getTrimmedString(payload, "move_date"),
+      move_date: getFirstTrimmedString(payload, ["move_date", "preferred_move_date"]),
       pickup_suburb: getTrimmedString(payload, "pickup_suburb"),
-      dropoff_suburb: getTrimmedString(payload, "dropoff_suburb"),
-      move_scope: getTrimmedString(payload, "move_scope"),
-      property_type: getTrimmedString(payload, "property_type"),
-      move_size: getTrimmedString(payload, "move_size"),
-      pickup_access: getTrimmedString(payload, "pickup_access"),
-      dropoff_access: getTrimmedString(payload, "dropoff_access"),
-      packing_required: getTrimmedString(payload, "packing_required"),
-      move_details: getTrimmedString(payload, "move_details"),
-      full_name: getTrimmedString(payload, "full_name"),
+      dropoff_suburb: getFirstTrimmedString(payload, ["dropoff_suburb", "delivery_suburb"]),
+      move_scope: getFirstTrimmedString(payload, ["move_scope", "move_type"], "not-sure"),
+      property_type: getFirstTrimmedString(payload, ["property_type"], "not-sure"),
+      move_size: getFirstTrimmedString(payload, ["move_size"], "not-sure"),
+      pickup_access: getFirstTrimmedString(payload, ["pickup_access"], "not-sure"),
+      dropoff_access: getFirstTrimmedString(payload, ["dropoff_access"], "not-sure"),
+      packing_required: getFirstTrimmedString(payload, ["packing_required"], "not-sure"),
+      move_details: getFirstTrimmedString(payload, [
+        "move_details",
+        "message",
+        "access_notes",
+        "inventory_special_items",
+      ]),
+      full_name: getFirstTrimmedString(payload, ["full_name", "name"]),
       phone: getTrimmedString(payload, "phone"),
       email: getTrimmedString(payload, "email"),
       source_page: getTrimmedString(payload, "source_page"),
+      ...trackingMeta,
     },
   };
+}
+
+async function triggerServerTelemetryLog(upstreamPayload) {
+  if (!process.env.TELEMETRY_LOG_ENDPOINT) return;
+
+  try {
+    await fetch(process.env.TELEMETRY_LOG_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        timestamp: new Date().toISOString(),
+        business: "ZQ Removals",
+        lead_name: upstreamPayload.from_name,
+        email: upstreamPayload.email,
+        phone: upstreamPayload.phone,
+        utm_source: upstreamPayload.utm_source,
+        utm_medium: upstreamPayload.utm_medium,
+        utm_campaign: upstreamPayload.utm_campaign,
+        location: upstreamPayload._edge_location,
+      }),
+      signal: AbortSignal.timeout(3000),
+    });
+  } catch (err) {
+    console.error("Server-side conversion telemetric tracking failed asynchronously.", err);
+  }
 }
 
 module.exports = async function handler(req, res) {
@@ -173,7 +287,8 @@ module.exports = async function handler(req, res) {
       return sendJson(res, 400, { success: false, message: "Invalid request" });
     }
 
-    const submission = normaliseSubmission(payload);
+    const geoContext = extractEdgeGeoContext(req);
+    const submission = normaliseSubmission(payload, geoContext);
     if (submission.error) {
       return sendJson(res, submission.error.status, {
         success: false,
@@ -237,6 +352,8 @@ module.exports = async function handler(req, res) {
           `Upstream error (${web3Response.status})`,
       });
     }
+
+    triggerServerTelemetryLog(submission.upstreamPayload);
 
     return sendJson(res, 200, { success: true, message: "Quote submitted" });
   } catch (error) {
