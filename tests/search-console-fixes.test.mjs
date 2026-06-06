@@ -246,6 +246,10 @@ test('shared mobile UX markup stays accessible and compact', () => {
   assert.match(css, /@media \(max-width: 640px\)/i);
   assert.match(css, /\.sticky-mobile-cta\s*\{/i);
   assert.match(css, /padding-bottom:\s*calc\(0\.75rem \+ env\(safe-area-inset-bottom,\s*0px\)\)/i);
+  assert.match(css, /\.js \.reveal-on-scroll\s*\{/i);
+  assert.doesNotMatch(css, /\.js \.reveal-on-scroll\s*\{[\s\S]*?transition:\s*all/i);
+  assert.match(css, /@media \(max-width: 767px\)[\s\S]*?\.mobile-nav-top[\s\S]*?display:\s*none/i);
+  assert.match(css, /@media \(max-width: 767px\)[\s\S]*?\.header-main\s*\{[\s\S]*?min-height:\s*4rem/i);
   assert.match(css, /outline:\s*2px solid var\(--zq-cta\)/i);
   assert.match(css, /\.form-feedback\s*\{[\s\S]*?min-height:\s*1\.5rem/i);
   assert.match(css, /\.quote-form-premium input,\s*\.quote-form-premium select,\s*\.quote-form-premium textarea/i);
