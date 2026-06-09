@@ -3826,14 +3826,24 @@ function injectLeadMachineHiddenFields(content) {
   ];
 
   return content.replace(/<form\b([^>]*data-quote-form="quote"[^>]*)>/gi, (match) => {
-    if (match.includes('name="utm_source"')) {
-      return match;
+    let next = match;
+
+    if (!/\baction="/i.test(next)) {
+      next = next.replace(/>$/, ' action="/api/quote">');
+    }
+
+    if (!/\bmethod="/i.test(next)) {
+      next = next.replace(/>$/, ' method="POST">');
+    }
+
+    if (next.includes('name="utm_source"')) {
+      return next;
     }
 
     const hiddenFields = fields
       .map((name) => `<input type="hidden" name="${name}" value="" data-attribution-field="${name}" />`)
       .join('');
-    return `${match}\n${hiddenFields}`;
+    return `${next}\n${hiddenFields}`;
   });
 }
 

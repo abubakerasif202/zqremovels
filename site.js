@@ -428,6 +428,43 @@ function buildQuoteSubmissionPayload(payload) {
   };
 }
 
+function syncQuoteFormHiddenFields() {
+  if (quoteForms.length === 0) {
+    return;
+  }
+
+  const attribution = getStoredAttribution();
+  const attributionFieldMap = {
+    utm_source: attribution.utm_source || "",
+    utm_medium: attribution.utm_medium || "",
+    utm_campaign: attribution.utm_campaign || "",
+    utm_content: attribution.utm_content || "",
+    utm_term: attribution.utm_term || "",
+    gclid: attribution.gclid || "",
+    fbclid: attribution.fbclid || "",
+    landing_page: attribution.landing_page || "",
+    captured_at: attribution.captured_at || "",
+  };
+
+  quoteForms.forEach((form) => {
+    for (const [fieldName, fieldValue] of Object.entries(attributionFieldMap)) {
+      const field = form.querySelector(`input[name="${fieldName}"][data-attribution-field="${fieldName}"]`);
+      if (field) {
+        field.value = fieldValue;
+      }
+    }
+
+    let sourcePageField = form.querySelector('input[name="source_page"]');
+    if (!sourcePageField) {
+      sourcePageField = document.createElement("input");
+      sourcePageField.type = "hidden";
+      sourcePageField.name = "source_page";
+      form.appendChild(sourcePageField);
+    }
+    sourcePageField.value = window.location.href;
+  });
+}
+
 function setupSuccessPageTracking() {
   const node = document.querySelector("[data-conversion-success]");
   if (!node) {
@@ -577,6 +614,8 @@ function setupQuoteForms() {
     return;
   }
 
+  syncQuoteFormHiddenFields();
+
   quoteForms.forEach((form) => {
     setQuoteFormSubmitting(form, false);
 
@@ -633,6 +672,7 @@ function setupQuoteForms() {
   });
 
   window.addEventListener("pageshow", () => {
+    syncQuoteFormHiddenFields();
     quoteForms.forEach((form) => {
       setQuoteFormSubmitting(form, false);
     });
@@ -767,6 +807,7 @@ setQuoteDateMinimum();
 setupHeaderDetails();
 setupFormState();
 setupQuoteFormStepAccessibility();
+syncQuoteFormHiddenFields();
 setupQuoteForms();
 setupLocalFormPreview();
 setupHeaderState();

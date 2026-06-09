@@ -27,12 +27,28 @@ function createResponse() {
 function createRequest(payload, headers = {}, remoteAddress = '127.0.0.1') {
   return {
     method: 'POST',
-    headers,
+    headers: {
+      accept: 'application/json',
+      ...headers,
+    },
     socket: {
       remoteAddress,
     },
     async *[Symbol.asyncIterator]() {
       yield JSON.stringify(payload);
+    },
+  };
+}
+
+function createFormRequest(body, headers = {}, remoteAddress = '127.0.0.1') {
+  return {
+    method: 'POST',
+    headers,
+    socket: {
+      remoteAddress,
+    },
+    async *[Symbol.asyncIterator]() {
+      yield body;
     },
   };
 }
@@ -239,8 +255,84 @@ async function runSimpleContactPayloadSmoke() {
   }
 }
 
+async function runBrowserFormPayloadSmoke() {
+  const originalFetch = global.fetch;
+  const originalKey = process.env.WEB3FORMS_ACCESS_KEY;
+  process.env.WEB3FORMS_ACCESS_KEY = 'primary-test-key';
+
+  let upstreamBody = null;
+  global.fetch = async (_url, options) => {
+    upstreamBody = JSON.parse(options.body);
+    return {
+      ok: true,
+      status: 200,
+      json: async () => ({ success: true }),
+    };
+  };
+
+  try {
+    const body = new URLSearchParams({
+      botcheck: '',
+      pickup_suburb: 'Adelaide',
+      dropoff_suburb: 'Glenelg',
+      move_scope: 'house-removal',
+      property_type: 'house',
+      move_date: '2026-04-15',
+      move_size: '3-bedroom',
+      pickup_access: 'ground-level',
+      dropoff_access: 'stairs',
+      packing_required: 'partial-packing',
+      full_name: 'Browser Form User',
+      phone: '+61 400 111 222',
+      email: 'browser@example.com',
+      move_details: 'Browser submission should redirect after success.',
+      source_page: 'https://zqremovals.au/contact-us/',
+      utm_source: 'google',
+      utm_medium: 'cpc',
+      utm_campaign: 'adelaide-removals',
+      utm_content: 'hero-cta',
+      utm_term: 'fixed-price-quote',
+      gclid: 'browser-gclid',
+      fbclid: 'browser-fbclid',
+      landing_page: 'https://zqremovals.au/?utm_source=google',
+    }).toString();
+
+    const res = createResponse();
+    await handler(
+      createFormRequest(body, {
+        accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'content-type': 'application/x-www-form-urlencoded',
+        referer: 'https://zqremovals.au/contact-us/',
+      }),
+      res,
+    );
+
+    assert.equal(res.statusCode, 303);
+    assert.equal(res.headers.location, '/thank-you/');
+    assert.equal(upstreamBody.access_key, 'primary-test-key');
+    assert.equal(upstreamBody.source_page, 'https://zqremovals.au/contact-us/');
+    assert.equal(upstreamBody.utm_source, 'google');
+    assert.equal(upstreamBody.utm_medium, 'cpc');
+    assert.equal(upstreamBody.utm_campaign, 'adelaide-removals');
+    assert.equal(upstreamBody.gclid, 'browser-gclid');
+  } finally {
+    if (originalFetch === undefined) {
+      delete global.fetch;
+    } else {
+      global.fetch = originalFetch;
+    }
+
+    if (originalKey === undefined) {
+      delete process.env.WEB3FORMS_ACCESS_KEY;
+    } else {
+      process.env.WEB3FORMS_ACCESS_KEY = originalKey;
+    }
+  }
+}
+
 await runMissingKeySmoke();
 await runLegacyKeySmoke();
 await runSimpleContactPayloadSmoke();
+await runBrowserFormPayloadSmoke();
 
 console.log('quote API smoke checks passed');

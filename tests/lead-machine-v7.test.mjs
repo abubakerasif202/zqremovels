@@ -41,6 +41,8 @@ test('v7 conversion pages exist with forms, call CTAs, and canonical tags', () =
   for (const html of [facebook, google]) {
     assert.match(html, /id="quote-form"/);
     assert.match(html, /data-quote-form="quote"/);
+    assert.match(html, /action="\/api\/quote"/);
+    assert.match(html, /method="POST"/);
     assert.match(html, /href="tel:\+61433819989"/);
     assert.match(html, /FAQPage/);
     assert.match(html, /<link rel="canonical" href="https:\/\/zqremovals\.au\//);

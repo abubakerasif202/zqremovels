@@ -33,6 +33,8 @@ const LEGACY_QUOTE_REQUIRED_FIELDS = [
 const CONTACT_REQUIRED_FIELDS = ["name", "email", "message"];
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const FORM_URLENCODED_REGEX = /^application\/x-www-form-urlencoded\b/i;
+const JSON_CONTENT_TYPE_REGEX = /^application\/json\b/i;
 const QUOTE_INDICATOR_FIELDS = [
   "pickup_suburb",
   "dropoff_suburb",
@@ -79,6 +81,73 @@ function getFirstTrimmedString(payload, fields, fallback = "") {
   return fallback;
 }
 
+function getHeaderValue(req, headerName) {
+  const value = req.headers?.[headerName];
+  if (Array.isArray(value)) {
+    return value.join(", ");
+  }
+  return typeof value === "string" ? value : "";
+}
+
+function wantsJsonResponse(req) {
+  return /application\/json/i.test(getHeaderValue(req, "accept"));
+}
+
+function parseRequestPayload(rawBody, contentType) {
+  if (!rawBody) {
+    return {};
+  }
+
+  if (JSON_CONTENT_TYPE_REGEX.test(contentType)) {
+    return JSON.parse(rawBody);
+  }
+
+  if (FORM_URLENCODED_REGEX.test(contentType)) {
+    const payload = {};
+    const searchParams = new URLSearchParams(rawBody);
+
+    for (const [key, value] of searchParams.entries()) {
+      payload[key] = value;
+    }
+
+    return payload;
+  }
+
+  return JSON.parse(rawBody);
+}
+
+function sendHtml(res, status, title, message, details = "") {
+  res.status(status).setHeader("Content-Type", "text/html; charset=utf-8");
+  res.end(`<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>${title}</title>
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 0; padding: 2rem; line-height: 1.5; background: #f7f7f7; color: #111; }
+      main { max-width: 42rem; margin: 0 auto; background: #fff; border-radius: 1rem; padding: 2rem; box-shadow: 0 8px 30px rgba(0,0,0,.08); }
+      a { color: #0a58ca; }
+      .details { color: #555; margin-top: 0.75rem; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>${title}</h1>
+      <p>${message}</p>
+      ${details ? `<p class="details">${details}</p>` : ""}
+      <p><a href="/contact-us/#quote-form">Back to the quote form</a></p>
+    </main>
+  </body>
+</html>`);
+}
+
+function sendRedirect(res, location) {
+  res.status(303).setHeader("Location", location);
+  res.setHeader("Content-Type", "text/plain; charset=utf-8");
+  res.end("Redirecting...");
+}
+
 function hasAnyField(payload, fields) {
   return fields.some((field) => Object.prototype.hasOwnProperty.call(payload, field));
 }
@@ -102,7 +171,18 @@ function normaliseSubmission(payload, geoContext) {
       Object.prototype.hasOwnProperty.call(payload, "name"));
 
   const clientAttribution =
-    payload.attribution && typeof payload.attribution === "object" ? payload.attribution : {};
+    payload.attribution && typeof payload.attribution === "object"
+      ? payload.attribution
+      : {
+          utm_source: getTrimmedString(payload, "utm_source"),
+          utm_medium: getTrimmedString(payload, "utm_medium"),
+          utm_campaign: getTrimmedString(payload, "utm_campaign"),
+          utm_content: getTrimmedString(payload, "utm_content"),
+          utm_term: getTrimmedString(payload, "utm_term"),
+          gclid: getTrimmedString(payload, "gclid"),
+          fbclid: getTrimmedString(payload, "fbclid"),
+          landing_page: getTrimmedString(payload, "landing_page"),
+        };
 
   const trackingMeta = {
     _edge_ip: geoContext.ip,
@@ -277,14 +357,37 @@ module.exports = async function handler(req, res) {
     const rawBody = await readJsonBody(req);
     let payload = {};
     try {
-      payload = rawBody ? JSON.parse(rawBody) : {};
+      const contentType = getHeaderValue(req, "content-type").split(";")[0].trim();
+      payload = parseRequestPayload(rawBody, contentType);
     } catch (error) {
       console.error("Quote API received malformed JSON.", error);
-      return sendJson(res, 400, { success: false, message: "Malformed JSON payload" });
+      if (wantsJsonResponse(req)) {
+        return sendJson(res, 400, { success: false, message: "Malformed JSON payload" });
+      }
+      return sendHtml(
+        res,
+        400,
+        "Submission error",
+        "We could not read your quote request.",
+        "Please try again or call us if the problem continues.",
+      );
+    }
+
+    if (!getTrimmedString(payload, "source_page")) {
+      payload.source_page = getHeaderValue(req, "referer") || getHeaderValue(req, "origin") || "";
     }
 
     if (payload.botcheck) {
-      return sendJson(res, 400, { success: false, message: "Invalid request" });
+      if (wantsJsonResponse(req)) {
+        return sendJson(res, 400, { success: false, message: "Invalid request" });
+      }
+      return sendHtml(
+        res,
+        400,
+        "Submission blocked",
+        "The form submission was rejected.",
+        "Please return to the quote form and try again.",
+      );
     }
 
     const geoContext = extractEdgeGeoContext(req);
@@ -302,11 +405,20 @@ module.exports = async function handler(req, res) {
       process.env.VITE_WEB3FORMS_ACCESS_KEY?.trim() ||
       (isTest ? "" : "80c3ff0c-7ae6-4aa7-bb66-567612739824");
     if (!accessKey) {
-      return sendJson(res, 500, {
-        success: false,
-        message: "Quote service unavailable",
-        details: "Missing Web3Forms access key environment variable.",
-      });
+      if (wantsJsonResponse(req)) {
+        return sendJson(res, 500, {
+          success: false,
+          message: "Quote service unavailable",
+          details: "Missing Web3Forms access key environment variable.",
+        });
+      }
+      return sendHtml(
+        res,
+        500,
+        "Quote service unavailable",
+        "The quote service is temporarily unavailable.",
+        "Missing Web3Forms access key environment variable.",
+      );
     }
 
     let web3Response;
@@ -324,10 +436,13 @@ module.exports = async function handler(req, res) {
       });
     } catch (error) {
       console.error("Web3Forms request failed.", error);
-      return sendJson(res, 502, {
-        success: false,
-        message: "Failed to reach quote service",
-      });
+      if (wantsJsonResponse(req)) {
+        return sendJson(res, 502, {
+          success: false,
+          message: "Failed to reach quote service",
+        });
+      }
+      return sendHtml(res, 502, "Submission failed", "Failed to reach the quote service.");
     }
 
     let web3Result;
@@ -335,31 +450,45 @@ module.exports = async function handler(req, res) {
       web3Result = await web3Response.json();
     } catch (error) {
       console.error("Web3Forms response parse failed.", error);
-      return sendJson(res, 502, {
-        success: false,
-        message: "Invalid response from quote service",
-      });
+      if (wantsJsonResponse(req)) {
+        return sendJson(res, 502, {
+          success: false,
+          message: "Invalid response from quote service",
+        });
+      }
+      return sendHtml(res, 502, "Submission failed", "The quote service returned an invalid response.");
     }
     if (!web3Response.ok || web3Result.success === false) {
       console.error("Web3Forms upstream returned a failure response.", {
         status: web3Response.status,
         body: web3Result,
       });
-      return sendJson(res, 502, {
-        success: false,
-        message: "Quote submission failed",
-        details:
-          web3Result.message ||
-          web3Result.error ||
-          `Upstream error (${web3Response.status})`,
-      });
+      const failureMessage =
+        web3Result.message ||
+        web3Result.error ||
+        `Upstream error (${web3Response.status})`;
+      if (wantsJsonResponse(req)) {
+        return sendJson(res, 502, {
+          success: false,
+          message: "Quote submission failed",
+          details: failureMessage,
+        });
+      }
+      return sendHtml(res, 502, "Submission failed", "Quote submission failed.", failureMessage);
     }
 
     triggerServerTelemetryLog(submission.upstreamPayload);
 
+    if (!wantsJsonResponse(req)) {
+      return sendRedirect(res, "/thank-you/");
+    }
+
     return sendJson(res, 200, { success: true, message: "Quote submitted" });
   } catch (error) {
     console.error("Quote API handler failed.", error);
-    return sendJson(res, 500, { success: false, message: "Unexpected server error" });
+    if (wantsJsonResponse(req)) {
+      return sendJson(res, 500, { success: false, message: "Unexpected server error" });
+    }
+    return sendHtml(res, 500, "Unexpected server error", "The quote service encountered an unexpected error.");
   }
 };
