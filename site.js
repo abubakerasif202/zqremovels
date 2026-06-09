@@ -62,7 +62,7 @@ const quoteForms = Array.from(
 const quoteDateFields = Array.from(
   document.querySelectorAll('input[type="date"][name*="date"]'),
 );
-const QUOTE_API_ENDPOINT = "/api/quote/";
+const QUOTE_API_ENDPOINT = "https://api.web3forms.com/submit";
 const DEFAULT_QUOTE_ERROR_MESSAGE = "Could not send the request. Please try again.";
 const SOCIAL_PROFILES = {
   facebook: "",
@@ -437,11 +437,30 @@ function trackQuoteSubmission() {
 
 function buildQuoteSubmissionPayload(payload) {
   const attribution = getStoredAttribution();
+  const fullName = getFirstNonEmptyPayloadValue(payload, ["full_name", "name"]);
+  const moveDetails = getFirstNonEmptyPayloadValue(payload, [
+    "move_details",
+    "message",
+    "access_notes",
+    "inventory_special_items",
+  ]);
 
   return {
+    access_key: getTrimmedPayloadValue(payload, "access_key"),
+    subject: getTrimmedPayloadValue(payload, "subject") || "Quote request - ZQ Removals",
+    from_name: fullName || getTrimmedPayloadValue(payload, "from_name") || "ZQ Removals Website",
     botcheck: getFirstNonEmptyPayloadValue(payload, ["botcheck"]),
+    redirect: getTrimmedPayloadValue(payload, "redirect") || "https://zqremovals.au/thank-you/",
     source_page: window.location.href,
-    attribution,
+    utm_source: attribution.utm_source || getTrimmedPayloadValue(payload, "utm_source"),
+    utm_medium: attribution.utm_medium || getTrimmedPayloadValue(payload, "utm_medium"),
+    utm_campaign: attribution.utm_campaign || getTrimmedPayloadValue(payload, "utm_campaign"),
+    utm_content: attribution.utm_content || getTrimmedPayloadValue(payload, "utm_content"),
+    utm_term: attribution.utm_term || getTrimmedPayloadValue(payload, "utm_term"),
+    gclid: attribution.gclid || getTrimmedPayloadValue(payload, "gclid"),
+    fbclid: attribution.fbclid || getTrimmedPayloadValue(payload, "fbclid"),
+    landing_page: attribution.landing_page || getTrimmedPayloadValue(payload, "landing_page"),
+    captured_at: attribution.captured_at || getTrimmedPayloadValue(payload, "captured_at"),
     move_date: getFirstNonEmptyPayloadValue(payload, ["move_date", "preferred_move_date"]),
     pickup_suburb: getFirstNonEmptyPayloadValue(payload, ["pickup_suburb"]),
     dropoff_suburb: getFirstNonEmptyPayloadValue(payload, ["dropoff_suburb", "delivery_suburb"]),
@@ -451,15 +470,12 @@ function buildQuoteSubmissionPayload(payload) {
     pickup_access: getFirstNonEmptyPayloadValue(payload, ["pickup_access"], "not-sure"),
     dropoff_access: getFirstNonEmptyPayloadValue(payload, ["dropoff_access"], "not-sure"),
     packing_required: getFirstNonEmptyPayloadValue(payload, ["packing_required"], "not-sure"),
-    full_name: getFirstNonEmptyPayloadValue(payload, ["full_name", "name"]),
+    full_name: fullName,
+    name: fullName,
     phone: getFirstNonEmptyPayloadValue(payload, ["phone"]),
     email: getFirstNonEmptyPayloadValue(payload, ["email"]),
-    move_details: getFirstNonEmptyPayloadValue(payload, [
-      "move_details",
-      "message",
-      "access_notes",
-      "inventory_special_items",
-    ]),
+    move_details: moveDetails,
+    message: moveDetails,
   };
 }
 
@@ -635,7 +651,11 @@ async function submitQuoteForm(form, payload) {
 
   if (!response.ok || result.success === false) {
     const error = new Error(
-      result.message || result.error || result.details || DEFAULT_QUOTE_ERROR_MESSAGE,
+      result.message ||
+        result.error ||
+        result.details ||
+        result.body?.message ||
+        DEFAULT_QUOTE_ERROR_MESSAGE,
     );
     error.payload = result;
     throw error;

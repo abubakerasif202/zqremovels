@@ -41,8 +41,10 @@ test('v7 conversion pages exist with forms, call CTAs, and canonical tags', () =
   for (const html of [facebook, google]) {
     assert.match(html, /id="quote-form"/);
     assert.match(html, /data-quote-form="quote"/);
-    assert.match(html, /action="\/api\/quote\/"/);
+    assert.match(html, /action="https:\/\/api\.web3forms\.com\/submit"/);
     assert.match(html, /method="POST"/);
+    assert.match(html, /name="access_key" value="80c3ff0c-7ae6-4aa7-bb66-567612739824"/);
+    assert.match(html, /name="redirect" value="https:\/\/zqremovals\.au\/thank-you\/"/);
     assert.match(html, /href="tel:\+61433819989"/);
     assert.match(html, /FAQPage/);
     assert.match(html, /<link rel="canonical" href="https:\/\/zqremovals\.au\//);
@@ -61,9 +63,13 @@ test('v7 quote forms expose required lead fields and attribution hidden fields',
   ];
   const requiredFields = ['name', 'phone', 'pickup_suburb', 'dropoff_suburb', 'move_date', 'move_scope', 'message'];
   const attributionFields = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid'];
+  const web3FormsFields = ['access_key', 'subject', 'from_name', 'redirect'];
 
   for (const html of pages) {
     for (const name of requiredFields) {
+      assert.match(html, new RegExp(`name="${name}"`), `missing ${name}`);
+    }
+    for (const name of web3FormsFields) {
       assert.match(html, new RegExp(`name="${name}"`), `missing ${name}`);
     }
     for (const name of attributionFields) {

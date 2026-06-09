@@ -3866,37 +3866,39 @@ function injectSeoV5GuideFaq(content, page) {
 }
 
 function injectLeadMachineHiddenFields(content) {
-  const fields = [
-    'utm_source',
-    'utm_medium',
-    'utm_campaign',
-    'utm_content',
-    'utm_term',
-    'gclid',
-    'fbclid',
-    'landing_page',
-    'captured_at',
+  const hiddenFields = [
+    { name: 'access_key', value: '80c3ff0c-7ae6-4aa7-bb66-567612739824' },
+    { name: 'subject', value: 'Quote request - ZQ Removals' },
+    { name: 'from_name', value: 'ZQ Removals Website' },
+    { name: 'redirect', value: 'https://zqremovals.au/thank-you/' },
+    { name: 'utm_source', value: '', attr: 'data-attribution-field="utm_source"' },
+    { name: 'utm_medium', value: '', attr: 'data-attribution-field="utm_medium"' },
+    { name: 'utm_campaign', value: '', attr: 'data-attribution-field="utm_campaign"' },
+    { name: 'utm_content', value: '', attr: 'data-attribution-field="utm_content"' },
+    { name: 'utm_term', value: '', attr: 'data-attribution-field="utm_term"' },
+    { name: 'gclid', value: '', attr: 'data-attribution-field="gclid"' },
+    { name: 'fbclid', value: '', attr: 'data-attribution-field="fbclid"' },
+    { name: 'landing_page', value: '', attr: 'data-attribution-field="landing_page"' },
+    { name: 'captured_at', value: '', attr: 'data-attribution-field="captured_at"' },
   ];
 
   return content.replace(/<form\b([^>]*data-quote-form="quote"[^>]*)>/gi, (match) => {
     let next = match;
 
-    if (!/\baction="/i.test(next)) {
-      next = next.replace(/>$/, ' action="/api/quote/">');
+    if (/\baction="/i.test(next)) {
+      next = next.replace(/\saction="[^"]*"/i, ' action="https://api.web3forms.com/submit"');
+    } else {
+      next = next.replace(/>$/, ' action="https://api.web3forms.com/submit">');
     }
 
     if (!/\bmethod="/i.test(next)) {
       next = next.replace(/>$/, ' method="POST">');
     }
 
-    if (next.includes('name="utm_source"')) {
-      return next;
-    }
-
-    const hiddenFields = fields
-      .map((name) => `<input type="hidden" name="${name}" value="" data-attribution-field="${name}" />`)
+    const hiddenFieldMarkup = hiddenFields
+      .map(({ name, value, attr }) => `<input type="hidden" name="${name}" value="${escapeHtml(value)}"${attr ? ` ${attr}` : ''} />`)
       .join('');
-    return `${next}\n${hiddenFields}`;
+    return `${next}\n${hiddenFieldMarkup}`;
   });
 }
 

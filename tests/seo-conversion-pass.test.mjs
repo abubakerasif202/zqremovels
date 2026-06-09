@@ -91,7 +91,7 @@ test('generated html keeps internal hrefs root-absolute', () => {
   }
 });
 
-test('quote forms post to /api/quote/ with attribution and the required contact field names', () => {
+test('quote forms post directly to Web3Forms with attribution and the required contact field names', () => {
   const homepage = readDist('index.html');
   const contactPage = readDist(path.join('contact-us', 'index.html'));
   const clientScript = readDist('site.js');
@@ -113,14 +113,18 @@ test('quote forms post to /api/quote/ with attribution and the required contact 
   assert.match(clientScript, /function updateFormStepAccessibility\(form, activeStepIndex\)/);
   assert.match(clientScript, /fieldset\.setAttribute\("aria-hidden", "true"\)/);
   assert.match(clientScript, /el\.setAttribute\("tabindex", "-1"\)/);
-  assert.match(clientScript, /\b(?:const|var) QUOTE_API_ENDPOINT = "\/api\/quote\/";/);
+  assert.match(clientScript, /\b(?:const|var) QUOTE_API_ENDPOINT = "https:\/\/api\.web3forms\.com\/submit";/);
   assert.match(clientScript, /fetch\(QUOTE_API_ENDPOINT,/);
   assert.match(clientScript, /"Content-Type": "application\/json"/);
+  assert.match(clientScript, /access_key: getTrimmedPayloadValue\(payload, "access_key"\)/);
+  assert.match(clientScript, /subject: getTrimmedPayloadValue\(payload, "subject"\)/);
   assert.match(clientScript, /source_page: window\.location\.href/);
-  assert.match(clientScript, /attribution,/);
-  assert.doesNotMatch(clientScript, /api\.web3forms\.com/);
+  assert.match(clientScript, /utm_source: attribution\.utm_source/);
+  assert.match(contactPage, /action="https:\/\/api\.web3forms\.com\/submit"/);
+  assert.match(contactPage, /method="POST"/);
+  assert.match(contactPage, /name="access_key" value="80c3ff0c-7ae6-4aa7-bb66-567612739824"/);
+  assert.match(contactPage, /name="redirect" value="https:\/\/zqremovals\.au\/thank-you\/"/);
   assert.doesNotMatch(clientScript, /d928b483-d5f0-40d7-9eb1-44a56130ba63/);
-  assert.doesNotMatch(clientScript, /80c3ff0c-7ae6-4aa7-bb66-567612739824/);
 });
 
 test('house removals page owns the residential keyword and old local-removals URL redirects to it', () => {

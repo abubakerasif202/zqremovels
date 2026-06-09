@@ -120,6 +120,8 @@ test('contact page keeps the quote layout while exposing Web3Forms-compatible co
   assert.match(contactPage, /name="email"/);
   assert.match(contactPage, /name="phone"/);
   assert.match(contactPage, /name="message"/);
+  assert.match(contactPage, /action="https:\/\/api\.web3forms\.com\/submit"/);
+  assert.match(contactPage, /name="access_key" value="80c3ff0c-7ae6-4aa7-bb66-567612739824"/);
   assert.doesNotMatch(contactPage, /name="full_name"/);
   assert.doesNotMatch(contactPage, /name="move_details"/);
 });
