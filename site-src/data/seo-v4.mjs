@@ -824,6 +824,7 @@ const suburbData = [
   ['glengowrie', 'Glengowrie', 'Glengowrie', 'coastal', 'coastal townhouses and homes'],
   ['somerton-park-west', 'Somerton Park West', 'Somerton Park West', 'coastal', 'beachside streets and apartments', { hasApartment: true }],
   ['victor-harbor-road', 'Victor Harbor Road Corridor', 'Victor Harbor Road Corridor', 'southern coastal', 'route planning and longer corridor moves'],
+  ['victor-harbor', 'Victor Harbor', 'Victor Harbor', 'southern coastal', 'coastal access and long-distance timing'],
   ['yatala-vale', 'Yatala Vale', 'Yatala Vale', 'north-eastern', 'larger homes and hill-adjacent access'],
   ['linden-park', 'Linden Park', 'Linden Park', 'eastern', 'premium homes and driveways'],
   ['glen-osmond', 'Glen Osmond', 'Glen Osmond', 'east hills', 'slope and access planning'],

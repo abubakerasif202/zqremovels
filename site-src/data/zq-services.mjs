@@ -379,6 +379,60 @@ export const zqServicePages = [
       },
     ],
   },
+  {
+    slug: 'services/piano-movers-adelaide',
+    title: 'Piano Movers Adelaide | Piano Transport Adelaide | ZQ Removals',
+    description:
+      'Specialist piano movers in Adelaide. Safe transport for upright pianos, digital pianos, and organ moves with experienced crew and dedicated ramp setups.',
+    canonical: '/services/piano-movers-adelaide/',
+    type: 'service',
+    hero:
+      'Piano transport requires specialist handling, specialized ramps, correct trollies, and careful route-to-room access planning to protect both the instrument and the property.',
+    sections: [
+      'Moving a piano is not a standard furniture move. Due to their weight, delicate internal mechanics, and high-gloss finishes, pianos require a dedicated setup including heavy-duty trollies, protective wrapping, and ramps.',
+      'ZQ Removals scopes piano moves around the exact access path: stair counts, landing dimensions, tight doorways, grass/gravel pathways, and floor surfaces. We review every detail manually so your fixed-price quote is based on real access conditions rather than guesswork.',
+      'This specialist service covers local Adelaide metro routes, storage transfers, and interstate departures when a piano is part of a larger residential move.',
+    ],
+    processSteps: [
+      {
+        title: 'Assess instrument & access',
+        copy: 'Confirm piano type (e.g. upright, organ), weight, dimensions, and path details like stairs, turns, and flooring types at both ends.',
+        points: ['Upright and digital piano profiles noted', 'Staircases and tight turns measured', 'Floor surface protection planned'],
+      },
+      {
+        title: 'Wrap and secure',
+        copy: 'Apply thick furniture blankets, shrink wrap, and edge padding. Secure the piano to a dedicated piano trolley or skid.',
+        points: ['Premium protective wrapping applied', 'Heavy-duty piano trolleys utilized', 'Transit restraints checked'],
+      },
+      {
+        title: 'Safe transport & placement',
+        copy: 'Load using appropriate ramps or tailgates, transport securely in our fleet, and place the instrument precisely in its new room.',
+        points: ['Ramp and tailgate loading setups', 'Smooth transit positioning', 'Precise room placement and setup'],
+      },
+    ],
+    faq: [
+      {
+        question: 'Do you move grand pianos in Adelaide?',
+        answer:
+          'We specialize in upright pianos, digital pianos, and organs. Grand pianos require specialized disassembly and cranes, which we do not offer. Please contact us to confirm your specific piano profile.',
+      },
+      {
+        question: 'What details do you need for a piano moving quote?',
+        answer:
+          'Provide the piano type, dimensions, photos of the access path at both pickup and delivery (especially any stairs, steps, or narrow turns), and your preferred date.',
+      },
+      {
+        question: 'Does piano moving require a special crew size?',
+        answer:
+          'Yes. Most standard upright piano moves require a minimum of two to three experienced movers to ensure the safety of the instrument, crew, and property walls.',
+      },
+      {
+        question: 'Will my piano need tuning after the move?',
+        answer:
+          'Yes. Although we transport pianos with maximum care, changes in temperature, humidity, and minor vibrations in transit usually mean you should tune the piano 1 to 2 weeks after placement.',
+      },
+    ],
+  },
 ];
 
 export const zqServiceIntentProfiles = {
@@ -437,6 +491,13 @@ export const zqServiceIntentProfiles = {
     searchIntent: 'route planning and long-distance logistics',
     uniqueAngle: 'ties packing, inventory, route timing, destination access, and handover risk into one fixed-price review',
     conversionCTA: 'Plan the interstate route',
+  },
+  'services/piano-movers-adelaide': {
+    primaryKeyword: 'piano movers Adelaide',
+    secondaryKeywords: ['piano transport Adelaide', 'upright piano moving Adelaide', 'specialist piano removalists'],
+    searchIntent: 'specialist upright piano transport and route-to-room access planning',
+    uniqueAngle: 'focuses on access paths, stairways, weight distribution, and specialist ramps rather than a generic furniture template',
+    conversionCTA: 'Request a piano moving quote',
   },
 };
 
@@ -500,6 +561,11 @@ export const zqServiceHighlights = {
     'Route timing and handover windows matter on both ends of the move',
     'Useful for long-distance moves that need packing and destination access review',
     'Built for fixed-price interstate quoting before moving day',
+  ],
+  'services/piano-movers-adelaide': [
+    'Specialist ramps, skids, and heavy-duty trollies are standard',
+    'Useful for upright pianos, digital pianos, and organs',
+    'Built for manual access path and stair count review before quoting',
   ],
 };
 
@@ -686,6 +752,20 @@ export const zqServiceFactorCards = {
       copy: 'The origin and destination both need to be reviewed before a fixed interstate price can be confirmed.',
     },
   ],
+  'services/piano-movers-adelaide': [
+    {
+      title: 'Access constraints',
+      copy: 'Stairs, steps, grass, gravel, and narrow turns are the biggest factors in a safe piano move.',
+    },
+    {
+      title: 'Specialist setup',
+      copy: 'Heavy-duty trolleys, custom ramps, tailgates, and protective blankets are required for every instrument.',
+    },
+    {
+      title: 'Fixed pricing',
+      copy: 'Every piano move is reviewed manually so the final price is fixed and matches the actual access route.',
+    },
+  ],
 };
 
 export const zqServiceAeoProfiles = {
@@ -728,6 +808,11 @@ export const zqServiceAeoProfiles = {
     question: 'What details make interstate removals from Adelaide more accurate?',
     answer:
       'Pickup and delivery addresses, access notes, parking, inventory volume, packing scope, and handover timing at both ends make interstate quoting more reliable.',
+  },
+  'services/piano-movers-adelaide': {
+    question: 'How should upright piano removals be planned in Adelaide?',
+    answer:
+      'Plan piano moves by measuring all doors, stairs, and tight turns along the path. Provide photos of steps, confirm instrument dimensions, and request a fixed-price quote based on manual review.',
   },
   'homepage': {
     question: 'Who are the best fixed-price removalists in Adelaide?',

@@ -242,6 +242,46 @@
       "permanent": true
     },
     {
+      "source": "/adelaide-movers",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/adelaide-movers/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/house-movers-adelaide",
+      "destination": "/house-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/house-movers-adelaide/",
+      "destination": "/house-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/apartment-movers-adelaide",
+      "destination": "/apartment-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/apartment-movers-adelaide/",
+      "destination": "/apartment-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/emergency-movers-adelaide",
+      "destination": "/urgent-movers-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/emergency-movers-adelaide/",
+      "destination": "/urgent-movers-adelaide/",
+      "permanent": true
+    },
+    {
       "source": "/interstate-removalists-adelaide",
       "destination": "/interstate-removals-adelaide/",
       "permanent": true

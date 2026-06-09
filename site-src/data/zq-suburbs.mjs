@@ -19,6 +19,9 @@ export const zqPrioritySuburbSlugs = [
   'tea-tree-gully',
   'brighton',
   'west-lakes',
+  'semaphore',
+  'victor-harbor',
+  'mount-barker',
 ];
 
 export const zqPrioritySuburbRoutes = zqPrioritySuburbSlugs.map((slug) => ({

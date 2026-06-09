@@ -101,7 +101,7 @@ test('generated sitemap and canonicals stay on the apex host', () => {
   assert.match(homepage, /<title>Adelaide Removalists \| Fixed-Price Movers \| ZQ Removals<\/title>/);
   assert.match(
     homepage,
-    /<meta name="description" content="Need Adelaide removalists\? ZQ Removals covers Andrews Farm and metro Adelaide with fixed-price quotes and careful furniture handling\." \/>/,
+    /<meta name="description" content="Need Adelaide removalists\? ZQ Removals offers fixed-price moving quotes, careful furniture handling and local or interstate removals across metro Adelaide\." \/>/,
   );
   assert.match(
     interstateHub,
@@ -238,7 +238,7 @@ test('shared mobile UX markup stays accessible and compact', () => {
   const css = readFileSync(path.join(root, 'premium-site.css'), 'utf8');
 
   assert.match(template, /<a class="button button-secondary" href="tel:\+61433819989">Call 0433 819 989<\/a>/);
-  assert.match(template, /<a class="button button-primary" href="\/contact-us\/#quote-form">Get Quote<\/a>/);
+  assert.match(template, /<a class="button button-primary" href="\/contact-us\/#quote-form">Get Fixed-Price Quote<\/a>/);
   assert.match(header, /aria-controls="mobile-nav-panel"/);
   assert.match(header, /aria-expanded="false"/);
   assert.ok(css.includes('html,'), 'missing global html selector');
@@ -902,14 +902,14 @@ test('v6 homepage targets premium Adelaide removalists and above-fold CTAs', () 
   const hero = homepage.match(/<section class="hero-shell[\s\S]*?<\/section>/i)?.[0] || '';
 
   assert.match(homepage, /<title>Adelaide Removalists \| Fixed-Price Movers \| ZQ Removals<\/title>/);
-  assert.match(homepage, /<meta name="description" content="Need Adelaide removalists\? ZQ Removals covers Andrews Farm and metro Adelaide with fixed-price quotes and careful furniture handling\."/i);
-  assert.match(hero, /<h1[^>]*>Adelaide Removalists for fast, careful local moves\.<\/h1>/);
+  assert.match(homepage, /<meta name="description" content="Need Adelaide removalists\? ZQ Removals offers fixed-price moving quotes, careful furniture handling and local or interstate removals across metro Adelaide\."/i);
+  assert.match(hero, /<h1[^>]*>Adelaide Removalists With Fixed Prices &amp; No Last-Minute Surprises<\/h1>/);
   assert.match(hero, /Call <a href="tel:\+61433819989"[^>]*>0433 819 989<\/a> for a quick quote review\./i);
-  assert.match(hero, /href="\/contact-us\/#quote-form"[^>]*>Get Free Quote<\/a>/);
-  assert.match(hero, /Same Day &amp; Local Moves|Same Day & Local Moves/);
+  assert.match(hero, /href="#premium-quote"[^>]*>Get a Fixed-Price Quote<\/a>/);
+  assert.match(hero, /href="tel:\+61433819989"[^>]*>Call 0433 819 989<\/a>/);
   assert.match(hero, /class="rating-stars"/i);
   assert.match(hero, /class="rating-star"/i);
-  for (const phrase of ['Local Movers', 'Fast Quotes', 'Careful Handling', 'Affordable Rates', '5.0\/5 on Google', '38 verified reviews']) {
+  for (const phrase of ['5.0 Google Rating', '46 Verified Reviews', '500\\+ Moves Completed', '50\\+ Adelaide Suburbs Served', '5.0\/5 on Google']) {
     assert.match(hero, new RegExp(phrase, 'i'));
   }
   for (const href of [
@@ -921,6 +921,34 @@ test('v6 homepage targets premium Adelaide removalists and above-fold CTAs', () 
   ]) {
     assert.match(homepage, new RegExp(`href="${href.replace(/\//g, '\\/')}"`));
   }
+});
+
+test('homepage conversion audit requirements stay visible, accessible, and schema-backed', () => {
+  const homepage = readDist('index.html');
+  const main = homepage.match(/<main\b[\s\S]*?<\/main>/i)?.[0] || '';
+
+  assert.equal((main.match(/<h1\b/gi) || []).length, 1);
+  for (const heading of [
+    'Our Moving Services',
+    'Our Moving Guarantee',
+    'Trusted by Adelaide Customers',
+    'Careful, Reliable &amp; Insured Removalists',
+    'Adelaide Suburbs We Service',
+    'Frequently Asked Questions',
+  ]) {
+    assert.match(main, new RegExp(`<h2>${heading}</h2>`, 'i'));
+  }
+  for (const field of ['name', 'phone', 'email', 'move_date', 'pickup_suburb', 'dropoff_suburb', 'property_type', 'message']) {
+    assert.match(main, new RegExp(`name="${field}"`, 'i'));
+  }
+  for (const size of ['Studio', '1 bedroom', '2 bedrooms', '3 bedrooms', '4\\+ bedrooms', 'Office move']) {
+    assert.match(main, new RegExp(size, 'i'));
+  }
+  assert.match(main, /Request My Fixed-Price Quote/i);
+  assert.equal((main.match(/class="faq-item/g) || []).length, 5);
+  assert.match(homepage, /"@type": "FAQPage"/);
+  assert.match(main, /alt="ZQ Removals Adelaide moving truck"/i);
+  assert.match(main, /alt="Adelaide removalists carefully loading furniture"/i);
 });
 
 test('v6 service pages carry CTR titles, related services, suburb links, FAQ and CTA', () => {

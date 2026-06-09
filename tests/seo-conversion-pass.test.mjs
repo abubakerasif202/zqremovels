@@ -25,11 +25,11 @@ test('homepage targets Adelaide removalists with the new commercial headline and
 
   assert.match(
     homepage,
-    /<h1[^>]*>Adelaide Removalists for fast, careful local moves\.<\/h1>/i,
+    /<h1[^>]*>Adelaide Removalists With Fixed Prices &amp; No Last-Minute Surprises<\/h1>/i,
   );
   assert.match(
     homepage,
-    /Need a removalist who quotes clearly, turns up on time, and handles furniture with care\? ZQ Removals covers Andrews Farm and metro Adelaide with fixed-price quotes, careful handling, and fast response\./i,
+    /Local and interstate moves across Adelaide\. Fast quotes, careful furniture handling and transparent fixed pricing from a reliable local removalist team\./i,
   );
   assert.match(
     homepage,
@@ -119,6 +119,7 @@ test('quote forms post to /api/quote with attribution and the required contact f
   assert.match(clientScript, /attribution,/);
   assert.doesNotMatch(clientScript, /api\.web3forms\.com/);
   assert.doesNotMatch(clientScript, /d928b483-d5f0-40d7-9eb1-44a56130ba63/);
+  assert.doesNotMatch(clientScript, /80c3ff0c-7ae6-4aa7-bb66-567612739824/);
 });
 
 test('house removals page owns the residential keyword and old local-removals URL redirects to it', () => {

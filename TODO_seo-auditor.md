@@ -51,7 +51,7 @@
   - **Effort**: 1-2 hours
   - **Recommendation**: Add a sitemap summary script that reports `indexable_page_locs`, `image_locs`, `noindex_exclusions`, and `redirect_exclusions` separately.
 
-- [ ] **SEO-FIND-1.4 Legacy redirects are healthy in sampled live checks**:
+- [x] **SEO-FIND-1.4 Legacy redirects are healthy in sampled live checks**:
   - **Location**: `vercel.json`, live URLs
   - **Description**: Sampled redirects: `http://zqremovals.au/` to HTTPS in `1` hop; `https://www.zqremovals.au/` to apex in `1` hop; `adelaide-cbd.html` to `/removalists-adelaide-cbd/` in `1` hop; `/removalists-semore/` returns `308` to `/removalists-semaphore/`.
   - **Impact**: Low
@@ -60,14 +60,14 @@
 
 ### 2. Technical Health Assessment
 
-- [ ] **SEO-FIND-2.1 Build health depends on platform-specific optional packages**:
+- [x] **SEO-FIND-2.1 Build health depends on platform-specific optional packages**:
   - **Location**: `package-lock.json`, `node_modules/lightningcss`, `scripts/build-site.mjs`
   - **Description**: Initial build failed with `Cannot find module '../lightningcss.linux-x64-gnu.node'`. Running `npm install` installed the missing optional native package and the build then passed.
   - **Impact**: High
   - **Effort**: 1-2 hours
   - **Recommendation**: In CI and local runbooks, require `npm ci` after OS/runtime changes. Add a troubleshooting note for WSL/Linux optional dependencies.
 
-- [ ] **SEO-FIND-2.2 NPM audit reports moderate and low dependency issues**:
+- [x] **SEO-FIND-2.2 NPM audit reports moderate and low dependency issues**:
   - **Location**: `package.json`, `package-lock.json`
   - **Description**: `npm audit --json` reported `8` vulnerabilities: `3` low and `5` moderate, mostly through `@lhci/cli`, `qs`, `uuid`, `tmp`, `ws`, and related transitive dependencies.
   - **Impact**: Medium
@@ -309,7 +309,7 @@
 
 ### Immediate
 
-- [ ] **SEO-REC-1.1 Fix reproducible dependency install path**:
+- [x] **SEO-REC-1.1 Fix reproducible dependency install path**:
   - **Priority**: High
   - **Effort**: 1-2 hours
   - **Expected Outcome**: Prevents build failures from missing native optional dependencies.
@@ -353,7 +353,7 @@
   - **Expected Outcome**: Mobile layout regressions and CTA/heading overlap are caught before deploy.
   - **Validation**: CI artifacts include 390px/768px screenshots for priority templates.
 
-- [ ] **SEO-REC-2.4 Review npm audit fixes safely**:
+- [x] **SEO-REC-2.4 Review npm audit fixes safely**:
   - **Priority**: Medium
   - **Effort**: 0.5-1 day
   - **Expected Outcome**: Lower supply-chain/security risk without breaking LHCI/build tooling.
@@ -407,7 +407,7 @@ diff --git a/scripts/seo-validate.mjs b/scripts/seo-validate.mjs
 +}
 ```
 
-- [ ] **SEO-CODE-1.2 Tighten Lighthouse CI target and thresholds**:
+- [x] **SEO-CODE-1.2 Tighten Lighthouse CI target and thresholds**:
   - **Priority**: High
   - **Effort**: 2-4 hours
   - **Patch-style diff**:
@@ -430,7 +430,7 @@ diff --git a/.lighthouserc.cjs b/.lighthouserc.cjs
      },
 ```
 
-- [ ] **SEO-CODE-1.3 Add title/meta length report for priority pages**:
+- [x] **SEO-CODE-1.3 Add title/meta length report for priority pages**:
   - **Priority**: Medium
   - **Effort**: 2-4 hours
   - **Patch-style diff**:

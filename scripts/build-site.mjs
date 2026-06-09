@@ -2514,7 +2514,7 @@ try {
   await writeFile(path.join(distRoot, 'ai.txt'), `${renderAiTxt()}\n`, 'utf8');
   await writeFile(
     path.join(distRoot, 'robots.txt'),
-    `User-agent: *\nAllow: /\nSitemap: ${preferredSiteOrigin}/sitemap-index.xml\n# AI crawler references:\n# ${preferredSiteOrigin}/llms.txt\n# ${preferredSiteOrigin}/llms-full.txt\n`,
+    `User-agent: *\nAllow: /\nSitemap: ${preferredSiteOrigin}/sitemap-index.xml\nSitemap: ${preferredSiteOrigin}/ai-sitemap.xml\n# AI crawler references:\n# ${preferredSiteOrigin}/llms.txt\n# ${preferredSiteOrigin}/llms-full.txt\n`,
     'utf8',
   );
   await writeRouteCoverageReport();
@@ -6390,6 +6390,7 @@ async function renderSitemaps(pages, renderedHtmlByOutput = new Map()) {
     'sitemap-suburbs.xml': [],
     'sitemap-guides.xml': [],
     'sitemap-images.xml': [],
+    'ai-sitemap.xml': [],
   };
   const sitemapLastmods = Object.fromEntries(Object.keys(grouped).map((name) => [name, []]));
   const seenCanonicalLocs = new Set();
@@ -6404,6 +6405,9 @@ async function renderSitemaps(pages, renderedHtmlByOutput = new Map()) {
     <loc>${escapeHtml(canonicalLoc)}</loc>
     <lastmod>${lastmod}</lastmod>
   </url>`;
+
+    grouped['ai-sitemap.xml'].push(entry);
+    sitemapLastmods['ai-sitemap.xml'].push(lastmod);
 
     if (page.output.startsWith('adelaide-moving-guides/') || page.output.startsWith('guides/') || page.generatedKind === 'comparison') {
       grouped['sitemap-guides.xml'].push(entry);
@@ -6465,10 +6469,12 @@ ${urlsetTag}
 ${urls.join('\n')}
 </urlset>
 `;
-    indexEntries.push(`  <sitemap>
+    if (name !== 'ai-sitemap.xml') {
+      indexEntries.push(`  <sitemap>
     <loc>${preferredSiteOrigin}/${name}</loc>
     <lastmod>${sitemapLastmod}</lastmod>
   </sitemap>`);
+    }
   }
 
   files['sitemap-index.xml'] = `<?xml version="1.0" encoding="UTF-8"?>
