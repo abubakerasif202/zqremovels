@@ -3882,7 +3882,7 @@ function injectLeadMachineHiddenFields(content) {
     let next = match;
 
     if (!/\baction="/i.test(next)) {
-      next = next.replace(/>$/, ' action="/api/quote">');
+      next = next.replace(/>$/, ' action="/api/quote/">');
     }
 
     if (!/\bmethod="/i.test(next)) {

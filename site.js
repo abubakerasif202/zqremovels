@@ -62,7 +62,7 @@ const quoteForms = Array.from(
 const quoteDateFields = Array.from(
   document.querySelectorAll('input[type="date"][name*="date"]'),
 );
-const QUOTE_API_ENDPOINT = "/api/quote";
+const QUOTE_API_ENDPOINT = "/api/quote/";
 const DEFAULT_QUOTE_ERROR_MESSAGE = "Could not send the request. Please try again.";
 const SOCIAL_PROFILES = {
   facebook: "",

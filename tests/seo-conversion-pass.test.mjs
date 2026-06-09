@@ -91,7 +91,7 @@ test('generated html keeps internal hrefs root-absolute', () => {
   }
 });
 
-test('quote forms post to /api/quote with attribution and the required contact field names', () => {
+test('quote forms post to /api/quote/ with attribution and the required contact field names', () => {
   const homepage = readDist('index.html');
   const contactPage = readDist(path.join('contact-us', 'index.html'));
   const clientScript = readDist('site.js');
@@ -113,6 +113,7 @@ test('quote forms post to /api/quote with attribution and the required contact f
   assert.match(clientScript, /function updateFormStepAccessibility\(form, activeStepIndex\)/);
   assert.match(clientScript, /fieldset\.setAttribute\("aria-hidden", "true"\)/);
   assert.match(clientScript, /el\.setAttribute\("tabindex", "-1"\)/);
+  assert.match(clientScript, /\b(?:const|var) QUOTE_API_ENDPOINT = "\/api\/quote\/";/);
   assert.match(clientScript, /fetch\(QUOTE_API_ENDPOINT,/);
   assert.match(clientScript, /"Content-Type": "application\/json"/);
   assert.match(clientScript, /source_page: window\.location\.href/);
