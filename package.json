@@ -2,6 +2,12 @@
   "name": "zq-static-site",
   "private": true,
   "version": "1.0.0",
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "Firefox ESR",
+    "not dead"
+  ],
   "description": "Static deployment manifest for Vercel root build.",
   "scripts": {
     "build": "node scripts/build-site.mjs",
@@ -17,6 +23,9 @@
   },
   "devDependencies": {
     "@lhci/cli": "^0.15.1",
+    "browserslist": "^4.28.2",
+    "browserslist-to-esbuild": "^2.1.1",
+    "esbuild": "^0.28.0",
     "googleapis": "^171.4.0",
     "lightningcss": "^1.32.0"
   },

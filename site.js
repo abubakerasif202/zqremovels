@@ -15,6 +15,41 @@ import {
   trackServiceCTA,
 } from "./analytics.mjs";
 
+// Polyfill for WeakSet to support legacy mobile browsers
+if (typeof WeakSet === "undefined") {
+  class WeakSetPolyfill {
+    constructor(iterable) {
+      this._id = "__weakset_" + Math.random().toString(36).slice(2);
+      if (iterable) {
+        for (const item of iterable) {
+          this.add(item);
+        }
+      }
+    }
+    add(obj) {
+      if (obj && typeof obj === "object") {
+        Object.defineProperty(obj, this._id, {
+          value: true,
+          writable: true,
+          configurable: true,
+        });
+      }
+      return this;
+    }
+    has(obj) {
+      return !!(obj && Object.prototype.hasOwnProperty.call(obj, this._id));
+    }
+    delete(obj) {
+      if (this.has(obj)) {
+        delete obj[this._id];
+        return true;
+      }
+      return false;
+    }
+  }
+  globalThis.WeakSet = WeakSetPolyfill;
+}
+
 document.documentElement.classList.add("js");
 
 const footerYears = document.querySelectorAll("[data-year]");

@@ -53,6 +53,97 @@ const QUOTE_INDICATOR_FIELDS = [
   "move_date",
 ];
 
+const memoryStore = new Map();
+
+if (typeof setInterval !== "undefined") {
+  const intervalId = setInterval(() => {
+    const now = Date.now();
+    for (const [key, value] of memoryStore.entries()) {
+      if (now > value.resetTime) {
+        memoryStore.delete(key);
+      }
+    }
+  }, 300000);
+  if (intervalId && typeof intervalId.unref === "function") {
+    intervalId.unref();
+  }
+}
+
+function checkRateLimitMemory(ip) {
+  const now = Date.now();
+  const record = memoryStore.get(ip);
+  if (!record || now > record.resetTime) {
+    memoryStore.set(ip, {
+      count: 1,
+      resetTime: now + 60000,
+    });
+    return false;
+  }
+  record.count += 1;
+  return record.count > 5;
+}
+
+async function checkRateLimitKV(ip, kvUrl, kvToken) {
+  const minute = Math.floor(Date.now() / 60000);
+  const key = `rate_limit:${ip}:${minute}`;
+  try {
+    const incrRes = await fetch(`${kvUrl}/incr/${key}`, {
+      headers: { Authorization: `Bearer ${kvToken}` },
+    });
+    const incrData = await incrRes.json();
+    const count = incrData.result;
+    if (count === 1) {
+      await fetch(`${kvUrl}/expire/${key}/60`, {
+        headers: { Authorization: `Bearer ${kvToken}` },
+      });
+    }
+    return count > 5;
+  } catch (err) {
+    console.error("Vercel KV rate limit fetch failed:", err);
+    return false;
+  }
+}
+
+async function verifyTurnstile(token, ip, secretKey) {
+  if (!token) return false;
+  try {
+    const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        secret: secretKey,
+        response: token,
+        remoteip: ip,
+      }),
+    });
+    const data = await res.json();
+    return !!data.success;
+  } catch (err) {
+    console.error("Turnstile verification error:", err);
+    return false;
+  }
+}
+
+async function verifyRecaptcha(token, ip, secretKey) {
+  if (!token) return false;
+  try {
+    const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        secret: secretKey,
+        response: token,
+        remoteip: ip,
+      }),
+    });
+    const data = await res.json();
+    return !!(data.success && (data.score === undefined || data.score >= 0.5));
+  } catch (err) {
+    console.error("reCAPTCHA verification error:", err);
+    return false;
+  }
+}
+
 function sendJson(res, status, payload) {
   res.status(status).setHeader("Content-Type", "application/json");
   res.end(JSON.stringify(payload));
@@ -391,6 +482,57 @@ module.exports = async function handler(req, res) {
     }
 
     const geoContext = extractEdgeGeoContext(req);
+    const ip = geoContext.ip;
+
+    // Rate Limiting
+    const kvUrl = process.env.KV_REST_API_URL;
+    const kvToken = process.env.KV_REST_API_TOKEN;
+    let isLimited = false;
+    if (kvUrl && kvToken) {
+      isLimited = await checkRateLimitKV(ip, kvUrl, kvToken);
+    } else {
+      isLimited = checkRateLimitMemory(ip);
+    }
+
+    if (isLimited) {
+      if (wantsJsonResponse(req)) {
+        return sendJson(res, 429, { success: false, message: "Too many requests. Please try again later." });
+      }
+      return sendHtml(
+        res,
+        429,
+        "Too many requests",
+        "You have made too many quote requests in a short period.",
+        "Please wait a minute before trying again.",
+      );
+    }
+
+    // Bot verification challenge
+    const turnstileSecret = process.env.TURNSTILE_SECRET_KEY || process.env.CF_TURNSTILE_SECRET;
+    const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY;
+    if (turnstileSecret || recaptchaSecret) {
+      const token = payload["cf-turnstile-response"] || payload["g-recaptcha-response"] || payload["token"] || payload["verification_token"];
+      let verified = false;
+      if (turnstileSecret) {
+        verified = await verifyTurnstile(token, ip, turnstileSecret);
+      } else {
+        verified = await verifyRecaptcha(token, ip, recaptchaSecret);
+      }
+
+      if (!verified) {
+        if (wantsJsonResponse(req)) {
+          return sendJson(res, 403, { success: false, message: "Security verification failed" });
+        }
+        return sendHtml(
+          res,
+          403,
+          "Verification failed",
+          "The security check did not pass.",
+          "Please return to the quote form, reload the page, and try again.",
+        );
+      }
+    }
+
     const submission = normaliseSubmission(payload, geoContext);
     if (submission.error) {
       return sendJson(res, submission.error.status, {

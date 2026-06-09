@@ -1,7 +1,10 @@
 import { copyFile, cp, mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { transform } from 'lightningcss';
+import { transform, browserslistToTargets } from 'lightningcss';
+import esbuild from 'esbuild';
+import browserslist from 'browserslist';
+import browserslistToEsbuild from 'browserslist-to-esbuild';
 import {
   buildCanonical,
   buildDescription,
@@ -23,6 +26,7 @@ import {
   seoConfig,
   zqServiceSitemapOutputs,
 } from '../site-src/data/seo-v4.mjs';
+import { zqSuburbGeoData } from '../site-src/data/zq-suburbs.mjs';
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(scriptDir, '..');
@@ -3141,23 +3145,67 @@ function normalizeJsonLdNode(node, page) {
     return node;
   }
 
+  const slug = getSuburbSlugFromPage(page);
+  const geoData = slug ? zqSuburbGeoData[slug] : null;
   const types = Array.isArray(node['@type']) ? node['@type'] : [node['@type']].filter(Boolean);
 
   if (types.includes('MovingCompany')) {
-    return normalizeMovingCompanyNode(node);
+    let normalized = normalizeMovingCompanyNode(node, page);
+    if (geoData) {
+      normalized = {
+        ...normalized,
+        areaServed: [
+          ...(normalized.areaServed || []),
+          {
+            '@type': 'AdministrativeArea',
+            name: geoData.name,
+            containedInPlace: {
+              '@type': 'AdministrativeArea',
+              name: geoData.council
+            }
+          }
+        ]
+      };
+    }
+    return normalized;
   }
 
   if (types.includes('WebPage') || types.includes('ContactPage') || types.includes('AboutPage')) {
-    return {
+    const webPageNode = {
       ...node,
       url: page.canonical,
       name: page.title,
       description: page.description,
     };
+    if (geoData) {
+      webPageNode.about = {
+        '@type': 'Place',
+        name: geoData.name,
+        description: `${geoData.name} is a suburb located in the ${geoData.council} council area. Prominent local landmarks include ${geoData.landmarks.join(', ')}.`
+      };
+    }
+    return webPageNode;
   }
 
   if (types.includes('Service')) {
-    return normalizeServiceNode(node, page);
+    let normalized = normalizeServiceNode(node, page);
+    if (geoData) {
+      normalized = {
+        ...normalized,
+        areaServed: [
+          ...(Array.isArray(normalized.areaServed) ? normalized.areaServed : [normalized.areaServed].filter(Boolean)),
+          {
+            '@type': 'AdministrativeArea',
+            name: geoData.name,
+            containedInPlace: {
+              '@type': 'AdministrativeArea',
+              name: geoData.council
+            }
+          }
+        ]
+      };
+    }
+    return normalized;
   }
 
   if (types.includes('BlogPosting') && !types.includes('Article')) {
@@ -3202,7 +3250,7 @@ function normalizeServiceNode(node, page) {
   };
 }
 
-function normalizeMovingCompanyNode(node) {
+function normalizeMovingCompanyNode(node, page) {
   const {
     aggregateRating,
     review,
@@ -3287,11 +3335,13 @@ function usesDefaultSocialImage(value = '') {
 
 function minifyCss(css) {
   try {
+    const targets = browserslistToTargets(browserslist());
     const { code } = transform({
       filename: 'premium-site.css',
       code: Buffer.from(css),
       minify: true,
       sourceMap: false,
+      targets,
     });
     return code.toString('utf8');
   } catch (error) {
@@ -3670,7 +3720,10 @@ function transformContent(content, page) {
   const seoV5LinkHub = renderSeoV5InternalLinkHub(page);
   const strictSeoCompletion = renderStrictSeoCompletionSection(page, next);
 
+  const localGeoSection = renderLocalGeoSection(page);
+
   const supplementalSections = [
+    localGeoSection,
     commercialServiceCta,
     guideHubExpansion,
     serviceMoneyUpgrade,
@@ -4771,6 +4824,41 @@ ${cards}
         <a class="button button-secondary" href="/removalists-adelaide/">All Adelaide Suburbs</a>
       </div>
       ${supportGuide ? `<p class="field-note" style="margin-top: 1.5rem;">Recommended guide: <a href="${escapeAttribute(supportGuide.url)}" style="color: var(--color-accent-alt); font-weight: 700;">${escapeHtml(supportGuide.title)}</a></p>` : ''}
+    </div>
+  </div>
+</section>`;
+}
+
+function renderLocalGeoSection(page) {
+  const slug = getSuburbSlugFromPage(page);
+  if (!slug) return '';
+  const geoData = zqSuburbGeoData[slug];
+  if (!geoData) return '';
+
+  const sectionId = `local-geo-${slug}`;
+  return `
+<section aria-labelledby="${sectionId}" class="section section-soft local-geo-section reveal-on-scroll">
+  <div class="container">
+    <div class="editorial-grid" style="align-items: center;">
+      <div class="editorial-copy">
+        <div class="section-heading">
+          <span class="eyebrow">Local Area Context</span>
+          <h2 id="${sectionId}">Operational Coverage in ${escapeHtml(geoData.name)}</h2>
+        </div>
+        <p class="lede">
+          We service <strong>${escapeHtml(geoData.name)}</strong> within the <strong>${escapeHtml(geoData.council)}</strong>, customizing moves for local corridors.
+        </p>
+        <p>
+          Moving near landmarks like <strong>${escapeHtml(geoData.landmarks.slice(0, 3).join(', '))}</strong>? We use local insights to coordinate parking and loading.
+        </p>
+        <div class="geo-metadata" style="margin-top: 1.5rem; padding: 1rem; background: var(--color-bg-alt, rgba(255,255,255,0.05)); border-radius: 0.5rem; font-size: 0.9rem; border: 1px solid var(--color-border);">
+          <ul style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+            <li><strong>Council Area:</strong> ${escapeHtml(geoData.council)}</li>
+            <li><strong>Geo Coordinates:</strong> ${geoData.latitude}° S, ${geoData.longitude}° E</li>
+            <li><strong>Key Landmarks:</strong> ${escapeHtml(geoData.landmarks.slice(0, 3).join(', '))}</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </section>`;
@@ -6161,13 +6249,32 @@ async function copyStaticAssets() {
     'robots.txt',
     'screen.png',
     'screen.webp',
-    'site.js',
     'zq-removals-social-share.png',
     'zq-removals-social-share.webp',
   ];
 
   for (const asset of fileAssets) {
     await copyFile(path.join(projectRoot, asset), path.join(distRoot, asset));
+  }
+
+  // Transpile site.js using esbuild, synchronized with the browserslist target
+  console.log('Transpiling site.js with esbuild...');
+  try {
+    const browsers = browserslist();
+    const targets = browserslistToEsbuild(browsers);
+    await esbuild.build({
+      entryPoints: [path.join(projectRoot, 'site.js')],
+      bundle: true,
+      minify: false,
+      sourcemap: true,
+      format: 'esm',
+      target: targets,
+      outfile: path.join(distRoot, 'site.js'),
+    });
+    console.log('site.js transpiled successfully.');
+  } catch (error) {
+    console.error('esbuild transpilation failed, falling back to direct copy:', error);
+    await copyFile(path.join(projectRoot, 'site.js'), path.join(distRoot, 'site.js'));
   }
 
   await cp(path.join(projectRoot, 'fonts'), path.join(distRoot, 'fonts'), { recursive: true });
