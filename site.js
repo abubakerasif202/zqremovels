@@ -644,10 +644,38 @@ async function submitQuoteForm(form, payload) {
     throw requestError;
   }
 
-  const result = await response.json().catch(() => ({
-    success: false,
-    message: "Invalid response from quote service.",
-  }));
+  const responseText = await response.text().catch(() => "");
+  const trimmedResponseText = responseText.trim();
+  let result;
+
+  if (trimmedResponseText.startsWith("{") || trimmedResponseText.startsWith("[")) {
+    try {
+      result = JSON.parse(trimmedResponseText);
+    } catch {
+      if (response.ok) {
+        return {
+          success: true,
+          message: "Quote request sent.",
+        };
+      }
+      result = {
+        success: false,
+        message: DEFAULT_QUOTE_ERROR_MESSAGE,
+        body: responseText,
+      };
+    }
+  } else if (response.ok) {
+    return {
+      success: true,
+      message: "Quote request sent.",
+    };
+  } else {
+    result = {
+      success: false,
+      message: DEFAULT_QUOTE_ERROR_MESSAGE,
+      body: responseText,
+    };
+  }
 
   if (!response.ok || result.success === false) {
     const error = new Error(
