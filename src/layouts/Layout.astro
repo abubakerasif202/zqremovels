@@ -2,77 +2,12 @@
 import '../styles/premium-site.css';
 
 export interface Props {
-  title: string;
-  description: string;
-  canonical: string;
-  robots: string;
-  themeColor: string;
-  ogTitle: string;
-  ogDescription: string;
-  ogType: string;
-  ogUrl: string;
-  ogImage: string;
-  twitterCard: string;
-  twitterTitle: string;
-  twitterDescription: string;
-  twitterImage: string;
-  jsonLd: (string | object)[];
-  refresh?: string;
-  extraStylesheets?: string[];
-  ogImageAlt?: string;
+  headHtml: string;
+  bodyTopHtml?: string;
+  layout: string;
 }
 
-const {
-  title,
-  description,
-  canonical,
-  robots,
-  themeColor,
-  ogTitle,
-  ogDescription,
-  ogType,
-  ogUrl,
-  ogImage,
-  twitterCard,
-  twitterTitle,
-  twitterDescription,
-  twitterImage,
-  jsonLd,
-  refresh,
-  extraStylesheets,
-  ogImageAlt,
-} = Astro.props;
-
-// Clean URLs to ensure they are on the absolute apex domain https://zqremovals.au
-const cleanUrl = (urlStr: string) => {
-  if (!urlStr) return '';
-  let cleaned = urlStr.replace(/^https?:\/\/(www\.)?zqremovals\.au/i, 'https://zqremovals.au');
-  cleaned = cleaned.replace(/^https?:\/\/[a-zA-Z0-9-]+\.vercel\.app/i, 'https://zqremovals.au');
-  cleaned = cleaned.replace(/^https?:\/\/localhost:\d+/i, 'https://zqremovals.au');
-  if (cleaned.startsWith('/')) {
-    cleaned = `https://zqremovals.au${cleaned}`;
-  }
-  return cleaned;
-};
-
-const cleanCanonical = cleanUrl(canonical);
-const cleanOgUrl = cleanUrl(ogUrl || canonical);
-const cleanOgImage = cleanUrl(ogImage);
-const cleanTwitterImage = cleanUrl(twitterImage || ogImage);
-
-const imageAlt = ogImageAlt || ogTitle || title;
-
-// Clean structured data (JSON-LD) URLs
-const cleanSchemaStr = (schema: string | object) => {
-  let schemaStr = typeof schema === 'string' ? schema : JSON.stringify(schema);
-  // Replace all www.zqremovals.au, localhost, and vercel.app URLs to enforce apex domain
-  schemaStr = schemaStr.replace(/https?:\/\/(www\.)?zqremovals\.au/g, 'https://zqremovals.au');
-  schemaStr = schemaStr.replace(/https?:\/\/localhost:\d+/g, 'https://zqremovals.au');
-  schemaStr = schemaStr.replace(/https?:\/\/[a-zA-Z0-9-]+\.vercel\.app/g, 'https://zqremovals.au');
-  return schemaStr;
-};
-
-const jsonLdBlocks = (jsonLd || []).map(cleanSchemaStr);
+const { headHtml, bodyTopHtml, layout } = Astro.props;
 
 // Get tracking IDs from environment variables
 const gaId = import.meta.env.VITE_GA_MEASUREMENT_ID || process.env.VITE_GA_MEASUREMENT_ID || import.meta.env.GA_MEASUREMENT_ID || process.env.GA_MEASUREMENT_ID;
@@ -94,43 +29,15 @@ const trackingConfigStr = JSON.stringify(trackingConfig);
 <!doctype html>
 <html lang="en-AU">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <link rel="canonical" href={cleanCanonical} />
-    <meta name="theme-color" content={themeColor || '#0A192F'} />
-    <meta name="robots" content={robots || 'index,follow,max-image-preview:large'} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="geo.region" content="AU-SA" />
-    <meta name="geo.placename" content="Adelaide, South Australia" />
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content={ogType || 'website'} />
-    <meta property="og:site_name" content="ZQ Removals" />
-    <meta property="og:locale" content="en_AU" />
-    <meta property="og:url" content={cleanOgUrl} />
-    <meta property="og:title" content={ogTitle || title} />
-    <meta property="og:description" content={ogDescription || description} />
-    <meta property="og:image" content={cleanOgImage} />
-    <meta property="og:image:alt" content={imageAlt} />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content={twitterCard || 'summary_large_image'} />
-    <meta name="twitter:title" content={twitterTitle || ogTitle || title} />
-    <meta name="twitter:description" content={twitterDescription || ogDescription || description} />
-    <meta name="twitter:image" content={cleanTwitterImage || cleanOgImage} />
-    <meta name="twitter:image:alt" content={imageAlt} />
-
-    {refresh && <meta http-equiv="refresh" content={refresh} />}
-
-    <!-- Alternate Text Links -->
-    <link rel="alternate" type="text/markdown" href="/llms.txt" />
-    <link rel="alternate" type="text/markdown" href="/llms-full.txt" />
-
-    {extraStylesheets && extraStylesheets.map((stylesheet) => (
-      <link rel="stylesheet" href={stylesheet} />
-    ))}
+    {layout === 'bare' && (
+      <>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+      </>
+    )}
+    <!-- Inject SEO/JSON-LD/OG tags from legacy generator -->
+    <Fragment set:html={headHtml} />
 
     <!-- Tracking Head Scripts -->
     <script is:inline set:html={`window.__analyticsConfig = ${trackingConfigStr};`} />
@@ -182,11 +89,6 @@ const trackingConfigStr = JSON.stringify(trackingConfig);
         fbq('track','PageView');
       `} />
     )}
-
-    <!-- JSON-LD Structured Data -->
-    {jsonLdBlocks.map((schemaStr) => (
-      <script is:inline type="application/ld+json" set:html={schemaStr} />
-    ))}
   </head>
   <body class="bg-navy text-slate-100">
     {gtmId && (
@@ -194,8 +96,22 @@ const trackingConfigStr = JSON.stringify(trackingConfig);
         <iframe src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`} height="0" width="0" style="display:none;visibility:hidden" />
       </noscript>
     )}
-    <main id="main-content">
-      <slot />
-    </main>
+    {bodyTopHtml && <Fragment set:html={bodyTopHtml} />}
+    {layout === 'standard' && (
+      <a class="skip-link" href="#main-content">Skip to content</a>
+    )}
+    
+    <slot />
+
+    {layout === 'standard' && (
+      <div class="sticky-mobile-cta" id="sticky-cta">
+        <a class="button button-secondary" href="tel:+61433819989">Call 0433 819 989</a>
+        <a class="button button-primary" href="/contact-us/#quote-form">Get Fixed-Price Quote</a>
+      </div>
+    )}
+
+    {(layout === 'standard' || layout === 'bare') && (
+      <script type="module" src="/site.js"></script>
+    )}
   </body>
 </html>

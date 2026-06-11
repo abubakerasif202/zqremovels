@@ -5,5 +5,8 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   output: 'static',
   outDir: './site-dist',
+  build: {
+    format: 'preserve'
+  },
   integrations: [tailwind()],
 });

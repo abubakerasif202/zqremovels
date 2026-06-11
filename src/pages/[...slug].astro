@@ -1,0 +1,59 @@
+---
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
+import { pages, transformContent, renderHead, renderBodyTop, srcRoot } from '../../scripts/build-site.mjs';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const paths = [];
+
+  for (const page of pages) {
+    // Convert output path to a slug
+    const normalized = page.output.replace(/\\/g, '/');
+    let slug;
+    
+    if (normalized === 'index.html') {
+      slug = undefined;
+    } else if (normalized.endsWith('/index.html')) {
+      slug = normalized.slice(0, -11) + '/index';
+    } else if (normalized.endsWith('.html')) {
+      slug = normalized.slice(0, -5);
+    } else {
+      slug = normalized;
+    }
+
+    // Get content
+    let content = page.contentHtml;
+    if (!content) {
+      const contentPath = path.join(srcRoot, page.contentFile);
+      try {
+        content = await readFile(contentPath, 'utf8');
+      } catch (e) {
+        console.error(`Failed to read content file ${page.contentFile} for page ${page.output}:`, e.message);
+        content = '';
+      }
+    }
+
+    // Transform content using build-site's transformContent
+    const transformedContent = transformContent(content, page);
+    const headHtml = renderHead(page, transformedContent);
+    const bodyTopHtml = renderBodyTop(page, transformedContent);
+
+    paths.push({
+      params: { slug },
+      props: { page, content: transformedContent, headHtml, bodyTopHtml }
+    });
+  }
+
+  return paths;
+}
+
+const { page, content, headHtml, bodyTopHtml } = Astro.props;
+---
+<Layout headHtml={headHtml} bodyTopHtml={bodyTopHtml} layout={page.layout}>
+  {page.layout === 'standard' && <Header />}
+  <Fragment set:html={content} />
+  {page.layout === 'standard' && <Footer />}
+</Layout>

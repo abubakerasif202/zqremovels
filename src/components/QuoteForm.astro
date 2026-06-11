@@ -1,0 +1,189 @@
+---
+// Reusable Quote Form Component for ZQ Removals
+---
+<form
+  id="quote-form"
+  class="quote-form quote-form-premium quote-form-structured"
+  data-quote-form="quote"
+  action="https://api.web3forms.com/submit"
+  method="POST"
+  novalidate
+>
+  <!-- Anti-spam botcheck -->
+  <p hidden>
+    <label>
+      Leave this field empty
+      <input autocomplete="off" name="botcheck" tabindex="-1" type="text" />
+    </label>
+  </p>
+
+  <!-- Lead Machine / Web3Forms Hidden Fields -->
+  <input type="hidden" name="access_key" value="80c3ff0c-7ae6-4aa7-bb66-567612739824" />
+  <input type="hidden" name="subject" value="Quote request - ZQ Removals" />
+  <input type="hidden" name="from_name" value="ZQ Removals Website" />
+  <input type="hidden" name="redirect" value="https://zqremovals.au/thank-you/" />
+  
+  <!-- Attribution Hidden Fields -->
+  <input type="hidden" name="utm_source" value="" data-attribution-field="utm_source" />
+  <input type="hidden" name="utm_medium" value="" data-attribution-field="utm_medium" />
+  <input type="hidden" name="utm_campaign" value="" data-attribution-field="utm_campaign" />
+  <input type="hidden" name="utm_content" value="" data-attribution-field="utm_content" />
+  <input type="hidden" name="utm_term" value="" data-attribution-field="utm_term" />
+  <input type="hidden" name="gclid" value="" data-attribution-field="gclid" />
+  <input type="hidden" name="fbclid" value="" data-attribution-field="fbclid" />
+  <input type="hidden" name="landing_page" value="" data-attribution-field="landing_page" />
+  <input type="hidden" name="captured_at" value="" data-attribution-field="captured_at" />
+
+  <div class="quote-form-intro">
+    <span class="eyebrow">Move Brief</span>
+    <h2 class="mini-heading" id="quote-heading">Get your fixed-price quote in minutes.</h2>
+    <p class="form-note">
+      We review every request manually. Add the details you know, and we will guide the rest.
+    </p>
+  </div>
+
+  <div class="quote-form-groups">
+    <fieldset class="quote-form-group">
+      <legend>Move Details</legend>
+      <div class="field-grid">
+        <label>
+          <span>Primary Service</span>
+          <select aria-describedby="contact-error-move_scope" name="move_scope" required>
+            <option selected value="">Select move scope</option>
+            <option value="house-removal">House Move</option>
+            <option value="apartment-removal">Apartment or Unit</option>
+            <option value="office-relocation">Office Relocation</option>
+            <option value="furniture-removal">Furniture-Only</option>
+            <option value="interstate-removal">Interstate Move</option>
+            <option value="packing-service">Packing Support</option>
+          </select>
+          <small class="field-error" data-error-for="move_scope" id="contact-error-move_scope"></small>
+        </label>
+        <label>
+          <span>Property Style</span>
+          <select aria-describedby="contact-error-property_type" name="property_type" required>
+            <option selected value="">Select property type</option>
+            <option value="apartment">Apartment / High-Rise</option>
+            <option value="house">House / Townhouse</option>
+            <option value="office">Office / Commercial</option>
+            <option value="storage">Storage Facility</option>
+            <option value="other">Other</option>
+          </select>
+          <small class="field-error" data-error-for="property_type" id="contact-error-property_type"></small>
+        </label>
+        <label>
+          <span>Move Volume</span>
+          <select aria-describedby="contact-error-move_size" name="move_size" required>
+            <option selected value="">Select move size</option>
+            <option value="studio-1-bedroom">Studio / 1 Bedroom</option>
+            <option value="2-bedroom">2 Bedrooms</option>
+            <option value="3-bedroom">3 Bedrooms</option>
+            <option value="4-plus-bedroom">4+ Bedrooms</option>
+            <option value="office-suite">Commercial Suite</option>
+            <option value="single-items">Single Item / Partial</option>
+          </select>
+          <small class="field-error" data-error-for="move_size" id="contact-error-move_size"></small>
+        </label>
+        <label>
+          <span>Packing Support</span>
+          <select aria-describedby="contact-error-packing_required" name="packing_required" required>
+            <option selected value="">Select packing preference</option>
+            <option value="no-packing-needed">No Packing Required</option>
+            <option value="partial-packing">Partial Packing</option>
+            <option value="full-packing">Full Packing Service</option>
+            <option value="fragile-items-only">Fragile Items Only</option>
+          </select>
+          <small class="field-error" data-error-for="packing_required" id="contact-error-packing_required"></small>
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset class="quote-form-group">
+      <legend>Logistics & Access</legend>
+      <div class="field-grid">
+        <label>
+          <span>Pickup Suburb</span>
+          <input autocomplete="address-level2" aria-describedby="contact-error-pickup_suburb" name="pickup_suburb" placeholder="e.g. Adelaide CBD" required type="text" />
+          <small class="field-error" data-error-for="pickup_suburb" id="contact-error-pickup_suburb"></small>
+        </label>
+        <label>
+          <span>Delivery Suburb</span>
+          <input autocomplete="address-level2" aria-describedby="contact-error-dropoff_suburb" name="dropoff_suburb" placeholder="e.g. Melbourne VIC" required type="text" />
+          <small class="field-error" data-error-for="dropoff_suburb" id="contact-error-dropoff_suburb"></small>
+        </label>
+        <label>
+          <span>Pickup Access</span>
+          <select aria-describedby="contact-error-pickup_access" name="pickup_access" required>
+            <option selected value="">Select access type</option>
+            <option value="ground-level">Ground Level</option>
+            <option value="stairs">Stairs Involved</option>
+            <option value="lift">Lift Access</option>
+            <option value="loading-zone">Loading Zone / Dock</option>
+            <option value="not-sure">Not Sure</option>
+          </select>
+          <small class="field-error" data-error-for="pickup_access" id="contact-error-pickup_access"></small>
+        </label>
+        <label>
+          <span>Delivery Access</span>
+          <select aria-describedby="contact-error-dropoff_access" name="dropoff_access" required>
+            <option selected value="">Select access type</option>
+            <option value="ground-level">Ground Level</option>
+            <option value="stairs">Stairs Involved</option>
+            <option value="lift">Lift Access</option>
+            <option value="loading-zone">Loading Zone / Dock</option>
+            <option value="not-sure">Not Sure</option>
+          </select>
+          <small class="field-error" data-error-for="dropoff_access" id="contact-error-dropoff_access"></small>
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset class="quote-form-group">
+      <legend>Timing & Contact</legend>
+      <div class="field-grid">
+        <label>
+          <span>Preferred Date</span>
+          <input aria-describedby="contact-error-move_date" name="move_date" type="date" />
+          <small class="field-error" data-error-for="move_date" id="contact-error-move_date"></small>
+        </label>
+        <label>
+          <span>Full Name</span>
+          <input autocomplete="name" aria-describedby="contact-error-name" name="name" placeholder="Full name" required type="text" />
+          <small class="field-error" data-error-for="name" id="contact-error-name"></small>
+        </label>
+        <label>
+          <span>Phone Number</span>
+          <input autocomplete="tel" aria-describedby="contact-error-phone" inputmode="tel" name="phone" placeholder="Phone number" required type="tel" />
+          <small class="field-error" data-error-for="phone" id="contact-error-phone"></small>
+        </label>
+        <label>
+          <span>Email Address</span>
+          <input autocomplete="email" aria-describedby="contact-error-email" name="email" placeholder="Email address" required type="email" />
+          <small class="field-error" data-error-for="email" id="contact-error-email"></small>
+        </label>
+      </div>
+    </fieldset>
+  </div>
+
+  <label class="quote-form-message">
+    <span>Additional Move Details</span>
+    <textarea
+      aria-describedby="contact-error-message"
+      name="message"
+      placeholder="Detail any fragile pieces, oversized items, stair flights, or specific timing requirements."
+      required
+      rows="5"
+    ></textarea>
+    <small class="field-error" data-error-for="message" id="contact-error-message"></small>
+  </label>
+
+  <div class="quote-form-footer">
+    <div class="quote-form-reassurance">
+      <p class="form-note">Every brief is reviewed manually. You will receive a structured response with clear service scope.</p>
+      <p class="quote-form-disclaimer">Urgent job? Call <a href="tel:+61433819989">0433 819 989</a>.</p>
+    </div>
+    <button class="button button-cta" type="submit">Get My Fixed-Price Quote</button>
+  </div>
+  <p class="form-note">We’ll review your move details and respond quickly with a clear, fixed-price quote.</p>
+  <p class="form-feedback" data-form-feedback role="status" aria-live="polite"></p>
+</form>
