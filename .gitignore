@@ -25,3 +25,6 @@ data/gsc/*.raw.json
 
 # Astro
 .astro/
+
+.vercel
+.env*
