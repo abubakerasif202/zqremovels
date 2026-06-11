@@ -22,6 +22,7 @@
     "gsc:submit-sitemap": "node scripts/gsc-submit-sitemap.mjs"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.9",
     "@lhci/cli": "^0.15.1",
     "browserslist": "^4.28.2",
     "browserslist-to-esbuild": "^2.1.1",

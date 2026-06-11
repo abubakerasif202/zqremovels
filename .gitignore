@@ -22,3 +22,6 @@ node_modules/
 secrets/
 .gsc-token.json
 data/gsc/*.raw.json
+
+# Astro
+.astro/
