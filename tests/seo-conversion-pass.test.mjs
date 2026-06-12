@@ -67,10 +67,10 @@ test('homepage targets Adelaide removalists with the new commercial headline and
   assert.match(homepage, /href="\/apartment-removalists-prospect\/"/);
   assert.match(homepage, /href="\/removalists-glenelg\/"/);
   assert.match(homepage, /href="\/apartment-removalists-henley-beach\/"/);
-  assert.match(homepage, /href="\/guides\/moving-house-checklist-adelaide\/"/);
+  assert.match(homepage, /href="\/adelaide-moving-guides\/moving-house-checklist-adelaide\/"/);
   assert.match(homepage, /href="\/adelaide-moving-guides\/packing-checklist-adelaide\/"/);
-  assert.match(homepage, /href="\/guides\/removalist-cost-adelaide\/"/);
-  assert.match(homepage, /href="\/guides\/interstate-moving-from-adelaide\/"/);
+  assert.match(homepage, /href="\/adelaide-moving-guides\/removalists-cost-adelaide\/"/);
+  assert.match(homepage, /href="\/adelaide-moving-guides\/interstate-moving-checklist-adelaide\/"/);
 });
 
 test('generated html keeps internal hrefs root-absolute', () => {

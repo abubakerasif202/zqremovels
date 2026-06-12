@@ -1,0 +1,21 @@
+{
+  "name": "ZQ Removals",
+  "short_name": "ZQ Removals",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#001B3D",
+  "theme_color": "#D4AF37",
+  "description": "The gold standard in premium logistics and relocation.",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
