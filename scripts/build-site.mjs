@@ -46,9 +46,8 @@ export function getAstroExpectedOutputPath(pageOutput) {
   }
   
   if (normalized.endsWith('/index.html')) {
-    // e.g. removalists-glenelg/index.html -> removalists-glenelg/index/index.html
-    const prefix = normalized.slice(0, -11);
-    return `${prefix}/index/index.html`;
+    // e.g. removalists-glenelg/index.html -> removalists-glenelg/index.html
+    return normalized;
   }
   
   if (normalized.endsWith('.html')) {

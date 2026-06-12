@@ -586,3 +586,29 @@ test('important pages keep accessible image alt text and dimensions', () => {
     assert.doesNotMatch(html, /<img(?![^>]*\bheight=")[^>]*>/i);
   }
 });
+
+test('no generated page path matches site-dist/**/index/index.html', () => {
+  const walk = (dir) => {
+    let files = [];
+    const list = readdirSync(dir);
+    for (const file of list) {
+      const filePath = path.join(dir, file);
+      const stat = statSync(filePath);
+      if (stat.isDirectory()) {
+        files = files.concat(walk(filePath));
+      } else {
+        files.push(filePath);
+      }
+    }
+    return files;
+  };
+
+  const allFiles = walk(distDir);
+  for (const file of allFiles) {
+    const normalized = file.replace(/\\/g, '/');
+    assert.ok(
+      !normalized.endsWith('/index/index.html'),
+      `Should not generate double index path: ${file}`
+    );
+  }
+});

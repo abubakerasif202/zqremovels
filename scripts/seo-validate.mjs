@@ -29,8 +29,7 @@ function getAstroExpectedOutputPath(pageOutput) {
   }
   
   if (normalized.endsWith('/index.html')) {
-    const prefix = normalized.slice(0, -11);
-    return `${prefix}/index/index.html`;
+    return normalized;
   }
   
   if (normalized.endsWith('.html')) {
@@ -45,16 +44,21 @@ const allPages = mergePagesByOutput(staticPages, generatedPages);
 const expectedToOutput = new Map();
 for (const page of allPages) {
   const expected = getAstroExpectedOutputPath(page.output).replace(/\\/g, '/');
-  expectedToOutput.set(expected, page.output.replace(/\\/g, '/'));
+  if (!expectedToOutput.has(expected)) {
+    expectedToOutput.set(expected, []);
+  }
+  expectedToOutput.get(expected).push(page.output.replace(/\\/g, '/'));
 }
 
 const htmlFiles = await collectHtmlFiles(distRoot);
 const htmlMap = new Map();
 for (const file of htmlFiles) {
   const content = await readFile(path.join(distRoot, file), 'utf8');
-  const mappedOutput = expectedToOutput.get(file);
-  if (mappedOutput) {
-    htmlMap.set(mappedOutput, content);
+  const mappedOutputs = expectedToOutput.get(file);
+  if (mappedOutputs) {
+    for (const mappedOutput of mappedOutputs) {
+      htmlMap.set(mappedOutput, content);
+    }
   } else {
     htmlMap.set(file, content);
   }
@@ -176,6 +180,7 @@ function wordCount(text = '') {
 function checkDuplicateMeta(label, getter, failuresList) {
   const seen = new Map();
   for (const page of pages) {
+    if (page.layout === 'redirect') continue;
     const value = getter(page.output);
     if (!value) continue;
     if (seen.has(value) && seen.get(value) !== page.output) {
