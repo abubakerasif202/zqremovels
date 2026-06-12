@@ -43,33 +43,34 @@ test('homepage targets Adelaide removalists with the new commercial headline and
 
   assert.match(
     homepage,
-    /<h1[^>]*>Adelaide Removalists With Fixed Prices &amp; No Last-Minute Surprises<\/h1>/i,
+    /<h1[^>]*>Adelaide Removalists You Can Trust<\/h1>/i,
   );
   assert.match(
     homepage,
-    /Local and interstate moves across Adelaide\. Fast quotes, careful furniture handling and transparent fixed pricing from a reliable local removalist team\./i,
+    /Local &amp; Interstate Moves Across Adelaide\. Fixed Pricing, Professional Movers, Insurance Details Confirmed Before Booking\./i,
   );
   assert.match(
     homepage,
-    /Prefer to talk it through\? Call <a href="tel:\+61433819989"[^>]*>0433 819 989<\/a> for a quick quote review\./i,
+    /<a class="button button-secondary" href="tel:\+61433819989"[^>]*>Call 0433 819 989<\/a>/i,
   );
-  assert.match(homepage, /class="rating-stars"/i);
-  assert.match(homepage, /class="rating-star"/i);
-  assert.match(homepage, /href="\/house-removals-adelaide\/"/);
-  assert.match(homepage, /href="\/furniture-removalists-adelaide\/"/);
-  assert.match(homepage, /href="\/office-removals-adelaide\/"/);
-  assert.match(homepage, /href="\/interstate-removals-adelaide\/"/);
-  assert.match(homepage, /href="\/packing-services-adelaide\/"/);
+  assert.match(homepage, /class="home-redesign-rating-box"/i);
+  assert.match(homepage, /class="home-redesign-stars"/i);
+  assert.match(homepage, /href="\/services\/house-removals-adelaide\/"/);
+  assert.match(homepage, /href="\/services\/furniture-removals-adelaide\/"/);
+  assert.match(homepage, /href="\/services\/office-removals-adelaide\/"/);
+  assert.match(homepage, /href="\/services\/interstate-removals-adelaide\/"/);
+  assert.match(homepage, /href="\/services\/packing-services-adelaide\/"/);
+  assert.match(homepage, /href="\/services\/apartment-removals-adelaide\/"/);
   assert.match(homepage, /href="\/removalists-adelaide-cbd\/"/);
   assert.match(homepage, /href="\/removalists-marion\/"/);
-  assert.match(homepage, /href="\/removalists-salisbury\/"/);
-  assert.match(homepage, /href="\/removalists-elizabeth\/"/);
+  assert.match(homepage, /href="\/removalists-unley\/"/);
+  assert.match(homepage, /href="\/apartment-removalists-prospect\/"/);
   assert.match(homepage, /href="\/removalists-glenelg\/"/);
-  assert.match(homepage, /href="\/removalists-southern-adelaide\/"/);
-  assert.match(homepage, /href="\/removalists-northern-adelaide\/"/);
-  assert.match(homepage, /href="\/adelaide-moving-guides\/moving-heavy-furniture-adelaide\/"/);
-  assert.match(homepage, /href="\/adelaide-moving-guides\/office-access-planning-adelaide-cbd\/"/);
-  assert.match(homepage, /href="\/adelaide-moving-guides\/when-to-book-packing-services-adelaide\/"/);
+  assert.match(homepage, /href="\/apartment-removalists-henley-beach\/"/);
+  assert.match(homepage, /href="\/guides\/moving-house-checklist-adelaide\/"/);
+  assert.match(homepage, /href="\/adelaide-moving-guides\/packing-checklist-adelaide\/"/);
+  assert.match(homepage, /href="\/guides\/removalist-cost-adelaide\/"/);
+  assert.match(homepage, /href="\/guides\/interstate-moving-from-adelaide\/"/);
 });
 
 test('generated html keeps internal hrefs root-absolute', () => {
