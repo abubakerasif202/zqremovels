@@ -378,7 +378,12 @@ export function renderHomepageAeoBlock() {
     links: [
       { href: '/removalists-adelaide/', label: 'Local Removals' },
       { href: '/house-removals-adelaide/', label: 'House Removals' },
+      { href: '/cheap-removalists-adelaide/', label: 'Cheap Removals' },
+      { href: '/affordable-removalists-adelaide/', label: 'Affordable Removals' },
+      { href: '/removalist-cost-adelaide/', label: 'Removalist Cost' },
+      { href: '/moving-quotes-adelaide/', label: 'Moving Quotes' },
       { href: '/fixed-price-removalists-adelaide/', label: 'Fixed Pricing' },
+      { href: '/budget-removalists-adelaide/', label: 'Budget Removals' },
       { href: '/contact-us/#quote-form', label: 'Get Quote' },
     ],
     soft: true,

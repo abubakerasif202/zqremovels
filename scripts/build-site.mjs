@@ -2477,6 +2477,7 @@ const localProofProfiles = {
 export async function runLegacyGenerator() {
   // 0. Run Astro build to generate initial pages
   console.log('Running Astro build...');
+  await rm(path.join(distRoot, '.prerender'), { recursive: true, force: true });
   execSync('npx astro build', { stdio: 'inherit', env: process.env });
 
   const releaseBuildLock = await acquireBuildLock();
@@ -3965,10 +3966,14 @@ function injectLeadMachineHiddenFields(content) {
       next = next.replace(/>$/, ' method="POST">');
     }
 
+    const existingFields = new Set(
+      [...match.matchAll(/name="([^"]+)"/gi)].map((fieldMatch) => fieldMatch[1]),
+    );
     const hiddenFieldMarkup = hiddenFields
+      .filter(({ name }) => !existingFields.has(name))
       .map(({ name, value, attr }) => `<input type="hidden" name="${name}" value="${escapeHtml(value)}"${attr ? ` ${attr}` : ''} />`)
       .join('');
-    return `${next}\n${hiddenFieldMarkup}`;
+    return hiddenFieldMarkup ? `${next}\n${hiddenFieldMarkup}` : next;
   });
 }
 

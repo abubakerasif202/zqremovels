@@ -207,7 +207,7 @@
       </div>
 
       <div class="quote-form-shell">
-        <form id="homepage-quote-form" class="quote-form-premium" data-quote-form="quote" novalidate>
+        <form id="homepage-quote-form" class="quote-form-premium" data-quote-form="quote" action="https://api.web3forms.com/submit" method="POST" novalidate>
           <p hidden>
             <label>Leave this field empty <input autocomplete="off" name="botcheck" tabindex="-1" type="text" /></label>
           </p>
@@ -215,6 +215,7 @@
             <label><span>Full name</span><input autocomplete="name" name="name" placeholder="Your full name" required type="text" /></label>
             <label><span>Phone number</span><input autocomplete="tel" inputmode="tel" name="phone" placeholder="Your mobile number" required type="tel" /></label>
             <label><span>Email address</span><input autocomplete="email" name="email" placeholder="Your email address" required type="email" /></label>
+            <label><span>Preferred date</span><input name="move_date" type="date" /></label>
             <label><span>Move type</span><select name="move_scope" required><option selected value="">Select move type</option><option value="house-removal">House move</option><option value="apartment-removal">Apartment or unit</option><option value="office-relocation">Office move</option><option value="furniture-removal">Furniture-only move</option><option value="interstate-removal">Interstate move</option><option value="packing-service">Packing support</option></select></label>
             <label><span>From suburb</span><input name="pickup_suburb" placeholder="Pickup suburb" required type="text" /></label>
             <label><span>To suburb</span><input name="dropoff_suburb" placeholder="Delivery suburb" required type="text" /></label>
