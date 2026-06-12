@@ -17,8 +17,49 @@ const generatedCommercialOutputs = new Set(
   generatedPages.filter((page) => page.generatedKind === 'commercial').map((page) => normalizeOutput(page.output)),
 );
 
+function getAstroExpectedOutputPath(pageOutput) {
+  const normalized = pageOutput.replace(/\\/g, '/');
+  
+  if (normalized === 'index.html') {
+    return 'index.html';
+  }
+  
+  if (normalized === '404.html' || normalized === '404/index.html') {
+    return '404.html';
+  }
+  
+  if (normalized.endsWith('/index.html')) {
+    const prefix = normalized.slice(0, -11);
+    return `${prefix}/index/index.html`;
+  }
+  
+  if (normalized.endsWith('.html')) {
+    const prefix = normalized.slice(0, -5);
+    return `${prefix}/index.html`;
+  }
+  
+  return `${normalized}/index.html`;
+}
+
+const allPages = mergePagesByOutput(staticPages, generatedPages);
+const expectedToOutput = new Map();
+for (const page of allPages) {
+  const expected = getAstroExpectedOutputPath(page.output).replace(/\\/g, '/');
+  expectedToOutput.set(expected, page.output.replace(/\\/g, '/'));
+}
+
 const htmlFiles = await collectHtmlFiles(distRoot);
-const htmlMap = new Map(await Promise.all(htmlFiles.map(async (file) => [file, await readFile(path.join(distRoot, file), 'utf8')])));
+const htmlMap = new Map();
+for (const file of htmlFiles) {
+  const content = await readFile(path.join(distRoot, file), 'utf8');
+  const mappedOutput = expectedToOutput.get(file);
+  if (mappedOutput) {
+    htmlMap.set(mappedOutput, content);
+  } else {
+    htmlMap.set(file, content);
+  }
+}
+
 const routeByOutput = new Map(pages.map((page) => [normalizeOutput(page.output), page]));
 const graph = buildInternalLinkGraph(htmlMap, routeByOutput);
 

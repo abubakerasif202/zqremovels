@@ -8,7 +8,25 @@ const root = process.cwd();
 const distDir = path.join(root, "site-dist");
 
 function readDist(relativePath) {
-  return readFileSync(path.join(distDir, relativePath), "utf8");
+  const normalized = relativePath.replace(/\\/g, '/');
+  const candidates = [
+    path.join(distDir, relativePath),
+  ];
+  if (normalized.endsWith('/index.html') && normalized !== 'index.html') {
+    const prefix = normalized.slice(0, -11);
+    candidates.unshift(path.join(distDir, `${prefix}/index/index.html`));
+  } else if (normalized.endsWith('.html') && !normalized.endsWith('/index.html') && normalized !== 'index.html' && normalized !== '404.html') {
+    const prefix = normalized.slice(0, -5);
+    candidates.unshift(path.join(distDir, `${prefix}/index.html`));
+  }
+  for (const c of candidates) {
+    try {
+      return readFileSync(c, 'utf8');
+    } catch {
+      // ignore
+    }
+  }
+  return readFileSync(path.join(distDir, relativePath), 'utf8');
 }
 
 async function buildSite(extraEnv = {}) {

@@ -33,6 +33,35 @@ const projectRoot = process.cwd();
 export const srcRoot = path.join(projectRoot, 'site-src');
 const distRoot = path.join(projectRoot, 'site-dist');
 
+export function getAstroExpectedOutputPath(pageOutput) {
+  const normalized = pageOutput.replace(/\\/g, '/');
+  
+  if (normalized === 'index.html') {
+    return 'index.html';
+  }
+  
+  // Special case: Astro 404 page is generated directly as 404.html
+  if (normalized === '404.html' || normalized === '404/index.html') {
+    return '404.html';
+  }
+  
+  if (normalized.endsWith('/index.html')) {
+    // e.g. removalists-glenelg/index.html -> removalists-glenelg/index/index.html
+    const prefix = normalized.slice(0, -11);
+    return `${prefix}/index/index.html`;
+  }
+  
+  if (normalized.endsWith('.html')) {
+    // e.g. about.html -> about/index.html
+    const prefix = normalized.slice(0, -5);
+    return `${prefix}/index.html`;
+  }
+  
+  // Fallback
+  return `${normalized}/index.html`;
+}
+
+
 const templates = {
   standard: await readFile(path.join(srcRoot, 'templates', 'standard.html'), 'utf8'),
   bare: await readFile(path.join(srcRoot, 'templates', 'bare.html'), 'utf8'),
@@ -2478,20 +2507,56 @@ export async function runLegacyGenerator() {
     // 5. Post-process built HTML pages
     const renderedHtmlByOutput = new Map();
     for (const page of pages) {
-      const distOutputPath = path.join(distRoot, page.output);
+      const expectedRelative = getAstroExpectedOutputPath(page.output);
+      const distOutputPath = path.join(distRoot, expectedRelative);
+      
+      // Try resolving actual path based on existence checks
+      let actualPath = distOutputPath;
+      let exists = false;
       try {
-        const rawHtml = await readFile(distOutputPath, 'utf8');
+        await stat(actualPath);
+        exists = true;
+      } catch {
+        // Try original flat path as fallback
+        const flatPath = path.join(distRoot, page.output);
+        try {
+          await stat(flatPath);
+          actualPath = flatPath;
+          exists = true;
+        } catch {
+          // If page.output is e.g. route.html, try route/index.html
+          if (page.output.endsWith('.html') && !page.output.endsWith('/index.html') && page.output !== 'index.html' && page.output !== '404.html') {
+            const route = page.output.slice(0, -5);
+            const nestedFallback = path.join(distRoot, route, 'index.html');
+            try {
+              await stat(nestedFallback);
+              actualPath = nestedFallback;
+              exists = true;
+            } catch {
+              // Not found
+            }
+          }
+        }
+      }
+
+      if (!exists) {
+        console.warn(`[WARNING] Page file not found for ${page.output}. Expected at: ${distOutputPath}. Skipping post-processing.`);
+        continue;
+      }
+
+      try {
+        const rawHtml = await readFile(actualPath, 'utf8');
         const normalizedHtml = normalizeSiteUrl(rawHtml.trim());
         const trackedHtml = decorateLeadTracking(normalizedHtml, page);
         const finalHtml = responsiveVariants.size > 0
           ? injectResponsiveSrcset(trackedHtml, responsiveVariants)
           : trackedHtml;
         
-        await writeFile(distOutputPath, `${finalHtml}\n`, 'utf8');
+        await writeFile(actualPath, `${finalHtml}\n`, 'utf8');
         renderedHtmlByOutput.set(page.output.replace(/\\/g, '/'), finalHtml);
         console.log(`post-processed and tracked ${page.output}`);
       } catch (error) {
-        console.error(`Error post-processing ${page.output}:`, error.message);
+        console.warn(`[WARNING] Failed to post-process ${page.output} (file: ${actualPath}):`, error.message);
       }
     }
 

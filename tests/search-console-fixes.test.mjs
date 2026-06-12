@@ -13,6 +13,24 @@ const pages = mergePagesByOutput(
 );
 
 function readDist(relativePath) {
+  const normalized = relativePath.replace(/\\/g, '/');
+  const candidates = [
+    path.join(distDir, relativePath),
+  ];
+  if (normalized.endsWith('/index.html') && normalized !== 'index.html') {
+    const prefix = normalized.slice(0, -11);
+    candidates.unshift(path.join(distDir, `${prefix}/index/index.html`));
+  } else if (normalized.endsWith('.html') && !normalized.endsWith('/index.html') && normalized !== 'index.html' && normalized !== '404.html') {
+    const prefix = normalized.slice(0, -5);
+    candidates.unshift(path.join(distDir, `${prefix}/index.html`));
+  }
+  for (const c of candidates) {
+    try {
+      return readFileSync(c, 'utf8');
+    } catch {
+      // ignore
+    }
+  }
   return readFileSync(path.join(distDir, relativePath), 'utf8');
 }
 
@@ -450,11 +468,15 @@ test('generated pages do not contain broken internal links', () => {
       if (cleanHref === '/') {
         targetCandidates.push(path.join(distDir, 'index.html'));
       } else if (cleanHref.endsWith('/')) {
-        targetCandidates.push(path.join(distDir, cleanHref.slice(1), 'index.html'));
+        targetCandidates.push(
+          path.join(distDir, cleanHref.slice(1), 'index.html'),
+          path.join(distDir, cleanHref.slice(1), 'index', 'index.html')
+        );
       } else {
         targetCandidates.push(
           path.join(distDir, cleanHref.slice(1)),
           path.join(distDir, cleanHref.slice(1), 'index.html'),
+          path.join(distDir, cleanHref.slice(1), 'index', 'index.html')
         );
         if (!cleanHref.endsWith('.html')) {
           targetCandidates.push(path.join(distDir, `${cleanHref.slice(1)}.html`));
@@ -829,13 +851,14 @@ test('priority Adelaide suburb pages are substantial and keep service, nearby, F
     assert.ok(links.includes('/contact-us/#quote-form') || main.includes('tel:+61433819989'), `${slug} missing quote/call CTA`);
   }
 });
-
 test('expanded Adelaide moving guide cluster has 30 plus posts with service links and FAQ support', () => {
   const guideRoot = path.join(distDir, 'adelaide-moving-guides');
-  const guideDirs = readdirSync(guideRoot).filter((entry) =>
-    statSync(path.join(guideRoot, entry), { throwIfNoEntry: false })?.isDirectory() &&
-    statSync(path.join(guideRoot, entry, 'index.html'), { throwIfNoEntry: false }),
-  );
+  const guideDirs = readdirSync(guideRoot).filter((entry) => {
+    const dirPath = path.join(guideRoot, entry);
+    if (!statSync(dirPath, { throwIfNoEntry: false })?.isDirectory()) return false;
+    return statSync(path.join(dirPath, 'index.html'), { throwIfNoEntry: false }) ||
+           statSync(path.join(dirPath, 'index', 'index.html'), { throwIfNoEntry: false });
+  });
   const requiredServiceLinks = [
     '/house-removals-adelaide/',
     '/furniture-removalists-adelaide/',
