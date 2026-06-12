@@ -3648,7 +3648,7 @@ function decorateLeadTracking(html, page) {
     });
 }
 
-function getBodyClasses(page) {
+export function getBodyClasses(page) {
   const classes = [];
   const output = page.output;
 

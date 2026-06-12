@@ -5,9 +5,11 @@ export interface Props {
   headHtml: string;
   bodyTopHtml?: string;
   layout: string;
+  bodyClasses?: string[];
 }
 
-const { headHtml, bodyTopHtml, layout } = Astro.props;
+const { headHtml, bodyTopHtml, layout, bodyClasses = [] } = Astro.props;
+const pageBodyClasses = ['bg-navy', 'text-slate-100', ...bodyClasses];
 
 // Get tracking IDs from environment variables
 const gaId = import.meta.env.VITE_GA_MEASUREMENT_ID || process.env.VITE_GA_MEASUREMENT_ID || import.meta.env.GA_MEASUREMENT_ID || process.env.GA_MEASUREMENT_ID;
@@ -90,7 +92,7 @@ const trackingConfigStr = JSON.stringify(trackingConfig);
       `} />
     )}
   </head>
-  <body class="bg-navy text-slate-100">
+  <body class:list={pageBodyClasses}>
     {gtmId && (
       <noscript>
         <iframe src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`} height="0" width="0" style="display:none;visibility:hidden" />
