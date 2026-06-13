@@ -55,7 +55,7 @@ test('confirmed ABN is visible in footer, contact, about, and MovingCompany sche
   const homepage = readDist('index.html');
 
   for (const html of [footerSource, about, contact, homepage]) {
-    assert.match(html, /ABN 97 954 095 119/);
+    assert.match(html, /ABN 88 642 917 351/);
   }
 
   const movingCompanyNodes = extractJsonLd(homepage)
@@ -64,9 +64,9 @@ test('confirmed ABN is visible in footer, contact, about, and MovingCompany sche
   assert.ok(movingCompanyNodes.length > 0, 'homepage missing MovingCompany schema');
   assert.ok(
     movingCompanyNodes.some((node) =>
-      node.taxID === '97954095119' ||
-      node.identifier?.value === '97954095119' ||
-      JSON.stringify(node.identifier || '').includes('97954095119'),
+      node.taxID === '88 642 917 351' ||
+      node.identifier?.value === '88 642 917 351' ||
+      JSON.stringify(node.identifier || '').includes('88 642 917 351'),
     ),
     'MovingCompany schema missing confirmed ABN value',
   );
@@ -213,7 +213,7 @@ test('schema parses and keeps review, taxID, insurance, and AFRA guardrails safe
 
       for (const node of flattenJsonLdNodes(block)) {
         if (node.taxID) {
-          assert.equal(node.taxID, '97954095119', `${relative} contains unexpected taxID`);
+          assert.equal(node.taxID, '88 642 917 351', `${relative} contains unexpected taxID`);
         }
         if (node.identifier) {
           assert.doesNotMatch(JSON.stringify(node.identifier), /97\s?954\s?095\s?(?!119)\d+/, `${relative} contains unexpected identifier`);

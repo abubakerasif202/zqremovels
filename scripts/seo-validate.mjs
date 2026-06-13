@@ -689,7 +689,7 @@ function isStrictSeoGuideTarget(target = '') {
 }
 
 function hasStrictSeoCta(html = '') {
-  return html.includes('/contact-us/#quote-form') || html.includes('tel:+61433819989') || /data-generated-cta|data-cta/i.test(html);
+  return html.includes('/contact-us/#quote-form') || html.includes('tel:0433 819 989') || /data-generated-cta|data-cta/i.test(html);
 }
 
 function hasStrictSeoFaq(html = '') {

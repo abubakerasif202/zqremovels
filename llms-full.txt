@@ -1,8 +1,8 @@
 Entity: ZQ Removals
 Type: MovingCompany
 Website: https://zqremovals.au
-Phone: +61 433 819 989
-ABN: 97 954 095 119
+Phone: 0433 819 989
+ABN: 88 642 917 351
 
 Business overview:
 - Adelaide-based moving company for local, interstate, residential, and commercial jobs.
@@ -77,5 +77,5 @@ Resources:
 - llms.txt: https://zqremovals.au/llms.txt
 
 Contact details:
-- Phone: +61 433 819 989
+- Phone: 0433 819 989
 - Website: https://zqremovals.au

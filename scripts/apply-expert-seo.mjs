@@ -32,7 +32,7 @@ async function applyExpertSEO() {
           "@id": "https://zqremovals.au/#localbusiness",
           "name": "ZQ Removals Adelaide",
           "url": "https://zqremovals.au/",
-          "telephone": "+61 433 819 989",
+          "telephone": "0433 819 989",
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "Andrews Farm SA 5114",
@@ -84,7 +84,7 @@ async function applyExpertSEO() {
         <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
           <span itemprop="addressLocality">Andrews Farm</span> <span itemprop="addressRegion">SA</span> <span itemprop="postalCode">5114</span>
         </span>
-        <span>ABN 97 954 095 119</span>
+        <span>ABN 88 642 917 351</span>
         <a href="tel:+61433819989" itemprop="telephone">0433 819 989</a>
       </address>`;
       

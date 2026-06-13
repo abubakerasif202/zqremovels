@@ -53,7 +53,7 @@
 * **Visual:** Screen fades to a clean white background with the ZQ Removals logo (256px variant). 
   - **Text:** FIXED-PRICE ADELAIDE REMOVALISTS. 10% OFF NEW CLIENTS.
   - **URL:** zqremovals.au
-  - **Phone:** +61 433 819 989
+  - **Phone:** 0433 819 989
 * **SFX:** Final resonant bass note.
 * **Voiceover:**
   > "ZQ Removals. Move with Certainty."

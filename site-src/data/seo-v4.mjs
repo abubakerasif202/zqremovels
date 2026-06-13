@@ -11,11 +11,11 @@ import {
 
 const SITE_URL = 'https://zqremovals.au';
 const BUSINESS_NAME = 'ZQ Removals';
-const PHONE = '+61 433 819 989';
+const PHONE = '0433 819 989';
 const DEFAULT_OG_IMAGE = `${SITE_URL}/zq-removals-social-share.webp`;
 const DEFAULT_LOGO = `${SITE_URL}/brand-logo.webp`;
-const ABN_FORMATTED = '97 954 095 119';
-const ABN_MACHINE = '97954095119';
+const ABN_FORMATTED = '88 642 917 351';
+const ABN_MACHINE = '88 642 917 351';
 
 export const businessIdentifiers = {
   abnFormatted: ABN_FORMATTED,
@@ -83,6 +83,7 @@ export const localBusinessSchema = {
   name: BUSINESS_NAME,
   url: `${SITE_URL}/`,
   telephone: PHONE,
+  email: 'info@zqremovals.au',
   image: DEFAULT_OG_IMAGE,
   logo: DEFAULT_LOGO,
   description: 'Fixed-price Adelaide removalists specializing in house, apartment, and office moves with careful furniture handling.',
@@ -123,6 +124,7 @@ export const localBusinessSchema = {
       '@type': 'ContactPoint',
       contactType: 'customer service',
       telephone: PHONE,
+      email: 'info@zqremovals.au',
       areaServed: seoConfig.serviceAreas,
       availableLanguage: ['en'],
       url: `${SITE_URL}/contact-us/`,
@@ -4374,8 +4376,21 @@ function makeGuidePage({ slug, title, topic, basePath = 'adelaide-moving-guides'
         headline: title,
         description,
         mainEntityOfPage: { '@id': `${canonical}#webpage` },
-        author: { '@type': 'Organization', name: BUSINESS_NAME },
-        publisher: { '@type': 'Organization', name: BUSINESS_NAME },
+        author: {
+          '@type': 'Person',
+          name: 'Qasim Ali',
+          jobTitle: 'Founder & Lead Operations Planner',
+          worksFor: {
+            '@id': `${SITE_URL}/#business`
+          },
+          sameAs: [
+            'https://facebook.com/zqremovals',
+            'https://share.google/Y04mpt9RTflWP3iRl'
+          ]
+        },
+        publisher: {
+          '@id': `${SITE_URL}/#business`
+        },
         ...(pageImage ? { image: [pageImage.url] } : {}),
       }),
     ],
@@ -5219,6 +5234,8 @@ ${renderFaqSectionBlock({
   items: faqItems,
 })}
 
+${renderGuideAuthorBox()}
+
 ${renderQuoteStrip({
   id: 'guide-quote-next-step',
   eyebrow: 'Plan confirmed',
@@ -5229,6 +5246,30 @@ ${renderQuoteStrip({
   pageType: 'guide',
 })}
 </main>`;
+}
+
+function renderGuideAuthorBox() {
+  return `<section class="section section-soft" data-generated-module="guide-author-box">
+  <div class="container" style="max-width: 800px; margin: 0 auto;">
+    <div style="display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap; background: var(--card-bg, rgba(255, 255, 255, 0.03)); border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08)); border-radius: 12px; padding: 2rem; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);">
+      <div style="flex-shrink: 0; width: 80px; height: 80px; border-radius: 50%; overflow: hidden; border: 2px solid var(--accent-color, #10b981); background: var(--bg-soft, #10151d); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto;">
+        <span style="font-size: 2rem; font-weight: bold; color: var(--accent-color, #10b981);">QA</span>
+      </div>
+      <div style="flex: 1; min-width: 280px; text-align: left;">
+        <span class="eyebrow" style="margin-bottom: 0.25rem; display: block; font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase;">Written and Reviewed by</span>
+        <h3 style="margin: 0 0 0.5rem 0; font-size: 1.5rem; font-weight: bold; color: var(--text-heading, #ffffff);">Qasim Ali</h3>
+        <p style="margin: 0 0 1rem 0; font-size: 0.95rem; line-height: 1.5; color: var(--text-copy, #a0aec0);">
+          Qasim is the founder and lead operations planner of ZQ Removals. With over 10 years of hands-on experience driving moving trucks, wrapping fragile estates, and navigating loading dock rules across Adelaide CBD and South Australian suburbs, Qasim reviews every move brief to ensure accurate, fixed-price pricing.
+        </p>
+        <div class="inline-link-group" style="margin: 0; justify-content: flex-start; gap: 1rem; font-size: 0.85rem;">
+          <a href="https://facebook.com/zqremovals" rel="noopener noreferrer" target="_blank" style="color: var(--accent-color, #10b981); text-decoration: none; font-weight: 600;">Facebook Profile</a>
+          <span style="color: rgba(255, 255, 255, 0.2);">|</span>
+          <a href="https://share.google/Y04mpt9RTflWP3iRl" rel="noopener noreferrer" target="_blank" style="color: var(--accent-color, #10b981); text-decoration: none; font-weight: 600;">Google Business Profile</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>`;
 }
 
 function renderQuoteModelComparison({ module = 'quote-model-comparison', soft = false } = {}) {

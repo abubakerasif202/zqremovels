@@ -14,8 +14,8 @@ Make ZQ Removals ready for stronger trust signals without publishing unsupported
 
 ## Exact Implementation Rules
 
-- Display only this confirmed ABN: `97 954 095 119`.
-- Use only this schema machine value: `97954095119`.
+- Display only this confirmed ABN: `88 642 917 351`.
+- Use only this schema machine value: `88 642 917 351`.
 - Add the ABN to MovingCompany schema as `taxID` or `identifier`.
 - Use the placeholder wording exactly where insurance is not confirmed: `ABN and insurance details can be added here once confirmed by the business owner.`
 - If proof-of-cover wording is needed for a building manager, keep it as a request workflow, not a claim.
@@ -23,16 +23,16 @@ Make ZQ Removals ready for stronger trust signals without publishing unsupported
 
 ## ABN Placement Checklist
 
-- Footer NAP block includes `ABN 97 954 095 119`.
-- About page trust section includes `ABN 97 954 095 119`.
-- Contact page trust section includes `ABN 97 954 095 119`.
-- MovingCompany JSON-LD includes `97954095119`.
+- Footer NAP block includes `ABN 88 642 917 351`.
+- About page trust section includes `ABN 88 642 917 351`.
+- Contact page trust section includes `ABN 88 642 917 351`.
+- MovingCompany JSON-LD includes `88 642 917 351`.
 
 ## LocalBusiness Schema Instructions
 
-- `taxID`: `97954095119`
+- `taxID`: `88 642 917 351`
 - `identifier.name`: `ABN`
-- `identifier.value`: `97954095119`
+- `identifier.value`: `88 642 917 351`
 - Do not add unverified licence, insurance, AFRA, review, or rating fields.
 
 ## Unsafe Claims To Avoid
@@ -47,7 +47,7 @@ Make ZQ Removals ready for stronger trust signals without publishing unsupported
 
 ## Owner Confirmation Required
 
-- Official ABN: confirmed as `97 954 095 119`.
+- Official ABN: confirmed as `88 642 917 351`.
 - Insurance provider: still required.
 - Public liability coverage amount: still required.
 - Goods-in-transit coverage details: still required.

@@ -2741,7 +2741,7 @@ function buildOrganizationJsonLd(page) {
       name: 'ZQ Removals',
       url: 'https://zqremovals.au/',
       logo: defaultLogoImage,
-      telephone: '+61433819989',
+      telephone: '0433 819 989',
       sameAs: companySameAsProfiles,
     },
     null,
@@ -3282,9 +3282,30 @@ function normalizeJsonLdNode(node, page) {
   }
 
   if (types.includes('BlogPosting') && !types.includes('Article')) {
-    return {
+    node = {
       ...node,
       '@type': ['Article', 'BlogPosting'],
+    };
+  }
+
+  if (types.includes('Article') || types.includes('BlogPosting')) {
+    return {
+      ...node,
+      author: {
+        '@type': 'Person',
+        name: 'Qasim Ali',
+        jobTitle: 'Founder & Lead Operations Planner',
+        worksFor: {
+          '@id': 'https://zqremovals.au/#business'
+        },
+        sameAs: [
+          'https://facebook.com/zqremovals',
+          'https://share.google/Y04mpt9RTflWP3iRl'
+        ]
+      },
+      publisher: {
+        '@id': 'https://zqremovals.au/#business'
+      }
     };
   }
 
@@ -3342,7 +3363,8 @@ function normalizeMovingCompanyNode(node, page) {
     '@id': 'https://zqremovals.au/#business',
     name: 'ZQ Removals',
     url: 'https://zqremovals.au/',
-    telephone: '+61433819989',
+    telephone: '0433 819 989',
+    email: 'info@zqremovals.au',
     image: defaultSocialImage,
     logo: defaultLogoImage,
     hasMap: googleBusinessProfileUrl,
@@ -3384,7 +3406,8 @@ function normalizeMovingCompanyNode(node, page) {
       {
         '@type': 'ContactPoint',
         contactType: 'customer service',
-        telephone: '+61433819989',
+        telephone: '0433 819 989',
+        email: 'info@zqremovals.au',
         areaServed: ['Adelaide', 'South Australia', 'Australia'],
         availableLanguage: ['en-AU'],
         url: 'https://zqremovals.au/contact-us/',
@@ -3434,6 +3457,8 @@ function extractFaqPairs(content) {
   const faqItemPattern =
     /<article\b[^>]*class="[^"]*\bfaq-item\b[^"]*"[\s\S]*?<h3\b[^>]*class="[^"]*\bfaq-question\b[^"]*"[^>]*>([\s\S]*?)<\/h3>[\s\S]*?<p[^>]*>([\s\S]*?)<\/p>[\s\S]*?<\/article>/gi;
   const loosePattern = /<article>\s*<h3>([\s\S]*?)<\/h3>\s*<p>([\s\S]*?)<\/p>\s*<\/article>/gi;
+  const detailsPattern =
+    /<details\b[^>]*itemtype="[^"]*Question"[^>]*>[\s\S]*?<summary\b[^>]*itemprop="name"[^>]*>([\s\S]*?)<\/summary>[\s\S]*?<p\b[^>]*itemprop="text"[^>]*>([\s\S]*?)<\/p>[\s\S]*?<\/details>/gi;
 
   const pairs = [];
   const addedQuestions = new Set();
@@ -3457,6 +3482,10 @@ function extractFaqPairs(content) {
   }
 
   for (const match of content.matchAll(loosePattern)) {
+    processMatch(match);
+  }
+
+  for (const match of content.matchAll(detailsPattern)) {
     processMatch(match);
   }
 
@@ -6475,7 +6504,7 @@ function renderLLMsFullTxt() {
     'Type: MovingCompany',
     `Website: ${seoConfig.siteUrl}`,
     `Phone: ${seoConfig.phone}`,
-    'ABN: 97 954 095 119',
+    'ABN: 88 642 917 351',
     '',
     'Business overview:',
     '- Adelaide-based moving company for local, interstate, residential, and commercial jobs.',

@@ -602,16 +602,16 @@ test('json-ld is valid, host-consistent, and uses only supported business facts'
         if (types.includes('MovingCompany')) {
           assert.equal(node.name, 'ZQ Removals', `MovingCompany name mismatch in ${relativePath}`);
           assert.equal(node.url, 'https://zqremovals.au/', `MovingCompany URL mismatch in ${relativePath}`);
-          assert.equal(normalizeTelephone(node.telephone), '+61433819989', `MovingCompany telephone mismatch in ${relativePath}`);
+          assert.equal(normalizeTelephone(node.telephone), '0433819989', `MovingCompany telephone mismatch in ${relativePath}`);
           assert.deepEqual(
             node.sameAs,
             ['https://share.google/Y04mpt9RTflWP3iRl', 'https://facebook.com/zqremovals'],
             `MovingCompany sameAs mismatch in ${relativePath}`,
           );
-          assert.equal(node.taxID, '97954095119', `MovingCompany ABN mismatch in ${relativePath}`);
+          assert.equal(node.taxID, '88 642 917 351', `MovingCompany ABN mismatch in ${relativePath}`);
           assert.deepEqual(
             node.identifier,
-            { '@type': 'PropertyValue', name: 'ABN', value: '97954095119' },
+            { '@type': 'PropertyValue', name: 'ABN', value: '88 642 917 351' },
             `MovingCompany identifier mismatch in ${relativePath}`,
           );
           assert.equal(node.address?.['@type'], 'PostalAddress', `MovingCompany address type mismatch in ${relativePath}`);
@@ -849,7 +849,7 @@ test('priority Adelaide suburb pages are substantial and keep service, nearby, F
     assert.ok((main.match(/class="faq-item/g) || []).length >= 5, `${slug} missing FAQ depth`);
     assert.ok(links.filter((href) => href.includes('-removals-adelaide') || href.includes('furniture-removalists-adelaide') || href.includes('packing-services-adelaide') || href.includes('interstate-removals-adelaide')).length >= 3, `${slug} missing service links`);
     assert.ok(links.filter((href) => href.startsWith('/removalists-') && !href.includes(slug)).length >= 3, `${slug} missing nearby suburb links`);
-    assert.ok(links.includes('/contact-us/#quote-form') || main.includes('tel:+61433819989'), `${slug} missing quote/call CTA`);
+    assert.ok(links.includes('/contact-us/#quote-form') || main.includes('tel:0433819989'), `${slug} missing quote/call CTA`);
   }
 });
 test('expanded Adelaide moving guide cluster has 30 plus posts with service links and FAQ support', () => {
