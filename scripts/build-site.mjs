@@ -27,6 +27,7 @@ import {
   seoConfig,
   zqServiceSitemapOutputs,
 } from '../site-src/data/seo-v4.mjs';
+import { buildPostalAddressSchema, businessIdentity } from '../site-src/data/business.mjs';
 import { zqSuburbGeoData } from '../site-src/data/zq-suburbs.mjs';
 
 const projectRoot = process.cwd();
@@ -80,12 +81,9 @@ const preferredSiteOrigin = seoConfig.siteUrl;
 const legacySiteOrigin = seoConfig.siteUrl;
 const defaultSocialImage = seoConfig.defaultOgImage;
 const defaultLogoImage = seoConfig.defaultLogo;
-const googleBusinessProfileUrl = 'https://share.google/Y04mpt9RTflWP3iRl';
-const companySameAsProfiles = [
-  googleBusinessProfileUrl,
-  'https://facebook.com/zqremovals'
-];
-const confirmedTrustCredentialText = `ZQ Removals ABN ${businessIdentifiers.abnFormatted}. Insurance documentation can be confirmed before booking when requested in the quote brief.`;
+const googleBusinessProfileUrl = businessIdentity.socialProfiles[0];
+const companySameAsProfiles = businessIdentity.socialProfiles;
+const confirmedTrustCredentialText = `${businessIdentity.name} ABN ${businessIdentifiers.abnFormatted}. Ask about cover, building requirements, and move protection before booking.`;
 function getBuildEnvValue(name) {
   return (process.env[name] ?? buildEnv[name] ?? '').trim();
 }
@@ -2546,7 +2544,7 @@ export async function runLegacyGenerator() {
 
       try {
         const rawHtml = await readFile(actualPath, 'utf8');
-        const normalizedHtml = normalizeSiteUrl(rawHtml.trim());
+        const normalizedHtml = applyBusinessTokens(normalizeSiteUrl(rawHtml.trim()));
         const trackedHtml = decorateLeadTracking(normalizedHtml, page);
         const finalHtml = responsiveVariants.size > 0
           ? injectResponsiveSrcset(trackedHtml, responsiveVariants)
@@ -2738,10 +2736,10 @@ function buildOrganizationJsonLd(page) {
       '@context': 'https://schema.org',
       '@type': 'Organization',
       '@id': 'https://zqremovals.au/#organization',
-      name: 'ZQ Removals',
-      url: 'https://zqremovals.au/',
+      name: businessIdentity.name,
+      url: `${businessIdentity.siteUrl}/`,
       logo: defaultLogoImage,
-      telephone: '0433 819 989',
+      telephone: businessIdentity.phone.display,
       sameAs: companySameAsProfiles,
     },
     null,
@@ -2759,8 +2757,8 @@ function buildWebSiteJsonLd(page) {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       '@id': 'https://zqremovals.au/#website',
-      url: 'https://zqremovals.au/',
-      name: 'ZQ Removals',
+      url: `${businessIdentity.siteUrl}/`,
+      name: businessIdentity.name,
       inLanguage: 'en-AU',
       publisher: {
         '@id': 'https://zqremovals.au/#organization',
@@ -2793,10 +2791,10 @@ function buildHomepageServiceJsonLd(page) {
         name,
         serviceType,
         provider: {
-          '@id': 'https://zqremovals.au/#business',
+          '@id': `${businessIdentity.siteUrl}/#business`,
         },
         areaServed: ['Adelaide', 'South Australia'],
-        url: `https://zqremovals.au${urlPath}`,
+        url: `${businessIdentity.siteUrl}${urlPath}`,
       })),
     },
     null,
@@ -3183,6 +3181,14 @@ function sanitizeJsonLdTrustClaims(value) {
 
 function sanitizeTrustClaimText(value = '') {
   return String(value)
+    .replace(/\{\{\s*business\.name\s*\}\}/gi, businessIdentity.name)
+    .replace(/\{\{\s*business\.abn\s*\}\}/gi, businessIdentifiers.abnFormatted)
+    .replace(/\{\{\s*business\.phoneDisplay\s*\}\}/gi, businessIdentity.phone.display)
+    .replace(/\{\{\s*business\.phoneTel\s*\}\}/gi, businessIdentity.phone.tel)
+    .replace(/\{\{\s*business\.phoneMachine\s*\}\}/gi, businessIdentity.phone.machine)
+    .replace(/\{\{\s*business\.addressLocality\s*\}\}/gi, businessIdentity.address.locality)
+    .replace(/\{\{\s*business\.addressRegion\s*\}\}/gi, businessIdentity.address.region)
+    .replace(/\{\{\s*business\.postalCode\s*\}\}/gi, businessIdentity.address.postalCode)
     .replace(/ABN and insurance details can be added here once confirmed by the business owner\./gi, confirmedTrustCredentialText)
     .replace(/Yes\. ZQ Removals is fully insured\. Your furniture is covered from the moment our team begins loading to the moment everything is placed in your new home\./gi, confirmedTrustCredentialText)
     .replace(/Yes\. All ZQ Removals interstate jobs are fully insured\. Ask for details when requesting your quote\./gi, confirmedTrustCredentialText)
@@ -3192,6 +3198,10 @@ function sanitizeTrustClaimText(value = '') {
     .replace(/transit insurance as standard/gi, 'owner-confirmed cover details available on request')
     .replace(/complete transit insurance included on every job for your total peace of mind\./gi, confirmedTrustCredentialText)
     .replace(/standard transit insurance included/gi, 'owner-confirmed cover details available on request');
+}
+
+function applyBusinessTokens(value = '') {
+  return sanitizeTrustClaimText(value);
 }
 
 function normalizeJsonLdValue(value, page) {
@@ -3360,11 +3370,11 @@ function normalizeMovingCompanyNode(node, page) {
 
   const result = {
     ...rest,
-    '@id': 'https://zqremovals.au/#business',
-    name: 'ZQ Removals',
-    url: 'https://zqremovals.au/',
-    telephone: '0433 819 989',
-    email: 'info@zqremovals.au',
+    '@id': `${businessIdentity.siteUrl}/#business`,
+    name: businessIdentity.name,
+    url: `${businessIdentity.siteUrl}/`,
+    telephone: businessIdentity.phone.display,
+    email: businessIdentity.email,
     image: defaultSocialImage,
     logo: defaultLogoImage,
     hasMap: googleBusinessProfileUrl,
@@ -3386,31 +3396,23 @@ function normalizeMovingCompanyNode(node, page) {
       'House removals',
     ],
     areaServed: [
-      'Adelaide',
-      'South Australia',
-      'Adelaide CBD',
-      'Northern suburbs',
-      'Southern suburbs',
+      ...businessIdentity.serviceAreas,
       'Western suburbs',
       'Eastern suburbs',
     ],
     address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Andrews Farm',
-      addressRegion: 'SA',
-      postalCode: '5114',
-      addressCountry: 'AU',
+      ...buildPostalAddressSchema(),
       ...(node.address || {}),
     },
     contactPoint: [
       {
         '@type': 'ContactPoint',
         contactType: 'customer service',
-        telephone: '0433 819 989',
-        email: 'info@zqremovals.au',
-        areaServed: ['Adelaide', 'South Australia', 'Australia'],
+        telephone: businessIdentity.phone.display,
+        email: businessIdentity.email,
+        areaServed: businessIdentity.serviceAreas,
         availableLanguage: ['en-AU'],
-        url: 'https://zqremovals.au/contact-us/',
+        url: `${businessIdentity.siteUrl}/contact-us/`,
       },
     ],
   };
@@ -4689,7 +4691,7 @@ ${relatedServiceCards.slice(0, 8).map(([href, title, copy]) => `<article class="
       <div class="editorial-copy reveal-on-scroll">
         <div class="section-heading">
           <span class="eyebrow">Why choose ZQ</span>
-          <h2>Careful Adelaide movers with a quote-first process.</h2>
+          <h2>Careful Adelaide movers with a fixed-price review process.</h2>
         </div>
         <p class="lede">The strongest service pages earn trust by explaining how the work is planned, not by making unsupported claims. ZQ Removals reviews access, inventory, timing, and handling needs before the booking is confirmed.</p>
         <p>That approach helps clients compare quotes more fairly. A low headline price is not useful if it ignores stairs, long carries, fragile furniture, office downtime, storage stops, or interstate handover windows. A clearer brief creates a clearer quote and a cleaner move day.</p>
@@ -6504,7 +6506,7 @@ function renderLLMsFullTxt() {
     'Type: MovingCompany',
     `Website: ${seoConfig.siteUrl}`,
     `Phone: ${seoConfig.phone}`,
-    'ABN: 88 642 917 351',
+    `ABN: ${businessIdentifiers.abnFormatted}`,
     '',
     'Business overview:',
     '- Adelaide-based moving company for local, interstate, residential, and commercial jobs.',

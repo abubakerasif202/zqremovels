@@ -53,8 +53,13 @@
           <div class="proof-grid reveal-on-scroll" style="margin-top: 2rem;">
             <article class="proof-card">
               <span class="proof-label">Business identifier</span>
-              <h2>ABN 88 642 917 351</h2>
-              <p>Use this ABN for business checks. ZQ Removals ABN 88 642 917 351. Insurance documentation can be confirmed before booking when requested in the quote brief.</p>
+              <h2>ABN {{business.abn}}</h2>
+              <p>Use this ABN for business checks. {{business.name}} ABN {{business.abn}}. Insurance documentation can be confirmed before booking when requested in the quote brief.</p>
+            </article>
+            <article class="proof-card">
+              <span class="proof-label">Business hours</span>
+              <h2>Call for current availability.</h2>
+              <p>Move windows depend on crew schedule, route fit, access constraints, and inventory volume. Call <a href="tel:{{business.phoneTel}}">{{business.phoneDisplay}}</a> if timing is tight.</p>
             </article>
             <article class="proof-card">
               <span class="proof-label">Google Business Profile</span>

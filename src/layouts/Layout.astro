@@ -26,7 +26,9 @@ const trackingConfig = {
   metaPixelId: metaPixelId || null,
 };
 
-const trackingConfigStr = JSON.stringify(trackingConfig);
+const trackingConfigStr = JSON.stringify(Object.fromEntries(
+  Object.entries(trackingConfig).filter(([, value]) => Boolean(value)),
+));
 ---
 <!doctype html>
 <html lang="en-AU">

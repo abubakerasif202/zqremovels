@@ -3,10 +3,12 @@ import path from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
+import { businessIdentity } from '../site-src/data/business.mjs';
 import { buildDescription, buildTitle, getGeneratedPages, mergePagesByOutput } from '../site-src/data/seo-v4.mjs';
 
 const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
+const expectedAbn = businessIdentity.abn.formatted;
 const pages = mergePagesByOutput(
   JSON.parse(readFileSync(path.join(root, 'site-src', 'pages.json'), 'utf8')),
   getGeneratedPages(),
@@ -608,10 +610,10 @@ test('json-ld is valid, host-consistent, and uses only supported business facts'
             ['https://share.google/Y04mpt9RTflWP3iRl', 'https://facebook.com/zqremovals'],
             `MovingCompany sameAs mismatch in ${relativePath}`,
           );
-          assert.equal(node.taxID, '88 642 917 351', `MovingCompany ABN mismatch in ${relativePath}`);
+          assert.equal(node.taxID, expectedAbn, `MovingCompany ABN mismatch in ${relativePath}`);
           assert.deepEqual(
             node.identifier,
-            { '@type': 'PropertyValue', name: 'ABN', value: '88 642 917 351' },
+            { '@type': 'PropertyValue', name: 'ABN', value: expectedAbn },
             `MovingCompany identifier mismatch in ${relativePath}`,
           );
           assert.equal(node.address?.['@type'], 'PostalAddress', `MovingCompany address type mismatch in ${relativePath}`);

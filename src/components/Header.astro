@@ -1,10 +1,13 @@
+---
+import { businessIdentity } from '../../site-src/data/business.mjs';
+---
 <header class="site-header">
   <div class="utility-bar">
     <div class="container utility-row">
       <span>Adelaide removalists for carefully planned local and interstate moves.</span>
       <div class="utility-links">
-        <span class="utility-proof">5.0 Google rating · Fixed-price quotes</span>
-        <a href="tel:+61433819989">0433 819 989</a>
+        <span class="utility-proof">Google-reviewed · Fixed-price quotes</span>
+        <a href={`tel:${businessIdentity.phone.tel}`}>{businessIdentity.phone.display}</a>
       </div>
     </div>
   </div>
@@ -24,7 +27,7 @@
         />
       </span>
       <span class="brand-copy">
-        <strong>ZQ Removals</strong>
+        <strong>{businessIdentity.name}</strong>
         <span>Adelaide moving, carefully planned</span>
       </span>
     </a>
@@ -122,14 +125,14 @@
     </nav>
 
     <div class="header-actions">
-      <a class="header-phone" href="tel:+61433819989">0433 819 989</a>
+      <a class="header-phone" href={`tel:${businessIdentity.phone.tel}`}>{businessIdentity.phone.display}</a>
       <a class="button button-primary" href="/contact-us/#quote-form">Get Fixed-Price Quote</a>
     </div>
   </div>
 
   <nav class="mobile-nav" aria-label="Mobile">
     <div class="container mobile-nav-top">
-      <a class="button button-secondary header-phone mobile-nav-call" href="tel:+61433819989">Call 0433 819 989</a>
+      <a class="button button-secondary header-phone mobile-nav-call" href={`tel:${businessIdentity.phone.tel}`}>Call {businessIdentity.phone.display}</a>
       <a class="button button-primary mobile-nav-quote" href="/contact-us/#quote-form">Get Fixed-Price Quote</a>
     </div>
     <details>

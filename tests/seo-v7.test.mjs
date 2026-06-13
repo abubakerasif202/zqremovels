@@ -4,10 +4,12 @@ import path from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
+import { businessIdentity } from '../site-src/data/business.mjs';
 
 const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
 const canonicalHost = 'https://zqremovals.au';
+const expectedAbn = businessIdentity.abn.formatted;
 
 const v7Docs = [
   'docs/trust-signals-v7-implementation-plan.md',
@@ -54,8 +56,9 @@ test('confirmed ABN is visible in footer, contact, about, and MovingCompany sche
   const contact = readDist(path.join('contact-us', 'index.html'));
   const homepage = readDist('index.html');
 
-  for (const html of [footerSource, about, contact, homepage]) {
-    assert.match(html, /ABN 88 642 917 351/);
+  assert.match(footerSource, /ABN \{\{business\.abn\}\}/);
+  for (const html of [about, contact, homepage]) {
+    assert.match(html, new RegExp(`ABN ${expectedAbn.replace(/\s/g, '\\s')}`));
   }
 
   const movingCompanyNodes = extractJsonLd(homepage)
@@ -64,9 +67,9 @@ test('confirmed ABN is visible in footer, contact, about, and MovingCompany sche
   assert.ok(movingCompanyNodes.length > 0, 'homepage missing MovingCompany schema');
   assert.ok(
     movingCompanyNodes.some((node) =>
-      node.taxID === '88 642 917 351' ||
-      node.identifier?.value === '88 642 917 351' ||
-      JSON.stringify(node.identifier || '').includes('88 642 917 351'),
+      node.taxID === expectedAbn ||
+      node.identifier?.value === expectedAbn ||
+      JSON.stringify(node.identifier || '').includes(expectedAbn),
     ),
     'MovingCompany schema missing confirmed ABN value',
   );
@@ -213,7 +216,7 @@ test('schema parses and keeps review, taxID, insurance, and AFRA guardrails safe
 
       for (const node of flattenJsonLdNodes(block)) {
         if (node.taxID) {
-          assert.equal(node.taxID, '88 642 917 351', `${relative} contains unexpected taxID`);
+          assert.equal(node.taxID, expectedAbn, `${relative} contains unexpected taxID`);
         }
         if (node.identifier) {
           assert.doesNotMatch(JSON.stringify(node.identifier), /97\s?954\s?095\s?(?!119)\d+/, `${relative} contains unexpected identifier`);

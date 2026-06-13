@@ -1,4 +1,6 @@
 ---
+import { businessIdentity } from '../../site-src/data/business.mjs';
+
 const currentYear = new Date().getFullYear();
 ---
 <footer class="footer-shell">
@@ -11,14 +13,14 @@ const currentYear = new Date().getFullYear();
       </p>
       
       <address class="nap" itemscope itemtype="https://schema.org/MovingCompany">
-        <strong itemprop="name">ZQ Removals</strong>
+        <strong itemprop="name">{businessIdentity.name}</strong>
         <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-          <span itemprop="addressLocality">Andrews Farm</span> <span itemprop="addressRegion">SA</span> <span itemprop="postalCode">5114</span>
+          <span itemprop="addressLocality">{businessIdentity.address.locality}</span> <span itemprop="addressRegion">{businessIdentity.address.region}</span> <span itemprop="postalCode">{businessIdentity.address.postalCode}</span>
         </span>
-        <a href="https://abr.business.gov.au/ABN/View/88 642 917 351" rel="noopener noreferrer" target="_blank">ABN 88 642 917 351</a>
-        <a href="tel:+61433819989" itemprop="telephone">0433 819 989</a>
+        <span>ABN {businessIdentity.abn.formatted}</span>
+        <a href={`tel:${businessIdentity.phone.tel}`} itemprop="telephone">{businessIdentity.phone.display}</a>
       </address>
-      <p class="field-note">ABN is listed for business checks. Request any insurance, building, or association documentation with the quote brief so it can be confirmed with the quote review.</p>
+      <p class="field-note">Business details available on request. Ask about cover, building requirements, and move protection before booking.</p>
     </div>
 
     <div class="footer-link-groups">
@@ -82,7 +84,7 @@ const currentYear = new Date().getFullYear();
   </div>
 
   <div class="container footer-bottom">
-    <span>© <span data-year>{currentYear}</span> ZQ Removals · Adelaide Relocation & Logistics.</span>
+    <span>© <span data-year>{currentYear}</span> {businessIdentity.name} · Adelaide Relocation & Logistics.</span>
     <div class="footer-bottom-links">
       <a href="/privacy-policy/">Privacy</a>
       <a href="/terms-and-conditions/">Terms</a>

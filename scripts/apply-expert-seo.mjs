@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { businessIdentity, businessUrl } from '../site-src/data/business.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, '..');
@@ -30,18 +31,17 @@ async function applyExpertSEO() {
           "@context": "https://schema.org",
           "@type": "MovingCompany",
           "@id": "https://zqremovals.au/#localbusiness",
-          "name": "ZQ Removals Adelaide",
-          "url": "https://zqremovals.au/",
-          "telephone": "0433 819 989",
+          "name": businessIdentity.name,
+          "url": businessUrl('/'),
+          "telephone": businessIdentity.phone.display,
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": "Andrews Farm SA 5114",
-            "addressLocality": "Andrews Farm",
-            "addressRegion": "SA",
-            "postalCode": "5114",
-            "addressCountry": "AU"
+            "addressLocality": businessIdentity.address.locality,
+            "addressRegion": businessIdentity.address.region,
+            "postalCode": businessIdentity.address.postalCode,
+            "addressCountry": businessIdentity.address.country
           },
-          "areaServed": "Adelaide"
+          "areaServed": businessIdentity.serviceAreas
         }, null, 2)
       ];
       await fs.writeFile(pagesPath, JSON.stringify(pages, null, 2));
@@ -80,12 +80,12 @@ async function applyExpertSEO() {
     let footerHtml = await fs.readFile(footerPath, 'utf8');
     
     const newFooterAddress = `<address class="nap" itemscope itemtype="https://schema.org/MovingCompany">
-        <strong itemprop="name">ZQ Removals Adelaide</strong>
+        <strong itemprop="name">{{business.name}}</strong>
         <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-          <span itemprop="addressLocality">Andrews Farm</span> <span itemprop="addressRegion">SA</span> <span itemprop="postalCode">5114</span>
+          <span itemprop="addressLocality">{{business.addressLocality}}</span> <span itemprop="addressRegion">{{business.addressRegion}}</span> <span itemprop="postalCode">{{business.postalCode}}</span>
         </span>
-        <span>ABN 88 642 917 351</span>
-        <a href="tel:+61433819989" itemprop="telephone">0433 819 989</a>
+        <span>ABN {{business.abn}}</span>
+        <a href="tel:{{business.phoneTel}}" itemprop="telephone">{{business.phoneDisplay}}</a>
       </address>`;
       
     footerHtml = footerHtml.replace(/<address class="nap">[\s\S]*?<\/address>/, newFooterAddress);

@@ -8,19 +8,20 @@ import {
   zqServicePages,
   zqServiceSitemapOutputs,
 } from './zq-services.mjs';
+import {
+  buildPostalAddressSchema,
+  businessIdentity,
+  businessIdentifiers,
+  businessUrl,
+} from './business.mjs';
 
-const SITE_URL = 'https://zqremovals.au';
-const BUSINESS_NAME = 'ZQ Removals';
-const PHONE = '0433 819 989';
-const DEFAULT_OG_IMAGE = `${SITE_URL}/zq-removals-social-share.webp`;
-const DEFAULT_LOGO = `${SITE_URL}/brand-logo.webp`;
-const ABN_FORMATTED = '88 642 917 351';
-const ABN_MACHINE = '88 642 917 351';
+export { businessIdentifiers };
 
-export const businessIdentifiers = {
-  abnFormatted: ABN_FORMATTED,
-  abnMachine: ABN_MACHINE,
-};
+const SITE_URL = businessIdentity.siteUrl;
+const BUSINESS_NAME = businessIdentity.name;
+const PHONE = businessIdentity.phone.display;
+const DEFAULT_OG_IMAGE = businessUrl(businessIdentity.defaultOgImagePath);
+const DEFAULT_LOGO = businessUrl(businessIdentity.defaultLogoPath);
 
 export { zqServiceSitemapOutputs };
 
@@ -32,6 +33,29 @@ function cleanVisibleTitle(value = '') {
   return String(value || '')
     .replace(/\s*\|.*$/i, '')
     .trim();
+}
+
+function toVisibleText(value = '') {
+  if (value == null) return '';
+  if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+    return String(value);
+  }
+  if (Array.isArray(value)) {
+    return value.map((entry) => toVisibleText(entry)).filter(Boolean).join(', ');
+  }
+  if (typeof value === 'object') {
+    return (
+      value.label ||
+      value.title ||
+      value.copy ||
+      value.factor ||
+      value.heading ||
+      value.name ||
+      value.text ||
+      ''
+    );
+  }
+  return '';
 }
 
 export function normalizeInternalHref(href = '') {
@@ -63,11 +87,8 @@ export const seoConfig = {
   siteUrl: SITE_URL,
   businessName: BUSINESS_NAME,
   phone: PHONE,
-  serviceAreas: ['Adelaide', 'South Australia', 'Australia'],
-  socialProfiles: [
-    'https://share.google/Y04mpt9RTflWP3iRl',
-    'https://facebook.com/zqremovals'
-  ],
+  serviceAreas: businessIdentity.serviceAreas,
+  socialProfiles: businessIdentity.socialProfiles,
   defaultOgImage: DEFAULT_OG_IMAGE,
   defaultLogo: DEFAULT_LOGO,
   robots: 'index,follow,max-image-preview:large',
@@ -89,20 +110,14 @@ export const localBusinessSchema = {
   description: 'Fixed-price Adelaide removalists specializing in house, apartment, and office moves with careful furniture handling.',
   hasMap: seoConfig.socialProfiles[0],
   sameAs: seoConfig.socialProfiles,
-  taxID: ABN_MACHINE,
+  taxID: businessIdentity.abn.machine,
   identifier: {
     '@type': 'PropertyValue',
     name: 'ABN',
-    value: ABN_MACHINE,
+    value: businessIdentity.abn.machine,
   },
   priceRange: '$$',
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Andrews Farm',
-    addressRegion: 'SA',
-    postalCode: '5114',
-    addressCountry: 'AU',
-  },
+  address: buildPostalAddressSchema(),
   areaServed: [
     { '@type': 'City', name: 'Adelaide' },
     { '@type': 'State', name: 'South Australia' },
@@ -230,7 +245,7 @@ export const imageAssets = {
     url: toAbsoluteUrl('/media/home-local-hero-branded.webp'),
     alt: 'ZQ Removals branded Adelaide moving scene with premium local coverage',
     title: 'Adelaide Removalists Near Me | 5-Star Local Movers | ZQ Removals',
-    caption: 'Premium Adelaide removals with clear quote-first planning.',
+    caption: 'Premium Adelaide removals with clear fixed-price planning.',
     width: 768,
     height: 406,
   },
@@ -393,7 +408,7 @@ export function renderHomepageAeoBlock() {
 }
 
 export function buildLocalBusinessSchema() {
-  return localBusinessSchema;
+  return structuredClone(localBusinessSchema);
 }
 
 export function buildServiceSchema({ id, name, serviceType, areaServed, description }) {
@@ -531,7 +546,8 @@ function clampText(value, limit) {
   const clipped = text.slice(0, limit);
   const wordBoundary = clipped.lastIndexOf(' ');
   const end = wordBoundary >= Math.floor(limit * 0.7) ? wordBoundary : limit;
-  return clipped.slice(0, end).replace(/[\s,;:|&-]+$/g, '').trim();
+  const trimmed = clipped.slice(0, end).replace(/[\s,;:|&-]+$/g, '').trim();
+  return /[.!?]$/.test(trimmed) ? trimmed : `${trimmed}.`;
 }
 
 function cleanupSeoPhraseRepeats(value) {
@@ -1834,7 +1850,7 @@ const seoV5CommercialIntentProfiles = {
   'fixed-price-removalists-adelaide': {
     primaryKeyword: 'fixed price removalists Adelaide',
     secondaryKeywords: ['fixed-price movers Adelaide', 'upfront moving quote Adelaide', 'no hourly surprises moving'],
-    searchIntent: 'quote-first certainty',
+    searchIntent: 'manual fixed-price review',
     uniqueAngle: 'positions fixed pricing as manual scope review when traffic, stairs, lifts, parking, and item handling could change hourly cost',
     conversionCTA: 'Request a manual fixed-price review',
   },
@@ -2390,7 +2406,7 @@ function getGeneratedPageImage({ type, slug, title, suburb, clusterKey, logistic
         ? `${suburb} moving support across ${formatClusterLabel(clusterKey).toLowerCase()} routes in Adelaide.`
         : type === 'guide'
           ? `Planning support for Adelaide customers researching ${topic}.`
-          : `${title} with quote-first planning for Adelaide moves.`,
+          : `${title} with fixed-price planning for Adelaide moves.`,
   };
 }
 
@@ -2968,7 +2984,7 @@ function renderPageHero({ eyebrow, title, lead, supporting = [], points = [], pr
         <p class="lead">${escapeHtml(lead)}</p>
         ${supporting.length > 0 ? `<div class="page-hero-support-grid">${supporting.map((item) => `<p class="field-note page-hero-support-note">${escapeHtml(item)}</p>`).join('')}</div>` : ''}
         ${points.length > 0 ? `<ul aria-label="${escapeAttribute(heroTitle)} highlights" class="route-meta route-meta-premium">
-          ${points.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}
+          ${points.map((item) => toVisibleText(item)).filter(Boolean).map((item) => `<li>${escapeHtml(item)}</li>`).join('')}
         </ul>` : ''}
         <div class="cta-cluster" data-generated-cta="top" data-generated-page-type="${escapeAttribute(pageType)}">
           <a class="button button-primary" href="${escapeAttribute(normalizeInternalHref(primaryCta.href))}">${escapeHtml(primaryCta.label)}</a>
@@ -3074,7 +3090,7 @@ function renderTimelineSection({ id = '', module, eyebrow, heading, intro = '', 
         <small>Step ${String(index + 1).padStart(2, '0')}</small>
         <h3>${escapeHtml(step.title)}</h3>
         <p>${escapeHtml(step.copy)}</p>
-        ${Array.isArray(step.points) && step.points.length > 0 ? `<ul>${step.points.map((point) => `<li>${escapeHtml(point)}</li>`).join('')}</ul>` : ''}
+        ${Array.isArray(step.points) && step.points.length > 0 ? `<ul>${step.points.map((point) => toVisibleText(point)).filter(Boolean).map((point) => `<li>${escapeHtml(point)}</li>`).join('')}</ul>` : ''}
       </article>`,
         )
         .join('')}
@@ -3093,7 +3109,7 @@ function renderValueCardSection({ id = '', module, eyebrow, heading, intro = '',
           (card) => `<article class="value-card">
         <h3>${escapeHtml(card.title)}</h3>
         <p>${escapeHtml(card.copy)}</p>
-        ${Array.isArray(card.points) && card.points.length > 0 ? `<ul>${card.points.map((point) => `<li>${escapeHtml(point)}</li>`).join('')}</ul>` : ''}
+        ${Array.isArray(card.points) && card.points.length > 0 ? `<ul>${card.points.map((point) => toVisibleText(point)).filter(Boolean).map((point) => `<li>${escapeHtml(point)}</li>`).join('')}</ul>` : ''}
       </article>`,
         )
         .join('')}
@@ -4421,6 +4437,22 @@ function makeCommercialPage(page) {
       title: 'Apartment Removalists Adelaide | Unit Movers | ZQ Removals',
       description: 'Apartment removalists Adelaide for units, towers, and townhouses with lift bookings, loading zones, careful handling, and fixed-price quotes.',
     },
+    'affordable-removalists-adelaide': {
+      title: 'Affordable Removalists Adelaide | Fixed Quotes | ZQ Removals',
+      description: 'Affordable removalists Adelaide for careful home, apartment, furniture, and office moves with clear access review before quoting.',
+    },
+    'removalist-cost-adelaide': {
+      title: 'Removalist Cost Adelaide | Moving Quote Guide | ZQ Removals',
+      description: 'Understand removalist cost in Adelaide, what affects your quote, and how access, inventory, timing, and packing shape fixed pricing.',
+    },
+    'furniture-removals-adelaide': {
+      title: 'Furniture Removals Adelaide | Careful Movers | ZQ Removals',
+      description: 'Furniture removals Adelaide for sofas, beds, whitegoods, fragile pieces, and single-item moves scoped around access and protection.',
+    },
+    'moving-company-adelaide': {
+      title: 'Moving Company Adelaide | Local Movers | ZQ Removals',
+      description: 'Moving company Adelaide for house, apartment, office, furniture, and packing support with careful planning before quote approval.',
+    },
     'cheap-vs-fixed-price-removalists-adelaide': {
       title: 'Cheap vs Fixed Price Movers Adelaide | ZQ Removals',
       description: 'Compare cheap removalists Adelaide with fixed-price movers so you can judge real value, scope, access risks, and move-day certainty.',
@@ -5462,7 +5494,7 @@ function buildGuideAdviceCards(topic, slug = '') {
       },
       {
         title: 'Match the model to the risk',
-        copy: 'Simple moves may suit hourly pricing, while access-sensitive or deadline-driven moves often benefit from quote-first certainty.',
+        copy: 'Simple moves may suit hourly pricing, while access-sensitive or deadline-driven moves often benefit from a reviewed fixed-price quote.',
       },
       {
         title: 'Keep the supplied brief accurate',
@@ -5606,7 +5638,7 @@ function renderCommercialContent(page, canonical, image) {
   const serviceCards = serviceLinks.map((item, index) => ({
     eyebrow: index === 0 ? 'Core service' : 'Related service',
     title: toTitle(item.label),
-    copy: `Use this service when your move also needs standard Adelaide planning, access checks, or crew scheduling.`,
+    copy: 'Review this service if the move needs matching crew, access, inventory, or timing support.',
     href: item.href,
     cta: item.label,
   }));
@@ -5718,9 +5750,9 @@ ${renderRouteCardSection({
 })}
 ${renderRouteCardSection({
   module: 'commercial-suburbs',
-  eyebrow: 'Relevant suburbs',
-  heading: 'Suburb routes that often trigger this intent',
-  intro: 'These suburb pages are useful when the visitor already knows the local area involved in the move.',
+  eyebrow: 'Local route planning',
+  heading: 'Adelaide areas with useful access context',
+  intro: 'These suburb pages help when the quote needs local parking, stairs, lift, or building-access detail.',
   cards: suburbCards,
   soft: true,
 })}

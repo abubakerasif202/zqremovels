@@ -157,13 +157,13 @@
     "robots": "index,follow,max-image-preview:large",
     "themeColor": "#10151d",
     "ogTitle": "About ZQ Removals | Adelaide's Premium Relocation Experts",
-    "ogDescription": "See the ZQ Removals operational history, zero-damage focus, fleet capabilities, and quote-first planning process.",
+    "ogDescription": "See the ZQ Removals operational history, careful handling focus, fleet capabilities, and fixed-price review process.",
     "ogType": "website",
     "ogUrl": "https://zqremovals.au/about/",
     "ogImage": "https://zqremovals.au/brand-logo.png",
     "twitterCard": "summary_large_image",
     "twitterTitle": "About ZQ Removals | Adelaide's Premium Relocation Experts",
-    "twitterDescription": "See the ZQ Removals operational history, zero-damage focus, fleet capabilities, and quote-first planning process.",
+    "twitterDescription": "See the ZQ Removals operational history, careful handling focus, fleet capabilities, and fixed-price review process.",
     "twitterImage": "https://zqremovals.au/brand-logo.png",
     "refresh": "",
     "jsonLd": [
@@ -866,7 +866,7 @@
     "twitterImage": "https://zqremovals.au/zq-removals-social-share.webp",
     "refresh": "",
     "jsonLd": [
-      "{\n  \"@context\": \"https://schema.org\",\n  \"@graph\": [\n    {\n      \"@type\": \"MovingCompany\",\n      \"@id\": \"https://zqremovals.au/#business\",\n      \"name\": \"ZQ Removals\",\n      \"url\": \"https://zqremovals.au/\",\n      \"telephone\": \"0433 819 989\",\n      \"image\": \"https://zqremovals.au/zq-removals-social-share.webp\",\n      \"logo\": \"https://zqremovals.au/brand-logo.webp\",\n      \"priceRange\": \"$$\",\n      \"address\": {\n        \"@type\": \"PostalAddress\",\n        \"addressLocality\": \"Andrews Farm\",\n        \"addressRegion\": \"SA\",\n        \"postalCode\": \"5114\",\n        \"addressCountry\": \"AU\"\n      },\n      \"areaServed\": [\n        \"Adelaide\",\n        \"South Australia\",\n        \"Northern suburbs\",\n        \"Southern suburbs\",\n        \"Interstate Australia\"\n      ],\n      \"taxID\": \"88 642 917 351\"\n    },\n    {\n      \"@type\": \"WebPage\",\n      \"@id\": \"https://zqremovals.au/#webpage\",\n      \"url\": \"https://zqremovals.au/\",\n      \"name\": \"Adelaide Removalists You Can Trust\",\n      \"description\": \"Need Adelaide removalists? ZQ Removals offers fixed-price moving quotes, careful furniture handling and local or interstate removals across metro Adelaide.\",\n      \"mainEntity\": {\n        \"@id\": \"https://zqremovals.au/#business\"\n      }\n    }\n  ]\n}"
+      "{\n  \"@context\": \"https://schema.org\",\n  \"@graph\": [\n    {\n      \"@type\": \"MovingCompany\",\n      \"@id\": \"https://zqremovals.au/#business\",\n      \"name\": \"ZQ Removals\",\n      \"url\": \"https://zqremovals.au/\",\n      \"telephone\": \"0433 819 989\",\n      \"image\": \"https://zqremovals.au/zq-removals-social-share.webp\",\n      \"logo\": \"https://zqremovals.au/brand-logo.webp\",\n      \"priceRange\": \"$$\",\n      \"address\": {\n        \"@type\": \"PostalAddress\",\n        \"addressLocality\": \"Andrews Farm\",\n        \"addressRegion\": \"SA\",\n        \"postalCode\": \"5114\",\n        \"addressCountry\": \"AU\"\n      },\n      \"areaServed\": [\n        \"Adelaide\",\n        \"South Australia\",\n        \"Northern suburbs\",\n        \"Southern suburbs\",\n        \"Interstate Australia\"\n      ],\n      \"taxID\": \"{{business.abn}}\"\n    },\n    {\n      \"@type\": \"WebPage\",\n      \"@id\": \"https://zqremovals.au/#webpage\",\n      \"url\": \"https://zqremovals.au/\",\n      \"name\": \"Adelaide Removalists You Can Trust\",\n      \"description\": \"Need Adelaide removalists? ZQ Removals offers fixed-price moving quotes, careful furniture handling and local or interstate removals across metro Adelaide.\",\n      \"mainEntity\": {\n        \"@id\": \"https://zqremovals.au/#business\"\n      }\n    }\n  ]\n}"
     ],
     "contentFile": "content/index.html"
   },
@@ -897,7 +897,7 @@
     "output": "interstate-removals-adelaide/index.html",
     "layout": "standard",
     "title": "Interstate Removalists Adelaide | Fixed Price Long Distance Moves",
-    "description": "Move from Adelaide to Melbourne, Sydney, Brisbane, Perth or regional Australia with fixed-price interstate removalists. Careful handling, route planning and fast quotes.",
+    "description": "Move from Adelaide to Melbourne, Sydney, Brisbane, Perth or regional Australia with fixed-price interstate movers and route planning.",
     "canonical": "https://zqremovals.au/interstate-removals-adelaide/",
     "robots": "index,follow,max-image-preview:large",
     "themeColor": "#0A192F",
