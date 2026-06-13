@@ -8,10 +8,10 @@ export const businessIdentity = {
     machine: '0433819989',
   },
   abn: {
-    formatted: '88 642 917 351',
-    machine: '88 642 917 351',
+    formatted: '97 954 095 119',
+    machine: '97 954 095 119',
     verificationUrl: null,
-    note: 'ABN is project-confirmed in repo data; public ABR link is withheld until owner verification confirms the external record.',
+    note: 'ABN is owner-provided; public ABR link is withheld until owner verification confirms the external record.',
   },
   address: {
     locality: 'Andrews Farm',

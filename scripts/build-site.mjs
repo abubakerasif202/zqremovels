@@ -1,7 +1,6 @@
 import { copyFile, cp, mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { execSync } from 'node:child_process';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { transform, browserslistToTargets } from 'lightningcss';
 import esbuild from 'esbuild';
 import browserslist from 'browserslist';
