@@ -2974,6 +2974,42 @@ function getServiceSchemaConfig(page) {
     };
   }
 
+  if (output === 'removal-companies-adelaide/index.html') {
+    return {
+      name: 'Removal Companies Adelaide',
+      serviceType: 'Removal companies comparison and scoping',
+      areaServed: ['Adelaide', 'South Australia'],
+      offerDescription: 'Fixed-price comparison proposal based on verified reviews, access planning, and quote clarity.',
+    };
+  }
+
+  if (output === 'adelaide-movers-and-packers/index.html') {
+    return {
+      name: 'Adelaide Movers and Packers',
+      serviceType: 'Packing and moving services',
+      areaServed: ['Adelaide', 'South Australia'],
+      offerDescription: 'Combined packing and moving quote based on service level, fragile-item profile, and inventory volume.',
+    };
+  }
+
+  if (output === 'small-removalists-adelaide/index.html') {
+    return {
+      name: 'Small Removalists Adelaide',
+      serviceType: 'Small moves and single item removals',
+      areaServed: ['Adelaide', 'South Australia'],
+      offerDescription: 'Fixed-price small move quote for units, rooms, and single furniture items.',
+    };
+  }
+
+  if (output === 'removalists-adelaide-hills/index.html') {
+    return {
+      name: 'Removalists Adelaide Hills',
+      serviceType: 'Hills region moving services with access planning',
+      areaServed: ['Adelaide Hills', 'Adelaide', 'South Australia'],
+      offerDescription: 'Access-planned fixed price quote for sloped driveways, carrying distances, and hills transit.',
+    };
+  }
+
   if (output.startsWith('adelaide-to-') && /-(removals|removalists)\/index\.html$/.test(output)) {
     const route = output
       .replace(/\/index\.html$/, '')
