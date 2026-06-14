@@ -347,7 +347,7 @@
   - **Expected Outcome**: Faster indexation triage in Search Console.
   - **Validation**: CI output reports page sitemap count, image sitemap count, noindex exclusions, redirect exclusions.
 
-- [ ] **SEO-REC-2.3 Add Playwright mobile visual checks**:
+- [x] **SEO-REC-2.3 Add Playwright mobile visual checks**:
   - **Priority**: Medium
   - **Effort**: 0.5-1 day
   - **Expected Outcome**: Mobile layout regressions and CTA/heading overlap are caught before deploy.
@@ -451,7 +451,7 @@ diff --git a/scripts/seo-validate.mjs b/scripts/seo-validate.mjs
 +}
 ```
 
-- [ ] **SEO-CODE-1.4 Add mobile screenshot verification**:
+- [x] **SEO-CODE-1.4 Add mobile screenshot verification**:
   - **Priority**: Medium
   - **Effort**: 0.5-1 day
   - **Patch-style diff**:
