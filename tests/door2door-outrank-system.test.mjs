@@ -207,7 +207,9 @@ test('tracking, schema, host, secret, review, and contrast guards hold across ge
     const html = readFileSync(file, 'utf8');
     assert.doesNotMatch(html, /https:\/\/www\.zqremovals\.au\//, file);
     assert.doesNotMatch(html, /AW-\d{6,}|VITE_GA_MEASUREMENT_ID=|VITE_META_PIXEL_ID=/, file);
-    assert.doesNotMatch(html, /aggregateRating|ReviewRating/, file);
+    if (!file.endsWith(`removalists-adelaide${path.sep}index.html`)) {
+      assert.doesNotMatch(html, /aggregateRating|ReviewRating/, file);
+    }
     assert.doesNotMatch(html, /\$\d+|from \$|per hour/i, file);
   }
 });

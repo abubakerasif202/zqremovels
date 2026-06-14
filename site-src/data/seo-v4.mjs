@@ -1850,7 +1850,7 @@ const seoV5CommercialIntentProfiles = {
   'fixed-price-removalists-adelaide': {
     primaryKeyword: 'fixed price removalists Adelaide',
     secondaryKeywords: ['fixed-price movers Adelaide', 'upfront moving quote Adelaide', 'no hourly surprises moving'],
-    searchIntent: 'manual fixed-price review',
+    searchIntent: 'quote-first certainty and manual fixed-price review',
     uniqueAngle: 'positions fixed pricing as manual scope review when traffic, stairs, lifts, parking, and item handling could change hourly cost',
     conversionCTA: 'Request a manual fixed-price review',
   },

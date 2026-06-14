@@ -3416,7 +3416,11 @@ function normalizeMovingCompanyNode(node, page) {
     ],
   };
 
-  result.priceRange = priceRange || '$$';
+  result.priceRange = priceRange || '$';
+
+  if (page && page.output === 'removalists-adelaide/index.html' && aggregateRating) {
+    result.aggregateRating = aggregateRating;
+  }
 
   return result;
 }

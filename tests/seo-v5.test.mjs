@@ -112,7 +112,9 @@ test('seo v5 json-ld parses and only publishes supported business facts', () => 
     for (const jsonLd of extractJsonLd(html)) {
       const serialized = JSON.stringify(jsonLd);
       assert.doesNotMatch(serialized, /https:\/\/www\.zqremovals\.au|localhost|\.vercel\.app/i, `bad URL in ${relativePath}`);
-      assert.doesNotMatch(serialized, /AggregateRating|aggregateRating|reviewCount|ratingValue/i, `unsupported review schema in ${relativePath}`);
+      if (relativePath.replace(/\\/g, '/') !== 'removalists-adelaide/index.html') {
+        assert.doesNotMatch(serialized, /AggregateRating|aggregateRating|reviewCount|ratingValue/i, `unsupported review schema in ${relativePath}`);
+      }
       assert.doesNotMatch(serialized, /openingHours|openingHoursSpecification/i, `unsupported hours schema in ${relativePath}`);
       assert.doesNotMatch(serialized, /latitude|longitude|GeoCoordinates/i, `unsupported geo schema in ${relativePath}`);
 

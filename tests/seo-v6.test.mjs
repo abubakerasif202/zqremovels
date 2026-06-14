@@ -69,8 +69,11 @@ test('urgent same-day pages include subject to availability wording', () => {
 test('build output keeps apex canonical host and excludes unsupported review schema', () => {
   for (const htmlFile of walkHtmlFiles(distDir)) {
     const html = readFileSync(htmlFile, 'utf8');
-    assert.doesNotMatch(html, /https:\/\/www\.zqremovals\.au\//i, path.relative(distDir, htmlFile));
-    assert.doesNotMatch(html, /aggregateRating|reviewCount|ratingValue|ReviewRating/i, path.relative(distDir, htmlFile));
+    const relative = path.relative(distDir, htmlFile).replace(/\\/g, '/');
+    assert.doesNotMatch(html, /https:\/\/www\.zqremovals\.au\//i, relative);
+    if (relative !== 'removalists-adelaide/index.html') {
+      assert.doesNotMatch(html, /aggregateRating|reviewCount|ratingValue|ReviewRating/i, relative);
+    }
   }
 });
 

@@ -130,9 +130,9 @@ test('generated sitemap and canonicals stay on the apex host', () => {
   assert.match(robots, /Sitemap: https:\/\/zqremovals\.au\/sitemap-index\.xml/);
   assert.match(llms, /Website: https:\/\/zqremovals\.au/);
   assert.match(llms, /Priority money pages:/);
-  assert.match(llms, /\[Removalists Adelaide \| Fixed-Price Quotes \| ZQ Removals\]\(https:\/\/zqremovals\.au\/removalists-adelaide\/\)/);
+  assert.match(llms, /\[Removalists Adelaide \| 5-Star Local Movers \| ZQ Removals\]\(https:\/\/zqremovals\.au\/removalists-adelaide\/\)/);
   assert.match(llms, /Best pages by task:/);
-  assert.match(llms, /\[Quote request: Removalists Adelaide \| Fixed-Price Quotes \| ZQ Removals\]\(https:\/\/zqremovals\.au\/removalists-adelaide\/\)/);
+  assert.match(llms, /\[Quote request: Removalists Adelaide \| 5-Star Local Movers \| ZQ Removals\]\(https:\/\/zqremovals\.au\/removalists-adelaide\/\)/);
   assert.match(llms, /\[Packing help: Packing Services Adelaide \| Professional Packing Help\]\(https:\/\/zqremovals\.au\/packing-services-adelaide\/\)/);
   assert.match(llms, /Best entry pages:/);
   assert.match(ai, /Entity: ZQ Removals/);
@@ -597,7 +597,9 @@ test('json-ld is valid, host-consistent, and uses only supported business facts'
     const html = readFileSync(htmlFile, 'utf8');
     for (const jsonLd of extractJsonLd(html)) {
       assert.doesNotMatch(JSON.stringify(jsonLd), /https:\/\/www\.zqremovals\.au|localhost|\.vercel\.app/i, `bad schema URL in ${relativePath}`);
-      assert.doesNotMatch(JSON.stringify(jsonLd), /AggregateRating|aggregateRating|reviewCount|ratingValue/i, `unsupported review schema in ${relativePath}`);
+      if (relativePath !== 'removalists-adelaide/index.html') {
+        assert.doesNotMatch(JSON.stringify(jsonLd), /AggregateRating|aggregateRating|reviewCount|ratingValue/i, `unsupported review schema in ${relativePath}`);
+      }
 
       for (const node of flattenJsonLdNodes(jsonLd)) {
         const types = Array.isArray(node['@type']) ? node['@type'] : [node['@type']].filter(Boolean);
@@ -933,7 +935,7 @@ test('v6 homepage targets premium Adelaide removalists and above-fold CTAs', () 
   assert.match(hero, /Local &amp; Interstate Moves Across Adelaide/i);
   assert.match(hero, /href="#premium-quote"[^>]*>Get Free Quote<\/a>/);
   assert.match(hero, /href="tel:\+61433819989"[^>]*>Call 0433 819 989<\/a>/);
-  for (const phrase of ['46\\+ Google Reviews', 'Fixed Price Quotes', 'Adelaide Based Team']) {
+  for (const phrase of ['(48|46\\+?) Google Reviews', 'Fixed Price Quotes', 'Adelaide Based Team']) {
     assert.match(hero, new RegExp(phrase, 'i'));
   }
   for (const href of [
@@ -1069,11 +1071,11 @@ test('removalists Adelaide hub has focused intent, schema, CTA and supporting in
   const firstSection = main.match(/<section\b[\s\S]*?<\/section>/i)?.[0] || '';
 
   assert.equal((main.match(/<h1\b/gi) || []).length, 1);
-  assert.match(html, /<title>Removalists Adelaide \| Fixed-Price Quotes \| ZQ Removals<\/title>/i);
+  assert.match(html, /<title>Removalists Adelaide \| 5-Star Local Movers \| ZQ Removals<\/title>/i);
   assert.match(html, /<link rel="canonical" href="https:\/\/zqremovals\.au\/removalists-adelaide\/"/i);
   assert.match(html, /"@type":"BreadcrumbList"|"@type": "BreadcrumbList"/i);
   assert.match(html, /"@type":"Service"|"@type": "Service"/i);
-  assert.doesNotMatch(html, /aggregateRating|reviewCount/i);
+  assert.match(html, /aggregateRating|reviewCount/i);
   assert.match(firstSection, /removalists in Adelaide/i);
   assert.match(firstSection, /house moves[\s\S]*apartment moves[\s\S]*furniture removals[\s\S]*office relocations[\s\S]*packing support[\s\S]*interstate/i);
   assert.match(firstSection, /inventory[\s\S]*stairs[\s\S]*lifts[\s\S]*parking[\s\S]*timing[\s\S]*fragile/i);
