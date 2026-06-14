@@ -130,9 +130,9 @@ test('generated sitemap and canonicals stay on the apex host', () => {
   assert.match(robots, /Sitemap: https:\/\/zqremovals\.au\/sitemap-index\.xml/);
   assert.match(llms, /Website: https:\/\/zqremovals\.au/);
   assert.match(llms, /Priority money pages:/);
-  assert.match(llms, /\[Adelaide Removalists \| 5-Star Local Movers \| ZQ Removals\]\(https:\/\/zqremovals\.au\/removalists-adelaide\/\)/);
+  assert.match(llms, /\[Removalists Adelaide \| Fixed-Price Quotes \| ZQ Removals\]\(https:\/\/zqremovals\.au\/removalists-adelaide\/\)/);
   assert.match(llms, /Best pages by task:/);
-  assert.match(llms, /\[Quote request: Adelaide Removalists \| 5-Star Local Movers \| ZQ Removals\]\(https:\/\/zqremovals\.au\/removalists-adelaide\/\)/);
+  assert.match(llms, /\[Quote request: Removalists Adelaide \| Fixed-Price Quotes \| ZQ Removals\]\(https:\/\/zqremovals\.au\/removalists-adelaide\/\)/);
   assert.match(llms, /\[Packing help: Packing Services Adelaide \| Professional Packing Help\]\(https:\/\/zqremovals\.au\/packing-services-adelaide\/\)/);
   assert.match(llms, /Best entry pages:/);
   assert.match(ai, /Entity: ZQ Removals/);
@@ -1060,6 +1060,38 @@ test('route hub, guide hub, and suburb service pages keep orphaned pages linked'
     '/apartment-removalists-adelaide-cbd/',
   ]) {
     assert.match(cbdSuburb, new RegExp(`href="${href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`), href);
+  }
+});
+
+test('removalists Adelaide hub has focused intent, schema, CTA and supporting internal links', () => {
+  const html = readDist(path.join('removalists-adelaide', 'index.html'));
+  const main = extractMain(html);
+  const firstSection = main.match(/<section\b[\s\S]*?<\/section>/i)?.[0] || '';
+
+  assert.equal((main.match(/<h1\b/gi) || []).length, 1);
+  assert.match(html, /<title>Removalists Adelaide \| Fixed-Price Quotes \| ZQ Removals<\/title>/i);
+  assert.match(html, /<link rel="canonical" href="https:\/\/zqremovals\.au\/removalists-adelaide\/"/i);
+  assert.match(html, /"@type":"BreadcrumbList"|"@type": "BreadcrumbList"/i);
+  assert.match(html, /"@type":"Service"|"@type": "Service"/i);
+  assert.doesNotMatch(html, /aggregateRating|reviewCount/i);
+  assert.match(firstSection, /removalists in Adelaide/i);
+  assert.match(firstSection, /house moves[\s\S]*apartment moves[\s\S]*furniture removals[\s\S]*office relocations[\s\S]*packing support[\s\S]*interstate/i);
+  assert.match(firstSection, /inventory[\s\S]*stairs[\s\S]*lifts[\s\S]*parking[\s\S]*timing[\s\S]*fragile/i);
+  assert.match(main, /How to choose removalists in Adelaide/i);
+  assert.match(main, /What affects an Adelaide removalist quote/i);
+  assert.match(main, /When fixed-price quoting is better than hourly uncertainty/i);
+  assert.match(main, /href="\/contact-us\/#quote-form"/i);
+
+  for (const output of [
+    'index.html',
+    path.join('house-removals-adelaide', 'index.html'),
+    path.join('fixed-price-removalists-adelaide', 'index.html'),
+    path.join('affordable-removalists-adelaide', 'index.html'),
+    path.join('moving-quotes-adelaide', 'index.html'),
+    path.join('removalists-glenelg', 'index.html'),
+    path.join('adelaide-moving-guides', 'how-to-choose-removalists-adelaide', 'index.html'),
+  ]) {
+    assert.match(readDist(output), /href="\/removalists-adelaide\/"/i, `${output} missing Adelaide hub link`);
   }
 });
 
