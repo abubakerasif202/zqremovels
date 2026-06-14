@@ -13,7 +13,7 @@
     "build": "node scripts/build-site.mjs",
     "test": "node scripts/quote-api-smoke.mjs && node scripts/run-node-tests.mjs",
     "test:quote-api": "node scripts/quote-api-smoke.mjs",
-    "test:visual-mobile": "node scripts/run-lhci.mjs",
+    "test:visual-mobile": "playwright test tests/mobile-seo-visual.spec.ts",
     "lhci": "lhci autorun",
     "seo:validate": "node scripts/seo-validate.mjs",
     "gsc:auth": "node scripts/gsc-auth.mjs",
@@ -24,10 +24,12 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "@lhci/cli": "^0.15.1",
+    "@playwright/test": "^1.60.0",
     "browserslist": "^4.28.2",
     "browserslist-to-esbuild": "^2.1.1",
     "esbuild": "^0.28.1",
     "googleapis": "^171.4.0",
+    "http-server": "^14.1.1",
     "lightningcss": "^1.32.0"
   },
   "dependencies": {

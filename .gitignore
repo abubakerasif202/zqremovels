@@ -2,6 +2,10 @@
 site-dist/
 output/
 
+# Playwright
+playwright-report/
+test-results/
+
 # Vercel
 .vercel/
 
