@@ -16,15 +16,15 @@
 
 :root {
   /* Accessible color system with clear hierarchy across light and dark surfaces. */
-  --zq-bg: #f7f2e8;
+  --zq-bg: #EFF6FF;
   --zq-surface: #FFFFFF;
   --zq-surface-2: #eef4fb;
   --zq-card: #ffffff;
-  --zq-text: #10233f;
+  --zq-text: #1E40AF;
   --zq-text-dark: #0f172a;
-  --zq-muted: #52627a;
+  --zq-muted: #475569;
   --zq-muted-dark: #475569;
-  --zq-border: rgba(16, 35, 63, 0.12);
+  --zq-border: rgba(30, 64, 175, 0.12);
   --zq-gold: #f59e0b;
   --zq-gold-dark: #b45309;
   --zq-teal: #0f766e;
@@ -45,7 +45,7 @@
 
   --color-bg: var(--bg-dark);
   --color-bg-soft: var(--bg-dark-soft);
-  --color-bg-accent: #10233f;
+  --color-bg-accent: #1E40AF;
   --color-surface: rgba(8, 17, 31, 0.92);
   --color-surface-strong: #08111f;
 
@@ -80,19 +80,19 @@
   --header-height: 6.5rem;
 
   /* Typography */
-  --font-body: "Source Sans 3", "Inter", system-ui, sans-serif;
-  --font-heading: "Lexend", "Source Sans 3", sans-serif;
+  --font-body: "General Sans", "DM Sans", "Source Sans 3", "Inter", system-ui, sans-serif;
+  --font-heading: "Satoshi", "DM Sans", "Lexend", sans-serif;
 
   /* Homepage design system */
   --color-primary: #2563eb;
-  --color-secondary: #0f766e;
+  --color-secondary: #3B82F6;
   --color-cta: var(--zq-cta);
-  --color-home-bg: #f6f0e4;
+  --color-home-bg: #EFF6FF;
   --color-home-surface: rgba(255, 255, 255, 0.92);
   --color-home-surface-strong: #FFFFFF;
-  --color-home-text: #10233f;
+  --color-home-text: #1E40AF;
   --color-home-text-soft: #56657d;
-  --color-home-border: rgba(16, 35, 63, 0.12);
+  --color-home-border: rgba(30, 64, 175, 0.12);
 }
 
 *,
