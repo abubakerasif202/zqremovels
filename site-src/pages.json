@@ -128,7 +128,7 @@
   {
     "output": "moving-checklist-adelaide/index.html",
     "layout": "standard",
-    "title": "Adelaide Moving Checklist | Stress-Free Move Planner | ZQ Removals",
+    "title": "Adelaide Moving Checklist | Move Planner | ZQ Removals",
     "description": "Plan your Adelaide move with ZQ Removals’ practical moving checklist. Prepare inventory, access, packing, parking, lifts, and quote details before move day.",
     "canonical": "https://zqremovals.au/moving-checklist-adelaide/",
     "robots": "index,follow,max-image-preview:large",
@@ -380,7 +380,7 @@
     "output": "adelaide-moving-guides/pricing-breakdown-adelaide/index.html",
     "layout": "standard",
     "title": "Adelaide Pricing Breakdown | ZQ Removals Guide",
-    "description": "A practical Adelaide guide explaining how access, inventory, route length, and packing scope change a removalist quote.",
+    "description": "A practical Adelaide guide explaining how access, inventory, route length, and packing scope change a professional removalist quote.",
     "canonical": "https://zqremovals.au/adelaide-moving-guides/pricing-breakdown-adelaide/",
     "robots": "index,follow,max-image-preview:large",
     "themeColor": "#10151d",
@@ -403,7 +403,7 @@
     "output": "adelaide-moving-guides/how-long-moves-take-adelaide/index.html",
     "layout": "standard",
     "title": "How Long Moves Take Adelaide | ZQ Removals Guide",
-    "description": "A practical Adelaide guide to move timing, including apartments, family homes, office jobs, and interstate departures.",
+    "description": "A practical Adelaide guide to residential and commercial move timing, including apartments, family homes, office jobs, and interstate relocations.",
     "canonical": "https://zqremovals.au/adelaide-moving-guides/how-long-moves-take-adelaide/",
     "robots": "index,follow,max-image-preview:large",
     "themeColor": "#10151d",
@@ -426,7 +426,7 @@
     "output": "adelaide-moving-guides/best-time-to-move-adelaide/index.html",
     "layout": "standard",
     "title": "Best Time to Move Adelaide | ZQ Removals Guide",
-    "description": "A practical Adelaide guide for choosing weekdays, weekends, month-end windows, and access-friendly move times.",
+    "description": "A practical Adelaide guide for choosing weekdays, weekends, month-end windows, and access-friendly move times for your upcoming relocation.",
     "canonical": "https://zqremovals.au/adelaide-moving-guides/best-time-to-move-adelaide/",
     "robots": "index,follow,max-image-preview:large",
     "themeColor": "#10151d",
@@ -449,7 +449,7 @@
     "output": "adelaide-moving-guides/avoiding-damage-adelaide/index.html",
     "layout": "standard",
     "title": "Avoiding Damage During a Move | Adelaide Guide | ZQ Removals",
-    "description": "A practical Adelaide guide for reducing damage risk with wrapping, access planning, protection, and load sequencing.",
+    "description": "A practical Adelaide guide for reducing relocation damage risk with protective wrapping, access planning, wall protection, and load sequencing.",
     "canonical": "https://zqremovals.au/adelaide-moving-guides/avoiding-damage-adelaide/",
     "robots": "index,follow,max-image-preview:large",
     "themeColor": "#10151d",
@@ -541,7 +541,7 @@
     "output": "adelaide-moving-guides/moving-heavy-furniture-adelaide/index.html",
     "layout": "standard",
     "title": "Moving Heavy Furniture in Adelaide | ZQ Removals Guide",
-    "description": "A practical Adelaide guide to moving heavy furniture safely, including access planning, protection, sequencing, and when specialist furniture handling is worth adding.",
+    "description": "A practical Adelaide guide to moving heavy furniture safely, including access planning, protection, sequencing, and specialist furniture handling support.",
     "canonical": "https://zqremovals.au/adelaide-moving-guides/moving-heavy-furniture-adelaide/",
     "robots": "index,follow,max-image-preview:large",
     "themeColor": "#10151d",
@@ -674,7 +674,7 @@
   {
     "output": "adelaide-to-western-sydney-removals/index.html",
     "layout": "standard",
-    "title": "Adelaide to Western Sydney Removals | Interstate Movers | ZQ Removals",
+    "title": "Adelaide to Western Sydney Removals | ZQ Removals",
     "description": "Adelaide-origin interstate removals to Western Sydney with route planning, access coordination, and fixed-price quoting from ZQ Removals.",
     "canonical": "https://zqremovals.au/adelaide-to-western-sydney-removals/",
     "robots": "index,follow,max-image-preview:large",
@@ -697,7 +697,7 @@
   {
     "output": "adelaide-to-smithfield-nsw-removals/index.html",
     "layout": "standard",
-    "title": "Adelaide to Smithfield NSW Removals | Interstate Movers | ZQ Removals",
+    "title": "Adelaide to Smithfield NSW Removals | ZQ Removals",
     "description": "Adelaide-origin interstate removals to Smithfield NSW with route planning, access coordination, and fixed-price quoting from ZQ Removals.",
     "canonical": "https://zqremovals.au/adelaide-to-smithfield-nsw-removals/",
     "robots": "index,follow,max-image-preview:large",
@@ -783,7 +783,7 @@
   {
     "output": "adelaide-to-queensland-removals/index.html",
     "layout": "standard",
-    "title": "Adelaide to Queensland Removals | Brisbane and QLD Moves | ZQ Removals",
+    "title": "Adelaide to Queensland Removals | QLD Moves | ZQ Removals",
     "description": "Adelaide to Queensland removals for Brisbane and regional QLD destinations. Plan access, timing, packing, and handover details before the truck leaves Adelaide.",
     "canonical": "https://zqremovals.au/adelaide-to-queensland-removals/",
     "robots": "index,follow,max-image-preview:large",
@@ -866,7 +866,7 @@
     "twitterImage": "https://zqremovals.au/zq-removals-social-share.webp",
     "refresh": "",
     "jsonLd": [
-      "{\n  \"@context\": \"https://schema.org\",\n  \"@graph\": [\n    {\n      \"@type\": \"MovingCompany\",\n      \"@id\": \"https://zqremovals.au/#business\",\n      \"name\": \"ZQ Removals\",\n      \"url\": \"https://zqremovals.au/\",\n      \"telephone\": \"0433 819 989\",\n      \"image\": \"https://zqremovals.au/zq-removals-social-share.webp\",\n      \"logo\": \"https://zqremovals.au/brand-logo.webp\",\n      \"priceRange\": \"$$\",\n      \"address\": {\n        \"@type\": \"PostalAddress\",\n        \"addressLocality\": \"Andrews Farm\",\n        \"addressRegion\": \"SA\",\n        \"postalCode\": \"5114\",\n        \"addressCountry\": \"AU\"\n      },\n      \"areaServed\": [\n        \"Adelaide\",\n        \"South Australia\",\n        \"Northern suburbs\",\n        \"Southern suburbs\",\n        \"Interstate Australia\"\n      ],\n      \"taxID\": \"{{business.abn}}\"\n    },\n    {\n      \"@type\": \"WebPage\",\n      \"@id\": \"https://zqremovals.au/#webpage\",\n      \"url\": \"https://zqremovals.au/\",\n      \"name\": \"Adelaide Removalists | Fixed-Price Movers | ZQ Removals\",\n      \"description\": \"Need Adelaide removalists? ZQ Removals offers fixed-price moving quotes, careful furniture handling and local or interstate removals across metro Adelaide.\",\n      \"mainEntity\": {\n        \"@id\": \"https://zqremovals.au/#business\"\n      }\n    }\n  ]\n}"
+      "{\n  \"@context\": \"https://schema.org\",\n  \"@graph\": [\n    {\n      \"@type\": \"MovingCompany\",\n      \"@id\": \"https://zqremovals.au/#business\",\n      \"name\": \"ZQ Removals\",\n      \"url\": \"https://zqremovals.au/\",\n      \"telephone\": \"0433 819 989\",\n      \"image\": \"https://zqremovals.au/zq-removals-social-share.webp\",\n      \"logo\": \"https://zqremovals.au/brand-logo.webp\",\n      \"priceRange\": \"$$\",\n      \"address\": {\n        \"@type\": \"PostalAddress\",\n        \"addressLocality\": \"Andrews Farm\",\n        \"addressRegion\": \"SA\",\n        \"postalCode\": \"5114\",\n        \"addressCountry\": \"AU\"\n      },\n      \"areaServed\": [\n        \"Adelaide\",\n        \"South Australia\",\n        \"Northern suburbs\",\n        \"Southern suburbs\",\n        \"Interstate Australia\"\n      ],\n      \"taxID\": \"{{business.abn}}\"\n    },\n    {\n      \"@type\": \"WebPage\",\n      \"@id\": \"https://zqremovals.au/#webpage\",\n      \"url\": \"https://zqremovals.au/\",\n      \"name\": \"Adelaide Removalists | Fixed-Price Movers | ZQ Removals\",\n      \"description\": \"Need Adelaide removalists? ZQ Removals offers fixed-price moving quotes, careful furniture handling and local or interstate removals across metro Adelaide.\",\n      \"mainEntity\": {\n        \"@id\": \"https://zqremovals.au/#business\"\n      }\n    },\n    {\n      \"@type\": \"FAQPage\",\n      \"@id\": \"https://zqremovals.au/#faq\",\n      \"mainEntity\": [\n        {\n          \"@type\": \"Question\",\n          \"name\": \"How much do Adelaide removalists cost?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"Cost depends on the route, inventory, access, stairs, packing needs, timing, and crew requirements. ZQ Removals reviews those details before confirming a fixed-price quote.\"\n          }\n        },\n        {\n          \"@type\": \"Question\",\n          \"name\": \"Are ZQ Removals insured?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"Yes. ZQ Removals operates with insured moving practices, and insurance documentation can be confirmed before booking when required.\"\n          }\n        },\n        {\n          \"@type\": \"Question\",\n          \"name\": \"Do you handle interstate moves from Adelaide?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"Yes. ZQ Removals supports interstate moves from Adelaide, including Melbourne, Sydney, Brisbane, Perth, Canberra, and broader Australian routes.\"\n          }\n        },\n        {\n          \"@type\": \"Question\",\n          \"name\": \"Can you pack and protect furniture?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"Yes. Packing support, fragile item preparation, furniture wrapping, and protective loading can be included when the move requires extra care.\"\n          }\n        },\n        {\n          \"@type\": \"Question\",\n          \"name\": \"How do I book a move?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"Submit the quote form or call 0433 819 989. The team will review the move details, confirm availability, and provide the next step for booking.\"\n          }\n        }\n      ]\n    }\n  ]\n}"
     ],
     "contentFile": "content/index.html"
   },
@@ -1028,6 +1028,29 @@
       "{\n        \"@context\": \"https://schema.org\",\n        \"@type\": \"WebPage\",\n        \"@id\": \"https://zqremovals.au/privacy-policy/#webpage\",\n        \"url\": \"https://zqremovals.au/privacy-policy/\",\n        \"name\": \"Privacy Policy | ZQ Removals\",\n        \"description\": \"Privacy policy for ZQ Removals covering website enquiries, booking communications, and data handling obligations.\"\n      }"
     ],
     "contentFile": "content/privacy-policy.html"
+  },
+  {
+    "output": "insurance-and-coverage/index.html",
+    "layout": "standard",
+    "title": "Insurance & Coverage | ZQ Removals",
+    "description": "ZQ Removals insurance, public liability coverage, and transit protection details for your house, office, or interstate relocation in Adelaide.",
+    "canonical": "https://zqremovals.au/insurance-and-coverage/",
+    "robots": "index,follow,max-image-preview:large",
+    "themeColor": "#0A192F",
+    "ogTitle": "Insurance & Coverage | ZQ Removals",
+    "ogDescription": "ZQ Removals insurance, public liability coverage, and transit protection details for your house, office, or interstate relocation in Adelaide.",
+    "ogType": "article",
+    "ogUrl": "https://zqremovals.au/insurance-and-coverage/",
+    "ogImage": "https://zqremovals.au/zq-removals-social-share.webp",
+    "twitterCard": "summary_large_image",
+    "twitterTitle": "Insurance & Coverage | ZQ Removals",
+    "twitterDescription": "ZQ Removals insurance, public liability coverage, and transit protection details for your house, office, or interstate relocation in Adelaide.",
+    "twitterImage": "https://zqremovals.au/zq-removals-social-share.webp",
+    "refresh": "",
+    "jsonLd": [
+      "{\n        \"@context\": \"https://schema.org\",\n        \"@type\": \"WebPage\",\n        \"@id\": \"https://zqremovals.au/insurance-and-coverage/#webpage\",\n        \"url\": \"https://zqremovals.au/insurance-and-coverage/\",\n        \"name\": \"Insurance & Coverage | ZQ Removals\",\n        \"description\": \"ZQ Removals insurance, public liability coverage, and transit protection details for your house, office, or interstate relocation in Adelaide.\"\n      }"
+    ],
+    "contentFile": "content/insurance-and-coverage.html"
   },
   {
     "output": "removalists-adelaide/index.html",
@@ -1724,7 +1747,7 @@
     "output": "services/office-removals-adelaide/index.html",
     "layout": "standard",
     "title": "Office Removals Adelaide | Commercial Move Planning | ZQ Removals",
-    "description": "Office removals Adelaide with fixed-price scopes, dock and access planning, and fast business restart support.",
+    "description": "Office removals Adelaide with fixed-price scopes, dock and access planning, and fast business restart support for local companies.",
     "canonical": "https://zqremovals.au/services/office-removals-adelaide/",
     "robots": "index,follow,max-image-preview:large",
     "themeColor": "#0A192F",
@@ -1745,7 +1768,7 @@
     "output": "services/interstate-removals-adelaide/index.html",
     "layout": "standard",
     "title": "Interstate Removals Adelaide | Fixed Route Pricing | ZQ Removals",
-    "description": "Interstate removals Adelaide with route-based planning, careful loading and fixed pricing for long-distance moves.",
+    "description": "Interstate removals Adelaide with route-based planning, careful loading and fixed pricing for long-distance relocations.",
     "canonical": "https://zqremovals.au/services/interstate-removals-adelaide/",
     "robots": "index,follow,max-image-preview:large",
     "themeColor": "#0A192F",
@@ -1786,8 +1809,8 @@
   {
     "output": "services/apartment-removals-adelaide/index.html",
     "layout": "standard",
-    "title": "Apartment Removals Adelaide | Lift & Access Planning | ZQ Removals",
-    "description": "Apartment removals Adelaide with lift-booking support, access planning and fixed-price quotes for unit moves.",
+    "title": "Apartment Removals Adelaide | Access Planning | ZQ Removals",
+    "description": "Apartment removals Adelaide with lift-booking support, building access planning, and fixed-price quotes for unit relocations.",
     "canonical": "https://zqremovals.au/services/apartment-removals-adelaide/",
     "robots": "index,follow,max-image-preview:large",
     "themeColor": "#0A192F",
@@ -1807,8 +1830,8 @@
   {
     "output": "services/packing-services-adelaide/index.html",
     "layout": "standard",
-    "title": "Packing Services Adelaide | Home & Fragile Packing | ZQ Removals",
-    "description": "Packing services Adelaide for full-home prep, fragile item wrapping and clear fixed-price support before move day.",
+    "title": "Packing Services Adelaide | Fragile Packing | ZQ Removals",
+    "description": "Packing services Adelaide for full-home preparation, fragile item wrapping and clear fixed-price support before move day.",
     "canonical": "https://zqremovals.au/services/packing-services-adelaide/",
     "robots": "index,follow,max-image-preview:large",
     "themeColor": "#0A192F",
