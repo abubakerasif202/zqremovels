@@ -1,9 +1,9 @@
 export const zqServicePages = [
   {
     slug: 'furniture-removals-adelaide',
-    title: 'Furniture Removals Adelaide | ZQ Removals',
+    title: 'Furniture Removals Adelaide | Single Item & Bulky Movers',
     description:
-      'Furniture removals Adelaide for sofas, beds, whitegoods, fragile pieces and single-item moves, scoped around access and protection.',
+      'Furniture removals Adelaide for sofas, beds, whitegoods, antiques, bulky items and careful placement, with access reviewed before quoting.',
     canonical: '/furniture-removals-adelaide/',
     type: 'service',
     hero:
@@ -83,9 +83,9 @@ export const zqServicePages = [
   },
   {
     slug: 'local-removalists-adelaide',
-    title: 'Local Removalists Adelaide | ZQ Removals',
+    title: 'Local Removalists Adelaide | Suburb Movers',
     description:
-      'Local removalists Adelaide for suburb-to-suburb moves, careful handling, access planning and fast fixed-price quote review.',
+      'Local removalists in Adelaide for suburb-to-suburb moves, apartments, homes, furniture, access planning and fixed-price quote review.',
     canonical: '/local-removalists-adelaide/',
     type: 'service',
     hero:
@@ -167,7 +167,7 @@ export const zqServicePages = [
     slug: 'services/adelaide-cbd-apartment-removalists',
     title: 'Adelaide CBD Apartment Removalists | Lift Access Planning | ZQ Removals',
     description:
-      'Adelaide CBD apartment removalists for lift bookings, loading zones, and manual quote review before moving day.',
+      'Adelaide CBD apartment removalists specializing in lift bookings, loading zones, tight parking windows, and fixed-price relocations.',
     canonical: '/services/adelaide-cbd-apartment-removalists/',
     type: 'service',
     hero:
@@ -219,9 +219,9 @@ export const zqServicePages = [
   },
   {
     slug: 'services/office-removalists-adelaide',
-    title: 'Office Removalists Adelaide | Manual Review and Downtime Control | ZQ Removals',
+    title: 'Commercial Office Removalists Adelaide | Downtime Planning',
     description:
-      'Office removalists Adelaide for commercial relocations with manual quote review, dock access, IT handling, and staged restart planning.',
+      'Commercial office removalists Adelaide with dock access, lift bookings, labelled unload order, IT handling and restart planning reviewed.',
     canonical: '/services/office-removalists-adelaide/',
     type: 'service',
     hero:
@@ -327,9 +327,9 @@ export const zqServicePages = [
   },
   {
     slug: 'services/interstate-removalists-adelaide',
-    title: 'Interstate Removalists Adelaide | Fixed Route Pricing | ZQ Removals',
+    title: 'Interstate Removalists Adelaide | Route Planning',
     description:
-      'Interstate removalists Adelaide for long-distance moves with route review, packing scope, and fixed prices before moving day.',
+      'Interstate removalists Adelaide for long-distance moves with origin access, route planning, packing scope and destination handover reviewed.',
     canonical: '/services/interstate-removalists-adelaide/',
     type: 'service',
     hero:

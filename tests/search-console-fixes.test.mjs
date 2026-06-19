@@ -230,7 +230,7 @@ test('adelaide moving checklist page is generated with clean seo, links, schema,
   const main = extractMain(html);
   const links = extractRootLinks(main);
 
-  assert.match(html, /<title>Adelaide Moving Checklist \| Stress-Free Move Planner \| ZQ Removals<\/title>/i);
+  assert.match(html, /<title>Adelaide Moving Checklist \| Move Planner \| ZQ Removals<\/title>/i);
   assert.match(html, /<meta name="description" content="Plan your Adelaide move with ZQ Removals’ practical moving checklist\. Prepare inventory, access, packing, parking, lifts, and quote details before move day\." \/>/i);
   assert.match(html, /<link rel="canonical" href="https:\/\/zqremovals\.au\/moving-checklist-adelaide\/" \/>/i);
   assert.match(main, /<h1[^>]*>Stress-Free Adelaide Moving Checklist<\/h1>/i);
@@ -597,9 +597,7 @@ test('json-ld is valid, host-consistent, and uses only supported business facts'
     const html = readFileSync(htmlFile, 'utf8');
     for (const jsonLd of extractJsonLd(html)) {
       assert.doesNotMatch(JSON.stringify(jsonLd), /https:\/\/www\.zqremovals\.au|localhost|\.vercel\.app/i, `bad schema URL in ${relativePath}`);
-      if (relativePath !== 'removalists-adelaide/index.html') {
-        assert.doesNotMatch(JSON.stringify(jsonLd), /AggregateRating|aggregateRating|reviewCount|ratingValue/i, `unsupported review schema in ${relativePath}`);
-      }
+      assert.doesNotMatch(JSON.stringify(jsonLd), /AggregateRating|aggregateRating|reviewCount|ratingValue/i, `unsupported review schema in ${relativePath}`);
 
       for (const node of flattenJsonLdNodes(jsonLd)) {
         const types = Array.isArray(node['@type']) ? node['@type'] : [node['@type']].filter(Boolean);
@@ -1075,7 +1073,7 @@ test('removalists Adelaide hub has focused intent, schema, CTA and supporting in
   assert.match(html, /<link rel="canonical" href="https:\/\/zqremovals\.au\/removalists-adelaide\/"/i);
   assert.match(html, /"@type":"BreadcrumbList"|"@type": "BreadcrumbList"/i);
   assert.match(html, /"@type":"Service"|"@type": "Service"/i);
-  assert.match(html, /aggregateRating|reviewCount/i);
+  assert.doesNotMatch(html, /AggregateRating|aggregateRating|reviewCount|ratingValue/i);
   assert.match(firstSection, /removalists in Adelaide/i);
   assert.match(firstSection, /house moves[\s\S]*apartment moves[\s\S]*furniture removals[\s\S]*office relocations[\s\S]*packing support[\s\S]*interstate/i);
   assert.match(firstSection, /inventory[\s\S]*stairs[\s\S]*lifts[\s\S]*parking[\s\S]*timing[\s\S]*fragile/i);
