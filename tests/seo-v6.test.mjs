@@ -110,6 +110,29 @@ test('No Limits competitor alternative page stays honest and discoverable', () =
   assert.match(sitemapGuides, /https:\/\/zqremovals\.au\/no-limits-removalists-alternative-adelaide\//);
 });
 
+test('Door 2 Door Movers competitor alternative page stays honest and discoverable', () => {
+  const output = 'door-2-door-movers-alternative-adelaide/index.html';
+  const html = readDist(output);
+  const guideHub = readDist('adelaide-moving-guides/index.html');
+  const sitemapGuides = readDist('sitemap-guides.xml');
+  const sourcePage = pages.find((page) => page.output === output);
+
+  assert.ok(sourcePage, 'missing generated competitor alternative metadata');
+  assert.equal(sourcePage.generatedKind, 'comparison');
+  assert.match(html, /<title>Door 2 Door Movers Alternative Adelaide \| ZQ Removals<\/title>/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/zqremovals\.au\/door-2-door-movers-alternative-adelaide\/" \/>/);
+  assert.match(html, /Door 2 Door Movers/i);
+  assert.match(html, /ZQ Removals/i);
+  assert.match(html, /fixed-price/i);
+  assert.match(html, /data-generated-module="competitor-source-note"/);
+  assert.match(html, /rel="nofollow noopener noreferrer"/);
+  assert.match(html, /"@type": "FAQPage"/);
+  assert.ok((html.match(/class="faq-item/g) || []).length >= 4, 'competitor page should include visible FAQ support');
+  assert.doesNotMatch(html, /scam|rip[- ]?off|avoid Door 2 Door|bad removalist/i);
+  assert.match(guideHub, /href="\/door-2-door-movers-alternative-adelaide\/"/);
+  assert.match(sitemapGuides, /https:\/\/zqremovals\.au\/door-2-door-movers-alternative-adelaide\//);
+});
+
 function readDist(relativePath) {
   const normalized = relativePath.replace(/\\/g, '/');
   const candidates = [
