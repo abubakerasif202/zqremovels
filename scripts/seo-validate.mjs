@@ -7,6 +7,7 @@ import { getGeneratedPages, getRouteCoverageReport, getSuburbDataset, mergePages
 const root = process.cwd();
 const distRoot = path.join(root, 'site-dist');
 const staticPages = JSON.parse(await readFile(path.join(root, 'site-src', 'pages.json'), 'utf8'));
+const vercelConfig = JSON.parse(await readFile(path.join(root, 'vercel.json'), 'utf8'));
 const generatedPages = getGeneratedPages();
 const pages = mergePagesByOutput(staticPages, generatedPages)
   .filter((page) => (page.robots !== 'noindex,follow' || page.extra) && !normalizeOutput(page.output).startsWith('guides/'));
@@ -41,6 +42,7 @@ function getAstroExpectedOutputPath(pageOutput) {
 }
 
 const allPages = mergePagesByOutput(staticPages, generatedPages);
+const redirectAudit = buildRedirectAudit(allPages, vercelConfig);
 const expectedToOutput = new Map();
 for (const page of allPages) {
   const expected = getAstroExpectedOutputPath(page.output).replace(/\\/g, '/');
@@ -105,11 +107,12 @@ for (const page of pages) {
   }
 }
 
-validateInternalLinkGraph(graph, pages, failures, warnings);
+validateInternalLinkGraph(graph, pages, redirectAudit, failures, warnings);
 validateGeneratedSuburbModules(pages, htmlMap, failures);
 validateImageReferences(htmlMap, failures);
 validateSchemaIds(htmlMap, failures);
 validateSuburbDatasetSlugs(getSuburbDataset(), generatedPages, failures);
+validateRedirects(redirectAudit, failures);
 
 const coverage = getRouteCoverageReport();
 if (coverage.length !== generatedPages.filter((page) => page.generatedKind === 'suburb').length) {
@@ -133,6 +136,7 @@ if (!sitemapImagesXml) {
   sitemapXmlByName.set('sitemap-images.xml', sitemapImagesXml);
 }
 validateSitemaps(pages, sitemapXmlByName, failures);
+validateSitemapFinalUrls(sitemapXmlByName, htmlMap, redirectAudit, failures);
 const sitemapSummary = summarizeSitemaps(sitemapXmlByName, pages);
 validateSitemapSummary(sitemapSummary, failures);
 validateStrictSeoCompletion(pages, htmlMap, failures);
@@ -220,7 +224,7 @@ function buildInternalLinkGraph(htmlMap, routeByOutputMap) {
   return graph;
 }
 
-function validateInternalLinkGraph(graph, pagesList, failuresList, warningsList) {
+function validateInternalLinkGraph(graph, pagesList, redirectAuditState, failuresList, warningsList) {
   for (const page of pagesList) {
     const source = normalizeOutput(page.output);
     const node = graph.get(source);
@@ -233,6 +237,13 @@ function validateInternalLinkGraph(graph, pagesList, failuresList, warningsList)
 
     for (const link of node.contentOutbound) {
       if (!link.target) continue;
+      if (redirectAuditState.redirectOutputs.has(link.target)) {
+        failuresList.push(`internal link to redirect page: ${page.output} -> ${link.href}`);
+      }
+      const redirectDestination = resolveRedirectDestination(link.href, redirectAuditState);
+      if (redirectDestination) {
+        failuresList.push(`internal link to redirected URL: ${page.output} -> ${link.href} -> ${redirectDestination}`);
+      }
       if (!graph.has(link.target)) {
         failuresList.push(`broken internal link: ${page.output} -> ${link.href}`);
       }
@@ -417,6 +428,105 @@ function validateSuburbDatasetSlugs(suburbDataset, generatedPagesList, failuresL
   }
 }
 
+function buildRedirectAudit(pagesList, vercelConfigValue) {
+  const routeByPath = new Map();
+  const indexablePaths = new Set();
+  const redirectOutputs = new Set();
+  const redirectPaths = new Map();
+
+  for (const page of pagesList) {
+    const output = normalizeOutput(page.output);
+    const routePath = outputToPath(output);
+    routeByPath.set(routePath, page);
+
+    if (page.layout === 'redirect') {
+      redirectOutputs.add(output);
+      redirectPaths.set(routePath, page.canonical || '');
+    } else if (isStrictSeoIndexablePage(page) || (!String(page.robots || '').toLowerCase().includes('noindex') && !['404.html', 'thank-you.html', 'thank-you/index.html'].includes(output))) {
+      indexablePaths.add(routePath);
+    }
+  }
+
+  const vercelRedirects = Array.isArray(vercelConfigValue.redirects) ? vercelConfigValue.redirects : [];
+  const exactRedirects = new Map();
+  const patternRedirects = [];
+
+  for (const redirect of vercelRedirects) {
+    const source = normalizeRedirectPath(redirect.source || '');
+    const destination = normalizeRedirectDestination(redirect.destination || '');
+    if (!source || !destination) continue;
+
+    const entry = { source, destination, redirect };
+    if (isStaticRedirectSource(source)) {
+      exactRedirects.set(source, entry);
+    } else {
+      patternRedirects.push(entry);
+    }
+  }
+
+  return {
+    routeByPath,
+    indexablePaths,
+    redirectOutputs,
+    redirectPaths,
+    exactRedirects,
+    patternRedirects,
+    vercelRedirects,
+  };
+}
+
+function validateRedirects(redirectAuditState, failuresList) {
+  const seenSources = new Set();
+  for (const redirect of redirectAuditState.vercelRedirects) {
+    const source = normalizeRedirectPath(redirect.source || '');
+    const destination = normalizeRedirectDestination(redirect.destination || '');
+
+    if (!source || !destination) {
+      failuresList.push(`malformed redirect rule: ${JSON.stringify(redirect)}`);
+      continue;
+    }
+    if (seenSources.has(source)) {
+      failuresList.push(`duplicate redirect source: ${source}`);
+    }
+    seenSources.add(source);
+
+    if (source === destination) {
+      failuresList.push(`redirect loop: ${source}`);
+    }
+    if (destination.includes('www.zqremovals.au')) {
+      failuresList.push(`redirect destination uses www host: ${source} -> ${destination}`);
+    }
+    if (!hasCanonicalTrailingSlash(destination)) {
+      failuresList.push(`redirect destination missing trailing slash: ${source} -> ${destination}`);
+    }
+
+    const destinationPath = destinationToPath(destination);
+    if (destinationPath && redirectAuditState.exactRedirects.has(destinationPath)) {
+      failuresList.push(`redirect chain: ${source} -> ${destination}`);
+    }
+    if (destinationPath && redirectAuditState.redirectPaths.has(destinationPath)) {
+      failuresList.push(`redirect points to redirect page: ${source} -> ${destination}`);
+    }
+  }
+
+  for (const [source, destination] of redirectAuditState.redirectPaths.entries()) {
+    if (!destination) {
+      failuresList.push(`redirect page missing canonical destination: ${source}`);
+      continue;
+    }
+    if (destination.includes('www.zqremovals.au')) {
+      failuresList.push(`redirect page destination uses www host: ${source} -> ${destination}`);
+    }
+    if (!hasCanonicalTrailingSlash(destination)) {
+      failuresList.push(`redirect page destination missing trailing slash: ${source} -> ${destination}`);
+    }
+    const destinationPath = destinationToPath(destination);
+    if (destinationPath && redirectAuditState.redirectPaths.has(destinationPath)) {
+      failuresList.push(`redirect page chain: ${source} -> ${destination}`);
+    }
+  }
+}
+
 function validateSitemaps(pagesList, sitemapXmlByName, failuresList) {
   const indexedLocs = new Set();
   for (const name of ['sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml']) {
@@ -451,6 +561,45 @@ function validateSitemaps(pagesList, sitemapXmlByName, failuresList) {
     const assetPath = normalizeAssetHrefToDistPath(loc);
     if (assetPath && !assetExistsOnDisk(assetPath)) {
       failuresList.push(`image sitemap missing asset: ${loc}`);
+    }
+  }
+}
+
+function validateSitemapFinalUrls(sitemapXmlByName, htmlMap, redirectAuditState, failuresList) {
+  const indexedLocs = ['sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml']
+    .flatMap((name) => extractSitemapLocs(sitemapXmlByName.get(name) || ''));
+  const seenLocs = new Set();
+
+  for (const loc of indexedLocs) {
+    const parsed = parseCanonicalUrl(loc);
+    if (!parsed) {
+      failuresList.push(`malformed sitemap URL: ${loc}`);
+      continue;
+    }
+    if (parsed.origin !== seoConfig.siteUrl) {
+      failuresList.push(`non-apex sitemap URL: ${loc}`);
+    }
+    if (parsed.pathname !== '/' && !parsed.pathname.endsWith('/')) {
+      failuresList.push(`sitemap URL missing trailing slash: ${loc}`);
+    }
+    if (parsed.pathname.includes('//')) {
+      failuresList.push(`malformed sitemap path: ${loc}`);
+    }
+    if (seenLocs.has(loc)) {
+      failuresList.push(`duplicate sitemap URL: ${loc}`);
+    }
+    seenLocs.add(loc);
+
+    const output = normalizeHrefToOutput(parsed.pathname);
+    if (!htmlMap.has(output)) {
+      failuresList.push(`sitemap URL has no generated 200 output: ${loc}`);
+    }
+    if (redirectAuditState.redirectOutputs.has(output) || redirectAuditState.redirectPaths.has(parsed.pathname)) {
+      failuresList.push(`sitemap URL points to redirect page: ${loc}`);
+    }
+    const destination = resolveRedirectDestination(parsed.pathname, redirectAuditState);
+    if (destination) {
+      failuresList.push(`sitemap URL redirects: ${loc} -> ${destination}`);
     }
   }
 }
@@ -516,11 +665,8 @@ function reportMetadataWarnings(pagesList, htmlMap) {
 
   if (warnings.length > 0) {
     console.log(`metadata warnings = ${warnings.length}`);
-    for (const warning of warnings.slice(0, 25)) {
+    for (const warning of warnings) {
       console.log(`- ${warning}`);
-    }
-    if (warnings.length > 25) {
-      console.log(`- ... ${warnings.length - 25} more`);
     }
   }
 }
@@ -781,4 +927,79 @@ function outputToAbsoluteUrl(output = '') {
     return `${seoConfig.siteUrl}/${normalized.replace(/\/index\.html$/, '/')}`;
   }
   return `${seoConfig.siteUrl}/${normalized}`;
+}
+
+function outputToPath(output = '') {
+  const normalized = normalizeOutput(output);
+  if (normalized === 'index.html') return '/';
+  if (normalized.endsWith('/index.html')) return `/${normalized.replace(/\/index\.html$/, '/')}`;
+  if (normalized.endsWith('.html')) return `/${normalized}`;
+  return `/${normalized.replace(/^\/+/, '')}`;
+}
+
+function parseCanonicalUrl(value = '') {
+  try {
+    return new URL(value);
+  } catch {
+    return null;
+  }
+}
+
+function normalizeRedirectPath(value = '') {
+  const clean = String(value).trim();
+  if (!clean) return '';
+  if (clean.startsWith('http://') || clean.startsWith('https://')) {
+    const parsed = parseCanonicalUrl(clean);
+    return parsed ? parsed.pathname : '';
+  }
+  return clean.startsWith('/') ? clean : `/${clean}`;
+}
+
+function normalizeRedirectDestination(value = '') {
+  const clean = String(value).trim();
+  if (!clean) return '';
+  if (clean.startsWith('http://') || clean.startsWith('https://')) {
+    return clean;
+  }
+  return clean.startsWith('/') ? clean : `/${clean}`;
+}
+
+function isStaticRedirectSource(source = '') {
+  return !/[()*:]/.test(source);
+}
+
+function destinationToPath(destination = '') {
+  const clean = normalizeRedirectDestination(destination);
+  if (!clean) return '';
+  if (clean.startsWith('http://') || clean.startsWith('https://')) {
+    const parsed = parseCanonicalUrl(clean);
+    return parsed ? parsed.pathname : '';
+  }
+  if (!clean.startsWith('/')) return '';
+  return clean;
+}
+
+function hasCanonicalTrailingSlash(destination = '') {
+  const pathName = destinationToPath(destination);
+  if (!pathName) return true;
+  if (pathName === '/') return true;
+  if (path.extname(pathName)) return true;
+  if (pathName.includes(':') || pathName.includes('*')) return true;
+  return pathName.endsWith('/');
+}
+
+function resolveRedirectDestination(href = '', redirectAuditState) {
+  if (!isInternalHref(href)) return '';
+  const cleanPath = normalizeRedirectPath(href.split('#')[0].split('?')[0]);
+  if (!cleanPath) return '';
+
+  const exact = redirectAuditState.exactRedirects.get(cleanPath);
+  if (exact) return exact.destination;
+
+  const output = normalizeHrefToOutput(cleanPath);
+  if (redirectAuditState.redirectOutputs.has(output)) {
+    return redirectAuditState.redirectPaths.get(cleanPath) || 'redirect page';
+  }
+
+  return '';
 }

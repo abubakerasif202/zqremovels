@@ -15,6 +15,8 @@
     "test:quote-api": "node scripts/quote-api-smoke.mjs",
     "test:visual-mobile": "playwright test tests/mobile-seo-visual.spec.ts",
     "lhci": "lhci autorun",
+    "check:sitemap": "node scripts/seo-validate.mjs",
+    "seo:audit": "node scripts/seo-validate.mjs",
     "seo:validate": "node scripts/seo-validate.mjs",
     "gsc:auth": "node scripts/gsc-auth.mjs",
     "gsc:fetch": "node scripts/gsc-fetch.mjs",
