@@ -7313,3 +7313,21 @@ body.page-home .home-redesign-final-shell {
   color: #30483f;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
+
+/* AEO TL;DR Blockquote Style */
+blockquote.aeo-tldr {
+  margin: 1.5rem 0 2rem 0;
+  padding: 1.25rem 1.5rem;
+  border-left: 4px solid var(--zq-cta);
+  background-color: var(--color-home-surface);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  box-shadow: var(--shadow-soft);
+  color: var(--color-home-text);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  font-style: normal;
+}
+blockquote.aeo-tldr p {
+  margin: 0;
+}
+
