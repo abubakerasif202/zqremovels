@@ -3316,6 +3316,38 @@ export function getGeneratedPages() {
     destinationPath: canonicalCostGuidePath,
   }));
 
+  pages.push(makeRedirectPage({
+    output: 'contact/index.html',
+    canonical: buildCanonical('/contact-us/'),
+    title: buildTitle('Contact ZQ Removals Redirect'),
+    description: buildDescription('Redirecting to the canonical contact us page.'),
+    destinationPath: '/contact-us/',
+  }));
+
+  pages.push(makeRedirectPage({
+    output: 'blog/index.html',
+    canonical: buildCanonical('/adelaide-moving-guides/'),
+    title: buildTitle('ZQ Removals Moving Blog Redirect'),
+    description: buildDescription('Redirecting to our canonical Adelaide moving guides and blog.'),
+    destinationPath: '/adelaide-moving-guides/',
+  }));
+
+  pages.push(makeRedirectPage({
+    output: 'last-minute-removals-adelaide/index.html',
+    canonical: buildCanonical('/last-minute-removalists-adelaide/'),
+    title: buildTitle('Last Minute Removals Adelaide Redirect'),
+    description: buildDescription('Redirecting to our canonical last-minute Adelaide removalists page.'),
+    destinationPath: '/last-minute-removalists-adelaide/',
+  }));
+
+  pages.push(makeRedirectPage({
+    output: 'cbd-apartment-removals-adelaide/index.html',
+    canonical: buildCanonical('/services/adelaide-cbd-apartment-removalists/'),
+    title: buildTitle('CBD Apartment Removals Adelaide Redirect'),
+    description: buildDescription('Redirecting to our canonical Adelaide CBD apartment removalists page.'),
+    destinationPath: '/services/adelaide-cbd-apartment-removalists/',
+  }));
+
   for (const [slug, title, topic, type, basePath] of guideTopics) {
     const normalizedBasePath = basePath || 'adelaide-moving-guides';
     if (normalizedBasePath === 'adelaide-moving-guides' && slug === 'removalist-cost-adelaide') {
@@ -4413,7 +4445,7 @@ function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel, inte
 
 function makeGuidePage({ slug, title, topic, basePath = 'adelaide-moving-guides' }) {
   const canonical = buildCanonical(`/${basePath}/${slug}/`);
-  const intentProfile = seoV5GuideProfiles[slug] || (basePath === 'guides' ? zqGuideIntentProfiles[slug] : null);
+  const intentProfile = seoV5GuideProfiles[slug] || zqGuideIntentProfiles[slug];
   const seoTitle = buildTitle(title, 'brand');
   const description = buildDescription(
     intentProfile

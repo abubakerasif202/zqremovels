@@ -242,6 +242,46 @@
       "permanent": true
     },
     {
+      "source": "/contact",
+      "destination": "/contact-us/",
+      "permanent": true
+    },
+    {
+      "source": "/contact/",
+      "destination": "/contact-us/",
+      "permanent": true
+    },
+    {
+      "source": "/blog",
+      "destination": "/adelaide-moving-guides/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/",
+      "destination": "/adelaide-moving-guides/",
+      "permanent": true
+    },
+    {
+      "source": "/last-minute-removals-adelaide",
+      "destination": "/last-minute-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/last-minute-removals-adelaide/",
+      "destination": "/last-minute-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/cbd-apartment-removals-adelaide",
+      "destination": "/services/adelaide-cbd-apartment-removalists/",
+      "permanent": true
+    },
+    {
+      "source": "/cbd-apartment-removals-adelaide/",
+      "destination": "/services/adelaide-cbd-apartment-removalists/",
+      "permanent": true
+    },
+    {
       "source": "/adelaide-movers",
       "destination": "/removalists-adelaide/",
       "permanent": true
