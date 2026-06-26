@@ -94,7 +94,7 @@ export const seoConfig = {
   robots: 'index,follow,max-image-preview:large',
   titleTemplate: '%s | ZQ Removals',
   titleMaxLength: 68,
-  descriptionMaxLength: 155,
+  descriptionMaxLength: 160,
 };
 
 export const localBusinessSchema = {
@@ -4447,11 +4447,18 @@ function makeGuidePage({ slug, title, topic, basePath = 'adelaide-moving-guides'
   const canonical = buildCanonical(`/${basePath}/${slug}/`);
   const intentProfile = seoV5GuideProfiles[slug] || zqGuideIntentProfiles[slug];
   const seoTitle = buildTitle(title, 'brand');
-  const description = buildDescription(
-    intentProfile
-      ? `Adelaide guide for ${intentProfile.searchIntent}. Use it to plan access, timing, packing, quote details, and move-day risks before booking.`
-      : `Expert Adelaide moving guide on ${topic}. Practical advice, planning tips, and local insights for a more organized relocation.`,
-  );
+  let descriptionText = `Expert Adelaide moving guide on ${topic}. Practical advice, planning tips, and local insights for a more organized relocation.`;
+  if (intentProfile) {
+    const mainSentence = `Adelaide guide for ${intentProfile.searchIntent}.`;
+    const secondSentenceLong = `Use our checklist to plan access, timing, packing, and quote details before booking.`;
+    const secondSentenceShort = `Plan access, timing, packing, and quotes before booking.`;
+    if (mainSentence.length + 1 + secondSentenceLong.length <= 160) {
+      descriptionText = `${mainSentence} ${secondSentenceLong}`;
+    } else {
+      descriptionText = `${mainSentence} ${secondSentenceShort}`;
+    }
+  }
+  const description = buildDescription(descriptionText);
   const pageImage = getGeneratedPageImage({ type: 'guide', slug, title, topic });
   return {
     output: `${basePath}/${slug}/index.html`,
