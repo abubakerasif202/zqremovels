@@ -9,8 +9,9 @@ export const zqServiceLinkProfiles = {
     suburbs: [
       { href: '/removalists-glenelg/', label: 'Glenelg furniture access' },
       { href: '/removalists-norwood/', label: 'Norwood tight-entry moves' },
+      { href: '/removalists-hyde-park/', label: 'Hyde Park premium moving' },
+      { href: '/removalists-toorak-gardens/', label: 'Toorak Gardens careful transport' },
       { href: '/removalists-marion/', label: 'Marion household furniture routes' },
-      { href: '/removalists-salisbury/', label: 'Salisbury larger-item moves' },
     ],
     guides: [
       { href: '/adelaide-moving-guides/furniture-protection-guide-adelaide/', label: 'prepare furniture for moving' },
@@ -35,7 +36,7 @@ export const zqServiceLinkProfiles = {
       { href: '/removalists-mawson-lakes/', label: 'Mawson Lakes unit moves' },
       { href: '/removalists-glenelg/', label: 'Glenelg apartment removals' },
       { href: '/removalists-norwood/', label: 'Norwood shared-entry moves' },
-      { href: '/removalists-prospect/', label: 'Prospect townhouse moves' },
+      { href: '/removalists-malvern/', label: 'Malvern townhouse moves' },
     ],
     guides: [
       { href: '/adelaide-moving-guides/apartment-moving-tips-adelaide/', label: 'apartment moving tips Adelaide' },
@@ -57,10 +58,10 @@ export const zqServiceLinkProfiles = {
     ],
     suburbs: [
       { href: '/removalists-glenelg/', label: 'Glenelg local moves' },
+      { href: '/removalists-hyde-park/', label: 'Hyde Park local removalists' },
+      { href: '/removalists-medindie/', label: 'Medindie local moves' },
       { href: '/removalists-norwood/', label: 'Norwood local movers' },
       { href: '/removalists-marion/', label: 'Marion local removals' },
-      { href: '/removalists-salisbury/', label: 'Salisbury local moving support' },
-      { href: '/removalists-mawson-lakes/', label: 'Mawson Lakes movers' },
     ],
     guides: [
       { href: '/adelaide-moving-guides/moving-house-checklist-adelaide/', label: 'moving house Adelaide checklist' },
@@ -83,10 +84,10 @@ export const zqServiceLinkProfiles = {
     ],
     suburbs: [
       { href: '/removalists-glenelg/', label: 'Glenelg movers' },
+      { href: '/removalists-malvern/', label: 'Malvern local movers' },
+      { href: '/removalists-toorak-gardens/', label: 'Toorak Gardens movers' },
       { href: '/removalists-norwood/', label: 'Norwood movers' },
-      { href: '/removalists-prospect/', label: 'Prospect movers' },
       { href: '/removalists-marion/', label: 'Marion movers' },
-      { href: '/removalists-salisbury/', label: 'Salisbury movers' },
     ],
     guides: [
       { href: '/adelaide-moving-guides/how-much-do-movers-cost-adelaide/', label: 'how much removalists cost' },

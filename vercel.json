@@ -422,6 +422,26 @@
       "permanent": true
     },
     {
+      "source": "/adelaide-to-brisbane-removalists",
+      "destination": "/adelaide-to-brisbane-removals/",
+      "permanent": true
+    },
+    {
+      "source": "/adelaide-to-brisbane-removalists/",
+      "destination": "/adelaide-to-brisbane-removals/",
+      "permanent": true
+    },
+    {
+      "source": "/adelaide-to-brisbane-removalists/index.html",
+      "destination": "/adelaide-to-brisbane-removals/",
+      "permanent": true
+    },
+    {
+      "source": "/adelaide-to-brisbane-removalists.html",
+      "destination": "/adelaide-to-brisbane-removals/",
+      "permanent": true
+    },
+    {
       "source": "/glenelg.html",
       "destination": "/removalists-glenelg/",
       "permanent": true
@@ -509,6 +529,26 @@
     {
       "source": "/guides/removalist-cost-adelaide/index.html",
       "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/guides/how-much-do-removalists-cost-adelaide",
+      "destination": "/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/guides/how-much-do-removalists-cost-adelaide/",
+      "destination": "/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/guides/how-much-do-removalists-cost-adelaide.html",
+      "destination": "/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/guides/how-much-do-removalists-cost-adelaide/index.html",
+      "destination": "/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/",
       "permanent": true
     },
     {

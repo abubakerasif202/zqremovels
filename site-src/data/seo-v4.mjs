@@ -894,16 +894,16 @@ const suburbDataByName = new Map(
 
 const suburbSeoOverrides = {
   'hyde-park': {
-    title: 'Hyde Park Removalists | Compact Street Moves | ZQ Removals',
-    description: 'Hyde Park removalists for compact streets, premium homes, and careful local move planning in inner south Adelaide. Request a fixed quote today.',
+    title: 'Hyde Park Removalists | 5-Star Local Moving | ZQ Removals',
+    description: 'Trusted Hyde Park removalists for premium homes & tight streets. Get upfront fixed-price quotes and stress-free moving from local experts. Call today!',
   },
   'malvern': {
-    title: 'Malvern Removalists | Villa & Townhouse Moves | ZQ Removals',
-    description: 'Malvern removalists for villa and townhouse moves, with careful access planning and protective wrapping for premium inner south Adelaide homes.',
+    title: 'Malvern Removalists | Stress-Free Villa Moving | ZQ Removals',
+    description: 'Expert Malvern removalists for villa & townhouse moves. Careful furniture wrapping, local access planning, and clear fixed-price quotes. Request a quote.',
   },
   'medindie': {
-    title: 'Medindie Removalists | Premium Home Moves | ZQ Removals',
-    description: 'Medindie removalists for premium homes and estate access, with careful packing and quote detail matched precisely to the actual move brief.',
+    title: 'Medindie Removalists | Premium Estate Moving | ZQ Removals',
+    description: 'Specialist Medindie removalists for premium homes & estate access. Safe, high-value packing and guaranteed fixed pricing without hidden fees. Get a quote.',
   },
   'colonel-light-gardens': {
     title: 'Colonel Light Gardens Removalists | ZQ Removals',
@@ -914,8 +914,8 @@ const suburbSeoOverrides = {
     description: 'Unley removalists for townhouse and villa access, with detailed route planning that reflects the tighter street access in the inner south.',
   },
   'toorak-gardens': {
-    title: 'Toorak Gardens Removalists | Premium Access Moves | ZQ Removals',
-    description: 'Toorak Gardens removalists for premium access, careful furniture handling, and clear fixed-price quote planning in eastern Adelaide.',
+    title: 'Toorak Gardens Removalists | Premium Local Movers | ZQ Removals',
+    description: 'Trusted Toorak Gardens removalists for premium relocations. We specialize in careful furniture handling, tight access planning, and upfront fixed pricing.',
   },
   'victor-harbor-road': {
     title: 'Victor Harbor Road Removalists | ZQ Removals',
@@ -965,7 +965,7 @@ const clusterTemplates = {
   eastern: {
     intro: '{suburb} jobs often include heritage-style homes, apartments, and premium access that need careful sequencing.',
     logistics: ['heritage access', 'apartments', 'narrow streets'],
-    nearby: ['Norwood', 'Magill', 'Fullarton'],
+    nearby: ['Toorak Gardens', 'Norwood', 'Magill', 'Fullarton'],
   },
   'CBD fringe': {
     intro: '{suburb} sits close enough to the city that parking, timing, and mixed-use access can still change the quote.',
@@ -980,7 +980,7 @@ const clusterTemplates = {
   'inner south': {
     intro: '{suburb} moves often blend older homes, units, and tight access lanes where the sequence matters more than the distance.',
     logistics: ['older homes', 'units', 'tight lanes'],
-    nearby: ['Goodwood', 'Unley', 'Melrose Park'],
+    nearby: ['Hyde Park', 'Malvern', 'Unley', 'Goodwood'],
   },
   'north-adelaide': {
     intro: '{suburb} usually needs heritage-aware handling, careful parking, and a clear carry path through the property.',
@@ -4527,16 +4527,16 @@ function makeCommercialPage(page) {
   const canonical = buildCanonical(page.canonical);
   const commercialSeoOverrides = {
     'moving-quotes-adelaide': {
-      title: 'Moving Quotes Adelaide | Fixed-Price Quote Help | ZQ Removals',
-      description: 'Moving quotes Adelaide for house, furniture, office, apartment, and same-day jobs. Share the route, access, inventory, and date for a clear fixed-price review.',
+      title: 'Moving Quotes Adelaide | Upfront Fixed-Price Quotes | ZQ Removals',
+      description: 'Request a moving quote in Adelaide. We offer upfront, transparent fixed-price quotes for house, apartment, office, and furniture moves with no surprise fees.',
     },
     'fixed-price-removalists-adelaide': {
       title: 'Fixed-Price Removalists Adelaide | Manual Review | ZQ Removals',
       description: 'Fixed-price removalists Adelaide for manual quote review on house, office, apartment, bulky item, and interstate moves before moving day.',
     },
     'budget-removalists-adelaide': {
-      title: 'Budget Removalists Adelaide | Fixed Quotes | ZQ Removals',
-      description: 'Budget removalists Adelaide for customers comparing affordable fixed-price moving options, careful handling, and clear scope before booking.',
+      title: 'Budget Removalists Adelaide | Affordable Fixed Quotes | ZQ Removals',
+      description: 'Budget removalists in Adelaide offering affordable fixed-price moving, verified local crews, and premium furniture care. Compare quote options today.',
     },
     'same-day-removalists-adelaide': {
       title: 'Same Day Removalists Adelaide | Urgent Movers | ZQ Removals',
@@ -4551,8 +4551,8 @@ function makeCommercialPage(page) {
       description: 'Affordable removalists Adelaide for careful home, apartment, furniture, and office moves with clear access review before quoting.',
     },
     'removalist-cost-adelaide': {
-      title: 'Removalist Cost Adelaide | Moving Quote Guide | ZQ Removals',
-      description: 'Understand removalist cost in Adelaide, what affects your quote, and how access, inventory, timing, and packing shape fixed pricing.',
+      title: 'Adelaide Removalist Cost & Rates | Get a Quote | ZQ Removals',
+      description: 'Compare Adelaide removalist rates and get a fixed-price move quote. Transparent pricing for house, apartment, and office moves. Avoid hourly surprises.',
     },
     'furniture-removals-adelaide': {
       title: 'Furniture Removals Adelaide | Careful Movers | ZQ Removals',
