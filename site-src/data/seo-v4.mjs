@@ -237,6 +237,13 @@ export const hyperlocalProfilesV7 = {
     roads: 'The Parade is the key local reference when timing, retail activity, or tighter street access could affect loading.',
     properties: 'Common property types include older homes, terrace-style properties, apartments, townhouses, shopfront-adjacent spaces, and small offices.',
   },
+  'queens-park': {
+    council: 'Waverley Council (Sydney)',
+    context: 'Queens Park, Centennial Park, and Darley Road narrow access corridors',
+    access: 'Queens Park moves require planning for narrow tree-lined streets, tight terrace entries, and timed parking constraints.',
+    roads: 'Darley Road and Carrington Road are key local arteries to plan around for transport flow.',
+    properties: 'Common property types include Victorian terrace houses, semi-detached homes, and low-rise apartments.',
+  },
 };
 
 export const imageAssets = {
@@ -395,6 +402,7 @@ export function renderHomepageAeoBlock() {
     links: [
       { href: '/removalists-adelaide/', label: 'Local Removals' },
       { href: '/house-removals-adelaide/', label: 'House Removals' },
+      { href: '/office-removals-adelaide/', label: 'Office Removals' },
       { href: '/cheap-removalists-adelaide/', label: 'Cheap Removals' },
       { href: '/affordable-removalists-adelaide/', label: 'Affordable Removals' },
       { href: '/removalist-cost-adelaide/', label: 'Removalist Cost' },
@@ -826,6 +834,7 @@ const suburbData = [
   ['west-croydon', 'West Croydon', 'West Croydon', 'inner west', 'compact streets and terraces'],
   ['glandore', 'Glandore', 'Glandore', 'south-west', 'home and office links'],
   ['kings-park', 'Kings Park', 'Kings Park', 'inner west', 'small blocks and townhouse access'],
+  ['queens-park', 'Queens Park', 'Sydney to Adelaide', 'eastern', 'park access and Victorian terrace narrow streets', { hasPacking: true, hasApartment: true }],
   ['mitcham', 'Mitcham', 'Mitcham', 'hills', 'premium home and driveway planning', { hasPacking: true }],
   ['urrbrae', 'Urrbrae', 'Urrbrae', 'east hills', 'school zone and house moves'],
   ['clarence-park', 'Clarence Park', 'Clarence Park', 'inner south', 'compact streets and villas'],
@@ -1458,6 +1467,26 @@ const semrushQuoteFaqItems = [
   },
 ];
 
+const affordableRemovalistsFaqItems = [
+  ...semrushQuoteFaqItems,
+  {
+    question: 'How much do removalists cost in Adelaide?',
+    answer: 'Adelaide removals costs depend on your home size, inventory, packing needs, and access (stairs or long walks). Rather than relying on standard hourly rates or variable time estimates, ZQ Removals works with upfront fixed-price quotes so you know the total cost before the move starts, with no hidden fees.',
+  },
+  {
+    question: 'What is the cheapest way to move house in Adelaide?',
+    answer: 'The cheapest way to move house in Adelaide is to pack your own boxes, ensure clear parking access close to the property, dismantle furniture beforehand, and provide an accurate inventory list. This reduces the time and labor required, allowing us to offer a lower fixed-price quote.',
+  },
+  {
+    question: 'Are cheap removalists reliable?',
+    answer: 'Cheap removalists can sometimes lead to hidden fees or damaged furniture if they lack proper insurance and experience. ZQ Removals balances affordability with reliability by providing a fully insured local Adelaide team, transparent fixed quotes, and premium protective equipment.',
+  },
+  {
+    question: 'Do Adelaide removalists provide packing?',
+    answer: 'Yes. Most professional Adelaide removalists offer full or partial packing services. ZQ Removals provides optional packing and unpacking support, utilizing heavy-duty materials, bubble wrap, and customized boxes to protect your items during transit.',
+  },
+];
+
 const commercialPages = [
   {
     slug: 'cheap-removalists-adelaide',
@@ -1485,7 +1514,7 @@ const commercialPages = [
       'Affordable removalists Adelaide searches often come from people who want price control without taking a risk on careless operators. ZQ Removals keeps the premium service standard while building the quote around the details that can reduce waste.',
       'A fixed-price option can be safer than a vague hourly estimate because it forces the move brief to be reviewed upfront: truck access, stairs, lifts, item list, packing, and timing windows all sit inside the quote conversation.',
     ],
-    faq: semrushQuoteFaqItems,
+    faq: affordableRemovalistsFaqItems,
   },
   {
     slug: 'removalist-cost-adelaide',
@@ -3189,7 +3218,7 @@ function renderSemrushQuoteSupport(page) {
   ]);
   if (!targetSlugs.has(page.slug)) return '';
 
-  return `<section class="section section-soft" data-semrush-answer-block="quote-cost">
+  let html = `<section class="section section-soft" data-semrush-answer-block="quote-cost">
   <div class="container">
     ${renderSectionHeading(
       'Quick quote answers',
@@ -3198,7 +3227,40 @@ function renderSemrushQuoteSupport(page) {
     )}
     <p>These details help compare affordable and fixed-price options without assuming every lower-cost move has the same scope.</p>
   </div>
-</section>
+</section>`;
+
+  if (page.slug === 'affordable-removalists-adelaide') {
+    html += `
+<section class="section">
+  <div class="container">
+    ${renderSectionHeading(
+      'Value & Trust',
+      'Affordable Removals with Premium Care',
+      'We believe budget-friendly moving should never mean cutting corners. ZQ Removals combines competitive pricing with high-quality service standards to give you a smooth, stress-free move.'
+    )}
+    <div class="value-grid">
+      <article class="value-card">
+        <h3>Local Adelaide Team</h3>
+        <p>Our experienced, friendly local movers know Adelaide's corridors and access routes inside out, ensuring efficient transitions.</p>
+      </article>
+      <article class="value-card">
+        <h3>Fully Insured Movers</h3>
+        <p>Your belongings are fully protected. We carry comprehensive transit and public liability insurance for your peace of mind.</p>
+      </article>
+      <article class="value-card">
+        <h3>Transparent Pricing</h3>
+        <p>We provide clear, written fixed-price quotes based on your exact inventory and access details, so you can budget with confidence.</p>
+      </article>
+      <article class="value-card">
+        <h3>No Hidden Surprises</h3>
+        <p>No sudden fuel levies, stair fees, or weekend surcharges. The price we quote is the price you pay on moving day.</p>
+      </article>
+    </div>
+  </div>
+</section>`;
+  }
+
+  html += `
 <section class="section" data-real-video-placeholder="true">
   <div class="container">
     ${renderSectionHeading(
@@ -3208,6 +3270,8 @@ function renderSemrushQuoteSupport(page) {
     )}
   </div>
 </section>`;
+
+  return html;
 }
 
 function renderGuideTocSection({ title, intentProfile = null }) {
@@ -4547,8 +4611,8 @@ function makeCommercialPage(page) {
       description: 'Apartment removalists Adelaide for units, towers, and townhouses with lift bookings, loading zones, careful handling, and fixed-price quotes.',
     },
     'affordable-removalists-adelaide': {
-      title: 'Affordable Removalists Adelaide | Fixed Quotes | ZQ Removals',
-      description: 'Affordable removalists Adelaide for careful home, apartment, furniture, and office moves with clear access review before quoting.',
+      title: 'Affordable & Cheap Removalists Adelaide | ZQ Removals',
+      description: 'Looking for cheap removalists in Adelaide without compromising quality? ZQ Removals offers affordable fixed quotes, insured local crews, and no hidden surprises.',
     },
     'removalist-cost-adelaide': {
       title: 'Adelaide Removalist Cost & Rates | Get a Quote | ZQ Removals',
@@ -5525,6 +5589,7 @@ function renderHyperlocalAuthoritySection({ slug, suburb }) {
     { href: '/office-removals-adelaide/', label: 'Office removals Adelaide' },
     { href: '/moving-quotes-adelaide/', label: 'Moving quotes Adelaide' },
     { href: '/fixed-price-removalists-adelaide/', label: 'Fixed-price removalists Adelaide' },
+    { href: '/affordable-removalists-adelaide/', label: 'Affordable removalists Adelaide' },
     { href: '/adelaide-moving-guides/suburb-move-preparation-adelaide/', label: 'Suburb move preparation guide' },
   ];
 

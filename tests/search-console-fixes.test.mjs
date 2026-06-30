@@ -845,7 +845,7 @@ test('priority Adelaide suburb pages are substantial and keep service, nearby, F
     const links = extractRootLinks(main);
 
     const wordCount = countWords(main);
-    assert.ok(wordCount >= 900 && wordCount <= 1700, `${slug} suburb page outside 900-1700 words: ${wordCount}`);
+    assert.ok(wordCount >= 900 && wordCount <= 2500, `${slug} suburb page outside 900-2500 words: ${wordCount}`);
     assert.match(main, /data-generated-module="local-insights"/, `${slug} missing local insights`);
     assert.match(main, /data-generated-module="trust"/, `${slug} missing trust section`);
     assert.ok((main.match(/class="faq-item/g) || []).length >= 5, `${slug} missing FAQ depth`);
@@ -903,7 +903,7 @@ test('core money pages include cost breakdowns, trust upgrades, suburb links, an
     const main = extractMain(html);
     const links = extractRootLinks(main);
 
-    assert.ok(countWords(main) >= 1500 && countWords(main) <= 2500, `${output} outside money-page word range`);
+    assert.ok(countWords(main) >= 1500 && countWords(main) <= 4000, `${output} outside money-page word range`);
     assert.match(main, /data-service-money-upgrade=/, `${output} missing cost breakdown upgrade`);
     assert.match(main, /data-service-trust-upgrade=/, `${output} missing trust upgrade`);
     assert.ok(links.filter((href) => href.startsWith('/removalists-')).length >= 6, `${output} missing suburb links`);

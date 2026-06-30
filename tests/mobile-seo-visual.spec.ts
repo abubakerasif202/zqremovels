@@ -14,6 +14,9 @@ for (const route of routes) {
     // Wait for network to be idle to ensure fonts/images are loaded
     await page.waitForLoadState('networkidle');
 
+    // Hide sticky mobile CTA to avoid screenshot overlap
+    await page.addStyleTag({ content: '.sticky-mobile-cta { display: none !important; }' });
+
     // Take a full page screenshot
     // Sanitise route for filename
     const sanitizedRoute = route === '/' ? 'home' : route.replace(/\//g, '-').replace(/^-|-$/g, '');
