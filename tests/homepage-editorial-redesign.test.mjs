@@ -15,7 +15,7 @@ test('editorial homepage direction stays generator-native and production-safe', 
     assert.match(html, /class="home-editorial-bento"/);
     assert.match(html, /class="home-editorial-process-grid"/);
     assert.match(html, /class="home-premium-stats-grid"/);
-    assert.match(html, /data-count="48"/);
+    assert.match(html, /data-count="54"/);
     assert.match(html, /class="home-premium-feature-grid"/);
     assert.match(html, /class="home-premium-comparison-card"/);
     assert.match(html, /src="\/media\/home-local-hero-branded\.webp"/);

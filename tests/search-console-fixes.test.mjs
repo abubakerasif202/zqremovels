@@ -933,7 +933,7 @@ test('v6 homepage targets premium Adelaide removalists and above-fold CTAs', () 
   assert.match(hero, /Local &amp; Interstate Moves Across Adelaide/i);
   assert.match(hero, /href="#premium-quote"[^>]*>Get Free Quote<\/a>/);
   assert.match(hero, /href="tel:\+61433819989"[^>]*>Call 0433 819 989<\/a>/);
-  for (const phrase of ['(48|46\\+?) Google Reviews', 'Fixed Price Quotes', 'Adelaide Based Team']) {
+  for (const phrase of ['(54|48|46\\+?) Google Reviews', 'Fixed Price Quotes', 'Adelaide Based Team']) {
     assert.match(hero, new RegExp(phrase, 'i'));
   }
   for (const href of [
