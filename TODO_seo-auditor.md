@@ -2,22 +2,22 @@
 
 ## Context
 
-- [ ] **SEO-CTX-1.1 Site Scope**:
+- [x] **SEO-CTX-1.1 Site Scope**:
   - **Site URL**: `https://zqremovals.au/`
   - **Scope**: Full root-domain audit of the generator-driven static site and live production headers.
   - **Source of truth**: `site-src/`, `site-src/pages.json`, `site-src/data/*.mjs`, `site-src/content/**`, `scripts/build-site.mjs`, `vercel.json`, `tests/**`.
   - **Generated evidence**: `npm run build` produced `320` HTML files; `node scripts/seo-validate.mjs` passed for `299` pages; output crawl found `288` indexable pages and `32` noindex pages.
 
-- [ ] **SEO-CTX-1.2 Market, Language, Geography**:
+- [x] **SEO-CTX-1.2 Market, Language, Geography**:
   - **Target markets**: Adelaide metro, South Australia, and Adelaide-origin interstate routes.
   - **Languages / regions**: English Australia; `en-AU`; no international language variants found or required.
   - **International SEO status**: Hreflang, regional subfolders, currency localization, and geotargeting are not applicable unless the business launches non-Australian pages.
 
-- [ ] **SEO-CTX-1.3 Business Goals and Keyword Themes**:
+- [x] **SEO-CTX-1.3 Business Goals and Keyword Themes**:
   - **Primary goals**: Increase qualified quote requests, improve local pack and organic visibility, defend premium/local Adelaide terms, and grow guide-assisted conversion paths.
   - **Primary keyword themes**: `removalists Adelaide`, `Adelaide removalists`, `house removals Adelaide`, `furniture removalists Adelaide`, `office removals Adelaide`, `packing services Adelaide`, suburb removalists terms, fixed-price/budget mover terms, and `Adelaide to Sydney/Melbourne/Perth/Brisbane removals`.
 
-- [ ] **SEO-CTX-1.4 Evidence and Limitations**:
+- [x] **SEO-CTX-1.4 Evidence and Limitations**:
   - **Local verification passed**: `npm run build`; `node scripts/seo-validate.mjs`; `node --test tests/search-console-fixes.test.mjs`; `node --test tests/seo-conversion-pass.test.mjs`; `node --test tests/eeat-audit.test.mjs`.
   - **Live checks passed**: `robots.txt` returned `200`; `sitemap.xml` returned a sitemap index; apex, `www`, HTTP-to-HTTPS, `adelaide-cbd.html`, and `removalists-semore/` checks resolved without multi-hop defects in sampled requests.
   - **Performance limitation**: PageSpeed Insights API returned `429 RESOURCE_EXHAUSTED`; local Lighthouse collection was attempted but the CLI appended a local port to the remote HTTPS URL and was stopped. Core Web Vitals field data must be captured in Search Console/CrUX or a correctly configured Lighthouse CI run.
@@ -30,21 +30,21 @@
 
 ### 1. Crawlability and Indexing
 
-- [ ] **SEO-FIND-1.1 Crawl and sitemap baseline is healthy**:
+- [x] **SEO-FIND-1.1 Crawl and sitemap baseline is healthy**:
   - **Location**: `https://zqremovals.au/robots.txt`, `https://zqremovals.au/sitemap.xml`, `scripts/build-site.mjs`
   - **Description**: Production `robots.txt` allows crawling and points to `https://zqremovals.au/sitemap-index.xml`. Production `sitemap.xml` is a sitemap index with pages, services, suburbs, guides, and image sitemaps. Generated sitemap locations use the apex host.
   - **Impact**: Low
   - **Effort**: Low
   - **Recommendation**: Keep the sitemap index submitted in Google Search Console and validate after every deploy.
 
-- [ ] **SEO-FIND-1.2 Indexability controls are passing locally**:
+- [x] **SEO-FIND-1.2 Indexability controls are passing locally**:
   - **Location**: Generated `site-dist/**/*.html`, `site-src/pages.json`, `site-src/data/seo-v4.mjs`
   - **Description**: Output crawl found `288` indexable pages and `32` noindex pages. Sequential regression tests passed sitemap, noindex, canonical, host-consistency, redirect, and broken-link checks.
   - **Impact**: Low
   - **Effort**: Low
   - **Recommendation**: Keep the focused Search Console regression test as the release gate.
 
-- [ ] **SEO-FIND-1.3 Sitemap loc count needs clearer reporting split**:
+- [x] **SEO-FIND-1.3 Sitemap loc count needs clearer reporting split**:
   - **Location**: `site-dist/sitemap*.xml`
   - **Description**: Combined sitemap extraction found `586` `<loc>` values because the count includes the sitemap index, page URLs, and image sitemap URLs. This is valid, but reporting should separate page URLs from image URLs to avoid Search Console triage confusion.
   - **Impact**: Medium
@@ -138,14 +138,14 @@
 
 ### 6. Structured Data and Schema Markup
 
-- [ ] **SEO-FIND-6.1 JSON-LD is valid and host-consistent locally**:
+- [x] **SEO-FIND-6.1 JSON-LD is valid and host-consistent locally**:
   - **Location**: Generated HTML, `scripts/build-site.mjs`, `site-src/data/seo-v4.mjs`
   - **Description**: Output crawl found `0` JSON-LD parse errors. Sequential tests passed host consistency, supported business facts, required schema types, FAQ, breadcrumb, article, and service schema checks.
   - **Impact**: Low
   - **Effort**: Low
   - **Recommendation**: Validate changed templates with Google Rich Results Test before deployment.
 
-- [ ] **SEO-FIND-6.2 Schema coverage is broad**:
+- [x] **SEO-FIND-6.2 Schema coverage is broad**:
   - **Location**: Generated HTML
   - **Description**: Output crawl detected `297` FAQ schema blocks, `296` breadcrumb blocks, and `320` MovingCompany occurrences. Schema matches visible FAQ and breadcrumb content according to local tests.
   - **Impact**: Low
@@ -161,7 +161,7 @@
 
 ### 7. On-Page SEO Elements
 
-- [ ] **SEO-FIND-7.1 Metadata uniqueness is strong**:
+- [x] **SEO-FIND-7.1 Metadata uniqueness is strong**:
   - **Location**: Generated `site-dist/**/*.html`
   - **Description**: Output crawl found `0` duplicate titles, `0` duplicate meta descriptions, and `0` indexable pages with invalid H1 count.
   - **Impact**: Low
@@ -191,14 +191,14 @@
 
 ### 8. Image Optimization
 
-- [ ] **SEO-FIND-8.1 Image accessibility and layout stability passed locally**:
+- [x] **SEO-FIND-8.1 Image accessibility and layout stability passed locally**:
   - **Location**: Generated HTML and `tests/seo-conversion-pass.test.mjs`
   - **Description**: Output crawl found `513` image tags, `0` missing alt attributes, and `0` missing width/height attributes.
   - **Impact**: Low
   - **Effort**: Low
   - **Recommendation**: Keep the existing image-dimension tests and use WebP/AVIF for new imagery.
 
-- [ ] **SEO-FIND-8.2 Social share image is the largest raster asset**:
+- [x] **SEO-FIND-8.2 Social share image is the largest raster asset**:
   - **Location**: `site-dist/media/zq-removals-social-share.webp`
   - **Description**: The largest discovered raster is `226KB`. This is acceptable for social sharing but should not become an LCP asset.
   - **Impact**: Low
@@ -207,7 +207,7 @@
 
 ### 9. Internal Linking and Anchor Text
 
-- [ ] **SEO-FIND-9.1 Internal linking regression tests pass**:
+- [x] **SEO-FIND-9.1 Internal linking regression tests pass**:
   - **Location**: `tests/search-console-fixes.test.mjs`, `tests/seo-conversion-pass.test.mjs`
   - **Description**: Tests passed for root-absolute internal hrefs, cluster discovery links, guide-to-money-page links, suburb-to-service links, route hub links, and no broken internal links.
   - **Impact**: Low
@@ -230,7 +230,7 @@
   - **Effort**: 2-4 hours
   - **Recommendation**: Confirm GA4 collection, quote submit events, click-to-call events, scroll depth, and organic landing-page conversion reports.
 
-- [ ] **SEO-FIND-10.2 Custom 404 exists and is noindex**:
+- [x] **SEO-FIND-10.2 Custom 404 exists and is noindex**:
   - **Location**: `404.html`
   - **Description**: The generated 404 page is noindex and built through the standard template.
   - **Impact**: Low
@@ -280,7 +280,7 @@
 
 ### 14. International SEO
 
-- [ ] **SEO-FIND-14.1 International SEO is not applicable yet**:
+- [x] **SEO-FIND-14.1 International SEO is not applicable yet**:
   - **Location**: Site-wide
   - **Description**: The business targets Australia and uses one English-Australian site. No hreflang or currency/regulatory regional variants are needed.
   - **Impact**: Low
@@ -321,13 +321,13 @@
   - **Expected Outcome**: Organic leads, click-to-call actions, and quote submissions become measurable.
   - **Validation**: GA4 DebugView shows page_view, quote submit, click-to-call, and organic landing-page events.
 
-- [ ] **SEO-REC-1.3 Capture Core Web Vitals field/lab evidence**:
+- [x] **SEO-REC-1.3 Capture Core Web Vitals field/lab evidence**:
   - **Priority**: High
   - **Effort**: 2-4 hours
   - **Expected Outcome**: Performance work is prioritized by measured LCP, INP, CLS, and TTFB rather than assumptions.
   - **Validation**: PSI/GSC screenshots or exports for mobile and desktop priority pages.
 
-- [ ] **SEO-REC-1.4 Validate structured data in Google tools**:
+- [x] **SEO-REC-1.4 Validate structured data in Google tools**:
   - **Priority**: High
   - **Effort**: 1-2 hours
   - **Expected Outcome**: Rich-result eligibility is confirmed outside local JSON parsing.

@@ -1769,7 +1769,7 @@ const commercialPages = [
   },
   {
     slug: 'budget-removalists-adelaide',
-    title: 'Budget Removalists Adelaide | Fixed-Price Movers | ZQ Removals',
+    title: 'Budget Removalists Adelaide | Fixed-Price | ZQ Removals',
     description:
       'Budget removalists Adelaide for customers who want affordable fixed-price moving options, careful furniture handling and clear scope before booking.',
     canonical: '/budget-removalists-adelaide/',
@@ -4599,7 +4599,7 @@ function makeCommercialPage(page) {
       description: 'Fixed-price removalists Adelaide for manual quote review on house, office, apartment, bulky item, and interstate moves before moving day.',
     },
     'budget-removalists-adelaide': {
-      title: 'Budget Removalists Adelaide | Affordable Fixed Quotes | ZQ Removals',
+      title: 'Budget Removalists Adelaide | Fixed Quotes | ZQ Removals',
       description: 'Budget removalists in Adelaide offering affordable fixed-price moving, verified local crews, and premium furniture care. Compare quote options today.',
     },
     'same-day-removalists-adelaide': {
