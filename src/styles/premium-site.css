@@ -4244,6 +4244,44 @@ textarea:focus {
   }
 }
 
+/* Readability guardrails: explicit high-contrast text for shared surfaces. */
+body { color: #20342e; }
+:where(.section, .section-soft, .home-redesign-section, .card, .service-card, .value-card,
+  .logistics-card, .proof-card, .route-card, .guide-card, .quote-form-shell) p,
+:where(.section, .section-soft, .home-redesign-section, .card, .service-card, .value-card,
+  .logistics-card, .proof-card, .route-card, .guide-card, .quote-form-shell) li {
+  color: #3f534c;
+}
+:where(.field-note, .form-note, .cta-reassurance, .nav-link-desc) { color: #52665f; }
+:where(.section, .section-soft, .home-redesign-section) a:not(.button) {
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+}
+.button-primary,
+.button-cta { color: #fff !important; }
+.button-secondary { color: #10231f; }
+.utility-bar,
+.utility-bar a { color: #fffdf8; }
+.nav-panel,
+.mobile-nav-panel { color: #10231f; }
+.footer-shell,
+.footer-shell :where(h2, h3, strong) { color: #fffdf8; }
+.footer-shell :where(p, li, span, address) { color: #dce6e1; }
+.footer-shell a { color: #f7d890; }
+.footer-shell a:hover { color: #fff; }
+.footer-shell .field-note { color: #c5d3cd; }
+.form-feedback[data-state="error"],
+.form-feedback.is-error { color: #991b1b; }
+.form-feedback[data-state="success"],
+.form-feedback.is-success { color: #166534; }
+
+:where(.hero-shell-home, .home-redesign-hero, .home-redesign-quote, .home-redesign-final-cta,
+  .quote-strip, .section-dark, .surface-dark) :where(h1, h2, h3, strong) { color: #fffdf8; }
+:where(.hero-shell-home, .home-redesign-hero, .home-redesign-quote, .home-redesign-final-cta,
+  .quote-strip, .section-dark, .surface-dark) :where(p, li) { color: #e4ebe8; }
+:where(.hero-shell-home, .home-redesign-hero, .home-redesign-quote, .home-redesign-final-cta,
+  .quote-strip, .section-dark, .surface-dark) a:not(.button) { color: #f7d890; }
+
 .js .reveal-on-scroll {
   opacity: 0;
   transform: translateY(20px);
@@ -7566,5 +7604,169 @@ body.page-home .home-editorial-service-wide img {
   body.page-home .home-redesign-review-grid article,
   body.page-home .home-redesign-gallery figure {
     break-inside: avoid;
+  }
+}
+
+/* UI completion layer: shared hierarchy, interaction, and responsive polish. */
+:root {
+  --ui-content: 1200px;
+  --ui-gutter: clamp(1rem, 3vw, 2rem);
+  --ui-section: clamp(4rem, 8vw, 7rem);
+  --ui-radius-sm: 0.9rem;
+  --ui-radius: 1.35rem;
+  --ui-radius-lg: 2rem;
+  --ui-border: rgba(16, 35, 31, 0.12);
+  --ui-shadow: 0 18px 55px rgba(7, 29, 25, 0.1);
+  --ui-shadow-hover: 0 24px 65px rgba(7, 29, 25, 0.16);
+}
+
+html { scroll-padding-top: 7rem; }
+body { overflow-x: clip; }
+.container { width: min(calc(100% - (2 * var(--ui-gutter))), var(--ui-content)); }
+main { isolation: isolate; }
+main :where(p, li) { text-wrap: pretty; }
+main :where(h1, h2, h3) { text-wrap: balance; }
+
+:where(a, button, summary, input, select, textarea):focus-visible {
+  outline: 3px solid #f3a712;
+  outline-offset: 3px;
+}
+
+.button {
+  min-height: 3rem;
+  padding-inline: 1.25rem;
+  border-radius: 999px;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+.button:hover { transform: translateY(-2px); }
+.button:active { transform: translateY(0); }
+
+.site-header { z-index: 70; }
+.header-main { min-height: 5.25rem; gap: 1.25rem; }
+.brand { flex: 0 0 auto; }
+.brand-copy strong { letter-spacing: -0.035em; }
+.desktop-nav { gap: 0.15rem; }
+.desktop-nav > :where(a, details > summary) {
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.65rem 0.72rem;
+  border-radius: 0.7rem;
+  cursor: pointer;
+}
+.desktop-nav > :where(a, details > summary):hover { background: rgba(14, 107, 92, 0.08); }
+.nav-panel {
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius);
+  box-shadow: var(--ui-shadow);
+}
+.nav-panel-link { border-radius: 0.8rem; transition: background-color 180ms ease, transform 180ms ease; }
+.nav-panel-link:hover { transform: translateX(2px); }
+
+.section,
+.home-redesign-section { padding-block: var(--ui-section); }
+.section-heading,
+.home-redesign-section-heading { max-width: 46rem; }
+.section-heading > p,
+.home-redesign-section-heading > p { max-width: 42rem; }
+
+:where(.card, .service-card, .proof-card, .route-card, .guide-card, .home-editorial-service,
+  .home-redesign-review-grid article, .home-redesign-route-grid a, .home-redesign-guide-grid a) {
+  border-radius: var(--ui-radius);
+  border-color: var(--ui-border);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+:where(.card, .service-card, .proof-card, .route-card, .guide-card, .home-editorial-service,
+  .home-redesign-review-grid article, .home-redesign-route-grid a, .home-redesign-guide-grid a):hover {
+  border-color: rgba(14, 107, 92, 0.3);
+  box-shadow: var(--ui-shadow-hover);
+  transform: translateY(-4px);
+}
+
+.quote-form-shell { border-radius: var(--ui-radius-lg); box-shadow: var(--ui-shadow); }
+.quote-form-premium { gap: 1.2rem; }
+.quote-form-premium label { gap: 0.45rem; }
+.quote-form-premium input,
+.quote-form-premium select,
+.quote-form-premium textarea {
+  min-height: 3.25rem;
+  border-radius: 0.8rem;
+  border: 1px solid #b6c3bf;
+  background: #fff;
+  color: #10231f;
+  box-shadow: inset 0 1px 2px rgba(16, 35, 31, 0.04);
+}
+.quote-form-premium textarea { min-height: 8rem; resize: vertical; }
+.quote-form-premium :where(input, select, textarea):hover { border-color: #778b84; }
+.quote-form-premium :where(input, select, textarea):focus {
+  border-color: #0e6b5c;
+  box-shadow: 0 0 0 4px rgba(14, 107, 92, 0.14);
+}
+
+.footer-shell { padding-top: clamp(4rem, 7vw, 6rem); }
+.footer-grid { gap: clamp(2.5rem, 5vw, 5rem); }
+.footer-link-groups { align-items: start; }
+.footer-link-list { gap: 0.2rem; }
+.footer-link-list a {
+  display: inline-flex;
+  min-height: 2.35rem;
+  align-items: center;
+  line-height: 1.35;
+}
+.footer-bottom { gap: 1.25rem; }
+
+@media (max-width: 1180px) {
+  .brand-copy span { display: none; }
+  .desktop-nav > :where(a, details > summary) { padding-inline: 0.5rem; font-size: 0.82rem; }
+  .header-actions .button { padding-inline: 0.9rem; font-size: 0.82rem; }
+}
+
+@media (max-width: 1023px) {
+  html { scroll-padding-top: 5.5rem; }
+  .utility-bar { display: none; }
+  .header-main { min-height: 4.5rem; }
+  .brand-mark-logo img { width: 3.25rem; height: 3.25rem; }
+  .mobile-nav-top { gap: 0.6rem; padding-block: 0.65rem; }
+  .mobile-nav-top .button { min-height: 2.85rem; }
+  .mobile-menu-trigger { min-height: 3rem; cursor: pointer; }
+  .mobile-nav-panel { max-height: min(70vh, 38rem); overflow-y: auto; overscroll-behavior: contain; }
+  .mobile-nav-panel :where(a, summary) { min-height: 3rem; }
+  .footer-link-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 759px) {
+  :root { --ui-section: 3.5rem; --ui-radius-lg: 1.5rem; }
+  .container { width: min(calc(100% - 2rem), var(--ui-content)); }
+  .brand-copy strong { font-size: 1rem; }
+  .mobile-nav-top { grid-template-columns: 0.92fr 1.08fr; }
+  .mobile-nav-top .button { padding-inline: 0.65rem; font-size: 0.78rem; }
+  .section-heading,
+  .home-redesign-section-heading { margin-bottom: 1.75rem; }
+  .button { width: 100%; justify-content: center; }
+  .cta-cluster { width: 100%; }
+  .field-grid { grid-template-columns: 1fr; }
+  .quote-form-shell { padding: 1rem; }
+  .quote-form-premium { padding: 0; }
+  .footer-link-groups { grid-template-columns: 1fr; gap: 1.75rem; }
+  .footer-panel { min-width: 0; }
+  .footer-bottom { align-items: flex-start; flex-direction: column; }
+  .footer-bottom-links { gap: 0.8rem 1.1rem; }
+}
+
+@media (max-width: 380px) {
+  .brand-copy { display: none; }
+  .mobile-nav-top { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .nav-panel-link,
+  :where(.card, .service-card, .proof-card, .route-card, .guide-card, .home-editorial-service,
+    .home-redesign-review-grid article, .home-redesign-route-grid a, .home-redesign-guide-grid a) {
+    transition: none !important;
+    transform: none !important;
   }
 }
