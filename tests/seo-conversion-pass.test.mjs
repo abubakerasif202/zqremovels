@@ -550,6 +550,11 @@ test('generated-page lastmod follows source file mtimes and image sitemap is pow
   const imageSitemap = readDist('sitemap-images.xml');
   const expectedLastmod = [
     statSync(path.join(root, 'site-src', 'data', 'seo-v4.mjs')).mtime.toISOString().slice(0, 10),
+    statSync(path.join(root, 'site-src', 'data', 'zq-blog-guides.mjs')).mtime.toISOString().slice(0, 10),
+    statSync(path.join(root, 'site-src', 'data', 'zq-internal-links.mjs')).mtime.toISOString().slice(0, 10),
+    statSync(path.join(root, 'site-src', 'data', 'zq-seo-pages.mjs')).mtime.toISOString().slice(0, 10),
+    statSync(path.join(root, 'site-src', 'data', 'zq-services.mjs')).mtime.toISOString().slice(0, 10),
+    statSync(path.join(root, 'site-src', 'data', 'zq-suburbs.mjs')).mtime.toISOString().slice(0, 10),
     statSync(path.join(root, 'scripts', 'build-site.mjs')).mtime.toISOString().slice(0, 10),
   ].sort().at(-1);
 

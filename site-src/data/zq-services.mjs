@@ -165,7 +165,7 @@ export const zqServicePages = [
   },
   {
     slug: 'services/adelaide-cbd-apartment-removalists',
-    title: 'Adelaide CBD Apartment Removalists | Lift Access Planning | ZQ Removals',
+    title: 'Adelaide CBD Apartment Removalists | Lift Access | ZQ Removals',
     description:
       'Adelaide CBD apartment removalists specializing in lift bookings, loading zones, tight parking windows, and fixed-price relocations.',
     canonical: '/services/adelaide-cbd-apartment-removalists/',
