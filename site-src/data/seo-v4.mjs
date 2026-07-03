@@ -178,6 +178,16 @@ const interstateRouteProfilesV7 = {
     destinationPlanning:
       'Melbourne delivery planning should cover building access, loading restrictions, lift bookings, inner-city timing, and suburban carry distance without claiming a Melbourne base.',
   },
+  'adelaide-to-brisbane-removals': {
+    titleSuffix: 'Removalists | Interstate Movers',
+    description:
+      'Adelaide to Brisbane removalists with route-based planning, packing support, and delivery timing reviewed before quoting.',
+    destinationLabel: 'Brisbane',
+    intro:
+      'This route is for Adelaide customers moving to Brisbane who want the pickup, packing, inventory, and destination access checked before the quote is approved.',
+    destinationPlanning:
+      'Brisbane delivery planning should cover apartment access, parking pressure, stair carries, suburban driveways, and handover timing without implying a Brisbane base.',
+  },
   'adelaide-to-western-sydney-removalists': {
     titleSuffix: 'Removalists | ZQ Removals',
     description:
@@ -864,6 +874,7 @@ const suburbData = [
   ['toorak-gardens', 'Toorak Gardens', 'Toorak Gardens', 'eastern', 'premium access and careful handling'],
   ['hyde-park', 'Hyde Park', 'Hyde Park', 'inner south', 'compact streets and premium homes'],
   ['malvern', 'Malvern', 'Malvern', 'inner south', 'villa and townhouse moves'],
+  ['unley-park', 'Unley Park', 'Unley Park', 'inner south', 'tighter residential streets and premium homes', { hasPacking: true }],
   ['colonel-light-gardens', 'Colonel Light Gardens', 'Colonel Light Gardens', 'south-west', 'heritage-style homes and access'],
   ['payneham', 'Payneham', 'Payneham', 'eastern', 'family homes and units'],
   ['west-terrace', 'West Terrace', 'West Terrace', 'CBD fringe', 'city edge and mixed-use access'],
@@ -903,24 +914,28 @@ const suburbDataByName = new Map(
 
 const suburbSeoOverrides = {
   'hyde-park': {
-    title: 'Hyde Park Removalists | 5-Star Local Moving | ZQ Removals',
-    description: 'Trusted Hyde Park removalists for premium homes & tight streets. Get upfront fixed-price quotes and stress-free moving from local experts. Call today!',
+    title: 'Hyde Park Removalists | Fixed-Price Movers Adelaide',
+    description: 'Need reliable removalists in Hyde Park? ZQ Removals offers fixed-price local moving, furniture removals, packing help, and careful Adelaide movers. Request a quote today.',
   },
   'malvern': {
-    title: 'Malvern Removalists | Stress-Free Villa Moving | ZQ Removals',
-    description: 'Expert Malvern removalists for villa & townhouse moves. Careful furniture wrapping, local access planning, and clear fixed-price quotes. Request a quote.',
+    title: 'Malvern Removalists | Local Furniture Movers Adelaide',
+    description: 'Book trusted Malvern removalists for house moves, apartment moves, furniture removals, and packing support. Get a clear fixed-price moving quote from ZQ Removals.',
   },
   'medindie': {
-    title: 'Medindie Removalists | Premium Estate Moving | ZQ Removals',
-    description: 'Specialist Medindie removalists for premium homes & estate access. Safe, high-value packing and guaranteed fixed pricing without hidden fees. Get a quote.',
+    title: 'Medindie Removalists | Premium Home Movers Adelaide',
+    description: 'Choose Medindie removalists for premium homes, careful furniture handling, parking access planning, and fixed-price moving quotes from local Adelaide movers.',
   },
   'colonel-light-gardens': {
     title: 'Colonel Light Gardens Removalists | ZQ Removals',
     description: 'Colonel Light Gardens removalists for heritage-style homes, careful access planning, inventory review, and fixed-price quote scoping.',
   },
   'unley': {
-    title: 'Unley Removalists | Townhouse & Villa Moves | ZQ Removals',
-    description: 'Unley removalists for townhouse and villa access, with detailed route planning that reflects the tighter street access in the inner south.',
+    title: 'Unley Removalists | Fixed-Price Local Movers Adelaide',
+    description: 'Unley removalists for townhouse and villa access, apartment moves, packing help, and fixed-price quotes built around inner south access details.',
+  },
+  'unley-park': {
+    title: 'Unley Park Removalists | Local Movers Adelaide',
+    description: 'Unley Park removalists for tight streets, premium homes, townhouse access, and local fixed-price quotes with packing and furniture support.',
   },
   'toorak-gardens': {
     title: 'Toorak Gardens Removalists | Premium Local Movers | ZQ Removals',

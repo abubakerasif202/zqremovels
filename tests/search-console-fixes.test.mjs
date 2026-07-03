@@ -283,6 +283,14 @@ test('key titles and descriptions stay within safe SEO length guardrails', () =>
     ['removalists-salisbury/index.html', 60, 160],
     ['removalists-glenelg/index.html', 60, 160],
     ['removalists-adelaide-cbd/index.html', 60, 160],
+    ['removalists-hyde-park/index.html', 68, 160],
+    ['removalists-malvern/index.html', 60, 160],
+    ['removalists-unley/index.html', 60, 160],
+    ['removalists-unley-park/index.html', 60, 160],
+    ['removalists-medindie/index.html', 60, 160],
+    ['adelaide-to-sydney-removalists/index.html', 60, 160],
+    ['adelaide-to-brisbane-removals/index.html', 70, 160],
+    ['adelaide-to-melbourne-removalists/index.html', 60, 160],
   ];
 
   for (const [output, maxTitle, maxDescription] of keyPages) {
@@ -290,6 +298,26 @@ test('key titles and descriptions stay within safe SEO length guardrails', () =>
     assert.ok(page, `missing page metadata for ${output}`);
     assert.ok(page.title.length <= maxTitle, `${output} title is too long: ${page.title.length}`);
     assert.ok(page.description.length <= maxDescription, `${output} description is too long: ${page.description.length}`);
+  }
+});
+
+test('priority suburb and interstate pages use the requested high-intent metadata', () => {
+  const expectations = [
+    ['removalists-hyde-park/index.html', /Hyde Park Removalists \| Fixed-Price Movers Adelaide \| ZQ Removals/i, /Need reliable removalists in Hyde Park\?/i],
+    ['removalists-malvern/index.html', /Malvern Removalists \| Local Furniture Movers Adelaide/i, /Book trusted Malvern removalists/i],
+    ['removalists-unley/index.html', /Unley Removalists \| Fixed-Price Local Movers Adelaide/i, /Unley removalists for townhouse and villa access/i],
+    ['removalists-unley-park/index.html', /Unley Park Removalists \| Local Movers Adelaide/i, /Unley Park removalists for tight streets/i],
+    ['removalists-medindie/index.html', /Medindie Removalists \| Premium Home Movers Adelaide/i, /Choose Medindie removalists/i],
+    ['adelaide-to-sydney-removalists/index.html', /Adelaide to Sydney Removalists/i, /Adelaide to Sydney removalists/i],
+    ['adelaide-to-brisbane-removals/index.html', /Adelaide to Brisbane Removalists \| Interstate Movers/i, /Adelaide to Brisbane removalists/i],
+    ['adelaide-to-melbourne-removalists/index.html', /Adelaide to Melbourne Removalists/i, /Adelaide to Melbourne removalists/i],
+  ];
+
+  for (const [output, titlePattern, descriptionPattern] of expectations) {
+    const page = pages.find((entry) => entry.output === output);
+    assert.ok(page, `missing metadata for ${output}`);
+    assert.match(page.title, titlePattern, `${output} title mismatch`);
+    assert.match(page.description, descriptionPattern, `${output} description mismatch`);
   }
 });
 
