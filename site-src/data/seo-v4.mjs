@@ -5158,6 +5158,32 @@ function buildSuburbServiceCards({ suburb, region, supportProfile }) {
     }));
 }
 
+function buildSuburbInterstateCards(suburb) {
+  return [
+    {
+      eyebrow: 'Interstate route',
+      title: 'Adelaide to Sydney removalists',
+      copy: `Use this route page when a ${suburb} move also needs Sydney delivery timing, packing, and destination access planning.`,
+      href: '/adelaide-to-sydney-removalists/',
+      cta: 'Adelaide to Sydney removalists',
+    },
+    {
+      eyebrow: 'Interstate route',
+      title: 'Adelaide to Melbourne removalists',
+      copy: `Open the Melbourne route page if the ${suburb} brief needs interstate handover planning beyond a local Adelaide move.`,
+      href: '/adelaide-to-melbourne-removalists/',
+      cta: 'Adelaide to Melbourne removalists',
+    },
+    {
+      eyebrow: 'Interstate route',
+      title: 'Adelaide to Brisbane removalists',
+      copy: `Review the Brisbane route page if the ${suburb} job includes a Queensland delivery and a fixed interstate quote path.`,
+      href: '/adelaide-to-brisbane-removals/',
+      cta: 'Adelaide to Brisbane removalists',
+    },
+  ];
+}
+
 function renderSuburbContent({ slug, suburb, region, intro, logisticsLabel, nearby, clusterKey, intents, image, faqItems }) {
   const cta = getSuburbCtaTheme(clusterKey);
   const supportProfile = getClusterSupportProfile(clusterKey);
@@ -5173,6 +5199,7 @@ function renderSuburbContent({ slug, suburb, region, intro, logisticsLabel, near
   }));
   const localServiceCards = buildSuburbLocalServiceCards({ slug, suburb, intents });
   const serviceCards = buildSuburbServiceCards({ suburb, region, supportProfile });
+  const interstateCards = buildSuburbInterstateCards(suburb);
   const guideCards = [
     { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
     ...supportProfile.guides,
@@ -5279,6 +5306,13 @@ ${renderRouteCardSection({
   intro: `Suburb traffic should still flow naturally into the service page that matches the actual move.`,
   cards: serviceCards,
   soft: true,
+})}
+${renderRouteCardSection({
+  module: 'interstate-routes',
+  eyebrow: 'Interstate routes',
+  heading: `Interstate planning pages linked from ${suburb}`,
+  intro: `If the move starts in ${suburb} but finishes interstate, these route pages keep the quote path static, crawlable, and specific.`,
+  cards: interstateCards,
 })}
 ${localServiceCards.length > 0 ? renderRouteCardSection({
   module: 'local-service-pages',

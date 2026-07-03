@@ -617,11 +617,6 @@
       "permanent": true
     },
     {
-      "source": "/house-removals-adelaide",
-      "destination": "/house-removalists-adelaide/",
-      "permanent": true
-    },
-    {
       "source": "/adelaide-cbd",
       "destination": "/removalists-adelaide-cbd/",
       "permanent": true

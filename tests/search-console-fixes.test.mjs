@@ -1161,6 +1161,106 @@ test('light page heroes and primary buttons keep readable foreground colours', (
   }
 });
 
+test('priority suburb and interstate pages stay indexable, canonical, and linked from core hubs', () => {
+  const priorityPages = [
+    ['removalists-hyde-park/index.html', 'https://zqremovals.au/removalists-hyde-park/'],
+    ['removalists-malvern/index.html', 'https://zqremovals.au/removalists-malvern/'],
+    ['removalists-unley/index.html', 'https://zqremovals.au/removalists-unley/'],
+    ['removalists-unley-park/index.html', 'https://zqremovals.au/removalists-unley-park/'],
+    ['removalists-medindie/index.html', 'https://zqremovals.au/removalists-medindie/'],
+    ['adelaide-to-sydney-removalists/index.html', 'https://zqremovals.au/adelaide-to-sydney-removalists/'],
+    ['adelaide-to-brisbane-removals/index.html', 'https://zqremovals.au/adelaide-to-brisbane-removals/'],
+    ['adelaide-to-melbourne-removalists/index.html', 'https://zqremovals.au/adelaide-to-melbourne-removalists/'],
+  ];
+  const sitemapLocations = ['sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml']
+    .flatMap((file) => [...readDist(file).matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]));
+  const homepage = readDist('index.html');
+  const adelaideHub = readDist(path.join('removalists-adelaide', 'index.html'));
+
+  for (const [output, canonical] of priorityPages) {
+    const html = readDist(output);
+    const main = extractMain(html);
+    const h1Count = (main.match(/<h1\b/gi) || []).length;
+
+    assert.match(html, /<title>[^<]{20,}<\/title>/i, `${output} missing title`);
+    assert.match(html, /<meta name="description" content="[^"]{80,}"/i, `${output} missing meta description`);
+    assert.match(html, new RegExp(`<link rel="canonical" href="${canonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`), `${output} canonical mismatch`);
+    assert.doesNotMatch(html, /<meta name="robots" content="[^"]*noindex/i, `${output} must not be noindex`);
+    assert.equal(h1Count, 1, `${output} must have exactly one H1`);
+    assert.match(main, /href="\/contact-us\/#quote-form"|href="tel:\+61433819989"/i, `${output} missing early quote CTA`);
+    assert.ok(sitemapLocations.includes(canonical), `${output} missing from sitemap`);
+  }
+
+  for (const suburbOutput of [
+    'removalists-hyde-park/index.html',
+    'removalists-malvern/index.html',
+    'removalists-unley/index.html',
+    'removalists-unley-park/index.html',
+    'removalists-medindie/index.html',
+  ]) {
+    const html = readDist(suburbOutput);
+    const main = extractMain(html);
+    assert.match(main, /Adelaide to Sydney removalists/i, `${suburbOutput} missing Sydney route link`);
+    assert.match(main, /Adelaide to Brisbane removalists/i, `${suburbOutput} missing Brisbane route link`);
+    assert.match(main, /Adelaide to Melbourne removalists/i, `${suburbOutput} missing Melbourne route link`);
+  }
+
+  for (const anchorText of [
+    'Hyde Park removalists',
+    'Malvern removalists',
+    'Unley Park removalists',
+    'Adelaide to Sydney removalists',
+    'Adelaide to Brisbane removalists',
+    'Adelaide to Melbourne removalists',
+    'Fixed-price Adelaide removalists',
+  ]) {
+    assert.match(homepage, new RegExp(anchorText, 'i'), `homepage missing ${anchorText}`);
+  }
+
+  for (const anchorText of [
+    'Hyde Park removalists',
+    'Malvern removalists',
+    'Unley removalists',
+    'Unley Park removalists',
+    'Medindie removalists',
+    'Adelaide to Sydney removalists',
+    'Adelaide to Brisbane removalists',
+    'Adelaide to Melbourne removalists',
+  ]) {
+    assert.match(adelaideHub, new RegExp(anchorText, 'i'), `Adelaide hub missing ${anchorText}`);
+  }
+});
+
+test('redirect aliases stay out of the sitemap and core canonical routes do not redirect away', () => {
+  const sitemap = [
+    readDist('sitemap-pages.xml'),
+    readDist('sitemap-services.xml'),
+    readDist('sitemap-suburbs.xml'),
+    readDist('sitemap-guides.xml'),
+  ].join('\n');
+  const vercelConfig = JSON.parse(readFileSync(path.join(root, 'vercel.json'), 'utf8'));
+  const redirects = new Map(vercelConfig.redirects.map(({ source, destination }) => [source, destination]));
+
+  for (const alias of [
+    'https://zqremovals.au/adelaide-to-brisbane-removalists/',
+    'https://zqremovals.au/adelaide-to-sydney-removals/',
+    'https://zqremovals.au/adelaide-to-melbourne-removals/',
+    'https://zqremovals.au/guides/removalist-cost-adelaide/',
+    'https://zqremovals.au/404.html',
+  ]) {
+    assert.doesNotMatch(sitemap, new RegExp(alias.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `${alias} must not be in sitemap`);
+  }
+
+  assert.equal(redirects.get('/adelaide-to-brisbane-removalists'), '/adelaide-to-brisbane-removals/');
+  assert.equal(redirects.get('/adelaide-to-brisbane-removalists/'), '/adelaide-to-brisbane-removals/');
+  assert.ok(!redirects.has('/adelaide-to-brisbane-removals'), 'canonical Brisbane route must not redirect');
+  assert.ok(!redirects.has('/adelaide-to-brisbane-removals/'), 'canonical Brisbane route with slash must not redirect');
+  assert.ok(!redirects.has('/removalists-unley-park'), 'canonical Unley Park page must not redirect');
+  assert.ok(!redirects.has('/removalists-hyde-park'), 'canonical Hyde Park page must not redirect');
+  assert.ok(!redirects.has('/removalists-malvern'), 'canonical Malvern page must not redirect');
+  assert.ok(!redirects.has('/house-removals-adelaide'), 'canonical house removals page must not redirect');
+});
+
 function extractMain(html) {
   return html.match(/<main\b[\s\S]*?<\/main>/i)?.[0] || html;
 }
