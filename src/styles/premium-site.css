@@ -4258,7 +4258,7 @@ body { color: #20342e; }
   text-underline-offset: 0.18em;
 }
 .button-primary,
-.button-cta { color: #fff !important; }
+.button-cta { color: #10231f !important; }
 .button-secondary { color: #10231f; }
 .utility-bar,
 .utility-bar a { color: #fffdf8; }
@@ -4281,6 +4281,52 @@ body { color: #20342e; }
   .quote-strip, .section-dark, .surface-dark) :where(p, li) { color: #e4ebe8; }
 :where(.hero-shell-home, .home-redesign-hero, .home-redesign-quote, .home-redesign-final-cta,
   .quote-strip, .section-dark, .surface-dark) a:not(.button) { color: #f7d890; }
+
+.hero-shell:not(.hero-shell-home) {
+  background:
+    radial-gradient(circle at 82% 18%, rgba(230, 169, 79, 0.14), transparent 24rem),
+    #fbf9f4;
+  color: #10231f;
+}
+
+.hero-shell:not(.hero-shell-home)::before {
+  background: none;
+  opacity: 0;
+}
+
+.hero-shell:not(.hero-shell-home) :is(h1, h2, h3, strong) {
+  color: #10231f;
+}
+
+.hero-shell:not(.hero-shell-home) :is(p, li),
+.hero-shell:not(.hero-shell-home) .lead,
+.hero-shell:not(.hero-shell-home) .page-hero-copy p {
+  color: #3f534c;
+}
+
+.hero-shell:not(.hero-shell-home) .breadcrumb,
+.hero-shell:not(.hero-shell-home) .breadcrumb a,
+.hero-shell:not(.hero-shell-home) .breadcrumb [aria-current="page"],
+.hero-shell:not(.hero-shell-home) .eyebrow {
+  color: #53655f;
+}
+
+.hero-shell:not(.hero-shell-home) .breadcrumb li + li::before {
+  color: rgba(16, 35, 31, 0.42);
+}
+
+.hero-shell:not(.hero-shell-home) .route-meta li,
+.hero-shell:not(.hero-shell-home) .hero-points li,
+.hero-shell:not(.hero-shell-home) .trust-chips li {
+  border-color: rgba(16, 35, 31, 0.12);
+  background: rgba(14, 107, 92, 0.08);
+  color: #30483f;
+}
+
+.hero-shell:not(.hero-shell-home) .button-secondary {
+  border-color: rgba(16, 35, 31, 0.34);
+  color: #10231f;
+}
 
 .js .reveal-on-scroll {
   opacity: 0;

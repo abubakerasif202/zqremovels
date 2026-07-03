@@ -1133,6 +1133,34 @@ test('v6 colour contrast guard prevents known invisible text pairings', () => {
   assert.doesNotMatch(css, /section-soft \.faq-list-premium \.faq-question[\s\S]{0,120}color:var\(--text-on-dark\)/i);
 });
 
+test('light page heroes and primary buttons keep readable foreground colours', () => {
+  const css = readDist('premium-site.min.css');
+  const priorityOutputs = [
+    path.join('removalists-marion', 'index.html'),
+    path.join('removalists-hyde-park', 'index.html'),
+    path.join('removalists-malvern', 'index.html'),
+    path.join('removalists-unley', 'index.html'),
+    path.join('removalists-unley-park', 'index.html'),
+    path.join('removalists-medindie', 'index.html'),
+    path.join('adelaide-to-sydney-removalists', 'index.html'),
+    path.join('adelaide-to-brisbane-removals', 'index.html'),
+    path.join('adelaide-to-melbourne-removalists', 'index.html'),
+  ];
+
+  assert.match(css, /hero-shell:not\(\.hero-shell-home\)[^{]*{(?=[^}]*#fbf9f4)(?=[^}]*color:#10231f)/i);
+  assert.match(css, /hero-shell:not\(\.hero-shell-home\) :is\(h1,h2,h3,strong\)[^{]*{color:#10231f/i);
+  assert.match(css, /hero-shell:not\(\.hero-shell-home\) :is\(p,li\)[^{]*,[^}]*color:#3f534c/i);
+  assert.match(css, /button-primary,[^}]*button-cta{color:#10231f!important/i);
+  assert.doesNotMatch(css, /button-primary,[^}]*button-cta{color:#fff!important/i);
+
+  for (const output of priorityOutputs) {
+    const html = readDist(output);
+    const hero = html.match(/<section class="hero-shell[\s\S]*?<\/section>/i)?.[0] || '';
+    assert.ok(hero, `${output} missing hero shell`);
+    assert.doesNotMatch(hero, /text-white|style="[^"]*color:\s*(?:white|#fff)/i, `${output} hero uses white text on a light shell`);
+  }
+});
+
 function extractMain(html) {
   return html.match(/<main\b[\s\S]*?<\/main>/i)?.[0] || html;
 }
