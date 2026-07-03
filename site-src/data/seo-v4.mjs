@@ -2218,7 +2218,7 @@ const commercialLinkProfiles = {
     ],
     siblings: [
       { href: '/last-minute-removalists-adelaide/', label: 'last-minute removals' },
-      { href: '/apartment-removalists-adelaide/', label: 'apartment removals' },
+      { href: '/apartment-removalists-adelaide/', label: 'apartment removalists' },
     ],
   },
   'last-minute-removalists-adelaide': {
@@ -5171,9 +5171,12 @@ function renderSuburbContent({ slug, suburb, region, intro, logisticsLabel, near
     href: item.href,
     cta: item.label,
   }));
-  const regionalHub = clusterKey.includes('southern')
+  const isSouthern = clusterKey.includes('southern') || clusterKey.includes('south') || ['glenelg', 'brighton', 'seaford', 'hallett-cove', 'somerton-park', 'hove', 'seacliff', 'christies-beach', 'port-noarlunga'].includes(slug);
+  const isNorthern = clusterKey.includes('northern') || clusterKey.includes('north') || ['semaphore', 'largs-bay', 'west-lakes', 'port-adelaide', 'pennington', 'findon', 'seaton', 'fulham', 'kidman-park', 'henley-beach', 'grange'].includes(slug);
+
+  const regionalHub = isSouthern
     ? { href: '/removalists-southern-adelaide/', label: 'Southern Adelaide service hub' }
-    : clusterKey.includes('northern')
+    : isNorthern
       ? { href: '/removalists-northern-adelaide/', label: 'Northern Adelaide service hub' }
       : supportProfile.hubs[0] || { href: '/removalists-adelaide/', label: 'Review Adelaide removals' };
 

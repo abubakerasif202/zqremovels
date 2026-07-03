@@ -19,7 +19,7 @@ export const zqServiceLinkProfiles = {
       { href: '/adelaide-moving-guides/packing-fragile-items-adelaide/', label: 'fragile packing guide' },
     ],
     siblings: [
-      { href: '/apartment-removals-adelaide/', label: 'apartment removals Adelaide' },
+      { href: '/apartment-removals-adelaide/', label: 'apartment moving services Adelaide' },
       { href: '/local-removalists-adelaide/', label: 'local movers near you' },
       { href: '/moving-company-adelaide/', label: 'moving company Adelaide' },
     ],
@@ -80,7 +80,7 @@ export const zqServiceLinkProfiles = {
       { href: '/house-removals-adelaide/', label: 'house moving services' },
       { href: '/furniture-removals-adelaide/', label: 'furniture removals Adelaide' },
       { href: '/office-removals-adelaide/', label: 'office removalists Adelaide' },
-      { href: '/apartment-removals-adelaide/', label: 'apartment removals Adelaide' },
+      { href: '/apartment-removals-adelaide/', label: 'apartment moving services Adelaide' },
     ],
     suburbs: [
       { href: '/removalists-glenelg/', label: 'Glenelg movers' },
@@ -145,7 +145,7 @@ export const zqServiceLinkProfiles = {
     siblings: [
       { href: '/services/adelaide-cbd-apartment-removalists/', label: 'CBD apartment removalists' },
       { href: '/services/furniture-bulky-item-removalists-adelaide/', label: 'bulky item removals' },
-      { href: '/services/interstate-removalists-adelaide/', label: 'interstate removals' },
+      { href: '/services/interstate-removalists-adelaide/', label: 'interstate removalists' },
     ],
   },
   'services/furniture-bulky-item-removalists-adelaide': {
@@ -169,7 +169,7 @@ export const zqServiceLinkProfiles = {
     siblings: [
       { href: '/services/adelaide-cbd-apartment-removalists/', label: 'CBD apartment removalists' },
       { href: '/services/office-removalists-adelaide/', label: 'office removalists Adelaide' },
-      { href: '/services/interstate-removalists-adelaide/', label: 'interstate removals Adelaide' },
+      { href: '/services/interstate-removalists-adelaide/', label: 'interstate removalists Adelaide' },
     ],
   },
   'services/interstate-removalists-adelaide': {
@@ -240,7 +240,7 @@ export const zqGuideLinkProfiles = {
   'best-time-to-book-removalists-adelaide': {
     services: [
       { href: '/local-removalists-adelaide/', label: 'local removalists Adelaide' },
-      { href: '/apartment-removals-adelaide/', label: 'apartment removals Adelaide' },
+      { href: '/apartment-removals-adelaide/', label: 'apartment moving services Adelaide' },
       { href: '/office-removals-adelaide/', label: 'office removalists Adelaide' },
       { href: '/interstate-removals-adelaide/', label: 'interstate removals Adelaide' },
     ],
@@ -277,7 +277,7 @@ export const zqGuideLinkProfiles = {
   },
   'apartment-moving-tips-adelaide': {
     services: [
-      { href: '/apartment-removals-adelaide/', label: 'apartment removals Adelaide' },
+      { href: '/apartment-removals-adelaide/', label: 'apartment moving services Adelaide' },
       { href: '/apartment-removalists-adelaide/', label: 'apartment removalists Adelaide' },
       { href: '/packing-services-adelaide/', label: 'packing for apartments' },
       { href: '/furniture-removals-adelaide/', label: 'furniture removals Adelaide' },
