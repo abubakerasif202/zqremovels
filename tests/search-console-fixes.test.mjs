@@ -1150,8 +1150,9 @@ test('light page heroes and primary buttons keep readable foreground colours', (
   assert.match(css, /hero-shell:not\(\.hero-shell-home\)[^{]*{(?=[^}]*#fbf9f4)(?=[^}]*color:#10231f)/i);
   assert.match(css, /hero-shell:not\(\.hero-shell-home\) :is\(h1,h2,h3,strong\)[^{]*{color:#10231f/i);
   assert.match(css, /hero-shell:not\(\.hero-shell-home\) :is\(p,li\)[^{]*,[^}]*color:#3f534c/i);
-  assert.match(css, /button-primary,[^}]*button-cta{color:#10231f!important/i);
-  assert.doesNotMatch(css, /button-primary,[^}]*button-cta{color:#fff!important/i);
+  assert.match(css, /button-primary{color:#fffdf8!important/i);
+  assert.match(css, /button-cta{color:#10231f!important/i);
+  assert.doesNotMatch(css, /button-primary,[^}]*button-cta{color:#10231f!important/i);
 
   for (const output of priorityOutputs) {
     const html = readDist(output);
