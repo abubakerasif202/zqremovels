@@ -232,7 +232,10 @@ test('schema parses and keeps review, taxID, insurance, and AFRA guardrails safe
 
 test('vercel security headers include the safe defaults required by the audit', () => {
   const vercel = JSON.parse(readFileSync(path.join(root, 'vercel.json'), 'utf8'));
-  const rootHeaders = vercel.headers.find((entry) => entry.source === '/:path*')?.headers || [];
+  const securityHeaderEntries = vercel.headers.filter((entry) =>
+    entry.headers?.some((item) => String(item.key).toLowerCase() === 'content-security-policy')
+  );
+  const rootHeaders = securityHeaderEntries.find((entry) => entry.source === '/:path*')?.headers || [];
   const headerMap = new Map(rootHeaders.map((item) => [String(item.key).toLowerCase(), item.value]));
 
   assert.equal(headerMap.get('x-content-type-options'), 'nosniff');
@@ -241,6 +244,27 @@ test('vercel security headers include the safe defaults required by the audit', 
   assert.equal(headerMap.get('permissions-policy'), 'geolocation=(), microphone=(), camera=()');
   assert.match(headerMap.get('content-security-policy') || '', /default-src 'self'/i);
   assert.match(headerMap.get('content-security-policy') || '', /form-action 'self' https:\/\/formsubmit\.co https:\/\/api\.web3forms\.com/i);
+
+  assert.ok(securityHeaderEntries.length > 0, 'expected at least one CSP header');
+  for (const entry of securityHeaderEntries) {
+    const csp = entry.headers.find((item) => String(item.key).toLowerCase() === 'content-security-policy')?.value || '';
+    const connectSrc = csp.match(/(?:^|;\s*)connect-src\s+([^;]+)/i)?.[1] || '';
+
+    for (const origin of [
+      'https://www.google-analytics.com',
+      'https://analytics.google.com',
+      'https://www.googletagmanager.com',
+      'https://region1.google-analytics.com',
+      'https://stats.g.doubleclick.net',
+      'https://www.google.com',
+    ]) {
+      assert.ok(connectSrc.split(/\s+/).includes(origin), `${entry.source} connect-src must include ${origin}`);
+    }
+
+    assert.doesNotMatch(csp, /(?:^|;\s*)default-src\s+[^;]*\*/i, `${entry.source} must not use default-src *`);
+    assert.doesNotMatch(connectSrc, /(?:^|\s)\*(?:\s|$)/, `${entry.source} must not use connect-src *`);
+    assert.doesNotMatch(csp, /'unsafe-eval'/i, `${entry.source} must not allow unsafe-eval`);
+  }
 });
 
 test('existing SEO validator passes after v7 changes', () => {
