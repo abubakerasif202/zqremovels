@@ -1,12 +1,11 @@
 # Build output
 site-dist/
 output/
+tmp/
 
 # Playwright
 playwright-report/
 test-results/
-
-# Vercel
 .vercel/
 
 # Node
