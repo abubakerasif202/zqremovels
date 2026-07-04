@@ -442,6 +442,36 @@
       "permanent": true
     },
     {
+      "source": "/services/office-removalists-adelaide",
+      "destination": "/office-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/office-removalists-adelaide/",
+      "destination": "/office-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/office-removalists-adelaide/index.html",
+      "destination": "/office-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-northern-suburbs-adelaide",
+      "destination": "/removalists-northern-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-northern-suburbs-adelaide/",
+      "destination": "/removalists-northern-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-northern-suburbs-adelaide/index.html",
+      "destination": "/removalists-northern-adelaide/",
+      "permanent": true
+    },
+    {
       "source": "/glenelg.html",
       "destination": "/removalists-glenelg/",
       "permanent": true

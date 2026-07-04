@@ -119,12 +119,12 @@ export const zqServiceLinkProfiles = {
       { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'booking timing guide' },
     ],
     siblings: [
-      { href: '/services/office-removalists-adelaide/', label: 'office removalists Adelaide' },
+      { href: '/office-removalists-adelaide/', label: 'office removalists Adelaide' },
       { href: '/services/furniture-bulky-item-removalists-adelaide/', label: 'bulky item removals' },
       { href: '/moving-quotes-adelaide/', label: 'moving quotes Adelaide' },
     ],
   },
-  'services/office-removalists-adelaide': {
+  'office-removalists-adelaide': {
     services: [
       { href: '/fixed-price-removalists-adelaide/', label: 'fixed-price quote review' },
       { href: '/office-relocation-adelaide/', label: 'office relocation Adelaide' },
@@ -168,7 +168,7 @@ export const zqServiceLinkProfiles = {
     ],
     siblings: [
       { href: '/services/adelaide-cbd-apartment-removalists/', label: 'CBD apartment removalists' },
-      { href: '/services/office-removalists-adelaide/', label: 'office removalists Adelaide' },
+      { href: '/office-removalists-adelaide/', label: 'office removalists Adelaide' },
       { href: '/services/interstate-removalists-adelaide/', label: 'interstate removalists Adelaide' },
     ],
   },
@@ -192,7 +192,7 @@ export const zqServiceLinkProfiles = {
     ],
     siblings: [
       { href: '/services/adelaide-cbd-apartment-removalists/', label: 'CBD apartment removalists' },
-      { href: '/services/office-removalists-adelaide/', label: 'office removalists Adelaide' },
+      { href: '/office-removalists-adelaide/', label: 'office removalists Adelaide' },
       { href: '/services/furniture-bulky-item-removalists-adelaide/', label: 'bulky item removals' },
     ],
   },

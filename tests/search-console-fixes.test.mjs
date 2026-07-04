@@ -118,10 +118,10 @@ test('generated sitemap and canonicals stay on the apex host', () => {
   assert.doesNotMatch(sitemap, /https:\/\/www\.zqremovals\.au\//);
   assert.match(sitemap, /<sitemapindex/);
   assert.match(homepage, /<link rel="canonical" href="https:\/\/zqremovals\.au\/" \/>/);
-  assert.match(homepage, /<title>Adelaide Removalists \| Fixed-Price Movers \| ZQ Removals<\/title>/);
+  assert.match(homepage, /<title>Removalists Adelaide \| Affordable Removals &amp; Movers<\/title>/);
   assert.match(
     homepage,
-    /<meta name="description" content="Need Adelaide removalists\? ZQ Removals offers fixed-price moving quotes, careful furniture handling and local or interstate removals across metro Adelaide\." \/>/,
+    /<meta name="description" content="Looking for affordable Adelaide removalists\? ZQ Removals offers furniture removals, house moves, and professional movers and packers\. Get a fast quote today!" \/>/,
   );
   assert.match(
     interstateHub,
@@ -955,9 +955,9 @@ test('v6 homepage targets premium Adelaide removalists and above-fold CTAs', () 
   const homepage = readDist('index.html');
   const hero = homepage.match(/<section class="home-redesign-hero[\s\S]*?<\/section>/i)?.[0] || '';
 
-  assert.match(homepage, /<title>Adelaide Removalists \| Fixed-Price Movers \| ZQ Removals<\/title>/);
-  assert.match(homepage, /<meta name="description" content="Need Adelaide removalists\? ZQ Removals offers fixed-price moving quotes, careful furniture handling and local or interstate removals across metro Adelaide\."/i);
-  assert.match(hero, /<h1[^>]*>Adelaide Removalists You Can Trust<\/h1>/);
+  assert.match(homepage, /<title>Removalists Adelaide \| Affordable Removals &amp; Movers<\/title>/);
+  assert.match(homepage, /<meta name="description" content="Looking for affordable Adelaide removalists\? ZQ Removals offers furniture removals, house moves, and professional movers and packers\. Get a fast quote today!"/i);
+  assert.match(hero, /<h1[^>]*>Removalists Adelaide<\/h1>/);
   assert.match(hero, /Local &amp; Interstate Moves Across Adelaide/i);
   assert.match(hero, /href="#premium-quote"[^>]*>Get Free Quote<\/a>/);
   assert.match(hero, /href="tel:\+61433819989"[^>]*>Call 0433 819 989<\/a>/);

@@ -43,7 +43,7 @@ test('homepage targets Adelaide removalists with the new commercial headline and
 
   assert.match(
     homepage,
-    /<h1[^>]*>Adelaide Removalists You Can Trust<\/h1>/i,
+    /<h1[^>]*>Removalists Adelaide<\/h1>/i,
   );
   assert.match(
     homepage,

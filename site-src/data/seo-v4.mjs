@@ -155,6 +155,8 @@ const interstateRouteData = [
   ['adelaide-to-melbourne-removalists', 'Melbourne VIC', 'Adelaide to Melbourne', 'approx. 730km via Western Hwy', 'A8'],
   ['adelaide-to-western-sydney-removalists', 'Western Sydney NSW', 'Adelaide to Western Sydney', 'approx. 1,320km via Sturt Hwy and Hume Hwy', 'A20 / M31'],
   ['adelaide-to-smithfield-nsw-removalists', 'Smithfield NSW', 'Adelaide to Smithfield NSW', 'approx. 1,335km via Sturt Hwy and Hume Hwy', 'A20 / M31'],
+  ['sydney-to-adelaide-removalists', 'Adelaide', 'Sydney to Adelaide', 'approx. 1,375km via Hume Hwy and Sturt Hwy', 'M31 / A20'],
+  ['melbourne-to-adelaide-removalists', 'Adelaide', 'Melbourne to Adelaide', 'approx. 730km via Western Hwy', 'A8'],
 ];
 
 const interstateRouteProfilesV7 = {
@@ -181,12 +183,12 @@ const interstateRouteProfilesV7 = {
   'adelaide-to-brisbane-removals': {
     titleSuffix: 'Removalists | Interstate Movers',
     description:
-      'Adelaide to Brisbane removalists with route-based planning, packing support, and delivery timing reviewed before quoting.',
+      'Adelaide to Brisbane removalists with route-based planning, packing support, and Brisbane delivery access reviewed before quoting.',
     destinationLabel: 'Brisbane',
     intro:
-      'This route is for Adelaide customers moving to Brisbane who want the pickup, packing, inventory, and destination access checked before the quote is approved.',
+      'This route is for Adelaide customers relocating to Brisbane who want a quote based on inventory, property access, packing needs, and delivery conditions at the Queensland end.',
     destinationPlanning:
-      'Brisbane delivery planning should cover apartment access, parking pressure, stair carries, suburban driveways, and handover timing without implying a Brisbane base.',
+      'Brisbane delivery planning should cover building access, loading restrictions, lift bookings, inner-city timing, and suburban carry distance without claiming a Queensland base.',
   },
   'adelaide-to-western-sydney-removalists': {
     titleSuffix: 'Removalists | ZQ Removals',
@@ -209,6 +211,26 @@ const interstateRouteProfilesV7 = {
       'Smithfield NSW delivery planning should cover Western Sydney access, parking, warehouse-adjacent streets, house or townhouse entries, and handover timing without claiming a local NSW base.',
     disambiguation:
       'Smithfield NSW is a Western Sydney destination. For local northern Adelaide routes near Smithfield SA or Smithfield Plains, use the Adelaide suburb and northern Adelaide pages instead.',
+  },
+  'sydney-to-adelaide-removalists': {
+    titleSuffix: 'Removalists | ZQ Removals',
+    description:
+      'Sydney to Adelaide removalists with pickup access in Sydney, route timing, and Adelaide delivery planning reviewed before quoting.',
+    destinationLabel: 'Adelaide',
+    intro:
+      'This route is for customers moving from Sydney to Adelaide who need an interstate removals plan built around Sydney pickup details and Adelaide delivery access.',
+    destinationPlanning:
+      'Adelaide delivery planning covers local suburb access, driveway clearances, and timing windows across metro Adelaide.',
+  },
+  'melbourne-to-adelaide-removalists': {
+    titleSuffix: 'Removalists | ZQ Removals',
+    description:
+      'Melbourne to Adelaide removalists with pickup access in Melbourne, route timing, and Adelaide delivery planning reviewed before quoting.',
+    destinationLabel: 'Adelaide',
+    intro:
+      'This route is for customers moving from Melbourne to Adelaide who need an interstate removals plan built around Melbourne pickup details and Adelaide delivery access.',
+    destinationPlanning:
+      'Adelaide delivery planning covers local suburb access, driveway clearances, and timing windows across metro Adelaide.',
   },
 };
 
@@ -1827,6 +1849,72 @@ const commercialPages = [
       },
     ],
   },
+  {
+    slug: 'movers-and-packers-adelaide',
+    title: 'Movers and Packers Adelaide | Fixed-Price Packing & Moving',
+    description: 'Movers and packers Adelaide for professional home packing, unpacking, and moving services. Get a fixed-price quote with verified local packing crews.',
+    canonical: '/movers-and-packers-adelaide/',
+    type: 'money',
+    hero: 'Packing and moving should be handled together for maximum safety. We offer full packing, unpacking, materials supply, and fixed-price transport in Adelaide.',
+    sections: [
+      'Hiring movers and packers in Adelaide simplifies your relocation by placing the loading, packing, and transit under a single coordinated team. ZQ Removals uses trained local crews who handle fragile glass, kitchenware, heavy books, and clothing with systematic care.',
+      'Our fixed-price packing and moving plans cover high-quality moving boxes, bubble wrap, tape, and protective blankets. The plan is scoped before move day so you know exactly how many boxes, packers, and hours are allocated to your budget.',
+    ],
+    faq: [
+      {
+        question: 'Do you provide the packing boxes and materials?',
+        answer: 'Yes. Our movers and packers service includes all required heavy-duty boxes, bubble wrap, wrapping paper, and tape. We bring everything needed to protect your items.'
+      },
+      {
+        question: 'Can I pack some items myself and have ZQ Removals pack the rest?',
+        answer: 'Yes, absolutely. We can provide a split packing plan where you handle non-fragile items and our professional packers handle the kitchenware, artwork, and electronics.'
+      }
+    ]
+  },
+  {
+    slug: 'small-removals-adelaide',
+    title: 'Small Removals Adelaide | Micro & Single Item Movers',
+    description: 'Small removals Adelaide for apartments, study rooms, single heavy items, and small loads. Safe handling, access planning, and transparent fixed prices.',
+    canonical: '/small-removals-adelaide/',
+    type: 'money',
+    hero: 'Small moves still deserve professional care. We provide small removals, studio apartment moves, and single-item transport in Adelaide with clear fixed quotes.',
+    sections: [
+      'Not every relocation needs a massive truck or a large crew. Small removals in Adelaide cover studio apartments, single room relocations, student moves, and large retail pick-ups like heavy couches or whitegoods.',
+      'We treat small moves with the same level of route planning and inventory check as full houses. By reviewing access constraints, lift times, and parking zones upfront, we prevent delays and keep prices fair.',
+    ],
+    faq: [
+      {
+        question: 'Do you have a minimum charge for small moves?',
+        answer: 'We offer fixed-price quotes based on the specific items and access conditions, meaning you only pay for the exact scope of your small move rather than a high hourly minimum.'
+      },
+      {
+        question: 'Can you move a single heavy item like a piano or double fridge?',
+        answer: 'Yes. ZQ Removals can transport single heavy or awkward items. We review the weight, staircases, and doorway dimensions before providing a fixed transport quote.'
+      }
+    ]
+  },
+  {
+    slug: 'removalists-adelaide-prices',
+    title: 'Removalists Adelaide Prices & Rates | Fixed Moving Cost',
+    description: 'Find removalists Adelaide prices and moving rates. ZQ Removals offers clear fixed-price quotes instead of unpredictable hourly charges.',
+    canonical: '/removalists-adelaide-prices/',
+    type: 'money',
+    hero: 'Understanding Adelaide removalist pricing helps you budget without surprises. ZQ Removals reviews your inventory and access to deliver a firm fixed-price quote.',
+    sections: [
+      'Removalist prices in Adelaide can vary wildly between cheap hourly estimates and premium all-inclusive packages. Hourly rates might look attractive but often include hidden travel fees, stair surcharges, or depot-to-depot run times.',
+      'ZQ Removals operates on a fixed-price quote review model. We assess the volume of furniture, property access, parking challenges, and route logistics to guarantee a final price. This gives you budget certainty on moving day.',
+    ],
+    faq: [
+      {
+        question: 'Why should I choose a fixed price over an hourly rate?',
+        answer: 'An hourly rate can fluctuate due to traffic, lift delays, or unexpected carry distances. A fixed-price quote guarantees the total cost of your move as long as the inventory and access remain as scoped.'
+      },
+      {
+        question: 'How do you calculate removalist prices in Adelaide?',
+        answer: 'We calculate prices based on inventory volume, required truck size, crew numbers, packing needs, travel distance, and access variables like stairs, lifts, or long carry walks.'
+      }
+    ]
+  },
   ...zqServicePages,
 ];
 
@@ -2352,7 +2440,7 @@ const commercialLinkProfiles = {
       { href: '/removalists-adelaide/', label: 'Adelaide removals hub' },
       { href: '/house-removals-adelaide/', label: 'house removals with fixed pricing' },
       { href: '/services/adelaide-cbd-apartment-removalists/', label: 'CBD apartment removalists' },
-      { href: '/services/office-removalists-adelaide/', label: 'office removalists Adelaide' },
+      { href: '/office-removalists-adelaide/', label: 'office removalists Adelaide' },
       { href: '/services/furniture-bulky-item-removalists-adelaide/', label: 'bulky item removals Adelaide' },
       { href: '/services/interstate-removalists-adelaide/', label: 'interstate removalists Adelaide' },
     ],
@@ -3378,11 +3466,27 @@ export function getGeneratedPages() {
   }));
 
   pages.push(makeRedirectPage({
+    output: 'removalists-northern-suburbs-adelaide/index.html',
+    canonical: buildCanonical('/removalists-northern-adelaide/'),
+    title: buildTitle('Northern Suburbs Adelaide Removalists Redirect'),
+    description: buildDescription('Redirecting to our canonical northern Adelaide removalists page.'),
+    destinationPath: '/removalists-northern-adelaide/',
+  }));
+
+  pages.push(makeRedirectPage({
     output: 'adelaide-to-sydney-removals/index.html',
     canonical: buildCanonical('/adelaide-to-sydney-removalists/'),
     title: buildTitle('Adelaide to Sydney Removals Redirect'),
     description: buildDescription('This Adelaide to Sydney removals alias now redirects to the canonical Adelaide to Sydney removalists page.'),
     destinationPath: '/adelaide-to-sydney-removalists/',
+  }));
+
+  pages.push(makeRedirectPage({
+    output: 'adelaide-to-brisbane-removalists/index.html',
+    canonical: buildCanonical('/adelaide-to-brisbane-removals/'),
+    title: buildTitle('Adelaide to Brisbane Removals Redirect'),
+    description: buildDescription('This Adelaide to Brisbane removalists alias now redirects to the canonical Adelaide to Brisbane removals page.'),
+    destinationPath: '/adelaide-to-brisbane-removals/',
   }));
 
   pages.push(makeRedirectPage({
@@ -3432,6 +3536,14 @@ export function getGeneratedPages() {
     title: buildTitle('CBD Apartment Removals Adelaide Redirect'),
     description: buildDescription('Redirecting to our canonical Adelaide CBD apartment removalists page.'),
     destinationPath: '/services/adelaide-cbd-apartment-removalists/',
+  }));
+
+  pages.push(makeRedirectPage({
+    output: 'services/office-removalists-adelaide/index.html',
+    canonical: buildCanonical('/office-removalists-adelaide/'),
+    title: buildTitle('Office Removalists Adelaide Redirect'),
+    description: buildDescription('Redirecting to our canonical office removalists Adelaide page.'),
+    destinationPath: '/office-removalists-adelaide/',
   }));
 
   for (const [slug, title, topic, type, basePath] of guideTopics) {
@@ -4667,6 +4779,22 @@ function makeCommercialPage(page) {
     'storage-friendly-removals-adelaide': {
       title: 'Storage Friendly Removals Adelaide | Storage Moves | ZQ Removals',
       description: 'Storage-friendly Adelaide removals for moves that include a storage stop, staged delivery, or a split handover relocation plan.',
+    },
+    'movers-and-packers-adelaide': {
+      title: 'Movers and Packers Adelaide | Fixed-Price Packing & Moving',
+      description: 'Movers and packers Adelaide for professional home packing, unpacking, and moving services. Get a fixed-price quote with verified local packing crews.',
+    },
+    'small-removals-adelaide': {
+      title: 'Small Removals Adelaide | Micro & Single Item Movers',
+      description: 'Small removals Adelaide for apartments, study rooms, single heavy items, and small loads. Safe handling, access planning, and transparent fixed prices.',
+    },
+    'removalists-adelaide-prices': {
+      title: 'Removalists Adelaide Prices & Rates | Fixed Moving Cost',
+      description: 'Find removalists Adelaide prices and moving rates. ZQ Removals offers clear fixed-price quotes instead of unpredictable hourly charges.',
+    },
+    'office-removalists-adelaide': {
+      title: 'Office Removalists Adelaide | B2B Commercial Relocations',
+      description: 'Office removalists Adelaide for business moves, corporate relocations, and B2B transitions. Planned downtime control, lift bookings, and fixed quotes.',
     },
   };
   const seoOverride = commercialSeoOverrides[page.slug] || {};
@@ -6242,6 +6370,8 @@ export function getInterstateSupportProfile(routeSlug) {
     { href: '/adelaide-to-canberra-removals/', label: 'Adelaide to Canberra' },
     { href: '/adelaide-to-perth-removals/', label: 'Adelaide to Perth' },
     { href: '/adelaide-to-queensland-removals/', label: 'Adelaide to Queensland' },
+    { href: '/sydney-to-adelaide-removalists/', label: 'Sydney to Adelaide removalists' },
+    { href: '/melbourne-to-adelaide-removalists/', label: 'Melbourne to Adelaide removalists' },
   ];
 
   return {

@@ -218,11 +218,11 @@ export const zqServicePages = [
     ],
   },
   {
-    slug: 'services/office-removalists-adelaide',
+    slug: 'office-removalists-adelaide',
     title: 'Commercial Office Removalists Adelaide | Downtime Planning',
     description:
       'Commercial office removalists Adelaide with dock access, lift bookings, labelled unload order, IT handling and restart planning reviewed.',
-    canonical: '/services/office-removalists-adelaide/',
+    canonical: '/office-removalists-adelaide/',
     type: 'service',
     hero:
       'Office moves need a stable plan for desks, monitors, files, and restart timing before a single workstation is touched.',
@@ -471,7 +471,7 @@ export const zqServiceIntentProfiles = {
     uniqueAngle: 'centres lift windows, loading zones, parking, and a manual quote review before the move is booked',
     conversionCTA: 'Scope a CBD apartment move',
   },
-  'services/office-removalists-adelaide': {
+  'office-removalists-adelaide': {
     primaryKeyword: 'office removalists Adelaide',
     secondaryKeywords: ['commercial movers Adelaide', 'office movers Adelaide', 'business relocation planning'],
     searchIntent: 'commercial relocation and downtime control',
@@ -527,7 +527,7 @@ export const zqServiceHighlights = {
     'Useful for apartment, high-rise, commercial, fragile item, and interstate moving',
     'Built for manual quote review before a CBD move is approved',
   ],
-  'services/office-removalists-adelaide': [
+  'office-removalists-adelaide': [
     'Downtime control is part of the move brief',
     'Useful for desks, monitors, files, and staged office resets',
     'Connected to CBD and commercial access planning content',
@@ -547,7 +547,7 @@ export const zqServiceHighlights = {
     'Useful for apartment, high-rise, commercial, fragile item, and interstate moving',
     'Built for manual quote review before a CBD move is approved',
   ],
-  'services/office-removalists-adelaide': [
+  'office-removalists-adelaide': [
     'Downtime control is part of the move brief',
     'Useful for desks, monitors, files, and staged office resets',
     'Connected to CBD and commercial access planning content',
@@ -640,7 +640,7 @@ export const zqServiceFactorCards = {
       copy: 'Useful when the same city address also involves offices, fragile items, or an interstate route leaving Adelaide.',
     },
   ],
-  'services/office-removalists-adelaide': [
+  'office-removalists-adelaide': [
     {
       title: 'Downtime control',
       copy: 'The quote should be shaped around business restart timing, not just the amount of furniture on site.',
@@ -710,7 +710,7 @@ export const zqServiceFactorCards = {
       copy: 'Useful when the same city address also involves offices, fragile items, or an interstate route leaving Adelaide.',
     },
   ],
-  'services/office-removalists-adelaide': [
+  'office-removalists-adelaide': [
     {
       title: 'Downtime control',
       copy: 'The quote should be shaped around business restart timing, not just the amount of furniture on site.',
@@ -794,7 +794,7 @@ export const zqServiceAeoProfiles = {
     answer:
       'Lift bookings, loading zones, parking pressure, building rules, stair or corridor access, and whether the move also touches office or mixed-use spaces all affect the quote.',
   },
-  'services/office-removalists-adelaide': {
+  'office-removalists-adelaide': {
     question: 'How should Adelaide office removals be quoted?',
     answer:
       'Office removals should be quoted around downtime control, access, IT equipment, files, and the restart order so the move supports the business rather than disrupting it.',
