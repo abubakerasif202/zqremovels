@@ -3031,9 +3031,9 @@ function renderPageHero({ eyebrow, title, lead, supporting = [], points = [], pr
           ${points.map((item) => toVisibleText(item)).filter(Boolean).map((item) => `<li>${escapeHtml(item)}</li>`).join('')}
         </ul>` : ''}
         <div class="cta-cluster" data-generated-cta="top" data-generated-page-type="${escapeAttribute(pageType)}">
-          <a class="button button-primary" href="${escapeAttribute(normalizeInternalHref(primaryCta.href))}">${escapeHtml(primaryCta.label)}</a>
-          <a class="button button-secondary" href="${escapeAttribute(normalizeInternalHref(secondaryCta.href))}">${escapeHtml(secondaryCta.label)}</a>
-          <a class="button button-secondary" href="tel:+61433819989">Call 0433 819 989</a>
+          <a class="button button-primary hvr-grow" href="${escapeAttribute(normalizeInternalHref(primaryCta.href))}">${escapeHtml(primaryCta.label)}</a>
+          <a class="button button-secondary hvr-grow" href="${escapeAttribute(normalizeInternalHref(secondaryCta.href))}">${escapeHtml(secondaryCta.label)}</a>
+          <a class="button button-secondary hvr-pulse" href="tel:+61433819989">Call 0433 819 989</a>
         </div>
         <div class="cta-reassurance" aria-label="Quote reassurance">
           <p>Fixed-price options based on the confirmed scope</p>
@@ -3103,8 +3103,8 @@ function renderTextSection({ id = '', module, eyebrow, heading, intro = '', para
   <h3>${escapeHtml('Request a Fixed-Price Adelaide Moving Quote')}</h3>
   <p>${escapeHtml('Compare pricing with a clear brief: route, access, inventory, packing needs, and timing reviewed before booking.')}</p>
   <div class="cta-cluster">
-    <a class="button button-primary" href="/contact-us/#quote-form">${escapeHtml('Get Free Fixed Quote')}</a>
-    <a class="button button-secondary" href="tel:+61433819989">${escapeHtml('Call Specialist Now')}</a>
+    <a class="button button-primary hvr-grow" href="/contact-us/#quote-form">${escapeHtml('Get Free Fixed Quote')}</a>
+    <a class="button button-secondary hvr-pulse" href="tel:+61433819989">${escapeHtml('Call Specialist Now')}</a>
   </div>
   <div class="cta-reassurance" aria-label="Quote reassurance">
     <p>Fixed-price options based on the confirmed scope</p>
@@ -3163,13 +3163,20 @@ function renderValueCardSection({ id = '', module, eyebrow, heading, intro = '',
 }
 
 function renderRouteCardSection({ id = '', module, eyebrow, heading, intro = '', cards = [], soft = false }) {
+  let hoverClass = '';
+  if (module === 'related-services') {
+    hoverClass = ' hvr-grow-shadow';
+  } else if (module === 'sibling-routes' || module === 'required-route-links' || module === 'related-guides') {
+    hoverClass = ' hvr-float';
+  }
+
   return `<section${id ? ` id="${escapeAttribute(id)}"` : ''} class="section${soft ? ' section-soft' : ''}" data-generated-module="${escapeAttribute(module)}">
   <div class="container">
     ${renderSectionHeading(eyebrow, heading, intro)}
     <div class="route-grid">
       ${cards
         .map(
-          (card) => `<article class="route-card">
+          (card) => `<article class="route-card${hoverClass}">
         <small>${escapeHtml(card.eyebrow)}</small>
         <h3>${escapeHtml(card.title)}</h3>
         <p>${escapeHtml(card.copy)}</p>
@@ -3215,9 +3222,9 @@ function renderQuoteStrip({ id = '', eyebrow, heading, copy, primaryCta, seconda
         </div>
       </div>
       <div class="cta-cluster" data-generated-cta="bottom" data-generated-page-type="${escapeAttribute(pageType)}">
-        <a class="button button-primary" href="${escapeAttribute(normalizeInternalHref(primaryCta.href))}">${escapeHtml(primaryCta.label)}</a>
-        <a class="button button-secondary" href="${escapeAttribute(normalizeInternalHref(secondaryCta.href))}">${escapeHtml(secondaryCta.label)}</a>
-        <a class="button button-secondary" href="tel:+61433819989">Call 0433 819 989</a>
+        <a class="button button-primary hvr-grow" href="${escapeAttribute(normalizeInternalHref(primaryCta.href))}">${escapeHtml(primaryCta.label)}</a>
+        <a class="button button-secondary hvr-grow" href="${escapeAttribute(normalizeInternalHref(secondaryCta.href))}">${escapeHtml(secondaryCta.label)}</a>
+        <a class="button button-secondary hvr-pulse" href="tel:+61433819989">Call 0433 819 989</a>
       </div>
     </div>
   </div>

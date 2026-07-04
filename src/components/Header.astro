@@ -33,7 +33,7 @@ import { businessIdentity } from '../../site-src/data/business.mjs';
     </a>
 
     <nav class="desktop-nav" aria-label="Primary">
-      <a class="nav-link" href="/">Home</a>
+      <a class="nav-link hvr-underline-from-center" href="/">Home</a>
       <details class="nav-group">
         <summary>Services</summary>
         <div class="nav-panel">
@@ -94,7 +94,7 @@ import { businessIdentity } from '../../site-src/data/business.mjs';
           </a>
         </div>
       </details>
-      <a class="nav-link" href="/blog/">Blog</a>
+      <a class="nav-link hvr-underline-from-center" href="/blog/">Blog</a>
       <details class="nav-group">
         <summary>Prices</summary>
         <div class="nav-panel">
@@ -120,20 +120,20 @@ import { businessIdentity } from '../../site-src/data/business.mjs';
           </a>
         </div>
       </details>
-      <a class="nav-link" href="/about/">About</a>
-      <a class="nav-link" href="/contact-us/">Contact</a>
+      <a class="nav-link hvr-underline-from-center" href="/about/">About</a>
+      <a class="nav-link hvr-underline-from-center" href="/contact-us/">Contact</a>
     </nav>
 
     <div class="header-actions">
-      <a class="header-phone" href={`tel:${businessIdentity.phone.tel}`}>{businessIdentity.phone.display}</a>
-      <a class="button button-primary" href="/contact-us/#quote-form">Get Fixed-Price Quote</a>
+      <a class="header-phone hvr-pulse" href={`tel:${businessIdentity.phone.tel}`}>{businessIdentity.phone.display}</a>
+      <a class="button button-primary hvr-grow" href="/contact-us/#quote-form">Get Fixed-Price Quote</a>
     </div>
   </div>
 
   <nav class="mobile-nav" aria-label="Mobile">
     <div class="container mobile-nav-top">
-      <a class="button button-secondary header-phone mobile-nav-call" href={`tel:${businessIdentity.phone.tel}`}>Call {businessIdentity.phone.display}</a>
-      <a class="button button-primary mobile-nav-quote" href="/contact-us/#quote-form">Get Fixed-Price Quote</a>
+      <a class="button button-secondary header-phone mobile-nav-call hvr-pulse" href={`tel:${businessIdentity.phone.tel}`}>Call {businessIdentity.phone.display}</a>
+      <a class="button button-primary mobile-nav-quote hvr-grow" href="/contact-us/#quote-form">Get Fixed-Price Quote</a>
     </div>
     <details>
       <summary class="mobile-menu-trigger" aria-controls="mobile-nav-panel" aria-expanded="false">Menu</summary>

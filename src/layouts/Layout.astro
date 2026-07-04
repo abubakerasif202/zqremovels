@@ -1,4 +1,5 @@
 ---
+import 'hover.css/css/hover-min.css';
 import '../styles/premium-site.css';
 
 export interface Props {
@@ -12,11 +13,35 @@ const { headHtml, bodyTopHtml, layout, bodyClasses = [] } = Astro.props;
 const pageBodyClasses = ['bg-navy', 'text-slate-100', ...bodyClasses];
 
 // Get tracking IDs from environment variables
-const gaId = import.meta.env.VITE_GA_MEASUREMENT_ID || process.env.VITE_GA_MEASUREMENT_ID || import.meta.env.GA_MEASUREMENT_ID || process.env.GA_MEASUREMENT_ID;
-const gtmId = import.meta.env.VITE_GTM_ID || process.env.VITE_GTM_ID || import.meta.env.GTM_ID || process.env.GTM_ID;
-const googleAdsConversionId = import.meta.env.VITE_GOOGLE_ADS_CONVERSION_ID || process.env.VITE_GOOGLE_ADS_CONVERSION_ID || import.meta.env.GOOGLE_ADS_CONVERSION_ID || process.env.GOOGLE_ADS_CONVERSION_ID;
-const googleAdsLeadLabel = import.meta.env.VITE_GOOGLE_ADS_LEAD_LABEL || process.env.VITE_GOOGLE_ADS_LEAD_LABEL || import.meta.env.GOOGLE_ADS_LEAD_LABEL || process.env.GOOGLE_ADS_LEAD_LABEL;
-const metaPixelId = import.meta.env.VITE_META_PIXEL_ID || process.env.VITE_META_PIXEL_ID || import.meta.env.META_PIXEL_ID || process.env.META_PIXEL_ID;
+const gaId =
+  import.meta.env.VITE_GA_MEASUREMENT_ID ||
+  process.env.VITE_GA_MEASUREMENT_ID ||
+  import.meta.env.GA_MEASUREMENT_ID ||
+  process.env.GA_MEASUREMENT_ID;
+
+const gtmId =
+  import.meta.env.VITE_GTM_ID ||
+  process.env.VITE_GTM_ID ||
+  import.meta.env.GTM_ID ||
+  process.env.GTM_ID;
+
+const googleAdsConversionId =
+  import.meta.env.VITE_GOOGLE_ADS_CONVERSION_ID ||
+  process.env.VITE_GOOGLE_ADS_CONVERSION_ID ||
+  import.meta.env.GOOGLE_ADS_CONVERSION_ID ||
+  process.env.GOOGLE_ADS_CONVERSION_ID;
+
+const googleAdsLeadLabel =
+  import.meta.env.VITE_GOOGLE_ADS_LEAD_LABEL ||
+  process.env.VITE_GOOGLE_ADS_LEAD_LABEL ||
+  import.meta.env.GOOGLE_ADS_LEAD_LABEL ||
+  process.env.GOOGLE_ADS_LEAD_LABEL;
+
+const metaPixelId =
+  import.meta.env.VITE_META_PIXEL_ID ||
+  process.env.VITE_META_PIXEL_ID ||
+  import.meta.env.META_PIXEL_ID ||
+  process.env.META_PIXEL_ID;
 
 const trackingConfig = {
   gaMeasurementId: gaId || null,
@@ -26,9 +51,11 @@ const trackingConfig = {
   metaPixelId: metaPixelId || null,
 };
 
-const trackingConfigStr = JSON.stringify(Object.fromEntries(
-  Object.entries(trackingConfig).filter(([, value]) => Boolean(value)),
-));
+const trackingConfigStr = JSON.stringify(
+  Object.fromEntries(
+    Object.entries(trackingConfig).filter(([, value]) => Boolean(value)),
+  ),
+);
 ---
 <!doctype html>
 <html lang="en-AU">
@@ -37,9 +64,13 @@ const trackingConfigStr = JSON.stringify(Object.fromEntries(
       <>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
       </>
     )}
+
     <!-- Inject SEO/JSON-LD/OG tags from legacy generator -->
     <Fragment set:html={headHtml} />
 
@@ -94,23 +125,35 @@ const trackingConfigStr = JSON.stringify(Object.fromEntries(
       `} />
     )}
   </head>
+
   <body class:list={pageBodyClasses}>
     {gtmId && (
       <noscript>
-        <iframe src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`} height="0" width="0" style="display:none;visibility:hidden" />
+        <iframe
+          src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+          height="0"
+          width="0"
+          style="display:none;visibility:hidden"
+        />
       </noscript>
     )}
+
     {bodyTopHtml && <Fragment set:html={bodyTopHtml} />}
+
     {layout === 'standard' && (
       <a class="skip-link" href="#main-content">Skip to content</a>
     )}
-    
+
     <slot />
 
     {layout === 'standard' && (
       <div class="sticky-mobile-cta" id="sticky-cta">
-        <a class="button button-secondary" href="tel:+61433819989">Call 0433 819 989</a>
-        <a class="button button-primary" href="/contact-us/#quote-form">Get Fixed-Price Quote</a>
+        <a class="button button-secondary hvr-pulse" href="tel:+61433819989">
+          Call 0433 819 989
+        </a>
+        <a class="button button-primary hvr-grow" href="/contact-us/#quote-form">
+          Get Fixed-Price Quote
+        </a>
       </div>
     )}
 

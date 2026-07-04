@@ -7847,3 +7847,49 @@ main :where(h1, h2, h3) { text-wrap: balance; }
     transform: none !important;
   }
 }
+
+.button,
+.button-cta,
+.button-primary,
+.button-secondary,
+.service-card,
+.nav-panel-link {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.button:hover,
+.button-cta:hover,
+.button-primary:hover,
+.button-secondary:hover {
+  transform: translateY(-3px) scale(1.02);
+}
+
+.service-card:hover,
+.nav-panel-link:hover {
+  transform: translateY(-4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .button-cta,
+  .button-primary,
+  .button-secondary,
+  .service-card,
+  .nav-panel-link {
+    transition: none;
+  }
+
+  .button:hover,
+  .button-cta:hover,
+  .button-primary:hover,
+  .button-secondary:hover,
+  .service-card:hover,
+  .nav-panel-link:hover {
+    transform: none;
+  }
+}
+
