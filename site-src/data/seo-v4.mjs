@@ -941,7 +941,7 @@ const suburbSeoOverrides = {
   },
   'malvern': {
     title: 'Malvern Removalists | Local Furniture Movers Adelaide',
-    description: 'Book trusted Malvern removalists for house moves, apartment moves, furniture removals, and packing support. Get a clear fixed-price moving quote from ZQ Removals.',
+    description: 'Book trusted Malvern removalists for house moves, apartment moves, furniture removals, packing support, access planning, and a clear fixed-price moving quote.',
   },
   'medindie': {
     title: 'Medindie Removalists | Premium Home Movers Adelaide',
@@ -1851,7 +1851,7 @@ const commercialPages = [
   },
   {
     slug: 'movers-and-packers-adelaide',
-    title: 'Movers and Packers Adelaide | Fixed-Price Packing & Moving',
+    title: 'Movers and Packers Adelaide | Packing & Moving',
     description: 'Movers and packers Adelaide for professional home packing, unpacking, and moving services. Get a fixed-price quote with verified local packing crews.',
     canonical: '/movers-and-packers-adelaide/',
     type: 'money',
@@ -1873,7 +1873,7 @@ const commercialPages = [
   },
   {
     slug: 'small-removals-adelaide',
-    title: 'Small Removals Adelaide | Micro & Single Item Movers',
+    title: 'Small Removals Adelaide | Single Item Movers',
     description: 'Small removals Adelaide for apartments, study rooms, single heavy items, and small loads. Safe handling, access planning, and transparent fixed prices.',
     canonical: '/small-removals-adelaide/',
     type: 'money',
@@ -4781,11 +4781,11 @@ function makeCommercialPage(page) {
       description: 'Storage-friendly Adelaide removals for moves that include a storage stop, staged delivery, or a split handover relocation plan.',
     },
     'movers-and-packers-adelaide': {
-      title: 'Movers and Packers Adelaide | Fixed-Price Packing & Moving',
+      title: 'Movers and Packers Adelaide | Packing & Moving',
       description: 'Movers and packers Adelaide for professional home packing, unpacking, and moving services. Get a fixed-price quote with verified local packing crews.',
     },
     'small-removals-adelaide': {
-      title: 'Small Removals Adelaide | Micro & Single Item Movers',
+      title: 'Small Removals Adelaide | Single Item Movers',
       description: 'Small removals Adelaide for apartments, study rooms, single heavy items, and small loads. Safe handling, access planning, and transparent fixed prices.',
     },
     'removalists-adelaide-prices': {

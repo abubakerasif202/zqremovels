@@ -291,6 +291,9 @@ test('key titles and descriptions stay within safe SEO length guardrails', () =>
     ['adelaide-to-sydney-removalists/index.html', 60, 160],
     ['adelaide-to-brisbane-removals/index.html', 70, 160],
     ['adelaide-to-melbourne-removalists/index.html', 60, 160],
+    ['movers-and-packers-adelaide/index.html', 65, 165],
+    ['small-removals-adelaide/index.html', 65, 165],
+    ['removalists-adelaide-prices/index.html', 65, 165],
   ];
 
   for (const [output, maxTitle, maxDescription] of keyPages) {
@@ -299,6 +302,15 @@ test('key titles and descriptions stay within safe SEO length guardrails', () =>
     assert.ok(page.title.length <= maxTitle, `${output} title is too long: ${page.title.length}`);
     assert.ok(page.description.length <= maxDescription, `${output} description is too long: ${page.description.length}`);
   }
+});
+
+test('homepage pricing cluster links to Adelaide prices page for crawl discovery', () => {
+  const homepage = readDist('index.html');
+  assert.match(
+    homepage,
+    /href="\/removalists-adelaide-prices\/"/,
+    'homepage pricing cluster must link to removalists Adelaide prices',
+  );
 });
 
 test('priority suburb and interstate pages use the requested high-intent metadata', () => {
