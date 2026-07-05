@@ -7893,3 +7893,395 @@ main :where(h1, h2, h3) { text-wrap: balance; }
   }
 }
 
+/* Premium readability pass: stronger hierarchy and consistent surfaces across the site. */
+main {
+  font-size: 1.03rem;
+}
+
+main :where(p, li, td, dd) {
+  color: var(--color-text-soft);
+  font-size: 1rem;
+  line-height: 1.72;
+}
+
+main :where(h1, h2, h3, h4) {
+  color: var(--color-heading);
+}
+
+main :where(h1) {
+  letter-spacing: -0.045em;
+}
+
+main :where(h2) {
+  letter-spacing: -0.03em;
+}
+
+.section-heading,
+.home-redesign-section-heading,
+.hero-copy,
+.page-hero-copy,
+.home-editorial-copy,
+.quote-form-premium,
+.footer-panel,
+.footer-brand-panel {
+  text-wrap: pretty;
+}
+
+.section-heading > p,
+.home-redesign-section-heading > p,
+.hero-copy > p,
+.page-hero-copy > p {
+  font-size: 1.06rem;
+  line-height: 1.72;
+  max-width: 44rem;
+}
+
+.section-heading h2,
+.home-redesign-section-heading h2 {
+  margin-bottom: 0.65rem;
+  font-size: clamp(2rem, 4.6vw, 3.5rem);
+  line-height: 1.03;
+}
+
+.eyebrow {
+  font-size: 0.8rem;
+  line-height: 1.1;
+}
+
+.button,
+.button-primary,
+.button-secondary,
+.button-cta {
+  min-height: 3.15rem;
+  border-radius: 999px;
+}
+
+.button-primary,
+.button-cta {
+  color: #fffdf8 !important;
+}
+
+.button-secondary {
+  border-color: currentColor;
+}
+
+.site-header,
+.mobile-nav,
+.footer-shell,
+.quote-form-premium,
+.hero-shell,
+.hero-shell-home,
+.home-redesign-section,
+.home-redesign-final-cta,
+.section,
+.section-soft,
+.section-mist,
+.section-dark,
+.section-dark-plan,
+.section-reassurance-pull {
+  position: relative;
+}
+
+.site-header {
+  backdrop-filter: blur(14px);
+}
+
+.utility-bar {
+  font-size: 0.85rem;
+}
+
+.header-main {
+  gap: 1rem;
+}
+
+.brand-copy strong {
+  font-size: 1.12rem;
+}
+
+.brand-copy span,
+.utility-proof,
+.header-phone,
+.nav-link,
+.nav-group summary {
+  font-size: 0.84rem;
+}
+
+.header-actions .button {
+  min-width: 11rem;
+}
+
+.mobile-nav-top .button {
+  min-width: 0;
+}
+
+.mobile-menu-trigger,
+.mobile-nav-link,
+.mobile-nav-panel :where(a, summary) {
+  font-size: 0.95rem;
+}
+
+.nav-panel-link {
+  padding: 1rem;
+}
+
+.nav-panel-link .nav-link-desc {
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.hero-shell:not(.hero-shell-home) .hero-copy h1,
+.hero-shell:not(.hero-shell-home) .page-hero-copy h1,
+body.page-guide-article .hero-copy h1 {
+  max-width: 12ch;
+  line-height: 0.98;
+}
+
+.hero-shell:not(.hero-shell-home) .hero-copy p,
+.hero-shell:not(.hero-shell-home) .page-hero-copy p {
+  color: var(--color-text-soft);
+}
+
+.home-editorial-trust h2,
+.home-premium-stats-intro h2,
+.home-premium-comparison h2,
+.home-redesign-final-cta h2 {
+  line-height: 1.04;
+}
+
+.home-editorial-trust-grid strong,
+.home-editorial-process-grid strong,
+.home-premium-feature-grid strong,
+.home-premium-stats-grid strong,
+.home-premium-comparison-card strong,
+.quote-form-premium label span,
+.quote-form-premium legend {
+  color: var(--color-text);
+}
+
+.home-editorial-trust-grid span,
+.home-editorial-service > span:not(.home-editorial-service-icon),
+.home-editorial-service-copy > span,
+.home-editorial-process-grid p,
+.home-premium-feature-grid p,
+.home-premium-stats-intro p,
+.home-premium-comparison-card p,
+.review-card p,
+.testimonial-card p {
+  color: var(--color-text-soft);
+  font-size: 0.98rem;
+  line-height: 1.68;
+}
+
+.home-premium-feature-grid article,
+.home-premium-stats-grid .stat,
+.home-premium-comparison-card > div,
+.review-card,
+.testimonial-card,
+.guide-card,
+.route-card,
+.service-card,
+.value-card,
+.proof-card,
+.home-editorial-service,
+.home-redesign-review-grid article,
+.home-redesign-route-grid a,
+.home-redesign-guide-grid a,
+.home-route-columns article,
+.home-final-cta-shell,
+.review-summary-card,
+.quote-form-premium,
+.footer-panel {
+  border-radius: var(--ui-radius);
+  border: 1px solid var(--ui-border);
+  background: var(--color-home-surface-strong);
+  box-shadow: var(--ui-shadow);
+}
+
+.home-premium-feature-grid article:hover,
+.home-premium-stats-grid .stat:hover,
+.home-premium-comparison-card > div:hover,
+.review-card:hover,
+.testimonial-card:hover,
+.guide-card:hover,
+.route-card:hover,
+.service-card:hover,
+.value-card:hover,
+.proof-card:hover,
+.home-editorial-service:hover,
+.home-redesign-review-grid article:hover,
+.home-redesign-route-grid a:hover,
+.home-redesign-guide-grid a:hover,
+.home-route-columns article:hover {
+  box-shadow: var(--ui-shadow-hover);
+}
+
+.quote-form-premium input,
+.quote-form-premium select,
+.quote-form-premium textarea {
+  min-height: 3.4rem;
+  font-size: 1rem;
+}
+
+.quote-form-premium textarea {
+  min-height: 8.75rem;
+}
+
+.quote-form-premium .field-note,
+.quote-form-premium .form-note,
+.form-feedback {
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.footer-shell {
+  background:
+    linear-gradient(180deg, rgba(10, 20, 36, 0.98), rgba(10, 20, 36, 0.99)),
+    var(--color-brand-navy);
+}
+
+.footer-brand-title,
+.footer-title {
+  line-height: 1.08;
+}
+
+.footer-panel p,
+.footer-link-list a,
+.footer-bottom {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.footer-link-list a:hover,
+.footer-bottom a:hover {
+  color: var(--color-brand-gold-light);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.sticky-mobile-cta {
+  backdrop-filter: blur(16px);
+}
+
+body.page-home .home-editorial-hero {
+  background:
+    radial-gradient(circle at top left, rgba(201, 164, 93, 0.12), transparent 26%),
+    linear-gradient(180deg, #10231f 0%, #0d1c32 100%);
+}
+
+body.page-home .home-editorial-hero .lede,
+body.page-home .home-editorial-hero p,
+body.page-home .home-editorial-trust-grid span,
+body.page-home .home-editorial-process-grid p {
+  font-size: 1.02rem;
+}
+
+body.page-home .home-editorial-trust,
+body.page-home .home-editorial-process,
+body.page-home .home-editorial-services,
+body.page-home .home-redesign-gallery-section,
+body.page-home .home-redesign-quote,
+body.page-home .home-redesign-faq,
+body.page-home .home-premium-stats,
+body.page-home .home-premium-comparison {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.98));
+}
+
+body.page-home .home-redesign-section-heading p,
+body.page-home .home-redesign-review-lead p,
+body.page-home .home-redesign-quote p,
+body.page-home .home-editorial-trust-grid span,
+body.page-home .home-redesign-final-cta p {
+  max-width: 48rem;
+}
+
+body.page-home .home-redesign-gallery figure,
+body.page-home .home-redesign-review-grid article,
+body.page-home .home-redesign-route-grid a,
+body.page-home .home-redesign-guide-grid a {
+  overflow: hidden;
+}
+
+body.page-home .home-redesign-gallery figcaption,
+body.page-home .home-redesign-review-grid .card-body,
+body.page-home .home-redesign-route-grid a,
+body.page-home .home-redesign-guide-grid a {
+  font-size: 0.98rem;
+}
+
+.hero-link-stack,
+.hero-route-card,
+.hero-media-caption {
+  border-radius: var(--ui-radius);
+}
+
+@media (max-width: 759px) {
+  main {
+    font-size: 1rem;
+  }
+
+  .section-heading h2,
+  .home-redesign-section-heading h2,
+  body.page-home .home-redesign-hero.home-editorial-hero h1,
+  .hero-shell:not(.hero-shell-home) .hero-copy h1,
+  .page-hero-copy h1 {
+    font-size: clamp(2.3rem, 10vw, 3.4rem);
+  }
+
+  .section-heading > p,
+  .home-redesign-section-heading > p,
+  .hero-copy > p,
+  .page-hero-copy > p,
+  .home-editorial-trust-grid span,
+  .home-editorial-process-grid p,
+  .home-redesign-review-grid p {
+    font-size: 0.98rem;
+  }
+
+  .header-actions .button,
+  .mobile-nav-top .button {
+    width: 100%;
+  }
+
+  .footer-panel p,
+  .footer-link-list a,
+  .footer-bottom {
+    font-size: 0.95rem;
+  }
+
+  .quote-form-premium input,
+  .quote-form-premium select,
+  .quote-form-premium textarea {
+    min-height: 3.5rem;
+  }
+}
+
+@media print {
+  .home-editorial-hero,
+  .home-redesign-section,
+  .home-redesign-final-cta,
+  .hero-shell,
+  .hero-shell-home,
+  .section,
+  .section-soft,
+  .section-mist,
+  .section-dark,
+  .section-dark-plan,
+  .section-reassurance-pull {
+    background: #ffffff !important;
+  }
+
+  .eyebrow {
+    color: #111827 !important;
+  }
+
+  .home-premium-feature-grid article,
+  .home-premium-stats-grid .stat,
+  .home-premium-comparison-card > div,
+  .quote-form-premium,
+  .footer-panel,
+  .hero-shell,
+  .hero-shell-home {
+    box-shadow: none !important;
+  }
+}
