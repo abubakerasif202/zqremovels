@@ -1,3 +1,50 @@
+/* ============================================================
+   Tailwind CSS v4 + daisyUI v5 — CSS-first configuration
+   @tailwindcss/vite activates Tailwind from this @import.
+   daisyUI v5 is imported directly as a CSS bundle.
+   ============================================================ */
+@import "tailwindcss";
+@import "daisyui/daisyui.css";
+
+/* ============================================================
+   ZQ Removals custom daisyUI theme — overrides the default light theme
+   Applied via data-theme="zqtheme" on <html>
+   ============================================================ */
+@layer base {
+  [data-theme="zqtheme"] {
+    color-scheme: light;
+    /* Deep navy primary — brand authority */
+    --color-primary: oklch(22% 0.06 254);
+    --color-primary-content: oklch(98% 0 0);
+    /* Teal secondary — trust signal */
+    --color-secondary: oklch(44% 0.11 187);
+    --color-secondary-content: oklch(98% 0 0);
+    /* Amber accent — CTA warmth */
+    --color-accent: oklch(75% 0.18 75);
+    --color-accent-content: oklch(20% 0.04 75);
+    /* Neutral dark */
+    --color-neutral: oklch(18% 0.01 264);
+    --color-neutral-content: oklch(95% 0 0);
+    /* Light base surfaces */
+    --color-base-100: oklch(100% 0 0);
+    --color-base-200: oklch(97.5% 0.002 248);
+    --color-base-300: oklch(92% 0.005 248);
+    --color-base-content: oklch(12% 0.015 264);
+    /* Semantic */
+    --color-info: oklch(61% 0.19 236);
+    --color-success: oklch(58% 0.17 155);
+    --color-warning: oklch(75% 0.18 75);
+    --color-error: oklch(57% 0.2 27);
+    /* Radii */
+    --radius-selector: 0.375rem;
+    --radius-field: 0.375rem;
+    --radius-box: 0.5rem;
+  }
+}
+
+/* ============================================================
+   ZQ Custom Fonts
+   ============================================================ */
 @font-face {
   font-family: "Inter";
   font-style: normal;

@@ -21,11 +21,16 @@ const currentYear = new Date().getFullYear();
         <a href={`tel:${businessIdentity.phone.tel}`} itemprop="telephone">{businessIdentity.phone.display}</a>
       </address>
       <p class="field-note">Business details available on request. Ask about cover, building requirements, and move protection before booking.</p>
+
+      <div class="mt-4 flex gap-2 flex-wrap">
+        <a href="/contact-us/#quote-form" class="btn btn-primary btn-sm">Get Free Quote</a>
+        <a href={`tel:${businessIdentity.phone.tel}`} class="btn btn-outline btn-sm">{businessIdentity.phone.display}</a>
+      </div>
     </div>
 
     <div class="footer-link-groups">
       <div class="footer-panel">
-        <h2 class="footer-title">Services</h2>
+        <h2 class="footer-title footer-title-styled">Services</h2>
         <ul class="footer-link-list">
           <li><a href="/house-removals-adelaide/">Home move services</a></li>
           <li><a href="/furniture-removalists-adelaide/">Furniture handling support</a></li>
@@ -39,7 +44,7 @@ const currentYear = new Date().getFullYear();
       </div>
 
       <div class="footer-panel">
-        <h2 class="footer-title">Areas</h2>
+        <h2 class="footer-title footer-title-styled">Areas</h2>
         <ul class="footer-link-list">
           <li><a href="/about/">About ZQ Removals</a></li>
           <li><a href="/removalists-adelaide/">Adelaide moving coverage</a></li>
@@ -55,7 +60,7 @@ const currentYear = new Date().getFullYear();
       </div>
 
       <div class="footer-panel">
-        <h2 class="footer-title">Planning</h2>
+        <h2 class="footer-title footer-title-styled">Planning</h2>
         <ul class="footer-link-list">
           <li><a href="/adelaide-moving-guides/">Adelaide Moving Guides</a></li>
           <li><a href="/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/">How Much Do Removalists Cost?</a></li>
@@ -82,21 +87,19 @@ const currentYear = new Date().getFullYear();
       </div>
 
       <div class="footer-panel" data-social-section hidden>
-        <h2 class="footer-title">Social</h2>
+        <h2 class="footer-title footer-title-styled">Social</h2>
         <ul class="footer-link-list" data-social-links></ul>
       </div>
     </div>
   </div>
 
   <div class="container footer-bottom">
-    <span>&copy; <span data-year>{currentYear}</span> {businessIdentity.name} &middot; Adelaide Relocation & Logistics.</span>
+    <span>&copy; <span data-year>{currentYear}</span> {businessIdentity.name} &middot; Adelaide Relocation &amp; Logistics.</span>
     <div class="footer-bottom-links">
       <a href="/privacy-policy/">Privacy</a>
       <a href="/terms-and-conditions/">Terms</a>
-      <a href="/insurance-and-coverage/">Insurance & Coverage</a>
+      <a href="/insurance-and-coverage/">Insurance &amp; Coverage</a>
       <a href="/sitemap.xml">Sitemap</a>
     </div>
   </div>
 </footer>
-
-
