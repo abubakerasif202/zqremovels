@@ -12,11 +12,16 @@ test('editorial homepage direction stays generator-native and production-safe', 
   for (const html of [source, built]) {
     assert.match(html, /class="home-redesign-hero od-hero"/);
     assert.match(html, /class="od-hero-assurance"/);
+    assert.match(html, /class="od-intake-strip"/);
     assert.match(html, /class="od-service-grid"/);
     assert.match(html, /class="od-process-list"/);
     assert.match(html, /class="od-review-summary home-redesign-rating-box"/);
+    assert.match(html, /class="od-proof-cards"/);
+    assert.match(html, /class="od-quote-expectations"/);
     assert.match(html, /class="od-quote-card-heading"/);
     assert.match(html, /54 Google reviews/i);
+    assert.match(html, /CBD apartment/i);
+    assert.match(html, /Get a scoped quote/i);
     assert.match(html, /src="\/media\/home-local-hero-branded\.webp"/);
     assert.match(html, /href="\/services\/house-removals-adelaide\/"/);
     assert.match(html, /href="\/services\/interstate-removals-adelaide\/"/);
@@ -59,6 +64,9 @@ test('full-site premium rebuild keeps the new brand promise and accessible desig
     assert.match(css, /--premium-orange:\s*#ff6426/);
     assert.match(css, /--font-heading:\s*"Fraunces"/);
     assert.match(css, /body\.page-home \.od-hero-statement/);
+    assert.match(css, /body\.page-home \.od-intake-strip/);
+    assert.match(css, /body\.page-home \.od-proof-cards/);
+    assert.match(css, /body\.page-home \.od-quote-expectations/);
     assert.match(css, /@media \(max-width: 759px\)/);
     assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
   }

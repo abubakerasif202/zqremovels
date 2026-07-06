@@ -9931,7 +9931,14 @@ body.page-home .od-hero-grid {
   gap: clamp(3rem, 7vw, 7rem);
 }
 
-body.page-home .od-hero-copy { max-width: 52rem; }
+body.page-home .od-hero-copy {
+  max-width: 52rem;
+  min-width: 0;
+}
+
+body.page-home .od-hero-media {
+  min-width: 0;
+}
 
 body.page-home .od-hero h1 {
   margin-bottom: 1.25rem;
@@ -9973,6 +9980,34 @@ body.page-home .od-hero-assurance span {
   border-radius: 0;
   color: rgba(255, 253, 248, 0.82);
   background: transparent;
+}
+
+body.page-home .od-intake-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  max-width: 39rem;
+  margin-top: 1.35rem;
+  border: 1px solid var(--premium-line-dark);
+  background: rgba(255, 253, 248, 0.08);
+}
+
+body.page-home .od-intake-strip span {
+  display: grid;
+  min-height: 3.15rem;
+  place-items: center;
+  padding: 0.65rem 0.5rem;
+  border-right: 1px solid var(--premium-line-dark);
+  color: var(--premium-lime);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+body.page-home .od-intake-strip span:last-child {
+  border-right: 0;
 }
 
 body.page-home .od-proof-row {
@@ -10154,6 +10189,40 @@ body.page-home .od-review-summary strong {
 
 body.page-home .od-review-summary span { color: rgba(255, 253, 248, 0.72); }
 
+body.page-home .od-proof-cards {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--premium-line);
+}
+
+body.page-home .od-proof-cards article {
+  display: grid;
+  align-content: space-between;
+  min-height: 13rem;
+  padding: 1.35rem;
+  background: var(--premium-paper);
+}
+
+body.page-home .od-proof-cards span {
+  color: var(--premium-orange-dark);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+body.page-home .od-proof-cards strong {
+  max-width: 21rem;
+  color: var(--premium-ink);
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+}
+
 body.page-home .od-quote-section {
   background:
     linear-gradient(105deg, rgba(7, 23, 19, 0.97), rgba(7, 23, 19, 0.72)),
@@ -10166,6 +10235,12 @@ body.page-home .od-quote-card {
   box-shadow: 1.25rem 1.25rem 0 var(--premium-orange);
 }
 
+body.page-home .od-quote-card .button.wide {
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
 body.page-home .od-quote-card-heading {
   border-bottom-color: var(--premium-line);
   border-radius: 0;
@@ -10173,6 +10248,29 @@ body.page-home .od-quote-card-heading {
 }
 
 body.page-home .od-quote-card-heading :is(span, strong) { color: var(--premium-ink); }
+
+body.page-home .od-quote-expectations {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--premium-line);
+}
+
+body.page-home .od-quote-expectations span {
+  display: grid;
+  min-height: 4rem;
+  place-items: center;
+  padding: 0.9rem;
+  color: var(--premium-ink);
+  background: var(--premium-cream);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.075em;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 body.page-home .od-final-cta { background: var(--premium-orange); }
 body.page-home .od-final-cta .od-kicker,
 body.page-home .od-final-shell h2 { color: var(--premium-ink); }
@@ -10223,6 +10321,7 @@ body.page-home .od-final-cta .button-primary {
   .section-heading h2,
   .od-section-heading h2 { font-size: clamp(2.55rem, 13vw, 4rem); }
   body.page-home .od-hero { padding-top: 3.75rem; }
+  body.page-home .od-hero-copy { max-width: 100%; }
   body.page-home .od-hero-statement { font-size: clamp(4rem, 21vw, 6.3rem); }
   body.page-home .od-hero-actions { display: grid; grid-template-columns: 1fr; }
   body.page-home .od-hero-assurance span { width: 100%; justify-content: flex-start; }
@@ -10233,9 +10332,20 @@ body.page-home .od-final-cta .button-primary {
   body.page-home .od-hero-note { right: -0.5rem; bottom: 0.75rem; max-width: calc(100% - 2rem); }
   body.page-home .od-trust-panel,
   body.page-home .od-service-grid,
+  body.page-home .od-proof-cards,
   body.page-home .od-gallery { grid-template-columns: 1fr; }
+  body.page-home .od-intake-strip,
+  body.page-home .od-quote-expectations { grid-template-columns: 1fr; }
+  body.page-home .od-intake-strip span,
+  body.page-home .od-quote-expectations span {
+    border-right: 0;
+    border-bottom: 1px solid var(--premium-line-dark);
+  }
+  body.page-home .od-intake-strip span:last-child,
+  body.page-home .od-quote-expectations span:last-child { border-bottom: 0; }
   body.page-home .od-trust-panel article { min-height: 11rem; }
   body.page-home .od-service-card-feature { min-height: 26rem; grid-row: auto; }
+  body.page-home .od-proof-cards article { min-height: 10rem; }
   body.page-home .od-gallery figure:nth-child(2) { transform: none; }
   body.page-home .od-review-summary,
   body.page-home .od-quote-card { box-shadow: 0.65rem 0.65rem 0 var(--premium-orange); }
