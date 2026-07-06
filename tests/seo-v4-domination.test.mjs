@@ -67,7 +67,7 @@ test('homepage metadata, schema, and crawl directives match v4 targets', async (
   assert.ok(description.length >= 120 && description.length <= 162, `description length out of range: ${description.length}`);
   assert.equal(h1Count, 1);
   assert.match(homepage, /<link rel="canonical" href="https:\/\/zqremovals\.au\/" \/>/);
-  assert.match(homepage, /<html lang="en-AU">/);
+  assert.match(homepage, /<html\b[^>]*lang="en-AU"[^>]*>/);
   assert.match(homepage, /"@type": "MovingCompany"/);
   assert.match(homepage, /"@type": "Organization"/);
   assert.match(homepage, /"@type": "WebSite"/);

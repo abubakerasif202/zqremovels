@@ -8896,3 +8896,694 @@ body.page-home .home-redesign-guide-grid a {
     box-shadow: none !important;
   }
 }
+
+/* Premium homepage finish: scoped to the active OD homepage system. */
+body.page-home {
+  --od-ink: #111827;
+  --od-muted: #4b5563;
+  --od-line: rgba(17, 24, 39, 0.12);
+  --od-soft: #f7f4ed;
+  --od-forest: #0b1f1c;
+  --od-forest-2: #153c35;
+  --od-copper: #9f6b2e;
+  --od-gold: #d7b36a;
+  --od-gold-soft: #fff4d8;
+  --od-shadow: 0 26px 70px rgba(17, 24, 39, 0.14);
+  --od-shadow-soft: 0 18px 45px rgba(17, 24, 39, 0.09);
+}
+
+body.page-home .site-header {
+  border-bottom: 1px solid rgba(215, 179, 106, 0.28);
+  background: rgba(255, 252, 245, 0.92);
+  box-shadow: 0 14px 38px rgba(17, 24, 39, 0.06);
+}
+
+body.page-home .utility-bar {
+  background: linear-gradient(90deg, #081816, #12362f);
+  color: rgba(255, 255, 255, 0.86);
+}
+
+body.page-home .button-primary,
+body.page-home .button-cta {
+  border-color: var(--od-gold);
+  background: linear-gradient(135deg, #f3d58a, #bd8634);
+  color: #111827 !important;
+  box-shadow: 0 15px 35px rgba(159, 107, 46, 0.24);
+}
+
+body.page-home .button-primary:hover,
+body.page-home .button-cta:hover {
+  border-color: #f7dc99;
+  background: linear-gradient(135deg, #ffe3a1, #c8913d);
+  box-shadow: 0 18px 42px rgba(159, 107, 46, 0.3);
+}
+
+body.page-home .button-secondary {
+  border-color: rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+body.page-home .button-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.14);
+}
+
+body.page-home .od-hero {
+  overflow: hidden;
+  padding: clamp(4.75rem, 8vw, 8rem) 0 clamp(4.25rem, 7vw, 7rem);
+  background:
+    linear-gradient(110deg, rgba(11, 31, 28, 0.98) 0%, rgba(13, 28, 50, 0.94) 52%, rgba(34, 49, 45, 0.9) 100%),
+    url("/media/home-local-hero-branded.webp") center / cover no-repeat;
+  color: #ffffff;
+}
+
+body.page-home .od-hero::after {
+  inset: auto 0 0;
+  height: 42%;
+  background: linear-gradient(180deg, transparent, rgba(11, 31, 28, 0.72));
+}
+
+body.page-home .od-hero-grid {
+  grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.78fr);
+  gap: clamp(2.25rem, 5vw, 5.5rem);
+  align-items: center;
+}
+
+body.page-home .od-hero-copy {
+  max-width: 46rem;
+}
+
+body.page-home .od-kicker {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.48rem 0.75rem;
+  border: 1px solid rgba(215, 179, 106, 0.36);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--od-gold-soft);
+  letter-spacing: 0.12em;
+}
+
+body.page-home .od-kicker::before {
+  width: 0.46rem;
+  height: 0.46rem;
+  border-radius: 999px;
+  background: var(--od-gold);
+  content: "";
+}
+
+body.page-home .od-hero h1 {
+  max-width: 10ch;
+  margin-top: 1.1rem;
+  color: #fffaf0;
+  font-size: clamp(4rem, 8vw, 7.6rem);
+  line-height: 0.9;
+  letter-spacing: -0.055em;
+}
+
+body.page-home .od-hero p {
+  max-width: 43rem;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+body.page-home .od-hero-lede {
+  margin-top: 1.25rem;
+  color: #ffffff;
+  font-size: clamp(1.16rem, 2.1vw, 1.48rem);
+  line-height: 1.45;
+}
+
+body.page-home .od-hero-actions {
+  margin-top: 1.8rem;
+}
+
+body.page-home .od-hero-assurance {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1.25rem;
+}
+
+body.page-home .od-hero-assurance span {
+  display: inline-flex;
+  min-height: 2.4rem;
+  align-items: center;
+  padding: 0.45rem 0.78rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.9rem;
+  font-weight: 750;
+}
+
+body.page-home .od-proof-row {
+  margin-top: 2rem;
+}
+
+body.page-home .od-proof-row div {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+  backdrop-filter: blur(18px);
+}
+
+body.page-home .od-proof-row dt {
+  color: #ffffff;
+}
+
+body.page-home .od-proof-row dd {
+  color: rgba(255, 255, 255, 0.74);
+}
+
+body.page-home .od-hero-media {
+  position: relative;
+}
+
+body.page-home .od-hero-3d {
+  position: absolute;
+  top: -2.1rem;
+  right: -1.6rem;
+  z-index: 2;
+  width: min(18rem, 42vw);
+  aspect-ratio: 1;
+  pointer-events: none;
+  perspective: 900px;
+}
+
+body.page-home .od-hero-3d-scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: odSceneFloat 7s ease-in-out infinite;
+}
+
+body.page-home .od-3d-route,
+body.page-home .od-3d-node,
+body.page-home .od-3d-box,
+body.page-home .od-3d-truck,
+body.page-home .od-3d-truck span {
+  position: absolute;
+  display: block;
+  transform-style: preserve-3d;
+}
+
+body.page-home .od-3d-route {
+  left: 16%;
+  width: 68%;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(255, 226, 158, 0.92), transparent);
+  box-shadow: 0 0 24px rgba(215, 179, 106, 0.55);
+}
+
+body.page-home .od-3d-route-a {
+  top: 45%;
+  transform: rotateX(64deg) rotateZ(-22deg) translateZ(2rem);
+}
+
+body.page-home .od-3d-route-b {
+  top: 56%;
+  transform: rotateX(64deg) rotateZ(22deg) translateZ(0.5rem);
+  opacity: 0.72;
+}
+
+body.page-home .od-3d-node {
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 2px solid rgba(255, 255, 255, 0.86);
+  border-radius: 999px;
+  background: var(--od-gold);
+  box-shadow: 0 0 20px rgba(215, 179, 106, 0.65);
+  animation: odNodePulse 2.8s ease-in-out infinite;
+}
+
+body.page-home .od-3d-node-a {
+  top: 38%;
+  left: 18%;
+  transform: translateZ(3.4rem);
+}
+
+body.page-home .od-3d-node-b {
+  top: 52%;
+  right: 18%;
+  animation-delay: 0.5s;
+  transform: translateZ(4.3rem);
+}
+
+body.page-home .od-3d-node-c {
+  right: 35%;
+  bottom: 25%;
+  animation-delay: 1s;
+  transform: translateZ(2.4rem);
+}
+
+body.page-home .od-3d-box {
+  width: 2.7rem;
+  height: 2.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 0.42rem;
+  background:
+    linear-gradient(135deg, rgba(255, 248, 225, 0.92), rgba(199, 139, 55, 0.88));
+  box-shadow: 0 22px 34px rgba(0, 0, 0, 0.28);
+}
+
+body.page-home .od-3d-box::before,
+body.page-home .od-3d-box::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(91, 57, 20, 0.24);
+  content: "";
+}
+
+body.page-home .od-3d-box::before {
+  transform: rotateY(90deg) translateZ(1.35rem);
+  transform-origin: right;
+}
+
+body.page-home .od-3d-box::after {
+  transform: rotateX(90deg) translateZ(1.35rem);
+  transform-origin: top;
+}
+
+body.page-home .od-3d-box-a {
+  left: 13%;
+  bottom: 25%;
+  transform: rotateX(58deg) rotateZ(-14deg) translateZ(2rem);
+}
+
+body.page-home .od-3d-box-b {
+  top: 19%;
+  right: 20%;
+  transform: rotateX(58deg) rotateZ(18deg) translateZ(3rem) scale(0.82);
+}
+
+body.page-home .od-3d-truck {
+  left: 34%;
+  top: 41%;
+  width: 6.6rem;
+  height: 3rem;
+  transform: rotateX(58deg) rotateZ(-10deg) translateZ(5rem);
+  animation: odTruckDrive 5.8s ease-in-out infinite;
+}
+
+body.page-home .od-3d-truck-body {
+  right: 0.35rem;
+  bottom: 0.72rem;
+  width: 4.3rem;
+  height: 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 0.36rem;
+  background: linear-gradient(135deg, #fff8e1, #d7b36a 54%, #9f6b2e);
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.28);
+}
+
+body.page-home .od-3d-truck-cabin {
+  left: 0.3rem;
+  bottom: 0.72rem;
+  width: 2rem;
+  height: 1.52rem;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 0.42rem 0.22rem 0.22rem 0.42rem;
+  background: linear-gradient(135deg, #173f38, #0b1f1c);
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.22);
+}
+
+body.page-home .od-3d-truck-wheel {
+  bottom: 0.28rem;
+  width: 0.78rem;
+  height: 0.78rem;
+  border: 2px solid #f7e6bd;
+  border-radius: 999px;
+  background: #111827;
+  box-shadow: 0 0 10px rgba(255, 226, 158, 0.36);
+}
+
+body.page-home .od-3d-truck-wheel-a {
+  left: 1.1rem;
+}
+
+body.page-home .od-3d-truck-wheel-b {
+  right: 1.1rem;
+}
+
+body.page-home .od-hero-media picture {
+  min-height: clamp(27rem, 45vw, 38rem);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 1.4rem;
+  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.34);
+}
+
+body.page-home .od-hero-media img,
+body.page-home .od-service-card-feature img,
+body.page-home .od-gallery img {
+  transform: scale(1.01);
+}
+
+body.page-home .od-hero-note {
+  right: 1.1rem;
+  bottom: 1.1rem;
+  left: 1.1rem;
+  max-width: none;
+  border: 1px solid rgba(215, 179, 106, 0.28);
+  border-radius: 1rem;
+  background: rgba(255, 252, 245, 0.94);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(16px);
+}
+
+body.page-home .od-band {
+  padding: clamp(4.75rem, 8vw, 7.5rem) 0;
+  background: #fffdf8;
+}
+
+body.page-home .od-band-light {
+  background:
+    linear-gradient(180deg, rgba(247, 244, 237, 0.92), rgba(255, 253, 248, 0.96));
+}
+
+body.page-home .od-section-heading h2 {
+  max-width: 14ch;
+  font-size: clamp(2.35rem, 5vw, 4.65rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+body.page-home .od-section-heading p {
+  max-width: 42rem;
+  margin-top: 1rem;
+  color: var(--od-muted);
+  font-size: 1.05rem;
+}
+
+body.page-home .od-service-grid {
+  gap: 1.15rem;
+}
+
+body.page-home .od-service-card,
+body.page-home .od-trust-panel article,
+body.page-home .od-link-panel a,
+body.page-home .od-process-list li,
+body.page-home .od-review-summary,
+body.page-home .od-quote-card,
+body.page-home .home-redesign-faq-list details {
+  border-color: var(--od-line);
+  border-radius: 1.05rem;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--od-shadow-soft);
+}
+
+body.page-home .od-service-card {
+  min-height: 15rem;
+  padding: 1.45rem;
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+body.page-home .od-service-card:hover,
+body.page-home .od-link-panel a:hover,
+body.page-home .od-process-list li:hover {
+  border-color: rgba(159, 107, 46, 0.34);
+  box-shadow: var(--od-shadow);
+  transform: translateY(-4px);
+}
+
+body.page-home .od-service-card-feature {
+  min-height: 32rem;
+  padding: 0;
+  border-radius: 1.25rem;
+}
+
+body.page-home .od-service-card-feature::after {
+  background: linear-gradient(180deg, rgba(11, 31, 28, 0.04), rgba(11, 31, 28, 0.88));
+}
+
+body.page-home .od-service-card-feature > span {
+  padding: 1.75rem;
+}
+
+body.page-home .od-service-card strong {
+  font-size: clamp(1.25rem, 2vw, 1.62rem);
+}
+
+body.page-home .od-process-list {
+  gap: 1rem;
+}
+
+body.page-home .od-process-list li {
+  grid-template-columns: 4.8rem 1fr;
+  padding: 1.55rem;
+}
+
+body.page-home .od-process-list span {
+  display: grid;
+  width: 3.2rem;
+  height: 3.2rem;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--od-forest);
+  color: var(--od-gold-soft);
+}
+
+body.page-home .od-link-panel {
+  gap: 0.9rem;
+}
+
+body.page-home .od-link-panel a {
+  min-height: 4.25rem;
+  align-items: center;
+  color: var(--od-forest);
+  transition: border-color 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+body.page-home .od-gallery-section {
+  background:
+    linear-gradient(135deg, rgba(11, 31, 28, 0.96), rgba(13, 28, 50, 0.98)),
+    url("/media/zq-operations-premium.webp") center / cover no-repeat;
+}
+
+body.page-home .od-gallery figure {
+  border-radius: 1.15rem;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.22);
+}
+
+body.page-home .od-gallery figcaption {
+  border-radius: 999px;
+  background: rgba(255, 252, 245, 0.94);
+}
+
+body.page-home .od-review-summary {
+  background:
+    linear-gradient(135deg, #ffffff, #fff7e4);
+}
+
+body.page-home .od-review-summary strong {
+  color: var(--od-forest);
+  letter-spacing: -0.06em;
+}
+
+body.page-home .od-quote-section {
+  background:
+    linear-gradient(115deg, rgba(11, 31, 28, 0.95), rgba(13, 28, 50, 0.88)),
+    url("/media/contact-quote-branded.webp") center / cover no-repeat;
+}
+
+body.page-home .od-quote-section .od-kicker,
+body.page-home .od-quote-section .od-section-heading h2,
+body.page-home .od-quote-section .od-section-heading p,
+body.page-home .od-quote-section .od-check-list li {
+  color: #ffffff;
+}
+
+body.page-home .od-quote-section .od-section-heading p,
+body.page-home .od-quote-section .od-check-list li {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+body.page-home .od-quote-card {
+  overflow: hidden;
+  border-color: rgba(215, 179, 106, 0.28);
+  background: #fffdf8;
+  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.28);
+}
+
+body.page-home .od-quote-card-heading {
+  display: grid;
+  gap: 0.3rem;
+  padding: 1.25rem 1.35rem;
+  border-bottom: 1px solid rgba(17, 24, 39, 0.1);
+  background: linear-gradient(135deg, #fff8e8, #ffffff);
+}
+
+body.page-home .od-quote-card-heading span {
+  color: var(--od-copper);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+body.page-home .od-quote-card-heading strong {
+  color: var(--od-forest);
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+
+body.page-home .od-quote-card .quote-form-premium {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body.page-home .quote-form-premium input,
+body.page-home .quote-form-premium select,
+body.page-home .quote-form-premium textarea {
+  border-color: rgba(17, 24, 39, 0.16);
+  border-radius: 0.8rem;
+  background: #ffffff;
+}
+
+body.page-home .quote-form-premium :where(input, select, textarea):focus {
+  border-color: var(--od-copper);
+  box-shadow: 0 0 0 4px rgba(159, 107, 46, 0.16);
+}
+
+body.page-home .od-final-cta {
+  background:
+    linear-gradient(135deg, rgba(11, 31, 28, 0.98), rgba(13, 28, 50, 0.98));
+}
+
+body.page-home .od-final-shell {
+  align-items: center;
+}
+
+body.page-home .sticky-mobile-cta {
+  border-top: 1px solid rgba(215, 179, 106, 0.28);
+  background: rgba(255, 252, 245, 0.93);
+}
+
+body.page-home .sticky-mobile-cta .button-secondary {
+  border-color: var(--od-forest);
+  color: var(--od-forest);
+}
+
+@media (max-width: 980px) {
+  body.page-home .od-hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body.page-home .od-hero-copy {
+    max-width: 100%;
+  }
+
+  body.page-home .od-hero-media picture {
+    min-height: 26rem;
+  }
+
+  body.page-home .od-hero-3d {
+    top: -1.1rem;
+    right: 0.6rem;
+    width: min(15rem, 52vw);
+  }
+}
+
+@media (max-width: 640px) {
+  body.page-home .od-hero {
+    padding-top: 3.2rem;
+  }
+
+  body.page-home .od-hero h1 {
+    font-size: clamp(3.35rem, 17vw, 4.9rem);
+  }
+
+  body.page-home .od-hero-assurance span {
+    width: 100%;
+    justify-content: center;
+  }
+
+  body.page-home .od-hero-3d {
+    top: -0.9rem;
+    right: -0.2rem;
+    width: min(12rem, 58vw);
+  }
+
+  body.page-home .od-proof-row div {
+    padding: 1rem;
+  }
+
+  body.page-home .od-hero-media picture,
+  body.page-home .od-service-card-feature,
+  body.page-home .od-gallery figure {
+    min-height: 20rem;
+  }
+
+  body.page-home .od-process-list li {
+    grid-template-columns: 1fr;
+  }
+
+  body.page-home .od-link-panel a {
+    min-height: 3.65rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.page-home .od-hero-3d-scene,
+  body.page-home .od-3d-node,
+  body.page-home .od-3d-truck {
+    animation: none;
+  }
+
+  body.page-home .od-service-card,
+  body.page-home .od-link-panel a,
+  body.page-home .od-process-list li {
+    transition: none;
+  }
+
+  body.page-home .od-service-card:hover,
+  body.page-home .od-link-panel a:hover,
+  body.page-home .od-process-list li:hover {
+    transform: none;
+  }
+}
+
+@keyframes odSceneFloat {
+  0%,
+  100% {
+    transform: rotateX(54deg) rotateZ(-13deg) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: rotateX(58deg) rotateZ(-8deg) translate3d(0, -0.7rem, 1.4rem);
+  }
+}
+
+@keyframes odTruckDrive {
+  0%,
+  100% {
+    transform: rotateX(58deg) rotateZ(-10deg) translate3d(-0.5rem, 0.2rem, 5rem);
+  }
+
+  50% {
+    transform: rotateX(58deg) rotateZ(-10deg) translate3d(1.1rem, -0.4rem, 5.6rem);
+  }
+}
+
+@keyframes odNodePulse {
+  0%,
+  100% {
+    opacity: 0.72;
+    transform: translateZ(2.4rem) scale(0.92);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateZ(4.6rem) scale(1.08);
+  }
+}

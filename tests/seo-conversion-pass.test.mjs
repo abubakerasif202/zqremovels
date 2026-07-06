@@ -47,7 +47,7 @@ test('homepage targets Adelaide removalists with the new commercial headline and
   );
   assert.match(
     homepage,
-    /Local &amp; Interstate Moves Across Adelaide\. Fixed Pricing, Professional Movers, Insurance Details Confirmed Before Booking\./i,
+    /Local &amp; Interstate Moves Across Adelaide\. Executive-level planning for homes, apartments, offices, and interstate relocations\./i,
   );
   assert.match(
     homepage,
