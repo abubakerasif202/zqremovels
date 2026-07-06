@@ -3899,11 +3899,8 @@ export function transformContent(content, page) {
   next = next.replace(
     /<aside class="quote-strip">([\s\S]*?)<\/aside>/g,
     (match, inner) => {
-      return `<div class="quote-form-premium reveal-on-scroll" style="display: grid; gap: 2rem; background: var(--color-surface-strong); color: white; border: 0;">
-        ${inner
-          .replaceAll('class="eyebrow"', 'class="eyebrow" style="color: white; border-color: rgba(255,255,255,0.3);"')
-          .replaceAll('<h2', '<h2 style="color: white; margin-bottom: 1rem;"')
-          .replaceAll('<p>', '<p style="color: rgba(255,255,255,0.7); max-width: 44rem;">')}
+      return `<div class="quote-strip quote-strip-premium reveal-on-scroll">
+        ${inner}
       </div>`;
     },
   );
