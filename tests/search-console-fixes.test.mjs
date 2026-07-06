@@ -1062,6 +1062,7 @@ test('route hub, guide hub, and suburb service pages keep orphaned pages linked'
   const removalistsHub = readDist('removalists-adelaide/index.html');
   const guideHub = readDist(path.join('adelaide-moving-guides', 'index.html'));
   const cbdSuburb = readDist(path.join('removalists-adelaide-cbd', 'index.html'));
+  const budgetPage = readDist(path.join('budget-removalists-adelaide', 'index.html'));
 
   const routeHrefs = [
     '/moving-from-adelaide-cbd-to-glenelg/',
@@ -1100,6 +1101,13 @@ test('route hub, guide hub, and suburb service pages keep orphaned pages linked'
     '/apartment-removalists-adelaide-cbd/',
   ]) {
     assert.match(cbdSuburb, new RegExp(`href="${href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`), href);
+  }
+
+  for (const href of [
+    '/small-removals-adelaide/',
+    '/movers-and-packers-adelaide/',
+  ]) {
+    assert.match(budgetPage, new RegExp(`href="${href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`), href);
   }
 });
 

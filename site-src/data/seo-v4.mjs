@@ -2497,9 +2497,10 @@ const commercialLinkProfiles = {
       { href: '/adelaide-moving-guides/how-to-get-accurate-removalist-quotes-adelaide/', label: 'accurate quote guide' },
     ],
     siblings: [
+      { href: '/small-removals-adelaide/', label: 'small removals Adelaide' },
+      { href: '/movers-and-packers-adelaide/', label: 'movers and packers Adelaide' },
       { href: '/cheap-removalists-adelaide/', label: 'cheap removalists Adelaide' },
       { href: '/affordable-removalists-adelaide/', label: 'affordable removalists Adelaide' },
-      { href: '/moving-quotes-adelaide/', label: 'moving quotes Adelaide' },
     ],
   },
   ...zqServiceLinkProfiles,
