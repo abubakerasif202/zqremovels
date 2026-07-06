@@ -44,3 +44,22 @@ test('premium design layer uses performance-safe reveal and counter hooks', asyn
   assert.match(js, /function setupAnimatedCounters\(\)/);
   assert.match(js, /IntersectionObserver/);
 });
+
+test('full-site premium rebuild keeps the new brand promise and accessible design contract', async () => {
+  const source = await readFile(path.join(root, 'site-src', 'content', 'index.html'), 'utf8');
+  const generatorCss = await readFile(path.join(root, 'premium-site.css'), 'utf8');
+  const astroCss = await readFile(path.join(root, 'src', 'styles', 'premium-site.css'), 'utf8');
+
+  assert.match(source, /class="od-hero-statement">Move day, handled\.<\/p>/);
+  assert.match(source, />Get Free Quote<\/a>/);
+
+  for (const css of [generatorCss, astroCss]) {
+    assert.match(css, /2026 FULL-SITE PREMIUM REBUILD/);
+    assert.match(css, /--premium-ink:\s*#071713/);
+    assert.match(css, /--premium-orange:\s*#ff6426/);
+    assert.match(css, /--font-heading:\s*"Fraunces"/);
+    assert.match(css, /body\.page-home \.od-hero-statement/);
+    assert.match(css, /@media \(max-width: 759px\)/);
+    assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
+  }
+});
