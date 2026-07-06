@@ -11,7 +11,6 @@ test('editorial homepage direction stays generator-native and production-safe', 
 
   for (const html of [source, built]) {
     assert.match(html, /class="home-redesign-hero od-hero"/);
-    assert.match(html, /class="od-hero-3d"/);
     assert.match(html, /class="od-hero-assurance"/);
     assert.match(html, /class="od-service-grid"/);
     assert.match(html, /class="od-process-list"/);
@@ -21,6 +20,7 @@ test('editorial homepage direction stays generator-native and production-safe', 
     assert.match(html, /src="\/media\/home-local-hero-branded\.webp"/);
     assert.match(html, /href="\/services\/house-removals-adelaide\/"/);
     assert.match(html, /href="\/services\/interstate-removals-adelaide\/"/);
+    assert.doesNotMatch(html, /od-hero-3d|od-3d-|@keyframes od/i);
     assert.doesNotMatch(html, /cdn\.tailwindcss\.com|lh3\.googleusercontent\.com|href="#"/i);
     assert.doesNotMatch(html, /500\+|zero damage|no hidden fees/i);
   }
@@ -38,7 +38,8 @@ test('premium design layer uses performance-safe reveal and counter hooks', asyn
   assert.match(css, /2026 PREMIUM SERVICE BRAND SYSTEM/);
   assert.match(css, /cubic-bezier\(0\.32,\s*0\.72,\s*0,\s*1\)/);
   assert.match(css, /Premium homepage finish: scoped to the active OD homepage system/);
-  assert.match(css, /@keyframes odSceneFloat/);
+  assert.match(css, /Fast premium finish: removes decorative 3D motion/);
+  assert.doesNotMatch(css, /@keyframes odSceneFloat|@keyframes odTruckDrive|@keyframes odNodePulse/);
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
   assert.match(js, /function setupAnimatedCounters\(\)/);
   assert.match(js, /IntersectionObserver/);

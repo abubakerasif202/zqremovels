@@ -858,38 +858,11 @@ function setupRevealAnimations() {
     return;
   }
 
-  nodes.forEach((node, index) => {
+  nodes.forEach((node) => {
     node.classList.add("reveal-on-scroll");
-    node.style.setProperty("--reveal-delay", `${Math.min(index % 4, 3) * 70}ms`);
+    node.classList.add("is-visible");
+    node.style.removeProperty("--reveal-delay");
   });
-
-  if (
-    typeof window.IntersectionObserver !== "function" ||
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  ) {
-    nodes.forEach((node) => {
-      node.classList.add("is-visible");
-    });
-    return;
-  }
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) {
-          return;
-        }
-
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      });
-    },
-    {
-      rootMargin: "12% 0px 12% 0px",
-      threshold: 0.01,
-    },
-  );
-  nodes.forEach((node) => observer.observe(node));
 }
 
 function setupAnimatedCounters() {
