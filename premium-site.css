@@ -9367,6 +9367,65 @@ body.page-home .sticky-mobile-cta .button-secondary {
   }
 }
 
+/* Minimal hover utilities replacing the previous full hover.css payload. */
+.hvr-grow,
+.hvr-pulse,
+.hvr-underline-from-center {
+  vertical-align: middle;
+}
+
+.hvr-grow {
+  transition: transform 180ms ease;
+}
+
+.hvr-grow:hover,
+.hvr-grow:focus-visible {
+  transform: translateY(-1px) scale(1.015);
+}
+
+.hvr-pulse:hover,
+.hvr-pulse:focus-visible {
+  animation: zqPulse 900ms ease-in-out 1;
+}
+
+.hvr-underline-from-center {
+  position: relative;
+  overflow: hidden;
+}
+
+.hvr-underline-from-center::before {
+  content: "";
+  position: absolute;
+  right: 50%;
+  bottom: 0.35rem;
+  left: 50%;
+  height: 2px;
+  background: currentColor;
+  transition: right 180ms ease, left 180ms ease;
+}
+
+.hvr-underline-from-center:hover::before,
+.hvr-underline-from-center:focus-visible::before {
+  right: 0.55rem;
+  left: 0.55rem;
+}
+
+@keyframes zqPulse {
+  50% {
+    transform: scale(1.025);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hvr-grow,
+  .hvr-pulse,
+  .hvr-underline-from-center,
+  .hvr-underline-from-center::before {
+    animation: none;
+    transition: none;
+  }
+}
+
 /* Fast premium finish: removes decorative 3D motion while keeping CTAs prominent. */
 .js .reveal-on-scroll,
 .js .reveal-on-scroll.is-visible {
@@ -11498,6 +11557,42 @@ body.page-home .od-final-cta .button-secondary {
   .hero-copy h1,
   .page-hero-copy h1 {
     overflow-wrap: anywhere;
+  }
+}
+
+body.page-home .od-band .od-kicker {
+  color: #8a350f;
+}
+
+body.page-home .od-hero .od-kicker,
+body.page-home .od-gallery-section .od-kicker,
+body.page-home .od-quote-section .od-kicker,
+body.page-home .od-final-cta .od-kicker {
+  color: #f5d1bb;
+}
+
+.brand-mark-logo {
+  flex: 0 0 3.35rem;
+  width: 3.35rem;
+  height: 3.35rem;
+}
+
+.brand-mark-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+body.page-home .od-link-panel a {
+  min-height: 2.75rem;
+  align-items: center;
+}
+
+@media (max-width: 759px) {
+  .brand-mark-logo {
+    flex-basis: 46px;
+    width: 46px;
+    height: 46px;
   }
 }
 

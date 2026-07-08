@@ -61,9 +61,9 @@ failures.push(...validateHeadingOrder(extractHeadings(contactHtml)).map((msg) =>
 failures.push(
   ...validateResponsiveImage(
     homeHtml,
-    'home hero trust logo',
+    'home header logo',
     '/brand-logo-96.webp',
-    ['width="62"', 'height="62"'],
+    ['width="68"', 'height="68"'],
   ).map((msg) => `/ : ${msg}`),
 );
 
