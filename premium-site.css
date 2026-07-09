@@ -156,8 +156,12 @@ iframe {
 }
 
 :focus-visible {
-  outline: 3px solid var(--zq-gold);
+  outline: 3px solid var(--zq-cta);
   outline-offset: 3px;
+}
+
+:where(.section-dark, .section-dark-plan, .surface-dark, .footer-shell, [class*="dark"]) :focus-visible {
+  outline: 3px solid var(--zq-gold);
 }
 
 .breadcrumb {
@@ -8287,8 +8291,12 @@ main :where(p, li) { text-wrap: pretty; }
 main :where(h1, h2, h3) { text-wrap: balance; }
 
 :where(a, button, summary, input, select, textarea):focus-visible {
-  outline: 3px solid #f3a712;
+  outline: 3px solid var(--zq-cta);
   outline-offset: 3px;
+}
+
+:where(.section-dark, .section-dark-plan, .surface-dark, .footer-shell, [class*="dark"]) :where(a, button, summary, input, select, textarea):focus-visible {
+  outline: 3px solid var(--zq-gold);
 }
 
 .button {
