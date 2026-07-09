@@ -8438,7 +8438,7 @@ body.page-home .utility-bar {
 body.page-home .button-primary,
 body.page-home .button-cta {
   border-color: var(--premium-orange);
-  color: var(--premium-ink) !important;
+  color: var(--premium-paper) !important;
   background: var(--premium-orange);
   box-shadow: 0 12px 28px rgba(217, 67, 11, 0.22);
 }

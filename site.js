@@ -87,7 +87,7 @@ function captureAttributionLite() {
 
 function scheduleAnalyticsInit() {
   captureAttributionLite();
-  runWhenIdle(() => withAnalytics((analytics) => analytics.initAnalytics()), 12000);
+  runWhenIdle(() => withAnalytics((analytics) => analytics.initAnalytics()), 1500);
 }
 
 function trackCallClick(...args) { withAnalytics((analytics) => analytics.trackCallClick(...args)); }

@@ -2655,7 +2655,7 @@ export function renderHead(page, content) {
     if (page.output === 'index.html') {
       tags.push('<link rel="preload" as="image" href="/media/home-local-hero-branded.webp" type="image/webp" fetchpriority="high" imagesrcset="/media/responsive/home-local-hero-branded-320w.webp 320w, /media/responsive/home-local-hero-branded-480w.webp 480w, /media/home-local-hero-branded.webp 768w" imagesizes="(max-width: 900px) 100vw, 48vw" />');
       tags.push(`<style data-critical="homepage">${homepageCriticalCss}</style>`);
-      tags.push('<script>addEventListener("load",()=>{setTimeout(()=>{const l=document.createElement("link");l.rel="stylesheet";l.href="/premium-site.min.css";document.head.append(l)},5000)},{once:true})</script>');
+      tags.push('<link rel="preload" href="/premium-site.min.css" as="style" onload="this.removeAttribute(\'onload\');this.rel=\'stylesheet\'" />');
       tags.push('<noscript><link rel="stylesheet" href="/premium-site.min.css" /></noscript>');
     } else {
       tags.push('<link rel="stylesheet" href="/premium-site.min.css" />');
