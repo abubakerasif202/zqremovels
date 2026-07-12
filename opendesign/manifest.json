@@ -1,0 +1,35 @@
+{
+  "generated": "2026-07-12T19:07:32Z",
+  "sections": [
+    {
+      "id": "mockups",
+      "label": "Mockups",
+      "groups": []
+    },
+    {
+      "id": "design-systems",
+      "label": "Design Systems",
+      "groups": [
+        {
+          "slug": "zq-removals",
+          "files": [
+            { "label": "README.md", "path": "design-systems/zq-removals/README.md" },
+            { "label": "SKILL.md", "path": "design-systems/zq-removals/SKILL.md" },
+            { "label": "Hero moving image", "path": "design-systems/zq-removals/assets/imagery/home-local-hero-branded.webp" },
+            { "label": "Service moving image", "path": "design-systems/zq-removals/assets/imagery/zq-service-premium.webp" },
+            { "label": "Large brand logo", "path": "design-systems/zq-removals/assets/logos/brand-logo-256.webp" },
+            { "label": "Header brand logo", "path": "design-systems/zq-removals/assets/logos/brand-logo-96.webp" },
+            { "label": "Color and type tokens", "path": "design-systems/zq-removals/tokens/colors_and_type.css" },
+            { "label": "Voice and tone", "path": "design-systems/zq-removals/brand/voice-and-tone.md" },
+            { "label": "Style notes", "path": "design-systems/zq-removals/brand/style-notes.md" },
+            { "label": "Fraunces font", "path": "design-systems/zq-removals/fonts/fraunces-latin.woff2" },
+            { "label": "Inter font", "path": "design-systems/zq-removals/fonts/inter-latin.woff2" },
+            { "label": "Marketing UI kit", "path": "design-systems/zq-removals/ui-kit-marketing/index.html" },
+            { "label": "Button component", "path": "design-systems/zq-removals/ui-kit-marketing/components/Button.jsx" },
+            { "label": "Form field component", "path": "design-systems/zq-removals/ui-kit-marketing/components/FormField.jsx" }
+          ]
+        }
+      ]
+    }
+  ]
+}

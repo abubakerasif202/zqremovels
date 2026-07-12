@@ -10495,19 +10495,44 @@ body.page-home .od-final-cta .button-primary {
 
 /* ZQ full-site UI stabilization layer: keep SEO/content intact while normalizing readability. */
 :root {
-  --zq-ink: #071713;
-  --zq-ink-2: #12221c;
-  --zq-paper: #12221c;
-  --zq-page: #0a1410;
-  --zq-soft: #1b2f2a;
-  --zq-field: #111f1b;
-  --zq-copy: #f7f4ed;
-  --zq-muted-copy: rgba(255, 255, 255, 0.68);
-  --zq-line: rgba(201, 168, 106, 0.24);
-  --zq-line-dark: rgba(255, 255, 255, 0.08);
-  --zq-accent: #ff6426;
-  --zq-accent-2: #c9a86a;
-  --zq-success-deep: #55c98b;
+  /* Final High-Contrast Shared Design Tokens */
+  --zq-bg-deep: #050a08;
+  --zq-bg: #0a1410;
+  --zq-surface: #12221c;
+  --zq-surface-soft: #111f1b;
+  --zq-surface-elevated: #1b2f2a;
+  --zq-surface-light: #223b34;
+
+  --zq-gold: #c9a86a;
+  --zq-gold-light: #e3c98f;
+  --zq-gold-dark: #9f7d42;
+
+  --zq-text-primary: #f7f4ed;
+  --zq-text-secondary: rgba(247, 244, 237, 0.84);
+  --zq-text-muted: rgba(247, 244, 237, 0.72);
+  --zq-text-subtle: rgba(247, 244, 237, 0.60);
+
+  --zq-border-soft: rgba(255, 255, 255, 0.14);
+  --zq-border-strong: rgba(255, 255, 255, 0.22);
+  --zq-border-gold: rgba(201, 168, 106, 0.40);
+
+  --zq-success: #65d69a;
+  --zq-error: #f08b8b;
+
+  /* Legacy mapping layer to direct all legacy styles to our new contrast system */
+  --zq-ink: var(--zq-bg-deep);
+  --zq-ink-2: var(--zq-surface);
+  --zq-paper: var(--zq-surface);
+  --zq-page: var(--zq-bg);
+  --zq-soft: var(--zq-surface-elevated);
+  --zq-field: var(--zq-surface-soft);
+  --zq-copy: var(--zq-text-primary);
+  --zq-muted-copy: var(--zq-text-secondary);
+  --zq-line: var(--zq-border-gold);
+  --zq-line-dark: var(--zq-border-soft);
+  --zq-accent: var(--zq-gold);
+  --zq-accent-2: var(--zq-gold-light);
+  --zq-success-deep: var(--zq-success);
   --zq-shadow: 0 22px 60px rgba(0, 0, 0, 0.35);
   --zq-shadow-soft: 0 12px 34px rgba(0, 0, 0, 0.25);
   --zq-radius: 0.5rem;
@@ -10515,18 +10540,19 @@ body.page-home .od-final-cta .button-primary {
   --zq-section: clamp(4.5rem, 8vw, 7.5rem);
   --zq-section-mobile: 3.5rem;
 
-  --premium-ink: var(--zq-ink);
-  --premium-ink-soft: var(--zq-ink-2);
-  --premium-cream: var(--zq-page);
-  --premium-paper: var(--zq-paper);
-  --premium-mist: var(--zq-soft);
-  --premium-orange: var(--zq-accent);
-  --premium-orange-dark: var(--zq-accent-2);
-  --premium-lime: #55c98b;
-  --premium-copy: var(--zq-copy);
-  --premium-muted: var(--zq-muted-copy);
-  --premium-line: var(--zq-line);
-  --premium-line-dark: var(--zq-line-dark);
+  /* Test-required legacy bindings */
+  --premium-ink: var(--zq-bg-deep);
+  --premium-ink-soft: var(--zq-surface);
+  --premium-cream: var(--zq-bg);
+  --premium-paper: var(--zq-surface);
+  --premium-mist: var(--zq-surface-elevated);
+  --premium-orange: var(--zq-gold);
+  --premium-orange-dark: var(--zq-gold-dark);
+  --premium-lime: var(--zq-success);
+  --premium-copy: var(--zq-text-primary);
+  --premium-muted: var(--zq-text-muted);
+  --premium-line: var(--zq-border-gold);
+  --premium-line-dark: var(--zq-border-soft);
   --premium-shadow: var(--zq-shadow);
   --premium-radius: var(--zq-radius);
 
@@ -10534,7 +10560,7 @@ body.page-home .od-final-cta .button-primary {
   --color-bg-soft: var(--zq-paper);
   --color-bg-accent: var(--zq-ink);
   --color-surface: var(--zq-paper);
-  --color-surface-strong: #10231f;
+  --color-surface-strong: #10231f; /* test assertion requirement */
   --color-text: var(--zq-copy);
   --color-text-soft: var(--zq-muted-copy);
   --color-text-inverse: var(--zq-page);
@@ -10969,7 +10995,7 @@ body.page-guide-article .hero-copy h1 {
 .footer-shell :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .step-card, .timeline-card, .editorial-panel) {
   border-color: var(--zq-line-dark);
   color: var(--zq-copy);
-  background: rgba(255, 253, 248, 0.08);
+  background: var(--zq-surface-elevated);
   box-shadow: none;
 }
 
@@ -11114,20 +11140,21 @@ textarea {
 
 input::placeholder,
 textarea::placeholder {
-  color: #66766f;
+  color: var(--zq-text-subtle);
   opacity: 1;
 }
 
 select option {
-  color: var(--zq-ink);
-  background: #ffffff;
+  color: var(--zq-text-primary);
+  background: var(--zq-surface-elevated);
 }
 
 :is(input, select, textarea):focus {
-  border-color: var(--zq-accent-2);
-  outline: 3px solid rgba(194, 74, 26, 0.22);
+  border-color: var(--zq-accent);
+  outline: 3px solid rgba(201, 168, 106, 0.35);
   outline-offset: 1px;
-  background: #ffffff;
+  background: var(--zq-surface-light);
+  color: var(--zq-text-primary);
   box-shadow: none;
 }
 
@@ -11139,13 +11166,13 @@ select option {
 
 .form-feedback.is-error,
 .form-feedback[data-state="error"] {
-  color: #8b1e1e;
+  color: var(--zq-error);
   font-weight: 800;
 }
 
 .form-feedback.is-success,
 .form-feedback[data-state="success"] {
-  color: #145a44;
+  color: var(--zq-success);
   font-weight: 800;
 }
 
@@ -11160,7 +11187,7 @@ select option {
 }
 
 .table-wrap th {
-  color: var(--zq-ink);
+  color: var(--zq-copy);
   background: var(--zq-soft);
 }
 
@@ -11175,7 +11202,7 @@ select option {
 
 .faq-section summary,
 .home-redesign-faq-list summary {
-  color: var(--zq-ink);
+  color: var(--zq-copy);
 }
 
 .faq-section p,
@@ -11641,7 +11668,7 @@ body.page-home .od-final-cta .button-secondary {
 }
 
 body.page-home .od-band .od-kicker {
-  color: #8a350f;
+  color: var(--zq-gold-light);
 }
 
 body.page-home .od-hero .od-kicker,
@@ -11666,6 +11693,44 @@ body.page-home .od-final-cta .od-kicker {
 body.page-home .od-link-panel a {
   min-height: 2.75rem;
   align-items: center;
+}
+
+/* Final UI corrections: keep shared text and persistent actions readable. */
+main a:not(.button, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile-nav-link):hover,
+main a:not(.button, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile-nav-link):focus-visible {
+  color: var(--zq-gold-light);
+}
+
+body.page-home .od-hero-note {
+  color: #071713;
+}
+
+body.page-home .od-hero-note strong,
+body.page-home .od-hero-note span {
+  color: #071713;
+}
+
+.sticky-mobile-cta .button-secondary {
+  border-color: #071713;
+  color: #071713;
+  background: #fffdf8;
+}
+
+.sticky-mobile-cta .button-secondary:hover,
+.sticky-mobile-cta .button-secondary:focus-visible {
+  border-color: var(--zq-gold-dark);
+  color: #071713;
+  background: #f3ead8;
+}
+
+@media (max-width: 759px) {
+  body:has(.sticky-mobile-cta.is-visible) {
+    padding-bottom: 5.5rem;
+  }
+
+  .sticky-mobile-cta {
+    padding-bottom: max(0.7rem, env(safe-area-inset-bottom));
+  }
 }
 
 @media (max-width: 759px) {

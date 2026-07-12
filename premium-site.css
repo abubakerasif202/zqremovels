@@ -11668,7 +11668,7 @@ body.page-home .od-final-cta .button-secondary {
 }
 
 body.page-home .od-band .od-kicker {
-  color: #8a350f;
+  color: var(--zq-gold-light);
 }
 
 body.page-home .od-hero .od-kicker,
@@ -11693,6 +11693,44 @@ body.page-home .od-final-cta .od-kicker {
 body.page-home .od-link-panel a {
   min-height: 2.75rem;
   align-items: center;
+}
+
+/* Final UI corrections: keep shared text and persistent actions readable. */
+main a:not(.button, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile-nav-link):hover,
+main a:not(.button, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile-nav-link):focus-visible {
+  color: var(--zq-gold-light);
+}
+
+body.page-home .od-hero-note {
+  color: #071713;
+}
+
+body.page-home .od-hero-note strong,
+body.page-home .od-hero-note span {
+  color: #071713;
+}
+
+.sticky-mobile-cta .button-secondary {
+  border-color: #071713;
+  color: #071713;
+  background: #fffdf8;
+}
+
+.sticky-mobile-cta .button-secondary:hover,
+.sticky-mobile-cta .button-secondary:focus-visible {
+  border-color: var(--zq-gold-dark);
+  color: #071713;
+  background: #f3ead8;
+}
+
+@media (max-width: 759px) {
+  body:has(.sticky-mobile-cta.is-visible) {
+    padding-bottom: 5.5rem;
+  }
+
+  .sticky-mobile-cta {
+    padding-bottom: max(0.7rem, env(safe-area-inset-bottom));
+  }
 }
 
 @media (max-width: 759px) {

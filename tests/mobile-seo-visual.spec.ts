@@ -14,7 +14,16 @@ for (const route of routes) {
     // Wait for network to be idle to ensure fonts/images are loaded
     await page.waitForLoadState('networkidle');
 
-    // Hide sticky mobile CTA to avoid screenshot overlap
+    await page.evaluate(() => window.scrollTo(0, 700));
+    const stickyCta = page.locator('.sticky-mobile-cta');
+    await expect(stickyCta).toHaveClass(/is-visible/);
+    await page.waitForTimeout(500);
+    const stickyBox = await stickyCta.boundingBox();
+    expect(stickyBox).not.toBeNull();
+    const stickyBottom = await stickyCta.evaluate((node) => node.getBoundingClientRect().bottom);
+    expect(stickyBottom).toBeLessThanOrEqual(await page.evaluate(() => window.innerHeight));
+
+    // Keep long-page screenshots focused on page content after validating the persistent CTA.
     await page.addStyleTag({ content: '.sticky-mobile-cta { display: none !important; }' });
 
     // Take a full page screenshot

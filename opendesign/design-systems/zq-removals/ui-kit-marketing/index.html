@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ZQ Removals UI Kit</title>
+    <link rel="stylesheet" href="../../../../premium-site.css" />
+    <style>
+      @font-face { font-family: Inter; src: url("../../fonts/inter-latin.woff2") format("woff2"); }
+      @font-face { font-family: Fraunces; src: url("../../fonts/fraunces-latin.woff2") format("woff2"); }
+      body { margin: 0; padding: 2rem; color: var(--zq-text-primary); background: var(--zq-bg-deep); font-family: var(--font-body); }
+      .kit { max-width: 1120px; margin: auto; display: grid; gap: 2rem; }
+      .kit-header { padding: 2rem; border: 1px solid var(--zq-border-gold); background: var(--zq-surface); }
+      .kit-header h1 { margin: 0.5rem 0; font: 600 clamp(2.5rem, 7vw, 5rem)/0.95 var(--font-heading); }
+      .eyebrow { color: var(--zq-gold-light); font-size: 0.73rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
+      .kit-section { padding: 1.5rem; border: 1px solid var(--zq-border-soft); background: var(--zq-surface-soft); }
+      .kit-section h2 { margin-top: 0; font-family: var(--font-heading); }
+      .row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+      .zq-button { min-height: 3rem; padding: 0.85rem 1.2rem; border: 1px solid var(--zq-gold); border-radius: var(--radius); color: var(--zq-text-primary); text-decoration: none; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; }
+      .zq-button-primary { color: var(--zq-bg-deep) !important; background: var(--zq-gold-light); }
+      .zq-button-secondary { background: transparent; }
+      .zq-button:focus-visible, .zq-field input:focus-visible { outline: 3px solid var(--zq-gold-light); outline-offset: 3px; }
+      .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+      .card { padding: 1.25rem; border: 1px solid var(--zq-border-soft); background: var(--zq-surface-elevated); }
+      .card strong, .card span { display: block; }
+      .card span { margin-top: 0.5rem; color: var(--zq-text-secondary); }
+      .form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      .zq-field { display: grid; gap: 0.45rem; color: var(--zq-text-secondary); font-weight: 700; }
+      .zq-field input { min-height: 3rem; padding: 0 0.8rem; border: 1px solid var(--zq-border-strong); border-radius: var(--radius); color: var(--zq-text-primary); background: var(--zq-bg-deep); font: inherit; }
+      @media (max-width: 700px) { body { padding: 1rem; } .cards, .form { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <main class="kit">
+      <header class="kit-header"><span class="eyebrow">ZQ Removals system</span><h1>Move day, handled.</h1><p>Scope-first moving interfaces for Adelaide homes, offices, apartments, and interstate routes.</p></header>
+      <section class="kit-section"><h2>Actions</h2><div class="row"><a class="zq-button zq-button-primary" href="#quote">Get Fixed-Price Quote</a><a class="zq-button zq-button-secondary" href="tel:+61433819989">Call 0433 819 989</a></div></section>
+      <section class="kit-section"><h2>Proof cards</h2><div class="cards"><article class="card"><strong>Clear scope</strong><span>Access, route, timing, and inventory reviewed before booking.</span></article><article class="card"><strong>Careful handling</strong><span>Furniture protection, wrapping, loading, and placement support.</span></article><article class="card"><strong>Prepared crew</strong><span>The agreed move plan is clear before the truck arrives.</span></article></div></section>
+      <section id="quote" class="kit-section"><h2>Move brief</h2><form class="form"><label class="zq-field"><span>Full name</span><input name="name" placeholder="Your full name" /></label><label class="zq-field"><span>Phone number</span><input name="phone" placeholder="Your mobile number" /></label><label class="zq-field"><span>From suburb</span><input name="from" placeholder="Pickup suburb" /></label><label class="zq-field"><span>To suburb</span><input name="to" placeholder="Delivery suburb" /></label></form></section>
+    </main>
+  </body>
+</html>

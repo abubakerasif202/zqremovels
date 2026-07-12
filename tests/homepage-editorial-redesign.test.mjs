@@ -56,7 +56,7 @@ test('full-site premium rebuild keeps the new brand promise and accessible desig
   const astroCss = await readFile(path.join(root, 'src', 'styles', 'premium-site.css'), 'utf8');
 
   assert.match(source, /class="od-hero-statement">Move day, handled\.<\/p>/);
-  assert.match(source, />Get Free Quote<\/a>/);
+  assert.match(source, />Get Fixed-Price Quote<\/a>/);
 
   for (const css of [generatorCss, astroCss]) {
     assert.match(css, /2026 FULL-SITE PREMIUM REBUILD/);

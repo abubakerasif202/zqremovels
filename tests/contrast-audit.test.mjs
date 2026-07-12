@@ -23,6 +23,15 @@ test('shared light-surface contrast contracts use dark readable foregrounds', ()
   assert.doesNotMatch(css, /\.button-primary,\s*\n\.button-cta\s*\{\s*color:\s*#10231f\s*!important;/s);
 });
 
+test('dark-surface interaction states keep readable accent text', () => {
+  assert.match(css, /body\.page-home \.od-band \.od-kicker\s*\{\s*color:\s*var\(--zq-gold-light\);/s);
+  assert.match(
+    css,
+    /main a:not\([^)]*\):hover,\s*\nmain a:not\([^)]*\):focus-visible\s*\{[\s\S]*color:\s*var\(--zq-gold-light\);/s,
+  );
+  assert.match(css, /\.sticky-mobile-cta \.button-secondary\s*\{[\s\S]*color:\s*#071713;/s);
+});
+
 test('generated urgency banner keeps dark copy on its light premium surface', () => {
   const homepage = readDist('/');
   assert.match(homepage, /data-lead-machine-cta="v7"/);

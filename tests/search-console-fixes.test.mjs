@@ -958,7 +958,7 @@ test('conversion prompts keep mobile call, above-fold quote access, and qualifie
 
   assert.match(template, /sticky-mobile-cta/);
   assert.match(template, /href="tel:\+61433819989"[^>]*>Call 0433 819 989<\/a>/);
-  assert.match(hero, /href="#premium-quote"[^>]*>Get Free Quote<\/a>/);
+  assert.match(hero, /href="#premium-quote"[^>]*>Get Fixed-Price Quote<\/a>/);
   assert.match(hero, /href="tel:\+61433819989"[^>]*>Call 0433 819 989<\/a>/);
   assert.match(homepage, /Same-day availability checked against crew schedule and route fit/i);
 });
@@ -971,7 +971,7 @@ test('v6 homepage targets premium Adelaide removalists and above-fold CTAs', () 
   assert.match(homepage, /<meta name="description" content="Looking for affordable Adelaide removalists\? ZQ Removals offers furniture removals, house moves, and professional movers and packers\. Get a fast quote today!"/i);
   assert.match(hero, /<h1[^>]*>Removalists Adelaide<\/h1>/);
   assert.match(hero, /Local &amp; Interstate Moves Across Adelaide/i);
-  assert.match(hero, /href="#premium-quote"[^>]*>Get Free Quote<\/a>/);
+  assert.match(hero, /href="#premium-quote"[^>]*>Get Fixed-Price Quote<\/a>/);
   assert.match(hero, /href="tel:\+61433819989"[^>]*>Call 0433 819 989<\/a>/);
   for (const phrase of ['(54|48|46\\+?) Google Reviews', 'Fixed Price Quotes', 'Adelaide Based Team']) {
     assert.match(hero, new RegExp(phrase, 'i'));

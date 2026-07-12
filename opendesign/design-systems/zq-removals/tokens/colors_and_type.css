@@ -1,0 +1,37 @@
+:root {
+  --fg-1: #f7f4ed;
+  --fg-2: #d9ddd6;
+  --fg-3: #aeb9b0;
+  --bg-1: #050a08;
+  --bg-2: #0a1410;
+  --surface-1: #12221c;
+  --surface-2: #1b2f2a;
+  --accent-1: #e3c98f;
+  --accent-2: #c9a86a;
+  --accent-3: #9f7d42;
+  --success: #65d69a;
+  --danger: #f08b8b;
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", "Segoe UI", sans-serif;
+  --weight-regular: 400;
+  --weight-medium: 600;
+  --weight-bold: 800;
+  --h1: clamp(2.75rem, 8vw, 7.2rem);
+  --h2: clamp(2.1rem, 4.8vw, 4.8rem);
+  --h3: clamp(1.35rem, 2.5vw, 2rem);
+  --body: 1rem;
+  --body-large: 1.2rem;
+  --caption: 0.73rem;
+  --surface-primary: var(--bg-2);
+  --surface-elevated: var(--surface-1);
+  --surface-highlight: var(--surface-2);
+  --text-primary: var(--fg-1);
+  --text-secondary: var(--fg-2);
+  --text-muted: var(--fg-3);
+  --border-subtle: rgba(255, 255, 255, 0.14);
+  --border-accent: rgba(201, 168, 106, 0.4);
+  --focus-ring: var(--accent-1);
+  --radius-control: 0.5rem;
+  --radius-panel: 0.75rem;
+  --shadow-panel: 0 22px 60px rgba(0, 0, 0, 0.35);
+}
