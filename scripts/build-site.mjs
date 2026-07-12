@@ -2472,6 +2472,8 @@ const localProofProfiles = {
 
 export async function runLegacyGenerator() {
   // 0. Run Astro build to generate initial pages
+  console.log('Syncing root stylesheet to Astro styles...');
+  await copyFile(path.join(projectRoot, 'premium-site.css'), path.join(projectRoot, 'src', 'styles', 'premium-site.css'));
   console.log('Running Astro build...');
   await rm(path.join(distRoot, '.prerender'), { recursive: true, force: true });
   execSync('npx astro build', { stdio: 'inherit', env: process.env });
