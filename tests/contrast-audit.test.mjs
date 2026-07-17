@@ -8,12 +8,67 @@ const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
 const css = readFileSync(path.join(root, 'premium-site.css'), 'utf8');
 
+function hexToRgb(hex) {
+  const normalized = hex.replace('#', '');
+  const full = normalized.length === 3
+    ? normalized.split('').map((char) => char + char).join('')
+    : normalized;
+  return [
+    Number.parseInt(full.slice(0, 2), 16) / 255,
+    Number.parseInt(full.slice(2, 4), 16) / 255,
+    Number.parseInt(full.slice(4, 6), 16) / 255,
+  ];
+}
+
+function luminance(hex) {
+  const [r, g, b] = hexToRgb(hex).map((channel) => (
+    channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4
+  ));
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+function contrastRatio(foreground, background) {
+  const lighter = Math.max(luminance(foreground), luminance(background));
+  const darker = Math.min(luminance(foreground), luminance(background));
+  return (lighter + 0.05) / (darker + 0.05);
+}
+
+function lastTokenValue(name) {
+  const matches = [...css.matchAll(new RegExp(`${name}:\\s*([^;]+);`, 'g'))];
+  assert.ok(matches.length > 0, `${name} token is missing`);
+  return matches.at(-1)[1].trim();
+}
+
+function assertContrast(foreground, background, minimum, label) {
+  assert.ok(
+    contrastRatio(foreground, background) >= minimum,
+    `${label} contrast ${contrastRatio(foreground, background).toFixed(2)} is below ${minimum}`,
+  );
+}
+
 function readDist(route) {
   return readFileSync(path.join(distDir, route === '/' ? 'index.html' : route.replace(/^\//, ''), route === '/' ? '' : 'index.html'), 'utf8');
 }
 
 test('shared light-surface contrast contracts use dark readable foregrounds', () => {
   assert.match(css, /--color-surface-strong:\s*#10231f/i);
+  assert.equal(lastTokenValue('--surface-dark'), '#071713');
+  assert.equal(lastTokenValue('--surface-dark-elevated'), '#10231f');
+  assert.equal(lastTokenValue('--surface-light'), '#fffdf8');
+  assert.equal(lastTokenValue('--surface-light-muted'), '#f3efe6');
+  assert.equal(lastTokenValue('--text-on-dark'), '#fffdf8');
+  assert.equal(lastTokenValue('--heading-on-dark'), '#fffdf8');
+  assert.equal(lastTokenValue('--text-on-light'), '#10231f');
+  assert.equal(lastTokenValue('--heading-on-light'), '#071713');
+  assert.notEqual(lastTokenValue('--text-on-light'), lastTokenValue('--text-on-dark'));
+  assert.notEqual(lastTokenValue('--bg-light'), lastTokenValue('--bg-dark'));
+  assertContrast('#fffdf8', '#071713', 4.5, 'dark surface body text');
+  assertContrast('#e4ded2', '#10231f', 4.5, 'dark elevated muted text');
+  assertContrast('#10231f', '#fffdf8', 4.5, 'light surface body text');
+  assertContrast('#3f534c', '#f3efe6', 4.5, 'light muted body text');
+  assertContrast('#10231f', '#c9a86a', 4.5, 'gold CTA text');
+  assert.match(css, /--input-bg:\s*#fffdf8/i);
+  assert.match(css, /--input-text:\s*#10231f/i);
   assert.match(css, /\.lead-machine-cta\s*\{[^}]*background:\s*#f3efe6;[^}]*color:\s*#10231f;/s);
   assert.match(css, /\.lead-machine-cta-shell h2,\s*\n\.lead-machine-cta-shell p\s*\{\s*color:\s*#10231f;\s*\}/s);
   assert.match(css, /\.lead-machine-cta-shell p\s*\{\s*color:\s*#3f534c;\s*\}/s);

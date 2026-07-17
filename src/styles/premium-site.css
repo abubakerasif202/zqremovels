@@ -11746,3 +11746,483 @@ body.page-home .od-hero-note span {
     transform: none;
   }
 }
+
+/* Production contrast repair: semantic surface tokens and final component contracts. */
+:root {
+  --surface-dark: #071713;
+  --surface-dark-elevated: #10231f;
+  --surface-light: #fffdf8;
+  --surface-light-muted: #f3efe6;
+
+  --text-on-dark: #fffdf8;
+  --text-muted-on-dark: #e4ded2;
+  --heading-on-dark: #fffdf8;
+
+  --text-on-light: #10231f;
+  --text-muted-on-light: #3f534c;
+  --heading-on-light: #071713;
+
+  --link-on-dark: #f0cf8a;
+  --link-on-light: #7a4b0c;
+
+  --button-primary-bg: #10231f;
+  --button-primary-text: #fffdf8;
+  --button-primary-hover-bg: #1d4f45;
+  --button-secondary-bg: #fffdf8;
+  --button-secondary-text: #10231f;
+  --button-secondary-hover-bg: #f3efe6;
+
+  --input-bg: #fffdf8;
+  --input-text: #10231f;
+  --input-label: #10231f;
+  --input-placeholder: #5d716a;
+  --input-border: #9c8970;
+  --input-focus-bg: #ffffff;
+
+  --zq-bg-deep: var(--surface-dark);
+  --zq-bg: #0a1410;
+  --zq-surface: #12221c;
+  --zq-surface-soft: #111f1b;
+  --zq-surface-elevated: var(--surface-dark-elevated);
+  --zq-surface-light: #223b34;
+  --zq-text: var(--text-on-dark);
+  --zq-text-primary: var(--text-on-dark);
+  --zq-text-secondary: var(--text-muted-on-dark);
+  --zq-text-muted: var(--text-muted-on-dark);
+  --zq-text-subtle: #cfc6b7;
+  --zq-copy: var(--text-on-dark);
+  --zq-muted-copy: var(--text-muted-on-dark);
+  --zq-gold: #c9a86a;
+  --zq-gold-light: #f0cf8a;
+  --zq-gold-dark: #9f6b2e;
+  --zq-border-soft: rgba(255, 253, 248, 0.2);
+  --zq-border-strong: rgba(255, 253, 248, 0.3);
+  --zq-border-gold: rgba(201, 168, 106, 0.58);
+  --bg-dark: var(--surface-dark);
+  --bg-dark-soft: var(--surface-dark-elevated);
+  --bg-light: var(--surface-light);
+  --color-bg: #0a1410;
+  --color-bg-soft: var(--surface-dark-elevated);
+  --color-surface: #12221c;
+  --color-surface-strong: #10231f;
+  --color-text: var(--text-on-dark);
+  --color-text-soft: var(--text-muted-on-dark);
+  --color-text-inverse: var(--text-on-light);
+  --color-heading: var(--heading-on-dark);
+  --color-accent: var(--zq-gold-light);
+  --color-accent-strong: var(--zq-gold-light);
+  --premium-ink: var(--surface-dark);
+  --premium-cream: #0a1410;
+  --premium-paper: #12221c;
+  --premium-mist: var(--surface-dark-elevated);
+  --premium-copy: var(--text-on-dark);
+  --premium-muted: var(--text-muted-on-dark);
+  --premium-orange: #ff6426;
+  --premium-orange-dark: var(--zq-gold);
+  --premium-line: rgba(201, 168, 106, 0.34);
+  --premium-line-dark: rgba(255, 253, 248, 0.2);
+}
+
+:focus-visible {
+  outline: 3px solid var(--zq-gold-light);
+  outline-offset: 3px;
+}
+
+main a:not(.button, .btn, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile-nav-link) {
+  color: var(--link-on-dark);
+}
+
+main a:not(.button, .btn, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile-nav-link):hover,
+main a:not(.button, .btn, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile-nav-link):focus-visible {
+  color: #fff3c4;
+  text-decoration: underline;
+}
+
+.section-soft,
+.section-mist,
+.bg-light,
+.od-band-light,
+.lead-machine-cta {
+  color: var(--text-on-light);
+  background: var(--surface-light-muted);
+}
+
+.section-soft :is(h1, h2, h3, h4, strong, summary),
+.section-mist :is(h1, h2, h3, h4, strong, summary),
+.bg-light :is(h1, h2, h3, h4, strong, summary),
+.od-band-light :is(h1, h2, h3, h4, strong, summary),
+.lead-machine-cta :is(h1, h2, h3, h4, strong, summary) {
+  color: var(--heading-on-light);
+}
+
+.section-soft :is(p, li, dd, figcaption, small, span),
+.section-mist :is(p, li, dd, figcaption, small, span),
+.bg-light :is(p, li, dd, figcaption, small, span),
+.od-band-light :is(p, li, dd, figcaption, small, span),
+.lead-machine-cta :is(p, li, dd, figcaption, small, span) {
+  color: var(--text-muted-on-light);
+}
+
+.section-soft a:not(.button, .btn),
+.section-mist a:not(.button, .btn),
+.bg-light a:not(.button, .btn),
+.od-band-light a:not(.button, .btn),
+.lead-machine-cta a:not(.button, .btn) {
+  color: var(--link-on-light);
+}
+
+.section-dark,
+.section-dark-plan,
+.section-reassurance-pull,
+.bg-dark,
+.hero-shell,
+.hero-shell-home,
+.contact-hero-shell,
+.footer-shell,
+body.page-home .od-hero,
+body.page-home .od-quote-section,
+body.page-home .od-gallery-section,
+body.page-home .od-final-cta {
+  color: var(--text-on-dark);
+}
+
+.section-dark :is(h1, h2, h3, h4, strong, summary),
+.section-dark-plan :is(h1, h2, h3, h4, strong, summary),
+.section-reassurance-pull :is(h1, h2, h3, h4, strong, summary),
+.bg-dark :is(h1, h2, h3, h4, strong, summary),
+.hero-shell :is(h1, h2, h3, h4, strong, summary),
+.hero-shell-home :is(h1, h2, h3, h4, strong, summary),
+.contact-hero-shell :is(h1, h2, h3, h4, strong, summary),
+.footer-shell :is(h1, h2, h3, h4, strong, summary),
+body.page-home .od-hero :is(h1, h2, h3, h4, strong, summary),
+body.page-home .od-quote-section :is(h1, h2, h3, h4, strong, summary),
+body.page-home .od-gallery-section :is(h1, h2, h3, h4, strong, summary),
+body.page-home .od-final-cta :is(h1, h2, h3, h4, strong, summary) {
+  color: var(--heading-on-dark);
+}
+
+.section-dark :is(p, li, dd, figcaption, small, span),
+.section-dark-plan :is(p, li, dd, figcaption, small, span),
+.section-reassurance-pull :is(p, li, dd, figcaption, small, span),
+.bg-dark :is(p, li, dd, figcaption, small, span),
+.hero-shell :is(p, li, dd, figcaption, small, span),
+.hero-shell-home :is(p, li, dd, figcaption, small, span),
+.contact-hero-shell :is(p, li, dd, figcaption, small, span),
+.footer-shell :is(p, li, dd, figcaption, small, span, address),
+body.page-home .od-hero :is(p, li, dd, figcaption, small, span),
+body.page-home .od-quote-section :is(p, li, dd, figcaption, small, span),
+body.page-home .od-gallery-section :is(p, li, dd, figcaption, small, span),
+body.page-home .od-final-cta :is(p, li, dd, figcaption, small, span) {
+  color: var(--text-muted-on-dark);
+}
+
+.site-header,
+.nav-panel,
+.mobile-nav-panel {
+  color: var(--text-on-dark);
+  background: rgba(10, 20, 16, 0.97);
+}
+
+.desktop-nav > .nav-link,
+.desktop-nav > .nav-group > summary,
+.mobile-nav details summary,
+.mobile-nav-link,
+.nav-panel-link,
+.header-phone,
+.utility-row a {
+  color: var(--text-on-dark);
+}
+
+.nav-link-desc,
+.utility-proof,
+.brand-copy > span {
+  color: var(--text-muted-on-dark);
+}
+
+.desktop-nav > .nav-link:hover,
+.desktop-nav > .nav-link:focus-visible,
+.desktop-nav > .nav-group > summary:hover,
+.desktop-nav > .nav-group > summary:focus-visible,
+.desktop-nav > .nav-group[open] > summary,
+.mobile-nav-link:hover,
+.mobile-nav-link:focus-visible,
+.nav-panel-link:hover,
+.nav-panel-link:focus-visible {
+  color: var(--link-on-dark);
+  background: rgba(201, 168, 106, 0.12);
+}
+
+:is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) {
+  color: var(--text-on-dark);
+  background: var(--surface-dark-elevated);
+  border-color: var(--zq-border-gold);
+}
+
+:is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(h2, h3, h4, strong, summary) {
+  color: var(--heading-on-dark);
+}
+
+:is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(p, li, span, small) {
+  color: var(--text-muted-on-dark);
+}
+
+.section-soft :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel),
+.section-mist :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel),
+.bg-light :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel),
+.od-band-light :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel),
+body.page-home .od-service-card,
+body.page-home .od-quote-card,
+body.page-home .home-redesign-faq-list details {
+  color: var(--text-on-light);
+  background: var(--surface-light);
+  border-color: rgba(16, 35, 31, 0.22);
+}
+
+.section-soft :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(h2, h3, h4, strong, summary),
+.section-mist :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(h2, h3, h4, strong, summary),
+.bg-light :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(h2, h3, h4, strong, summary),
+.od-band-light :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(h2, h3, h4, strong, summary),
+body.page-home .od-service-card :is(strong, h2, h3, h4),
+body.page-home .od-quote-card :is(strong, h2, h3, h4),
+body.page-home .home-redesign-faq-list summary {
+  color: var(--heading-on-light);
+}
+
+.section-soft :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(p, li, span, small),
+.section-mist :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(p, li, span, small),
+.bg-light :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(p, li, span, small),
+.od-band-light :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(p, li, span, small),
+body.page-home .od-service-card :is(p, li, span, small),
+body.page-home .od-quote-card :is(p, li, span, small),
+body.page-home .home-redesign-faq-list p {
+  color: var(--text-muted-on-light);
+}
+
+.button-primary,
+.button-cta,
+.btn-primary,
+.sticky-mobile-cta .button-primary,
+body.page-home .button-primary,
+body.page-home .button-cta {
+  border-color: #d7b36a;
+  color: var(--button-primary-text) !important;
+  background: linear-gradient(135deg, var(--button-primary-bg) 0%, #173f38 58%, #9f6b2e 100%);
+}
+
+.button-primary:hover,
+.button-primary:focus-visible,
+.button-cta:hover,
+.button-cta:focus-visible,
+.btn-primary:hover,
+.btn-primary:focus-visible,
+.sticky-mobile-cta .button-primary:hover,
+.sticky-mobile-cta .button-primary:focus-visible,
+body.page-home .button-primary:hover,
+body.page-home .button-primary:focus-visible,
+body.page-home .button-cta:hover,
+body.page-home .button-cta:focus-visible {
+  color: var(--button-primary-text) !important;
+  background: linear-gradient(135deg, var(--button-primary-hover-bg) 0%, #236358 55%, #b88438 100%);
+}
+
+.button-secondary,
+.btn-outline,
+.sticky-mobile-cta .button-secondary,
+body.page-home .button-secondary {
+  border-color: #9f6b2e;
+  color: var(--button-secondary-text);
+  background: var(--button-secondary-bg);
+}
+
+.button-secondary:hover,
+.button-secondary:focus-visible,
+.btn-outline:hover,
+.btn-outline:focus-visible,
+.sticky-mobile-cta .button-secondary:hover,
+.sticky-mobile-cta .button-secondary:focus-visible,
+body.page-home .button-secondary:hover,
+body.page-home .button-secondary:focus-visible {
+  color: var(--button-secondary-text);
+  background: var(--button-secondary-hover-bg);
+}
+
+.quote-form-premium,
+.quote-form-shell,
+.contact-form-card {
+  color: var(--text-on-light);
+  background: var(--surface-light);
+  border-color: rgba(16, 35, 31, 0.24);
+}
+
+.quote-form-premium :is(h2, h3, h4, legend, label span),
+.contact-form-card :is(h2, h3, h4, legend, label span) {
+  color: var(--input-label);
+}
+
+.quote-form-premium :is(p, li, .field-note, .form-note, .cta-reassurance),
+.contact-form-card :is(p, li, .field-note, .form-note, .cta-reassurance),
+.form-feedback {
+  color: var(--text-muted-on-light);
+}
+
+.quote-form-premium input,
+.quote-form-premium select,
+.quote-form-premium textarea,
+.contact-form-card input,
+.contact-form-card select,
+.contact-form-card textarea,
+input,
+select,
+textarea {
+  border-color: var(--input-border);
+  color: var(--input-text);
+  background: var(--input-bg);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--input-placeholder);
+  opacity: 1;
+}
+
+select option {
+  color: var(--input-text);
+  background: var(--input-bg);
+}
+
+:is(input, select, textarea):disabled {
+  color: #5d716a;
+  background: #e7dfd0;
+  border-color: #b7a58d;
+}
+
+:is(input, select, textarea):focus,
+:is(input, select, textarea):focus-visible {
+  border-color: #7a4b0c;
+  color: var(--input-text);
+  background: var(--input-focus-bg);
+  outline: 3px solid rgba(201, 168, 106, 0.45);
+  outline-offset: 1px;
+}
+
+.form-feedback.is-error,
+.form-feedback[data-state="error"],
+.quote-form-premium :is(input, select, textarea)[aria-invalid="true"] + .form-feedback {
+  color: #a82323;
+}
+
+.form-feedback.is-success,
+.form-feedback[data-state="success"] {
+  color: #176b42;
+}
+
+.table-wrap {
+  color: var(--text-on-light);
+  background: var(--surface-light);
+  border-color: rgba(16, 35, 31, 0.22);
+}
+
+.table-wrap table,
+.table-wrap td {
+  color: var(--text-on-light);
+}
+
+.table-wrap th {
+  color: var(--heading-on-dark);
+  background: var(--surface-dark-elevated);
+}
+
+.faq-section details,
+.home-redesign-faq-list details {
+  border-color: rgba(16, 35, 31, 0.24);
+}
+
+.faq-section summary,
+.home-redesign-faq-list summary {
+  color: var(--heading-on-light);
+}
+
+.faq-section p,
+.home-redesign-faq-list p {
+  color: var(--text-muted-on-light);
+}
+
+.footer-brand-title,
+.footer-title,
+.footer-shell .footer-panel :is(h2, h3, strong) {
+  color: var(--heading-on-dark);
+}
+
+.footer-shell .footer-panel :is(p, li, span, address),
+.footer-shell .footer-bottom {
+  color: var(--text-muted-on-dark);
+}
+
+.footer-shell .footer-link-list a,
+.footer-shell .footer-panel a,
+.footer-shell .footer-bottom a {
+  color: var(--link-on-dark);
+}
+
+.footer-shell .footer-link-list a:hover,
+.footer-shell .footer-panel a:hover,
+.footer-shell .footer-bottom a:hover,
+.footer-shell .footer-link-list a:focus-visible,
+.footer-shell .footer-panel a:focus-visible,
+.footer-shell .footer-bottom a:focus-visible {
+  color: #fff3c4;
+}
+
+body.page-home .od-hero {
+  color: var(--text-on-dark);
+  background:
+    linear-gradient(105deg, rgba(7, 23, 19, 0.99) 0%, rgba(7, 23, 19, 0.94) 56%, rgba(7, 23, 19, 0.7) 100%),
+    url("/media/home-local-hero-branded.webp") center / cover no-repeat;
+}
+
+body.page-home .od-hero :is(h1, .od-hero-statement) {
+  color: var(--heading-on-dark);
+}
+
+body.page-home .od-hero :is(.od-hero-lede, p, li, span, dd) {
+  color: var(--text-muted-on-dark);
+}
+
+.quote-form-premium :is(input, select, textarea),
+.quote-form-shell :is(input, select, textarea),
+.contact-form-card :is(input, select, textarea),
+form[data-quote-form] :is(input, select, textarea) {
+  border-color: var(--input-border) !important;
+  color: var(--input-text) !important;
+  background: var(--input-bg) !important;
+  caret-color: var(--input-text);
+}
+
+.quote-form-premium :is(input, textarea)::placeholder,
+.quote-form-shell :is(input, textarea)::placeholder,
+.contact-form-card :is(input, textarea)::placeholder,
+form[data-quote-form] :is(input, textarea)::placeholder {
+  color: var(--input-placeholder) !important;
+  opacity: 1;
+}
+
+.quote-form-premium select option,
+.quote-form-shell select option,
+.contact-form-card select option,
+form[data-quote-form] select option {
+  color: var(--input-text) !important;
+  background: var(--input-bg) !important;
+}
+
+.quote-form-premium :is(input, select, textarea):focus,
+.quote-form-premium :is(input, select, textarea):focus-visible,
+.quote-form-shell :is(input, select, textarea):focus,
+.quote-form-shell :is(input, select, textarea):focus-visible,
+.contact-form-card :is(input, select, textarea):focus,
+.contact-form-card :is(input, select, textarea):focus-visible,
+form[data-quote-form] :is(input, select, textarea):focus,
+form[data-quote-form] :is(input, select, textarea):focus-visible {
+  border-color: #7a4b0c !important;
+  color: var(--input-text) !important;
+  background: var(--input-focus-bg) !important;
+}
