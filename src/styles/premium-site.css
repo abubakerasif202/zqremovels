@@ -13520,6 +13520,12 @@ body.page-home .zq-v2-home :focus-visible {
   }
 }
 
+@media (min-width: 1121px) {
+  body.page-home .sticky-mobile-cta {
+    display: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   body.page-home .zq-v2-home *,
   body.page-home .zq-v2-home *::before,

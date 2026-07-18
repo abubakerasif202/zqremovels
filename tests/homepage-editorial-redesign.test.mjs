@@ -88,6 +88,7 @@ test('homepage visual layer preserves contrast, responsive navigation and reduce
     assert.match(css, /--zq-v2-accent:\s*#ff6426/);
     assert.match(css, /@media \(max-width: 1120px\)[\s\S]*?\.desktop-nav[\s\S]*?display:\s*none\s*!important/);
     assert.match(css, /@media \(max-width: 640px\)[\s\S]*?\.sticky-mobile-cta/);
+    assert.match(css, /@media \(min-width: 1121px\)[\s\S]*?body\.page-home \.sticky-mobile-cta[\s\S]*?display:\s*none\s*!important/);
     assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
     assert.match(css, /\.zq-v2-home :focus-visible/);
   }
