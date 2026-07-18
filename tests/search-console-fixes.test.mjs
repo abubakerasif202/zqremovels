@@ -118,10 +118,10 @@ test('generated sitemap and canonicals stay on the apex host', () => {
   assert.doesNotMatch(sitemap, /https:\/\/www\.zqremovals\.au\//);
   assert.match(sitemap, /<sitemapindex/);
   assert.match(homepage, /<link rel="canonical" href="https:\/\/zqremovals\.au\/" \/>/);
-  assert.match(homepage, /<title>Removalists Adelaide \| Affordable Removals &amp; Movers<\/title>/);
+  assert.match(homepage, /<title>Adelaide Removalists You Can Rely On \| ZQ Removals<\/title>/);
   assert.match(
     homepage,
-    /<meta name="description" content="Looking for affordable Adelaide removalists\? ZQ Removals offers furniture removals, house moves, and professional movers and packers\. Get a fast quote today!" \/>/,
+    /<meta name="description" content="Careful Adelaide removalists for house, apartment, office and interstate moves\. Request a free quote from ZQ Removals today\." \/>/,
   );
   assert.match(
     interstateHub,
@@ -194,7 +194,7 @@ test('visible breadcrumbs are rendered on key page types and align with JSON-LD'
     ['index.html', ['aria-label="Breadcrumb"', 'li aria-current="page">Home']],
     [path.join('removalists-adelaide', 'index.html'), ['aria-label="Breadcrumb"', '/">Home</a>', 'Removalists Adelaide']],
     [path.join('removalists-salisbury', 'index.html'), ['aria-label="Breadcrumb"', '/">Home</a>', 'Salisbury']],
-    [path.join('adelaide-moving-guides', 'removalists-cost-adelaide', 'index.html'), ['aria-label="Breadcrumb"', 'Adelaide Moving Guides', 'Removalist Cost Adelaide']],
+    [path.join('adelaide-moving-guides', 'removalists-cost-adelaide', 'index.html'), ['aria-label="Breadcrumb"', 'Adelaide Moving Guides', 'How Much Do Removalists Cost in Adelaide?']],
     [path.join('adelaide-to-sydney-removals', 'index.html'), ['aria-label="Breadcrumb"', 'Interstate Removals', 'Adelaide to Sydney Removals']],
     [path.join('moving-checklist-adelaide', 'index.html'), ['aria-label="Breadcrumb"', 'Adelaide Moving Checklist', 'Stress-Free Adelaide Moving Checklist']],
   ];
@@ -258,7 +258,7 @@ test('shared mobile UX markup stays accessible and compact', () => {
   const css = readFileSync(path.join(root, 'premium-site.css'), 'utf8');
 
   assert.match(template, /<a class="button button-secondary" href="tel:\+61433819989">Call 0433 819 989<\/a>/);
-  assert.match(template, /<a class="button button-primary" href="\/contact-us\/#quote-form">Get Fixed-Price Quote<\/a>/);
+  assert.match(template, /<a class="button button-primary" href="\/contact-us\/#quote-form">Get a Free Quote<\/a>/);
   assert.match(header, /aria-controls="mobile-nav-panel"/);
   assert.match(header, /aria-expanded="false"/);
   assert.ok(css.includes('html,'), 'missing global html selector');
@@ -954,31 +954,29 @@ test('core money pages include cost breakdowns, trust upgrades, suburb links, an
 test('conversion prompts keep mobile call, above-fold quote access, and qualified urgency copy', () => {
   const template = readFileSync(path.join(root, 'site-src', 'templates', 'standard.html'), 'utf8');
   const homepage = readDist('index.html');
-  const hero = homepage.match(/<section class="home-redesign-hero[\s\S]*?<\/section>/i)?.[0] || '';
+  const hero = homepage.match(/<section class="zq-v2-hero[\s\S]*?<\/section>/i)?.[0] || '';
 
   assert.match(template, /sticky-mobile-cta/);
   assert.match(template, /href="tel:\+61433819989"[^>]*>Call 0433 819 989<\/a>/);
-  assert.match(hero, /href="#premium-quote"[^>]*>Get Fixed-Price Quote<\/a>/);
-  assert.match(hero, /href="tel:\+61433819989"[^>]*>Call 0433 819 989<\/a>/);
-  assert.match(homepage, /Same-day availability checked against crew schedule and route fit/i);
+  assert.match(hero, /href="#quote-form"[^>]*>Get a Free Quote/i);
+  assert.match(hero, /href="tel:\+61433819989"/);
+  assert.match(homepage, /Urgent requests are reviewed against crew, vehicle and route availability/i);
 });
 
-test('v6 homepage targets premium Adelaide removalists and above-fold CTAs', () => {
+test('homepage targets Adelaide removalists and keeps above-fold conversion controls', () => {
   const homepage = readDist('index.html');
-  const hero = homepage.match(/<section class="home-redesign-hero[\s\S]*?<\/section>/i)?.[0] || '';
+  const hero = homepage.match(/<section class="zq-v2-hero[\s\S]*?<\/section>/i)?.[0] || '';
 
-  assert.match(homepage, /<title>Removalists Adelaide \| Affordable Removals &amp; Movers<\/title>/);
-  assert.match(homepage, /<meta name="description" content="Looking for affordable Adelaide removalists\? ZQ Removals offers furniture removals, house moves, and professional movers and packers\. Get a fast quote today!"/i);
-  assert.match(hero, /<h1[^>]*>Removalists Adelaide<\/h1>/);
-  assert.match(hero, /Local &amp; Interstate Moves Across Adelaide/i);
-  assert.match(hero, /href="#premium-quote"[^>]*>Get Fixed-Price Quote<\/a>/);
-  assert.match(hero, /href="tel:\+61433819989"[^>]*>Call 0433 819 989<\/a>/);
-  for (const phrase of ['(54|48|46\\+?) Google Reviews', 'Fixed Price Quotes', 'Adelaide Based Team']) {
-    assert.match(hero, new RegExp(phrase, 'i'));
-  }
+  assert.match(homepage, /<title>Adelaide Removalists You Can Rely On \| ZQ Removals<\/title>/);
+  assert.match(homepage, /<meta name="description" content="Careful Adelaide removalists for house, apartment, office and interstate moves\. Request a free quote from ZQ Removals today\."/i);
+  assert.match(hero, /<h1[^>]*>Adelaide Removalists You Can Rely On<\/h1>/);
+  assert.match(hero, /From the first box to the final placement/i);
+  assert.match(hero, /href="#quote-form"[^>]*>Get a Free Quote/i);
+  assert.match(hero, /href="tel:\+61433819989"/);
+  assert.doesNotMatch(hero, /Google Reviews|5\.0|guaranteed|fully insured/i);
   for (const href of [
     '/services/house-removals-adelaide/',
-    '/services/furniture-removals-adelaide/',
+    '/furniture-removalists-adelaide/',
     '/services/office-removals-adelaide/',
     '/services/apartment-removals-adelaide/',
     '/removalists-glenelg/',
@@ -993,27 +991,28 @@ test('homepage conversion audit requirements stay visible, accessible, and schem
 
   assert.equal((main.match(/<h1\b/gi) || []).length, 1);
   for (const heading of [
-    'Why Adelaide Chooses ZQ Removals',
-    'Actual moving services for Adelaide homes, offices, and interstate routes.',
-    'Professional moving, protection, loading, and handover.',
-    '5.0-star Google feedback from Adelaide customers.',
-    'Moving Across Adelaide',
-    'Popular interstate routes from Adelaide.',
-    'Removalist questions before you book.',
+    'The right help, from doorway to destination.',
+    'Capability you can see in the details.',
+    'Four clear steps to move day.',
+    'Local knowledge across the city.',
+    'A place for verified words, not borrowed trust.',
+    'Prepared for the spaces people move through.',
+    'Useful answers before you book.',
   ]) {
-    assert.match(main, new RegExp(`<h2>${heading}</h2>`, 'i'));
+    assert.match(main, new RegExp(`>${heading.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}<\/h2>`, 'i'));
   }
-  for (const field of ['name', 'phone', 'email', 'move_scope', 'pickup_suburb', 'dropoff_suburb', 'message']) {
+  for (const field of ['name', 'phone', 'email', 'move_date', 'pickup_suburb', 'dropoff_suburb', 'move_scope', 'move_size', 'message']) {
     assert.match(main, new RegExp(`name="${field}"`, 'i'));
   }
-  for (const size of ['House move', 'Apartment or unit', 'Office move', 'Furniture-only move', 'Interstate move', 'Packing support']) {
+  for (const size of ['Studio or one bedroom', 'Two bedrooms', 'Three bedrooms', 'Four or more bedrooms', 'Office or commercial']) {
     assert.match(main, new RegExp(size, 'i'));
   }
-  assert.match(main, /Request My Fixed-Price Quote/i);
-  assert.equal((main.match(/itemtype="https:\/\/schema\.org\/Question"/g) || []).length, 5);
+  assert.match(main, /Request my quote/i);
+  assert.equal((main.match(/itemtype="https:\/\/schema\.org\/Question"/g) || []).length, 8);
   assert.match(homepage, /"@type": "FAQPage"/);
-  assert.match(main, /alt="ZQ Removals truck and professional Adelaide movers preparing a protected furniture move"/i);
-  assert.match(main, /alt="Removalists protecting furniture before loading"/i);
+  assert.match(main, /alt="ZQ Removals truck and Adelaide removalists moving protected furniture outside a home"/i);
+  assert.match(main, /alt="Adelaide removalists wrapping a dining chair and packing a moving box inside a bright home"/i);
+  assert.doesNotMatch(main, /54 Google|5\.0\/5|fully insured|award-winning/i);
 });
 
 test('v6 service pages carry CTR titles, related services, suburb links, FAQ and CTA', () => {

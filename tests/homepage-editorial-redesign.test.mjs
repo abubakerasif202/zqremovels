@@ -4,70 +4,106 @@ import path from 'node:path';
 import test from 'node:test';
 
 const root = process.cwd();
+const requiredFaqs = [
+  'How much do removalists cost in Adelaide?',
+  'How early should I book?',
+  'Do you offer packing services?',
+  'Can you move apartments and high-rise properties?',
+  'Do you disassemble and reassemble furniture?',
+  'Do you handle interstate moves?',
+  'What happens if my moving date changes?',
+  'Can I request an urgent or same-day move?',
+];
+const serviceRoutes = [
+  '/services/house-removals-adelaide/',
+  '/services/apartment-removals-adelaide/',
+  '/services/office-removals-adelaide/',
+  '/services/interstate-removals-adelaide/',
+  '/services/packing-services-adelaide/',
+  '/furniture-removalists-adelaide/',
+  '/services/piano-movers-adelaide/',
+  '/storage-friendly-removals-adelaide/',
+  '/same-day-removalists-adelaide/',
+];
 
-test('editorial homepage direction stays generator-native and production-safe', async () => {
+test('Open Design homepage contract is generator-native and complete', async () => {
   const source = await readFile(path.join(root, 'site-src', 'content', 'index.html'), 'utf8');
   const built = await readFile(path.join(root, 'site-dist', 'index.html'), 'utf8');
 
   for (const html of [source, built]) {
-    assert.match(html, /class="home-redesign-hero od-hero"/);
-    assert.match(html, /class="od-hero-assurance"/);
-    assert.match(html, /class="od-intake-strip"/);
-    assert.match(html, /class="od-service-grid"/);
-    assert.match(html, /class="od-process-list"/);
-    assert.match(html, /class="od-review-summary home-redesign-rating-box"/);
-    assert.match(html, /class="od-proof-cards"/);
-    assert.match(html, /class="od-quote-expectations"/);
-    assert.match(html, /class="od-quote-card-heading"/);
-    assert.match(html, /54 Google reviews/i);
-    assert.match(html, /CBD apartment/i);
-    assert.match(html, /Get a scoped quote/i);
-    assert.match(html, /src="\/media\/home-local-hero-branded\.webp"/);
-    assert.match(html, /href="\/services\/house-removals-adelaide\/"/);
-    assert.match(html, /href="\/services\/interstate-removals-adelaide\/"/);
-    assert.doesNotMatch(html, /od-hero-3d|od-3d-|@keyframes od/i);
-    assert.doesNotMatch(html, /cdn\.tailwindcss\.com|lh3\.googleusercontent\.com|href="#"/i);
-    assert.doesNotMatch(html, /500\+|zero damage|no hidden fees/i);
+    assert.equal((html.match(/<h1\b/gi) || []).length, 1);
+    assert.match(html, /<h1[^>]*>Adelaide Removalists You Can Rely On<\/h1>/i);
+    assert.equal((html.match(/data-service-card/g) || []).length, 9);
+    assert.equal((html.match(/itemtype="https:\/\/schema\.org\/Question"/g) || []).length, 8);
+    assert.equal((html.match(/data-quote-form="quote"/g) || []).length, 2);
+
+    for (const route of serviceRoutes) {
+      assert.match(html, new RegExp(`href="${route.replace(/\//g, '\\/')}"`));
+    }
+    for (const question of requiredFaqs) {
+      assert.match(html, new RegExp(question.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+    }
+    for (const field of ['name', 'phone', 'email', 'pickup_suburb', 'dropoff_suburb', 'move_date', 'move_scope', 'move_size', 'message']) {
+      assert.match(html, new RegExp(`name="${field}"`));
+    }
+
+    assert.match(html, /href="tel:\+61433819989"/);
+    assert.match(html, /0433 819 989/);
+    assert.match(html, /id="reviews"/);
+    assert.match(html, /Planning a move in Adelaide\? Get your free ZQ Removals quote today\./);
+    assert.doesNotMatch(html, /54 Google|5\.0\/5|5\.0-star|top-rated|fully insured|AFRA|award-winning|guaranteed|zero damage/i);
   }
+
+  assert.match(built, /info@zqremovals\.au/);
 });
 
-test('built homepage receives its page-specific body class', async () => {
-  const built = await readFile(path.join(root, 'site-dist', 'index.html'), 'utf8');
-  assert.match(built, /<body class="[^"]*\bpage-home\b[^"]*">/);
+test('homepage navigation and sticky actions stay complete across desktop and mobile markup', async () => {
+  const header = await readFile(path.join(root, 'site-src', 'partials', 'header.html'), 'utf8');
+  const template = await readFile(path.join(root, 'site-src', 'templates', 'standard.html'), 'utf8');
+
+  for (const label of ['Home', 'Services', 'Locations', 'About', 'Reviews', 'Contact']) {
+    assert.match(header, new RegExp(`>${label}(?:<| ZQ Removals<)`));
+  }
+  assert.match(header, /aria-label="Primary navigation"/);
+  assert.match(header, /aria-label="Mobile navigation"/);
+  assert.match(header, /aria-controls="mobile-nav-panel"/);
+  assert.match(header, /href="tel:\+61433819989"/);
+  assert.match(header, />Get a Free Quote<\/a>/);
+  assert.doesNotMatch(header, /Google rating|\b54 reviews\b/i);
+
+  assert.match(template, /class="sticky-mobile-cta"/);
+  assert.match(template, /aria-label="Quick contact actions"/);
+  assert.match(template, /href="tel:\+61433819989"/);
+  assert.match(template, />Get a Free Quote<\/a>/);
 });
 
-test('premium design layer uses performance-safe reveal and counter hooks', async () => {
-  const css = await readFile(path.join(root, 'premium-site.css'), 'utf8');
-  const js = await readFile(path.join(root, 'site.js'), 'utf8');
-
-  assert.match(css, /2026 PREMIUM SERVICE BRAND SYSTEM/);
-  assert.match(css, /cubic-bezier\(0\.32,\s*0\.72,\s*0,\s*1\)/);
-  assert.match(css, /Premium homepage finish: scoped to the active OD homepage system/);
-  assert.match(css, /Fast premium finish: removes decorative 3D motion/);
-  assert.doesNotMatch(css, /@keyframes odSceneFloat|@keyframes odTruckDrive|@keyframes odNodePulse/);
-  assert.match(css, /prefers-reduced-motion:\s*reduce/);
-  assert.match(js, /function setupAnimatedCounters\(\)/);
-  assert.match(js, /IntersectionObserver/);
-});
-
-test('full-site premium rebuild keeps the new brand promise and accessible design contract', async () => {
-  const source = await readFile(path.join(root, 'site-src', 'content', 'index.html'), 'utf8');
+test('homepage visual layer preserves contrast, responsive navigation and reduced motion', async () => {
   const generatorCss = await readFile(path.join(root, 'premium-site.css'), 'utf8');
   const astroCss = await readFile(path.join(root, 'src', 'styles', 'premium-site.css'), 'utf8');
 
-  assert.match(source, /class="od-hero-statement">Move day, handled\.<\/p>/);
-  assert.match(source, />Get Fixed-Price Quote<\/a>/);
-
   for (const css of [generatorCss, astroCss]) {
-    assert.match(css, /2026 FULL-SITE PREMIUM REBUILD/);
-    assert.match(css, /--premium-ink:\s*#071713/);
-    assert.match(css, /--premium-orange:\s*#ff6426/);
-    assert.match(css, /--font-heading:\s*"Fraunces"/);
-    assert.match(css, /body\.page-home \.od-hero-statement/);
-    assert.match(css, /body\.page-home \.od-intake-strip/);
-    assert.match(css, /body\.page-home \.od-proof-cards/);
-    assert.match(css, /body\.page-home \.od-quote-expectations/);
-    assert.match(css, /@media \(max-width: 759px\)/);
+    assert.match(css, /2026 OPEN DESIGN HOMEPAGE V2/);
+    assert.match(css, /--zq-v2-ink:\s*#071713/);
+    assert.match(css, /--zq-v2-surface:\s*#fffdfa/);
+    assert.match(css, /--zq-v2-accent:\s*#ff6426/);
+    assert.match(css, /@media \(max-width: 1120px\)[\s\S]*?\.desktop-nav[\s\S]*?display:\s*none\s*!important/);
+    assert.match(css, /@media \(max-width: 640px\)[\s\S]*?\.sticky-mobile-cta/);
     assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
+    assert.match(css, /\.zq-v2-home :focus-visible/);
   }
+});
+
+test('homepage JSON-LD uses the visible FAQs and contains no unsupported trust claims', async () => {
+  const pages = JSON.parse(await readFile(path.join(root, 'site-src', 'pages.json'), 'utf8'));
+  const homepage = pages.find((page) => page.output === 'index.html');
+  assert.ok(homepage);
+  const schemas = homepage.jsonLd.map((block) => JSON.parse(block));
+  const graph = schemas.flatMap((schema) => schema['@graph'] || [schema]);
+  const faq = graph.find((node) => node['@type'] === 'FAQPage');
+  const business = graph.find((node) => node['@type'] === 'MovingCompany');
+
+  assert.deepEqual(faq.mainEntity.map((item) => item.name), requiredFaqs);
+  assert.equal(business.telephone, '+61433819989');
+  assert.equal(business.email, 'info@zqremovals.au');
+  assert.doesNotMatch(JSON.stringify(schemas), /AggregateRating|reviewCount|ratingValue|insured|guarantee|award/i);
 });

@@ -38,25 +38,22 @@ test.before(async () => {
   await buildSite();
 });
 
-test('homepage targets Adelaide removalists with the new commercial headline and service links', () => {
+test('homepage targets Adelaide removalists with the approved Open Design conversion structure', () => {
   const homepage = readDist('index.html');
 
   assert.match(
     homepage,
-    /<h1[^>]*>Removalists Adelaide<\/h1>/i,
+    /<h1[^>]*>Adelaide Removalists You Can Rely On<\/h1>/i,
   );
   assert.match(
     homepage,
-    /Local &amp; Interstate Moves Across Adelaide\. Executive-level planning for homes, apartments, offices, and interstate relocations\./i,
+    /From the first box to the final placement/i,
   );
-  assert.match(
-    homepage,
-    /<a class="button button-secondary" href="tel:\+61433819989"[^>]*>Call 0433 819 989<\/a>/i,
-  );
-  assert.match(homepage, /class="home-redesign-rating-box"/i);
-  assert.match(homepage, /class="home-redesign-stars"/i);
+  assert.match(homepage, /href="tel:\+61433819989"/i);
+  assert.equal((homepage.match(/data-service-card/g) || []).length, 9);
+  assert.equal((homepage.match(/itemtype="https:\/\/schema\.org\/Question"/g) || []).length, 8);
   assert.match(homepage, /href="\/services\/house-removals-adelaide\/"/);
-  assert.match(homepage, /href="\/services\/furniture-removals-adelaide\/"/);
+  assert.match(homepage, /href="\/furniture-removalists-adelaide\/"/);
   assert.match(homepage, /href="\/services\/office-removals-adelaide\/"/);
   assert.match(homepage, /href="\/services\/interstate-removals-adelaide\/"/);
   assert.match(homepage, /href="\/services\/packing-services-adelaide\/"/);
@@ -64,13 +61,10 @@ test('homepage targets Adelaide removalists with the new commercial headline and
   assert.match(homepage, /href="\/removalists-adelaide-cbd\/"/);
   assert.match(homepage, /href="\/removalists-marion\/"/);
   assert.match(homepage, /href="\/removalists-unley\/"/);
-  assert.match(homepage, /href="\/apartment-removalists-prospect\/"/);
+  assert.match(homepage, /href="\/removalists-prospect\/"/);
   assert.match(homepage, /href="\/removalists-glenelg\/"/);
-  assert.match(homepage, /href="\/apartment-removalists-henley-beach\/"/);
-  assert.match(homepage, /href="\/adelaide-moving-guides\/moving-house-checklist-adelaide\/"/);
-  assert.match(homepage, /href="\/adelaide-moving-guides\/packing-checklist-adelaide\/"/);
-  assert.match(homepage, /href="\/adelaide-moving-guides\/removalists-cost-adelaide\/"/);
-  assert.match(homepage, /href="\/adelaide-moving-guides\/interstate-moving-checklist-adelaide\/"/);
+  assert.match(homepage, /href="\/removalists-mawson-lakes\/"/);
+  assert.doesNotMatch(homepage, /54 Google|5\.0\/5|fully insured|award-winning/i);
 });
 
 test('generated html keeps internal hrefs root-absolute', () => {

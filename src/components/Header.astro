@@ -6,211 +6,79 @@ import { businessIdentity } from '../../site-src/data/business.mjs';
     <div class="container utility-row">
       <span>Adelaide moves, planned properly from the first call.</span>
       <div class="utility-links">
-        <span class="utility-proof badge badge-ghost badge-sm">5.0 Google rating &middot; 54 reviews &middot; Fixed-price quotes</span>
+        <span class="utility-proof">Local team &middot; Home and office moves &middot; Weekend availability checked</span>
         <a href={`tel:${businessIdentity.phone.tel}`}>{businessIdentity.phone.display}</a>
       </div>
     </div>
   </div>
 
-  <div class="navbar container header-main px-0">
-    <div class="navbar-start">
-      <a class="brand" href="/">
-        <span class="brand-mark brand-mark-logo" aria-hidden="true">
-          <img
-            srcset="/brand-logo-64.webp 64w, /brand-logo-96.webp 96w"
-            sizes="68px"
-            src="/brand-logo-96.webp"
-            alt="ZQ Removals logo"
-            width="68"
-            height="68"
-            loading="eager"
-            decoding="async"
-          />
-        </span>
-        <span class="brand-copy">
-          <strong>{businessIdentity.name}</strong>
-          <span>Move day, handled.</span>
-        </span>
-      </a>
-    </div>
+  <div class="container header-main">
+    <a class="brand" href="/" aria-label="ZQ Removals home">
+      <span class="brand-mark brand-mark-logo" aria-hidden="true">
+        <img srcset="/brand-logo-64.webp 64w, /brand-logo-96.webp 96w" sizes="68px" src="/brand-logo-96.webp" alt="ZQ Removals logo" width="68" height="68" loading="eager" decoding="async" />
+      </span>
+      <span class="brand-copy"><strong>{businessIdentity.name}</strong><span>Move day, handled.</span></span>
+    </a>
 
-    <div class="navbar-center hidden lg:flex">
-      <nav class="desktop-nav" aria-label="Primary">
-        <a class="nav-link hvr-underline-from-center" href="/">Home</a>
-        <details class="nav-group">
-          <summary>Services</summary>
-          <div class="nav-panel">
-            <a class="nav-panel-link nav-panel-link-featured" href="/house-removals-adelaide/">
-              <span class="nav-link-icon nav-link-icon-home" aria-hidden="true"></span>
-              <span class="nav-link-title">House Removals</span>
-              <span class="nav-link-desc">Family homes, apartments, and structured move-day coordination.</span>
-            </a>
-            <a class="nav-panel-link" href="/furniture-removalists-adelaide/">
-              <span class="nav-link-icon nav-link-icon-home" aria-hidden="true"></span>
-              <span class="nav-link-title">Furniture Specialists</span>
-              <span class="nav-link-desc">Bulky pieces, delicate finishes, and protective loading protocols.</span>
-            </a>
-            <a class="nav-panel-link" href="/office-removals-adelaide/">
-              <span class="nav-link-icon nav-link-icon-tower" aria-hidden="true"></span>
-              <span class="nav-link-title">Office &amp; Commercial</span>
-              <span class="nav-link-desc">Organized around access windows, downtime, and business reset priority.</span>
-            </a>
-            <a class="nav-panel-link" href="/packing-services-adelaide/">
-              <span class="nav-link-icon nav-link-icon-grid" aria-hidden="true"></span>
-              <span class="nav-link-title">Packing &amp; Prep</span>
-              <span class="nav-link-desc">Fragile packing, full-home prep, and professional wrapping support.</span>
-            </a>
-            <a class="nav-panel-link" href="/interstate-removals-adelaide/">
-              <span class="nav-link-icon nav-link-icon-route" aria-hidden="true"></span>
-              <span class="nav-link-title">Interstate Moving</span>
-              <span class="nav-link-desc">Route planning, delivery windows, and long-distance move logistics.</span>
-            </a>
-          </div>
-        </details>
-        <details class="nav-group">
-          <summary>Service Areas</summary>
-          <div class="nav-panel">
-            <a class="nav-panel-link nav-panel-link-featured" href="/removalists-adelaide/">
-              <span class="nav-link-icon nav-link-icon-grid" aria-hidden="true"></span>
-              <span class="nav-link-title">All Adelaide Suburbs</span>
-              <span class="nav-link-desc">Local move planning across all metropolitan corridors.</span>
-            </a>
-            <a class="nav-panel-link" href="/removalists-adelaide-cbd/">
-              <span class="nav-link-icon nav-link-icon-tower" aria-hidden="true"></span>
-              <span class="nav-link-title">Adelaide CBD</span>
-              <span class="nav-link-desc">Tower bookings, loading docks, and city access coordination.</span>
-            </a>
-            <a class="nav-panel-link" href="/removalists-marion/">
-              <span class="nav-link-icon nav-link-icon-home" aria-hidden="true"></span>
-              <span class="nav-link-title">Marion &amp; South</span>
-              <span class="nav-link-desc">Homes, units, and efficient south-west local routes.</span>
-            </a>
-            <a class="nav-panel-link" href="/removalists-salisbury/">
-              <span class="nav-link-icon nav-link-icon-home" aria-hidden="true"></span>
-              <span class="nav-link-title">Salisbury &amp; North</span>
-              <span class="nav-link-desc">Northern coverage with truck-friendly access and storage links.</span>
-            </a>
-            <a class="nav-panel-link" href="/removalists-glenelg/">
-              <span class="nav-link-icon nav-link-icon-coast" aria-hidden="true"></span>
-              <span class="nav-link-title">Glenelg &amp; Coastal</span>
-              <span class="nav-link-desc">Beachside apartments, parking pressure, and coastal windows.</span>
-            </a>
-          </div>
-        </details>
-        <a class="nav-link hvr-underline-from-center" href="/blog/">Blog</a>
-        <details class="nav-group">
-          <summary>Prices</summary>
-          <div class="nav-panel">
-            <a class="nav-panel-link nav-panel-link-featured" href="/removalist-cost-adelaide/">
-              <span class="nav-link-icon nav-link-icon-grid" aria-hidden="true"></span>
-              <span class="nav-link-title">Removalist Cost Adelaide</span>
-              <span class="nav-link-desc">Understand access, inventory, truck size, timing, and fixed-price quote factors.</span>
-            </a>
-            <a class="nav-panel-link" href="/cheap-removalists-adelaide/">
-              <span class="nav-link-icon nav-link-icon-home" aria-hidden="true"></span>
-              <span class="nav-link-title">Cheap Removalists</span>
-              <span class="nav-link-desc">Affordable fixed-price options without lowering handling standards.</span>
-            </a>
-            <a class="nav-panel-link" href="/affordable-removalists-adelaide/">
-              <span class="nav-link-icon nav-link-icon-home" aria-hidden="true"></span>
-              <span class="nav-link-title">Affordable Movers</span>
-              <span class="nav-link-desc">Budget-aware planning for house, apartment, furniture, and office moves.</span>
-            </a>
-            <a class="nav-panel-link" href="/moving-quotes-adelaide/">
-              <span class="nav-link-icon nav-link-icon-route" aria-hidden="true"></span>
-              <span class="nav-link-title">Moving Quotes</span>
-              <span class="nav-link-desc">Call or send the quote form with route, inventory, and access notes.</span>
-            </a>
-          </div>
-        </details>
-        <a class="nav-link hvr-underline-from-center" href="/about/">About</a>
-        <a class="nav-link hvr-underline-from-center" href="/contact-us/">Contact</a>
-      </nav>
-    </div>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a class="nav-link hvr-underline-from-center" href="/">Home</a>
+      <details class="nav-group">
+        <summary>Services</summary>
+        <div class="nav-panel">
+          <a class="nav-panel-link nav-panel-link-featured" href="/services/house-removals-adelaide/"><span class="nav-link-icon nav-link-icon-home" aria-hidden="true"></span><span class="nav-link-title">House Removals</span><span class="nav-link-desc">Homes, units and carefully planned move days.</span></a>
+          <a class="nav-panel-link" href="/services/apartment-removals-adelaide/"><span class="nav-link-icon nav-link-icon-tower" aria-hidden="true"></span><span class="nav-link-title">Apartment Removals</span><span class="nav-link-desc">Lifts, loading zones, stairs and shared access.</span></a>
+          <a class="nav-panel-link" href="/services/office-removals-adelaide/"><span class="nav-link-icon nav-link-icon-grid" aria-hidden="true"></span><span class="nav-link-title">Office Removals</span><span class="nav-link-desc">Equipment, access windows and business continuity.</span></a>
+          <a class="nav-panel-link" href="/services/packing-services-adelaide/"><span class="nav-link-icon nav-link-icon-grid" aria-hidden="true"></span><span class="nav-link-title">Packing Services</span><span class="nav-link-desc">Packing, wrapping and preparation support.</span></a>
+          <a class="nav-panel-link" href="/services/interstate-removals-adelaide/"><span class="nav-link-icon nav-link-icon-route" aria-hidden="true"></span><span class="nav-link-title">Interstate Removals</span><span class="nav-link-desc">Route, inventory and handover planning.</span></a>
+        </div>
+      </details>
+      <details class="nav-group">
+        <summary>Locations</summary>
+        <div class="nav-panel">
+          <a class="nav-panel-link nav-panel-link-featured" href="/removalists-adelaide/"><span class="nav-link-icon nav-link-icon-grid" aria-hidden="true"></span><span class="nav-link-title">All Adelaide Areas</span><span class="nav-link-desc">Explore metropolitan and surrounding coverage.</span></a>
+          <a class="nav-panel-link" href="/removalists-adelaide-cbd/"><span class="nav-link-icon nav-link-icon-tower" aria-hidden="true"></span><span class="nav-link-title">Adelaide CBD</span><span class="nav-link-desc">Tower, loading dock and city access planning.</span></a>
+          <a class="nav-panel-link" href="/removalists-northern-adelaide/"><span class="nav-link-icon nav-link-icon-home" aria-hidden="true"></span><span class="nav-link-title">Northern Adelaide</span><span class="nav-link-desc">Northern suburbs and corridor routes.</span></a>
+          <a class="nav-panel-link" href="/removalists-southern-adelaide/"><span class="nav-link-icon nav-link-icon-home" aria-hidden="true"></span><span class="nav-link-title">Southern Adelaide</span><span class="nav-link-desc">Southern suburbs and coastal connections.</span></a>
+          <a class="nav-panel-link" href="/removalists-adelaide-hills/"><span class="nav-link-icon nav-link-icon-coast" aria-hidden="true"></span><span class="nav-link-title">Adelaide Hills</span><span class="nav-link-desc">Access-aware Hills moving support.</span></a>
+        </div>
+      </details>
+      <a class="nav-link hvr-underline-from-center" href="/about/">About</a>
+      <a class="nav-link hvr-underline-from-center" href="/#reviews">Reviews</a>
+      <a class="nav-link hvr-underline-from-center" href="/contact-us/">Contact</a>
+    </nav>
 
-    <div class="navbar-end header-actions">
-      <a class="header-phone hvr-pulse hidden lg:inline-flex" href={`tel:${businessIdentity.phone.tel}`}>{businessIdentity.phone.display}</a>
-      <a class="btn btn-primary hvr-grow" href="/contact-us/#quote-form">Get Fixed-Price Quote</a>
+    <div class="header-actions">
+      <a class="header-phone hvr-pulse" href={`tel:${businessIdentity.phone.tel}`}>{businessIdentity.phone.display}</a>
+      <a class="button button-primary hvr-grow" href="/contact-us/#quote-form">Get a Free Quote</a>
     </div>
   </div>
 
-  <nav class="mobile-nav" aria-label="Mobile">
+  <nav class="mobile-nav" aria-label="Mobile navigation">
     <div class="container mobile-nav-top">
       <a class="button button-secondary header-phone mobile-nav-call hvr-pulse" href={`tel:${businessIdentity.phone.tel}`}>Call {businessIdentity.phone.display}</a>
-      <a class="button button-primary mobile-nav-quote hvr-grow" href="/contact-us/#quote-form">Get Fixed-Price Quote</a>
+      <a class="button button-primary mobile-nav-quote hvr-grow" href="/contact-us/#quote-form">Get a Free Quote</a>
     </div>
     <details>
       <summary class="mobile-menu-trigger" aria-controls="mobile-nav-panel" aria-expanded="false">Menu</summary>
       <div class="mobile-nav-panel" id="mobile-nav-panel">
         <a class="mobile-nav-link" href="/">Home</a>
-        <details>
-          <summary>Services</summary>
-          <div class="nav-panel">
-            <a class="nav-panel-link nav-panel-link-featured" href="/house-removals-adelaide/">
-              <span class="nav-link-icon nav-link-icon-home" aria-hidden="true"></span>
-              <span class="nav-link-title">House Removals</span>
-              <span class="nav-link-desc">Family homes, apartments, and move-day coordination.</span>
-            </a>
-            <a class="nav-panel-link" href="/furniture-removalists-adelaide/">
-              <span class="nav-link-icon nav-link-icon-home" aria-hidden="true"></span>
-              <span class="nav-link-title">Furniture Removals</span>
-              <span class="nav-link-desc">Bulky pieces, delicate finishes, and careful loading.</span>
-            </a>
-            <a class="nav-panel-link" href="/office-removals-adelaide/">
-              <span class="nav-link-icon nav-link-icon-tower" aria-hidden="true"></span>
-              <span class="nav-link-title">Office relocations</span>
-              <span class="nav-link-desc">Commercial moves organized around business downtime.</span>
-            </a>
-            <a class="nav-panel-link" href="/packing-services-adelaide/">
-              <span class="nav-link-icon nav-link-icon-grid" aria-hidden="true"></span>
-              <span class="nav-link-title">Packing services</span>
-              <span class="nav-link-desc">Fragile-item packing, cartons, and wrapping support.</span>
-            </a>
-            <a class="nav-panel-link" href="/interstate-removals-adelaide/">
-              <span class="nav-link-icon nav-link-icon-route" aria-hidden="true"></span>
-              <span class="nav-link-title">Interstate removals</span>
-              <span class="nav-link-desc">Route planning and long-distance moving support.</span>
-            </a>
-          </div>
-        </details>
-        <details>
-          <summary>Service Areas</summary>
-          <div class="nav-panel">
-            <a class="nav-panel-link nav-panel-link-featured" href="/removalists-adelaide/">
-              <span class="nav-link-icon nav-link-icon-grid" aria-hidden="true"></span>
-              <span class="nav-link-title">All Adelaide Suburbs</span>
-              <span class="nav-link-desc">Metropolitan coverage and local move planning.</span>
-            </a>
-            <a class="nav-panel-link" href="/removalists-adelaide-cbd/">
-              <span class="nav-link-icon nav-link-icon-tower" aria-hidden="true"></span>
-              <span class="nav-link-title">Adelaide CBD</span>
-              <span class="nav-link-desc">Tower bookings, loading docks, and city access.</span>
-            </a>
-            <a class="nav-panel-link" href="/removalists-marion/">
-              <span class="nav-link-icon nav-link-icon-home" aria-hidden="true"></span>
-              <span class="nav-link-title">Marion & South</span>
-              <span class="nav-link-desc">Homes, units, and efficient south-west routes.</span>
-            </a>
-            <a class="nav-panel-link" href="/removalists-salisbury/">
-              <span class="nav-link-icon nav-link-icon-home" aria-hidden="true"></span>
-              <span class="nav-link-title">Salisbury & North</span>
-              <span class="nav-link-desc">Northern coverage with truck-friendly access.</span>
-            </a>
-            <a class="nav-panel-link" href="/removalists-glenelg/">
-              <span class="nav-link-icon nav-link-icon-coast" aria-hidden="true"></span>
-              <span class="nav-link-title">Glenelg & Coastal</span>
-              <span class="nav-link-desc">Beachside apartments and coastal timing.</span>
-            </a>
-          </div>
-        </details>
-        <a class="mobile-nav-link" href="/interstate-removals-adelaide/">Interstate Removals</a>
-        <a class="mobile-nav-link" href="/blog/">Blog</a>
-        <a class="mobile-nav-link" href="/removalist-cost-adelaide/">Removalist Cost Adelaide</a>
-        <a class="mobile-nav-link" href="/cheap-removalists-adelaide/">Cheap Removalists Adelaide</a>
-        <a class="mobile-nav-link" href="/affordable-removalists-adelaide/">Affordable Removalists Adelaide</a>
-        <a class="mobile-nav-link" href="/moving-quotes-adelaide/">Moving Quotes Adelaide</a>
-        <a class="mobile-nav-link" href="/about/">About ZQ Removals</a>
-        <a class="mobile-nav-link" href="/contact-us/">Contact Us</a>
+        <div class="mobile-nav-section"><p class="mobile-nav-heading">Services</p><div class="nav-panel">
+          <a class="nav-panel-link" href="/services/house-removals-adelaide/"><span class="nav-link-title">House removals</span></a>
+          <a class="nav-panel-link" href="/services/apartment-removals-adelaide/"><span class="nav-link-title">Apartment removals</span></a>
+          <a class="nav-panel-link" href="/services/office-removals-adelaide/"><span class="nav-link-title">Office removals</span></a>
+          <a class="nav-panel-link" href="/services/packing-services-adelaide/"><span class="nav-link-title">Packing services</span></a>
+          <a class="nav-panel-link" href="/services/interstate-removals-adelaide/"><span class="nav-link-title">Interstate removals</span></a>
+        </div></div>
+        <div class="mobile-nav-section"><p class="mobile-nav-heading">Locations</p><div class="nav-panel">
+          <a class="nav-panel-link" href="/removalists-adelaide/"><span class="nav-link-title">All Adelaide areas</span></a>
+          <a class="nav-panel-link" href="/removalists-adelaide-cbd/"><span class="nav-link-title">Adelaide CBD</span></a>
+          <a class="nav-panel-link" href="/removalists-northern-adelaide/"><span class="nav-link-title">Northern Adelaide</span></a>
+          <a class="nav-panel-link" href="/removalists-southern-adelaide/"><span class="nav-link-title">Southern Adelaide</span></a>
+          <a class="nav-panel-link" href="/removalists-adelaide-hills/"><span class="nav-link-title">Adelaide Hills</span></a>
+        </div></div>
+        <a class="mobile-nav-link" href="/about/">About</a>
+        <a class="mobile-nav-link" href="/#reviews">Reviews</a>
+        <a class="mobile-nav-link" href="/contact-us/">Contact</a>
       </div>
     </details>
   </nav>

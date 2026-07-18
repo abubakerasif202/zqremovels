@@ -88,11 +88,11 @@ test('dark-surface interaction states keep readable accent text', () => {
 });
 
 test('generated urgency banner keeps dark copy on its light premium surface', () => {
-  const homepage = readDist('/');
-  assert.match(homepage, /data-lead-machine-cta="v7"/);
-  assert.match(homepage, /Get a fixed-price quote before your move date disappears\./);
-  assert.match(homepage, /<section class="section lead-machine-cta"/);
-  assert.doesNotMatch(homepage, /lead-machine-cta[^]*?style="[^"]*color:\s*(?:white|#fff)/i);
+  const servicePage = readDist('/house-removals-adelaide/');
+  assert.match(servicePage, /data-lead-machine-cta="v7"/);
+  assert.match(servicePage, /Get a fixed-price quote before your move date disappears\./);
+  assert.match(servicePage, /<section class="section lead-machine-cta"/);
+  assert.doesNotMatch(servicePage, /lead-machine-cta[^]*?style="[^"]*color:\s*(?:white|#fff)/i);
 });
 
 test('all generated HTML avoids obvious light-surface contrast anti-patterns', () => {

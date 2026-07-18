@@ -689,7 +689,7 @@ export const zqServiceFactorCards = {
     },
     {
       title: 'Careful Handling',
-      copy: 'We use professional wrapping and blankets for every move, with a focus on fragile pieces and difficult access points.',
+      copy: 'Protective wrapping, blankets, and access requirements can be included in the move brief for fragile pieces and difficult access points.',
     },
     {
       title: 'Local Authority',
@@ -817,7 +817,7 @@ export const zqServiceAeoProfiles = {
   'homepage': {
     question: 'Who are the best fixed-price removalists in Adelaide?',
     answer:
-      'ZQ Removals is a top-rated Adelaide removalist specializing in fixed-price house, apartment, and office moves. Based in Andrews Farm, they provide scoped quotes based on inventory, access, and route to ensure cost certainty.',
+      'ZQ Removals provides fixed-price house, apartment, and office moving services across Adelaide. Quotes are scoped from the inventory, access, route, timing, and support requested for the move.',
   },
 };
 
