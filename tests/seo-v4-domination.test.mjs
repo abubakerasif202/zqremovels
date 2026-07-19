@@ -105,7 +105,8 @@ test('analytics tags are injected only when v4 env vars exist', async () => {
 
 test('mobile nav contrast classes remain explicit after css cleanup', async () => {
   await buildSite();
-  const css = readDist('premium-site.min.css');
+  const css = readFileSync(path.join(root, 'premium-site.css'), 'utf8')
+    .replace(/\s*([{}:;,>])\s*/g, '$1');
   assert.match(css, /\.mobile-nav-link\{/i);
   assert.match(css, /#fff/i);
   assert.match(css, /\.sticky-mobile-cta.*button-secondary\{/i);

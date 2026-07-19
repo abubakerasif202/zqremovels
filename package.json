@@ -32,7 +32,8 @@
     "esbuild": "^0.28.1",
     "googleapis": "^171.4.0",
     "http-server": "^14.1.1",
-    "lightningcss": "^1.32.0"
+    "lightningcss": "^1.32.0",
+    "purgecss": "^8.0.0"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",

@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ZQ Removals apartment logistics advertisement for Adelaide moves.">
+  <title>ZQ Removals Apartment Ad</title>
+  <style>html,body{margin:0;background:#07110d}
+  .zq-ad-section {
+    --zq-ink: #07110d;
+    --zq-surface: #10231c;
+    --zq-surface-soft: #183029;
+    --zq-gold: #c9a86a;
+    --zq-copy: #f7f6f2;
+    position: relative;
+    overflow: hidden;
+    padding: clamp(4.5rem, 8vw, 8rem) clamp(1rem, 4vw, 3rem);
+    color: var(--zq-copy);
+    background:
+      radial-gradient(circle at 82% 36%, rgba(201, 168, 106, 0.12), transparent 28rem),
+      linear-gradient(145deg, #07110d 0%, #0c1a15 52%, #10251d 100%);
+  }
+
+  .zq-ad-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.12;
+    background-image: linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+  }
+
+  .zq-ad-layout {
+    position: relative;
+    z-index: 1;
+    width: min(1120px, 100%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 430px);
+    gap: clamp(2.5rem, 7vw, 7rem);
+    align-items: center;
+  }
+
+  .zq-ad-copy { max-width: 650px; }
+
+  .zq-ad-eyebrow {
+    margin: 0 0 1.25rem;
+    color: var(--zq-gold);
+    font: 700 0.76rem/1.2 ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .zq-ad-copy h2 {
+    max-width: 13ch;
+    margin: 0;
+    font: 750 clamp(2.35rem, 6vw, 5.7rem)/0.96 ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.055em;
+    text-wrap: balance;
+  }
+
+  .zq-ad-intro {
+    max-width: 58ch;
+    margin: 1.7rem 0 0;
+    color: rgba(247, 246, 242, 0.72);
+    font: 450 clamp(1rem, 1.5vw, 1.15rem)/1.7 ui-sans-serif, system-ui, sans-serif;
+  }
+
+  .zq-ad-points {
+    display: grid;
+    gap: 0.85rem;
+    margin: 2rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .zq-ad-points li {
+    position: relative;
+    padding-left: 1.6rem;
+    color: rgba(247, 246, 242, 0.82);
+    font: 600 0.92rem/1.45 ui-sans-serif, system-ui, sans-serif;
+  }
+
+  .zq-ad-points li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 0.55rem;
+    height: 0.55rem;
+    border: 1px solid var(--zq-gold);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(201, 168, 106, 0.08);
+  }
+
+  .zq-ad-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 2.2rem;
+  }
+
+  .zq-ad-actions a,
+  .zq-ad-final-actions a {
+    display: inline-flex;
+    min-height: 3.15rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 0.85rem 1.35rem;
+    font: 750 0.82rem/1 ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
+  }
+
+  .zq-ad-actions a:hover,
+  .zq-ad-final-actions a:hover { transform: translateY(-2px); }
+
+  .zq-ad-primary,
+  .zq-ad-final-actions a {
+    color: #09130f;
+    background: var(--zq-gold);
+    box-shadow: 0 14px 35px rgba(201, 168, 106, 0.2);
+  }
+
+  .zq-ad-secondary {
+    color: var(--zq-copy);
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.04);
+  }
+
+  .zq-ad-frame-wrap { display: grid; place-items: center; }
+
+  .zq-ad-player {
+    position: relative;
+    width: min(100%, 390px);
+    aspect-ratio: 9 / 16;
+    overflow: hidden;
+    isolation: isolate;
+    border: 1px solid rgba(255,255,255,0.13);
+    border-radius: clamp(1.7rem, 4vw, 2.4rem);
+    background: #050a08;
+    box-shadow:
+      0 0 0 1px rgba(201, 168, 106, 0.14),
+      0 36px 90px rgba(0,0,0,0.55),
+      0 0 100px rgba(20, 55, 42, 0.3);
+  }
+
+  .zq-ad-player::before {
+    content: "";
+    position: absolute;
+    z-index: 10;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+  }
+
+  .zq-ad-scenes,
+  .zq-ad-scene,
+  .zq-ad-scene img,
+  .zq-ad-shade { position: absolute; inset: 0; }
+
+  .zq-ad-scene {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 650ms cubic-bezier(.4, 0, .2, 1), visibility 650ms;
+  }
+
+  .zq-ad-scene.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .zq-ad-scene img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1);
+    transform-origin: center 45%;
+    will-change: transform;
+  }
+
+  .zq-ad-scene:nth-child(even) img { transform-origin: center 62%; }
+
+  .zq-ad-shade {
+    background:
+      linear-gradient(to top, rgba(4, 12, 9, 0.98) 0%, rgba(4, 12, 9, 0.68) 23%, transparent 58%),
+      linear-gradient(to bottom, rgba(0,0,0,0.42), transparent 30%);
+  }
+
+  .zq-ad-scene-copy {
+    position: absolute;
+    z-index: 2;
+    left: clamp(1.15rem, 5vw, 1.7rem);
+    right: clamp(1.15rem, 5vw, 1.7rem);
+    bottom: 5.15rem;
+  }
+
+  .zq-ad-label {
+    display: inline-flex;
+    margin-bottom: 0.75rem;
+    border: 1px solid rgba(201,168,106,0.28);
+    border-radius: 999px;
+    padding: 0.36rem 0.65rem;
+    color: rgba(255,255,255,0.72);
+    background: rgba(8,19,15,0.58);
+    backdrop-filter: blur(10px);
+    font: 700 0.62rem/1 ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .zq-ad-scene-copy h3 {
+    margin: 0;
+    font: 900 clamp(2.15rem, 9vw, 3.15rem)/0.9 ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.055em;
+    text-shadow: 0 3px 30px rgba(0,0,0,0.7);
+  }
+
+  .zq-ad-scene-copy h3 span { display: block; }
+  .zq-ad-scene-copy h3 .is-accent { color: var(--zq-gold); }
+
+  .zq-ad-scene-copy p {
+    margin: 0.8rem 0 0;
+    color: rgba(255,255,255,0.76);
+    font: 750 0.67rem/1.3 ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: 0.15em;
+  }
+
+  .zq-ad-final-actions {
+    position: absolute;
+    z-index: 4;
+    left: 1.4rem;
+    right: 1.4rem;
+    bottom: 4.8rem;
+    display: none;
+  }
+
+  .zq-ad-scene:last-child.is-active .zq-ad-scene-copy { bottom: 9.4rem; }
+  .zq-ad-scene:last-child.is-active .zq-ad-final-actions { display: block; }
+  .zq-ad-final-actions a { width: 100%; min-height: 2.9rem; }
+
+  .zq-ad-start {
+    position: absolute;
+    z-index: 8;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 0.55rem;
+    width: 100%;
+    color: white;
+    border: 0;
+    background: rgba(3, 10, 7, 0.54);
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+    transition: opacity 240ms ease, visibility 240ms ease;
+  }
+
+  .zq-ad-player.has-started .zq-ad-start {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .zq-ad-play-icon,
+  .zq-ad-control-icon {
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 0.45rem solid transparent;
+    border-bottom: 0.45rem solid transparent;
+    border-left: 0.7rem solid currentColor;
+    transform: translateX(0.08rem);
+  }
+
+  .zq-ad-play-icon {
+    display: grid;
+    width: 4.2rem;
+    height: 4.2rem;
+    place-items: center;
+    border: 1px solid rgba(201,168,106,0.58);
+    border-radius: 50%;
+    background: rgba(10, 24, 18, 0.82);
+    box-shadow: 0 0 0 8px rgba(201,168,106,0.08), 0 20px 45px rgba(0,0,0,0.42);
+  }
+
+  .zq-ad-play-icon::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 0.55rem solid transparent;
+    border-bottom: 0.55rem solid transparent;
+    border-left: 0.85rem solid var(--zq-gold);
+    transform: translateX(0.12rem);
+  }
+
+  .zq-ad-start > span:nth-child(2) {
+    font: 800 0.88rem/1 ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+
+  .zq-ad-start small {
+    color: rgba(255,255,255,0.58);
+    font: 600 0.69rem/1 ui-sans-serif, system-ui, sans-serif;
+  }
+
+  .zq-ad-controls {
+    position: absolute;
+    z-index: 7;
+    left: 0.8rem;
+    right: 0.8rem;
+    bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 3.15rem;
+    padding: 0.55rem 0.65rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 999px;
+    background: rgba(7,17,13,0.76);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+  }
+
+  .zq-ad-toggle,
+  .zq-ad-replay {
+    display: grid;
+    flex: 0 0 auto;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    color: var(--zq-gold);
+    background: rgba(201,168,106,0.1);
+    cursor: pointer;
+  }
+
+  .zq-ad-toggle.is-playing .zq-ad-control-icon {
+    width: 0.62rem;
+    height: 0.82rem;
+    border: 0;
+    transform: none;
+    background: linear-gradient(90deg, currentColor 0 35%, transparent 35% 65%, currentColor 65% 100%);
+  }
+
+  .zq-ad-progress {
+    flex: 1 1 auto;
+    height: 0.22rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.12);
+  }
+
+  .zq-ad-progress span {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--zq-gold);
+  }
+
+  .zq-ad-time {
+    min-width: 4.6rem;
+    color: rgba(255,255,255,0.58);
+    font: 650 0.62rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-align: right;
+  }
+
+  .zq-ad-replay { font-size: 1.05rem; }
+
+  .zq-ad-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .zq-ad-section a:focus-visible,
+  .zq-ad-section button:focus-visible {
+    outline: 3px solid rgba(201,168,106,0.9);
+    outline-offset: 4px;
+  }
+
+  @media (max-width: 840px) {
+    .zq-ad-layout { grid-template-columns: 1fr; }
+    .zq-ad-copy { text-align: center; margin-inline: auto; }
+    .zq-ad-copy h2 { max-width: 15ch; margin-inline: auto; }
+    .zq-ad-intro { margin-inline: auto; }
+    .zq-ad-points { width: fit-content; margin-inline: auto; text-align: left; }
+    .zq-ad-actions { justify-content: center; }
+    .zq-ad-frame-wrap { margin-top: 0.4rem; }
+  }
+
+  @media (max-width: 430px) {
+    .zq-ad-section { padding-inline: 0.85rem; }
+    .zq-ad-actions { display: grid; }
+    .zq-ad-actions a { width: 100%; }
+    .zq-ad-player { width: min(100%, 360px); }
+    .zq-ad-time { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .zq-ad-section *,
+    .zq-ad-section *::before,
+    .zq-ad-section *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+</style>
+</head>
+<body>
+<section class="zq-ad-section" aria-labelledby="zq-ad-title">
+  <div class="zq-ad-layout">
+    <div class="zq-ad-copy">
+      <p class="zq-ad-eyebrow">Adelaide apartment removals</p>
+      <h2 id="zq-ad-title">Building access is part of the move plan.</h2>
+      <p class="zq-ad-intro">Lift windows, loading zones, parking and shared-building rules are reviewed before the crew arrives—so your move does not depend on guesswork.</p>
+      <ul class="zq-ad-points" aria-label="ZQ Removals apartment planning benefits">
+        <li>Lift and loading access reviewed</li><li>Fixed-price quote after scope review</li><li>Local Adelaide moving team</li>
+      </ul>
+      <div class="zq-ad-actions">
+        <a class="zq-ad-primary" href="https://zqremovals.au/contact-us/">Get a fixed-price quote</a>
+        <a class="zq-ad-secondary" href="tel:+61433819989">Call 0433 819 989</a>
+      </div>
+    </div>
+    <div class="zq-ad-frame-wrap">
+      <div class="zq-ad-player" data-zq-apartment-ad data-duration="30" aria-label="ZQ Removals apartment logistics advertisement">
+        <div class="zq-ad-scenes"><article class="zq-ad-scene is-active" data-start="0" data-end="3" data-label="Lift booking" data-ken-from="1" data-ken-to="1.16" aria-hidden="false">
+      <img src="assets/scene-1.webp" width="720" height="1280" alt="" loading="eager" decoding="async" draggable="false">
+      <div class="zq-ad-shade" aria-hidden="true"></div>
+      <div class="zq-ad-scene-copy"><span class="zq-ad-label">Lift booking</span><h3><span class="">MISS YOUR</span><span class="is-accent">LIFT SLOT?</span></h3><p>BY 10 MINUTES</p></div>
+    </article><article class="zq-ad-scene" data-start="3" data-end="7" data-label="The risk" data-ken-from="1.1" data-ken-to="1" aria-hidden="true">
+      <img src="assets/scene-2.webp" width="720" height="1280" alt="" loading="lazy" decoding="async" draggable="false">
+      <div class="zq-ad-shade" aria-hidden="true"></div>
+      <div class="zq-ad-scene-copy"><span class="zq-ad-label">The risk</span><h3><span class="">YOU LOSE</span><span class="">THE DAY.</span></h3><p>AND YOUR BOND</p></div>
+    </article><article class="zq-ad-scene" data-start="7" data-end="15" data-label="The ZQ plan" data-ken-from="1" data-ken-to="1.12" aria-hidden="true">
+      <img src="assets/scene-3.webp" width="720" height="1280" alt="" loading="lazy" decoding="async" draggable="false">
+      <div class="zq-ad-shade" aria-hidden="true"></div>
+      <div class="zq-ad-scene-copy"><span class="zq-ad-label">The ZQ plan</span><h3><span class="is-accent">ZQ DOESN'T</span><span class="">GUESS.</span></h3><p>WE PLAN THE BUILDING</p></div>
+    </article><article class="zq-ad-scene" data-start="15" data-end="22" data-label="Access planning" data-ken-from="1.06" data-ken-to="1.18" aria-hidden="true">
+      <img src="assets/scene-4.webp" width="720" height="1280" alt="" loading="lazy" decoding="async" draggable="false">
+      <div class="zq-ad-shade" aria-hidden="true"></div>
+      <div class="zq-ad-scene-copy"><span class="zq-ad-label">Access planning</span><h3><span class="">PRECISION</span><span class="is-accent">ACCESS PLAN</span></h3><p>LIFT • LOADING • COUNCIL</p></div>
+    </article><article class="zq-ad-scene" data-start="22" data-end="30" data-label="Fixed-price quote" data-ken-from="1" data-ken-to="1.04" aria-hidden="true">
+      <img src="assets/scene-5.webp" width="720" height="1280" alt="" loading="lazy" decoding="async" draggable="false">
+      <div class="zq-ad-shade" aria-hidden="true"></div>
+      <div class="zq-ad-scene-copy"><span class="zq-ad-label">Fixed-price quote</span><h3><span class="">GET YOUR</span><span class="is-accent">FIXED PRICE</span></h3><p>ADELAIDE APARTMENT SPECIALISTS</p></div><div class="zq-ad-final-actions"><a href="https://zqremovals.au/contact-us/">Get your fixed price</a></div>
+    </article></div>
+        <button class="zq-ad-start" type="button" aria-label="Play 30-second ZQ Removals story"><span class="zq-ad-play-icon" aria-hidden="true"></span><span>Tap to play</span><small>30-second story</small></button>
+        <div class="zq-ad-controls" aria-label="Advertisement controls"><button class="zq-ad-toggle" type="button" aria-label="Play advertisement"><span class="zq-ad-control-icon" aria-hidden="true"></span></button><div class="zq-ad-progress" aria-hidden="true"><span></span></div><span class="zq-ad-time" aria-hidden="true">0:00 / 0:30</span><button class="zq-ad-replay" type="button" aria-label="Replay advertisement">↻</button></div>
+        <p class="zq-ad-sr" data-zq-ad-status aria-live="polite">Ready to play.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  (() => {
+    const init = () => {
+      document.querySelectorAll('[data-zq-apartment-ad]').forEach((player) => {
+        if (player.dataset.initialized === 'true') return;
+        player.dataset.initialized = 'true';
+
+        const scenes = Array.from(player.querySelectorAll('.zq-ad-scene'));
+        const startButton = player.querySelector('.zq-ad-start');
+        const toggleButton = player.querySelector('.zq-ad-toggle');
+        const replayButton = player.querySelector('.zq-ad-replay');
+        const progressBar = player.querySelector('.zq-ad-progress span');
+        const timeLabel = player.querySelector('.zq-ad-time');
+        const status = player.querySelector('[data-zq-ad-status]');
+        const duration = Number(player.dataset.duration || 30);
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        let currentTime = 0;
+        let isPlaying = false;
+        let hasStarted = false;
+        let frame = 0;
+        let lastStamp = 0;
+        let activeIndex = -1;
+        let wasPlayingBeforeHidden = false;
+
+        const formatTime = (seconds) => {
+          const safe = Math.max(0, Math.min(duration, Math.floor(seconds)));
+          return `${Math.floor(safe / 60)}:${String(safe % 60).padStart(2, '0')}`;
+        };
+
+        const render = () => {
+          const sceneIndex = Math.max(0, scenes.findIndex((scene) => {
+            const start = Number(scene.dataset.start);
+            const end = Number(scene.dataset.end);
+            return currentTime >= start && currentTime < end;
+          }));
+          const resolvedIndex = currentTime >= duration ? scenes.length - 1 : sceneIndex;
+
+          if (activeIndex !== resolvedIndex) {
+            activeIndex = resolvedIndex;
+            scenes.forEach((scene, index) => {
+              const active = index === activeIndex;
+              scene.classList.toggle('is-active', active);
+              scene.setAttribute('aria-hidden', active ? 'false' : 'true');
+            });
+            status.textContent = scenes[activeIndex]?.dataset.label || 'Advertisement playing.';
+          }
+
+          scenes.forEach((scene, index) => {
+            if (index !== activeIndex) return;
+            const start = Number(scene.dataset.start);
+            const end = Number(scene.dataset.end);
+            const local = Math.max(0, Math.min(1, (currentTime - start) / (end - start)));
+            const from = Number(scene.dataset.kenFrom || 1);
+            const to = Number(scene.dataset.kenTo || 1);
+            const scale = reducedMotion ? from : from + (to - from) * local;
+            const image = scene.querySelector('img');
+            if (image) image.style.transform = `scale(${scale})`;
+          });
+
+          const percentage = Math.max(0, Math.min(100, (currentTime / duration) * 100));
+          progressBar.style.width = `${percentage}%`;
+          timeLabel.textContent = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+          toggleButton.classList.toggle('is-playing', isPlaying);
+          toggleButton.setAttribute('aria-label', isPlaying ? 'Pause advertisement' : 'Play advertisement');
+        };
+
+        const stop = () => {
+          isPlaying = false;
+          lastStamp = 0;
+          if (frame) cancelAnimationFrame(frame);
+          frame = 0;
+          render();
+        };
+
+        const tick = (stamp) => {
+          if (!isPlaying) return;
+          if (!lastStamp) lastStamp = stamp;
+          currentTime += (stamp - lastStamp) / 1000;
+          lastStamp = stamp;
+
+          if (currentTime >= duration) {
+            currentTime = duration;
+            stop();
+            status.textContent = 'Advertisement complete. Get a fixed-price quote or replay.';
+            return;
+          }
+
+          render();
+          frame = requestAnimationFrame(tick);
+        };
+
+        const play = () => {
+          if (currentTime >= duration) currentTime = 0;
+          hasStarted = true;
+          player.classList.add('has-started');
+          isPlaying = true;
+          lastStamp = 0;
+          render();
+          if (!frame) frame = requestAnimationFrame(tick);
+        };
+
+        const replay = () => {
+          currentTime = 0;
+          activeIndex = -1;
+          play();
+        };
+
+        startButton.addEventListener('click', play);
+        toggleButton.addEventListener('click', () => isPlaying ? stop() : play());
+        replayButton.addEventListener('click', replay);
+
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            wasPlayingBeforeHidden = isPlaying;
+            if (isPlaying) stop();
+          } else if (wasPlayingBeforeHidden) {
+            wasPlayingBeforeHidden = false;
+            play();
+          }
+        });
+
+        if ('IntersectionObserver' in window) {
+          const observer = new IntersectionObserver((entries) => {
+            const entry = entries[0];
+            if (!entry.isIntersecting && isPlaying) {
+              wasPlayingBeforeHidden = true;
+              stop();
+            } else if (entry.isIntersecting && wasPlayingBeforeHidden && hasStarted) {
+              wasPlayingBeforeHidden = false;
+              play();
+            }
+          }, { threshold: 0.2 });
+          observer.observe(player);
+        }
+
+        render();
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init, { once: true });
+    } else {
+      init();
+    }
+    document.addEventListener('astro:page-load', init);
+  })();
+</script>
+</body>
+</html>

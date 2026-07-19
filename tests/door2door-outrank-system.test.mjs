@@ -190,7 +190,8 @@ test('tracking, schema, host, secret, review, and contrast guards hold across ge
   const analytics = readFileSync(path.join(root, 'analytics.mjs'), 'utf8');
   const site = readFileSync(path.join(root, 'site.js'), 'utf8');
   const sitemap = readDist('sitemap.xml') + readDist('sitemap-pages.xml') + readDist('sitemap-services.xml') + readDist('sitemap-suburbs.xml');
-  const css = readDist('premium-site.min.css');
+  const css = readFileSync(path.join(root, 'premium-site.css'), 'utf8')
+    .replace(/\s*([{}:;,>])\s*/g, '$1');
 
   for (const token of ['phone_click', 'quote_form_start', 'quote_form_submit', 'service_cta_click', 'suburb_cta_click', 'price_page_cta_click']) {
     assert.match(`${analytics}\n${site}`, new RegExp(token));

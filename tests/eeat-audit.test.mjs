@@ -110,9 +110,9 @@ test('homepage hero serves the current WebP asset and dimensions', () => {
 
 test('minified stylesheet output is smaller than the source stylesheet', () => {
   const sourceCss = readFileSync(path.join(root, 'premium-site.css'), 'utf8');
-  const minifiedCss = readDist('premium-site.min.css');
+  const minifiedCss = readDist('premium-home.min.css');
 
-  assert.ok(minifiedCss.length < sourceCss.length, 'expected premium-site.min.css to be shorter than premium-site.css');
+  assert.ok(minifiedCss.length < sourceCss.length, 'expected premium-home.min.css to be shorter than premium-site.css');
 });
 
 test('frontend quote flow emits a GA submission event hook', () => {

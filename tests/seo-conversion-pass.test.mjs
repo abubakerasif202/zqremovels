@@ -107,7 +107,7 @@ test('generated html keeps internal hrefs root-absolute', () => {
 test('quote forms post directly to Web3Forms with attribution and the required contact field names', () => {
   const homepage = readDist('index.html');
   const contactPage = readDist(path.join('contact-us', 'index.html'));
-  const clientScript = readDist('site.js');
+  const clientScript = readFileSync(path.join(root, 'site.js'), 'utf8');
 
   for (const formMarkup of [homepage, contactPage]) {
     for (const fieldName of ['name', 'phone', 'email', 'message']) {

@@ -255,7 +255,8 @@ test('adelaide moving checklist page is generated with clean seo, links, schema,
 test('shared mobile UX markup stays accessible and compact', () => {
   const template = readFileSync(path.join(root, 'site-src', 'templates', 'standard.html'), 'utf8');
   const header = readFileSync(path.join(root, 'site-src', 'partials', 'header.html'), 'utf8');
-  const css = readFileSync(path.join(root, 'premium-site.css'), 'utf8');
+  const css = readFileSync(path.join(root, 'premium-site.css'), 'utf8')
+    .replace(/\s*([{}:;,>])\s*/g, '$1');
 
   assert.match(template, /<a class="button button-secondary" href="tel:\+61433819989">Call 0433 819 989<\/a>/);
   assert.match(template, /<a class="button button-primary" href="\/contact-us\/#quote-form">Get a Free Quote<\/a>/);
@@ -1143,7 +1144,8 @@ test('removalists Adelaide hub has focused intent, schema, CTA and supporting in
 });
 
 test('v6 colour contrast guard prevents known invisible text pairings', () => {
-  const css = readDist('premium-site.min.css');
+  const css = readFileSync(path.join(root, 'premium-site.css'), 'utf8')
+    .replace(/\s*([{}:;,>])\s*/g, '$1');
 
   assert.match(css, /trust-item-bg-service[^}]*color:var\(--text-on-light\)/i);
   assert.match(css, /route-card-bg-service[^}]*color:var\(--text-on-light\)/i);
@@ -1153,7 +1155,8 @@ test('v6 colour contrast guard prevents known invisible text pairings', () => {
 });
 
 test('light page heroes and primary buttons keep readable foreground colours', () => {
-  const css = readDist('premium-site.min.css');
+  const css = readFileSync(path.join(root, 'premium-site.css'), 'utf8')
+    .replace(/\s*([{}:;,>])\s*/g, '$1');
   const priorityOutputs = [
     path.join('removalists-marion', 'index.html'),
     path.join('removalists-hyde-park', 'index.html'),
