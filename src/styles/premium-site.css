@@ -13581,3 +13581,48 @@ body.page-home .zq-v2-home :focus-visible {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* Final WCAG contrast guardrails. Keep surface-specific copy readable after legacy component rules. */
+.section-soft :is(.section-heading h2, .hero-copy h1, .page-hero-copy h1, h1, h2, h3, h4, h5, h6),
+.section-mist :is(.section-heading h2, .hero-copy h1, .page-hero-copy h1, h1, h2, h3, h4, h5, h6),
+.bg-light :is(.section-heading h2, .hero-copy h1, .page-hero-copy h1, h1, h2, h3, h4, h5, h6),
+.od-band-light :is(.section-heading h2, .hero-copy h1, .page-hero-copy h1, h1, h2, h3, h4, h5, h6),
+.lead-machine-cta :is(.section-heading h2, .hero-copy h1, .page-hero-copy h1, h1, h2, h3, h4, h5, h6) {
+  color: var(--heading-on-light);
+}
+
+.section-soft :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
+.section-mist :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
+.bg-light :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
+.od-band-light :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
+.lead-machine-cta :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small) {
+  color: var(--text-muted-on-light);
+}
+
+.section-soft :is(.eyebrow, a:not(.button, .btn)),
+.section-mist :is(.eyebrow, a:not(.button, .btn)),
+.bg-light :is(.eyebrow, a:not(.button, .btn)),
+.od-band-light :is(.eyebrow, a:not(.button, .btn)),
+.lead-machine-cta :is(.eyebrow, a:not(.button, .btn)) {
+  color: var(--link-on-light);
+}
+
+.section-dark :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
+.section-dark-plan :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
+.section-reassurance-pull :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
+.bg-dark :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
+.hero-shell :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
+.hero-shell-home :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
+.footer-shell :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small) {
+  color: var(--text-muted-on-dark);
+}
+
+.section-dark :is(.eyebrow, a:not(.button, .btn)),
+.section-dark-plan :is(.eyebrow, a:not(.button, .btn)),
+.section-reassurance-pull :is(.eyebrow, a:not(.button, .btn)),
+.bg-dark :is(.eyebrow, a:not(.button, .btn)),
+.hero-shell :is(.eyebrow, a:not(.button, .btn)),
+.hero-shell-home :is(.eyebrow, a:not(.button, .btn)),
+.footer-shell :is(.eyebrow, a:not(.button, .btn)) {
+  color: var(--link-on-dark);
+}
