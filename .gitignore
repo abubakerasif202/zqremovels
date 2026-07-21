@@ -20,6 +20,7 @@ node_modules/
 # Env
 .env*
 /net-commander
+/extra-equinox/
 
 # Google Search Console local secrets
 secrets/
