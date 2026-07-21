@@ -83,9 +83,9 @@ test('homepage visual layer preserves contrast, responsive navigation and reduce
 
   for (const css of [generatorCss, astroCss]) {
     assert.match(css, /2026 OPEN DESIGN HOMEPAGE V2/);
-    assert.match(css, /--zq-v2-ink:\s*#071713/);
+    assert.match(css, /--zq-v2-ink:\s*#10263f/);
     assert.match(css, /--zq-v2-surface:\s*#fffdfa/);
-    assert.match(css, /--zq-v2-accent:\s*#ff6426/);
+    assert.match(css, /--zq-v2-accent:\s*#d6a45b/);
     assert.match(css, /@media \(max-width: 1120px\)[\s\S]*?\.desktop-nav[\s\S]*?display:\s*none\s*!important/);
     assert.match(css, /@media \(max-width: 640px\)[\s\S]*?\.sticky-mobile-cta/);
     assert.match(css, /@media \(min-width: 1121px\)[\s\S]*?body\.page-home \.sticky-mobile-cta[\s\S]*?display:\s*none\s*!important/);

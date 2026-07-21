@@ -228,6 +228,7 @@ function setupHeaderDetails() {
 
       if (details.closest(".mobile-nav") && details.querySelector("summary.mobile-menu-trigger")) {
         trackMobileMenuOpen();
+        document.body.classList.toggle("menu-open", details.open);
       }
 
       const siblingDetails = headerDetails.filter((item) => item !== details);
@@ -278,6 +279,7 @@ function setupHeaderDetails() {
       const mobileRoot = siteHeader.querySelector(".mobile-nav > details");
       if (mobileRoot) {
         mobileRoot.open = false;
+        document.body.classList.remove("menu-open");
       }
     }
   });

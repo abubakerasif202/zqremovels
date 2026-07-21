@@ -3772,6 +3772,7 @@ textarea:focus {
 
 @media (max-width: 414px) {
   .sticky-mobile-cta {
+    bottom: 1px;
     grid-template-columns: 1fr;
     gap: 0.5rem;
   }
@@ -12231,15 +12232,15 @@ form[data-quote-form] :is(input, select, textarea):focus-visible {
 body.page-home {
   --zq-v2-bg: #f7f4ec;
   --zq-v2-surface: #fffdfa;
-  --zq-v2-ink: #071713;
-  --zq-v2-muted: #4e625d;
-  --zq-v2-border: #d8ded7;
-  --zq-v2-accent: #ff6426;
-  --zq-v2-accent-hover: #d94d16;
-  --zq-v2-dark: #102b25;
-  --zq-v2-mint: #dfeee9;
-  --zq-v2-success: #25764a;
-  --zq-v2-shadow: 0 24px 70px rgba(7, 23, 19, 0.16);
+  --zq-v2-ink: #10263f;
+  --zq-v2-muted: #4b5d70;
+  --zq-v2-border: #d7dfe7;
+  --zq-v2-accent: #d6a45b;
+  --zq-v2-accent-hover: #b88035;
+  --zq-v2-dark: #0b1c30;
+  --zq-v2-mint: #e6edf3;
+  --zq-v2-success: #216b58;
+  --zq-v2-shadow: 0 24px 70px rgba(16, 38, 63, 0.16);
   color: var(--zq-v2-ink);
   background: var(--zq-v2-bg);
   background-image: none;
@@ -13028,6 +13029,49 @@ body.page-home .zq-v2-testimonial-grid small {
   color: var(--zq-v2-muted);
 }
 
+body.page-home .zq-v2-trust-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+body.page-home .zq-v2-trust-cards article {
+  min-height: 12rem;
+  padding: 1.5rem;
+  border: 1px solid var(--zq-v2-border);
+  border-radius: 1rem;
+  background: var(--zq-v2-surface);
+  box-shadow: 0 12px 32px rgba(16, 38, 63, 0.08);
+}
+
+body.page-home .zq-v2-trust-cards .zq-v2-service-icon {
+  display: inline-flex;
+  width: 2.8rem;
+  height: 2.8rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+  color: var(--zq-v2-ink);
+  background: var(--zq-v2-mint);
+}
+
+body.page-home .zq-v2-trust-cards .zq-v2-service-icon svg {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+body.page-home .zq-v2-trust-cards h3 {
+  margin-bottom: 0.55rem;
+}
+
+body.page-home .zq-v2-trust-cards p {
+  color: var(--zq-v2-muted);
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
 body.page-home .zq-v2-gallery-grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -13410,7 +13454,8 @@ body.page-home .zq-v2-home :focus-visible {
   body.page-home .zq-v2-service-grid,
   body.page-home .zq-v2-check-grid,
   body.page-home .zq-v2-process-grid,
-  body.page-home .zq-v2-testimonial-grid {
+  body.page-home .zq-v2-testimonial-grid,
+  body.page-home .zq-v2-trust-cards {
     grid-template-columns: 1fr;
   }
 
