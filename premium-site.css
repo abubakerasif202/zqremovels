@@ -13626,3 +13626,326 @@ body.page-home .zq-v2-home :focus-visible {
 .footer-shell :is(.eyebrow, a:not(.button, .btn)) {
   color: var(--link-on-dark);
 }
+
+/* 2026 ZQ premium logistics direction: dark navy, electric lime, and a
+   full-bleed move-day hero. These overrides intentionally sit after the
+   generator's V2 rules so the homepage keeps its existing semantic markup,
+   quote API, SEO sections, and responsive behavior. */
+body.page-home {
+  --zq-v2-bg: #f6f8f2;
+  --zq-v2-surface: #ffffff;
+  --zq-v2-ink: #071421;
+  --zq-v2-muted: #536874;
+  --zq-v2-border: rgba(157, 176, 189, 0.35);
+  --zq-v2-accent: #b8f229;
+  --zq-v2-accent-hover: #cbff43;
+  --zq-v2-dark: #071421;
+  --zq-v2-mint: #eaf1e3;
+  --zq-v2-success: #b8f229;
+  --zq-v2-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+  background: var(--zq-v2-ink);
+  color: #f6f8f2;
+}
+
+body.page-home .site-header {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 100;
+  border-color: transparent;
+  color: #f6f8f2;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+body.page-home .utility-bar {
+  display: none;
+}
+
+body.page-home .header-main {
+  min-height: 5.5rem;
+}
+
+body.page-home .header-main > .brand,
+body.page-home .brand-copy strong,
+body.page-home .brand-copy span,
+body.page-home .desktop-nav :is(a, summary),
+body.page-home .header-phone {
+  color: #f6f8f2;
+}
+
+body.page-home .header-main > .brand .brand-copy strong::first-letter {
+  color: var(--zq-v2-accent);
+}
+
+body.page-home .header-main .button-primary,
+body.page-home .mobile-nav .button-primary,
+body.page-home .sticky-mobile-cta .button-primary {
+  border-color: var(--zq-v2-accent);
+  color: #071421;
+  background: var(--zq-v2-accent);
+  box-shadow: none;
+}
+
+body.page-home .header-phone {
+  border-color: var(--zq-v2-accent);
+}
+
+body.page-home .desktop-nav .nav-panel,
+body.page-home .mobile-nav-panel,
+body.page-home .mobile-nav .nav-panel {
+  border-color: var(--zq-v2-border);
+  color: var(--zq-v2-ink);
+  background: #ffffff;
+}
+
+body.page-home .desktop-nav .nav-panel-link,
+body.page-home .mobile-nav .nav-panel-link,
+body.page-home .mobile-nav-link,
+body.page-home .mobile-nav summary {
+  color: var(--zq-v2-ink);
+}
+
+body.page-home .zq-v2-hero {
+  min-height: 56rem;
+  padding: 9rem 0 8.5rem;
+  background:
+    linear-gradient(90deg, rgba(7, 20, 33, 0.98) 0%, rgba(7, 20, 33, 0.86) 32%, rgba(7, 20, 33, 0.35) 68%, rgba(7, 20, 33, 0.2) 100%),
+    linear-gradient(0deg, rgba(7, 20, 33, 0.86), transparent 32%),
+    url("/media/home-local-hero-branded.webp") center / cover no-repeat;
+}
+
+body.page-home .zq-v2-hero::before {
+  display: none;
+}
+
+body.page-home .zq-v2-hero-grid {
+  grid-template-columns: minmax(0, 1.12fr) minmax(28rem, 0.82fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+}
+
+body.page-home .zq-v2-hero-copy {
+  max-width: 42rem;
+  padding-block: 2rem;
+}
+
+body.page-home .zq-v2-eyebrow,
+body.page-home .zq-v2-dark .zq-v2-eyebrow {
+  color: var(--zq-v2-accent);
+}
+
+body.page-home .zq-v2-hero-copy h1 {
+  max-width: 8ch;
+  color: #f6f8f2;
+  font-family: var(--font-body, Inter, Arial, sans-serif);
+  font-size: clamp(3.7rem, 6.7vw, 6.5rem);
+  font-weight: 850;
+  letter-spacing: -0.065em;
+  line-height: 0.94;
+}
+
+body.page-home .zq-v2-hero-copy .zq-v2-lead {
+  max-width: 34rem;
+  color: #d8e2e8;
+  font-size: clamp(1.05rem, 1.6vw, 1.45rem);
+  line-height: 1.55;
+}
+
+body.page-home .zq-v2-actions .zq-v2-button-primary,
+body.page-home .zq-v2-form-footer .zq-v2-button-dark,
+body.page-home .zq-v2-final .zq-v2-button-dark {
+  color: #071421;
+  background: var(--zq-v2-accent);
+  box-shadow: none;
+}
+
+body.page-home .zq-v2-actions .zq-v2-button-outline {
+  border-color: rgba(246, 248, 242, 0.68);
+  color: #f6f8f2;
+}
+
+body.page-home .zq-v2-proof-list li,
+body.page-home .zq-v2-hero-note {
+  color: #d8e2e8;
+}
+
+body.page-home .zq-v2-proof-list svg,
+body.page-home .zq-v2-hero-note svg {
+  color: var(--zq-v2-accent);
+}
+
+body.page-home .zq-v2-quote-panel {
+  max-width: 31rem;
+  justify-self: end;
+  border-color: rgba(157, 176, 189, 0.52);
+  border-radius: 0.9rem;
+  background: rgba(11, 34, 53, 0.98);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.36);
+}
+
+body.page-home .zq-v2-quote-media {
+  display: none;
+}
+
+body.page-home .zq-v2-quote-form {
+  padding: clamp(1.4rem, 2.5vw, 2rem);
+  color: #f6f8f2;
+  background: transparent;
+}
+
+body.page-home .zq-v2-quote-form h2 {
+  color: #f6f8f2;
+  font-family: var(--font-body, Inter, Arial, sans-serif);
+  font-size: clamp(1.75rem, 2.7vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+body.page-home .zq-v2-form-intro,
+body.page-home .zq-v2-form-footer p,
+body.page-home .zq-v2-form-helper {
+  color: #9db0bd;
+}
+
+body.page-home .zq-v2-home form label,
+body.page-home .zq-v2-home form label > span {
+  color: #f0f4f6 !important;
+}
+
+body.page-home .zq-v2-home form :is(input, select, textarea) {
+  min-height: 3.15rem;
+  border-color: rgba(157, 176, 189, 0.68) !important;
+  border-radius: 0.45rem;
+  color: #f6f8f2 !important;
+  background: rgba(4, 16, 27, 0.72) !important;
+}
+
+body.page-home .zq-v2-home form :is(input, select, textarea)::placeholder {
+  color: #9db0bd !important;
+}
+
+body.page-home .zq-v2-home form :is(input, select, textarea):focus,
+body.page-home .zq-v2-home form :is(input, select, textarea):focus-visible {
+  border-color: var(--zq-v2-accent) !important;
+  box-shadow: 0 0 0 3px rgba(184, 242, 41, 0.18);
+  background: rgba(4, 16, 27, 0.88) !important;
+}
+
+body.page-home .zq-v2-form-footer {
+  margin-top: 1.15rem;
+}
+
+body.page-home .zq-v2-trust-strip {
+  color: #f6f8f2;
+  background: #071421;
+  border-color: rgba(157, 176, 189, 0.5);
+}
+
+body.page-home .zq-v2-trust-grid > div {
+  border-color: rgba(157, 176, 189, 0.35);
+}
+
+body.page-home .zq-v2-trust-grid svg {
+  color: var(--zq-v2-accent);
+}
+
+body.page-home .zq-v2-section-head h2,
+body.page-home .zq-v2-why-copy h2,
+body.page-home .zq-v2-area-layout h2,
+body.page-home .zq-v2-faq-intro h2,
+body.page-home .zq-v2-final h2 {
+  font-family: var(--font-body, Inter, Arial, sans-serif);
+  font-weight: 800;
+}
+
+body.page-home .zq-v2-service-card,
+body.page-home .zq-v2-trust-cards > article {
+  border-color: #d2dbe0;
+  background: #ffffff;
+}
+
+body.page-home .zq-v2-service-icon {
+  color: #6e9b00;
+  background: #edf6d7;
+}
+
+body.page-home .zq-v2-dark {
+  color: #f6f8f2;
+  background: #071421;
+}
+
+body.page-home .zq-v2-dark .zq-v2-lead,
+body.page-home .zq-v2-dark .zq-v2-process-grid p {
+  color: #b8c7d0;
+}
+
+body.page-home .zq-v2-dark .zq-v2-process-grid li {
+  border-color: rgba(157, 176, 189, 0.32);
+}
+
+body.page-home .zq-v2-dark .zq-v2-process-grid span {
+  color: var(--zq-v2-accent);
+}
+
+body.page-home .zq-v2-apartment-copy {
+  color: #f6f8f2;
+  background: #0b2235;
+}
+
+body.page-home .zq-v2-apartment-copy .zq-v2-lead,
+body.page-home .zq-v2-apartment-copy li {
+  color: #c3d0d7;
+}
+
+body.page-home .zq-v2-apartment-copy svg {
+  color: var(--zq-v2-accent);
+}
+
+body.page-home .zq-v2-final {
+  background: #0b2235;
+}
+
+body.page-home .zq-v2-final .zq-v2-short-form {
+  border-color: rgba(157, 176, 189, 0.42);
+  background: #071421;
+}
+
+body.page-home .zq-v2-final .zq-v2-short-form :is(label, h3) {
+  color: #f6f8f2;
+}
+
+body.page-home .zq-v2-final .zq-v2-short-form p {
+  color: #9db0bd;
+}
+
+@media (max-width: 1120px) {
+  body.page-home .zq-v2-hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body.page-home .zq-v2-quote-panel {
+    justify-self: start;
+    max-width: 42rem;
+  }
+}
+
+@media (max-width: 640px) {
+  body.page-home .site-header {
+    position: absolute;
+  }
+
+  body.page-home .zq-v2-hero {
+    min-height: auto;
+    padding: 8rem 0 6rem;
+    background-position: 66% center;
+  }
+
+  body.page-home .zq-v2-hero-copy h1 {
+    font-size: clamp(3.4rem, 15vw, 5rem);
+  }
+
+  body.page-home .zq-v2-quote-panel {
+    max-width: none;
+  }
+}
