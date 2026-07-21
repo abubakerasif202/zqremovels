@@ -14,29 +14,27 @@
 
 ## Global Rules
 
-### Color Palette
+### Color Palette (Custom Premium Rebuild Theme)
 
 | Role | Hex | CSS Variable |
 |------|-----|--------------|
-| Primary | `#1E40AF` | `--color-primary` |
-| Secondary | `#3B82F6` | `--color-secondary` |
-| CTA/Accent | `#F97316` | `--color-cta` |
-| Background | `#EFF6FF` | `--color-background` |
-| Text | `#1E3A8A` | `--color-text` |
+| Primary / Background | `#0A1410` | `--zq-bg` |
+| Deep Background | `#050A08` | `--zq-bg-deep` |
+| Secondary Surface | `#12221C` | `--zq-surface` |
+| CTA / Accent | `#C9A86A` | `--zq-gold` / `--zq-cta` |
+| Accent Light | `#E3C98F` | `--zq-gold-light` |
+| Accent Dark | `#9F7D42` | `--zq-gold-dark` |
+| Text | `#F7F4ED` | `--zq-text` |
+| Text Muted | `rgba(255, 255, 255, 0.68)` | `--zq-text-muted` |
 
-**Color Notes:** Professional blue + urgent orange
+**Color Notes:** Luxury forest green background, gold buttons/accents, cream text.
 
 ### Typography
 
-- **Heading Font:** Lexend
-- **Body Font:** Source Sans 3
-- **Mood:** corporate, trustworthy, accessible, readable, professional, clean
-- **Google Fonts:** [Lexend + Source Sans 3](https://fonts.google.com/share?selection.family=Lexend:wght@300;400;500;600;700|Source+Sans+3:wght@300;400;500;600;700)
-
-**CSS Import:**
-```css
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
-```
+- **Heading Font:** Fraunces (serif)
+- **Body Font:** Inter (sans-serif)
+- **Mood:** premium, luxury, elegant, modern, trustworthy, clean
+- **Local Font Sources:** Pre-loaded via WOFF2 in `public/fonts/` for maximum performance.
 
 ### Spacing Variables
 
@@ -54,10 +52,8 @@
 
 | Level | Value | Usage |
 |-------|-------|-------|
-| `--shadow-sm` | `0 1px 2px rgba(0,0,0,0.05)` | Subtle lift |
-| `--shadow-md` | `0 4px 6px rgba(0,0,0,0.1)` | Cards, buttons |
-| `--shadow-lg` | `0 10px 15px rgba(0,0,0,0.1)` | Modals, dropdowns |
-| `--shadow-xl` | `0 20px 25px rgba(0,0,0,0.15)` | Hero images, featured cards |
+| `--shadow-soft` | `0 14px 36px var(--zq-shadow)` | Subtle lift |
+| `--shadow-card` | `0 28px 64px rgba(0, 0, 0, 0.6)` | Cards, buttons |
 
 ---
 
@@ -67,9 +63,9 @@
 
 ```css
 /* Primary Button */
-.btn-primary {
-  background: #F97316;
-  color: white;
+.button-primary, .zq-v2-button-primary {
+  background: var(--zq-gold);
+  color: var(--zq-bg-deep);
   padding: 12px 24px;
   border-radius: 8px;
   font-weight: 600;
@@ -77,16 +73,16 @@
   cursor: pointer;
 }
 
-.btn-primary:hover {
-  opacity: 0.9;
+.button-primary:hover, .zq-v2-button-primary:hover {
+  background: var(--zq-gold-light);
   transform: translateY(-1px);
 }
 
-/* Secondary Button */
-.btn-secondary {
+/* Secondary / Outline Button */
+.button-secondary, .zq-v2-button-outline {
   background: transparent;
-  color: #1E40AF;
-  border: 2px solid #1E40AF;
+  color: var(--zq-text);
+  border: 1px solid var(--zq-border-soft);
   padding: 12px 24px;
   border-radius: 8px;
   font-weight: 600;
@@ -98,17 +94,17 @@
 ### Cards
 
 ```css
-.card {
-  background: #EFF6FF;
+.zq-v2-service-card {
+  background: var(--zq-surface);
+  border: 1px solid var(--zq-border-soft);
   border-radius: 12px;
   padding: 24px;
-  box-shadow: var(--shadow-md);
   transition: all 200ms ease;
   cursor: pointer;
 }
 
-.card:hover {
-  box-shadow: var(--shadow-lg);
+.zq-v2-service-card:hover {
+  border-color: var(--zq-border-gold);
   transform: translateY(-2px);
 }
 ```
@@ -116,18 +112,19 @@
 ### Inputs
 
 ```css
-.input {
+.quote-form-premium input, .quote-form-premium select, .quote-form-premium textarea {
+  background: var(--zq-bg-deep);
+  border: 1px solid var(--zq-border-soft);
+  color: var(--zq-text);
   padding: 12px 16px;
-  border: 1px solid #E2E8F0;
   border-radius: 8px;
   font-size: 16px;
   transition: border-color 200ms ease;
 }
 
-.input:focus {
-  border-color: #1E40AF;
+.quote-form-premium input:focus, .quote-form-premium select:focus, .quote-form-premium textarea:focus {
+  border-color: var(--zq-gold);
   outline: none;
-  box-shadow: 0 0 0 3px #1E40AF20;
 }
 ```
 

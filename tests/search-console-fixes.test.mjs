@@ -264,13 +264,13 @@ test('shared mobile UX markup stays accessible and compact', () => {
   assert.match(header, /aria-expanded="false"/);
   assert.ok(css.includes('html,'), 'missing global html selector');
   assert.match(css, /overflow-x:\s*clip/i);
-  assert.match(css, /@media \(max-width: 640px\)/i);
+  assert.match(css, /@media \(max-width:\s*640px\)/i);
   assert.match(css, /\.sticky-mobile-cta\s*\{/i);
   assert.match(css, /padding-bottom:\s*calc\(0\.75rem \+ env\(safe-area-inset-bottom,\s*0px\)\)/i);
   assert.match(css, /\.js \.reveal-on-scroll\s*\{/i);
   assert.doesNotMatch(css, /\.js \.reveal-on-scroll\s*\{[\s\S]*?transition:\s*all/i);
-  assert.match(css, /@media \(max-width: 767px\)[\s\S]*?\.mobile-nav-top[\s\S]*?display:\s*none/i);
-  assert.match(css, /@media \(max-width: 767px\)[\s\S]*?\.header-main\s*\{[\s\S]*?min-height:\s*4rem/i);
+  assert.match(css, /@media \(max-width:\s*767px\)[\s\S]*?\.mobile-nav-top[\s\S]*?display:\s*none/i);
+  assert.match(css, /@media \(max-width:\s*767px\)[\s\S]*?\.header-main\s*\{[\s\S]*?min-height:\s*4rem/i);
   assert.match(css, /outline:\s*2px solid var\(--zq-cta\)/i);
   assert.match(css, /\.form-feedback\s*\{[\s\S]*?min-height:\s*1\.5rem/i);
   assert.match(css, /\.quote-form-premium input,\s*\.quote-form-premium select,\s*\.quote-form-premium textarea/i);
@@ -1170,11 +1170,11 @@ test('light page heroes and primary buttons keep readable foreground colours', (
   ];
 
   assert.match(css, /hero-shell:not\(\.hero-shell-home\)[^{]*{(?=[^}]*var\(--zq-bg\))(?=[^}]*color:var\(--zq-text\))/i);
-  assert.match(css, /hero-shell:not\(\.hero-shell-home\) :is\(h1,h2,h3,strong\)[^{]*{color:var\(--zq-text\)/i);
-  assert.match(css, /hero-shell:not\(\.hero-shell-home\) :is\(p,li\)[^{]*,[^}]*color:var\(--zq-text-muted\)/i);
-  assert.match(css, /button-primary{color:#fffdf8!important/i);
-  assert.match(css, /button-cta{color:#10231f!important/i);
-  assert.doesNotMatch(css, /button-primary,[^}]*button-cta{color:#10231f!important/i);
+  assert.match(css, /hero-shell:not\(\.hero-shell-home\)\s*:is\(h1,h2,h3,strong\)[^{]*{color:var\(--zq-text\)/i);
+  assert.match(css, /hero-shell:not\(\.hero-shell-home\)\s*:is\(p,li\)[^{]*,[^}]*color:var\(--zq-text-muted\)/i);
+  assert.match(css, /button-primary{color:#fffdf8\s*!important/i);
+  assert.match(css, /button-cta{color:#10231f\s*!important/i);
+  assert.doesNotMatch(css, /button-primary,[^}]*button-cta{color:#10231f\s*!important/i);
 
   for (const output of priorityOutputs) {
     const html = readDist(output);
