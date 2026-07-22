@@ -13949,3 +13949,49 @@ body.page-home .zq-v2-final .zq-v2-short-form p {
     max-width: none;
   }
 }
+
+/* Mobile navigation contrast repair. The premium homepage palette must own
+   every nested menu surface; legacy shared-nav colours otherwise leave dark
+   copy on dark links and near-white copy on white service cards. */
+body.page-home .mobile-nav-panel {
+  border-color: rgba(184, 242, 41, 0.38);
+  color: #f6f8f2;
+  background: #071421;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+}
+
+body.page-home .mobile-nav-panel > .mobile-nav-link {
+  border-color: rgba(157, 176, 189, 0.28);
+  color: #f6f8f2;
+  background: #0b2235;
+}
+
+body.page-home .mobile-nav-panel .mobile-nav-heading {
+  color: #b8f229;
+}
+
+body.page-home .mobile-nav-panel .nav-panel {
+  border-color: rgba(157, 176, 189, 0.32);
+  background: #0b2235;
+  box-shadow: none;
+}
+
+body.page-home .mobile-nav-panel .nav-panel-link,
+body.page-home .mobile-nav-panel .nav-panel-link .nav-link-title,
+body.page-home .mobile-nav-panel .nav-panel-link .nav-link-desc {
+  color: #f6f8f2;
+}
+
+body.page-home .mobile-nav-panel .nav-panel-link {
+  border-color: rgba(157, 176, 189, 0.22);
+  background: #0f2d43;
+}
+
+body.page-home .mobile-nav-panel :is(.mobile-nav-link, .nav-panel-link):is(:hover, :focus-visible) {
+  color: #071421;
+  background: #b8f229;
+}
+
+body.page-home .mobile-nav-panel .nav-panel-link:is(:hover, :focus-visible) :is(.nav-link-title, .nav-link-desc) {
+  color: #071421;
+}
