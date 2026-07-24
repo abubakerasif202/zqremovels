@@ -3,6 +3,12 @@ site-dist/
 output/
 tmp/
 
+# Local audit and packaging artifacts
+/ZQ-Website-Ad-Package.zip
+/phase1_audit_payload.txt
+/phase2_audit_payload.txt
+/scratch/
+
 # Playwright
 playwright-report/
 test-results/
