@@ -97,7 +97,7 @@ export const seoConfig = {
   descriptionMaxLength: 160,
 };
 
-export const localBusinessSchema = {
+const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': 'MovingCompany',
   '@id': `${SITE_URL}/#business`,
@@ -234,7 +234,7 @@ const interstateRouteProfilesV7 = {
   },
 };
 
-export const hyperlocalProfilesV7 = {
+const hyperlocalProfilesV7 = {
   'glenelg': {
     council: 'City of Holdfast Bay',
     context: 'Anzac Highway, Moseley Square, beachside apartments, and parking pressure',
@@ -278,7 +278,7 @@ export const hyperlocalProfilesV7 = {
   },
 };
 
-export const imageAssets = {
+const imageAssets = {
   homepage: {
     path: '/media/home-local-hero-branded.webp',
     url: toAbsoluteUrl('/media/home-local-hero-branded.webp'),
@@ -421,32 +421,6 @@ export function buildTwitterTags({ title, description, image = DEFAULT_OG_IMAGE 
   };
 }
 
-export function renderHomepageAeoBlock() {
-  const profile = zqServiceAeoProfiles['homepage'];
-  const support = zqServiceFactorCards['homepage'];
-
-  return renderAeoAnswerBlock({
-    module: 'homepage-aeo-answer',
-    eyebrow: 'Quick Answer',
-    question: profile.question,
-    answer: profile.answer,
-    support: support,
-    links: [
-      { href: '/removalists-adelaide/', label: 'Local Removals' },
-      { href: '/house-removals-adelaide/', label: 'House Removals' },
-      { href: '/office-removals-adelaide/', label: 'Office Removals' },
-      { href: '/cheap-removalists-adelaide/', label: 'Cheap Removals' },
-      { href: '/affordable-removalists-adelaide/', label: 'Affordable Removals' },
-      { href: '/removalist-cost-adelaide/', label: 'Removalist Cost' },
-      { href: '/moving-quotes-adelaide/', label: 'Moving Quotes' },
-      { href: '/fixed-price-removalists-adelaide/', label: 'Fixed Pricing' },
-      { href: '/budget-removalists-adelaide/', label: 'Budget Removals' },
-      { href: '/contact-us/#quote-form', label: 'Get Quote' },
-    ],
-    soft: true,
-  });
-}
-
 export function buildLocalBusinessSchema() {
   return structuredClone(localBusinessSchema);
 }
@@ -468,7 +442,7 @@ export function buildServiceSchema({ id, name, serviceType, areaServed, descript
   };
 }
 
-export function buildBreadcrumbSchema(items, id) {
+function buildBreadcrumbSchema(items, id) {
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -720,7 +694,7 @@ function normalizePageOutput(output) {
   return String(output || '').replace(/\\/g, '/');
 }
 
-export function getGuideSupportProfile(guideSlug) {
+function getGuideSupportProfile(guideSlug) {
   // Contextual links from guides back to money pages and relevant hubs
   const profiles = {
     'moving-checklist-adelaide': {
@@ -6361,7 +6335,7 @@ function getClusterSupportProfile(clusterKey) {
   };
 }
 
-export function getInterstateSupportProfile(routeSlug) {
+function getInterstateSupportProfile(routeSlug) {
   const allRoutes = [
     { href: '/adelaide-to-melbourne-removalists/', label: 'Adelaide to Melbourne removalists' },
     { href: '/adelaide-to-sydney-removalists/', label: 'Adelaide to Sydney removalists' },

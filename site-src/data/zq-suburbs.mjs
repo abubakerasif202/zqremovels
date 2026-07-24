@@ -1,4 +1,4 @@
-export const zqPrioritySuburbSlugs = [
+const zqPrioritySuburbSlugs = [
   'glenelg',
   'norwood',
   'unley',

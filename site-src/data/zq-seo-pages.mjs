@@ -7,7 +7,7 @@ export const zqCanonicalHostPolicy = {
   note: 'Repo policy and Vercel redirects use the apex host as canonical.',
 };
 
-export const zqCoreServiceRoutes = [
+const zqCoreServiceRoutes = [
   { output: 'removalists-adelaide/index.html', path: '/removalists-adelaide/', pageType: 'main' },
   { output: 'house-removals-adelaide/index.html', path: '/house-removals-adelaide/', pageType: 'service' },
   { output: 'office-removals-adelaide/index.html', path: '/office-removals-adelaide/', pageType: 'service' },
