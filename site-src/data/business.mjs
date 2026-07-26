@@ -1,3 +1,5 @@
+const googleProfileUrl = 'https://share.google/toaQ1pTUMpigxRuQM';
+
 export const businessIdentity = {
   name: 'ZQ Removals',
   siteUrl: 'https://zqremovals.au',
@@ -29,12 +31,36 @@ export const businessIdentity = {
     'Interstate Australia',
   ],
   socialProfiles: [
-    'https://share.google/Y04mpt9RTflWP3iRl',
+    googleProfileUrl,
     'https://facebook.com/zqremovals',
   ],
   defaultOgImagePath: '/zq-removals-social-share.webp',
   defaultLogoPath: '/brand-logo.webp',
 };
+
+export const googleReviews = {
+  rating: 5.0,
+  reviewCount: 59,
+  profileUrl: googleProfileUrl,
+  // Verified from owner-supplied screenshot. Update regularly, or connect this to an approved Google API before presenting it as live data.
+  lastVerifiedSource: 'owner-supplied Google Business Profile screenshot',
+};
+
+export const googleReviewCards = [
+  {
+    reviewer: 'Rakib Rafi',
+    excerpt:
+      'Great service. They helped move my house a long way from Adelaide, almost 450km away. No scratch or damage to any of my furnitures. Better than compititors.',
+  },
+  {
+    reviewer: 'coline tangai',
+    excerpt: 'Very helpful and kind.',
+  },
+  {
+    reviewer: 'Wayne Rowe (Wayno)',
+    excerpt: 'Very efficient, on time and affordable. Friendly staff who made the move seem easy.',
+  },
+];
 
 export const businessIdentifiers = {
   abnFormatted: businessIdentity.abn.formatted,

@@ -4683,7 +4683,7 @@ function makeGuidePage({ slug, title, topic, basePath = 'adelaide-moving-guides'
           },
           sameAs: [
             'https://facebook.com/zqremovals',
-            'https://share.google/Y04mpt9RTflWP3iRl'
+            '{{google.profileUrl}}'
           ]
         },
         publisher: {
@@ -5643,7 +5643,7 @@ function renderGuideAuthorBox() {
         <div class="inline-link-group" style="margin: 0; justify-content: flex-start; gap: 1rem; font-size: 0.85rem;">
           <a href="https://facebook.com/zqremovals" rel="noopener noreferrer" target="_blank" style="color: var(--accent-color, #10b981); text-decoration: none; font-weight: 600;">Facebook Profile</a>
           <span style="color: rgba(255, 255, 255, 0.2);">|</span>
-          <a href="https://share.google/Y04mpt9RTflWP3iRl" rel="noopener noreferrer" target="_blank" style="color: var(--accent-color, #10b981); text-decoration: none; font-weight: 600;">Google Business Profile</a>
+          <a href="{{google.profileUrl}}" rel="noopener noreferrer" target="_blank" style="color: var(--accent-color, #10b981); text-decoration: none; font-weight: 600;">Google Business Profile</a>
         </div>
       </div>
     </div>

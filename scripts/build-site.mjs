@@ -27,7 +27,7 @@ import {
   seoConfig,
   zqServiceSitemapOutputs,
 } from '../site-src/data/seo-v4.mjs';
-import { buildPostalAddressSchema, businessIdentity } from '../site-src/data/business.mjs';
+import { buildPostalAddressSchema, businessIdentity, googleReviewCards, googleReviews } from '../site-src/data/business.mjs';
 import { zqSuburbGeoData } from '../site-src/data/zq-suburbs.mjs';
 
 const projectRoot = process.cwd();
@@ -130,6 +130,7 @@ const heroImageRouteRules = {
 };
 
 for (const page of pages) {
+  applyGoogleReviewTokensToPage(page);
   normalizePageUrls(page);
 }
 
@@ -3278,6 +3279,9 @@ function sanitizeTrustClaimText(value = '') {
     .replace(/\{\{\s*business\.addressLocality\s*\}\}/gi, businessIdentity.address.locality)
     .replace(/\{\{\s*business\.addressRegion\s*\}\}/gi, businessIdentity.address.region)
     .replace(/\{\{\s*business\.postalCode\s*\}\}/gi, businessIdentity.address.postalCode)
+    .replace(/\{\{\s*google\.rating\s*\}\}/gi, Number(googleReviews.rating).toFixed(1))
+    .replace(/\{\{\s*google\.reviewCount\s*\}\}/gi, String(googleReviews.reviewCount))
+    .replace(/\{\{\s*google\.profileUrl\s*\}\}/gi, googleReviews.profileUrl)
     .replace(/ABN and insurance details can be added here once confirmed by the business owner\./gi, confirmedTrustCredentialText)
     .replace(/Yes\. ZQ Removals is fully insured\. Your furniture is covered from the moment our team begins loading to the moment everything is placed in your new home\./gi, confirmedTrustCredentialText)
     .replace(/Yes\. All ZQ Removals interstate jobs are fully insured\. Ask for details when requesting your quote\./gi, confirmedTrustCredentialText)
@@ -3291,6 +3295,20 @@ function sanitizeTrustClaimText(value = '') {
 
 function applyBusinessTokens(value = '') {
   return sanitizeTrustClaimText(value);
+}
+
+function applyGoogleReviewTokensToPage(page) {
+  for (const key of ['title', 'description', 'ogTitle', 'ogDescription', 'twitterTitle', 'twitterDescription']) {
+    if (typeof page[key] === 'string') {
+      page[key] = sanitizeTrustClaimText(page[key]);
+    }
+  }
+
+  if (Array.isArray(page.jsonLd)) {
+    page.jsonLd = page.jsonLd.map((block) =>
+      typeof block === 'string' ? sanitizeTrustClaimText(block) : block,
+    );
+  }
 }
 
 function normalizeJsonLdValue(value, page) {
@@ -3399,7 +3417,7 @@ function normalizeJsonLdNode(node, page) {
         },
         sameAs: [
           'https://facebook.com/zqremovals',
-          'https://share.google/Y04mpt9RTflWP3iRl'
+          googleReviews.profileUrl
         ]
       },
       publisher: {
@@ -3468,7 +3486,7 @@ function normalizeMovingCompanyNode(node, page) {
     logo: defaultLogoImage,
     hasMap: googleBusinessProfileUrl,
     sameAs: Array.from(
-      new Set([...companySameAsProfiles, 'https://share.google/Y04mpt9RTflWP3iRl', ...sameAs].filter(Boolean)),
+      new Set([...companySameAsProfiles, googleReviews.profileUrl, ...sameAs].filter(Boolean)),
     ),
     taxID: businessIdentifiers.abnMachine,
     identifier: {
@@ -3930,6 +3948,16 @@ export function transformContent(content, page) {
       .replaceAll('/zq-removals-social-share.png', '/zq-removals-social-share.webp')
       .replaceAll('/brand-logo.png', '/brand-logo.webp')
       .replaceAll('/screen.png', '/screen.webp');
+    if (!next.includes('google-review-badge-compact')) {
+      next = next.replace(
+        /(<div class="zq-v2-actions">[\s\S]*?<\/div>)/,
+        `$1\n        ${renderGoogleReviewBadge({ compact: true })}`,
+      );
+    }
+    next = next.replace(
+      /<section class="zq-v2-section" id="reviews" aria-labelledby="reviews-title">[\s\S]*?<\/section>\s*(?=<section class="zq-v2-section zq-v2-surface" aria-labelledby="gallery-title">)/,
+      renderGoogleReviewsSection(),
+    );
   }
 
   if (next.includes('class="hero-section"')) {
@@ -3958,6 +3986,7 @@ export function transformContent(content, page) {
   const seoV5IntentProfile = renderSeoV5IntentProfile(page);
   const seoV5LinkHub = renderSeoV5InternalLinkHub(page);
   const strictSeoCompletion = renderStrictSeoCompletionSection(page, next);
+  const serviceReviewStrip = renderServicePageReviewStrip(page);
 
   const localGeoSection = renderLocalGeoSection(page);
 
@@ -3970,6 +3999,7 @@ export function transformContent(content, page) {
     seoV5IntentProfile,
     seoV5LinkHub,
     strictSeoCompletion,
+    serviceReviewStrip,
     proofSection,
     faqSection,
     seoSupport,
@@ -4644,6 +4674,89 @@ function renderCommercialServiceCta(page) {
         <p>Submit your move brief for a confirmed fixed-price proposal.</p>
       </article>
     </div>
+  </div>
+</section>`;
+}
+
+function renderStarIcons(label = '5 out of 5 stars') {
+  return `<span class="google-review-stars" role="img" aria-label="${escapeAttribute(label)}">${Array.from({ length: 5 }, () => '<span aria-hidden="true">&#9733;</span>').join('')}</span>`;
+}
+
+function renderGoogleReviewBadge({ compact = false } = {}) {
+  const ratingText = Number(googleReviews.rating).toFixed(1);
+  const countText = String(googleReviews.reviewCount);
+  const classes = compact ? 'google-review-badge google-review-badge-compact' : 'google-review-badge';
+
+  return `<a class="${classes}" href="${escapeAttribute(googleReviews.profileUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Read ZQ Removals Google reviews. Rated ${ratingText} out of 5 from ${countText} reviews.">
+  ${renderStarIcons()}
+  <span><strong>${ratingText} &#9733;</strong> from ${countText} <span>Google reviews</span></span>
+</a>`;
+}
+
+function renderReviewCard({ reviewer, excerpt }) {
+  return `<article class="google-review-card">
+  <div class="google-review-card-head">
+    ${renderStarIcons()}
+    <strong>${escapeHtml(reviewer)}</strong>
+  </div>
+  <p>${escapeHtml(excerpt)}</p>
+  <a href="${escapeAttribute(googleReviews.profileUrl)}" target="_blank" rel="noopener noreferrer">Read more on Google</a>
+</article>`;
+}
+
+function renderGoogleReviewsSection() {
+  const verifiedReviewCards = Array.isArray(googleReviewCards) ? googleReviewCards : [];
+  const reviewContent =
+    verifiedReviewCards.length > 0
+      ? `<div class="google-review-grid">
+      ${verifiedReviewCards.map((review) => renderReviewCard(review)).join('\n')}
+    </div>`
+      : `<div class="google-review-cta">
+      <a class="zq-v2-button zq-v2-button-dark" href="${escapeAttribute(googleReviews.profileUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Read all ${googleReviews.reviewCount} ZQ Removals reviews on Google">
+        Read all ${googleReviews.reviewCount} reviews on Google
+        <svg aria-hidden="true"><use href="#zq-i-arrow" /></svg>
+      </a>
+    </div>`;
+
+  return `<section class="zq-v2-section google-reviews-section" id="reviews" aria-labelledby="reviews-title">
+  <div class="container">
+    <div class="zq-v2-section-head">
+      <div>
+        <p class="zq-v2-eyebrow">Adelaide's 5-star removalists</p>
+        <h2 id="reviews-title">Rated 5 Stars by Adelaide Customers</h2>
+      </div>
+      <p class="zq-v2-lead">Rated ${Number(googleReviews.rating).toFixed(1)} from ${googleReviews.reviewCount} Google reviews, with customers looking for reliable arrival, careful furniture handling, clear pricing, and trusted support for local and long-distance moves.</p>
+    </div>
+    <div class="google-reviews-summary">
+      ${renderGoogleReviewBadge()}
+    </div>
+    ${reviewContent}
+  </div>
+</section>`;
+}
+
+function renderServicePageReviewStrip(page) {
+  const reviewStripOutputs = new Set([
+    'removalists-adelaide/index.html',
+    'interstate-removals-adelaide/index.html',
+    'services/interstate-removals-adelaide/index.html',
+    'furniture-removalists-adelaide/index.html',
+    'services/furniture-removals-adelaide/index.html',
+    'office-removals-adelaide/index.html',
+    'services/office-removals-adelaide/index.html',
+    'adelaide-moving-guides/removalists-cost-adelaide/index.html',
+    'removalist-cost-adelaide/index.html',
+    'removalists-adelaide-prices/index.html',
+  ]);
+
+  if (!reviewStripOutputs.has(page.output)) return '';
+
+  return `<section class="service-review-strip" aria-label="Google review rating">
+  <div class="container">
+    <a href="${escapeAttribute(googleReviews.profileUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Read ZQ Removals Google reviews. Trusted by Adelaide customers, rated ${Number(googleReviews.rating).toFixed(1)} from ${googleReviews.reviewCount} reviews.">
+      ${renderStarIcons()}
+      <span>Trusted by Adelaide customers &mdash; <strong>${Number(googleReviews.rating).toFixed(1)} from ${googleReviews.reviewCount} Google reviews</strong></span>
+    </a>
   </div>
 </section>`;
 }
@@ -6518,6 +6631,7 @@ async function copyStaticAssets() {
     'favicon.png',
     'apple-touch-icon.png',
     'manifest.json',
+    'pricing.md',
     'robots.txt',
     'screen.png',
     'screen.webp',
@@ -6655,6 +6769,8 @@ function renderLLMsTxt(pagesList) {
     '',
     'Contact:',
     `- Phone: ${seoConfig.phone}`,
+    `- Email: ${businessIdentity.email}`,
+    `- Quote form: ${seoConfig.siteUrl}/contact-us/#quote-form`,
     `- Canonical host: ${seoConfig.siteUrl}`,
     '',
     'References:',

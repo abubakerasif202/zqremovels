@@ -51,9 +51,23 @@ test('Open Design homepage contract is generator-native and complete', async () 
     assert.match(html, /0433 819 989/);
     assert.match(html, /id="reviews"/);
     assert.match(html, /Planning a move in Adelaide\? Get your free ZQ Removals quote today\./);
+    assert.match(html, /(?:5\.0|\{\{google\.rating\}\})[\s\S]*from (?:59|\{\{google\.reviewCount\}\})[\s\S]*Google reviews/i);
+    assert.match(html, /(?:href="https:\/\/share\.google\/toaQ1pTUMpigxRuQM"|href="\{\{google\.profileUrl\}\}")/i);
+    assert.match(html, /google-review-stars" role="img" aria-label="5 out of 5 stars"/i);
+    assert.doesNotMatch(html, /Site owner to replace|Placeholder for a verified Google review|Review excerpts below are placeholders/i);
     assert.doesNotMatch(html, /54 Google|5\.0\/5|5\.0-star|top-rated|fully insured|AFRA|award-winning|guaranteed|zero damage/i);
   }
 
+  for (const reviewText of [
+    'Rakib Rafi',
+    'Great service. They helped move my house a long way from Adelaide, almost 450km away.',
+    'coline tangai',
+    'Very helpful and kind.',
+    'Wayne Rowe \\(Wayno\\)',
+    'Very efficient, on time and affordable.',
+  ]) {
+    assert.match(built, new RegExp(reviewText, 'i'));
+  }
   assert.match(built, /info@zqremovals\.au/);
 });
 

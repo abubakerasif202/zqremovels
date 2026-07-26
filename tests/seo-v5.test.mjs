@@ -112,9 +112,7 @@ test('seo v5 json-ld parses and only publishes supported business facts', () => 
     for (const jsonLd of extractJsonLd(html)) {
       const serialized = JSON.stringify(jsonLd);
       assert.doesNotMatch(serialized, /https:\/\/www\.zqremovals\.au|localhost|\.vercel\.app/i, `bad URL in ${relativePath}`);
-      if (relativePath.replace(/\\/g, '/') !== 'removalists-adelaide/index.html') {
-        assert.doesNotMatch(serialized, /AggregateRating|aggregateRating|reviewCount|ratingValue/i, `unsupported review schema in ${relativePath}`);
-      }
+      assert.doesNotMatch(serialized, /AggregateRating|aggregateRating|reviewCount|ratingValue/i, `unsupported review schema in ${relativePath}`);
       assert.doesNotMatch(serialized, /openingHours|openingHoursSpecification/i, `unsupported hours schema in ${relativePath}`);
       assert.doesNotMatch(serialized, /latitude|longitude|GeoCoordinates/i, `unsupported geo schema in ${relativePath}`);
 
@@ -128,7 +126,7 @@ test('seo v5 json-ld parses and only publishes supported business facts', () => 
           assert.equal(node.url, `${canonicalHost}/`, `business URL mismatch in ${relativePath}`);
           assert.ok(node.telephone, `business telephone missing in ${relativePath}`);
           assert.deepEqual(node.sameAs || [], [
-            'https://share.google/Y04mpt9RTflWP3iRl',
+            'https://share.google/toaQ1pTUMpigxRuQM',
             'https://facebook.com/zqremovals'
           ], `sameAs must use only verified project profiles in ${relativePath}`);
         }

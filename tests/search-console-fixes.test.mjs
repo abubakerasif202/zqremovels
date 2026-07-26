@@ -3,7 +3,7 @@ import path from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
-import { businessIdentity } from '../site-src/data/business.mjs';
+import { businessIdentity, googleReviews } from '../site-src/data/business.mjs';
 import { buildDescription, buildTitle, getGeneratedPages, mergePagesByOutput } from '../site-src/data/seo-v4.mjs';
 
 const root = process.cwd();
@@ -352,11 +352,14 @@ test('robots and AI crawler files stay standards-compliant', () => {
   const robots = readDist('robots.txt');
   const llms = readDist('llms.txt');
   const llmsFull = readDist('llms-full.txt');
+  const pricing = readDist('pricing.md');
 
   assert.match(robots, /^User-agent: \*\r?\nAllow: \/\r?\nSitemap: https:\/\/zqremovals\.au\/sitemap-index\.xml/m);
   assert.doesNotMatch(robots, /^LLM:/m);
   assert.match(llms, /Website: https:\/\/zqremovals\.au/);
   assert.match(llmsFull, /Entity: ZQ Removals/);
+  assert.match(pricing, /# Pricing — ZQ Removals/);
+  assert.match(pricing, /https:\/\/zqremovals\.au\/contact-us\/#quote-form/);
 });
 
 test('responsive image handling keeps hero images sized and prioritized correctly', () => {
@@ -648,7 +651,7 @@ test('json-ld is valid, host-consistent, and uses only supported business facts'
           assert.equal(normalizeTelephone(node.telephone), '0433819989', `MovingCompany telephone mismatch in ${relativePath}`);
           assert.deepEqual(
             node.sameAs,
-            ['https://share.google/Y04mpt9RTflWP3iRl', 'https://facebook.com/zqremovals'],
+            ['https://share.google/toaQ1pTUMpigxRuQM', 'https://facebook.com/zqremovals'],
             `MovingCompany sameAs mismatch in ${relativePath}`,
           );
           assert.equal(node.taxID, expectedAbn, `MovingCompany ABN mismatch in ${relativePath}`);
@@ -739,8 +742,8 @@ test('guide article schema preserves dates and the commercial CTA stays unique',
   assert.equal(builtArticle.headline, sourceArticle.headline, 'Article headline changed unexpectedly');
   assert.equal(builtArticle.description, sourceArticle.description, 'Article description changed unexpectedly');
   assert.deepEqual(builtArticle.mainEntityOfPage, sourceArticle.mainEntityOfPage, 'Article mainEntityOfPage changed unexpectedly');
-  assert.deepEqual(builtArticle.author, sourceArticle.author, 'Article author changed unexpectedly');
-  assert.deepEqual(builtArticle.publisher, sourceArticle.publisher, 'Article publisher changed unexpectedly');
+  assert.deepEqual(builtArticle.author, normalizeGoogleProfileTokens(sourceArticle.author), 'Article author changed unexpectedly');
+  assert.deepEqual(builtArticle.publisher, normalizeGoogleProfileTokens(sourceArticle.publisher), 'Article publisher changed unexpectedly');
   assert.equal(builtArticle.datePublished, sourceArticle.datePublished, 'Article datePublished changed unexpectedly');
   assert.equal(builtArticle.dateModified, sourceArticle.dateModified, 'Article dateModified changed unexpectedly');
   if (sourceArticle.image) {
@@ -944,7 +947,8 @@ test('core money pages include cost breakdowns, trust upgrades, suburb links, an
     const main = extractMain(html);
     const links = extractRootLinks(main);
 
-    assert.ok(countWords(main) >= 1500 && countWords(main) <= 4000, `${output} outside money-page word range`);
+    const minWords = 1500;
+    assert.ok(countWords(main) >= minWords && countWords(main) <= 4000, `${output} outside money-page word range`);
     assert.match(main, /data-service-money-upgrade=/, `${output} missing cost breakdown upgrade`);
     assert.match(main, /data-service-trust-upgrade=/, `${output} missing trust upgrade`);
     assert.ok(links.filter((href) => href.startsWith('/removalists-')).length >= 6, `${output} missing suburb links`);
@@ -974,7 +978,10 @@ test('homepage targets Adelaide removalists and keeps above-fold conversion cont
   assert.match(hero, /From the first box to the final placement/i);
   assert.match(hero, /href="#quote-form"[^>]*>Get a Free Quote/i);
   assert.match(hero, /href="tel:\+61433819989"/);
-  assert.doesNotMatch(hero, /Google Reviews|5\.0|guaranteed|fully insured/i);
+  assert.match(hero, /5\.0[\s\S]*from 59[\s\S]*Google reviews/i);
+  assert.match(hero, /aria-label="Read ZQ Removals Google reviews\. Rated 5\.0 out of 5 from 59 reviews\."/i);
+  assert.match(hero, /href="https:\/\/share\.google\/toaQ1pTUMpigxRuQM"/i);
+  assert.doesNotMatch(hero, /guaranteed|fully insured/i);
   for (const href of [
     '/services/house-removals-adelaide/',
     '/furniture-removalists-adelaide/',
@@ -996,7 +1003,7 @@ test('homepage conversion audit requirements stay visible, accessible, and schem
     'Capability you can see in the details.',
     'Four clear steps to move day.',
     'Local knowledge across the city.',
-    'A place for verified words, not borrowed trust.',
+    'Rated 5 Stars by Adelaide Customers',
     'Prepared for the spaces people move through.',
     'Useful answers before you book.',
   ]) {
@@ -1008,11 +1015,23 @@ test('homepage conversion audit requirements stay visible, accessible, and schem
   for (const size of ['Studio or one bedroom', 'Two bedrooms', 'Three bedrooms', 'Four or more bedrooms', 'Office or commercial']) {
     assert.match(main, new RegExp(size, 'i'));
   }
+  assert.match(main, /href="https:\/\/share\.google\/toaQ1pTUMpigxRuQM"[^>]*target="_blank"[^>]*rel="noopener noreferrer"/i);
+  for (const reviewText of [
+    'Rakib Rafi',
+    'Great service. They helped move my house a long way from Adelaide, almost 450km away.',
+    'coline tangai',
+    'Very helpful and kind.',
+    'Wayne Rowe \\(Wayno\\)',
+    'Very efficient, on time and affordable.',
+  ]) {
+    assert.match(main, new RegExp(reviewText, 'i'));
+  }
   assert.match(main, /Request my quote/i);
   assert.equal((main.match(/itemtype="https:\/\/schema\.org\/Question"/g) || []).length, 8);
   assert.match(homepage, /"@type": "FAQPage"/);
   assert.match(main, /alt="ZQ Removals truck and Adelaide removalists moving protected furniture outside a home"/i);
   assert.match(main, /alt="Adelaide removalists wrapping a dining chair and packing a moving box inside a bright home"/i);
+  assert.doesNotMatch(main, /Site owner to replace|Placeholder for a verified Google review|Review excerpts below are placeholders/i);
   assert.doesNotMatch(main, /54 Google|5\.0\/5|fully insured|award-winning/i);
 });
 
@@ -1301,4 +1320,16 @@ function countWords(html) {
     .trim()
     .split(/\s+/)
     .filter(Boolean).length;
+}
+
+function normalizeGoogleProfileTokens(value) {
+  if (Array.isArray(value)) {
+    return value.map((entry) => normalizeGoogleProfileTokens(entry));
+  }
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, entry]) => [key, normalizeGoogleProfileTokens(entry)]),
+    );
+  }
+  return typeof value === 'string' ? value.replace(/\{\{\s*google\.profileUrl\s*\}\}/gi, googleReviews.profileUrl) : value;
 }

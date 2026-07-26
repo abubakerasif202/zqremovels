@@ -22,9 +22,9 @@ Our quotes are calculated based on the following key operational factors:
 - **Storage Stops:** If the move requires a transit or long-term storage handover.
 
 ### 4. Additional Services
-- **Professional Packing:** Full or partial home packing using premium materials.
-- **Fragile Handling:** Specialist protection for delicate furniture, art, or IT equipment.
-- **After-Hours/Weekend:** Premium slots for moves requiring specific timing windows.
+- **Professional Packing:** Full or partial packing can be scoped for fragile, awkward, or time-sensitive items.
+- **Fragile Handling:** Protection requirements for delicate furniture, artwork, or IT equipment are reviewed in the move brief.
+- **Timing Windows:** After-hours, weekend, or settlement-linked timing is assessed against availability and the confirmed route.
 
 ## How to Get a Quote
 We provide a detailed, written proposal after reviewing your move brief. 
@@ -33,7 +33,7 @@ We provide a detailed, written proposal after reviewing your move brief.
 - **Phone:** 0433 819 989
 - **Email:** info@zqremovals.au
 
-## Transparency Guarantee
-- **No hidden costs:** Travel, fuel, and transit insurance are included in the quote.
-- **Fixed Price:** The price we quote is the price you pay, provided the brief remains the same.
+## Quote clarity
+- **Written scope:** The proposal reflects the inventory, access, route, packing, and timing details supplied for the move.
+- **Scope changes:** If the brief changes, the proposal may need to be reviewed before the move is confirmed.
 - **ABN:** 88 642 917 351
