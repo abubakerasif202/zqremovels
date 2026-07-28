@@ -955,6 +955,28 @@ function setupRevealAnimations() {
   });
 }
 
+function setupInteractiveSpotlights() {
+  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches === false) {
+    return;
+  }
+
+  const targets = document.querySelectorAll(
+    "body.page-home .zq-v2-service-card, body.page-home .zq-v2-trust-cards article, body.page-home .zq-v2-gallery-grid figure",
+  );
+
+  targets.forEach((target) => {
+    target.addEventListener("pointermove", (event) => {
+      const bounds = target.getBoundingClientRect();
+      target.style.setProperty("--spotlight-x", `${event.clientX - bounds.left}px`);
+      target.style.setProperty("--spotlight-y", `${event.clientY - bounds.top}px`);
+    });
+    target.addEventListener("pointerleave", () => {
+      target.style.removeProperty("--spotlight-x");
+      target.style.removeProperty("--spotlight-y");
+    });
+  });
+}
+
 function setupAnimatedCounters() {
   const counters = Array.from(document.querySelectorAll("[data-count]"));
   if (counters.length === 0) {
@@ -1035,6 +1057,7 @@ setupQuoteForms();
 setupLocalFormPreview();
 setupHeaderState();
 setupRevealAnimations();
+setupInteractiveSpotlights();
 setupAnimatedCounters();
 setupStickyCta();
 setupConversionTracking();
