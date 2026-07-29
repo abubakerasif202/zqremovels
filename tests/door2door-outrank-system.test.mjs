@@ -9,7 +9,6 @@ const distDir = path.join(root, 'site-dist');
 
 const pricePages = [
   'cheap-removalists-adelaide',
-  'affordable-removalists-adelaide',
   'removalist-cost-adelaide',
   'moving-quotes-adelaide',
   'fixed-price-removalists-adelaide',
@@ -118,7 +117,7 @@ test('homepage, footer, services, and guides build the price-intent internal lin
   assert.match(footerSource, /href="\/removalist-cost-adelaide\/"/, 'footer missing removalist cost page');
   assert.match(footerSource, /href="\/moving-quotes-adelaide\/"/, 'footer missing moving quotes page');
   assert.match(footerSource, /href="\/cheap-removalists-adelaide\/"/, 'footer missing lower-cost page');
-  assert.match(footerSource, /href="\/affordable-removalists-adelaide\/"/, 'footer missing affordable page');
+  assert.doesNotMatch(footerSource, /href="\/affordable-removalists-adelaide\/"/, 'footer should not link to the consolidated affordable alias');
   assert.match(footerSource, /href="\/removalists-adelaide-quote\/"/, 'footer missing quote path');
   assert.doesNotMatch(footerSource, /Cheap Removalists Adelaide[\s\S]{0,220}Affordable Removalists Adelaide[\s\S]{0,220}Removalist Cost Adelaide[\s\S]{0,220}Moving Quotes Adelaide/i, 'footer should not expose a dense price-keyword cluster');
 

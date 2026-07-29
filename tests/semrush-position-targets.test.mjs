@@ -7,7 +7,6 @@ import { pathToFileURL } from 'node:url';
 const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
 const rankingTargets = [
-  'affordable-removalists-adelaide',
   'cheap-removalists-adelaide',
   'removalist-cost-adelaide',
   'moving-quotes-adelaide',
@@ -38,21 +37,20 @@ test('Semrush commercial target pages expose indexable metadata, PAA answers, an
     assert.match(html, /parking/i, `${slug} missing parking factor`);
     assert.match(html, /packing/i, `${slug} missing packing factor`);
     assert.match(html, /href="\/contact-us\/#quote-form"/i, `${slug} missing quote CTA`);
-    assert.match(html, /data-real-video-placeholder="true"/i, `${slug} missing honest future video block`);
+    assert.doesNotMatch(html, /data-real-video-placeholder="true"/i, `${slug} should not publish an internal video placeholder`);
     for (const question of expectedQuestions) {
       assert.match(html, question, `${slug} missing PAA question`);
     }
   }
 
-  const affordable = readDist('affordable-removalists-adelaide/index.html');
+  const cheap = readDist('cheap-removalists-adelaide/index.html');
   for (const href of [
-    '/cheap-removalists-adelaide/',
     '/removalist-cost-adelaide/',
     '/moving-quotes-adelaide/',
     '/house-removals-adelaide/',
     '/packing-services-adelaide/',
   ]) {
-    assert.match(affordable, new RegExp(`href="${href}"`), `affordable page missing ${href}`);
+    assert.match(cheap, new RegExp(`href="${href}"`), `cheap page missing ${href}`);
   }
 });
 
@@ -74,7 +72,7 @@ test('office recovery page leads the commercial intent and hands off to its supp
   assert.match(office, /weekend/i);
   assert.match(office, /office move risk checklist/i);
   assert.match(office, /href="\/adelaide-moving-guides\/office-relocation-checklist-adelaide\/"/i);
-  assert.match(office, /data-real-video-placeholder="true"/i);
+  assert.doesNotMatch(office, /data-real-video-placeholder="true"/i);
   assert.match(checklist, /href="\/office-removals-adelaide\/"[^>]*>request an office relocation quote/i);
 });
 

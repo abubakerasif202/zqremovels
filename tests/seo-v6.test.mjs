@@ -43,7 +43,7 @@ test('footer and homepage include clean price-path links and cost-conscious mess
   const homepage = readFileSync(path.join(root, 'site-src', 'content', 'index.html'), 'utf8');
   const contact = readFileSync(path.join(root, 'site-src', 'content', 'contact-us', 'index.html'), 'utf8');
 
-  for (const slug of ['cheap-removalists-adelaide', 'affordable-removalists-adelaide', 'removalist-cost-adelaide', 'moving-quotes-adelaide', 'fixed-price-removalists-adelaide']) {
+  for (const slug of ['cheap-removalists-adelaide', 'removalist-cost-adelaide', 'moving-quotes-adelaide', 'fixed-price-removalists-adelaide']) {
     assert.match(homepage, new RegExp(`href="/${slug}/"`), `${slug} missing from homepage source`);
   }
 
@@ -51,7 +51,7 @@ test('footer and homepage include clean price-path links and cost-conscious mess
   assert.match(footer, /href="\/removalists-adelaide-quote\/"/, 'quote form missing from footer source');
   assert.match(footer, /href="\/fixed-price-removalists-adelaide\/"/, 'fixed-price service missing from footer source');
   assert.match(footer, /href="\/cheap-removalists-adelaide\/"/, 'footer should include lower-cost planning path');
-  assert.match(footer, /href="\/affordable-removalists-adelaide\/"/, 'footer should include affordable planning path');
+  assert.doesNotMatch(footer, /href="\/affordable-removalists-adelaide\/"/, 'footer should not link to the consolidated affordable alias');
   assert.doesNotMatch(footer, /cheap-removalists-adelaide[\s\S]{0,220}affordable-removalists-adelaide[\s\S]{0,220}budget-removalists-adelaide/i, 'footer should not include a dense exact-match price grid');
 
   assert.match(homepage, /fixed-price quotes/i);
@@ -82,7 +82,7 @@ test('sitemap still contains the price pages', () => {
   const sitemap = sitemapFiles
     .map((file) => readFileSync(path.join(distDir, file), 'utf8'))
     .join('\n');
-  for (const slug of ['cheap-removalists-adelaide', 'affordable-removalists-adelaide', 'removalist-cost-adelaide', 'moving-quotes-adelaide', 'fixed-price-removalists-adelaide']) {
+  for (const slug of ['cheap-removalists-adelaide', 'removalist-cost-adelaide', 'moving-quotes-adelaide', 'fixed-price-removalists-adelaide']) {
     assert.match(sitemap, new RegExp(`https://zqremovals\\.au/${slug}/`), slug);
   }
 });

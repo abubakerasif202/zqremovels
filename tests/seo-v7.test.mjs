@@ -170,7 +170,7 @@ test('office removals page includes b2b planning terms without unsupported crede
     /lift booking|lift bookings/i,
     /labelled unload/i,
     /quote preparation checklist/i,
-    /href="\/office-relocation-adelaide\/"/,
+    /href="\/adelaide-moving-guides\/office-relocation-checklist-adelaide\/"/,
     /href="\/moving-quotes-adelaide\/"/,
     /href="\/fixed-price-removalists-adelaide\/"/,
     /href="\/contact-us\/#quote-form"/,

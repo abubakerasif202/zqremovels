@@ -132,7 +132,6 @@ test('priority page titles and descriptions are unique, natural, and not abruptl
     'house-removals-adelaide/index.html',
     'moving-company-adelaide/index.html',
     'fixed-price-removalists-adelaide/index.html',
-    'affordable-removalists-adelaide/index.html',
     'budget-removalists-adelaide/index.html',
     'moving-quotes-adelaide/index.html',
     'removalist-cost-adelaide/index.html',
