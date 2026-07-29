@@ -77,7 +77,13 @@ export function normalizeInternalHref(href = '') {
   }
 
   if (value.startsWith('/')) {
-    return value.replace(/\/{2,}/g, '/');
+    const normalizedPath = value.replace(/\/{2,}/g, '/');
+    const canonicalAliases = {
+      '/office-relocation-adelaide/': '/office-removals-adelaide/',
+      '/services/office-removals-adelaide/': '/office-removals-adelaide/',
+      '/affordable-removalists-adelaide/': '/cheap-removalists-adelaide/',
+    };
+    return canonicalAliases[normalizedPath] || normalizedPath;
   }
 
   return `/${value.replace(/^\.\/+/, '').replace(/\/{2,}/g, '/')}`;
@@ -3345,17 +3351,6 @@ function renderSemrushQuoteSupport(page) {
 </section>`;
   }
 
-  html += `
-<section class="section" data-real-video-placeholder="true">
-  <div class="container">
-    ${renderSectionHeading(
-      'Real move-day videos',
-      'Future video proof will show real Adelaide moving preparation.',
-      'No video is embedded until genuine footage is available. Future clips can demonstrate furniture protection, access checks, loading preparation, and the information customers should include in a quote brief.',
-    )}
-  </div>
-</section>`;
-
   return html;
 }
 
@@ -3532,6 +3527,33 @@ export function getGeneratedPages() {
   for (const page of commercialPages) {
     pages.push(makeCommercialPage(page));
   }
+
+  // Semrush position tracking showed the canonical pages outperforming these
+  // aliases. Keep one indexable URL for each intent so relevance and link
+  // signals are not split across near-duplicate pages.
+  pages.push(makeRedirectPage({
+    output: 'office-relocation-adelaide/index.html',
+    canonical: buildCanonical('/office-removals-adelaide/'),
+    title: buildTitle('Office Relocation Adelaide Redirect'),
+    description: buildDescription('Redirecting to the canonical Adelaide office removals and business relocation page.'),
+    destinationPath: '/office-removals-adelaide/',
+  }));
+
+  pages.push(makeRedirectPage({
+    output: 'services/office-removals-adelaide/index.html',
+    canonical: buildCanonical('/office-removals-adelaide/'),
+    title: buildTitle('Office Removals Adelaide Redirect'),
+    description: buildDescription('Redirecting to the canonical Adelaide office removals and business relocation page.'),
+    destinationPath: '/office-removals-adelaide/',
+  }));
+
+  pages.push(makeRedirectPage({
+    output: 'affordable-removalists-adelaide/index.html',
+    canonical: buildCanonical('/cheap-removalists-adelaide/'),
+    title: buildTitle('Affordable Removalists Adelaide Redirect'),
+    description: buildDescription('Redirecting to the canonical Adelaide lower-cost moving and quote-planning page.'),
+    destinationPath: '/cheap-removalists-adelaide/',
+  }));
 
   return pages;
 }
@@ -6015,7 +6037,7 @@ function renderCommercialContent(page, canonical, image) {
 
   return `<main id="main-content" data-generated-page="money-v5" data-seo-v5-intent-profile="${escapeAttribute(intentProfile.primaryKeyword)}">
 ${renderPageHero({
-  eyebrow: 'Adelaide money page',
+  eyebrow: 'Adelaide move planning',
   title: visibleTitle,
   lead: page.hero,
   supporting: [
@@ -6045,20 +6067,20 @@ ${renderAeoAnswerBlock({
 ${renderSemrushQuoteSupport(page)}
 ${renderValueCardSection({
   module: 'commercial-intent-profile',
-  eyebrow: 'Move planning fit',
-  heading: `${intentProfile.primaryKeyword} can point to different move needs`,
-  intro: intentProfile.searchIntent,
+  eyebrow: 'Compare the right scope',
+  heading: `Plan a ${intentProfile.primaryKeyword} quote around the real job`,
+  intro: 'Use the route, access, inventory, timing, and packing details to compare quotes on the same scope.',
   cards: [
     {
-      title: 'Unique angle',
-      copy: intentProfile.uniqueAngle,
+      title: 'What to compare',
+      copy: `${intentProfile.uniqueAngle}.`,
     },
     {
-      title: 'Conversion path',
+      title: 'Prepare the quote brief',
       copy: `${intentProfile.conversionCTA}: send the route, access, inventory, timing, and packing details so the quote reflects the real job.`,
     },
     {
-      title: 'Related planning terms',
+      title: 'Other useful searches',
       copy: intentProfile.secondaryKeywords.length > 0
         ? intentProfile.secondaryKeywords.join(', ')
         : 'Adelaide removalist quote, local moving service, fixed-price planning.',
@@ -6085,7 +6107,7 @@ ${renderValueCardSection({
   module: 'commercial-factors',
   eyebrow: 'What changes the quote',
   heading: 'The main factors that shape this service',
-  intro: 'The most valuable money pages explain what makes the route simpler or more complex before the visitor submits the enquiry.',
+  intro: 'These details explain what can make the move simpler or more complex before you submit an enquiry.',
   cards: buildCommercialFactorCards(page),
   soft: true,
 })}

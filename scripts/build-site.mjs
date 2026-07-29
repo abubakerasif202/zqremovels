@@ -83,7 +83,7 @@ const defaultSocialImage = seoConfig.defaultOgImage;
 const defaultLogoImage = seoConfig.defaultLogo;
 const googleBusinessProfileUrl = businessIdentity.socialProfiles[0];
 const companySameAsProfiles = businessIdentity.socialProfiles;
-const confirmedTrustCredentialText = `${businessIdentity.name} ABN ${businessIdentifiers.abnFormatted}. Ask about cover, building requirements, and move protection before booking.`;
+const confirmedTrustCredentialText = `${businessIdentity.name} ABN ${businessIdentifiers.abnFormatted}. Ask about current cover details, building requirements, and move protection before booking.`;
 function getBuildEnvValue(name) {
   return (process.env[name] ?? buildEnv[name] ?? '').trim();
 }
@@ -3287,10 +3287,10 @@ function sanitizeTrustClaimText(value = '') {
     .replace(/Yes\. All ZQ Removals interstate jobs are fully insured\. Ask for details when requesting your quote\./gi, confirmedTrustCredentialText)
     .replace(/Yes\. ZQ Removals carries full insurance for commercial removal jobs\. We can provide proof of insurance if required by your building manager\./gi, confirmedTrustCredentialText)
     .replace(/ZQ Removals is fully insured on every job\./gi, confirmedTrustCredentialText)
-    .replace(/fully insured/gi, 'ABN and insurance details available once owner-confirmed')
-    .replace(/transit insurance as standard/gi, 'owner-confirmed cover details available on request')
+    .replace(/fully insured/gi, 'current cover details available on request')
+    .replace(/transit insurance as standard/gi, 'current cover details available on request')
     .replace(/complete transit insurance included on every job for your total peace of mind\./gi, confirmedTrustCredentialText)
-    .replace(/standard transit insurance included/gi, 'owner-confirmed cover details available on request');
+    .replace(/standard transit insurance included/gi, 'current cover details available on request');
 }
 
 function applyBusinessTokens(value = '') {
@@ -4036,6 +4036,10 @@ export function transformContent(content, page) {
   );
 
   next = sanitizePublicCopy(next);
+  next = next.replace(/href="([^"]+)"/g, (match, href) => {
+    const normalizedHref = normalizeInternalHref(href);
+    return normalizedHref === href ? match : `href="${escapeAttribute(normalizedHref)}"`;
+  });
   return stripVisibleHeadingPipes(next);
 }
 

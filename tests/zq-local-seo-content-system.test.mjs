@@ -182,7 +182,6 @@ test('footer and service hub links stay useful without exact-match overstuffing'
     '/apartment-removalists-adelaide/',
     '/removalist-cost-adelaide/',
     '/cheap-removalists-adelaide/',
-    '/affordable-removalists-adelaide/',
     '/removalists-glenelg/',
     '/removalists-marion/',
     '/removalists-salisbury/',

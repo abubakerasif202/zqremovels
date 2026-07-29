@@ -54,7 +54,7 @@ test('homepage targets Adelaide removalists with the approved Open Design conver
   assert.equal((homepage.match(/itemtype="https:\/\/schema\.org\/Question"/g) || []).length, 8);
   assert.match(homepage, /href="\/services\/house-removals-adelaide\/"/);
   assert.match(homepage, /href="\/furniture-removalists-adelaide\/"/);
-  assert.match(homepage, /href="\/services\/office-removals-adelaide\/"/);
+  assert.match(homepage, /href="\/office-removals-adelaide\/"/);
   assert.match(homepage, /href="\/services\/interstate-removals-adelaide\/"/);
   assert.match(homepage, /href="\/services\/packing-services-adelaide\/"/);
   assert.match(homepage, /href="\/services\/apartment-removals-adelaide\/"/);
@@ -298,7 +298,7 @@ test('v5 suburb pages surface region-aware ctas, richer modules, and stronger li
 
   assert.match(cbdPage, /data-generated-module="logistics-access"/);
   assert.match(cbdPage, /Book city move|Book apartment move/i);
-  assert.match(cbdPage, /href="\/office-relocation-adelaide\/"/);
+  assert.match(cbdPage, /href="\/office-removals-adelaide\/"/);
   assert.match(cbdPage, /href="\/adelaide-moving-guides\/apartment-moving-tips-adelaide\/"/);
   assert.match(cbdPage, /src="\/media\/zq-operations-premium\.webp"/);
   assert.match(glenelgPage, /Plan coastal move/i);
@@ -509,17 +509,10 @@ test('generated money pages are substantial, image-backed, and linked into subur
       image: '/media/zq-service-premium.webp',
     },
     {
-      slug: 'office-relocation-adelaide',
-      suburb: '/removalists-marion/',
-      guide: '/adelaide-moving-guides/office-relocation-preparation-adelaide/',
-      sibling: '/storage-friendly-removals-adelaide/',
-      image: '/media/zq-operations-premium.webp',
-    },
-    {
       slug: 'storage-friendly-removals-adelaide',
       suburb: '/removalists-noarlunga/',
       guide: '/adelaide-moving-guides/storage-planning-adelaide/',
-      sibling: '/office-relocation-adelaide/',
+      sibling: '/office-removals-adelaide/',
       image: '/media/zq-interstate-premium.webp',
     },
   ];

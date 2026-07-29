@@ -35,7 +35,6 @@ const coreServiceOutputs = [
   'services/local-removals-adelaide/index.html',
   'services/house-removals-adelaide/index.html',
   'services/furniture-removals-adelaide/index.html',
-  'services/office-removals-adelaide/index.html',
   'services/interstate-removals-adelaide/index.html',
   'services/packing-services-adelaide/index.html',
 ];
@@ -297,12 +296,11 @@ test('seo v5 pages with tables include accessible captions', () => {
 
 test('seo v5 intent profiles differentiate high-intent Adelaide removalist pages', () => {
   const cases = [
-    ['cheap-removalists-adelaide/index.html', /risk-aware low-cost moving/i],
-    ['affordable-removalists-adelaide/index.html', /best-value comparison/i],
-    ['removalist-cost-adelaide/index.html', /pricing factors and quote education/i],
-    ['moving-quotes-adelaide/index.html', /lead capture and quote preparation/i],
-    ['fixed-price-removalists-adelaide/index.html', /quote-first certainty/i],
-    ['budget-removalists-adelaide/index.html', /controlled-spend and smaller move planning/i],
+    ['cheap-removalists-adelaide/index.html', /risk-aware fixed-price quote/i],
+    ['removalist-cost-adelaide/index.html', /Compare Adelaide removalist rates/i],
+    ['moving-quotes-adelaide/index.html', /Request a moving quote in Adelaide/i],
+    ['fixed-price-removalists-adelaide/index.html', /manual quote review/i],
+    ['budget-removalists-adelaide/index.html', /Compare quote options today/i],
     ['furniture-removalists-adelaide/index.html', /item protection and handling/i],
     ['house-removals-adelaide/index.html', /full home relocation/i],
     ['services/local-removals-adelaide/index.html', /Adelaide metro moving/i],
@@ -406,7 +404,6 @@ function countServiceLinks(links) {
     '/interstate-removals-adelaide/',
     '/apartment-removalists-adelaide/',
     '/cheap-removalists-adelaide/',
-    '/affordable-removalists-adelaide/',
     '/removalist-cost-adelaide/',
     '/moving-quotes-adelaide/',
     '/fixed-price-removalists-adelaide/',

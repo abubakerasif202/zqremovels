@@ -985,7 +985,7 @@ test('homepage targets Adelaide removalists and keeps above-fold conversion cont
   for (const href of [
     '/services/house-removals-adelaide/',
     '/furniture-removalists-adelaide/',
-    '/services/office-removals-adelaide/',
+    '/office-removals-adelaide/',
     '/services/apartment-removals-adelaide/',
     '/removalists-glenelg/',
   ]) {
@@ -1153,7 +1153,6 @@ test('removalists Adelaide hub has focused intent, schema, CTA and supporting in
     'index.html',
     path.join('house-removals-adelaide', 'index.html'),
     path.join('fixed-price-removalists-adelaide', 'index.html'),
-    path.join('affordable-removalists-adelaide', 'index.html'),
     path.join('moving-quotes-adelaide', 'index.html'),
     path.join('removalists-glenelg', 'index.html'),
     path.join('adelaide-moving-guides', 'how-to-choose-removalists-adelaide', 'index.html'),

@@ -17,7 +17,7 @@ const requiredFaqs = [
 const serviceRoutes = [
   '/services/house-removals-adelaide/',
   '/services/apartment-removals-adelaide/',
-  '/services/office-removals-adelaide/',
+  '/office-removals-adelaide/',
   '/services/interstate-removals-adelaide/',
   '/services/packing-services-adelaide/',
   '/furniture-removalists-adelaide/',

@@ -475,6 +475,51 @@
       "permanent": true
     },
     {
+      "source": "/services/office-removals-adelaide",
+      "destination": "/office-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/office-removals-adelaide/",
+      "destination": "/office-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/office-removals-adelaide/index.html",
+      "destination": "/office-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/office-relocation-adelaide",
+      "destination": "/office-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/office-relocation-adelaide/",
+      "destination": "/office-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/office-relocation-adelaide/index.html",
+      "destination": "/office-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/affordable-removalists-adelaide",
+      "destination": "/cheap-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/affordable-removalists-adelaide/",
+      "destination": "/cheap-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/affordable-removalists-adelaide/index.html",
+      "destination": "/cheap-removalists-adelaide/",
+      "permanent": true
+    },
+    {
       "source": "/removalists-northern-suburbs-adelaide",
       "destination": "/removalists-northern-adelaide/",
       "permanent": true
@@ -646,22 +691,22 @@
     },
     {
       "source": "/:slug(.*-cheap-move.*)",
-      "destination": "/affordable-removalists-adelaide/",
+      "destination": "/cheap-removalists-adelaide/",
       "permanent": true
     },
     {
       "source": "/:slug(.*-budget-movers.*)",
-      "destination": "/affordable-removalists-adelaide/",
+      "destination": "/cheap-removalists-adelaide/",
       "permanent": true
     },
     {
       "source": "/:slug(.*-discount-removals.*)",
-      "destination": "/affordable-removalists-adelaide/",
+      "destination": "/cheap-removalists-adelaide/",
       "permanent": true
     },
     {
       "source": "/cheap-removalist-adelaide",
-      "destination": "/affordable-removalists-adelaide/",
+      "destination": "/cheap-removalists-adelaide/",
       "permanent": true
     },
     {
