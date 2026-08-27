@@ -6622,6 +6622,15 @@ function buildVisibleBreadcrumbItems(page) {
   return items;
 }
 
+async function pathExists(target) {
+  try {
+    await stat(target);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 async function copyStaticAssets() {
   const fileAssets = [
     'analytics.mjs',
@@ -6669,6 +6678,12 @@ async function copyStaticAssets() {
   } catch (error) {
     console.error('esbuild transpilation failed, falling back to direct copy:', error);
     await copyFile(path.join(projectRoot, 'site.js'), path.join(distRoot, 'site.js'));
+  }
+
+  // Optional branding assets (developer credit logo). Skipped when absent.
+  const brandingSrc = path.join(projectRoot, 'branding');
+  if (await pathExists(brandingSrc)) {
+    await cp(brandingSrc, path.join(distRoot, 'branding'), { recursive: true });
   }
 
   await cp(path.join(projectRoot, 'fonts'), path.join(distRoot, 'fonts'), { recursive: true });

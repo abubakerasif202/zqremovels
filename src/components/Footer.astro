@@ -1,7 +1,9 @@
 ---
 import { businessIdentity } from '../../site-src/data/business.mjs';
+import { renderAgencyCreditHtml } from '../../site-src/data/agency-credit.mjs';
 
 const currentYear = new Date().getFullYear();
+const agencyCreditHtml = renderAgencyCreditHtml();
 ---
 <footer class="footer-shell">
   <div class="container footer-grid">
@@ -106,4 +108,6 @@ const currentYear = new Date().getFullYear();
       <a href="/sitemap.xml">Sitemap</a>
     </div>
   </div>
+
+  {agencyCreditHtml && <div class="container agency-credit-row" set:html={agencyCreditHtml} />}
 </footer>

@@ -14418,3 +14418,100 @@ body.page-home .zq-v2-hero::before {
   body.page-home .zq-v2-trust-cards article,
   body.page-home .zq-v2-gallery-grid figure { transition: none; }
 }
+
+/* --- Developer credit (AB Digital Solutions) --- */
+
+.agency-credit-row {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.75rem;
+  border-top: 1px solid rgba(201, 168, 106, 0.16);
+}
+
+.agency-credit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 0.7rem;
+  text-align: center;
+}
+
+.agency-credit-label {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.agency-credit-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.35rem;
+  padding: 0.15rem 0.25rem;
+  border-radius: 0.4rem;
+  color: #d4af37;
+  text-decoration: none;
+  opacity: 0.74;
+  transition: opacity 220ms ease, color 220ms ease;
+}
+
+.agency-credit-logo {
+  display: block;
+  width: clamp(120px, 14vw, 168px);
+  height: auto;
+  aspect-ratio: 168 / 40;
+  object-fit: contain;
+}
+
+.agency-credit-wordmark {
+  font-family: var(--font-heading, Georgia, serif);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.agency-credit-arrow {
+  font-size: 0.8rem;
+  line-height: 1;
+  transition: transform 220ms ease, color 220ms ease;
+}
+
+.agency-credit-link:hover,
+.agency-credit-link:focus-visible {
+  opacity: 1;
+}
+
+.agency-credit-link:hover .agency-credit-arrow,
+.agency-credit-link:focus-visible .agency-credit-arrow {
+  color: #a20c2d;
+  transform: translate(1px, -1px);
+}
+
+.agency-credit-link:focus-visible {
+  outline: 2px solid #d4af37;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agency-credit-link,
+  .agency-credit-arrow { transition: none; }
+  .agency-credit-link:hover .agency-credit-arrow,
+  .agency-credit-link:focus-visible .agency-credit-arrow { transform: none; }
+}
+
+/* Keep the sticky mobile CTA clearance on the last footer row. */
+@media (max-width: 1023px) {
+  .footer-bottom { margin-bottom: 0; }
+  .agency-credit-row { margin-bottom: calc(5.75rem + env(safe-area-inset-bottom, 0px)); }
+}
+
+@media (max-width: 640px) {
+  .footer-bottom { margin-bottom: 0; }
+  .agency-credit-row { margin-bottom: calc(92px + env(safe-area-inset-bottom, 0px)); }
+  .agency-credit { flex-direction: column; gap: 0.5rem; }
+  .agency-credit-label { font-size: 0.64rem; }
+}
