@@ -50,37 +50,37 @@ async function buildSite(extraEnv = {}) {
   }
 }
 
-test("provider scripts load only when matching env vars exist", async () => {
+test("GTM loads site-wide while optional providers require matching env vars", async () => {
   await buildSite();
   let homepage = readDist("index.html");
   assert.doesNotMatch(homepage, /www\.googletagmanager\.com\/gtag\/js/);
-  assert.doesNotMatch(homepage, /www\.googletagmanager\.com\/gtm\.js/);
+  assert.match(homepage, /www\.googletagmanager\.com\/gtm\.js\?id='\+i\+dl/);
+  assert.match(homepage, /GTM-WJGKPXFL/);
   assert.doesNotMatch(homepage, /connect\.facebook\.net\/en_US\/fbevents\.js/);
-  assert.doesNotMatch(homepage, /ns\.html\?id=/);
+  assert.match(homepage, /ns\.html\?id=GTM-WJGKPXFL/);
 
   await buildSite({
     VITE_GA_MEASUREMENT_ID: "G-MNHNPP0087",
-    VITE_GTM_ID: "GTM-TESTV2",
     VITE_META_PIXEL_ID: "123456789012345",
   });
   homepage = readDist("index.html");
   assert.match(homepage, /www\.googletagmanager\.com\/gtag\/js\?id=G-MNHNPP0087/);
-  assert.match(homepage, /www\.googletagmanager\.com\/gtm\.js\?id=GTM-TESTV2/);
+  assert.match(homepage, /GTM-WJGKPXFL/);
   assert.match(homepage, /connect\.facebook\.net\/en_US\/fbevents\.js/);
-  assert.match(homepage, /ns\.html\?id=GTM-TESTV2/);
+  assert.match(homepage, /ns\.html\?id=GTM-WJGKPXFL/);
 });
 
 test("scripts are not duplicated in generated html", async () => {
   await buildSite({
     VITE_GA_MEASUREMENT_ID: "G-MNHNPP0087",
-    VITE_GTM_ID: "GTM-TESTV2",
     VITE_META_PIXEL_ID: "123456789012345",
   });
   const homepage = readDist("index.html");
 
   const count = (pattern) => (homepage.match(pattern) || []).length;
   assert.equal(count(/www\.googletagmanager\.com\/gtag\/js\?id=G-MNHNPP0087/g), 1);
-  assert.equal(count(/www\.googletagmanager\.com\/gtm\.js\?id=GTM-TESTV2/g), 1);
+  assert.equal(count(/\(window,document,'script','dataLayer','GTM-WJGKPXFL'\)/g), 1);
+  assert.equal(count(/ns\.html\?id=GTM-WJGKPXFL/g), 1);
 });
 
 test("analytics utility does not throw when providers are unavailable", async () => {

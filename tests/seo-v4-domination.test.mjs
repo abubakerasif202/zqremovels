@@ -83,11 +83,12 @@ test('homepage metadata, schema, and crawl directives match v4 targets', async (
   assert.match(servicesSitemap, /https:\/\/zqremovals\.au\/services\/local-removals-adelaide\//);
 });
 
-test('analytics tags are injected only when v4 env vars exist', async () => {
+test('GTM is always injected while optional analytics tags require v4 env vars', async () => {
   await buildSite();
   let homepage = readDist('index.html');
   assert.doesNotMatch(homepage, /googletagmanager\.com\/gtag\/js\?id=/);
-  assert.doesNotMatch(homepage, /googletagmanager\.com\/gtm\.js\?id=/);
+  assert.match(homepage, /GTM-WJGKPXFL/);
+  assert.match(homepage, /googletagmanager\.com\/ns\.html\?id=GTM-WJGKPXFL/);
   assert.doesNotMatch(homepage, /fbevents\.js/);
 
   await buildSite({
@@ -98,8 +99,9 @@ test('analytics tags are injected only when v4 env vars exist', async () => {
   homepage = readDist('index.html');
   assert.match(homepage, /googletagmanager\.com\/gtag\/js\?id=G-SEO4TEST1/);
   assert.match(homepage, /gtm\.js/);
-  assert.match(homepage, /GTM-SEO4TST/);
-  assert.match(homepage, /googletagmanager\.com\/ns\.html\?id=GTM-SEO4TST/);
+  assert.match(homepage, /GTM-WJGKPXFL/);
+  assert.doesNotMatch(homepage, /GTM-SEO4TST/);
+  assert.match(homepage, /googletagmanager\.com\/ns\.html\?id=GTM-WJGKPXFL/);
   assert.match(homepage, /fbevents\.js/);
 });
 
