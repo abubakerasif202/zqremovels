@@ -13,8 +13,8 @@ export const agencyCredit = {
   // Official brand artwork (transparent WebP derived from the supplied master).
   // Falls back to a restrained wordmark if the asset is ever missing.
   logo: '/branding/ab-digital-solutions-watermark.webp',
-  logoWidth: 360,
-  logoHeight: 173,
+  logoWidth: 672,
+  logoHeight: 309,
 };
 
 const BRANDING_DIR = path.join(process.cwd(), 'branding');

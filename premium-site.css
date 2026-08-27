@@ -14462,7 +14462,7 @@ body.page-home .zq-v2-hero::before {
   display: block;
   width: clamp(140px, 15vw, 170px);
   height: auto;
-  aspect-ratio: 360 / 173;
+  aspect-ratio: 672 / 309;
   object-fit: contain;
 }
 
