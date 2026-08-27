@@ -10,11 +10,11 @@ export const agencyCredit = {
   name: 'AB Digital Solutions',
   url: 'https://www.abwebstudio.com.au/',
   label: 'Designed & Developed by',
-  // Official brand artwork. Drop the supplied logo here (transparent WebP or PNG)
-  // and it is used automatically; until then a restrained wordmark is rendered.
+  // Official brand artwork (transparent WebP derived from the supplied master).
+  // Falls back to a restrained wordmark if the asset is ever missing.
   logo: '/branding/ab-digital-solutions-watermark.webp',
-  logoWidth: 168,
-  logoHeight: 40,
+  logoWidth: 360,
+  logoHeight: 173,
 };
 
 const BRANDING_DIR = path.join(process.cwd(), 'branding');
@@ -37,7 +37,7 @@ export function renderAgencyCreditHtml() {
 
   return `<div class="agency-credit">
       <span class="agency-credit-label">${agencyCredit.label}</span>
-      <a class="agency-credit-link" href="${agencyCredit.url}" target="_blank" rel="noopener noreferrer">
+      <a class="agency-credit-link" href="${agencyCredit.url}" target="_blank" rel="noopener noreferrer" aria-label="Visit ${agencyCredit.name}">
         ${mark}
         <span class="agency-credit-arrow" aria-hidden="true">&#8599;</span>
       </a>

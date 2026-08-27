@@ -3,11 +3,13 @@
 `ab-digital-solutions-watermark.webp` — official AB Digital Solutions logo used by the
 footer developer credit (`site-src/data/agency-credit.mjs`).
 
-Requirements for the asset:
+Produced from the supplied master artwork (1536x1024 PNG, gold glow on a dark
+background). The dark background was removed by treating the artwork as additive
+light: alpha is derived from the per-pixel maximum channel above the background
+floor, with the colour unpremultiplied, so the gold, the monogram strokes, the
+tagline and the glow survive intact with no halo or matte edge.
 
-- transparent background, gold artwork preserved, original proportions
-- intrinsic size roughly 336x80 (rendered at 168x40 CSS px, 2x for retina)
-- optimized WebP (PNG is also accepted — update `agencyCredit.logo` if so)
+Current asset: 360x173, transparent WebP, ~28 KB. Rendered at
+`clamp(140px, 15vw, 170px)` wide, i.e. roughly 2x for high-DPI displays.
 
-While the file is absent the footer renders a restrained `AB Digital Solutions`
-wordmark instead; adding the file switches to the artwork automatically at build time.
+Regenerate only from the original master; do not upscale or re-encode this file.

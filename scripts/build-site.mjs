@@ -6683,7 +6683,10 @@ async function copyStaticAssets() {
   // Optional branding assets (developer credit logo). Skipped when absent.
   const brandingSrc = path.join(projectRoot, 'branding');
   if (await pathExists(brandingSrc)) {
-    await cp(brandingSrc, path.join(distRoot, 'branding'), { recursive: true });
+    await cp(brandingSrc, path.join(distRoot, 'branding'), {
+      recursive: true,
+      filter: (src) => !src.endsWith('.md'),
+    });
   }
 
   await cp(path.join(projectRoot, 'fonts'), path.join(distRoot, 'fonts'), { recursive: true });

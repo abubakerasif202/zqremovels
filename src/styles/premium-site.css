@@ -14454,15 +14454,15 @@ body.page-home .zq-v2-hero::before {
   border-radius: 0.4rem;
   color: #d4af37;
   text-decoration: none;
-  opacity: 0.74;
+  opacity: 0.8;
   transition: opacity 220ms ease, color 220ms ease;
 }
 
 .agency-credit-logo {
   display: block;
-  width: clamp(120px, 14vw, 168px);
+  width: clamp(140px, 15vw, 170px);
   height: auto;
-  aspect-ratio: 168 / 40;
+  aspect-ratio: 360 / 173;
   object-fit: contain;
 }
 
