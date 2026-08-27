@@ -8525,6 +8525,48 @@ main :where(h1, h2, h3) { text-wrap: balance; }
 .quote-form-shell { border-radius: var(--ui-radius-lg); box-shadow: var(--ui-shadow); }
 .quote-form-premium { gap: 1.2rem; }
 .quote-form-premium label { gap: 0.45rem; }
+.quote-package-group {
+  display: grid;
+  gap: 0.65rem;
+  min-width: 0;
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid rgba(201, 168, 106, 0.32);
+  border-radius: 0.75rem;
+}
+.quote-package-group legend { padding-inline: 0.35rem; }
+.quote-package-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+.quote-package-option {
+  position: relative;
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.75rem !important;
+  min-height: 4.5rem;
+  padding: 0.85rem;
+  border: 1px solid currentColor;
+  border-radius: 0.65rem;
+  cursor: pointer;
+}
+.quote-package-option input { width: 1.25rem !important; min-height: 1.25rem !important; margin: 0; }
+.quote-package-option span { display: grid; gap: 0.15rem; }
+.quote-package-option small { font-size: 0.9rem; }
+.quote-package-option:has(input:checked) {
+  border-color: #c9a86a;
+  background: rgba(201, 168, 106, 0.16);
+  box-shadow: 0 0 0 2px rgba(201, 168, 106, 0.2);
+}
+.quote-package-option:has(input:focus-visible) {
+  outline: 3px solid #ffb347;
+  outline-offset: 3px;
+}
+@media (max-width: 640px) {
+  .quote-package-options { grid-template-columns: 1fr; }
+}
 .quote-form-premium input,
 .quote-form-premium select,
 .quote-form-premium textarea {

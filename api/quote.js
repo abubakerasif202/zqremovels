@@ -6,6 +6,7 @@
 const QUOTE_REQUIRED_FIELDS = [
   "pickup_suburb",
   "dropoff_suburb",
+  "crew_package",
   "move_scope",
   "property_type",
   "move_size",
@@ -41,6 +42,7 @@ const QUOTE_INDICATOR_FIELDS = [
   "delivery_suburb",
   "move_scope",
   "move_type",
+  "crew_package",
   "property_type",
   "move_size",
   "pickup_access",
@@ -391,6 +393,7 @@ function normaliseSubmission(payload, geoContext) {
       from_name: getFirstTrimmedString(payload, ["full_name", "name"]),
       botcheck: "",
       move_date: getFirstTrimmedString(payload, ["move_date", "preferred_move_date"]),
+      crew_package: getTrimmedString(payload, "crew_package"),
       pickup_suburb: getTrimmedString(payload, "pickup_suburb"),
       dropoff_suburb: getFirstTrimmedString(payload, ["dropoff_suburb", "delivery_suburb"]),
       move_scope: getFirstTrimmedString(payload, ["move_scope", "move_type"], "not-sure"),

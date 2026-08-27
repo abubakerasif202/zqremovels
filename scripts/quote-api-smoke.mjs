@@ -57,6 +57,7 @@ const validPayload = {
   botcheck: '',
   pickup_suburb: 'Adelaide',
   dropoff_suburb: 'Glenelg',
+  crew_package: '2 Men + Truck — $75 / 30 min',
   move_scope: 'house-removal',
   property_type: 'house',
   move_date: '2026-04-15',
@@ -176,6 +177,7 @@ async function runLegacyKeySmoke() {
     assert.equal(upstreamBody.botcheck, '');
     assert.equal(upstreamBody.source_page, validPayload.source_page);
     assert.equal(upstreamBody.dropoff_suburb, validPayload.dropoff_suburb);
+    assert.equal(upstreamBody.crew_package, validPayload.crew_package);
     assert.equal(upstreamBody.move_scope, validPayload.move_scope);
     assert.equal(upstreamBody.full_name, validPayload.full_name);
     assert.equal(upstreamBody.move_details, validPayload.move_details);
@@ -275,6 +277,7 @@ async function runBrowserFormPayloadSmoke() {
       botcheck: '',
       pickup_suburb: 'Adelaide',
       dropoff_suburb: 'Glenelg',
+      crew_package: '3 Men + Truck — $89 / 30 min',
       move_scope: 'house-removal',
       property_type: 'house',
       move_date: '2026-04-15',

@@ -552,6 +552,7 @@ function buildQuoteSubmissionPayload(payload) {
     landing_page: attribution.landing_page || getTrimmedPayloadValue(payload, "landing_page"),
     captured_at: attribution.captured_at || getTrimmedPayloadValue(payload, "captured_at"),
     move_date: getFirstNonEmptyPayloadValue(payload, ["move_date", "preferred_move_date"]),
+    crew_package: getFirstNonEmptyPayloadValue(payload, ["crew_package"]),
     pickup_suburb: getFirstNonEmptyPayloadValue(payload, ["pickup_suburb"]),
     dropoff_suburb: getFirstNonEmptyPayloadValue(payload, ["dropoff_suburb", "delivery_suburb"]),
     move_scope: getFirstNonEmptyPayloadValue(payload, ["move_scope", "move_type"], "not-sure"),

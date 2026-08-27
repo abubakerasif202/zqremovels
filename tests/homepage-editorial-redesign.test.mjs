@@ -68,7 +68,7 @@ test('Open Design homepage contract is generator-native and complete', async () 
   ]) {
     assert.match(built, new RegExp(reviewText, 'i'));
   }
-  assert.match(built, /info@zqremovals\.au/);
+  assert.match(built, /admin@zqremovals\.au/);
 });
 
 test('homepage navigation and sticky actions stay complete across desktop and mobile markup', async () => {
@@ -119,6 +119,6 @@ test('homepage JSON-LD uses the visible FAQs and contains no unsupported trust c
 
   assert.deepEqual(faq.mainEntity.map((item) => item.name), requiredFaqs);
   assert.equal(business.telephone, '+61433819989');
-  assert.equal(business.email, 'info@zqremovals.au');
+  assert.equal(business.email, 'admin@zqremovals.au');
   assert.doesNotMatch(JSON.stringify(schemas), /AggregateRating|reviewCount|ratingValue|insured|guarantee|award/i);
 });

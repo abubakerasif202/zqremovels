@@ -3972,6 +3972,7 @@ export function transformContent(content, page) {
   next = injectSeoV5GuideToc(next, page);
   next = injectSeoV5GuideFaq(next, page);
   next = injectLeadMachineHiddenFields(next);
+  next = injectQuotePackageChoices(next);
 
   const skipSupplemental = page.generatedKind === 'suburb';
   const proofSection = skipSupplemental ? '' : renderLocalProofSection(page);
@@ -4062,7 +4063,7 @@ function injectSeoV5GuideToc(content, page) {
     (output.startsWith('adelaide-moving-guides/') && output !== 'adelaide-moving-guides/index.html') ||
     output.startsWith('guides/');
 
-  if (!isGuideArticle || content.includes('data-seo-v5-toc="true"')) {
+  if (!isGuideArticle || !isIndexablePage(page) || content.includes('data-seo-v5-toc="true"')) {
     return content;
   }
 
@@ -4684,6 +4685,30 @@ function renderCommercialServiceCta(page) {
 
 function renderStarIcons(label = '5 out of 5 stars') {
   return `<span class="google-review-stars" role="img" aria-label="${escapeAttribute(label)}">${Array.from({ length: 5 }, () => '<span aria-hidden="true">&#9733;</span>').join('')}</span>`;
+}
+
+function injectQuotePackageChoices(content) {
+  const packageMarkup = `
+<fieldset class="quote-package-group">
+  <legend>Crew and truck package</legend>
+  <p class="field-note">Choose the package you want included in your quote request.</p>
+  <div class="quote-package-options">
+    <label class="quote-package-option">
+      <input name="crew_package" required type="radio" value="2 Men + Truck — $75 / 30 min" />
+      <span><strong>2 Men + Truck</strong><small>$75 / 30 min</small></span>
+    </label>
+    <label class="quote-package-option">
+      <input name="crew_package" required type="radio" value="3 Men + Truck — $89 / 30 min" />
+      <span><strong>3 Men + Truck</strong><small>$89 / 30 min</small></span>
+    </label>
+  </div>
+  <small class="field-error" data-error-for="crew_package"></small>
+</fieldset>`;
+
+  return content.replace(
+    /(<form\b[^>]*data-quote-form="quote"[^>]*>)/gi,
+    (formTag) => `${formTag}${packageMarkup}`,
+  );
 }
 
 function renderGoogleReviewBadge({ compact = false } = {}) {

@@ -64,6 +64,10 @@ function readDist(relativePath) {
   return readFileSync(path.join(distDir, relativePath), 'utf8');
 }
 
+function stripApprovedQuotePackagePricing(html) {
+  return html.replace(/<form\b[^>]*data-quote-form="quote"[^>]*>[\s\S]*?<\/form>/gi, '');
+}
+
 function extractRootLinks(html) {
   return [...html.matchAll(/href="(\/[^"#?]*\/?)(?:#[^"]*)?"/g)].map((match) => match[1]);
 }
@@ -182,7 +186,7 @@ test('furniture battle page covers high-intent handling and FAQ requirements wit
     assert.match(html, new RegExp(phrase, 'i'), phrase);
   }
 
-  assert.doesNotMatch(html, /\$\d+|from \$|per hour/i);
+  assert.doesNotMatch(stripApprovedQuotePackagePricing(html), /\$\d+|from \$|per hour/i);
 });
 
 test('tracking, schema, host, secret, review, and contrast guards hold across generated output', () => {
@@ -210,6 +214,6 @@ test('tracking, schema, host, secret, review, and contrast guards hold across ge
     if (!file.endsWith(`removalists-adelaide${path.sep}index.html`)) {
       assert.doesNotMatch(html, /aggregateRating|ReviewRating/, file);
     }
-    assert.doesNotMatch(html, /\$\d+|from \$|per hour/i, file);
+    assert.doesNotMatch(stripApprovedQuotePackagePricing(html), /\$\d+|from \$|per hour/i, file);
   }
 });

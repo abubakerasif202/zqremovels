@@ -7,7 +7,16 @@ test('contact page matches the homepage design system and remains readable', asy
   await expect(page.locator('h1')).toHaveCount(1);
   await expect(page.locator('.contact-hero-shell a.zq-v2-button-primary')).toContainText('Get Fixed-Price Quote');
   await expect(page.locator('.contact-hero-shell .zq-v2-button-outline')).toContainText('Call 0433 819 989');
-  await expect(page.locator('.quote-form-premium label span')).toHaveCount(13);
+  await expect(page.locator('.quote-form-premium label span')).toHaveCount(15);
+
+  const twoPersonPackage = page.locator('input[name="crew_package"][value="2 Men + Truck — $75 / 30 min"]');
+  const threePersonPackage = page.locator('input[name="crew_package"][value="3 Men + Truck — $89 / 30 min"]');
+  await expect(twoPersonPackage.locator('xpath=ancestor::label')).toContainText('2 Men + Truck$75 / 30 min');
+  await expect(threePersonPackage.locator('xpath=ancestor::label')).toContainText('3 Men + Truck$89 / 30 min');
+  await expect(twoPersonPackage).not.toBeChecked();
+  await expect(threePersonPackage).not.toBeChecked();
+  await threePersonPackage.check();
+  await expect(threePersonPackage).toBeChecked();
 
   const visualContract = await page.evaluate(() => {
     const style = (selector: string) => {

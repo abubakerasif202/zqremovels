@@ -3,7 +3,7 @@ const googleProfileUrl = 'https://share.google/toaQ1pTUMpigxRuQM';
 export const businessIdentity = {
   name: 'ZQ Removals',
   siteUrl: 'https://zqremovals.au',
-  email: 'info@zqremovals.au',
+  email: 'admin@zqremovals.au',
   phone: {
     display: '0433 819 989',
     tel: '+61433819989',

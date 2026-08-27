@@ -31,7 +31,7 @@ We provide a detailed, written proposal after reviewing your move brief.
 
 - **Quote Form:** [https://zqremovals.au/contact-us/#quote-form](https://zqremovals.au/contact-us/#quote-form)
 - **Phone:** 0433 819 989
-- **Email:** info@zqremovals.au
+- **Email:** admin@zqremovals.au
 
 ## Quote clarity
 - **Written scope:** The proposal reflects the inventory, access, route, packing, and timing details supplied for the move.

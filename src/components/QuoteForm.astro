@@ -43,6 +43,22 @@
   </div>
 
   <div class="quote-form-groups">
+    <fieldset class="quote-package-group">
+      <legend>Crew and truck package</legend>
+      <p class="field-note" id="quote-package-help">Choose the package you want included in your quote request.</p>
+      <div class="quote-package-options" aria-describedby="quote-package-help">
+        <label class="quote-package-option">
+          <input name="crew_package" required type="radio" value="2 Men + Truck — $75 / 30 min" />
+          <span><strong>2 Men + Truck</strong><small>$75 / 30 min</small></span>
+        </label>
+        <label class="quote-package-option">
+          <input name="crew_package" required type="radio" value="3 Men + Truck — $89 / 30 min" />
+          <span><strong>3 Men + Truck</strong><small>$89 / 30 min</small></span>
+        </label>
+      </div>
+      <small class="field-error" data-error-for="crew_package"></small>
+    </fieldset>
+
     <fieldset class="quote-form-group">
       <legend>Move Details</legend>
       <div class="field-grid">
