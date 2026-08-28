@@ -490,6 +490,126 @@
       "permanent": true
     },
     {
+      "source": "/services/house-removals-adelaide",
+      "destination": "/house-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/house-removals-adelaide/",
+      "destination": "/house-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/house-removals-adelaide/index.html",
+      "destination": "/house-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/packing-services-adelaide",
+      "destination": "/packing-services-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/packing-services-adelaide/",
+      "destination": "/packing-services-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/packing-services-adelaide/index.html",
+      "destination": "/packing-services-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/interstate-removals-adelaide",
+      "destination": "/interstate-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/interstate-removals-adelaide/",
+      "destination": "/interstate-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/interstate-removals-adelaide/index.html",
+      "destination": "/interstate-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/interstate-removalists-adelaide",
+      "destination": "/interstate-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/interstate-removalists-adelaide/",
+      "destination": "/interstate-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/interstate-removalists-adelaide/index.html",
+      "destination": "/interstate-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/apartment-removals-adelaide",
+      "destination": "/apartment-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/apartment-removals-adelaide/",
+      "destination": "/apartment-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/apartment-removals-adelaide/index.html",
+      "destination": "/apartment-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/furniture-removals-adelaide",
+      "destination": "/furniture-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/furniture-removals-adelaide/",
+      "destination": "/furniture-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/furniture-removals-adelaide/index.html",
+      "destination": "/furniture-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/furniture-removals-adelaide",
+      "destination": "/furniture-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/furniture-removals-adelaide/",
+      "destination": "/furniture-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/furniture-removals-adelaide/index.html",
+      "destination": "/furniture-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/movers-and-packers-adelaide",
+      "destination": "/adelaide-movers-and-packers/",
+      "permanent": true
+    },
+    {
+      "source": "/movers-and-packers-adelaide/",
+      "destination": "/adelaide-movers-and-packers/",
+      "permanent": true
+    },
+    {
+      "source": "/movers-and-packers-adelaide/index.html",
+      "destination": "/adelaide-movers-and-packers/",
+      "permanent": true
+    },
+    {
       "source": "/office-relocation-adelaide",
       "destination": "/office-removals-adelaide/",
       "permanent": true

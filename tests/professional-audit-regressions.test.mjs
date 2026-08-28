@@ -136,7 +136,6 @@ test('priority page titles and descriptions are unique, natural, and not abruptl
     'moving-quotes-adelaide/index.html',
     'removalist-cost-adelaide/index.html',
     'apartment-removalists-adelaide/index.html',
-    'furniture-removals-adelaide/index.html',
     'furniture-removalists-adelaide/index.html',
     'office-removals-adelaide/index.html',
     'interstate-removals-adelaide/index.html',
