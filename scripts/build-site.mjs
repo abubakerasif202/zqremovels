@@ -111,6 +111,22 @@ const verifiedPricingMetadata = new Map([
     title: 'Removalists Hyde Park | Adelaide Home Movers',
     description: 'Removalists in Hyde Park for local moves, furniture removals and packing help, with careful handling and transparent Adelaide rates.',
   }],
+  ['removalists-adelaide-cbd/index.html', {
+    title: 'Removalists Adelaide CBD | Apartment & Office Movers',
+    description: 'Removalists Adelaide CBD for apartment, office and furniture moves. Plan lift bookings, loading zones, parking and access before requesting a clear quote.',
+  }],
+  ['removalists-unley-park/index.html', {
+    title: 'Removalists Unley Park | Home & Furniture Movers',
+    description: 'Removalists in Unley Park for homes, townhouses and furniture moves, with careful access planning, packing support and transparent Adelaide rates.',
+  }],
+  ['same-day-removalists-adelaide/index.html', {
+    title: 'Same Day Removalists Adelaide | Check Availability',
+    description: 'Need same-day removalists in Adelaide? Check current crew availability for urgent home, apartment and furniture moves after access and inventory review.',
+  }],
+  ['door-2-door-movers-alternative-adelaide/index.html', {
+    title: 'Door 2 Door Movers Adelaide Alternative | Compare ZQ',
+    description: 'Comparing Door 2 Door Movers in Adelaide? Review ZQ Removals for local planning, furniture care, transparent rates and direct quote support.',
+  }],
   ['last-minute-movers-adelaide/index.html', {
     title: 'Last-Minute Movers Adelaide | Fast Quote Review',
     description: 'Last-minute movers in Adelaide for short-notice relocation needs. Request a fast quote review and a practical moving plan.',

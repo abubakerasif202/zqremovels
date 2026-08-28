@@ -81,6 +81,14 @@ export function normalizeInternalHref(href = '') {
     const canonicalAliases = {
       '/office-relocation-adelaide/': '/office-removals-adelaide/',
       '/services/office-removals-adelaide/': '/office-removals-adelaide/',
+      '/services/house-removals-adelaide/': '/house-removals-adelaide/',
+      '/services/packing-services-adelaide/': '/packing-services-adelaide/',
+      '/services/interstate-removals-adelaide/': '/interstate-removals-adelaide/',
+      '/services/interstate-removalists-adelaide/': '/interstate-removals-adelaide/',
+      '/services/apartment-removals-adelaide/': '/apartment-removals-adelaide/',
+      '/services/furniture-removals-adelaide/': '/furniture-removalists-adelaide/',
+      '/furniture-removals-adelaide/': '/furniture-removalists-adelaide/',
+      '/movers-and-packers-adelaide/': '/adelaide-movers-and-packers/',
       '/affordable-removalists-adelaide/': '/cheap-removalists-adelaide/',
     };
     return canonicalAliases[normalizedPath] || normalizedPath;
@@ -3567,6 +3575,27 @@ export function getGeneratedPages() {
     description: buildDescription('Redirecting to the canonical Adelaide office removals and business relocation page.'),
     destinationPath: '/office-removals-adelaide/',
   }));
+
+  const gscCannibalisationAliases = [
+    ['services/house-removals-adelaide/index.html', '/house-removals-adelaide/', 'House Removals Adelaide'],
+    ['services/packing-services-adelaide/index.html', '/packing-services-adelaide/', 'Packing Services Adelaide'],
+    ['services/interstate-removals-adelaide/index.html', '/interstate-removals-adelaide/', 'Interstate Removals Adelaide'],
+    ['services/interstate-removalists-adelaide/index.html', '/interstate-removals-adelaide/', 'Interstate Removalists Adelaide'],
+    ['services/apartment-removals-adelaide/index.html', '/apartment-removals-adelaide/', 'Apartment Removals Adelaide'],
+    ['services/furniture-removals-adelaide/index.html', '/furniture-removalists-adelaide/', 'Furniture Removals Adelaide'],
+    ['furniture-removals-adelaide/index.html', '/furniture-removalists-adelaide/', 'Furniture Removals Adelaide'],
+    ['movers-and-packers-adelaide/index.html', '/adelaide-movers-and-packers/', 'Movers and Packers Adelaide'],
+  ];
+
+  for (const [output, destinationPath, label] of gscCannibalisationAliases) {
+    pages.push(makeRedirectPage({
+      output,
+      canonical: buildCanonical(destinationPath),
+      title: buildTitle(`${label} Redirect`),
+      description: buildDescription(`Redirecting to the canonical ${label.toLowerCase()} page.`),
+      destinationPath,
+    }));
+  }
 
   pages.push(makeRedirectPage({
     output: 'affordable-removalists-adelaide/index.html',

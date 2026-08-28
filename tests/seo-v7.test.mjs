@@ -148,7 +148,7 @@ test('route pages include the required service, quote, price, guide, and contact
   for (const slug of routeSlugs) {
     const html = readDist(path.join(slug, 'index.html'));
     for (const href of [
-      '/services/interstate-removals-adelaide/',
+      '/interstate-removals-adelaide/',
       '/moving-quotes-adelaide/',
       '/fixed-price-removalists-adelaide/',
       '/adelaide-moving-guides/interstate-moving-checklist-adelaide/',

@@ -52,12 +52,12 @@ test('homepage targets Adelaide removalists with the approved Open Design conver
   assert.match(homepage, /href="tel:\+61433819989"/i);
   assert.equal((homepage.match(/data-service-card/g) || []).length, 9);
   assert.equal((homepage.match(/itemtype="https:\/\/schema\.org\/Question"/g) || []).length, 8);
-  assert.match(homepage, /href="\/services\/house-removals-adelaide\/"/);
+  assert.match(homepage, /href="\/house-removals-adelaide\/"/);
   assert.match(homepage, /href="\/furniture-removalists-adelaide\/"/);
   assert.match(homepage, /href="\/office-removals-adelaide\/"/);
-  assert.match(homepage, /href="\/services\/interstate-removals-adelaide\/"/);
-  assert.match(homepage, /href="\/services\/packing-services-adelaide\/"/);
-  assert.match(homepage, /href="\/services\/apartment-removals-adelaide\/"/);
+  assert.match(homepage, /href="\/interstate-removals-adelaide\/"/);
+  assert.match(homepage, /href="\/packing-services-adelaide\/"/);
+  assert.match(homepage, /href="\/apartment-removals-adelaide\/"/);
   assert.match(homepage, /href="\/removalists-adelaide-cbd\/"/);
   assert.match(homepage, /href="\/removalists-marion\/"/);
   assert.match(homepage, /href="\/removalists-unley\/"/);

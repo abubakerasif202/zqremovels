@@ -821,4 +821,11 @@ export const zqServiceAeoProfiles = {
   },
 };
 
-export const zqServiceSitemapOutputs = zqServicePages.map(({ slug }) => `${slug}/index.html`);
+const zqConsolidatedServiceAliases = new Set([
+  'furniture-removals-adelaide',
+  'services/interstate-removalists-adelaide',
+]);
+
+export const zqServiceSitemapOutputs = zqServicePages
+  .filter(({ slug }) => !zqConsolidatedServiceAliases.has(slug))
+  .map(({ slug }) => `${slug}/index.html`);

@@ -239,7 +239,7 @@ test('adelaide moving checklist page is generated with clean seo, links, schema,
   assert.ok(links.includes('/removalists-adelaide/'), 'missing moving quotes link');
   assert.ok(links.includes('/adelaide-moving-guides/removalists-cost-adelaide/'), 'missing removalist cost link');
   assert.ok(links.includes('/house-removals-adelaide/'), 'missing house removals link');
-  assert.ok(links.includes('/services/apartment-removals-adelaide/'), 'missing apartment removals link');
+  assert.ok(links.includes('/apartment-removals-adelaide/'), 'missing apartment removals link');
   assert.ok(links.includes('/packing-services-adelaide/'), 'missing packing link');
   assert.ok(links.includes('/contact-us/'), 'missing contact link');
   assert.match(html, /"@type": "BreadcrumbList"/);
@@ -983,10 +983,10 @@ test('homepage targets Adelaide removalists and keeps above-fold conversion cont
   assert.match(hero, /href="https:\/\/share\.google\/toaQ1pTUMpigxRuQM"/i);
   assert.doesNotMatch(hero, /guaranteed|fully insured/i);
   for (const href of [
-    '/services/house-removals-adelaide/',
+    '/house-removals-adelaide/',
     '/furniture-removalists-adelaide/',
     '/office-removals-adelaide/',
-    '/services/apartment-removals-adelaide/',
+    '/apartment-removals-adelaide/',
     '/removalists-glenelg/',
   ]) {
     assert.match(homepage, new RegExp(`href="${href.replace(/\//g, '\\/')}"`));
@@ -1124,7 +1124,7 @@ test('route hub, guide hub, and suburb service pages keep orphaned pages linked'
 
   for (const href of [
     '/small-removals-adelaide/',
-    '/movers-and-packers-adelaide/',
+    '/adelaide-movers-and-packers/',
   ]) {
     assert.match(budgetPage, new RegExp(`href="${href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`), href);
   }

@@ -119,7 +119,7 @@ test('Door 2 Door Movers competitor alternative page stays honest and discoverab
 
   assert.ok(sourcePage, 'missing generated competitor alternative metadata');
   assert.equal(sourcePage.generatedKind, 'comparison');
-  assert.match(html, /<title>Door 2 Door Movers Alternative Adelaide \| ZQ Removals<\/title>/);
+  assert.match(html, /<title>Door 2 Door Movers Adelaide Alternative \| Compare ZQ<\/title>/);
   assert.match(html, /<link rel="canonical" href="https:\/\/zqremovals\.au\/door-2-door-movers-alternative-adelaide\/" \/>/);
   assert.match(html, /Door 2 Door Movers/i);
   assert.match(html, /ZQ Removals/i);

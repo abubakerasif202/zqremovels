@@ -32,11 +32,8 @@ const coreServiceOutputs = [
   'office-removals-adelaide/index.html',
   'interstate-removals-adelaide/index.html',
   'packing-services-adelaide/index.html',
+  'apartment-removals-adelaide/index.html',
   'services/local-removals-adelaide/index.html',
-  'services/house-removals-adelaide/index.html',
-  'services/furniture-removals-adelaide/index.html',
-  'services/interstate-removals-adelaide/index.html',
-  'services/packing-services-adelaide/index.html',
 ];
 
 test.before(async () => {

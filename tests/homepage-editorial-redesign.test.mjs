@@ -15,11 +15,11 @@ const requiredFaqs = [
   'Can I request an urgent or same-day move?',
 ];
 const serviceRoutes = [
-  '/services/house-removals-adelaide/',
-  '/services/apartment-removals-adelaide/',
+  '/house-removals-adelaide/',
+  '/apartment-removals-adelaide/',
   '/office-removals-adelaide/',
-  '/services/interstate-removals-adelaide/',
-  '/services/packing-services-adelaide/',
+  '/interstate-removals-adelaide/',
+  '/packing-services-adelaide/',
   '/furniture-removalists-adelaide/',
   '/services/piano-movers-adelaide/',
   '/storage-friendly-removals-adelaide/',
