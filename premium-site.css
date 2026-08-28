@@ -8567,6 +8567,29 @@ main :where(h1, h2, h3) { text-wrap: balance; }
 @media (max-width: 640px) {
   .quote-package-options { grid-template-columns: 1fr; }
 }
+
+.service-area-locator { background: var(--zq-surface-soft); }
+.service-area-locator-grid { display: grid; grid-template-columns: minmax(16rem, 0.8fr) minmax(0, 1.2fr); gap: var(--space-6); align-items: stretch; }
+.service-area-locator-panel { min-width: 0; }
+.service-area-search-label { display: block; margin-bottom: .5rem; color: var(--zq-text); font-weight: 700; }
+.service-area-search { width: 100%; min-height: 3rem; padding: .75rem 1rem; border: 1px solid var(--zq-border-gold); border-radius: var(--radius-md, .75rem); background: var(--zq-bg); color: var(--zq-text); }
+.service-area-search:focus-visible, .service-area-list a:focus-visible { outline: 3px solid var(--zq-gold); outline-offset: 3px; }
+.service-area-status, .service-area-map-note { color: var(--zq-text-muted); font-size: .9rem; }
+.service-area-list { display: grid; gap: .5rem; max-height: 28rem; margin: 1rem 0 0; padding: 0; overflow: auto; list-style: none; }
+.service-area-list a { display: grid; gap: .15rem; padding: .85rem 1rem; border: 1px solid var(--zq-border-soft); border-radius: var(--radius-md, .75rem); color: var(--zq-text); text-decoration: none; background: var(--zq-surface); }
+.service-area-list a:hover, .service-area-list a[aria-current="true"] { border-color: var(--zq-gold); background: var(--zq-surface-elevated); }
+.service-area-list strong { font-family: Fraunces, Georgia, serif; font-size: 1.15rem; }
+.service-area-list a > span:last-child { color: var(--zq-text-muted); font-size: .85rem; }
+.service-area-label { color: var(--zq-gold-light); font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.service-area-map-wrap { min-width: 0; }
+.service-area-map { min-height: 28rem; display: grid; place-items: center; padding: 1rem; border: 1px solid var(--zq-border-gold); border-radius: var(--radius-lg, 1rem); background: #152821; color: var(--zq-text-muted); text-align: center; }
+.service-area-map iframe, .service-area-map canvas { max-width: 100%; }
+.service-area-cta { margin-top: var(--space-5); }
+@media (max-width: 767px) {
+  .service-area-locator-grid { grid-template-columns: 1fr; }
+  .service-area-list { max-height: none; }
+  .service-area-map { min-height: 20rem; order: -1; }
+}
 .quote-form-premium input,
 .quote-form-premium select,
 .quote-form-premium textarea {

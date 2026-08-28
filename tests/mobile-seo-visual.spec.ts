@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 
 const routes = [
   '/',
+  '/removalists-adelaide/',
   '/moving-from-adelaide-cbd-to-salisbury/',
   '/adelaide-to-sydney-removalists/'
 ];

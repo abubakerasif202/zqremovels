@@ -29,6 +29,7 @@ import {
 } from '../site-src/data/seo-v4.mjs';
 import { buildPostalAddressSchema, businessIdentity, googleReviewCards, googleReviews } from '../site-src/data/business.mjs';
 import { zqSuburbGeoData } from '../site-src/data/zq-suburbs.mjs';
+import { getGoogleMapsBrowserConfig } from '../site-src/data/maps.mjs';
 
 const projectRoot = process.cwd();
 export const srcRoot = path.join(projectRoot, 'site-src');
@@ -86,6 +87,38 @@ const companySameAsProfiles = businessIdentity.socialProfiles;
 const confirmedTrustCredentialText = `${businessIdentity.name} ABN ${businessIdentifiers.abnFormatted}. Ask about current cover details, building requirements, and move protection before booking.`;
 
 const verifiedPricingMetadata = new Map([
+  ['services/furniture-removals-adelaide/index.html', {
+    title: 'Furniture Removals Adelaide | Careful Movers',
+    description: 'Furniture removals Adelaide with protective wrapping, careful loading and clear hourly rates for delicate, bulky and oversized pieces.',
+  }],
+  ['services/house-removals-adelaide/index.html', {
+    title: 'House Removals Adelaide | Local Home Moves',
+    description: 'House removals Adelaide for family homes and units with careful handling, efficient loading and transparent hourly moving rates.',
+  }],
+  ['removalists-kensington-gardens/index.html', {
+    title: 'Removalists Kensington Gardens | Adelaide Movers',
+    description: 'Kensington Gardens removalists for family-home moves. Plan access, inventory and timing with a clear, tailored Adelaide moving quote.',
+  }],
+  ['removalists-parafield-gardens/index.html', {
+    title: 'Removalists Parafield Gardens | Adelaide Movers',
+    description: 'Parafield Gardens removalists for family homes and wide loads. Plan access, inventory and timing with a clear Adelaide moving quote.',
+  }],
+  ['removalists-somerton-park-west/index.html', {
+    title: 'Removalists Somerton Park West | Adelaide Movers',
+    description: 'Somerton Park West removalists for beachside streets and apartments. Plan access, inventory and timing with a clear moving quote.',
+  }],
+  ['removalists-hyde-park/index.html', {
+    title: 'Removalists Hyde Park | Adelaide Home Movers',
+    description: 'Removalists in Hyde Park for local moves, furniture removals and packing help, with careful handling and transparent Adelaide rates.',
+  }],
+  ['last-minute-movers-adelaide/index.html', {
+    title: 'Last-Minute Movers Adelaide | Fast Quote Review',
+    description: 'Last-minute movers in Adelaide for short-notice relocation needs. Request a fast quote review and a practical moving plan.',
+  }],
+  ['fixed-price-removalists-adelaide/index.html', {
+    title: 'Transparent-Rate Removalists Adelaide | ZQ Removals',
+    description: 'Compare transparent hourly removalist rates in Adelaide with manual quote review for house, office, apartment, bulky-item and interstate moves.',
+  }],
   ['office-removals-adelaide/index.html', {
     description: 'Office removalists Adelaide for offices, clinics and workspaces. Plan desks, IT equipment, files, access windows and restart order before booking.',
   }],
@@ -3351,7 +3384,38 @@ function sanitizeTrustClaimText(value = '') {
 }
 
 function applyBusinessTokens(value = '') {
-  return sanitizeTrustClaimText(value);
+  return sanitizeTrustClaimText(value).replaceAll('{{SERVICE_AREA_LOCATOR}}', renderServiceAreaLocator());
+}
+
+function renderServiceAreaLocator() {
+  const config = getGoogleMapsBrowserConfig();
+  return `<section class="section service-area-locator" data-service-area-locator data-map-config="${escapeAttribute(JSON.stringify(config))}" aria-labelledby="service-area-locator-title">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow">Adelaide service coverage</span>
+      <h2 id="service-area-locator-title">Find ZQ Removals near you</h2>
+      <p class="lede">Explore ZQ Removals service areas across Adelaide and surrounding regions. These are service areas, not branch addresses.</p>
+    </div>
+    <div class="service-area-locator-grid">
+      <div class="service-area-locator-panel">
+        <label class="service-area-search-label" for="service-area-search">Search service areas</label>
+        <input id="service-area-search" class="service-area-search" type="search" placeholder="Try Norwood or Glenelg" autocomplete="off" data-service-area-search />
+        <p class="service-area-status" data-service-area-status role="status" aria-live="polite">Select a suburb to focus the map.</p>
+        <ul class="service-area-list" data-service-area-list>
+${config.locations.map((location) => `          <li><a href="${location.url}" data-service-area-link data-lat="${location.latitude}" data-lng="${location.longitude}" data-area-name="${escapeAttribute(location.title)}"><span class="service-area-label">${location.label}</span><strong>${escapeHtml(location.title)}</strong><span>View removalists in ${escapeHtml(location.title)}</span></a></li>`).join('\n')}
+        </ul>
+      </div>
+      <div class="service-area-map-wrap">
+        <div class="service-area-map" data-service-area-map role="img" aria-label="Interactive map showing ZQ Removals service areas across Adelaide"><p>Interactive map loading. The service-area links remain available below.</p></div>
+        <p class="service-area-map-note">Map pins mark general suburb service areas only; they do not represent ZQ Removals offices.</p>
+      </div>
+    </div>
+    <div class="cta-cluster service-area-cta">
+      <a class="button button-primary" href="/contact-us/#quote-form" data-lead-event="quote_cta_click" data-lead-location="service_area_locator">Get a Moving Quote</a>
+      <a class="button button-secondary" href="tel:+61433819989" data-lead-event="phone_click" data-lead-location="service_area_locator">Call ZQ Removals</a>
+    </div>
+  </div>
+</section>`;
 }
 
 function applyGoogleReviewTokensToPage(page) {

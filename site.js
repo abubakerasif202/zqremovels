@@ -1047,6 +1047,71 @@ function setupStickyCta() {
   window.addEventListener("scroll", syncState, { passive: true });
 }
 
+let serviceAreaMapsPromise;
+
+function loadServiceAreaMaps(apiKey) {
+  if (window.google?.maps) return Promise.resolve(window.google.maps);
+  if (!serviceAreaMapsPromise) {
+    serviceAreaMapsPromise = new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&v=weekly`;
+      script.async = true;
+      script.defer = true;
+      script.onload = () => window.google?.maps ? resolve(window.google.maps) : reject(new Error("Google Maps unavailable"));
+      script.onerror = () => reject(new Error("Google Maps failed to load"));
+      document.head.appendChild(script);
+    });
+  }
+  return serviceAreaMapsPromise;
+}
+
+function setupServiceAreaLocator() {
+  const locator = document.querySelector("[data-service-area-locator]");
+  if (!locator) return;
+  let config;
+  try { config = JSON.parse(locator.dataset.mapConfig || "{}"); } catch { config = {}; }
+  const mapNode = locator.querySelector("[data-service-area-map]");
+  const status = locator.querySelector("[data-service-area-status]");
+  const links = Array.from(locator.querySelectorAll("[data-service-area-link]"));
+  const search = locator.querySelector("[data-service-area-search]");
+  const focusArea = (link, map) => {
+    const position = { lat: Number(link.dataset.lat), lng: Number(link.dataset.lng) };
+    map.panTo(position);
+    map.setZoom(12);
+    links.forEach((item) => item.removeAttribute("aria-current"));
+    link.setAttribute("aria-current", "true");
+    if (status) status.textContent = `${link.dataset.areaName} is a ZQ Removals service area.`;
+  };
+  const start = () => {
+    if (!config.apiKey || !mapNode) {
+      if (status) status.textContent = "Choose a service area below to view its removalist page.";
+      return;
+    }
+    loadServiceAreaMaps(config.apiKey).then((maps) => {
+      const mapOptions = { center: config.center, zoom: config.zoom || 10, fullscreenControl: true, mapTypeControl: false, streetViewControl: false, zoomControl: true };
+      if (config.mapId) mapOptions.mapId = config.mapId;
+      const map = new maps.Map(mapNode, mapOptions);
+      mapNode.replaceChildren();
+      links.forEach((link) => {
+        const marker = new maps.Marker({ map, position: { lat: Number(link.dataset.lat), lng: Number(link.dataset.lng) }, title: `${link.dataset.areaName} service area` });
+        marker.addListener("click", () => focusArea(link, map));
+        link.addEventListener("click", () => focusArea(link, map));
+      });
+      if (search) search.addEventListener("input", () => {
+        const query = search.value.trim().toLowerCase();
+        links.forEach((link) => { link.closest("li").hidden = query !== "" && !link.dataset.areaName.toLowerCase().includes(query); });
+      });
+    }).catch(() => {
+      if (status) status.textContent = "The interactive map is unavailable. Use the service-area links to continue.";
+      mapNode.innerHTML = "<p>Map unavailable right now. The service-area links remain available.</p>";
+    });
+  };
+  if (config.apiKey && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => { if (entries.some((entry) => entry.isIntersecting)) { observer.disconnect(); start(); } }, { rootMargin: "300px" });
+    observer.observe(locator);
+  } else start();
+}
+
 setCurrentYear();
 scheduleAnalyticsInit();
 setQuoteDateMinimum();
@@ -1061,6 +1126,7 @@ setupRevealAnimations();
 setupInteractiveSpotlights();
 setupAnimatedCounters();
 setupStickyCta();
+setupServiceAreaLocator();
 setupConversionTracking();
 setupFooterSocialLinks();
 setupSuccessPageTracking();
