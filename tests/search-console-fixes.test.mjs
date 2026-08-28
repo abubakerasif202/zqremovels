@@ -318,7 +318,7 @@ test('priority suburb and interstate pages use the requested high-intent metadat
   const expectations = [
     ['removalists-hyde-park/index.html', /Hyde Park Removalists \| Fixed-Price Movers Adelaide \| ZQ Removals/i, /Need reliable removalists in Hyde Park\?/i],
     ['removalists-malvern/index.html', /Malvern Removalists \| Local Furniture Movers Adelaide/i, /Book trusted Malvern removalists/i],
-    ['removalists-unley/index.html', /Unley Removalists \| Fixed-Price Local Movers Adelaide/i, /Unley removalists for townhouse and villa access/i],
+    ['removalists-unley/index.html', /Removalists Unley \| Professional Adelaide Movers/i, /Unley removalists for character homes, apartments and townhouses/i],
     ['removalists-unley-park/index.html', /Unley Park Removalists \| Local Movers Adelaide/i, /Unley Park removalists for tight streets/i],
     ['removalists-medindie/index.html', /Medindie Removalists \| Premium Home Movers Adelaide/i, /Choose Medindie removalists/i],
     ['adelaide-to-sydney-removalists/index.html', /Adelaide to Sydney Removalists/i, /Adelaide to Sydney removalists/i],
@@ -1066,7 +1066,7 @@ test('v6 generated suburb pages include near-me wording, five nearby links, serv
     const links = extractRootLinks(main);
 
     assert.match(main, new RegExp(`${suburbName} moves`, 'i'), `${slug} missing suburb move wording`);
-    assert.match(main, /fixed-price quote/i, `${slug} missing fixed-price quote wording`);
+    assert.match(main, /transparent-rate quote/i, `${slug} missing transparent-rate quote wording`);
     assert.match(main, /access|parking|stairs|lifts|carry distance/i, `${slug} missing access wording`);
     assert.ok(links.filter((href) => href.startsWith('/removalists-') && !href.includes(slug)).length >= 5, `${slug} missing five nearby suburb links`);
     assert.ok(links.filter((href) => ['/house-removals-adelaide/', '/furniture-removalists-adelaide/', '/office-removals-adelaide/', '/packing-services-adelaide/', '/interstate-removals-adelaide/'].includes(href)).length >= 3, `${slug} missing related service links`);
@@ -1146,7 +1146,7 @@ test('removalists Adelaide hub has focused intent, schema, CTA and supporting in
   assert.match(firstSection, /inventory[\s\S]*stairs[\s\S]*lifts[\s\S]*parking[\s\S]*timing[\s\S]*fragile/i);
   assert.match(main, /How to choose removalists in Adelaide/i);
   assert.match(main, /What affects an Adelaide removalist quote/i);
-  assert.match(main, /When fixed-price quoting is better than hourly uncertainty/i);
+  assert.match(main, /When transparent-rate quoting is better than hourly uncertainty/i);
   assert.match(main, /href="\/contact-us\/#quote-form"/i);
 
   for (const output of [
@@ -1253,7 +1253,7 @@ test('priority suburb and interstate pages stay indexable, canonical, and linked
     'Adelaide to Sydney removalists',
     'Adelaide to Brisbane removalists',
     'Adelaide to Melbourne removalists',
-    'Fixed-price Adelaide removalists',
+    'Transparent-rate Adelaide removalists',
   ]) {
     assert.match(homepage, new RegExp(anchorText, 'i'), `homepage missing ${anchorText}`);
   }

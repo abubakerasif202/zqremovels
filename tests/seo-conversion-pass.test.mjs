@@ -118,8 +118,8 @@ test('quote forms post directly to Web3Forms with attribution and the required c
     assert.doesNotMatch(formMarkup, /name="move_details"/);
   }
 
-  assert.match(contactPage, /Get My Fixed-Price Quote/i);
-  assert.match(contactPage, /Get your fixed-price quote in minutes/i);
+  assert.match(contactPage, /Get My Transparent-rate Quote/i);
+  assert.match(contactPage, /Get your transparent-rate quote in minutes/i);
   assert.match(contactPage, /What happens after you enquire/i);
   assert.match(clientScript, /const attribution = getStoredAttribution\(\);/);
   assert.match(clientScript, /JSON\.stringify\(buildQuoteSubmissionPayload\(payload\)\)/);
@@ -309,8 +309,8 @@ test('v5 suburb pages surface region-aware ctas, richer modules, and stronger li
   assert.match(glenelgPage, /href="\/office-removals-glenelg\/"/);
   assert.match(glenelgPage, /href="\/packing-services-glenelg\/"/);
   assert.match(glenelgPage, /Calculate Move Cost/);
-  assert.match(glenelgPage, /Request a Fixed-Price Adelaide Moving Quote/);
-  assert.match(glenelgPage, /href="\/contact-us\/#quote-form"[^>]*>Get Free Fixed Quote/);
+  assert.match(glenelgPage, /Request an Adelaide Moving Quote/);
+  assert.match(glenelgPage, /href="\/contact-us\/#quote-form"[^>]*>Get Transparent-rate Quote/);
   assert.match(glenelgPage, /href="tel:\+61433819989"[^>]*>Call Specialist Now/);
   assert.match(salisburyPage, /Get suburb-specific quote/i);
   assert.match(salisburyPage, /href="\/cheap-removalists-adelaide\/"/);

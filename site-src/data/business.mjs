@@ -67,6 +67,13 @@ export const businessIdentifiers = {
   abnMachine: businessIdentity.abn.machine,
 };
 
+export const movingRates = {
+  twoMenAndTruck: '$75 per 30 minutes',
+  threeMenAndTruck: '$89 per 30 minutes',
+  travelCharge: 'A 1-hour call-out/travel charge applies where applicable.',
+  summary: '2 men and a truck: $75 per 30 minutes. 3 men and a truck: $89 per 30 minutes. A 1-hour call-out/travel charge applies where applicable.',
+};
+
 export function businessUrl(pathname = '/') {
   return new URL(pathname, businessIdentity.siteUrl).toString();
 }

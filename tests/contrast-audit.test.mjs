@@ -90,7 +90,7 @@ test('dark-surface interaction states keep readable accent text', () => {
 test('generated urgency banner keeps dark copy on its light premium surface', () => {
   const servicePage = readDist('/house-removals-adelaide/');
   assert.match(servicePage, /data-lead-machine-cta="v7"/);
-  assert.match(servicePage, /Get a fixed-price quote before your move date disappears\./);
+  assert.match(servicePage, /Get a transparent-rate quote before your move date disappears\./);
   assert.match(servicePage, /<section class="section lead-machine-cta"/);
   assert.doesNotMatch(servicePage, /lead-machine-cta[^]*?style="[^"]*color:\s*(?:white|#fff)/i);
 });

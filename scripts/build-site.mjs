@@ -84,6 +84,60 @@ const defaultLogoImage = seoConfig.defaultLogo;
 const googleBusinessProfileUrl = businessIdentity.socialProfiles[0];
 const companySameAsProfiles = businessIdentity.socialProfiles;
 const confirmedTrustCredentialText = `${businessIdentity.name} ABN ${businessIdentifiers.abnFormatted}. Ask about current cover details, building requirements, and move protection before booking.`;
+
+const verifiedPricingMetadata = new Map([
+  ['office-removals-adelaide/index.html', {
+    description: 'Office removalists Adelaide for offices, clinics and workspaces. Plan desks, IT equipment, files, access windows and restart order before booking.',
+  }],
+  ['cheap-removalists-adelaide/index.html', {
+    title: 'Cheap Removalists Adelaide | Transparent Rates | ZQ Removals',
+    description: 'Cheap removalists Adelaide with transparent rates: $75 per 30 minutes for 2 men and a truck or $89 per 30 minutes for 3 men. Travel charge disclosed.',
+  }],
+  ['budget-removalists-adelaide/index.html', {
+    title: 'Budget Removalists Adelaide | Efficient Planning | ZQ Removals',
+    description: 'Budget removalists Adelaide focused on efficient packing, access and inventory planning. Compare current hourly rates and applicable charges before booking.',
+  }],
+  ['interstate-removals-adelaide/index.html', {
+    title: 'Interstate Removalists Adelaide | Long-Distance Movers',
+    description: 'Interstate removalists Adelaide for planned long-distance moves with route, access and inventory review before your tailored moving quote is prepared.',
+  }],
+]);
+
+function applyVerifiedSeoPolicy(page) {
+  const output = page.output.replace(/\\/g, '/');
+  const override = verifiedPricingMetadata.get(output);
+  if (override) {
+    Object.assign(page, override);
+    page.ogTitle = override.title || page.title;
+    page.twitterTitle = override.title || page.title;
+    page.ogDescription = override.description;
+    page.twitterDescription = override.description;
+  }
+
+  const normalizeEntityId = (value) => typeof value === 'string'
+    ? value.replaceAll('https://zqremovals.au/#business', 'https://zqremovals.au/#movingcompany')
+    : value;
+  page.jsonLd = (page.jsonLd || []).map(normalizeEntityId);
+}
+
+function applyVerifiedPricingLanguageToVisibleHtml(html) {
+  const tokens = String(html).split(/(<[^>]+>)/g);
+  let inRawElement = false;
+  return tokens.map((token) => {
+    if (token.startsWith('<')) {
+      if (/^<(script|style)\b/i.test(token)) inRawElement = true;
+      if (/^<\/(script|style)>/i.test(token)) inRawElement = false;
+      return token;
+    }
+    if (inRawElement) return token;
+    return token
+      .replace(/fixed-price/gi, (match) => match[0] === 'F' ? 'Transparent-rate' : 'transparent-rate')
+      .replace(/fixed pricing/gi, (match) => match[0] === 'F' ? 'Transparent pricing' : 'transparent pricing')
+      .replace(/fixed price/gi, (match) => match[0] === 'F' ? 'Transparent rate' : 'transparent rate')
+      .replace(/fully insured/gi, 'cover details available for confirmation')
+      .replace(/guaranteed price/gi, 'quoted price');
+  }).join('');
+}
 function getBuildEnvValue(name) {
   return (process.env[name] ?? buildEnv[name] ?? '').trim();
 }
@@ -131,6 +185,7 @@ const heroImageRouteRules = {
 
 for (const page of pages) {
   applyGoogleReviewTokensToPage(page);
+  applyVerifiedSeoPolicy(page);
   normalizePageUrls(page);
 }
 
@@ -2567,7 +2622,9 @@ export async function runLegacyGenerator() {
 
       try {
         const rawHtml = await readFile(actualPath, 'utf8');
-        const normalizedHtml = applyBusinessTokens(normalizeSiteUrl(rawHtml.trim()));
+        const normalizedHtml = applyVerifiedPricingLanguageToVisibleHtml(
+          applyBusinessTokens(normalizeSiteUrl(rawHtml.trim())),
+        );
         const trackedHtml = decorateLeadTracking(normalizedHtml, page);
         const responsiveHtml = responsiveVariants.size > 0
           ? injectResponsiveSrcset(trackedHtml, responsiveVariants)
@@ -2845,7 +2902,7 @@ function buildHomepageServiceJsonLd(page) {
         name,
         serviceType,
         provider: {
-          '@id': `${businessIdentity.siteUrl}/#business`,
+          '@id': `${businessIdentity.siteUrl}/#movingcompany`,
         },
         areaServed: ['Adelaide', 'South Australia'],
         url: `${businessIdentity.siteUrl}${urlPath}`,
@@ -3103,7 +3160,7 @@ function buildServiceJsonLd(page) {
       serviceType: config.serviceType,
       areaServed: config.areaServed,
       provider: {
-        '@id': 'https://zqremovals.au/#business',
+        '@id': 'https://zqremovals.au/#movingcompany',
       },
       url: page.canonical,
       offers: {
@@ -3413,7 +3470,7 @@ function normalizeJsonLdNode(node, page) {
         name: 'Qasim Ali',
         jobTitle: 'Founder & Lead Operations Planner',
         worksFor: {
-          '@id': 'https://zqremovals.au/#business'
+          '@id': 'https://zqremovals.au/#movingcompany'
         },
         sameAs: [
           'https://facebook.com/zqremovals',
@@ -3421,7 +3478,7 @@ function normalizeJsonLdNode(node, page) {
         ]
       },
       publisher: {
-        '@id': 'https://zqremovals.au/#business'
+        '@id': 'https://zqremovals.au/#movingcompany'
       }
     };
   }
@@ -3441,7 +3498,7 @@ function normalizeServiceNode(node, page) {
     name: config.name,
     serviceType: config.serviceType,
     provider: {
-      '@id': 'https://zqremovals.au/#business',
+      '@id': 'https://zqremovals.au/#movingcompany',
     },
     areaServed: Array.isArray(node.areaServed) && node.areaServed.length > 0 ? node.areaServed : config.areaServed,
     url: page.canonical,
@@ -3477,7 +3534,7 @@ function normalizeMovingCompanyNode(node, page) {
 
   const result = {
     ...rest,
-    '@id': `${businessIdentity.siteUrl}/#business`,
+    '@id': `${businessIdentity.siteUrl}/#movingcompany`,
     name: businessIdentity.name,
     url: `${businessIdentity.siteUrl}/`,
     telephone: businessIdentity.phone.display,
@@ -4922,7 +4979,7 @@ function renderServiceMoneyUpgrade(page) {
     ['/cheap-removalists-adelaide/', 'Compare lower-cost options', 'Compare affordable fixed-price options'],
     ['/affordable-removalists-adelaide/', 'Value-focused move planning', 'Keep premium handling with budget-aware scope'],
     ['/removalist-cost-adelaide/', 'Understand quote factors', 'Understand quote factors before booking'],
-    ['/moving-quotes-adelaide/', 'Compare Adelaide quote options', 'Request a clearer fixed-price quote'],
+    ['/moving-quotes-adelaide/', 'Compare Adelaide quote options', 'Request a clearer moving quote'],
     ['/fixed-price-removalists-adelaide/', 'See fixed-price move options', 'Avoid hourly surprises with scoped pricing'],
     ['/budget-removalists-adelaide/', 'Budget-aware Adelaide moves', 'Plan a value-focused Adelaide move'],
   ].filter(([href]) => href !== `/${page.output.replace(/index\.html$/, '')}`);

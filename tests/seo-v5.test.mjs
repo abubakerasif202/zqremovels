@@ -296,11 +296,11 @@ test('seo v5 pages with tables include accessible captions', () => {
 
 test('seo v5 intent profiles differentiate high-intent Adelaide removalist pages', () => {
   const cases = [
-    ['cheap-removalists-adelaide/index.html', /risk-aware fixed-price quote/i],
+    ['cheap-removalists-adelaide/index.html', /transparent rates/i],
     ['removalist-cost-adelaide/index.html', /Compare Adelaide removalist rates/i],
     ['moving-quotes-adelaide/index.html', /Request a moving quote in Adelaide/i],
     ['fixed-price-removalists-adelaide/index.html', /manual quote review/i],
-    ['budget-removalists-adelaide/index.html', /Compare quote options today/i],
+    ['budget-removalists-adelaide/index.html', /efficient packing, access and inventory planning/i],
     ['furniture-removalists-adelaide/index.html', /item protection and handling/i],
     ['house-removals-adelaide/index.html', /full home relocation/i],
     ['services/local-removals-adelaide/index.html', /Adelaide metro moving/i],

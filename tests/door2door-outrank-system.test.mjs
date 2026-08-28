@@ -65,7 +65,10 @@ function readDist(relativePath) {
 }
 
 function stripApprovedQuotePackagePricing(html) {
-  return html.replace(/<form\b[^>]*data-quote-form="quote"[^>]*>[\s\S]*?<\/form>/gi, '');
+  return html
+    .replace(/<form\b[^>]*data-quote-form="quote"[^>]*>[\s\S]*?<\/form>/gi, '')
+    .replace(/\$75\s*(?:per|\/)\s*30 minutes/gi, '')
+    .replace(/\$89\s*(?:per|\/)\s*30 minutes/gi, '');
 }
 
 function extractRootLinks(html) {
@@ -101,7 +104,7 @@ test('price-intent pages exist with metadata, H1, canonicals, CTAs, FAQs, schema
     assert.equal((html.match(/<h1\b/g) || []).length, 1, slug);
     assert.match(html, /href="tel:\+61433819989"/, slug);
     assert.match(html, /href="\/contact-us\/#quote-form"/, slug);
-    assert.match(html, /fixed-price|fixed price/i, slug);
+    assert.match(html, /transparent-rate|transparent rate|hourly rate/i, slug);
     assert.match(html, /FAQPage/, slug);
     assert.match(html, /BreadcrumbList/, slug);
     assert.ok(links.filter((href) => servicePages.map((item) => `/${item}/`).includes(href)).length >= 2, slug);
@@ -141,14 +144,14 @@ test('homepage, footer, services, and guides build the price-intent internal lin
     assert.match(
       html,
       guide.includes('removalists-cost-adelaide')
-        ? /hourly rates, fixed quotes/i
-        : /Hourly rates vs fixed-price moving quotes/,
+        ? /hourly rates, (?:fixed|transparent-rate) quotes/i
+        : /Hourly rates vs (?:fixed-price|transparent-rate) moving quotes/,
       guide,
     );
   }
 });
 
-test('priority suburb pages include near-me, affordable, fixed-price, nearby, service, quote and FAQ signals', () => {
+test('priority suburb pages include local, transparent-rate, nearby, service, quote and FAQ signals', () => {
   for (const slug of prioritySuburbs) {
     const html = readDist(path.join(`removalists-${slug}`, 'index.html'));
     const main = html.match(/<main\b[\s\S]*?<\/main>/i)?.[0] || html;
@@ -156,7 +159,7 @@ test('priority suburb pages include near-me, affordable, fixed-price, nearby, se
     const links = extractRootLinks(main);
 
     assert.match(main, new RegExp(`${suburb} moves`, 'i'), slug);
-    assert.match(main, /fixed-price quote/i, slug);
+    assert.match(main, /transparent-rate quote|published hourly rates/i, slug);
     assert.match(main, /access|parking|stairs|lifts|carry distance/i, slug);
     assert.ok(links.filter((href) => href.startsWith('/removalists-') && !href.includes(slug)).length >= 5, slug);
     assert.ok(links.filter((href) => servicePages.map((item) => `/${item}/`).includes(href)).length >= 3, slug);
