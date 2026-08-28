@@ -50,7 +50,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npx -y http-server "C:\\Users\\abuba\\zq\\site-dist" -p 3000',
+    command: 'node scripts/serve-site.mjs',
     url: 'http://127.0.0.1:3000',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,

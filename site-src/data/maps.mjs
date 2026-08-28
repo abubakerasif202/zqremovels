@@ -1,6 +1,6 @@
-import { zqSuburbGeoData } from './zq-suburbs.mjs';
+import { zqPrioritySuburbRoutes, zqSuburbGeoData } from './zq-suburbs.mjs';
 
-const locatorSlugs = [
+const locatorSlugs = new Set([
   'adelaide-cbd',
   'norwood',
   'glenelg',
@@ -12,12 +12,17 @@ const locatorSlugs = [
   'prospect',
   'burnside',
   'magill',
-];
+]);
+
+const verifiedLocatorRoutes = new Map([
+  ['adelaide-cbd', '/removalists-adelaide-cbd/'],
+  ...zqPrioritySuburbRoutes.map(({ slug, path }) => [slug, path]),
+]);
 
 export const zqServiceAreaMapConfig = {
   center: { lat: -34.9285, lng: 138.6007 },
   zoom: 10,
-  locations: locatorSlugs
+  locations: [...locatorSlugs]
     .map((slug) => {
       const area = zqSuburbGeoData[slug];
       if (!area) return null;
@@ -27,10 +32,10 @@ export const zqServiceAreaMapConfig = {
         label: 'Service Area',
         latitude: area.latitude,
         longitude: area.longitude,
-        url: `/removalists-${slug}/`,
+        url: verifiedLocatorRoutes.get(slug),
       };
     })
-    .filter(Boolean),
+    .filter((location) => location?.url),
 };
 
 export function getGoogleMapsBrowserConfig() {

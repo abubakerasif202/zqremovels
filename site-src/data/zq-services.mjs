@@ -684,7 +684,7 @@ export const zqServiceFactorCards = {
   ],
   'homepage': [
     {
-      title: 'Fixed Pricing',
+      title: 'Transparent Pricing',
       copy: 'ZQ Removals builds quotes from inventory, access, route, and timing to eliminate hourly surprises for Adelaide families.',
     },
     {
@@ -762,7 +762,7 @@ export const zqServiceFactorCards = {
       copy: 'Heavy-duty trolleys, custom ramps, tailgates, and protective blankets are required for every instrument.',
     },
     {
-      title: 'Fixed pricing',
+      title: 'Transparent pricing',
       copy: 'Every piano move is reviewed manually so the final price is fixed and matches the actual access route.',
     },
   ],

@@ -302,7 +302,7 @@ function setupFormState() {
 
     if (!submitButton.dataset.defaultLabel) {
       submitButton.dataset.defaultLabel =
-        submitButton.textContent?.trim() ?? "Get My Fixed-Price Quote";
+        submitButton.textContent?.trim() ?? "Get My Moving Quote";
     }
 
     form.addEventListener("submit", (event) => {
@@ -327,7 +327,7 @@ function setupFormState() {
       submitButton.disabled = false;
       submitButton.dataset.submitting = "false";
       submitButton.textContent =
-        submitButton.dataset.defaultLabel ?? submitButton.textContent ?? "Get My Fixed-Price Quote";
+        submitButton.dataset.defaultLabel ?? submitButton.textContent ?? "Get My Moving Quote";
     });
   });
 }
@@ -708,14 +708,14 @@ function setQuoteFormSubmitting(form, isSubmitting) {
 
   if (!submitButton.dataset.defaultLabel) {
     submitButton.dataset.defaultLabel =
-      submitButton.textContent?.trim() ?? "Get My Fixed-Price Quote";
+      submitButton.textContent?.trim() ?? "Get My Moving Quote";
   }
 
   submitButton.disabled = isSubmitting;
   submitButton.dataset.submitting = isSubmitting ? "true" : "false";
   submitButton.textContent = isSubmitting
     ? "Sending quote..."
-    : submitButton.dataset.defaultLabel || "Get My Fixed-Price Quote";
+    : submitButton.dataset.defaultLabel || "Get My Moving Quote";
 }
 
 async function submitQuoteForm(form, payload) {
@@ -1054,7 +1054,7 @@ function loadServiceAreaMaps(apiKey) {
   if (!serviceAreaMapsPromise) {
     serviceAreaMapsPromise = new Promise((resolve, reject) => {
       const script = document.createElement("script");
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&v=weekly`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&v=weekly&loading=async`;
       script.async = true;
       script.defer = true;
       script.onload = () => window.google?.maps ? resolve(window.google.maps) : reject(new Error("Google Maps unavailable"));
@@ -1074,33 +1074,51 @@ function setupServiceAreaLocator() {
   const status = locator.querySelector("[data-service-area-status]");
   const links = Array.from(locator.querySelectorAll("[data-service-area-link]"));
   const search = locator.querySelector("[data-service-area-search]");
-  const focusArea = (link, map) => {
+  const filterAreas = (query) => {
+    const normalizedQuery = query.trim().toLowerCase();
+    const matches = links.filter((link) => link.dataset.areaName.toLowerCase().includes(normalizedQuery));
+    links.forEach((link) => {
+      link.closest("li").hidden = normalizedQuery !== "" && !matches.includes(link);
+    });
+    if (status && normalizedQuery) {
+      status.textContent = matches.length
+        ? `${matches.length} service area${matches.length === 1 ? "" : "s"} match your search.`
+        : "No matching service area. Try another Adelaide suburb.";
+    }
+    return matches;
+  };
+  let map;
+  const focusArea = (link) => {
     const position = { lat: Number(link.dataset.lat), lng: Number(link.dataset.lng) };
-    map.panTo(position);
-    map.setZoom(12);
+    if (map) {
+      map.panTo(position);
+      map.setZoom(12);
+    }
     links.forEach((item) => item.removeAttribute("aria-current"));
     link.setAttribute("aria-current", "true");
     if (status) status.textContent = `${link.dataset.areaName} is a ZQ Removals service area.`;
   };
+  search?.addEventListener("input", () => filterAreas(search.value));
+  search?.addEventListener("change", () => {
+    const match = filterAreas(search.value)[0];
+    if (match) focusArea(match);
+  });
+  links.forEach((link) => link.addEventListener("click", () => focusArea(link)));
   const start = () => {
     if (!config.apiKey || !mapNode) {
       if (status) status.textContent = "Choose a service area below to view its removalist page.";
       return;
     }
     loadServiceAreaMaps(config.apiKey).then((maps) => {
+      mapNode.replaceChildren();
       const mapOptions = { center: config.center, zoom: config.zoom || 10, fullscreenControl: true, mapTypeControl: false, streetViewControl: false, zoomControl: true };
       if (config.mapId) mapOptions.mapId = config.mapId;
-      const map = new maps.Map(mapNode, mapOptions);
-      mapNode.replaceChildren();
+      map = new maps.Map(mapNode, mapOptions);
       links.forEach((link) => {
         const marker = new maps.Marker({ map, position: { lat: Number(link.dataset.lat), lng: Number(link.dataset.lng) }, title: `${link.dataset.areaName} service area` });
-        marker.addListener("click", () => focusArea(link, map));
-        link.addEventListener("click", () => focusArea(link, map));
+        marker.addListener("click", () => focusArea(link));
       });
-      if (search) search.addEventListener("input", () => {
-        const query = search.value.trim().toLowerCase();
-        links.forEach((link) => { link.closest("li").hidden = query !== "" && !link.dataset.areaName.toLowerCase().includes(query); });
-      });
+      if (status) status.textContent = "Select a pin or service area to focus the map.";
     }).catch(() => {
       if (status) status.textContent = "The interactive map is unavailable. Use the service-area links to continue.";
       mapNode.innerHTML = "<p>Map unavailable right now. The service-area links remain available.</p>";

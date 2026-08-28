@@ -40,7 +40,7 @@ export const businessIdentity = {
 
 export const googleReviews = {
   rating: 5.0,
-  reviewCount: 59,
+  reviewCount: 81,
   profileUrl: googleProfileUrl,
   // Verified from owner-supplied screenshot. Update regularly, or connect this to an approved Google API before presenting it as live data.
   lastVerifiedSource: 'owner-supplied Google Business Profile screenshot',

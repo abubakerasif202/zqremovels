@@ -54,7 +54,7 @@ test('footer and homepage include clean price-path links and cost-conscious mess
   assert.doesNotMatch(footer, /href="\/affordable-removalists-adelaide\/"/, 'footer should not link to the consolidated affordable alias');
   assert.doesNotMatch(footer, /cheap-removalists-adelaide[\s\S]{0,220}affordable-removalists-adelaide[\s\S]{0,220}budget-removalists-adelaide/i, 'footer should not include a dense exact-match price grid');
 
-  assert.match(homepage, /fixed-price quotes/i);
+  assert.match(homepage, /moving quotes/i);
   assert.match(contact, /Quote Preparation Checklist/i);
 });
 

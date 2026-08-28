@@ -978,8 +978,8 @@ test('homepage targets Adelaide removalists and keeps above-fold conversion cont
   assert.match(hero, /From the first box to the final placement/i);
   assert.match(hero, /href="#quote-form"[^>]*>Get a Free Quote/i);
   assert.match(hero, /href="tel:\+61433819989"/);
-  assert.match(hero, /5\.0[\s\S]*from 59[\s\S]*Google reviews/i);
-  assert.match(hero, /aria-label="Read ZQ Removals Google reviews\. Rated 5\.0 out of 5 from 59 reviews\."/i);
+  assert.match(hero, /5\.0[\s\S]*from 81[\s\S]*Google reviews/i);
+  assert.match(hero, /aria-label="Read ZQ Removals Google reviews\. Rated 5\.0 out of 5 from 81 reviews\."/i);
   assert.match(hero, /href="https:\/\/share\.google\/toaQ1pTUMpigxRuQM"/i);
   assert.doesNotMatch(hero, /guaranteed|fully insured/i);
   for (const href of [
@@ -1146,7 +1146,7 @@ test('removalists Adelaide hub has focused intent, schema, CTA and supporting in
   assert.match(firstSection, /inventory[\s\S]*stairs[\s\S]*lifts[\s\S]*parking[\s\S]*timing[\s\S]*fragile/i);
   assert.match(main, /How to choose removalists in Adelaide/i);
   assert.match(main, /What affects an Adelaide removalist quote/i);
-  assert.match(main, /When transparent-rate quoting is better than hourly uncertainty/i);
+  assert.match(main, /When detailed quoting helps reduce uncertainty/i);
   assert.match(main, /href="\/contact-us\/#quote-form"/i);
 
   for (const output of [

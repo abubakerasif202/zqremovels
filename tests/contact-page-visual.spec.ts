@@ -5,7 +5,7 @@ test('contact page matches the homepage design system and remains readable', asy
   await page.waitForLoadState('networkidle');
 
   await expect(page.locator('h1')).toHaveCount(1);
-  await expect(page.locator('.contact-hero-shell a.zq-v2-button-primary')).toContainText('Get Fixed-Price Quote');
+  await expect(page.locator('.contact-hero-shell a.zq-v2-button-primary')).toContainText('Get My Moving Quote');
   await expect(page.locator('.contact-hero-shell .zq-v2-button-outline')).toContainText('Call 0433 819 989');
   await expect(page.locator('.quote-form-premium label span')).toHaveCount(15);
 

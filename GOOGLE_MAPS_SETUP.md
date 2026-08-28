@@ -13,4 +13,6 @@ Restrict the key to these HTTP referrers:
 
 Add localhost only when local development genuinely needs the interactive map. Restrict the key to **Maps JavaScript API** only. The current locator uses local HTML filtering and does not require Places, Directions, Distance Matrix, or Place Details APIs.
 
+The site uses the Maps JavaScript API directly instead of `@googlemaps/extended-component-library`'s Store Locator element. That element is designed around store/business records and would be a poor fit for ZQ's service-area pins: this implementation has no Place IDs, addresses, store actions, or business-location schema. The same lazy-loader principle is retained while the HTML list remains the source of truth.
+
 Never commit the key or server credentials. The site remains useful with no key: the crawlable service-area links and quote/phone actions are always rendered, and the map shows a clear fallback.

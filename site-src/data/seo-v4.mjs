@@ -1727,7 +1727,7 @@ const commercialPages = [
     slug: 'last-minute-movers-adelaide',
     title: 'Last Minute Movers Adelaide',
     description:
-      'Last-minute movers in Adelaide for immediate relocation needs. Get a fixed-price quote and a professional plan for your short-notice Adelaide move.',
+      'Last-minute movers in Adelaide for immediate relocation needs. Get a moving quote and a professional plan for your short-notice Adelaide move.',
     canonical: '/last-minute-movers-adelaide/',
     type: 'money',
     hero: 'Last-minute move planning starts with access and inventory. We provide clear pricing and a stable plan even when the booking window is tight.',
@@ -1790,7 +1790,7 @@ const commercialPages = [
       {
         question: 'Why can fixed-price removals suit Adelaide moves?',
         answer:
-          'Fixed pricing helps when traffic, parking, stairs, lifts, or loading windows could otherwise turn an hourly estimate into a moving target.',
+          'Transparent pricing helps when traffic, parking, stairs, lifts, or loading windows could otherwise turn an hourly estimate into a moving target.',
       },
       {
         question: 'What details do you need for a fixed-price quote?',
@@ -1840,7 +1840,7 @@ const commercialPages = [
       {
         question: 'Why is fixed-price better than cheap hourly rates?',
         answer:
-          'Fixed-price quotes remove the risk of "slow-moving" crews or traffic delays increasing your bill. You get a guaranteed price up front.',
+          'A detailed quote should account for crew pace, traffic, access, and the supplied move brief before booking.',
       },
       {
         question: 'What are the hidden costs of cheap movers?',
@@ -1852,7 +1852,7 @@ const commercialPages = [
   {
     slug: 'movers-and-packers-adelaide',
     title: 'Movers and Packers Adelaide | Packing & Moving',
-    description: 'Movers and packers Adelaide for professional home packing, unpacking, and moving services. Get a fixed-price quote with verified local packing crews.',
+    description: 'Movers and packers Adelaide for professional home packing, unpacking, and moving services. Get a moving quote with verified local packing crews.',
     canonical: '/movers-and-packers-adelaide/',
     type: 'money',
     hero: 'Packing and moving should be handled together for maximum safety. We offer full packing, unpacking, materials supply, and fixed-price transport in Adelaide.',
@@ -1902,7 +1902,7 @@ const commercialPages = [
     hero: 'Understanding Adelaide removalist pricing helps you budget without surprises. ZQ Removals reviews your inventory and access to deliver a firm fixed-price quote.',
     sections: [
       'Removalist prices in Adelaide can vary wildly between cheap hourly estimates and premium all-inclusive packages. Hourly rates might look attractive but often include hidden travel fees, stair surcharges, or depot-to-depot run times.',
-      'ZQ Removals operates on a fixed-price quote review model. We assess the volume of furniture, property access, parking challenges, and route logistics to guarantee a final price. This gives you budget certainty on moving day.',
+      'ZQ Removals reviews furniture volume, property access, parking challenges, and route logistics before confirming the quote and applicable charges.',
     ],
     faq: [
       {
@@ -2063,7 +2063,7 @@ function buildCommercialIntentProfile(page) {
     secondaryKeywords: [],
     searchIntent: 'quote-ready Adelaide moving service research',
     uniqueAngle: page.hero,
-    conversionCTA: 'Get a fixed-price quote',
+    conversionCTA: 'Get a moving quote',
   };
   const linkProfile = commercialLinkProfiles[page.slug] || {};
 
@@ -3356,16 +3356,16 @@ function renderSemrushQuoteSupport(page) {
         <p>Our experienced, friendly local movers know Adelaide's corridors and access routes inside out, ensuring efficient transitions.</p>
       </article>
       <article class="value-card">
-        <h3>Fully Insured Movers</h3>
-        <p>Your belongings are fully protected. We carry comprehensive transit and public liability insurance for your peace of mind.</p>
+        <h3>Clear Move Planning</h3>
+        <p>We discuss the moving scope, access conditions and available cover details before your booking is confirmed.</p>
       </article>
       <article class="value-card">
         <h3>Transparent Pricing</h3>
-        <p>We provide clear, written fixed-price quotes based on your exact inventory and access details, so you can budget with confidence.</p>
+        <p>We provide clear quotes based on your exact inventory and access details, so you can plan the move with confidence.</p>
       </article>
       <article class="value-card">
         <h3>No Hidden Surprises</h3>
-        <p>No sudden fuel levies, stair fees, or weekend surcharges. The price we quote is the price you pay on moving day.</p>
+        <p>We explain applicable charges, access requirements and timing before the move is confirmed.</p>
       </article>
     </div>
   </div>
@@ -3925,7 +3925,7 @@ ${renderPageHero({
     { title: 'Risk Review', copy: `Evaluating ${data.subjectB} trade-offs` },
     { title: 'Best Fit', copy: data.winner },
   ],
-  primaryCta: { href: '/contact-us/#quote-form', label: 'Get a Fixed Quote' },
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Get My Moving Quote' },
   secondaryCta: { href: '/removalists-adelaide/', label: 'View Services' },
   image: null,
   breadcrumbs: [
@@ -3987,7 +3987,7 @@ ${renderFaqSectionBlock({
 ${renderQuoteStrip({
   eyebrow: 'Ready to decide?',
   heading: `Get your fixed-price ${data.subjectA.toLowerCase()} quote`,
-  copy: `Skip the hourly surprises. Send your move details today for a guaranteed price.`,
+  copy: `Skip the hourly surprises. Send your move details today for a quoted price.`,
   primaryCta: { href: '/contact-us/#quote-form', label: 'Request Quote' },
   secondaryCta: { href: '/adelaide-moving-guides/', label: 'More Planning Guides' },
   pageType: 'guide',
@@ -4177,7 +4177,7 @@ ${renderQuoteStrip({
   eyebrow: 'Need an Adelaide quote baseline?',
   heading: 'Send ZQ the move details before you compare final offers.',
   copy: 'A clear quote baseline makes provider comparison easier because access, inventory, packing, timing, and route assumptions are written down.',
-  primaryCta: { href: '/contact-us/#quote-form', label: 'Request Fixed-Price Quote' },
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Get My Moving Quote' },
   secondaryCta: { href: '/adelaide-moving-guides/', label: 'More Planning Guides' },
   pageType: 'guide',
 })}
@@ -4302,12 +4302,12 @@ ${renderPageHero({
   lead: `Planning a relocation from ${origin.suburb} to ${dest.suburb}? We specialize in suburb-to-suburb moves across Adelaide, ensuring a smooth transition between these two areas.`,
   supporting: [
     `Our crew handles the unique challenges of ${origin.suburb} pickups—including ${origin.logisticsLabel}—and ensures your delivery in ${dest.suburb} is managed with the same care.`,
-    `We provide fixed-price quotes for this specific route so you have total certainty on moving day.`,
+    `We provide clear quotes for this specific route so you have total certainty on moving day.`,
   ],
   points: [
     { title: 'Route Expertise', copy: `Moves between ${origin.region} and ${dest.region}` },
     { title: 'Access Planning', copy: `Coordinating ${origin.suburb} to ${dest.suburb} logistics` },
-    { title: 'Fixed Pricing', copy: 'Clear quotes without hidden hourly fees' },
+    { title: 'Transparent Pricing', copy: 'Clear quotes without hidden hourly fees' },
   ],
   primaryCta: { href: '/contact-us/#quote-form', label: 'Get Route Quote' },
   secondaryCta: { href: '/removalists-adelaide/', label: 'All Service Areas' },
@@ -4362,7 +4362,7 @@ ${renderQuoteStrip({
   eyebrow: 'Ready to move?',
   heading: `Get your ${origin.suburb} to ${dest.suburb} quote`,
   copy: `Send us the details for both addresses so we can build a practical plan for your move.`,
-  primaryCta: { href: '/contact-us/#quote-form', label: 'Request Fixed Quote' },
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Get My Moving Quote' },
   secondaryCta: { href: '/removalists-adelaide/', label: 'Adelaide Coverage' },
   pageType: 'suburb',
 })}
@@ -4463,7 +4463,7 @@ function buildServiceSuburbFaqItems({ service, suburb, logisticsLabel }) {
     },
     {
       question: isOffice ? `How much do ${suburb} office moves cost?` : `How much does ${service.replace('-', ' ')} cost in ${suburb}?`,
-      answer: `Cost depends on inventory volume, access types, and timing. We provide fixed-price quotes for ${suburb} after reviewing the brief.`,
+      answer: `Cost depends on inventory volume, access types, and timing. We provide clear quotes for ${suburb} after reviewing the brief.`,
     },
     {
       question: isPacking ? `Can you pack my whole house in ${suburb}?` : `Do you handle fragile furniture in ${suburb}?`,
@@ -4487,14 +4487,14 @@ ${renderPageHero({
   lead: template.hero.replaceAll('{suburb}', suburb).replaceAll('{logisticsLabel}', logisticsLabel),
   supporting: [
     `Our crew understands the local ${suburb} access patterns, whether you are moving near ${region} or across the wider Adelaide metro area.`,
-    `We provide fixed-price quotes for ${template.primaryKeyword.toLowerCase()} so you have certainty before move day.`,
+    `We provide clear quotes for ${template.primaryKeyword.toLowerCase()} so you have certainty before move day.`,
   ],
   points: [
     { title: 'Local Knowledge', copy: `Planned around ${logisticsLabel}` },
-    { title: 'Fixed Pricing', copy: 'No hidden fees after review' },
-    { title: 'Careful Handling', copy: 'Fully insured and protected' },
+    { title: 'Transparent Pricing', copy: 'No hidden fees after review' },
+    { title: 'Careful Handling', copy: 'Cover details available on request' },
   ],
-  primaryCta: { href: '/contact-us/#quote-form', label: 'Get Fixed-Price Quote' },
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Get My Moving Quote' },
   secondaryCta: { href: `/removalists-${slug}/`, label: `View ${suburb} Removalists` },
   image: null,
   breadcrumbs: [
@@ -4800,7 +4800,7 @@ function makeCommercialPage(page) {
     },
     'movers-and-packers-adelaide': {
       title: 'Movers and Packers Adelaide | Packing & Moving',
-      description: 'Movers and packers Adelaide for professional home packing, unpacking, and moving services. Get a fixed-price quote with verified local packing crews.',
+      description: 'Movers and packers Adelaide for professional home packing, unpacking, and moving services. Get a moving quote with verified local packing crews.',
     },
     'small-removals-adelaide': {
       title: 'Small Removals Adelaide | Single Item Movers',
@@ -5015,7 +5015,7 @@ function buildInterstateWindowCards({ destination, distance }) {
 }
 
 function renderInterstateContent({ slug, destination, routeName, distance, highway, support }) {
-  const cta = 'Get a Fixed-Price Quote';
+  const cta = 'Get a Moving Quote';
   const profile = getInterstateRouteProfile({ slug, destination, routeName, distance, highway });
   const pricingCards = buildInterstatePricingCards({ destination, distance, highway });
   const windowCards = buildInterstateWindowCards({ destination, distance });
@@ -5024,7 +5024,7 @@ function renderInterstateContent({ slug, destination, routeName, distance, highw
     { eyebrow: 'Quote path', title: 'Moving quotes Adelaide', copy: 'Send the route, access, inventory, timing, and packing notes for review.', href: '/moving-quotes-adelaide/', cta: 'Prepare moving quote' },
     { eyebrow: 'Price model', title: 'Fixed-price removalists Adelaide', copy: 'Review how fixed-price quoting works when the scope is clear.', href: '/fixed-price-removalists-adelaide/', cta: 'Review fixed-price moving' },
     { eyebrow: 'Checklist', title: 'Interstate moving checklist Adelaide', copy: 'Use the checklist to prepare both addresses and the handover details.', href: '/adelaide-moving-guides/interstate-moving-checklist-adelaide/', cta: 'Open interstate checklist' },
-    { eyebrow: 'Quote form', title: 'Request a fixed-price quote', copy: 'Submit the move brief once the key route and access details are ready.', href: '/contact-us/#quote-form', cta: 'Request quote' },
+    { eyebrow: 'Quote form', title: 'Get a moving quote', copy: 'Submit the move brief once the key route and access details are ready.', href: '/contact-us/#quote-form', cta: 'Request quote' },
   ];
   const serviceCards = support.services.map((item, index) => ({
     eyebrow: index === 0 ? 'Interstate service' : 'Service fit',
@@ -5207,7 +5207,7 @@ ${renderQuoteStrip({
   eyebrow: 'Request a Quote',
   heading: `Get your fixed-price quote for ${routeName}`,
   copy: `Plan your move to ${profile.destinationLabel} with a clear route brief. Preferred dates and route timing are subject to availability after access and inventory review.`,
-  primaryCta: { href: '/contact-us/#quote-form', label: 'Get Fixed-Price Quote' },
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Get My Moving Quote' },
   secondaryCta: { href: '/interstate-removals-adelaide/', label: 'View All Routes' },
   pageType: 'interstate',
 })}
@@ -5509,7 +5509,7 @@ ${renderQuoteStrip({
   eyebrow: 'Ready to move',
   heading: `Send the ${suburb} route and we will scope it properly`,
   copy: `Include the origin, destination, property type, and any access notes so the quote reflects the real move rather than a thin suburb estimate.`,
-  primaryCta: { href: '/contact-us/#quote-form', label: 'Get Fixed-Price Quote' },
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Get My Moving Quote' },
   secondaryCta: regionalHub,
   pageType: 'suburb',
 })}
@@ -5576,7 +5576,7 @@ ${renderPageHero({
     'Natural links into service pages, suburbs, and quote paths',
     'Written to support real pre-booking questions',
   ],
-  primaryCta: { href: '/contact-us/#quote-form', label: 'Get Fixed-Price Quote' },
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Get My Moving Quote' },
   secondaryCta: { href: '/adelaide-moving-guides/', label: 'Back to moving guides' },
   image,
   breadcrumbs: [
@@ -5663,7 +5663,7 @@ ${renderQuoteStrip({
   eyebrow: 'Plan confirmed',
   heading: `Request your quote based on your ${topic} brief`,
   copy: `Ready to book? Send your move details and we will provide a clear, fixed-price quote.`,
-  primaryCta: { href: '/contact-us/#quote-form', label: 'Get Fixed-Price Quote' },
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Get My Moving Quote' },
   secondaryCta: { href: '/adelaide-moving-guides/', label: 'All Guides' },
   pageType: 'guide',
 })}
@@ -5890,7 +5890,7 @@ function buildGuideAdviceCards(topic, slug = '') {
       },
       {
         title: 'Keep the supplied brief accurate',
-        copy: 'Fixed pricing depends on the supplied inventory and access matching the actual job on move day.',
+        copy: 'Transparent pricing depends on the supplied inventory and access matching the actual job on move day.',
       },
     ],
     'apartment-moving-checklist-adelaide': [
@@ -6066,7 +6066,7 @@ ${renderPageHero({
     page.sections[1],
   ],
   points: buildCommercialHighlights(page),
-  primaryCta: { href: '/contact-us/#quote-form', label: 'Get Fixed-Price Quote' },
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Get My Moving Quote' },
   secondaryCta: { href: '/removalists-adelaide/', label: 'Review Adelaide removals' },
   image,
   breadcrumbs: [
@@ -6174,7 +6174,7 @@ ${renderQuoteStrip({
   eyebrow: 'Ready to book',
   heading: `Send the details for ${visibleTitleLower}`,
   copy: 'Include the addresses, property type, preferred timing, and access notes so the service can be scoped without filler or guesswork.',
-  primaryCta: { href: '/contact-us/#quote-form', label: 'Get Fixed-Price Quote' },
+  primaryCta: { href: '/contact-us/#quote-form', label: 'Get My Moving Quote' },
   secondaryCta: { href: '/removalists-adelaide/', label: 'Review Adelaide removals' },
   pageType: 'money',
 })}

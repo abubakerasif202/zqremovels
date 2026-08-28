@@ -3,6 +3,7 @@ import path from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { zqServiceAreaMapConfig } from '../site-src/data/maps.mjs';
+import { zqPrioritySuburbRoutes } from '../site-src/data/zq-suburbs.mjs';
 
 const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
@@ -12,6 +13,8 @@ test('service-area locator has crawlable fallback content and verified routes', 
   assert.match(adelaideHub, /data-service-area-locator/);
   assert.match(adelaideHub, /Find ZQ Removals near you/);
   assert.match(adelaideHub, /Map pins mark general suburb service areas only/);
+  assert.match(adelaideHub, /list="service-area-options"/);
+  assert.match(adelaideHub, /Interactive map loading/);
   assert.match(adelaideHub, /\/contact-us\/#quote-form/);
   assert.match(adelaideHub, /tel:\+61433819989/);
 
@@ -19,6 +22,29 @@ test('service-area locator has crawlable fallback content and verified routes', 
     assert.match(adelaideHub, new RegExp(`href="${location.url.replaceAll('/', '\\/')}"`));
     assert.doesNotMatch(JSON.stringify(location), /placeId|office|branch|depot/i);
   }
+});
+
+test('locator uses only priority suburb routes with shared geography and no business identifiers', () => {
+  const priorityRoutes = new Map(zqPrioritySuburbRoutes.map((route) => [route.slug, route.path]));
+  priorityRoutes.set('adelaide-cbd', '/removalists-adelaide-cbd/');
+  for (const slug of ['adelaide-cbd', 'glenelg', 'norwood', 'unley', 'mawson-lakes', 'mount-barker', 'salisbury', 'marion', 'prospect', 'burnside', 'magill']) {
+    assert.ok(zqServiceAreaMapConfig.locations.some((location) => location.slug === slug));
+  }
+  for (const location of zqServiceAreaMapConfig.locations) {
+    assert.equal(location.url, priorityRoutes.get(location.slug));
+    assert.equal(location.label, 'Service Area');
+    assert.equal(typeof location.latitude, 'number');
+    assert.equal(typeof location.longitude, 'number');
+    assert.doesNotMatch(JSON.stringify(location), /placeId|address|office|branch|depot/i);
+  }
+});
+
+test('locator loads Maps once, lazily, and does not request unused Google APIs', () => {
+  const siteScript = readFileSync(path.join(root, 'site.js'), 'utf8');
+  assert.equal((siteScript.match(/maps\.googleapis\.com\/maps\/api\/js/g) || []).length, 1);
+  assert.match(siteScript, /IntersectionObserver/);
+  assert.match(siteScript, /loading=async/);
+  assert.doesNotMatch(siteScript, /distanceMatrix|directionsService|places\.Autocomplete|PlaceResult/);
 });
 
 test('locator removes all supplied Google demo content and fake business entities', () => {

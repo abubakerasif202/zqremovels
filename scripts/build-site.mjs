@@ -3278,7 +3278,7 @@ function buildFallbackBreadcrumbItems(page) {
 
   const title = cleanHtmlText(page.title || '')
     .replace(/\s*\|\s*ZQ Removals.*$/i, '')
-    .replace(/\s*\|\s*Get a Fixed-Price Quote.*$/i, '')
+    .replace(/\s*\|\s*Get a Moving Quote.*$/i, '')
     .trim();
   const items = [{ name: 'Home', url: `${preferredSiteOrigin}/` }];
 
@@ -3399,15 +3399,18 @@ function renderServiceAreaLocator() {
     <div class="service-area-locator-grid">
       <div class="service-area-locator-panel">
         <label class="service-area-search-label" for="service-area-search">Search service areas</label>
-        <input id="service-area-search" class="service-area-search" type="search" placeholder="Try Norwood or Glenelg" autocomplete="off" data-service-area-search />
+        <input id="service-area-search" class="service-area-search" type="search" placeholder="Try Norwood or Glenelg" autocomplete="off" list="service-area-options" aria-controls="service-area-list" data-service-area-search />
+        <datalist id="service-area-options">
+${config.locations.map((location) => `          <option value="${escapeAttribute(location.title)}"></option>`).join('\n')}
+        </datalist>
         <p class="service-area-status" data-service-area-status role="status" aria-live="polite">Select a suburb to focus the map.</p>
-        <ul class="service-area-list" data-service-area-list>
+        <ul id="service-area-list" class="service-area-list" data-service-area-list>
 ${config.locations.map((location) => `          <li><a href="${location.url}" data-service-area-link data-lat="${location.latitude}" data-lng="${location.longitude}" data-area-name="${escapeAttribute(location.title)}"><span class="service-area-label">${location.label}</span><strong>${escapeHtml(location.title)}</strong><span>View removalists in ${escapeHtml(location.title)}</span></a></li>`).join('\n')}
         </ul>
       </div>
       <div class="service-area-map-wrap">
-        <div class="service-area-map" data-service-area-map role="img" aria-label="Interactive map showing ZQ Removals service areas across Adelaide"><p>Interactive map loading. The service-area links remain available below.</p></div>
-        <p class="service-area-map-note">Map pins mark general suburb service areas only; they do not represent ZQ Removals offices.</p>
+        <div class="service-area-map" data-service-area-map tabindex="-1" aria-describedby="service-area-map-note"><p>Interactive map loading. The service-area links remain available below.</p></div>
+        <p id="service-area-map-note" class="service-area-map-note">Map pins mark general suburb service areas only; they do not represent ZQ Removals offices, branches, or depots.</p>
       </div>
     </div>
     <div class="cta-cluster service-area-cta">
@@ -4330,11 +4333,11 @@ function renderLeadMachineCta(page) {
     <div class="lead-machine-cta-shell reveal-on-scroll">
       <div>
         <span class="eyebrow">Need movers today?</span>
-        <h2>Get a fixed-price quote before your move date disappears.</h2>
+        <h2>Get a moving quote before your move date disappears.</h2>
         <p>Moving furniture, a house, an apartment, or an office? Send the move brief now or call ZQ Removals for urgent Adelaide availability.</p>
       </div>
       <div class="lead-machine-cta-actions">
-        <a class="button button-primary" href="/contact-us/#quote-form">Get a fixed-price quote</a>
+        <a class="button button-primary" href="/contact-us/#quote-form">Get a moving quote</a>
         <a class="button button-secondary" href="tel:+61433819989">Call ZQ Removals now</a>
       </div>
     </div>
@@ -4379,7 +4382,7 @@ function renderSeoV5IntentProfile(page) {
       </article>
       <article class="value-card reveal-on-scroll">
         <h3>Quote transparency</h3>
-        <p>${escapeHtml(profile.conversionCTA || 'Get a fixed-price quote')} after the team reviews the real scope rather than a generic hourly assumption.</p>
+        <p>${escapeHtml(profile.conversionCTA || 'Get a moving quote')} after the team reviews the real scope rather than a generic hourly assumption.</p>
       </article>
     </div>
   </div>
@@ -4470,7 +4473,7 @@ ${list(guides, ([href, label]) => `          <li><a href="${escapeAttribute(href
         <h3>Send the brief, then we review access, inventory, timing, and return a fixed-price quote before the move plan is confirmed.</h3>
       </div>
       <div class="cta-cluster" data-generated-cta="seo-v5-link-hub">
-        <a class="button button-primary" href="/contact-us/#quote-form">Get My Fixed-Price Quote</a>
+        <a class="button button-primary" href="/contact-us/#quote-form">Get My Moving Quote</a>
         <a class="button button-secondary" href="tel:+61433819989">Call 0433 819 989</a>
       </div>
     </div>
@@ -4592,7 +4595,7 @@ function renderStrictGuideDepthSection(page) {
         <h3>Turn the guide into a moving quote brief with the service, suburb, access, and inventory notes ready.</h3>
       </div>
       <div class="cta-cluster">
-        <a class="button button-primary" href="/contact-us/#quote-form">Get a fixed-price quote</a>
+        <a class="button button-primary" href="/contact-us/#quote-form">Get a moving quote</a>
         <a class="button button-secondary" href="tel:+61433819989">Call 0433 819 989</a>
       </div>
     </div>
@@ -5352,7 +5355,7 @@ ${cards}
     </div>
     <div class="suburb-cta-footer reveal-on-scroll" style="margin-top: var(--space-6);">
       <div class="cta-cluster">
-        <a class="button button-primary" href="/contact-us/#quote-form">Get a Fixed-Price Quote</a>
+        <a class="button button-primary" href="/contact-us/#quote-form">Get a Moving Quote</a>
         <a class="button button-secondary" href="/removalists-adelaide/">All Adelaide Suburbs</a>
       </div>
       ${supportGuide ? `<p class="field-note" style="margin-top: 1.5rem;">Recommended guide: <a href="${escapeAttribute(supportGuide.url)}" style="color: var(--color-accent-alt); font-weight: 700;">${escapeHtml(supportGuide.title)}</a></p>` : ''}
@@ -5568,7 +5571,7 @@ ${profile.scenarios
           <li style="color: white;"><a href="/furniture-removalists-adelaide/" style="color: inherit; font-weight: 600;">Furniture Specialists</a></li>
           <li style="color: white;"><a href="/office-removals-adelaide/" style="color: inherit; font-weight: 600;">Office & Commercial</a></li>
           <li style="color: white;"><a href="/interstate-removals-adelaide/" style="color: inherit; font-weight: 600;">Interstate Logistics</a></li>
-          <li style="color: var(--color-accent-strong); margin-top: 1rem;"><a href="/contact-us/#quote-form" style="color: inherit; font-weight: 700; text-decoration: underline;">Get a Fixed-Price Quote</a></li>
+          <li style="color: var(--color-accent-strong); margin-top: 1rem;"><a href="/contact-us/#quote-form" style="color: inherit; font-weight: 700; text-decoration: underline;">Get a Moving Quote</a></li>
         </ul>
       </div>
     </div>
@@ -5798,7 +5801,7 @@ function getRelatedLinksProfile(page) {
         },
         {
           eyebrow: 'Quote',
-          title: 'Request a fixed-price quote',
+          title: 'Get a moving quote',
           copy: 'Send the addresses, property type, and access notes for a clear Adelaide move quote.',
           url: '/contact-us/#quote-form',
           cta: 'Request a quote',
@@ -6029,7 +6032,7 @@ function getRelatedLinksProfile(page) {
             },
             {
               eyebrow: 'Quote',
-              title: 'Request a fixed-price quote',
+              title: 'Get a moving quote',
               copy: 'Send both addresses, access details, and any packing needs for a route-specific quote.',
               url: '/contact-us/#quote-form',
               cta: 'Request a quote',
@@ -6059,7 +6062,7 @@ function getRelatedLinksProfile(page) {
             },
             {
               eyebrow: 'Quote',
-              title: 'Request a fixed-price quote',
+              title: 'Get a moving quote',
               copy: 'Send both addresses, access details, and any packing needs for a route-specific quote.',
               url: '/contact-us/#quote-form',
               cta: 'Request a quote',
@@ -6120,7 +6123,7 @@ function getRelatedLinksProfile(page) {
             },
             {
               eyebrow: 'Quote',
-              title: 'Request a fixed-price quote',
+              title: 'Get a moving quote',
               copy: 'Send the move details once and get a quote that matches the actual job.',
               url: '/contact-us/#quote-form',
               cta: 'Request a quote',
@@ -6158,7 +6161,7 @@ function getRelatedLinksProfile(page) {
               },
               {
                 eyebrow: 'Quote',
-                title: 'Request a fixed-price quote',
+                title: 'Get a moving quote',
                 copy: 'Send the move details once and get a quote that matches the actual job.',
                 url: '/contact-us/#quote-form',
                 cta: 'Request a quote',
@@ -6188,7 +6191,7 @@ function getRelatedLinksProfile(page) {
               },
               {
                 eyebrow: 'Quote',
-                title: 'Request a fixed-price quote',
+                title: 'Get a moving quote',
                 copy: 'Send the move details once and get a quote that matches the actual job.',
                 url: '/contact-us/#quote-form',
                 cta: 'Request a quote',
@@ -6258,7 +6261,7 @@ function getRelatedLinksProfile(page) {
         },
         {
           eyebrow: 'Quote',
-          title: 'Request a fixed-price quote',
+          title: 'Get a moving quote',
           copy: 'Send the addresses, property type, and access notes for a clear quote.',
           url: '/contact-us/#quote-form',
           cta: 'Request a quote',
@@ -6449,7 +6452,7 @@ function getRelatedLinksProfile(page) {
         },
         {
           eyebrow: 'Quote',
-          title: 'Request a fixed-price quote',
+          title: 'Get a moving quote',
           copy: 'Send the addresses, property type, and access notes when you are ready for pricing.',
           url: '/contact-us/#quote-form',
           cta: 'Request a quote',
