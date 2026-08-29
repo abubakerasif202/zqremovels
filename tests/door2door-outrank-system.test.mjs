@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -7,12 +7,17 @@ import { pathToFileURL } from 'node:url';
 const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
 
-const pricePages = [
-  'cheap-removalists-adelaide',
+// Pricing intent is consolidated onto a single canonical page (GSC route-cleanup).
+const pricePage = 'removalists-adelaide-prices';
+
+// Legacy price-farm URLs that must now 301 to the canonical pricing page and must
+// no longer be generated. Source of truth: site-src/data/zq-redirects-verified.json.
+const consolidatedPriceSlugs = [
   'removalist-cost-adelaide',
   'moving-quotes-adelaide',
   'fixed-price-removalists-adelaide',
   'budget-removalists-adelaide',
+  'removalists-adelaide-quote',
 ];
 
 const servicePages = [
@@ -25,6 +30,7 @@ const servicePages = [
   'interstate-removals-adelaide',
 ];
 
+// Generated suburb pages that survive consolidation (KEEP + not manual-review).
 const prioritySuburbs = [
   'andrews-farm',
   'adelaide-cbd',
@@ -34,33 +40,15 @@ const prioritySuburbs = [
   'mawson-lakes',
   'elizabeth',
   'norwood',
-  'north-adelaide',
-  'prospect',
-  'golden-grove',
   'modbury',
-  'port-adelaide',
-  'henley-beach',
 ];
 
+const verifiedRedirects = JSON.parse(
+  readFileSync(path.join(root, 'site-src', 'data', 'zq-redirects-verified.json'), 'utf8'),
+);
+const vercelRedirects = JSON.parse(readFileSync(path.join(root, 'vercel.json'), 'utf8')).redirects;
+
 function readDist(relativePath) {
-  const normalized = relativePath.replace(/\\/g, '/');
-  const candidates = [
-    path.join(distDir, relativePath),
-  ];
-  if (normalized.endsWith('/index.html') && normalized !== 'index.html') {
-    const prefix = normalized.slice(0, -11);
-    candidates.unshift(path.join(distDir, `${prefix}/index/index.html`));
-  } else if (normalized.endsWith('.html') && !normalized.endsWith('/index.html') && normalized !== 'index.html' && normalized !== '404.html') {
-    const prefix = normalized.slice(0, -5);
-    candidates.unshift(path.join(distDir, `${prefix}/index.html`));
-  }
-  for (const c of candidates) {
-    try {
-      return readFileSync(c, 'utf8');
-    } catch {
-      // ignore
-    }
-  }
   return readFileSync(path.join(distDir, relativePath), 'utf8');
 }
 
@@ -79,11 +67,8 @@ function walkHtml(dir, results = []) {
   for (const entry of readdirSync(dir)) {
     const full = path.join(dir, entry);
     const stats = statSync(full);
-    if (stats.isDirectory()) {
-      walkHtml(full, results);
-    } else if (entry.endsWith('.html')) {
-      results.push(full);
-    }
+    if (stats.isDirectory()) walkHtml(full, results);
+    else if (entry.endsWith('.html')) results.push(full);
   }
   return results;
 }
@@ -93,61 +78,63 @@ test.before(async () => {
   await import(`${buildUrl}?door2doorOutrank=${Date.now()}${Math.random()}`);
 });
 
-test('price-intent pages exist with metadata, H1, canonicals, CTAs, FAQs, schema, and internal links', () => {
-  for (const slug of pricePages) {
-    const html = readDist(path.join(slug, 'index.html'));
-    const links = extractRootLinks(html);
+test('canonical pricing page carries full metadata, H1, canonical, CTAs, FAQs, schema and internal links', () => {
+  const html = readDist(path.join(pricePage, 'index.html'));
+  const links = extractRootLinks(html);
 
-    assert.match(html, /<title>[^<]+ZQ Removals<\/title>/, slug);
-    assert.match(html, /<meta name="description" content="[^"]{80,}"/, slug);
-    assert.match(html, new RegExp(`<link rel="canonical" href="https://zqremovals\\.au/${slug}/"`), slug);
-    assert.equal((html.match(/<h1\b/g) || []).length, 1, slug);
-    assert.match(html, /href="tel:\+61433819989"/, slug);
-    assert.match(html, /href="\/contact-us\/#quote-form"/, slug);
-    assert.match(html, /transparent-rate|transparent rate|hourly rate/i, slug);
-    assert.match(html, /FAQPage/, slug);
-    assert.match(html, /BreadcrumbList/, slug);
-    assert.ok(links.filter((href) => servicePages.map((item) => `/${item}/`).includes(href)).length >= 2, slug);
-    assert.ok(links.filter((href) => href.startsWith('/removalists-')).length >= 2, slug);
+  assert.match(html, /<title>[^<]*ZQ[^<]*<\/title>/);
+  assert.match(html, /<meta name="description" content="[^"]{80,}"/);
+  assert.match(html, new RegExp(`<link rel="canonical" href="https://zqremovals\\.au/${pricePage}/"`));
+  assert.equal((html.match(/<h1\b/g) || []).length, 1);
+  assert.match(html, /href="tel:\+61433819989"/);
+  assert.match(html, /href="\/contact-us\/#quote-form"/);
+  assert.match(html, /transparent-rate|transparent rate|hourly rate/i);
+  assert.match(html, /FAQPage/);
+  assert.match(html, /BreadcrumbList/);
+  assert.ok(links.filter((href) => servicePages.map((item) => `/${item}/`).includes(href)).length >= 2);
+  assert.ok(links.filter((href) => href.startsWith('/removalists-')).length >= 2);
+});
+
+test('legacy price-farm URLs are consolidated: not built, and 301 to the canonical pricing page', () => {
+  const bySource = new Map(vercelRedirects.map((r) => [r.source.replace(/\/$/, ''), r.destination]));
+  for (const slug of consolidatedPriceSlugs) {
+    assert.ok(
+      !existsSync(path.join(distDir, slug, 'index.html')),
+      `${slug} should no longer be generated`,
+    );
+    const dest = bySource.get(`/${slug}`);
+    assert.ok(dest, `vercel.json missing 301 for /${slug}/`);
+    assert.match(dest, /\/removalists-adelaide-prices\/$/, `${slug} should 301 to the pricing page`);
+  }
+  // No verified redirect target is itself redirected (single hop).
+  const sources = new Set(verifiedRedirects.map((r) => r.source.replace(/\/$/, '')));
+  for (const r of verifiedRedirects) {
+    assert.ok(!sources.has(r.destination.replace(/\/$/, '')), `chain: ${r.source} -> ${r.destination}`);
   }
 });
 
-test('homepage, footer, services, and guides build the price-intent internal linking moat', () => {
+test('homepage and footer route price intent to the canonical pricing page without a keyword cluster', () => {
   const homepage = readDist('index.html');
   const footerSource = readFileSync(path.join(root, 'site-src', 'partials', 'footer.html'), 'utf8');
 
-  for (const slug of pricePages) {
-    assert.match(homepage, new RegExp(`href="/${slug}/"`), `homepage missing ${slug}`);
-  }
+  assert.match(homepage, new RegExp(`href="/${pricePage}/"`), 'homepage missing canonical pricing link');
+  assert.match(footerSource, /href="\/removalists-adelaide-prices\/"/, 'footer missing canonical pricing link');
 
-  assert.match(footerSource, /href="\/adelaide-moving-guides\/removalists-cost-adelaide\/"/, 'footer missing pricing guide');
-  assert.match(footerSource, /href="\/removalist-cost-adelaide\/"/, 'footer missing removalist cost page');
-  assert.match(footerSource, /href="\/moving-quotes-adelaide\/"/, 'footer missing moving quotes page');
-  assert.match(footerSource, /href="\/cheap-removalists-adelaide\/"/, 'footer missing lower-cost page');
-  assert.doesNotMatch(footerSource, /href="\/affordable-removalists-adelaide\/"/, 'footer should not link to the consolidated affordable alias');
-  assert.match(footerSource, /href="\/removalists-adelaide-quote\/"/, 'footer missing quote path');
-  assert.doesNotMatch(footerSource, /Cheap Removalists Adelaide[\s\S]{0,220}Affordable Removalists Adelaide[\s\S]{0,220}Removalist Cost Adelaide[\s\S]{0,220}Moving Quotes Adelaide/i, 'footer should not expose a dense price-keyword cluster');
-
-  for (const slug of servicePages) {
-    const html = readDist(path.join(slug, 'index.html'));
-    assert.match(html, /href="\/cheap-removalists-adelaide\/"|href="\/affordable-removalists-adelaide\/"|href="\/removalist-cost-adelaide\/"|href="\/moving-quotes-adelaide\/"/, slug);
-  }
-
-  for (const guide of [
-    'adelaide-moving-guides/removalists-cost-adelaide/index.html',
-    'adelaide-moving-guides/how-to-get-accurate-removalist-quotes-adelaide/index.html',
-    'adelaide-moving-guides/cheap-vs-fixed-price-removalists-adelaide/index.html',
-  ]) {
-    const html = readDist(guide);
-    assert.match(html, /href="\/contact-us\/#quote-form"/, guide);
-    assert.match(html, /href="\/cheap-removalists-adelaide\/"|href="\/removalist-cost-adelaide\/"|href="\/moving-quotes-adelaide\/"/, guide);
-    assert.match(
-      html,
-      guide.includes('removalists-cost-adelaide')
-        ? /hourly rates, (?:fixed|transparent-rate) quotes/i
-        : /Hourly rates vs (?:fixed-price|transparent-rate) moving quotes/,
-      guide,
+  for (const slug of consolidatedPriceSlugs) {
+    assert.doesNotMatch(
+      footerSource,
+      new RegExp(`href="/${slug}/"`),
+      `footer should not link to consolidated alias /${slug}/`,
     );
+  }
+
+  // Every rendered page must be free of links to consolidated URLs.
+  for (const file of walkHtml(distDir)) {
+    if (file.includes(`${path.sep}premium-moving-concepts${path.sep}`)) continue;
+    const html = readFileSync(file, 'utf8');
+    for (const r of verifiedRedirects) {
+      assert.doesNotMatch(html, new RegExp(`href="${r.source.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`), `${file} links to redirected ${r.source}`);
+    }
   }
 });
 
@@ -208,9 +195,7 @@ test('tracking, schema, host, secret, review, and contrast guards hold across ge
   assert.match(css, /\.table-wrap/);
 
   for (const file of walkHtml(distDir)) {
-    if (file.includes(`${path.sep}premium-moving-concepts${path.sep}`)) {
-      continue;
-    }
+    if (file.includes(`${path.sep}premium-moving-concepts${path.sep}`)) continue;
     const html = readFileSync(file, 'utf8');
     assert.doesNotMatch(html, /https:\/\/www\.zqremovals\.au\//, file);
     assert.doesNotMatch(html, /AW-\d{6,}|VITE_GA_MEASUREMENT_ID=|VITE_META_PIXEL_ID=/, file);

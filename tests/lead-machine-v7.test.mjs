@@ -50,13 +50,12 @@ test('build succeeds before v7 lead machine assertions run', async () => {
 test('v7 conversion pages exist with forms, call CTAs, and canonical tags', () => {
   const thankYou = readDist(path.join('thank-you', 'index.html'));
   const facebook = readDist(path.join('adelaide-removalists-facebook-offer', 'index.html'));
-  const google = readDist(path.join('removalists-adelaide-quote', 'index.html'));
 
   assert.match(thankYou, /data-conversion-success="quote_form_success"/);
   assert.match(thankYou, /<link rel="canonical" href="https:\/\/zqremovals\.au\/thank-you\/"/);
   assert.match(thankYou, /noindex,follow/);
 
-  for (const html of [facebook, google]) {
+  for (const html of [facebook]) {
     assert.match(html, /id="quote-form"/);
     assert.match(html, /data-quote-form="quote"/);
     assert.match(html, /action="https:\/\/api\.web3forms\.com\/submit"/);
@@ -69,7 +68,6 @@ test('v7 conversion pages exist with forms, call CTAs, and canonical tags', () =
   }
 
   assert.match(facebook, /Moving in Adelaide\? Get a Fast Quote Today/);
-  assert.match(google, /Premium Removalists Adelaide/);
 });
 
 test('v7 quote forms expose required lead fields and attribution hidden fields', () => {
@@ -77,7 +75,7 @@ test('v7 quote forms expose required lead fields and attribution hidden fields',
     readDist('index.html'),
     readDist(path.join('contact-us', 'index.html')),
     readDist(path.join('adelaide-removalists-facebook-offer', 'index.html')),
-    readDist(path.join('removalists-adelaide-quote', 'index.html')),
+    
   ];
   const requiredFields = ['name', 'phone', 'pickup_suburb', 'dropoff_suburb', 'move_date', 'move_scope', 'message'];
   const attributionFields = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid'];
@@ -129,7 +127,7 @@ test('v7 lead hooks decorate tel and quote links across generated pages', () => 
     readDist('index.html'),
     readDist(path.join('house-removals-adelaide', 'index.html')),
     readDist(path.join('removalists-andrews-farm', 'index.html')),
-    readDist(path.join('adelaide-moving-guides', 'moving-heavy-furniture-adelaide', 'index.html')),
+    readDist(path.join('adelaide-moving-guides', 'moving-house-checklist-adelaide', 'index.html')),
   ];
 
   for (const html of samplePages) {
@@ -144,7 +142,7 @@ test('v7 lead hooks decorate tel and quote links across generated pages', () => 
 test('v7 lead machine CTA is injected into service, suburb, and guide pages with readable contrast classes', () => {
   const service = readDist(path.join('furniture-removalists-adelaide', 'index.html'));
   const suburb = readDist(path.join('removalists-andrews-farm', 'index.html'));
-  const guide = readDist(path.join('adelaide-moving-guides', 'moving-heavy-furniture-adelaide', 'index.html'));
+  const guide = readDist(path.join('adelaide-moving-guides', 'moving-house-checklist-adelaide', 'index.html'));
   const css = readFileSync(path.join(root, 'premium-site.css'), 'utf8');
 
   for (const html of [service, suburb, guide]) {

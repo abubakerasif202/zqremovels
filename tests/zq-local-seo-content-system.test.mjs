@@ -3,7 +3,7 @@ import path from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
-import { getGeneratedPages, mergePagesByOutput } from '../site-src/data/seo-v4.mjs';
+import { getGeneratedPages, isVerifiedRedirectSource, mergePagesByOutput } from '../site-src/data/seo-v4.mjs';
 import {
   zqCanonicalHostPolicy,
   zqExpectedGeneratedOutputs,
@@ -17,7 +17,7 @@ const distDir = path.join(root, 'site-dist');
 const pages = mergePagesByOutput(
   JSON.parse(readFileSync(path.join(root, 'site-src', 'pages.json'), 'utf8')),
   getGeneratedPages(),
-);
+).filter((p) => !isVerifiedRedirectSource(p));
 const pagesByOutput = new Map(pages.map((page) => [normalizeOutput(page.output), page]));
 const canonicalHost = zqCanonicalHostPolicy.siteUrl;
 const newServiceOutputs = new Set(zqServiceSitemapOutputs);
@@ -180,8 +180,7 @@ test('footer and service hub links stay useful without exact-match overstuffing'
     '/furniture-removalists-adelaide/',
     '/office-removals-adelaide/',
     '/apartment-removalists-adelaide/',
-    '/removalist-cost-adelaide/',
-    '/cheap-removalists-adelaide/',
+    '/removalists-adelaide-prices/',
     '/removalists-glenelg/',
     '/removalists-marion/',
     '/removalists-salisbury/',
@@ -189,9 +188,11 @@ test('footer and service hub links stay useful without exact-match overstuffing'
     assert.match(footerHtml, new RegExp(`href="${escapeRegex(href)}"`), `missing footer or hub link for ${href}`);
   }
 
-  const denseFooterCluster = /Cheap Removalists Adelaide[\s\S]{0,220}Affordable Removalists Adelaide[\s\S]{0,220}Removalist Cost Adelaide[\s\S]{0,220}Moving Quotes Adelaide/i;
-  assert.doesNotMatch(footerHtml, denseFooterCluster, 'footer still contains an overly dense exact-match money-page cluster');
-  assert.match(homepage, /href="\/cheap-removalists-adelaide\/"|href="\/affordable-removalists-adelaide\/"|href="\/removalist-cost-adelaide\//i, 'homepage should still surface key pricing pages');
+  // Consolidated price aliases must not reappear as an exact-match footer cluster.
+  for (const dead of ['/removalist-cost-adelaide/', '/moving-quotes-adelaide/', '/affordable-removalists-adelaide/', '/budget-removalists-adelaide/']) {
+    assert.doesNotMatch(footerHtml, new RegExp(`href="${escapeRegex(dead)}"`), `footer should not link consolidated alias ${dead}`);
+  }
+  assert.match(homepage, /href="\/removalists-adelaide-prices\//i, 'homepage should surface the canonical pricing page');
   assert.match(hub, /href="\/contact-us\/#quote-form"/, 'adelaide hub should keep the quote CTA');
 });
 

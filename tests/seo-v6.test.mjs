@@ -1,13 +1,13 @@
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
-import { getGeneratedPages, mergePagesByOutput } from '../site-src/data/seo-v4.mjs';
+import { getGeneratedPages, isVerifiedRedirectSource, mergePagesByOutput } from '../site-src/data/seo-v4.mjs';
 
 const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
-const pages = mergePagesByOutput(JSON.parse(readFileSync(path.join(root, 'site-src', 'pages.json'), 'utf8')), getGeneratedPages());
+const pages = mergePagesByOutput(JSON.parse(readFileSync(path.join(root, 'site-src', 'pages.json'), 'utf8')), getGeneratedPages()).filter((p) => !isVerifiedRedirectSource(p));
 
 const docFiles = [
   'docs/google-business-profile-v6-growth-system.md',
@@ -43,27 +43,19 @@ test('footer and homepage include clean price-path links and cost-conscious mess
   const homepage = readFileSync(path.join(root, 'site-src', 'content', 'index.html'), 'utf8');
   const contact = readFileSync(path.join(root, 'site-src', 'content', 'contact-us', 'index.html'), 'utf8');
 
-  for (const slug of ['cheap-removalists-adelaide', 'removalist-cost-adelaide', 'moving-quotes-adelaide', 'fixed-price-removalists-adelaide']) {
-    assert.match(homepage, new RegExp(`href="/${slug}/"`), `${slug} missing from homepage source`);
+  // Price intent is consolidated onto /removalists-adelaide-prices/.
+  assert.match(homepage, /href="\/removalists-adelaide-prices\/"/, 'canonical pricing link missing from homepage source');
+  assert.match(footer, /href="\/removalists-adelaide-prices\/"/, 'canonical pricing link missing from footer source');
+  for (const slug of ['removalist-cost-adelaide', 'moving-quotes-adelaide', 'fixed-price-removalists-adelaide', 'budget-removalists-adelaide', 'affordable-removalists-adelaide']) {
+    assert.doesNotMatch(footer, new RegExp(`href="/${slug}/"`), `footer should not link to consolidated alias /${slug}/`);
   }
 
-  assert.match(footer, /href="\/adelaide-moving-guides\/removalists-cost-adelaide\/"/, 'pricing guide missing from footer source');
-  assert.match(footer, /href="\/removalists-adelaide-quote\/"/, 'quote form missing from footer source');
-  assert.match(footer, /href="\/fixed-price-removalists-adelaide\/"/, 'fixed-price service missing from footer source');
-  assert.match(footer, /href="\/cheap-removalists-adelaide\/"/, 'footer should include lower-cost planning path');
-  assert.doesNotMatch(footer, /href="\/affordable-removalists-adelaide\/"/, 'footer should not link to the consolidated affordable alias');
-  assert.doesNotMatch(footer, /cheap-removalists-adelaide[\s\S]{0,220}affordable-removalists-adelaide[\s\S]{0,220}budget-removalists-adelaide/i, 'footer should not include a dense exact-match price grid');
-
-  assert.match(homepage, /moving quotes/i);
   assert.match(contact, /Quote Preparation Checklist/i);
 });
 
 test('urgent same-day pages include subject to availability wording', () => {
   const sameDay = readDist('same-day-removalists-adelaide/index.html');
-  const lastMinute = readDist('last-minute-removalists-adelaide/index.html');
-
   assert.match(sameDay, /subject to availability/i);
-  assert.match(lastMinute, /subject to availability/i);
 });
 
 test('build output keeps apex canonical host and excludes unsupported review schema', () => {
@@ -77,37 +69,29 @@ test('build output keeps apex canonical host and excludes unsupported review sch
   }
 });
 
-test('sitemap still contains the price pages', () => {
+test('sitemap contains the canonical pricing page and excludes consolidated price aliases', () => {
   const sitemapFiles = ['sitemap-index.xml', 'sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml'];
   const sitemap = sitemapFiles
     .map((file) => readFileSync(path.join(distDir, file), 'utf8'))
     .join('\n');
-  for (const slug of ['cheap-removalists-adelaide', 'removalist-cost-adelaide', 'moving-quotes-adelaide', 'fixed-price-removalists-adelaide']) {
-    assert.match(sitemap, new RegExp(`https://zqremovals\\.au/${slug}/`), slug);
+  assert.match(sitemap, /https:\/\/zqremovals\.au\/removalists-adelaide-prices\//);
+  for (const slug of ['removalist-cost-adelaide', 'moving-quotes-adelaide', 'fixed-price-removalists-adelaide', 'budget-removalists-adelaide']) {
+    assert.doesNotMatch(sitemap, new RegExp(`https://zqremovals\\.au/${slug}/`), slug);
   }
 });
 
-test('No Limits competitor alternative page stays honest and discoverable', () => {
+test('No Limits competitor alternative page is consolidated into the Adelaide hub', () => {
   const output = 'no-limits-removalists-alternative-adelaide/index.html';
-  const html = readDist(output);
-  const guideHub = readDist('adelaide-moving-guides/index.html');
-  const sitemapGuides = readDist('sitemap-guides.xml');
   const sourcePage = pages.find((page) => page.output === output);
+  assert.ok(!sourcePage, 'consolidated competitor page should no longer be generated');
+  assert.ok(!existsSync(path.join(distDir, output)), 'consolidated competitor page should not be built');
 
-  assert.ok(sourcePage, 'missing generated competitor alternative metadata');
-  assert.equal(sourcePage.generatedKind, 'comparison');
-  assert.match(html, /<title>No Limits Removalists Alternative Adelaide \| ZQ Removals<\/title>/);
-  assert.match(html, /<link rel="canonical" href="https:\/\/zqremovals\.au\/no-limits-removalists-alternative-adelaide\/" \/>/);
-  assert.match(html, /No Limits Removalists/i);
-  assert.match(html, /ZQ Removals/i);
-  assert.match(html, /fixed-price/i);
-  assert.match(html, /data-generated-module="competitor-source-note"/);
-  assert.match(html, /rel="nofollow noopener noreferrer"/);
-  assert.match(html, /"@type": "FAQPage"/);
-  assert.ok((html.match(/class="faq-item/g) || []).length >= 4, 'competitor page should include visible FAQ support');
-  assert.doesNotMatch(html, /scam|rip[- ]?off|avoid No Limits|bad removalist/i);
-  assert.match(guideHub, /href="\/no-limits-removalists-alternative-adelaide\/"/);
-  assert.match(sitemapGuides, /https:\/\/zqremovals\.au\/no-limits-removalists-alternative-adelaide\//);
+  const redirects = JSON.parse(readFileSync(path.join(root, 'vercel.json'), 'utf8')).redirects;
+  const entry = redirects.find((r) => r.source.replace(/\/$/, '') === '/no-limits-removalists-alternative-adelaide');
+  assert.ok(entry && /\/removalists-adelaide\/$/.test(entry.destination), '301 to /removalists-adelaide/ missing');
+
+  const sitemapGuides = readDist('sitemap-guides.xml');
+  assert.doesNotMatch(sitemapGuides, /no-limits-removalists-alternative-adelaide/);
 });
 
 test('Door 2 Door Movers competitor alternative page stays honest and discoverable', () => {

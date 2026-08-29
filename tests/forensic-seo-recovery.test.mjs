@@ -29,9 +29,9 @@ test('protected ranking pages keep their URL, indexability, and primary intent',
 
 test('priority commercial and suburb pages avoid unsupported pricing and insurance promises', () => {
   const routes = [
-    'office-removals-adelaide', 'cheap-removalists-adelaide', 'budget-removalists-adelaide',
+    'office-removals-adelaide', 'cheap-removalists-adelaide',
     'removalists-queens-park', 'removalists-norwood', 'removalists-glenelg',
-    'removalists-unley', 'removalists-mawson-lakes', 'removalists-mount-barker',
+    'removalists-unley', 'removalists-mawson-lakes', 'removalists-modbury',
   ];
   for (const route of routes) {
     const text = mainText(readRoute(route));
@@ -39,17 +39,17 @@ test('priority commercial and suburb pages avoid unsupported pricing and insuran
   }
 });
 
-test('cheap and budget pages expose distinct intent and verified rates', () => {
+test('lower-cost page keeps verified rates; budget/quote aliases are consolidated', () => {
   const cheap = readRoute('cheap-removalists-adelaide');
-  const budget = readRoute('budget-removalists-adelaide');
   assert.match(cheap, /\$75 per 30 minutes/i);
   assert.match(cheap, /\$89 per 30 minutes/i);
   assert.match(cheap, /1-hour call-out\/travel charge applies where applicable/i);
-  assert.match(budget, /efficient|preparation|planning/i);
-  assert.notEqual(
-    cheap.match(/<title>([^<]+)<\/title>/i)?.[1],
-    budget.match(/<title>([^<]+)<\/title>/i)?.[1],
-  );
+
+  const redirects = JSON.parse(readFileSync(path.resolve('vercel.json'), 'utf8')).redirects;
+  const bySource = new Map(redirects.map((r) => [r.source.replace(/\/$/, ''), r.destination]));
+  for (const alias of ['/budget-removalists-adelaide', '/moving-quotes-adelaide', '/removalists-adelaide-quote']) {
+    assert.match(bySource.get(alias) || '', /\/removalists-adelaide-prices\/$/, alias);
+  }
 });
 
 test('stable moving-company entity id is used on priority pages', () => {

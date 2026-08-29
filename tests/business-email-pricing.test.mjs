@@ -45,7 +45,10 @@ test('every generated quote form exposes both required crew packages', () => {
     }
   }
 
-  assert.ok(formCount >= 5, `expected at least five generated quote forms, found ${formCount}`);
+  // Route consolidation folded the price-farm pages (and their duplicate quote
+  // forms) into /removalists-adelaide-prices/. The core conversion surfaces
+  // (homepage, contact, campaign landing) still carry the validated form.
+  assert.ok(formCount >= 3, `expected at least three generated quote forms, found ${formCount}`);
 });
 
 test('generated business schema and public footer use the approved email', () => {

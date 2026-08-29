@@ -23,6 +23,7 @@ import {
   getSeoV5IntentProfile,
   getSuburbLinkProfile,
   mergePagesByOutput,
+  isVerifiedRedirectSource,
   normalizeInternalHref,
   seoConfig,
   zqServiceSitemapOutputs,
@@ -75,9 +76,50 @@ const partials = {
 };
 
 const staticPages = JSON.parse(await readFile(path.join(srcRoot, 'pages.json'), 'utf8'));
+// getGeneratedPages() already drops URLs folded away by zq-redirects-verified.json
+// (SEO route consolidation) so they leave the sitemap / internal links / llms.txt.
 const generatedPages = getGeneratedPages();
-export const pages = mergePagesByOutput(staticPages, generatedPages);
+export const pages = mergePagesByOutput(staticPages, generatedPages)
+  .filter((page) => !isVerifiedRedirectSource(page));
 const buildEnv = { ...process.env };
+
+// SEO route consolidation: rewrite any in-page link that still points at a URL
+// folded away by zq-redirects-verified.json so internal links hit the surviving
+// canonical directly (no 301 hop). Covers footer/header partials, hand-authored
+// content and generated link blocks in one pass.
+const consolidatedHrefMap = new Map(
+  JSON.parse(await readFile(path.join(srcRoot, 'data', 'zq-redirects-verified.json'), 'utf8'))
+    .map((entry) => {
+      let s = entry.source;
+      try { s = new URL(entry.source).pathname; } catch { /* path */ }
+      if (!s.startsWith('/')) s = `/${s}`;
+      if (!s.endsWith('/') && !/\.[a-z0-9]+$/i.test(s)) s += '/';
+      return [s, entry.destination];
+    }),
+);
+// When a consolidated guide URL is folded into a non-guide page, keep in-content
+// "related guides" blocks pointing at a surviving guide of the same theme rather
+// than sending a guide link to a service hub (the 301 in vercel.json still uses
+// the audit's real target).
+const SURVIVING_GUIDE_BY_THEME = (path) => {
+  if (/cost|price|quote|budget|cheap|movers-cost/.test(path)) return '/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/';
+  if (/office/.test(path)) return '/adelaide-moving-guides/office-relocation-checklist-adelaide/';
+  if (/furniture|packing|fragile|heavy|protection/.test(path)) return '/adelaide-moving-guides/how-to-prepare-furniture-for-moving/';
+  if (/checklist|prepar|timeline|booking|timing|settlement|end-of-lease|downsizing/.test(path)) return '/adelaide-moving-guides/moving-house-checklist-adelaide/';
+  return '/adelaide-moving-guides/how-to-choose-removalists-adelaide/';
+};
+function rewriteConsolidatedHrefs(html = '') {
+  return html.replace(/(href=")(\/[^"#?]*?)((?:[#?][^"]*)?")/g, (match, pre, hrefPath, post) => {
+    let key = hrefPath;
+    if (!key.endsWith('/') && !/\.[a-z0-9]+$/i.test(key)) key += '/';
+    let dest = consolidatedHrefMap.get(key);
+    if (!dest) return match;
+    if (key.startsWith('/adelaide-moving-guides/') && !dest.startsWith('/adelaide-moving-guides/')) {
+      dest = SURVIVING_GUIDE_BY_THEME(key);
+    }
+    return `${pre}${dest}${post}`;
+  });
+}
 const preferredSiteOrigin = seoConfig.siteUrl;
 const legacySiteOrigin = seoConfig.siteUrl;
 const defaultSocialImage = seoConfig.defaultOgImage;
@@ -2672,7 +2714,7 @@ export async function runLegacyGenerator() {
       try {
         const rawHtml = await readFile(actualPath, 'utf8');
         const normalizedHtml = applyVerifiedPricingLanguageToVisibleHtml(
-          applyBusinessTokens(normalizeSiteUrl(rawHtml.trim())),
+          rewriteConsolidatedHrefs(applyBusinessTokens(normalizeSiteUrl(rawHtml.trim()))),
         );
         const trackedHtml = decorateLeadTracking(normalizedHtml, page);
         const responsiveHtml = responsiveVariants.size > 0

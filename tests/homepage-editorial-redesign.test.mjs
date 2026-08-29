@@ -22,7 +22,6 @@ const serviceRoutes = [
   '/packing-services-adelaide/',
   '/furniture-removalists-adelaide/',
   '/services/piano-movers-adelaide/',
-  '/storage-friendly-removals-adelaide/',
   '/same-day-removalists-adelaide/',
 ];
 

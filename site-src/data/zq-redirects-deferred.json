@@ -1,0 +1,422 @@
+[
+  {
+    "source": "/adelaide-moving-guides/removalists-cost-adelaide/",
+    "destination": "/removalists-adelaide-prices/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/cheap-removalists-adelaide/",
+    "destination": "/removalists-adelaide-prices/",
+    "permanent": true,
+    "hold": "manifest-route-conflict"
+  },
+  {
+    "source": "/adelaide-movers-and-packers/",
+    "destination": "/packing-services-adelaide/",
+    "permanent": true,
+    "hold": "pr55-conflict"
+  },
+  {
+    "source": "/office-removalists-adelaide/",
+    "destination": "/office-removals-adelaide/",
+    "permanent": true,
+    "hold": "manifest-route-conflict"
+  },
+  {
+    "source": "/moving-company-adelaide/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manifest-route-conflict"
+  },
+  {
+    "source": "/removalists-prospect/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/apartment-removals-adelaide/",
+    "destination": "/apartment-removalists-adelaide/",
+    "permanent": true,
+    "hold": "manifest-route-conflict"
+  },
+  {
+    "source": "/removalists-toorak-gardens/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-port-adelaide/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-gawler/",
+    "destination": "/removalists-northern-adelaide/",
+    "permanent": true,
+    "hold": "manifest-route-conflict"
+  },
+  {
+    "source": "/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/",
+    "destination": "/removalists-adelaide-prices/",
+    "permanent": true,
+    "hold": "manifest-route-conflict"
+  },
+  {
+    "source": "/removalists-croydon/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/services/furniture-bulky-item-removalists-adelaide/",
+    "destination": "/furniture-removalists-adelaide/",
+    "permanent": true,
+    "hold": "manifest-route-conflict"
+  },
+  {
+    "source": "/removalists-st-peters/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-burnside/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/adelaide-moving-guides/moving-house-adelaide-checklist/",
+    "destination": "/adelaide-moving-guides/moving-house-checklist-adelaide/",
+    "permanent": true,
+    "hold": "manifest-route-conflict"
+  },
+  {
+    "source": "/removalists-grange/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-medindie/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-magill/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/adelaide-moving-guides/best-time-to-book-removalists-adelaide/",
+    "destination": "/adelaide-moving-guides/",
+    "permanent": true,
+    "hold": "manifest-route-conflict"
+  },
+  {
+    "source": "/removalists-stepney/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-athelstone/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-north-adelaide/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-henley-beach/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-semaphore/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-seaton/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-adelaide-parklands/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-woodville/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-golden-grove/",
+    "destination": "/removalists-northern-adelaide/",
+    "permanent": true,
+    "hold": "manifest-route-conflict"
+  },
+  {
+    "source": "/removalists-west-lakes/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-victor-harbor/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-kensington-gardens/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-west-beach/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-henley-beach-south/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-tea-tree-gully/",
+    "destination": "/removalists-northern-adelaide/",
+    "permanent": true,
+    "hold": "manifest-route-conflict"
+  },
+  {
+    "source": "/removalists-mount-barker/",
+    "destination": "/removalists-adelaide-hills/",
+    "permanent": true,
+    "hold": "manifest-route-conflict"
+  },
+  {
+    "source": "/adelaide-moving-guides/apartment-moving-tips-adelaide/",
+    "destination": "/apartment-removalists-adelaide/",
+    "permanent": true,
+    "hold": "manifest-route-conflict"
+  },
+  {
+    "source": "/adelaide-moving-guides/how-to-prepare-furniture-for-moving/",
+    "destination": "/furniture-removalists-adelaide/",
+    "permanent": true,
+    "hold": "manifest-route-conflict"
+  },
+  {
+    "source": "/removalists-campbelltown/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-findon/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-walkerville/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-west-croydon/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-mitcham/",
+    "destination": "/removalists-southern-adelaide/",
+    "permanent": true,
+    "hold": "manifest-route-conflict"
+  },
+  {
+    "source": "/removalists-mile-end/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-rosemont/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-west-terrace/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-seaton-park/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-rosewater/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/local-removalists-adelaide/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manifest-route-conflict"
+  },
+  {
+    "source": "/removalists-glenunga/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-trinity-gardens/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-fullarton/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-largs-bay/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-new-port/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-torrensville/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-victor-harbor-road/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-glen-osmond/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/services/local-removals-adelaide/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "pr55-conflict"
+  },
+  {
+    "source": "/services/adelaide-cbd-apartment-removalists/",
+    "destination": "/apartment-removalists-adelaide/",
+    "permanent": true,
+    "hold": "manifest-route-conflict"
+  },
+  {
+    "source": "/removalists-pennington/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-brighton/",
+    "destination": "/removalists-southern-adelaide/",
+    "permanent": true,
+    "hold": "manifest-route-conflict"
+  },
+  {
+    "source": "/removalists-fulham/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-kidman-park/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-birkenhead/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-seaton-south/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-locksley/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-woodville-gardens/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-myrtle-bank/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-payneham/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  },
+  {
+    "source": "/removalists-allenby-gardens/",
+    "destination": "/removalists-adelaide/",
+    "permanent": true,
+    "hold": "manual-review"
+  }
+]

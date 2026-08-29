@@ -3,27 +3,26 @@ import path from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
-import { getGeneratedPages, mergePagesByOutput } from '../site-src/data/seo-v4.mjs';
+import { getGeneratedPages, isVerifiedRedirectSource, mergePagesByOutput } from '../site-src/data/seo-v4.mjs';
 
 const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
 const pages = mergePagesByOutput(
   JSON.parse(readFileSync(path.join(root, 'site-src', 'pages.json'), 'utf8')),
   getGeneratedPages(),
-);
+).filter((p) => !isVerifiedRedirectSource(p));
 
 const canonicalHost = 'https://zqremovals.au';
+// Surviving guide cluster after GSC route consolidation.
 const requiredV5GuideSlugs = [
-  'moving-cost-adelaide-2026',
+  'how-much-do-removalists-cost-adelaide',
   'how-to-choose-removalists-adelaide',
-  'fixed-price-vs-hourly-removalists-adelaide',
-  'apartment-moving-checklist-adelaide',
+  'moving-house-checklist-adelaide',
   'office-relocation-checklist-adelaide',
-  'interstate-moving-checklist-adelaide',
-  'packing-fragile-items-adelaide',
-  'last-minute-moving-adelaide',
-  'moving-heavy-furniture-adelaide',
-  'removalist-quote-checklist-adelaide',
+  'best-time-to-move-adelaide',
+  'how-to-prepare-furniture-for-moving',
+  'apartment-moving-tips-adelaide',
+  'prepare-house-move-adelaide',
 ];
 
 const coreServiceOutputs = [
@@ -294,13 +293,9 @@ test('seo v5 pages with tables include accessible captions', () => {
 test('seo v5 intent profiles differentiate high-intent Adelaide removalist pages', () => {
   const cases = [
     ['cheap-removalists-adelaide/index.html', /transparent rates/i],
-    ['removalist-cost-adelaide/index.html', /Compare Adelaide removalist rates/i],
-    ['moving-quotes-adelaide/index.html', /Request a moving quote in Adelaide/i],
-    ['fixed-price-removalists-adelaide/index.html', /manual quote review/i],
-    ['budget-removalists-adelaide/index.html', /efficient packing, access and inventory planning/i],
+    ['removalists-adelaide-prices/index.html', /transparent|fixed moving cost|removalist rates/i],
     ['furniture-removalists-adelaide/index.html', /item protection and handling/i],
     ['house-removals-adelaide/index.html', /full home relocation/i],
-    ['services/local-removals-adelaide/index.html', /Adelaide metro moving/i],
     ['interstate-removals-adelaide/index.html', /route planning and long-distance logistics/i],
     ['office-removals-adelaide/index.html', /commercial continuity and access planning/i],
     ['packing-services-adelaide/index.html', /fragile items and time-saving preparation/i],

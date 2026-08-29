@@ -6,10 +6,10 @@ import { pathToFileURL } from 'node:url';
 
 const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
+// removalist-cost / moving-quotes are consolidated onto the pricing canonical;
+// cheap-removalists-adelaide stays live for the distinct lower-cost intent.
 const rankingTargets = [
   'cheap-removalists-adelaide',
-  'removalist-cost-adelaide',
-  'moving-quotes-adelaide',
 ];
 
 test.before(async () => {
@@ -45,8 +45,7 @@ test('Semrush commercial target pages expose indexable metadata, PAA answers, an
 
   const cheap = readDist('cheap-removalists-adelaide/index.html');
   for (const href of [
-    '/removalist-cost-adelaide/',
-    '/moving-quotes-adelaide/',
+    '/removalists-adelaide-prices/',
     '/house-removals-adelaide/',
     '/packing-services-adelaide/',
   ]) {

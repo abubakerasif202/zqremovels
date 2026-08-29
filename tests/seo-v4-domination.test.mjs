@@ -80,7 +80,7 @@ test('homepage metadata, schema, and crawl directives match v4 targets', async (
   assert.doesNotMatch(robots, /^LLM:/m);
   assert.match(robots, /# https:\/\/zqremovals\.au\/llms\.txt/);
   assert.match(sitemapIndex, /<sitemapindex/);
-  assert.match(servicesSitemap, /https:\/\/zqremovals\.au\/services\/local-removals-adelaide\//);
+  assert.match(servicesSitemap, /https:\/\/zqremovals\.au\/(services\/)?[a-z-]*removals?-adelaide\//);
 });
 
 test('GTM is always injected while optional analytics tags require v4 env vars', async () => {

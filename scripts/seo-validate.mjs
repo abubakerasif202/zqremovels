@@ -2,7 +2,7 @@ import { existsSync } from 'node:fs';
 import { readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-import { getGeneratedPages, getRouteCoverageReport, getSuburbDataset, mergePagesByOutput, seoConfig, zqServiceSitemapOutputs } from '../site-src/data/seo-v4.mjs';
+import { getGeneratedPages, getRouteCoverageReport, getSuburbDataset, isVerifiedRedirectSource, mergePagesByOutput, seoConfig, zqServiceSitemapOutputs } from '../site-src/data/seo-v4.mjs';
 
 const root = process.cwd();
 const distRoot = path.join(root, 'site-dist');
@@ -10,6 +10,7 @@ const staticPages = JSON.parse(await readFile(path.join(root, 'site-src', 'pages
 const vercelConfig = JSON.parse(await readFile(path.join(root, 'vercel.json'), 'utf8'));
 const generatedPages = getGeneratedPages();
 const pages = mergePagesByOutput(staticPages, generatedPages)
+  .filter((page) => !isVerifiedRedirectSource(page))
   .filter((page) => (page.robots !== 'noindex,follow' || page.extra) && !normalizeOutput(page.output).startsWith('guides/'));
 const generatedSuburbOutputs = new Set(
   generatedPages.filter((page) => page.generatedKind === 'suburb').map((page) => normalizeOutput(page.output)),
@@ -41,7 +42,8 @@ function getAstroExpectedOutputPath(pageOutput) {
   return `${normalized}/index.html`;
 }
 
-const allPages = mergePagesByOutput(staticPages, generatedPages);
+const allPages = mergePagesByOutput(staticPages, generatedPages)
+  .filter((page) => !isVerifiedRedirectSource(page));
 const redirectAudit = buildRedirectAudit(allPages, vercelConfig);
 const expectedToOutput = new Map();
 for (const page of allPages) {

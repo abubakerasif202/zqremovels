@@ -1,3 +1,6 @@
+import { readFileSync } from 'node:fs';
+import nodePath from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { zqGuideIntentProfiles, zqGuidePages } from './zq-blog-guides.mjs';
 import { zqGuideLinkProfiles, zqServiceLinkProfiles } from './zq-internal-links.mjs';
 import {
@@ -3605,8 +3608,35 @@ export function getGeneratedPages() {
     destinationPath: '/cheap-removalists-adelaide/',
   }));
 
-  return pages;
+  return pages.filter((page) => !VERIFIED_REDIRECT_SOURCE_PATHS.has(canonicalPathForRedirectCheck(page.canonical)));
 }
+
+// --- SEO route consolidation -------------------------------------------------
+// URLs in zq-redirects-verified.json are folded into a surviving canonical page
+// by a 301 in vercel.json, so they must not be generated (keeps them out of the
+// sitemap, internal-link targets, llms.txt and route-coverage in one pass).
+// Deferred redirects (manual review + manifest conflicts) stay live and are NOT
+// listed here — see scripts/seo-redirects-build.mjs.
+function canonicalPathForRedirectCheck(url) {
+  let p = String(url || '');
+  try { p = new URL(p).pathname; } catch { /* already a path */ }
+  if (!p.startsWith('/')) p = `/${p}`;
+  if (!p.endsWith('/') && !/\.[a-z0-9]+$/i.test(p)) p += '/';
+  return p;
+}
+const VERIFIED_REDIRECT_SOURCE_PATHS = new Set(
+  (() => {
+    const candidates = [];
+    try { candidates.push(fileURLToPath(new URL('./zq-redirects-verified.json', import.meta.url))); } catch { /* bundler */ }
+    try { candidates.push(nodePath.join(process.cwd(), 'site-src', 'data', 'zq-redirects-verified.json')); } catch { /* no cwd */ }
+    for (const file of candidates) {
+      try {
+        return JSON.parse(readFileSync(file, 'utf8')).map((entry) => canonicalPathForRedirectCheck(entry.source));
+      } catch { /* try next */ }
+    }
+    throw new Error('zq-redirects-verified.json not found (run: node scripts/seo-redirects-build.mjs)');
+  })(),
+);
 
 const GENERATED_LASTMOD_SOURCES = [
   'site-src/data/seo-v4.mjs',
@@ -3639,6 +3669,12 @@ function makeStaticPage(page) {
     lastmodSources: page.lastmodSources || GENERATED_LASTMOD_SOURCES,
     extra: page.extra,
   };
+}
+
+export function isVerifiedRedirectSource(page) {
+  return VERIFIED_REDIRECT_SOURCE_PATHS.has(
+    canonicalPathForRedirectCheck(page && (page.canonical || page.output ? (page.canonical || `/${String(page.output).replace(/index\.html$/, '')}`) : '')),
+  );
 }
 
 function makeRedirectPage({ output, canonical, title, description, destinationPath }) {

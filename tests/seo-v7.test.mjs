@@ -20,11 +20,11 @@ const v7Docs = [
   'docs/office-removals-b2b-v7.md',
 ];
 
+// Surviving interstate route pages (long-tail NSW variants consolidated into the
+// interstate hub by the GSC route cleanup).
 const routeSlugs = [
   'adelaide-to-sydney-removalists',
   'adelaide-to-melbourne-removalists',
-  'adelaide-to-western-sydney-removalists',
-  'adelaide-to-smithfield-nsw-removalists',
 ];
 
 test.before(async () => {
@@ -100,9 +100,6 @@ test('seo v7 interstate route pages exist, are canonical, indexed, and avoid des
     assert.doesNotMatch(main, /\bbased in\s+(?:Sydney|NSW|Melbourne|VIC)\b/i, `${slug} destination base claim`);
   }
 
-  const smithfield = readDist(path.join('adelaide-to-smithfield-nsw-removalists', 'index.html'));
-  assert.match(smithfield, /Smithfield NSW/);
-  assert.match(smithfield, /not a Smithfield SA or Smithfield Plains/i);
 });
 
 test('priority interstate removals aliases redirect to removalists without sitemap cannibalization', () => {
@@ -149,13 +146,12 @@ test('route pages include the required service, quote, price, guide, and contact
     const html = readDist(path.join(slug, 'index.html'));
     for (const href of [
       '/interstate-removals-adelaide/',
-      '/moving-quotes-adelaide/',
-      '/fixed-price-removalists-adelaide/',
-      '/adelaide-moving-guides/interstate-moving-checklist-adelaide/',
+      '/removalists-adelaide-prices/',
       '/contact-us/#quote-form',
     ]) {
       assert.match(html, new RegExp(`href="${escapeRegex(href)}"`), `${slug} missing ${href}`);
     }
+    assert.match(html, /href="\/adelaide-moving-guides\//, `${slug} missing a guide link`);
   }
 });
 
@@ -171,8 +167,7 @@ test('office removals page includes b2b planning terms without unsupported crede
     /labelled unload/i,
     /quote preparation checklist/i,
     /href="\/adelaide-moving-guides\/office-relocation-checklist-adelaide\/"/,
-    /href="\/moving-quotes-adelaide\/"/,
-    /href="\/fixed-price-removalists-adelaide\/"/,
+    /href="\/removalists-adelaide-prices\/"/,
     /href="\/contact-us\/#quote-form"/,
   ]) {
     assert.match(office, pattern);
@@ -182,10 +177,8 @@ test('office removals page includes b2b planning terms without unsupported crede
 
 test('priority pages use AEO answer formatting and FAQ schema only follows visible FAQ', () => {
   for (const output of [
-    'removalist-cost-adelaide/index.html',
-    'moving-quotes-adelaide/index.html',
-    'fixed-price-removalists-adelaide/index.html',
-    'adelaide-moving-guides/interstate-moving-checklist-adelaide/index.html',
+    'removalists-adelaide-prices/index.html',
+    'adelaide-moving-guides/how-much-do-removalists-cost-adelaide/index.html',
     'adelaide-to-sydney-removalists/index.html',
     'office-removals-adelaide/index.html',
   ]) {
