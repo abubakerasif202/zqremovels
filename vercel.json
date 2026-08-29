@@ -291,12 +291,12 @@
     },
     {
       "source": "/cbd-apartment-removals-adelaide",
-      "destination": "/services/adelaide-cbd-apartment-removalists/",
+      "destination": "/apartment-removalists-adelaide/",
       "permanent": true
     },
     {
       "source": "/cbd-apartment-removals-adelaide/",
-      "destination": "/services/adelaide-cbd-apartment-removalists/",
+      "destination": "/apartment-removalists-adelaide/",
       "permanent": true
     },
     {
@@ -461,17 +461,17 @@
     },
     {
       "source": "/services/office-removalists-adelaide",
-      "destination": "/office-removalists-adelaide/",
+      "destination": "/office-removals-adelaide/",
       "permanent": true
     },
     {
       "source": "/services/office-removalists-adelaide/",
-      "destination": "/office-removalists-adelaide/",
+      "destination": "/office-removals-adelaide/",
       "permanent": true
     },
     {
       "source": "/services/office-removalists-adelaide/index.html",
-      "destination": "/office-removalists-adelaide/",
+      "destination": "/office-removals-adelaide/",
       "permanent": true
     },
     {
@@ -1852,6 +1852,186 @@
     {
       "source": "/movers-and-packers-adelaide/index.html",
       "destination": "/adelaide-movers-and-packers/",
+      "permanent": true
+    },
+    {
+      "source": "/office-removalists-adelaide/",
+      "destination": "/office-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/furniture-bulky-item-removalists-adelaide/",
+      "destination": "/furniture-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/adelaide-moving-guides/moving-house-adelaide-checklist/",
+      "destination": "/adelaide-moving-guides/moving-house-checklist-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-north-adelaide/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-seaton/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-adelaide-parklands/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-woodville/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-findon/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-west-croydon/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-mile-end/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-rosemont/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-west-terrace/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-seaton-park/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-rosewater/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/local-removalists-adelaide/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-glenunga/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-trinity-gardens/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-fullarton/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-largs-bay/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-new-port/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-torrensville/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-victor-harbor-road/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-glen-osmond/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/local-removals-adelaide/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/services/adelaide-cbd-apartment-removalists/",
+      "destination": "/apartment-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-fulham/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-kidman-park/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-birkenhead/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-seaton-south/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-locksley/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-woodville-gardens/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-myrtle-bank/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-payneham/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-croydon/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-athelstone/",
+      "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/removalists-victor-harbor/",
+      "destination": "/removalists-adelaide/",
       "permanent": true
     }
   ]

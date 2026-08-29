@@ -1044,6 +1044,7 @@ const suburbPageProfiles = {
       { href: '/removalists-hallett-cove/', label: 'Hallett Cove removalists' },
       { href: '/removalists-seaford/', label: 'Seaford removalists' },
       { href: '/removalists-noarlunga/', label: 'Noarlunga removalists' },
+      { href: '/removalists-victor-harbor/', label: 'Victor Harbor removalists' },
       { href: '/removalists-adelaide/', label: 'All Adelaide suburb coverage' },
     ],
     intro: [

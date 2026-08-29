@@ -7,13 +7,6 @@ export const zqGuidePages = [
     basePath: 'adelaide-moving-guides',
   },
   {
-    slug: 'moving-house-adelaide-checklist',
-    title: 'Moving House Adelaide Checklist',
-    topic: 'house move checklist',
-    type: 'article',
-    basePath: 'adelaide-moving-guides',
-  },
-  {
     slug: 'best-time-to-book-removalists-adelaide',
     title: 'Best Time to Book Removalists Adelaide',
     topic: 'booking timing',
@@ -43,13 +36,6 @@ export const zqGuideIntentProfiles = {
     primaryKeyword: 'how much do removalists cost Adelaide',
     searchIntent: 'pricing research before requesting a fixed-price moving quote',
     uniqueAngle: 'explains quote factors without publishing fake universal prices or invented discounts',
-  },
-  'moving-house-adelaide-checklist': {
-    title: 'Moving House Adelaide Checklist',
-    topic: 'house move checklist',
-    primaryKeyword: 'moving house Adelaide checklist',
-    searchIntent: 'pre-move planning for Adelaide house and unit relocations',
-    uniqueAngle: 'turns room order, access notes, packing, utilities, and quote details into a practical checklist',
   },
   'best-time-to-book-removalists-adelaide': {
     title: 'Best Time to Book Removalists Adelaide',

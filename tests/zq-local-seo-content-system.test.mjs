@@ -296,7 +296,6 @@ function countServiceLinks(links) {
     '/interstate-removals-adelaide/',
     '/apartment-removals-adelaide/',
     '/apartment-removalists-adelaide/',
-    '/local-removalists-adelaide/',
     '/moving-company-adelaide/',
     '/cheap-removalists-adelaide/',
     '/moving-quotes-adelaide/',

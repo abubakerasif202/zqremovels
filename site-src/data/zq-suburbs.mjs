@@ -20,7 +20,6 @@ const zqPrioritySuburbSlugs = [
   'brighton',
   'west-lakes',
   'semaphore',
-  'victor-harbor',
   'mount-barker',
 ];
 

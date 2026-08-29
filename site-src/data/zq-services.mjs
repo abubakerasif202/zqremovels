@@ -824,6 +824,14 @@ export const zqServiceAeoProfiles = {
 const zqConsolidatedServiceAliases = new Set([
   'furniture-removals-adelaide',
   'services/interstate-removalists-adelaide',
+  // Second-pass GSC consolidation (manifest-route-conflict + pr55-conflict):
+  // near-duplicate / legacy /services/ namespace pages folded into the
+  // surviving canonical hub. 301s live in vercel.json + zq-redirects-verified.json.
+  'office-removalists-adelaide',
+  'local-removalists-adelaide',
+  'services/local-removals-adelaide',
+  'services/adelaide-cbd-apartment-removalists',
+  'services/furniture-bulky-item-removalists-adelaide',
 ]);
 
 export const zqServiceSitemapOutputs = zqServicePages

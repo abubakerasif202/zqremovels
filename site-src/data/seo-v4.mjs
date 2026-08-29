@@ -93,6 +93,12 @@ export function normalizeInternalHref(href = '') {
       '/furniture-removals-adelaide/': '/furniture-removalists-adelaide/',
       '/movers-and-packers-adelaide/': '/adelaide-movers-and-packers/',
       '/affordable-removalists-adelaide/': '/cheap-removalists-adelaide/',
+      '/office-removalists-adelaide/': '/office-removals-adelaide/',
+      '/local-removalists-adelaide/': '/removalists-adelaide/',
+      '/services/local-removals-adelaide/': '/removalists-adelaide/',
+      '/services/furniture-bulky-item-removalists-adelaide/': '/furniture-removalists-adelaide/',
+      '/services/adelaide-cbd-apartment-removalists/': '/apartment-removalists-adelaide/',
+      '/adelaide-moving-guides/moving-house-adelaide-checklist/': '/adelaide-moving-guides/moving-house-checklist-adelaide/',
     };
     return canonicalAliases[normalizedPath] || normalizedPath;
   }
@@ -3534,18 +3540,18 @@ export function getGeneratedPages() {
 
   pages.push(makeRedirectPage({
     output: 'cbd-apartment-removals-adelaide/index.html',
-    canonical: buildCanonical('/services/adelaide-cbd-apartment-removalists/'),
+    canonical: buildCanonical('/apartment-removalists-adelaide/'),
     title: buildTitle('CBD Apartment Removals Adelaide Redirect'),
-    description: buildDescription('Redirecting to our canonical Adelaide CBD apartment removalists page.'),
-    destinationPath: '/services/adelaide-cbd-apartment-removalists/',
+    description: buildDescription('Redirecting to our canonical Adelaide apartment removalists page.'),
+    destinationPath: '/apartment-removalists-adelaide/',
   }));
 
   pages.push(makeRedirectPage({
     output: 'services/office-removalists-adelaide/index.html',
-    canonical: buildCanonical('/office-removalists-adelaide/'),
+    canonical: buildCanonical('/office-removals-adelaide/'),
     title: buildTitle('Office Removalists Adelaide Redirect'),
-    description: buildDescription('Redirecting to our canonical office removalists Adelaide page.'),
-    destinationPath: '/office-removalists-adelaide/',
+    description: buildDescription('Redirecting to our canonical Adelaide office removals page.'),
+    destinationPath: '/office-removals-adelaide/',
   }));
 
   for (const [slug, title, topic, type, basePath] of guideTopics) {

@@ -48,7 +48,6 @@ const keepList = new Set(csvCol0('zq-keep-list.csv'));
 // GSC audit disagree, the merged decision wins — hold these for reconciliation.
 const pr55Owned = new Set([
   '/adelaide-movers-and-packers/',
-  '/services/local-removals-adelaide/',
   '/movers-and-packers-adelaide/',
 ]);
 
