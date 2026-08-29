@@ -381,7 +381,7 @@ export const zqServicePages = [
   },
   {
     slug: 'services/piano-movers-adelaide',
-    title: 'Piano Movers Adelaide | Piano Transport Adelaide | ZQ Removals',
+    title: 'Piano Movers Adelaide | ZQ Removals',
     description:
       'Specialist piano movers in Adelaide. Safe transport for upright pianos, digital pianos, and organ moves with experienced crew and dedicated ramp setups.',
     canonical: '/services/piano-movers-adelaide/',

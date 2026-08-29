@@ -292,7 +292,10 @@ test('key titles and descriptions stay within safe SEO length guardrails', () =>
     ['adelaide-to-brisbane-removals/index.html', 70, 160],
     ['adelaide-to-melbourne-removalists/index.html', 60, 160],
     ['movers-and-packers-adelaide/index.html', 65, 165],
-    ['removalists-adelaide-prices/index.html', 65, 165],
+    ['removalists-adelaide-prices/index.html', 60, 160],
+    ['office-removals-adelaide/index.html', 60, 160],
+    ['services/piano-movers-adelaide/index.html', 60, 160],
+    ['adelaide-moving-guides/index.html', 60, 160],
   ];
 
   for (const [output, maxTitle, maxDescription] of keyPages) {
@@ -301,6 +304,22 @@ test('key titles and descriptions stay within safe SEO length guardrails', () =>
     assert.ok(page.title.length <= maxTitle, `${output} title is too long: ${page.title.length}`);
     assert.ok(page.description.length <= maxDescription, `${output} description is too long: ${page.description.length}`);
   }
+});
+
+test('live-audit commercial snippets and guide publication schema stay fixed', () => {
+  const pricing = readDist('removalists-adelaide-prices/index.html');
+  const office = readDist('office-removals-adelaide/index.html');
+  const piano = readDist('services/piano-movers-adelaide/index.html');
+  const guide = readDist('adelaide-moving-guides/moving-house-checklist-adelaide/index.html');
+
+  assert.match(pricing, /<title>Removalists Adelaide Prices \| ZQ Removals<\/title>/i);
+  assert.match(pricing, /\$75 per 30 minutes/i);
+  assert.match(pricing, /\$89 per 30 minutes/i);
+  assert.match(pricing, /1-hour call-out or travel charge applies where applicable/i);
+  assert.match(office, /<title>Office Removalists Adelaide \| ZQ Removals<\/title>/i);
+  assert.match(piano, /<title>Piano Movers Adelaide \| ZQ Removals<\/title>/i);
+  assert.match(guide, /"datePublished": "2026-05-23"/);
+  assert.match(guide, /"dateModified": "2026-08-29"/);
 });
 
 test('homepage pricing cluster links to Adelaide prices page for crawl discovery', () => {
@@ -986,7 +1005,7 @@ test('v6 service pages carry CTR titles, related services, suburb links, FAQ and
   const cases = [
     ['furniture-removalists-adelaide/index.html', /Furniture Removalists Adelaide \| Careful Movers/i],
     ['house-removals-adelaide/index.html', /House Removalists Adelaide \| Local Home Moves/i],
-    ['office-removals-adelaide/index.html', /Office Removalists Adelaide \| Business Relocations/i],
+    ['office-removals-adelaide/index.html', /Office Removalists Adelaide \| ZQ Removals/i],
     ['apartment-removalists-adelaide/index.html', /Apartment Removalists Adelaide/i],
   ];
 

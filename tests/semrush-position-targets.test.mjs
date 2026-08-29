@@ -20,7 +20,6 @@ test.before(async () => {
 test('Semrush commercial target pages expose indexable metadata, PAA answers, and useful cluster paths', () => {
   const expectedQuestions = [
     /How much do cheap removalists cost in Adelaide\?/i,
-    /Are fixed-price removalists better than hourly removalists\?/i,
     /What affects an Adelaide removalist quote\?/i,
     /Do removalists charge extra for stairs\?/i,
     /How do I avoid surprise moving costs\?/i,

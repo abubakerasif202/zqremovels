@@ -1521,6 +1521,10 @@ const semrushQuoteFaqItems = [
   },
 ];
 
+const cheapRemovalistsFaqItems = semrushQuoteFaqItems.filter(
+  ({ question }) => question !== 'Are fixed-price removalists better than hourly removalists?',
+);
+
 const affordableRemovalistsFaqItems = [
   ...semrushQuoteFaqItems,
   {
@@ -1554,7 +1558,7 @@ const commercialPages = [
       'Cheap does not need to mean careless. The best low-cost Adelaide move is one where the brief is precise enough to avoid rework, waiting time, and last-minute scope changes.',
       'ZQ Removals charges $75 per 30 minutes for 2 men and a truck, or $89 per 30 minutes for 3 men and a truck. A 1-hour call-out/travel charge applies where applicable.',
     ],
-    faq: semrushQuoteFaqItems,
+    faq: cheapRemovalistsFaqItems,
   },
   {
     slug: 'affordable-removalists-adelaide',
@@ -1912,23 +1916,23 @@ const commercialPages = [
   },
   {
     slug: 'removalists-adelaide-prices',
-    title: 'Removalists Adelaide Prices & Rates | Fixed Moving Cost',
-    description: 'Find removalists Adelaide prices and moving rates. ZQ Removals offers clear fixed-price quotes instead of unpredictable hourly charges.',
+    title: 'Removalists Adelaide Prices | ZQ Removals',
+    description: 'Adelaide removalist rates: 2 men and a truck $75 per 30 minutes, or 3 men and a truck $89 per 30 minutes. Call-out or travel charges may apply.',
     canonical: '/removalists-adelaide-prices/',
     type: 'money',
-    hero: 'Understanding Adelaide removalist pricing helps you budget without surprises. ZQ Removals reviews your inventory and access to deliver a firm fixed-price quote.',
+    hero: 'Compare current Adelaide removalist rates before booking. We confirm the crew package, access, route and any applicable call-out or travel charge in writing.',
     sections: [
-      'Removalist prices in Adelaide can vary wildly between cheap hourly estimates and premium all-inclusive packages. Hourly rates might look attractive but often include hidden travel fees, stair surcharges, or depot-to-depot run times.',
-      'ZQ Removals reviews furniture volume, property access, parking challenges, and route logistics before confirming the quote and applicable charges.',
+      'ZQ Removals charges $75 per 30 minutes for 2 men and a truck, or $89 per 30 minutes for 3 men and a truck. A 1-hour call-out or travel charge applies where applicable.',
+      'Furniture volume, stairs, lifts, parking, carry distance, packing and the route can change the crew and time required. We review those details before booking so the applicable charges are clear.',
     ],
     faq: [
       {
-        question: 'Why should I choose a fixed price over an hourly rate?',
-        answer: 'An hourly rate can fluctuate due to traffic, lift delays, or unexpected carry distances. A fixed-price quote guarantees the total cost of your move as long as the inventory and access remain as scoped.'
+        question: 'What are the current ZQ Removals rates?',
+        answer: 'The 2 men and a truck package is $75 per 30 minutes. The 3 men and a truck package is $89 per 30 minutes. A 1-hour call-out or travel charge applies where applicable.'
       },
       {
         question: 'How do you calculate removalist prices in Adelaide?',
-        answer: 'We calculate prices based on inventory volume, required truck size, crew numbers, packing needs, travel distance, and access variables like stairs, lifts, or long carry walks.'
+        answer: 'The selected crew package is charged in 30-minute increments. The final cost also depends on time, inventory, packing, travel distance, and access variables such as stairs, lifts or long carries.'
       }
     ]
   },
@@ -3654,6 +3658,18 @@ const GENERATED_LASTMOD_SOURCES = [
   'scripts/build-site.mjs',
 ];
 
+// These dates come from the commits that first published each surviving
+// generated guide. Keep them explicit so Article schema remains truthful and
+// reproducible instead of changing whenever a build runs.
+const GENERATED_GUIDE_DATES = new Map([
+  ['apartment-moving-tips-adelaide', { published: '2026-05-09', modified: '2026-05-09' }],
+  ['best-time-to-book-removalists-adelaide', { published: '2026-05-09', modified: '2026-05-09' }],
+  ['how-much-do-removalists-cost-adelaide', { published: '2026-05-09', modified: '2026-05-09' }],
+  ['how-to-prepare-furniture-for-moving', { published: '2026-05-09', modified: '2026-05-09' }],
+  ['how-to-choose-removalists-adelaide', { published: '2026-05-23', modified: '2026-05-23' }],
+  ['moving-house-checklist-adelaide', { published: '2026-05-23', modified: '2026-08-29' }],
+]);
+
 function makeStaticPage(page) {
   return {
     output: page.output,
@@ -4747,6 +4763,10 @@ function makeGuidePage({ slug, title, topic, basePath = 'adelaide-moving-guides'
   }
   const description = buildDescription(descriptionText);
   const pageImage = getGeneratedPageImage({ type: 'guide', slug, title, topic });
+  const guideDates = GENERATED_GUIDE_DATES.get(slug) || {
+    published: '2026-05-23',
+    modified: '2026-05-23',
+  };
   return {
     output: `${basePath}/${slug}/index.html`,
     layout: 'standard',
@@ -4787,6 +4807,8 @@ function makeGuidePage({ slug, title, topic, basePath = 'adelaide-moving-guides'
         '@id': `${canonical}#article`,
         headline: title,
         description,
+        datePublished: guideDates.published,
+        dateModified: guideDates.modified,
         mainEntityOfPage: { '@id': `${canonical}#webpage` },
         author: {
           '@type': 'Person',
@@ -4878,8 +4900,8 @@ function makeCommercialPage(page) {
       description: 'Small removals Adelaide for apartments, study rooms, single heavy items, and small loads. Safe handling, access planning, and transparent fixed prices.',
     },
     'removalists-adelaide-prices': {
-      title: 'Removalists Adelaide Prices & Rates | Fixed Moving Cost',
-      description: 'Find removalists Adelaide prices and moving rates. ZQ Removals offers clear fixed-price quotes instead of unpredictable hourly charges.',
+      title: 'Removalists Adelaide Prices | ZQ Removals',
+      description: 'Adelaide removalist rates: 2 men and a truck $75 per 30 minutes, or 3 men and a truck $89 per 30 minutes. Call-out or travel charges may apply.',
     },
     'office-removalists-adelaide': {
       title: 'Office Removalists Adelaide | B2B Commercial Relocations',

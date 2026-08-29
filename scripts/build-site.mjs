@@ -1,5 +1,5 @@
 import { copyFile, cp, mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
-import { execSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { transform, browserslistToTargets } from 'lightningcss';
@@ -33,6 +33,7 @@ import { zqSuburbGeoData } from '../site-src/data/zq-suburbs.mjs';
 import { getGoogleMapsBrowserConfig } from '../site-src/data/maps.mjs';
 
 const projectRoot = process.cwd();
+const buildQueueKey = Symbol.for('zqremovals.build-site.queue');
 export const srcRoot = path.join(projectRoot, 'site-src');
 const distRoot = path.join(projectRoot, 'site-dist');
 
@@ -87,8 +88,20 @@ const buildEnv = { ...process.env };
 // folded away by zq-redirects-verified.json so internal links hit the surviving
 // canonical directly (no 301 hop). Covers footer/header partials, hand-authored
 // content and generated link blocks in one pass.
+const verifiedRedirectEntries = JSON.parse(
+  await readFile(path.join(srcRoot, 'data', 'zq-redirects-verified.json'), 'utf8'),
+);
+const vercelRedirectEntries = JSON.parse(
+  await readFile(path.join(projectRoot, 'vercel.json'), 'utf8'),
+).redirects || [];
 const consolidatedHrefMap = new Map(
-  JSON.parse(await readFile(path.join(srcRoot, 'data', 'zq-redirects-verified.json'), 'utf8'))
+  [...vercelRedirectEntries, ...verifiedRedirectEntries]
+    .filter((entry) => (
+      typeof entry.source === 'string'
+      && typeof entry.destination === 'string'
+      && entry.destination.startsWith('/')
+      && !/[:*()]/.test(entry.source)
+    ))
     .map((entry) => {
       let s = entry.source;
       try { s = new URL(entry.source).pathname; } catch { /* path */ }
@@ -2638,16 +2651,31 @@ const localProofProfiles = {
 };
 
 export async function runLegacyGenerator() {
-  // 0. Run Astro build to generate initial pages
-  console.log('Syncing root stylesheet to Astro styles...');
-  await copyFile(path.join(projectRoot, 'premium-site.css'), path.join(projectRoot, 'src', 'styles', 'premium-site.css'));
-  console.log('Running Astro build...');
-  await rm(path.join(distRoot, '.prerender'), { recursive: true, force: true });
-  execSync('npx astro build', { stdio: 'inherit', env: process.env });
+  const previousBuild = globalThis[buildQueueKey] ?? Promise.resolve();
+  let releaseQueueTurn;
+  const queueTurn = new Promise((resolve) => {
+    releaseQueueTurn = resolve;
+  });
+  globalThis[buildQueueKey] = previousBuild.catch(() => {}).then(() => queueTurn);
 
-  const releaseBuildLock = await acquireBuildLock();
+  await previousBuild.catch(() => {});
+  let releaseBuildLock;
 
   try {
+    releaseBuildLock = await acquireBuildLock();
+
+    // 0. Run Astro build to generate initial pages. The lock covers Astro and
+    // post-processing so concurrent test imports cannot rewrite site-dist.
+    console.log('Syncing root stylesheet to Astro styles...');
+    await copyFile(path.join(projectRoot, 'premium-site.css'), path.join(projectRoot, 'src', 'styles', 'premium-site.css'));
+    console.log('Running Astro build...');
+    await rm(path.join(distRoot, '.prerender'), { recursive: true, force: true });
+    execFileSync(
+      process.execPath,
+      [path.join(projectRoot, 'node_modules', 'astro', 'bin', 'astro.mjs'), 'build'],
+      { stdio: 'inherit', env: process.env },
+    );
+
     // 1. Ensure distRoot exists
     await mkdir(distRoot, { recursive: true });
 
@@ -2755,7 +2783,10 @@ export async function runLegacyGenerator() {
     await writeRouteCoverageReport();
 
   } finally {
-    await releaseBuildLock();
+    if (releaseBuildLock) {
+      await releaseBuildLock();
+    }
+    releaseQueueTurn();
   }
 }
 
@@ -3903,15 +3934,61 @@ function normalizeSiteUrl(value) {
 
 async function acquireBuildLock(retries = 800) {
   const lockDir = path.join(projectRoot, '.build-site.lock');
+  const ownerFile = path.join(lockDir, 'owner.json');
 
   for (let attempt = 0; attempt < retries; attempt += 1) {
     try {
       await mkdir(lockDir);
+      await writeFile(ownerFile, JSON.stringify({
+        pid: process.pid,
+        processStart: await getProcessStartToken(process.pid),
+        createdAt: new Date().toISOString(),
+      }));
       return async () => {
         await rm(lockDir, { recursive: true, force: true });
       };
     } catch (error) {
       if (error && error.code === 'EEXIST') {
+        let ownerPid = null;
+        let ownerProcessStart = null;
+        try {
+          const owner = JSON.parse(await readFile(ownerFile, 'utf8'));
+          ownerPid = owner.pid;
+          ownerProcessStart = owner.processStart;
+        } catch {
+          // A lock created by an older build has no owner metadata.
+        }
+
+        let ownerIsRunning = false;
+        if (Number.isInteger(ownerPid) && ownerPid > 0) {
+          if (ownerProcessStart) {
+            ownerIsRunning = await getProcessStartToken(ownerPid) === ownerProcessStart;
+          } else {
+            try {
+              process.kill(ownerPid, 0);
+              ownerIsRunning = true;
+            } catch (ownerError) {
+              ownerIsRunning = ownerError?.code === 'EPERM';
+            }
+          }
+        }
+
+        let lockAgeMs = 0;
+        try {
+          lockAgeMs = Date.now() - (await stat(lockDir)).mtimeMs;
+        } catch {
+          continue;
+        }
+
+        if (
+          (!ownerPid && lockAgeMs > 5_000)
+          || (!ownerProcessStart && lockAgeMs > 5_000)
+          || (ownerPid && !ownerIsRunning)
+        ) {
+          await rm(lockDir, { recursive: true, force: true });
+          continue;
+        }
+
         await new Promise((resolve) => setTimeout(resolve, 50));
         continue;
       }
@@ -3920,6 +3997,16 @@ async function acquireBuildLock(retries = 800) {
   }
 
   throw new Error('Timed out waiting for the site build lock.');
+}
+
+async function getProcessStartToken(pid) {
+  try {
+    const procStat = await readFile(`/proc/${pid}/stat`, 'utf8');
+    const fieldsAfterCommand = procStat.slice(procStat.lastIndexOf(')') + 2).trim().split(/\s+/);
+    return fieldsAfterCommand[19] || null;
+  } catch {
+    return null;
+  }
 }
 
 function pageHasRobotsDirective(page, directive) {

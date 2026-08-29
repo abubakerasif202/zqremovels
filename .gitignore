@@ -2,6 +2,7 @@
 site-dist/
 output/
 tmp/
+.build-site.lock/
 
 # Local audit and packaging artifacts
 /ZQ-Website-Ad-Package.zip
