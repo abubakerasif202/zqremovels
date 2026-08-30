@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Reusable visual and content rules for `zqremovals.au`, covering the production marketing site, quote forms, service pages, suburb pages, guides, and responsive navigation.
+Reusable visual and content rules for `zqremovalsadelaide.com.au`, covering the production marketing site, quote forms, service pages, suburb pages, guides, and responsive navigation.
 
 ## Sources consulted
 

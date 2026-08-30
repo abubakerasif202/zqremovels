@@ -93,8 +93,8 @@ test('build injects env-driven analytics tags and uses the social share image fa
     new RegExp(`https://www\\.googletagmanager\\.com/gtag/js\\?id=${gaMeasurementId}`),
   );
   assert.match(homepage, new RegExp(`gtag\\('config',\\s*['"]${gaMeasurementId}['"]\\)`));
-  assert.match(homepage, /<meta property="og:image" content="https:\/\/zqremovals\.au\/zq-removals-social-share\.webp"/);
-  assert.match(aboutPage, /"image": "https:\/\/zqremovals\.au\/zq-removals-social-share\.webp"/);
+  assert.match(homepage, /<meta property="og:image" content="https:\/\/zqremovalsadelaide\.com\.au\/zq-removals-social-share\.webp"/);
+  assert.match(aboutPage, /"image": "https:\/\/zqremovalsadelaide\.com\.au\/zq-removals-social-share\.webp"/);
 });
 
 test('homepage hero serves the current WebP asset and dimensions', () => {

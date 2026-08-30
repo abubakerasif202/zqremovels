@@ -4,7 +4,7 @@ Business name: ZQ Removals
 
 Phone: 0433 819 989
 
-Website: https://zqremovals.au/
+Website: https://zqremovalsadelaide.com.au/
 
 Service area: Adelaide, South Australia
 
@@ -35,7 +35,7 @@ Do not invent a street address.
 
 - Business name must always be `ZQ Removals`
 - Phone must always be `0433 819 989`
-- Website must always be `https://zqremovals.au/`
+- Website must always be `https://zqremovalsadelaide.com.au/`
 - Service area should stay Adelaide, South Australia
 - Do not add a fake street address
 

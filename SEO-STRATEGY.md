@@ -1,6 +1,6 @@
 # ZQ Removals - Strategic SEO Plan
 
-This strategic plan establishes the long-term SEO direction for **ZQ Removals** (`https://zqremovals.au`), Adelaide’s premier local and interstate relocation service. By combining local SEO authority, geographic cluster mapping, and Generative Engine Optimization (GEO), this strategy is designed to capture high-intent commercial search traffic and drive pre-quote conversions.
+This strategic plan establishes the long-term SEO direction for **ZQ Removals** (`https://zqremovalsadelaide.com.au`), Adelaide’s premier local and interstate relocation service. By combining local SEO authority, geographic cluster mapping, and Generative Engine Optimization (GEO), this strategy is designed to capture high-intent commercial search traffic and drive pre-quote conversions.
 
 ---
 
@@ -83,7 +83,7 @@ Preparing the site for AI search visibility (ChatGPT Search, Perplexity, Google 
 
 ### Pillar 4: Technical & E-E-A-T Foundation
 Maintaining absolute technical cleanliness and brand trust:
-* **Host Consistency:** Strict enforcement of the apex domain (`https://zqremovals.au`) across sitemaps, canonicals, and redirects.
+* **Host Consistency:** Strict enforcement of the apex domain (`https://zqremovalsadelaide.com.au`) across sitemaps, canonicals, and redirects.
 * **Schema Integrity:** Automatic JSON-LD synchronization to page metadata to prevent developer drift.
 * **Trust Safeguards:** Zero fake reviews, zero fake ratings, and clear documentation of operational safety protocols.
 
@@ -108,4 +108,4 @@ To measure the success of this strategy, we will track the following metrics ove
 
 * **Zero Duplication:** Suburb pages must maintain a minimum of 40% unique local copy (describing streets, apartment profiles, traffic, corridors). Suburbs with thin content must be merged or redirected.
 * **Sitemap Cleanliness:** The sitemap must contain only indexable pages. No 404s, no concept concepts, and no legacy alias redirects.
-* **Host Policies:** Every generated page must strictly serve the `https://zqremovals.au` host in its canonical tag and open graph metadata.
+* **Host Policies:** Every generated page must strictly serve the `https://zqremovalsadelaide.com.au` host in its canonical tag and open graph metadata.

@@ -16,13 +16,13 @@ function mainText(html) {
 
 test('protected ranking pages keep their URL, indexability, and primary intent', () => {
   const queensPark = readRoute('removalists-queens-park');
-  assert.match(queensPark, /<link rel="canonical" href="https:\/\/zqremovals\.au\/removalists-queens-park\/"/i);
+  assert.match(queensPark, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/removalists-queens-park\/"/i);
   assert.match(queensPark, /<meta name="robots" content="index,follow,max-image-preview:large"/i);
   assert.match(queensPark, /<h1[^>]*>Queens Park removalists<\/h1>/i);
   assert.match(queensPark, /Queens Park NSW|Sydney to Adelaide/i);
 
   const office = readRoute('office-removals-adelaide');
-  assert.match(office, /<link rel="canonical" href="https:\/\/zqremovals\.au\/office-removals-adelaide\/"/i);
+  assert.match(office, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/office-removals-adelaide\/"/i);
   assert.match(office, /<h1[^>]*>Office Removalists Adelaide/i);
   assert.match(office, /office relocation|business relocation/i);
 });
@@ -55,7 +55,7 @@ test('lower-cost page keeps verified rates; budget/quote aliases are consolidate
 test('stable moving-company entity id is used on priority pages', () => {
   for (const route of ['office-removals-adelaide', 'cheap-removalists-adelaide', 'removalists-queens-park']) {
     const html = readRoute(route);
-    assert.match(html, /https:\/\/zqremovals\.au\/#movingcompany/i, route);
+    assert.match(html, /https:\/\/zqremovalsadelaide\.com\.au\/#movingcompany/i, route);
     assert.doesNotMatch(html, /https:\/\/zqremovals\.au\/#business/i, route);
   }
 });

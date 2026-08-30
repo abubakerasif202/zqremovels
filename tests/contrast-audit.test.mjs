@@ -113,7 +113,7 @@ test('priority routes preserve canonical, indexability, and sitemap inclusion', 
 
   for (const route of routes) {
     const html = readDist(route);
-    const canonical = `https://zqremovals.au${route}`;
+    const canonical = `https://zqremovalsadelaide.com.au${route}`;
     assert.match(html, new RegExp(`<link rel="canonical" href="${canonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`), `${route} canonical mismatch`);
     assert.doesNotMatch(html, /<meta name="robots" content="[^"]*noindex/i, `${route} must remain indexable`);
     assert.match(sitemap, new RegExp(canonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `${route} missing from sitemap`);

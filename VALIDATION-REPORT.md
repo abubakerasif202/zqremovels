@@ -1,7 +1,7 @@
 # ZQ Removals Sitemap Validation Report
 
 Validated: 24 July 2026  
-Canonical origin: `https://zqremovals.au`
+Canonical origin: `https://zqremovalsadelaide.com.au`
 
 ## Result
 

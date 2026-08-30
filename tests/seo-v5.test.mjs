@@ -12,7 +12,7 @@ const pages = mergePagesByOutput(
   getGeneratedPages(),
 ).filter((p) => !isVerifiedRedirectSource(p));
 
-const canonicalHost = 'https://zqremovals.au';
+const canonicalHost = 'https://zqremovalsadelaide.com.au';
 // Surviving guide cluster after GSC route consolidation.
 const requiredV5GuideSlugs = [
   'how-much-do-removalists-cost-adelaide',
@@ -52,19 +52,19 @@ test('seo v5 technical metadata is canonical, complete, and unique on indexable 
 
     assert.equal(h1Count, 1, `${page.output} must have exactly one h1`);
     assert.deepEqual(canonicals, [page.canonical], `${page.output} canonical mismatch`);
-    assert.match(page.canonical, /^https:\/\/zqremovals\.au\//, `${page.output} canonical host`);
+    assert.match(page.canonical, /^https:\/\/zqremovalsadelaide\.com\.au\//, `${page.output} canonical host`);
     assert.doesNotMatch(html, /https:\/\/www\.zqremovals\.au\//, `${page.output} mixed www host`);
     assert.match(html, /<meta name="viewport" content="width=device-width, initial-scale=1"/i, `${page.output} viewport`);
     assert.match(html, /<meta name="robots" content="[^"]+"/i, `${page.output} robots`);
     assert.match(html, /<meta property="og:title" content="[^"]+"/i, `${page.output} og:title`);
     assert.match(html, /<meta property="og:description" content="[^"]+"/i, `${page.output} og:description`);
-    assert.match(html, /<meta property="og:url" content="https:\/\/zqremovals\.au\/[^"]*"/i, `${page.output} og:url`);
-    assert.match(html, /<meta property="og:url" content="https:\/\/zqremovals\.au\//i, `${page.output} og:url`);
-    assert.match(html, /<meta property="og:image" content="https:\/\/zqremovals\.au\//i, `${page.output} og:image`);
+    assert.match(html, /<meta property="og:url" content="https:\/\/zqremovalsadelaide\.com\.au\/[^"]*"/i, `${page.output} og:url`);
+    assert.match(html, /<meta property="og:url" content="https:\/\/zqremovalsadelaide\.com\.au\//i, `${page.output} og:url`);
+    assert.match(html, /<meta property="og:image" content="https:\/\/zqremovalsadelaide\.com\.au\//i, `${page.output} og:image`);
     assert.match(html, /<meta name="twitter:card" content="summary_large_image"/i, `${page.output} twitter card`);
     assert.match(html, /<meta name="twitter:title" content="[^"]+"/i, `${page.output} twitter:title`);
     assert.match(html, /<meta name="twitter:description" content="[^"]+"/i, `${page.output} twitter:description`);
-    assert.match(html, /<meta name="twitter:image" content="https:\/\/zqremovals\.au\//i, `${page.output} twitter:image`);
+    assert.match(html, /<meta name="twitter:image" content="https:\/\/zqremovalsadelaide\.com\.au\//i, `${page.output} twitter:image`);
     assert.ok(title.length >= 20 && title.length <= 85, `${page.output} title length ${title.length}`);
     assert.ok(description.length >= 60 && description.length <= 190, `${page.output} description length ${description.length}`);
 
@@ -133,9 +133,9 @@ test('seo v5 sitemap and robots output is clean, canonical, grouped, and duplica
   const robots = readDist('robots.txt');
   assert.match(robots, /User-agent: \*/);
   assert.match(robots, /Allow: \//);
-  assert.match(robots, /Sitemap: https:\/\/zqremovals\.au\/sitemap-index\.xml/);
+  assert.match(robots, /Sitemap: https:\/\/zqremovalsadelaide\.com\.au\/sitemap-index\.xml/);
   assert.doesNotMatch(robots, /^LLM:/m);
-  assert.match(robots, /# https:\/\/zqremovals\.au\/llms\.txt/);
+  assert.match(robots, /# https:\/\/zqremovalsadelaide\.com\.au\/llms\.txt/);
 
   const expectedSitemaps = [
     'sitemap-pages.xml',
@@ -156,7 +156,7 @@ test('seo v5 sitemap and robots output is clean, canonical, grouped, and duplica
     const locs = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
     assert.equal(locs.length, new Set(locs).size, `${sitemap} duplicate loc values`);
     for (const loc of locs) {
-      assert.match(loc, /^https:\/\/zqremovals\.au\//, `${sitemap} non-canonical loc ${loc}`);
+      assert.match(loc, /^https:\/\/zqremovalsadelaide\.com\.au\//, `${sitemap} non-canonical loc ${loc}`);
       assert.doesNotMatch(loc, /\/404\.html|\/thank-you\/|premium-moving-concepts|\/privacy-policy\/|\/terms-and-conditions\//i, `${sitemap} utility loc ${loc}`);
     }
   }
@@ -178,8 +178,8 @@ test('seo v5 llms files and alternate markdown links are published', () => {
   const llmsFull = readDist('llms-full.txt');
   const homepage = readDist('index.html');
 
-  assert.match(llms, /Pricing: https:\/\/zqremovals\.au\/pricing\.md/);
-  assert.match(llms, /Full crawler brief: https:\/\/zqremovals\.au\/llms-full\.txt/);
+  assert.match(llms, /Pricing: https:\/\/zqremovalsadelaide\.com\.au\/pricing\.md/);
+  assert.match(llms, /Full crawler brief: https:\/\/zqremovalsadelaide\.com\.au\/llms-full\.txt/);
   assert.match(llmsFull, /Business overview:/);
   assert.match(llmsFull, /Insurance and proof of cover:/);
   assert.match(llmsFull, /Interstate routes:/);

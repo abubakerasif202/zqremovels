@@ -1,6 +1,6 @@
 # Google Ads and SEO landing-page alignment
 
-Use only verified capabilities and the production host `https://zqremovals.au`.
+Use only verified capabilities and the production host `https://zqremovalsadelaide.com.au`.
 
 ## Campaign and landing-page map
 

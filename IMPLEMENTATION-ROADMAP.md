@@ -28,7 +28,7 @@ gantt
 *Objective: Build the technical core, verify tracking pipelines, and ensure sitemap cleanliness.*
 
 * **Task 1.1: Verify GSC and DNS Ownership**
-  * Verify the domain property `zqremovals.au` in Google Search Console using DNS TXT records.
+  * Verify the domain property `zqremovalsadelaide.com.au` in Google Search Console using DNS TXT records.
   * Submit the production sitemap `/sitemap.xml` and monitor initial crawl logs.
 * **Task 1.2: Core Pages Audit & Rewrite**
   * Confirm homepage hero, services summaries, and `/about/` page copies are locked and aligned to search objectives (careful handling, direct pricing, Andrews Farm fleet).

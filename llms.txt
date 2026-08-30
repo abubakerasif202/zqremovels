@@ -1,6 +1,6 @@
 # ZQ Removals
 
-Website: https://zqremovals.au
+Website: https://zqremovalsadelaide.com.au
 Entity: Adelaide moving company serving local, suburb, and interstate removals across South Australia.
 
 Primary services:
@@ -13,18 +13,18 @@ Primary services:
 - Packing support
 
 Priority money pages:
-- https://zqremovals.au/removalists-adelaide/
-- https://zqremovals.au/interstate-removals-adelaide/
-- https://zqremovals.au/house-removals-adelaide/
-- https://zqremovals.au/office-removals-adelaide/
-- https://zqremovals.au/packing-services-adelaide/
-- https://zqremovals.au/furniture-removals-adelaide/
-- https://zqremovals.au/adelaide-moving-guides/
+- https://zqremovalsadelaide.com.au/removalists-adelaide/
+- https://zqremovalsadelaide.com.au/interstate-removals-adelaide/
+- https://zqremovalsadelaide.com.au/house-removals-adelaide/
+- https://zqremovalsadelaide.com.au/office-removals-adelaide/
+- https://zqremovalsadelaide.com.au/packing-services-adelaide/
+- https://zqremovalsadelaide.com.au/furniture-removals-adelaide/
+- https://zqremovalsadelaide.com.au/adelaide-moving-guides/
 
 References:
-- Pricing: https://zqremovals.au/pricing.md
-- Full crawler brief: https://zqremovals.au/llms-full.txt
+- Pricing: https://zqremovalsadelaide.com.au/pricing.md
+- Full crawler brief: https://zqremovalsadelaide.com.au/llms-full.txt
 
 Contact:
 - Phone: 0433 819 989
-- Canonical host: https://zqremovals.au
+- Canonical host: https://zqremovalsadelaide.com.au

@@ -117,7 +117,7 @@ test('generated sitemap and canonicals stay on the apex host', () => {
 
   assert.doesNotMatch(sitemap, /https:\/\/www\.zqremovals\.au\//);
   assert.match(sitemap, /<sitemapindex/);
-  assert.match(homepage, /<link rel="canonical" href="https:\/\/zqremovals\.au\/" \/>/);
+  assert.match(homepage, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/" \/>/);
   assert.match(homepage, /<title>Adelaide Removalists You Can Rely On \| ZQ Removals<\/title>/);
   assert.match(
     homepage,
@@ -125,15 +125,15 @@ test('generated sitemap and canonicals stay on the apex host', () => {
   );
   assert.match(
     interstateHub,
-    /<link rel="canonical" href="https:\/\/zqremovals\.au\/interstate-removals-adelaide\/" \/>/,
+    /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/interstate-removals-adelaide\/" \/>/,
   );
-  assert.match(robots, /Sitemap: https:\/\/zqremovals\.au\/sitemap-index\.xml/);
-  assert.match(llms, /Website: https:\/\/zqremovals\.au/);
+  assert.match(robots, /Sitemap: https:\/\/zqremovalsadelaide\.com\.au\/sitemap-index\.xml/);
+  assert.match(llms, /Website: https:\/\/zqremovalsadelaide\.com\.au/);
   assert.match(llms, /Priority money pages:/);
-  assert.match(llms, /\[Removalists Adelaide \| 5-Star Local Movers \| ZQ Removals\]\(https:\/\/zqremovals\.au\/removalists-adelaide\/\)/);
+  assert.match(llms, /\[Removalists Adelaide \| 5-Star Local Movers \| ZQ Removals\]\(https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide\/\)/);
   assert.match(llms, /Best pages by task:/);
-  assert.match(llms, /\[Quote request: Removalists Adelaide \| 5-Star Local Movers \| ZQ Removals\]\(https:\/\/zqremovals\.au\/removalists-adelaide\/\)/);
-  assert.match(llms, /\[Packing help: Packing Services Adelaide \| Professional Packing Help\]\(https:\/\/zqremovals\.au\/packing-services-adelaide\/\)/);
+  assert.match(llms, /\[Quote request: Removalists Adelaide \| 5-Star Local Movers \| ZQ Removals\]\(https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide\/\)/);
+  assert.match(llms, /\[Packing help: Packing Services Adelaide \| Professional Packing Help\]\(https:\/\/zqremovalsadelaide\.com\.au\/packing-services-adelaide\/\)/);
   assert.match(llms, /Best entry pages:/);
   assert.match(ai, /Entity: ZQ Removals/);
   assert.match(ai, /No www host variants\./);
@@ -177,13 +177,13 @@ test('sitemap contains only intended indexable routes', () => {
     .flatMap((file) => [...readDist(file).matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]));
   const expected = pages
     .filter((page) => shouldIncludeInSitemap(page))
-    .map((page) => `https://zqremovals.au${outputToRoute(page.output)}`);
+    .map((page) => `https://zqremovalsadelaide.com.au${outputToRoute(page.output)}`);
 
   assert.deepEqual(new Set(locations), new Set(expected));
 
   for (const page of pages.filter((page) => !shouldIncludeInSitemap(page))) {
     assert.ok(
-      !locations.includes(`https://zqremovals.au${outputToRoute(page.output)}`),
+      !locations.includes(`https://zqremovalsadelaide.com.au${outputToRoute(page.output)}`),
       `unexpected sitemap inclusion for ${page.output}`,
     );
   }
@@ -234,7 +234,7 @@ test('canonical Adelaide moving checklist guide is generated with clean seo, lin
 
   assert.match(html, /<title>[^<]*checklist[^<]*ZQ Removals<\/title>/i);
   assert.match(html, /<meta name="description" content="[^"]{80,}" \/>/i);
-  assert.match(html, /<link rel="canonical" href="https:\/\/zqremovals\.au\/adelaide-moving-guides\/moving-house-checklist-adelaide\/" \/>/i);
+  assert.match(html, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/adelaide-moving-guides\/moving-house-checklist-adelaide\/" \/>/i);
   assert.match(main, /<h1[^>]*>[^<]*checklist[^<]*<\/h1>/i);
   assert.match(main, /href="\/contact-us\/#quote-form"/i);
   assert.match(main, /href="tel:\+61433819989"/i);
@@ -371,12 +371,12 @@ test('robots and AI crawler files stay standards-compliant', () => {
   const llmsFull = readDist('llms-full.txt');
   const pricing = readDist('pricing.md');
 
-  assert.match(robots, /^User-agent: \*\r?\nAllow: \/\r?\nSitemap: https:\/\/zqremovals\.au\/sitemap-index\.xml/m);
+  assert.match(robots, /^User-agent: \*\r?\nAllow: \/\r?\nSitemap: https:\/\/zqremovalsadelaide\.com\.au\/sitemap-index\.xml/m);
   assert.doesNotMatch(robots, /^LLM:/m);
-  assert.match(llms, /Website: https:\/\/zqremovals\.au/);
+  assert.match(llms, /Website: https:\/\/zqremovalsadelaide\.com\.au/);
   assert.match(llmsFull, /Entity: ZQ Removals/);
   assert.match(pricing, /# Pricing — ZQ Removals/);
-  assert.match(pricing, /https:\/\/zqremovals\.au\/contact-us\/#quote-form/);
+  assert.match(pricing, /https:\/\/zqremovalsadelaide\.com\.au\/contact-us\/#quote-form/);
 });
 
 test('responsive image handling keeps hero images sized and prioritized correctly', () => {
@@ -423,6 +423,24 @@ test('vercel redirects cover legacy html aliases for crawlable pages and route f
   );
   assert.equal(redirects.get('/adelaide-to-:slug.html'), '/adelaide-to-:slug/');
   assert.equal(redirects.get('/removalists-:slug.html'), '/removalists-:slug/');
+});
+
+test('host migration redirects every old and www host to the new apex with path preservation', () => {
+  const vercelConfig = JSON.parse(readFileSync(path.join(root, 'vercel.json'), 'utf8'));
+  const hostRedirects = vercelConfig.redirects.filter((redirect) => (
+    redirect.source === '/:path*'
+    && redirect.permanent === true
+    && Array.isArray(redirect.has)
+    && redirect.has.some((condition) => condition.type === 'host')
+  ));
+
+  assert.deepEqual(
+    hostRedirects.map((redirect) => redirect.has.find((condition) => condition.type === 'host').value).sort(),
+    ['www.zqremovals.au', 'zqremovals.au', 'www.zqremovalsadelaide.com.au'].sort(),
+  );
+  for (const redirect of hostRedirects) {
+    assert.equal(redirect.destination, 'https://zqremovalsadelaide.com.au/:path*');
+  }
 });
 
 test('search console not-found validation URLs have direct legacy redirects', () => {
@@ -485,13 +503,13 @@ test('search console not-found validation aliases have static noindex fallback p
   ].map((file) => readDist(file)).join('\n');
 
   for (const [output, canonical, refresh] of [
-    ['adelaide-cbd.html', 'https://zqremovals.au/removalists-adelaide-cbd/', '0; url=/removalists-adelaide-cbd/'],
-    ['privacy.html', 'https://zqremovals.au/privacy-policy/', '0; url=/privacy-policy/'],
-    [path.join('privacy', 'index.html'), 'https://zqremovals.au/privacy-policy/', '0; url=/privacy-policy/'],
-    ['terms.html', 'https://zqremovals.au/terms-and-conditions/', '0; url=/terms-and-conditions/'],
-    [path.join('terms', 'index.html'), 'https://zqremovals.au/terms-and-conditions/', '0; url=/terms-and-conditions/'],
-    [path.join('adelaide-moving-guides', 'removalist-cost-adelaide', 'index.html'), 'https://zqremovals.au/adelaide-moving-guides/removalists-cost-adelaide/', '0; url=/adelaide-moving-guides/removalists-cost-adelaide/'],
-    [path.join('guides', 'removalist-cost-adelaide', 'index.html'), 'https://zqremovals.au/adelaide-moving-guides/removalists-cost-adelaide/', '0; url=/adelaide-moving-guides/removalists-cost-adelaide/'],
+    ['adelaide-cbd.html', 'https://zqremovalsadelaide.com.au/removalists-adelaide-cbd/', '0; url=/removalists-adelaide-cbd/'],
+    ['privacy.html', 'https://zqremovalsadelaide.com.au/privacy-policy/', '0; url=/privacy-policy/'],
+    [path.join('privacy', 'index.html'), 'https://zqremovalsadelaide.com.au/privacy-policy/', '0; url=/privacy-policy/'],
+    ['terms.html', 'https://zqremovalsadelaide.com.au/terms-and-conditions/', '0; url=/terms-and-conditions/'],
+    [path.join('terms', 'index.html'), 'https://zqremovalsadelaide.com.au/terms-and-conditions/', '0; url=/terms-and-conditions/'],
+    [path.join('adelaide-moving-guides', 'removalist-cost-adelaide', 'index.html'), 'https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/', '0; url=/adelaide-moving-guides/removalists-cost-adelaide/'],
+    [path.join('guides', 'removalist-cost-adelaide', 'index.html'), 'https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/', '0; url=/adelaide-moving-guides/removalists-cost-adelaide/'],
   ]) {
     const html = readDist(output);
     assert.match(html, /<meta name="robots" content="noindex,nofollow" \/>/);
@@ -617,12 +635,12 @@ test('indexable pages expose complete unique metadata and one matching canonical
     assert.ok(h2Count >= 1, `missing h2 structure for ${page.output}`);
     assert.match(html, /<meta property="og:title" content="[^"]+"/i, `missing og:title for ${page.output}`);
     assert.match(html, /<meta property="og:description" content="[^"]+"/i, `missing og:description for ${page.output}`);
-    assert.match(html, /<meta property="og:url" content="https:\/\/zqremovals\.au\/[^"]*"/i, `missing og:url for ${page.output}`);
-    assert.match(html, /<meta property="og:image" content="https:\/\/zqremovals\.au\/[^"]+"/i, `missing apex og:image for ${page.output}`);
+    assert.match(html, /<meta property="og:url" content="https:\/\/zqremovalsadelaide\.com\.au\/[^"]*"/i, `missing og:url for ${page.output}`);
+    assert.match(html, /<meta property="og:image" content="https:\/\/zqremovalsadelaide\.com\.au\/[^"]+"/i, `missing apex og:image for ${page.output}`);
     assert.match(html, /<meta name="twitter:card" content="summary_large_image"/i, `missing twitter card for ${page.output}`);
     assert.match(html, /<meta name="twitter:title" content="[^"]+"/i, `missing twitter:title for ${page.output}`);
     assert.match(html, /<meta name="twitter:description" content="[^"]+"/i, `missing twitter:description for ${page.output}`);
-    assert.match(html, /<meta name="twitter:image" content="https:\/\/zqremovals\.au\/[^"]+"/i, `missing twitter:image for ${page.output}`);
+    assert.match(html, /<meta name="twitter:image" content="https:\/\/zqremovalsadelaide\.com\.au\/[^"]+"/i, `missing twitter:image for ${page.output}`);
 
     assert.ok(!seenTitles.has(title), `duplicate title: ${title}`);
     assert.ok(!seenDescriptions.has(description), `duplicate description: ${description}`);
@@ -664,7 +682,7 @@ test('json-ld is valid, host-consistent, and uses only supported business facts'
         const types = Array.isArray(node['@type']) ? node['@type'] : [node['@type']].filter(Boolean);
         if (types.includes('MovingCompany')) {
           assert.equal(node.name, 'ZQ Removals', `MovingCompany name mismatch in ${relativePath}`);
-          assert.equal(node.url, 'https://zqremovals.au/', `MovingCompany URL mismatch in ${relativePath}`);
+          assert.equal(node.url, 'https://zqremovalsadelaide.com.au/', `MovingCompany URL mismatch in ${relativePath}`);
           assert.equal(normalizeTelephone(node.telephone), '0433819989', `MovingCompany telephone mismatch in ${relativePath}`);
           assert.deepEqual(
             node.sameAs,
@@ -1074,7 +1092,7 @@ test('removalists Adelaide hub has focused intent, schema, CTA and supporting in
 
   assert.equal((main.match(/<h1\b/gi) || []).length, 1);
   assert.match(html, /<title>Removalists Adelaide \| 5-Star Local Movers \| ZQ Removals<\/title>/i);
-  assert.match(html, /<link rel="canonical" href="https:\/\/zqremovals\.au\/removalists-adelaide\/"/i);
+  assert.match(html, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide\/"/i);
   assert.match(html, /"@type":"BreadcrumbList"|"@type": "BreadcrumbList"/i);
   assert.match(html, /"@type":"Service"|"@type": "Service"/i);
   assert.doesNotMatch(html, /AggregateRating|aggregateRating|reviewCount|ratingValue/i);
@@ -1140,14 +1158,14 @@ test('light page heroes and primary buttons keep readable foreground colours', (
 
 test('priority suburb and interstate pages stay indexable, canonical, and linked from core hubs', () => {
   const priorityPages = [
-    ['removalists-hyde-park/index.html', 'https://zqremovals.au/removalists-hyde-park/'],
-    ['removalists-malvern/index.html', 'https://zqremovals.au/removalists-malvern/'],
-    ['removalists-unley/index.html', 'https://zqremovals.au/removalists-unley/'],
-    ['removalists-unley-park/index.html', 'https://zqremovals.au/removalists-unley-park/'],
-    ['removalists-medindie/index.html', 'https://zqremovals.au/removalists-medindie/'],
-    ['adelaide-to-sydney-removalists/index.html', 'https://zqremovals.au/adelaide-to-sydney-removalists/'],
-    ['adelaide-to-brisbane-removals/index.html', 'https://zqremovals.au/adelaide-to-brisbane-removals/'],
-    ['adelaide-to-melbourne-removalists/index.html', 'https://zqremovals.au/adelaide-to-melbourne-removalists/'],
+    ['removalists-hyde-park/index.html', 'https://zqremovalsadelaide.com.au/removalists-hyde-park/'],
+    ['removalists-malvern/index.html', 'https://zqremovalsadelaide.com.au/removalists-malvern/'],
+    ['removalists-unley/index.html', 'https://zqremovalsadelaide.com.au/removalists-unley/'],
+    ['removalists-unley-park/index.html', 'https://zqremovalsadelaide.com.au/removalists-unley-park/'],
+    ['removalists-medindie/index.html', 'https://zqremovalsadelaide.com.au/removalists-medindie/'],
+    ['adelaide-to-sydney-removalists/index.html', 'https://zqremovalsadelaide.com.au/adelaide-to-sydney-removalists/'],
+    ['adelaide-to-brisbane-removals/index.html', 'https://zqremovalsadelaide.com.au/adelaide-to-brisbane-removals/'],
+    ['adelaide-to-melbourne-removalists/index.html', 'https://zqremovalsadelaide.com.au/adelaide-to-melbourne-removalists/'],
   ];
   const sitemapLocations = ['sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml']
     .flatMap((file) => [...readDist(file).matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]));
@@ -1219,11 +1237,11 @@ test('redirect aliases stay out of the sitemap and core canonical routes do not 
   const redirects = new Map(vercelConfig.redirects.map(({ source, destination }) => [source, destination]));
 
   for (const alias of [
-    'https://zqremovals.au/adelaide-to-brisbane-removalists/',
-    'https://zqremovals.au/adelaide-to-sydney-removals/',
-    'https://zqremovals.au/adelaide-to-melbourne-removals/',
-    'https://zqremovals.au/guides/removalist-cost-adelaide/',
-    'https://zqremovals.au/404.html',
+    'https://zqremovalsadelaide.com.au/adelaide-to-brisbane-removalists/',
+    'https://zqremovalsadelaide.com.au/adelaide-to-sydney-removals/',
+    'https://zqremovalsadelaide.com.au/adelaide-to-melbourne-removals/',
+    'https://zqremovalsadelaide.com.au/guides/removalist-cost-adelaide/',
+    'https://zqremovalsadelaide.com.au/404.html',
   ]) {
     assert.doesNotMatch(sitemap, new RegExp(alias.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `${alias} must not be in sitemap`);
   }

@@ -1,6 +1,6 @@
 Entity: ZQ Removals
 Type: MovingCompany
-Website: https://zqremovals.au
+Website: https://zqremovalsadelaide.com.au
 Phone: 0433 819 989
 ABN: 88 642 917 351
 
@@ -73,9 +73,9 @@ Interstate routes:
 - Adelaide to Smithfield NSW
 
 Resources:
-- Pricing: https://zqremovals.au/pricing.md
-- llms.txt: https://zqremovals.au/llms.txt
+- Pricing: https://zqremovalsadelaide.com.au/pricing.md
+- llms.txt: https://zqremovalsadelaide.com.au/llms.txt
 
 Contact details:
 - Phone: 0433 819 989
-- Website: https://zqremovals.au
+- Website: https://zqremovalsadelaide.com.au

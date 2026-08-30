@@ -29,7 +29,7 @@ test('Semrush commercial target pages expose indexable metadata, PAA answers, an
     const html = readDist(`${slug}/index.html`);
     assert.match(html, /<title>[^<]+<\/title>/i, slug);
     assert.match(html, /<meta name="description" content="[^"]+"/i, slug);
-    assert.match(html, new RegExp(`<link rel="canonical" href="https://zqremovals\\.au/${slug}/"`), slug);
+    assert.match(html, new RegExp(`<link rel="canonical" href="https://zqremovalsadelaide\\.com\\.au/${slug}/"`), slug);
     assert.equal((html.match(/<h1\b/gi) || []).length, 1, `${slug} h1`);
     assert.match(html, /data-semrush-answer-block="quote-cost"/i, `${slug} missing quote answer block`);
     assert.match(html, /stairs|lifts/i, `${slug} missing access factor`);

@@ -66,7 +66,7 @@ test('homepage metadata, schema, and crawl directives match v4 targets', async (
   assert.ok(title.length >= 50 && title.length <= 70, `title length out of range: ${title.length}`);
   assert.ok(description.length >= 120 && description.length <= 162, `description length out of range: ${description.length}`);
   assert.equal(h1Count, 1);
-  assert.match(homepage, /<link rel="canonical" href="https:\/\/zqremovals\.au\/" \/>/);
+  assert.match(homepage, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/" \/>/);
   assert.match(homepage, /<html\b[^>]*lang="en-AU"[^>]*>/);
   assert.match(homepage, /"@type": "MovingCompany"/);
   assert.match(homepage, /"@type": "Organization"/);
@@ -76,11 +76,11 @@ test('homepage metadata, schema, and crawl directives match v4 targets', async (
   assert.doesNotMatch(homepage, /<meta name="robots" content="noindex/i);
 
   assert.ok(llms.includes('ZQ Removals'));
-  assert.match(robots, /Sitemap: https:\/\/zqremovals\.au\/sitemap-index\.xml/);
+  assert.match(robots, /Sitemap: https:\/\/zqremovalsadelaide\.com\.au\/sitemap-index\.xml/);
   assert.doesNotMatch(robots, /^LLM:/m);
-  assert.match(robots, /# https:\/\/zqremovals\.au\/llms\.txt/);
+  assert.match(robots, /# https:\/\/zqremovalsadelaide\.com\.au\/llms\.txt/);
   assert.match(sitemapIndex, /<sitemapindex/);
-  assert.match(servicesSitemap, /https:\/\/zqremovals\.au\/(services\/)?[a-z-]*removals?-adelaide\//);
+  assert.match(servicesSitemap, /https:\/\/zqremovalsadelaide\.com\.au\/(services\/)?[a-z-]*removals?-adelaide\//);
 });
 
 test('GTM is always injected while optional analytics tags require v4 env vars', async () => {

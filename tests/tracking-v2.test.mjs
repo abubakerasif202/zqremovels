@@ -158,7 +158,7 @@ test("route tracking emits page_view after history changes", async () => {
   const history = {
     pushState(_state, _title, url) {
       if (typeof url === "string") {
-        const parsed = new URL(url, "https://zqremovals.au");
+        const parsed = new URL(url, "https://zqremovalsadelaide.com.au");
         location.pathname = parsed.pathname;
         location.search = parsed.search;
       }

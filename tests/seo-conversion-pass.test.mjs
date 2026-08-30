@@ -136,7 +136,7 @@ test('quote forms post directly to Web3Forms with attribution and the required c
   assert.match(contactPage, /action="https:\/\/api\.web3forms\.com\/submit"/);
   assert.match(contactPage, /method="POST"/);
   assert.match(contactPage, /name="access_key" value="80c3ff0c-7ae6-4aa7-bb66-567612739824"/);
-  assert.match(contactPage, /name="redirect" value="https:\/\/zqremovals\.au\/thank-you\/"/);
+  assert.match(contactPage, /name="redirect" value="https:\/\/zqremovalsadelaide\.com\.au\/thank-you\/"/);
   assert.doesNotMatch(clientScript, /d928b483-d5f0-40d7-9eb1-44a56130ba63/);
 });
 
@@ -156,10 +156,10 @@ test('house removals page owns the residential keyword and old local-removals UR
   assert.match(houseRemovals, /href="\/contact-us\/#quote-form"/);
   assert.match(houseRemovals, /"@type": "Service"/);
   assert.match(houseRemovals, /"serviceType": "House removal services"/);
-  assert.match(sitemap, /https:\/\/zqremovals\.au\/house-removals-adelaide\//);
+  assert.match(sitemap, /https:\/\/zqremovalsadelaide\.com\.au\/house-removals-adelaide\//);
 
   assert.match(localRemovalsRedirect, /http-equiv="refresh"/i);
-  assert.match(localRemovalsRedirect, /https:\/\/zqremovals\.au\/house-removals-adelaide\//);
+  assert.match(localRemovalsRedirect, /https:\/\/zqremovalsadelaide\.com\.au\/house-removals-adelaide\//);
   assert.ok(
     vercelConfig.redirects.some(
       ({ source, destination }) =>
@@ -260,11 +260,11 @@ test('consolidated suburb and guide URLs 301 to a hub and leave the sitemap', ()
   const guidesSitemap = readDist('sitemap-guides.xml');
   for (const r of verifiedRedirects) {
     if (r.source.startsWith('/removalists-')) {
-      assert.ok(!suburbsSitemap.includes(`zqremovals.au${r.source}`), `${r.source} still in suburb sitemap`);
+      assert.ok(!suburbsSitemap.includes(`zqremovalsadelaide.com.au${r.source}`), `${r.source} still in suburb sitemap`);
       assert.match(redirectDest(r.source), /^\/removalists-(southern|northern|adelaide)/, r.source);
     }
     if (r.source.startsWith('/adelaide-moving-guides/')) {
-      assert.ok(!guidesSitemap.includes(`zqremovals.au${r.source}`), `${r.source} still in guide sitemap`);
+      assert.ok(!guidesSitemap.includes(`zqremovalsadelaide.com.au${r.source}`), `${r.source} still in guide sitemap`);
     }
   }
 });
@@ -297,8 +297,8 @@ test('generated suburb pages ship modular content and the corrected semaphore ro
     assert.match(semaphorePage, new RegExp(`data-generated-module="${moduleName}"`), moduleName);
   }
   assert.ok(linksTo(semaphorePage, '/removalists-adelaide/'));
-  assert.ok(suburbsSitemap.includes('zqremovals.au/removalists-semaphore/'));
-  assert.ok(!suburbsSitemap.includes('zqremovals.au/removalists-semore/'));
+  assert.ok(suburbsSitemap.includes('zqremovalsadelaide.com.au/removalists-semaphore/'));
+  assert.ok(!suburbsSitemap.includes('zqremovalsadelaide.com.au/removalists-semore/'));
   assert.ok(vercelRedirects.some(({ source, destination }) => source === '/removalists-semore/' && destination.includes('removalists-semaphore')));
 });
 
@@ -327,18 +327,18 @@ test('generated-page lastmod follows source file mtimes and image sitemap is pow
   ].sort().at(-1);
 
   const semaphoreLastmod = suburbsSitemap.match(
-    /<loc>https:\/\/zqremovals\.au\/removalists-semaphore\/<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/,
+    /<loc>https:\/\/zqremovalsadelaide\.com\.au\/removalists-semaphore\/<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/,
   );
   const cheapLastmod = servicesSitemap.match(
-    /<loc>https:\/\/zqremovals\.au\/cheap-removalists-adelaide\/<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/,
+    /<loc>https:\/\/zqremovalsadelaide\.com\.au\/cheap-removalists-adelaide\/<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/,
   );
 
   assert.ok(semaphoreLastmod);
   assert.ok(cheapLastmod);
   assert.equal(semaphoreLastmod[1], expectedLastmod);
   assert.equal(cheapLastmod[1], expectedLastmod);
-  assert.match(imageSitemap, /<image:loc>https:\/\/zqremovals\.au\/media\/zq-local-premium\.webp<\/image:loc>/);
-  assert.match(imageSitemap, /<image:loc>https:\/\/zqremovals\.au\/media\/zq-service-premium\.webp<\/image:loc>/);
+  assert.match(imageSitemap, /<image:loc>https:\/\/zqremovalsadelaide\.com\.au\/media\/zq-local-premium\.webp<\/image:loc>/);
+  assert.match(imageSitemap, /<image:loc>https:\/\/zqremovalsadelaide\.com\.au\/media\/zq-service-premium\.webp<\/image:loc>/);
 });
 
 test('premium stylesheet includes clear responsive media queries', () => {

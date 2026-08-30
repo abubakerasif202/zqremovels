@@ -5,7 +5,7 @@ description: Project specific guidelines, architecture, patterns, and validation
 
 # ZQ Removals Project Guidelines
 
-This project is a generator-driven static site for `zqremovals.au`. The build process compiles templates, content partials, and JSON-LD schema into a static distribution deployed on Vercel.
+This project is a generator-driven static site for `zqremovalsadelaide.com.au`. The build process compiles templates, content partials, and JSON-LD schema into a static distribution deployed on Vercel.
 
 ---
 
@@ -120,14 +120,14 @@ All pages must be defined in the route registry. Standard pages compile down to 
     "layout": "standard",
     "title": "Best Removalists Adelaide CBD | ZQ Removals",
     "description": "Professional house and apartment removalists in Adelaide CBD. Call ZQ Removals for tight-access street loading and experienced CBD moving services.",
-    "canonical": "https://zqremovals.au/removalists-adelaide-cbd/",
+    "canonical": "https://zqremovalsadelaide.com.au/removalists-adelaide-cbd/",
     "robots": "index,follow",
     "themeColor": "#0A192F",
     "ogTitle": "Removalists Adelaide CBD | ZQ Removals",
     "ogDescription": "Professional house and apartment removalists in Adelaide CBD.",
     "ogType": "website",
-    "ogUrl": "https://zqremovals.au/removalists-adelaide-cbd/",
-    "ogImage": "https://zqremovals.au/zq-removals-social-share.webp",
+    "ogUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-cbd/",
+    "ogImage": "https://zqremovalsadelaide.com.au/zq-removals-social-share.webp",
     "twitterCard": "summary_large_image",
     "jsonLd": [
       {
@@ -150,7 +150,7 @@ Legacy crawlable aliases are mapped as redirects inside `pages.json` to keep the
     "layout": "redirect",
     "title": "Adelaide CBD Removalists | Redirecting to Canonical Page",
     "description": "This legacy Adelaide CBD URL now redirects to the canonical page.",
-    "canonical": "https://zqremovals.au/removalists-adelaide-cbd/",
+    "canonical": "https://zqremovalsadelaide.com.au/removalists-adelaide-cbd/",
     "robots": "noindex,nofollow",
     "refresh": "0; url=/removalists-adelaide-cbd/",
     "contentFile": "content/legacy-redirects/adelaide-cbd.html"
@@ -226,7 +226,7 @@ The project is hosted on Vercel. Code pushed to the production branch will trigg
 ## Critical Rules
 
 1. **Never Patch `site-dist/` Directly** - Any modifications made directly to `site-dist/` will be overwritten on the next build. Always modify `site-src/` files or the generator script [build-site.mjs](file:///C:/Users/abuba/zq/scripts/build-site.mjs).
-2. **Canonical Host Consistency** - The canonical domain host is the apex domain: `https://zqremovals.au`. All canonical URLs, JSON-LD `@id` elements, `og:url` values, sitemap `<loc>` paths, and image URLs must use the apex host (never include `www`).
+2. **Canonical Host Consistency** - The canonical domain host is the apex domain: `https://zqremovalsadelaide.com.au`. All canonical URLs, JSON-LD `@id` elements, `og:url` values, sitemap `<loc>` paths, and image URLs must use the apex host (never include `www`).
 3. **Sitemap Inclusion Policies** - A page is only included in the sitemap if it is indexable, is not a redirect layout, does not return 404, does not have `noindex` rules, and canonical points to a live destination.
 4. **Structured Data Validation** - Keep structured data valid and minimal. Do not insert duplicate `FAQPage` or `BreadcrumbList` nodes on a single route. Ensure all schema URLs are compliant with the canonical apex domain.
 5. **No Emojis** - Do not introduce emojis in the code files, comments, or documentation files.

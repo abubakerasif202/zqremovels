@@ -44,7 +44,7 @@
 
 - Confirm the production build succeeds before deploy
 - Confirm the site renders the apex host only
-- Confirm canonical and sitemap URLs remain on `https://zqremovals.au/`
+- Confirm canonical and sitemap URLs remain on `https://zqremovalsadelaide.com.au/`
 
 ## Search Console validation check
 

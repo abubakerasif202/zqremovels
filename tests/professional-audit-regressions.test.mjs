@@ -79,7 +79,7 @@ test('unsupported AggregateRating schema and legacy guide sitemap URLs stay out 
   }
 
   const sitemap = readFileSync(path.join(distDir, 'sitemap.xml'), 'utf8');
-  assert.doesNotMatch(sitemap, /https:\/\/zqremovals\.au\/guides\//, 'legacy /guides/ URLs should not be in sitemap.xml');
+  assert.doesNotMatch(sitemap, /https:\/\/zqremovalsadelaide\.com\.au\/guides\//, 'legacy /guides/ URLs should not be in sitemap.xml');
 });
 
 test('business identity is centralized without an unverified public ABR link', async () => {

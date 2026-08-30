@@ -487,16 +487,26 @@ function validateRedirects(redirectAuditState, failuresList) {
       failuresList.push(`malformed redirect rule: ${JSON.stringify(redirect)}`);
       continue;
     }
-    if (seenSources.has(source)) {
+    const hostCondition = Array.isArray(redirect.has)
+      ? redirect.has
+        .filter((condition) => condition && condition.type === 'host')
+        .map((condition) => String(condition.value || '').toLowerCase())
+        .sort()
+        .join(',')
+      : '';
+    const sourceKey = `${source}|${hostCondition}`;
+    if (seenSources.has(sourceKey)) {
       failuresList.push(`duplicate redirect source: ${source}`);
     }
-    seenSources.add(source);
+    seenSources.add(sourceKey);
 
     if (source === destination) {
       failuresList.push(`redirect loop: ${source}`);
     }
-    if (destination.includes('www.zqremovals.au')) {
-      failuresList.push(`redirect destination uses www host: ${source} -> ${destination}`);
+    if (/https?:\/\/(?:www\.)?zqremovals\.au(?:\/|$)/i.test(destination)
+      || /https?:\/\/www\.zqremovalsadelaide\.com\.au(?:\/|$)/i.test(destination)
+      || /https?:\/\/[^/]+\.vercel\.app(?:\/|$)/i.test(destination)) {
+      failuresList.push(`redirect destination uses a non-canonical host: ${source} -> ${destination}`);
     }
     if (!hasCanonicalTrailingSlash(destination)) {
       failuresList.push(`redirect destination missing trailing slash: ${source} -> ${destination}`);
@@ -516,8 +526,10 @@ function validateRedirects(redirectAuditState, failuresList) {
       failuresList.push(`redirect page missing canonical destination: ${source}`);
       continue;
     }
-    if (destination.includes('www.zqremovals.au')) {
-      failuresList.push(`redirect page destination uses www host: ${source} -> ${destination}`);
+    if (/https?:\/\/(?:www\.)?zqremovals\.au(?:\/|$)/i.test(destination)
+      || /https?:\/\/www\.zqremovalsadelaide\.com\.au(?:\/|$)/i.test(destination)
+      || /https?:\/\/[^/]+\.vercel\.app(?:\/|$)/i.test(destination)) {
+      failuresList.push(`redirect page destination uses a non-canonical host: ${source} -> ${destination}`);
     }
     if (!hasCanonicalTrailingSlash(destination)) {
       failuresList.push(`redirect page destination missing trailing slash: ${source} -> ${destination}`);

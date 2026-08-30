@@ -8,8 +8,8 @@ Set `PUBLIC_GOOGLE_MAPS_API_KEY` as a browser key in the required Vercel environ
 
 Restrict the key to these HTTP referrers:
 
-- `https://zqremovals.au/*`
-- `https://www.zqremovals.au/*`
+- `https://zqremovalsadelaide.com.au/*`
+- `https://zqremovalsadelaide.com.au/*`
 
 Add localhost only when local development genuinely needs the interactive map. Restrict the key to **Maps JavaScript API** only. The current locator uses local HTML filtering and does not require Places, Directions, Distance Matrix, or Place Details APIs.
 

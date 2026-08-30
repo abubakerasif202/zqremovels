@@ -19,8 +19,8 @@ This repo can use the official Google Search Console API for SEO analysis withou
 
 ## Default Property
 
-- Default property: `sc-domain:zqremovals.au`
-- Fallback URL-prefix property: `https://zqremovals.au/`
+- Default property: `sc-domain:zqremovalsadelaide.com.au`
+- Fallback URL-prefix property: `https://zqremovalsadelaide.com.au/`
 
 ## Authentication
 
@@ -90,12 +90,12 @@ npm run gsc:submit-sitemap
 
 By default the script submits:
 
-- `https://zqremovals.au/sitemap.xml`
+- `https://zqremovalsadelaide.com.au/sitemap.xml`
 
 Override with:
 
 ```powershell
-$env:GSC_SITEMAP_URL='https://zqremovals.au/sitemap.xml'
+$env:GSC_SITEMAP_URL='https://zqremovalsadelaide.com.au/sitemap.xml'
 ```
 
 ## Typical Workflow

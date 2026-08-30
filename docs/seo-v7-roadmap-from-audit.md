@@ -18,7 +18,7 @@ Build the next growth layer after SEO V5 and V6 by improving trust readiness, hy
 
 - Use source data and generator helpers in `site-src/data/seo-v4.mjs`.
 - Keep `site-dist/` generated only.
-- Use the apex canonical host `https://zqremovals.au`.
+- Use the apex canonical host `https://zqremovalsadelaide.com.au`.
 - Add visible FAQ before adding FAQPage schema.
 - Use Article schema only for guide pages.
 - Keep route pages phrased as Adelaide-origin interstate removals.

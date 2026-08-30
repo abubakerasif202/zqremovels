@@ -30,7 +30,7 @@ Only keep categories that are available in GBP and accurately reflect the servic
 
 - Business name matches `ZQ Removals`
 - Phone matches `0433 819 989`
-- Website matches `https://zqremovals.au/`
+- Website matches `https://zqremovalsadelaide.com.au/`
 - Service area is Adelaide, South Australia
 - Description is factual and concise
 - Opening hours are current
@@ -130,7 +130,7 @@ Use a consistent pattern:
 
 Recommended destination:
 
-- `https://zqremovals.au/?utm_source=google&utm_medium=organic&utm_campaign=gbp&utm_content=website`
+- `https://zqremovalsadelaide.com.au/?utm_source=google&utm_medium=organic&utm_campaign=gbp&utm_content=website`
 
 Use separate UTMs for posts and photo links where needed.
 

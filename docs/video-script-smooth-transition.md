@@ -52,7 +52,7 @@
 ### 0:55 - 1:00 | Call to Action
 * **Visual:** Screen fades to a clean white background with the ZQ Removals logo (256px variant). 
   - **Text:** FIXED-PRICE ADELAIDE REMOVALISTS. 10% OFF NEW CLIENTS.
-  - **URL:** zqremovals.au
+  - **URL:** zqremovalsadelaide.com.au
   - **Phone:** 0433 819 989
 * **SFX:** Final resonant bass note.
 * **Voiceover:**

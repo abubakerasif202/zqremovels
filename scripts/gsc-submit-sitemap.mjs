@@ -3,9 +3,9 @@ import { google } from 'googleapis';
 
 const root = process.cwd();
 const tokenPath = `${root}/.gsc-token.json`;
-const defaultSite = 'sc-domain:zqremovals.au';
-const fallbackSite = 'https://zqremovals.au/';
-const sitemapUrl = process.env.GSC_SITEMAP_URL || 'https://zqremovals.au/sitemap.xml';
+const defaultSite = 'sc-domain:zqremovalsadelaide.com.au';
+const fallbackSite = 'https://zqremovalsadelaide.com.au/';
+const sitemapUrl = process.env.GSC_SITEMAP_URL || 'https://zqremovalsadelaide.com.au/sitemap.xml';
 const site = process.env.GSC_SITE || defaultSite;
 
 if (process.env.GSC_WRITE_SCOPE !== '1') {

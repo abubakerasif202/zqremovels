@@ -1,16 +1,16 @@
 # Google Search Console Instructions Plan (ZQ Removals)
 
-This plan is tailored to this repository and live site setup (`https://zqremovals.au/`), including the existing sitemap path in `robots.txt`.
+This plan is tailored to this repository and live site setup (`https://zqremovalsadelaide.com.au/`), including the existing sitemap path in `robots.txt`.
 
 ## 1) Pre-flight checklist
 
 - Confirm you have:
   - Google account access for Search Console
-  - Admin access to DNS for `zqremovals.au`
+  - Admin access to DNS for `zqremovalsadelaide.com.au`
   - Access to the production deployment project (Vercel)
 - Confirm production URLs:
-  - Canonical homepage: `https://zqremovals.au/`
-  - Sitemap: `https://zqremovals.au/sitemap.xml`
+  - Canonical homepage: `https://zqremovalsadelaide.com.au/`
+  - Sitemap: `https://zqremovalsadelaide.com.au/sitemap.xml`
 
 ## 2) Add property in Google Search Console
 
@@ -18,12 +18,12 @@ Use **Domain property** (recommended) for full coverage:
 
 1. Open Search Console → **Add property**.
 2. Select **Domain**.
-3. Enter: `zqremovals.au`.
+3. Enter: `zqremovalsadelaide.com.au`.
 4. Copy the DNS TXT verification record Google provides.
 
 ## 3) Verify ownership with DNS (recommended)
 
-1. Open your DNS provider for `zqremovals.au`.
+1. Open your DNS provider for `zqremovalsadelaide.com.au`.
 2. Add a TXT record with:
    - Host/Name: `@` (or blank, depending on provider)
    - Value: `google-site-verification=...` (exact token from Google)
@@ -34,7 +34,7 @@ Use **Domain property** (recommended) for full coverage:
 ## 4) Submit sitemap
 
 1. In Search Console, open **Indexing → Sitemaps**.
-2. Submit: `https://zqremovals.au/sitemap.xml`
+2. Submit: `https://zqremovalsadelaide.com.au/sitemap.xml`
 3. Confirm status is **Success**.
 4. Recheck after each production deployment batch.
 
@@ -69,7 +69,7 @@ Track these Search Console reports weekly:
 After major SEO/content changes in this repo:
 
 1. Merge and deploy.
-2. Confirm `https://zqremovals.au/sitemap.xml` is live.
+2. Confirm `https://zqremovalsadelaide.com.au/sitemap.xml` is live.
 3. Re-submit sitemap in Search Console.
 4. Inspect and request indexing for changed high-value pages.
 5. Log outcomes (indexed/not indexed, warnings, fixes required).

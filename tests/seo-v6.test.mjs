@@ -74,9 +74,9 @@ test('sitemap contains the canonical pricing page and excludes consolidated pric
   const sitemap = sitemapFiles
     .map((file) => readFileSync(path.join(distDir, file), 'utf8'))
     .join('\n');
-  assert.match(sitemap, /https:\/\/zqremovals\.au\/removalists-adelaide-prices\//);
+  assert.match(sitemap, /https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide-prices\//);
   for (const slug of ['removalist-cost-adelaide', 'moving-quotes-adelaide', 'fixed-price-removalists-adelaide', 'budget-removalists-adelaide']) {
-    assert.doesNotMatch(sitemap, new RegExp(`https://zqremovals\\.au/${slug}/`), slug);
+    assert.doesNotMatch(sitemap, new RegExp(`https://zqremovalsadelaide\\.com\\.au/${slug}/`), slug);
   }
 });
 
@@ -104,7 +104,7 @@ test('Door 2 Door Movers competitor alternative page stays honest and discoverab
   assert.ok(sourcePage, 'missing generated competitor alternative metadata');
   assert.equal(sourcePage.generatedKind, 'comparison');
   assert.match(html, /<title>Door 2 Door Movers Adelaide Alternative \| Compare ZQ<\/title>/);
-  assert.match(html, /<link rel="canonical" href="https:\/\/zqremovals\.au\/door-2-door-movers-alternative-adelaide\/" \/>/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/door-2-door-movers-alternative-adelaide\/" \/>/);
   assert.match(html, /Door 2 Door Movers/i);
   assert.match(html, /ZQ Removals/i);
   assert.match(html, /fixed-price/i);
@@ -114,7 +114,7 @@ test('Door 2 Door Movers competitor alternative page stays honest and discoverab
   assert.ok((html.match(/class="faq-item/g) || []).length >= 4, 'competitor page should include visible FAQ support');
   assert.doesNotMatch(html, /scam|rip[- ]?off|avoid Door 2 Door|bad removalist/i);
   assert.match(guideHub, /href="\/door-2-door-movers-alternative-adelaide\/"/);
-  assert.match(sitemapGuides, /https:\/\/zqremovals\.au\/door-2-door-movers-alternative-adelaide\//);
+  assert.match(sitemapGuides, /https:\/\/zqremovalsadelaide\.com\.au\/door-2-door-movers-alternative-adelaide\//);
 });
 
 function readDist(relativePath) {

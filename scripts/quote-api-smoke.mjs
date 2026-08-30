@@ -69,7 +69,7 @@ const validPayload = {
   phone: '+61 400 000 000',
   email: 'test@example.com',
   move_details: 'Two sofas, a fridge, and stair access at the drop-off property.',
-  source_page: 'https://zqremovals.au/contact-us/',
+  source_page: 'https://zqremovalsadelaide.com.au/contact-us/',
   attribution: {
     utm_source: 'google',
     utm_medium: 'cpc',
@@ -78,7 +78,7 @@ const validPayload = {
     utm_term: 'fixed-price-quote',
     gclid: 'test-gclid',
     fbclid: 'test-fbclid',
-    landing_page: 'https://zqremovals.au/?utm_source=google',
+    landing_page: 'https://zqremovalsadelaide.com.au/?utm_source=google',
   },
 };
 
@@ -88,7 +88,7 @@ const simpleContactPayload = {
   email: 'simple@example.com',
   phone: '+61 411 111 111',
   message: 'Need a quote for a move next month.',
-  source_page: 'https://zqremovals.au/contact-us/',
+  source_page: 'https://zqremovalsadelaide.com.au/contact-us/',
 };
 
 async function runMissingKeySmoke() {
@@ -289,7 +289,7 @@ async function runBrowserFormPayloadSmoke() {
       phone: '+61 400 111 222',
       email: 'browser@example.com',
       move_details: 'Browser submission should redirect after success.',
-      source_page: 'https://zqremovals.au/contact-us/',
+      source_page: 'https://zqremovalsadelaide.com.au/contact-us/',
       utm_source: 'google',
       utm_medium: 'cpc',
       utm_campaign: 'adelaide-removals',
@@ -297,7 +297,7 @@ async function runBrowserFormPayloadSmoke() {
       utm_term: 'fixed-price-quote',
       gclid: 'browser-gclid',
       fbclid: 'browser-fbclid',
-      landing_page: 'https://zqremovals.au/?utm_source=google',
+      landing_page: 'https://zqremovalsadelaide.com.au/?utm_source=google',
     }).toString();
 
     const res = createResponse();
@@ -305,7 +305,7 @@ async function runBrowserFormPayloadSmoke() {
       createFormRequest(body, {
         accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         'content-type': 'application/x-www-form-urlencoded',
-        referer: 'https://zqremovals.au/contact-us/',
+        referer: 'https://zqremovalsadelaide.com.au/contact-us/',
       }),
       res,
     );
@@ -313,7 +313,7 @@ async function runBrowserFormPayloadSmoke() {
     assert.equal(res.statusCode, 303);
     assert.equal(res.headers.location, '/thank-you/');
     assert.equal(upstreamBody.access_key, 'primary-test-key');
-    assert.equal(upstreamBody.source_page, 'https://zqremovals.au/contact-us/');
+    assert.equal(upstreamBody.source_page, 'https://zqremovalsadelaide.com.au/contact-us/');
     assert.equal(upstreamBody.utm_source, 'google');
     assert.equal(upstreamBody.utm_medium, 'cpc');
     assert.equal(upstreamBody.utm_campaign, 'adelaide-removals');

@@ -1,6 +1,6 @@
 # ZQ Removals Codex Guide
 
-This repo is a generator-driven static site for `zqremovals.au`. Future Codex runs should treat `site-src/` and `scripts/build-site.mjs` as the source of truth and should not patch `site-dist/` directly.
+This repo is a generator-driven static site for `zqremovalsadelaide.com.au`. Future Codex runs should treat `site-src/` and `scripts/build-site.mjs` as the source of truth and should not patch `site-dist/` directly.
 
 ## Repo Layout
 
@@ -40,7 +40,7 @@ Run from repo root: `C:\Users\abuba\Downloads\zq`
 ## Canonical Host Policy
 
 - Canonical host for generated output is the apex domain:
-  `https://zqremovals.au`
+  `https://zqremovalsadelaide.com.au`
 - All of the following must use the same host:
   canonical tags, `og:url`, JSON-LD URLs and `@id` values, sitemap `<loc>` values, default social image URLs, logo URLs, and any generator-built absolute URLs.
 - Do not reintroduce mixed `www`/apex output into generated HTML.

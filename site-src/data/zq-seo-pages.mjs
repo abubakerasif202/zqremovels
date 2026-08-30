@@ -3,7 +3,7 @@ import { zqServiceSitemapOutputs } from './zq-services.mjs';
 import { zqPrioritySuburbRoutes } from './zq-suburbs.mjs';
 
 export const zqCanonicalHostPolicy = {
-  siteUrl: 'https://zqremovals.au',
+  siteUrl: 'https://zqremovalsadelaide.com.au',
   note: 'Repo policy and Vercel redirects use the apex host as canonical.',
 };
 

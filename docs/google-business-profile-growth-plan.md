@@ -54,4 +54,4 @@ Hi [Name], thank you for choosing ZQ Removals. If you were happy with the move, 
 
 Use a URL like:
 
-`https://zqremovals.au/contact-us/?utm_source=google&utm_medium=organic&utm_campaign=gbp_website_button#quote-form`
+`https://zqremovalsadelaide.com.au/contact-us/?utm_source=google&utm_medium=organic&utm_campaign=gbp_website_button#quote-form`

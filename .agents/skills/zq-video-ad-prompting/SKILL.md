@@ -14,7 +14,7 @@ Every video ad script must follow the **Hook-Pain-Proof-CTA** framework, tailore
 1. **The Hook (0-3s)**: Visually striking, high-contrast, text-led, disrupting the scroll. Show real Adelaide landmarks or high-end furniture handling.
 2. **The Pain (3-10s)**: Target "Hourly-Rate Stuffing" (movers taking slow routes, taking breaks on your dime) or "Apartment Logistical Lockout" (building managers rejecting moves due to lift/gate issues).
 3. **The Proof (10-22s)**: Highlight ZQ's fixed-price guarantee (no hidden fees) and precision access planning (lift bookings, loading zones, stair carry).
-4. **The CTA (22-30s)**: Direct driving action to get a "Fixed-Price Move Brief" at `zqremovals.au`.
+4. **The CTA (22-30s)**: Direct driving action to get a "Fixed-Price Move Brief" at `zqremovalsadelaide.com.au`.
 
 ## Aesthetic Directives
 - **Visuals**: Modern, cinematic, editorial. Dark forest greens, gold accents, crisp lighting, high-end residential interiors.

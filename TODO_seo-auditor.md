@@ -3,7 +3,7 @@
 ## Context
 
 - [x] **SEO-CTX-1.1 Site Scope**:
-  - **Site URL**: `https://zqremovals.au/`
+  - **Site URL**: `https://zqremovalsadelaide.com.au/`
   - **Scope**: Full root-domain audit of the generator-driven static site and live production headers.
   - **Source of truth**: `site-src/`, `site-src/pages.json`, `site-src/data/*.mjs`, `site-src/content/**`, `scripts/build-site.mjs`, `vercel.json`, `tests/**`.
   - **Generated evidence**: `npm run build` produced `320` HTML files; `node scripts/seo-validate.mjs` passed for `299` pages; output crawl found `288` indexable pages and `32` noindex pages.
@@ -31,8 +31,8 @@
 ### 1. Crawlability and Indexing
 
 - [x] **SEO-FIND-1.1 Crawl and sitemap baseline is healthy**:
-  - **Location**: `https://zqremovals.au/robots.txt`, `https://zqremovals.au/sitemap.xml`, `scripts/build-site.mjs`
-  - **Description**: Production `robots.txt` allows crawling and points to `https://zqremovals.au/sitemap-index.xml`. Production `sitemap.xml` is a sitemap index with pages, services, suburbs, guides, and image sitemaps. Generated sitemap locations use the apex host.
+  - **Location**: `https://zqremovalsadelaide.com.au/robots.txt`, `https://zqremovalsadelaide.com.au/sitemap.xml`, `scripts/build-site.mjs`
+  - **Description**: Production `robots.txt` allows crawling and points to `https://zqremovalsadelaide.com.au/sitemap-index.xml`. Production `sitemap.xml` is a sitemap index with pages, services, suburbs, guides, and image sitemaps. Generated sitemap locations use the apex host.
   - **Impact**: Low
   - **Effort**: Low
   - **Recommendation**: Keep the sitemap index submitted in Google Search Console and validate after every deploy.
@@ -53,7 +53,7 @@
 
 - [x] **SEO-FIND-1.4 Legacy redirects are healthy in sampled live checks**:
   - **Location**: `vercel.json`, live URLs
-  - **Description**: Sampled redirects: `http://zqremovals.au/` to HTTPS in `1` hop; `https://www.zqremovals.au/` to apex in `1` hop; `adelaide-cbd.html` to `/removalists-adelaide-cbd/` in `1` hop; `/removalists-semore/` returns `308` to `/removalists-semaphore/`.
+  - **Description**: Sampled redirects: `http://zqremovalsadelaide.com.au/` to HTTPS in `1` hop; `https://zqremovalsadelaide.com.au/` to apex in `1` hop; `adelaide-cbd.html` to `/removalists-adelaide-cbd/` in `1` hop; `/removalists-semore/` returns `308` to `/removalists-semaphore/`.
   - **Impact**: Low
   - **Effort**: Low
   - **Recommendation**: Keep future legacy aliases as direct canonical-route redirects with trailing slash.
@@ -92,7 +92,7 @@
 
 - [ ] **SEO-FIND-3.1 Field Core Web Vitals were not measurable from this environment**:
   - **Location**: PageSpeed Insights API, Lighthouse CI attempt
-  - **Description**: PageSpeed Insights returned quota error `429 RESOURCE_EXHAUSTED`. Local LHCI was attempted but mis-targeted the remote URL as `https://zqremovals.au:<localPort>/`.
+  - **Description**: PageSpeed Insights returned quota error `429 RESOURCE_EXHAUSTED`. Local LHCI was attempted but mis-targeted the remote URL as `https://zqremovalsadelaide.com.au:<localPort>/`.
   - **Impact**: High
   - **Effort**: 2-4 hours
   - **Recommendation**: Run PSI manually or with an authenticated quota, and fix LHCI config so it audits the local static dist URLs or the live URL directly. Track LCP <= 2.5s, INP <= 200ms, CLS <= 0.1, and TTFB <= 800ms per web.dev guidance.
@@ -494,10 +494,10 @@ node --test tests/eeat-audit.test.mjs
 - [ ] **SEO-CMD-1.4 Live crawl smoke checks**:
 
 ```bash
-curl -I https://zqremovals.au/robots.txt
-curl -I https://zqremovals.au/sitemap.xml
-curl -I -L https://www.zqremovals.au/
-curl -I -L https://zqremovals.au/adelaide-cbd.html
+curl -I https://zqremovalsadelaide.com.au/robots.txt
+curl -I https://zqremovalsadelaide.com.au/sitemap.xml
+curl -I -L https://zqremovalsadelaide.com.au/
+curl -I -L https://zqremovalsadelaide.com.au/adelaide-cbd.html
 ```
 
 - [ ] **SEO-CMD-1.5 Performance and tracking checks**:

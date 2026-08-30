@@ -84,7 +84,7 @@ test('canonical pricing page carries full metadata, H1, canonical, CTAs, FAQs, s
 
   assert.match(html, /<title>[^<]*ZQ[^<]*<\/title>/);
   assert.match(html, /<meta name="description" content="[^"]{80,}"/);
-  assert.match(html, new RegExp(`<link rel="canonical" href="https://zqremovals\\.au/${pricePage}/"`));
+  assert.match(html, new RegExp(`<link rel="canonical" href="https://zqremovalsadelaide\\.com\\.au/${pricePage}/"`));
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
   assert.match(html, /href="tel:\+61433819989"/);
   assert.match(html, /href="\/contact-us\/#quote-form"/);

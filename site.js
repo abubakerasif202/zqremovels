@@ -540,7 +540,7 @@ function buildQuoteSubmissionPayload(payload) {
     subject: getTrimmedPayloadValue(payload, "subject") || "Quote request - ZQ Removals",
     from_name: fullName || getTrimmedPayloadValue(payload, "from_name") || "ZQ Removals Website",
     botcheck: getFirstNonEmptyPayloadValue(payload, ["botcheck"]),
-    redirect: getTrimmedPayloadValue(payload, "redirect") || "https://zqremovals.au/thank-you/",
+    redirect: getTrimmedPayloadValue(payload, "redirect") || "https://zqremovalsadelaide.com.au/thank-you/",
     source_page: window.location.href,
     utm_source: attribution.utm_source || getTrimmedPayloadValue(payload, "utm_source"),
     utm_medium: attribution.utm_medium || getTrimmedPayloadValue(payload, "utm_medium"),

@@ -52,7 +52,7 @@ test('v7 conversion pages exist with forms, call CTAs, and canonical tags', () =
   const facebook = readDist(path.join('adelaide-removalists-facebook-offer', 'index.html'));
 
   assert.match(thankYou, /data-conversion-success="quote_form_success"/);
-  assert.match(thankYou, /<link rel="canonical" href="https:\/\/zqremovals\.au\/thank-you\/"/);
+  assert.match(thankYou, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/thank-you\/"/);
   assert.match(thankYou, /noindex,follow/);
 
   for (const html of [facebook]) {
@@ -61,10 +61,10 @@ test('v7 conversion pages exist with forms, call CTAs, and canonical tags', () =
     assert.match(html, /action="https:\/\/api\.web3forms\.com\/submit"/);
     assert.match(html, /method="POST"/);
     assert.match(html, /name="access_key" value="80c3ff0c-7ae6-4aa7-bb66-567612739824"/);
-    assert.match(html, /name="redirect" value="https:\/\/zqremovals\.au\/thank-you\/"/);
+    assert.match(html, /name="redirect" value="https:\/\/zqremovalsadelaide\.com\.au\/thank-you\/"/);
     assert.match(html, /href="tel:\+61433819989"/);
     assert.match(html, /FAQPage/);
-    assert.match(html, /<link rel="canonical" href="https:\/\/zqremovals\.au\//);
+    assert.match(html, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\//);
   }
 
   assert.match(facebook, /Moving in Adelaide\? Get a Fast Quote Today/);

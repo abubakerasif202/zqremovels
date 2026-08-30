@@ -2,14 +2,14 @@
 
 ## Priority inspection URLs
 
-- https://zqremovals.au/
-- https://zqremovals.au/cheap-removalists-adelaide/
-- https://zqremovals.au/affordable-removalists-adelaide/
-- https://zqremovals.au/removalist-cost-adelaide/
-- https://zqremovals.au/moving-quotes-adelaide/
-- https://zqremovals.au/fixed-price-removalists-adelaide/
-- https://zqremovals.au/removalists-adelaide/
-- https://zqremovals.au/services/local-removals-adelaide/
+- https://zqremovalsadelaide.com.au/
+- https://zqremovalsadelaide.com.au/cheap-removalists-adelaide/
+- https://zqremovalsadelaide.com.au/affordable-removalists-adelaide/
+- https://zqremovalsadelaide.com.au/removalist-cost-adelaide/
+- https://zqremovalsadelaide.com.au/moving-quotes-adelaide/
+- https://zqremovalsadelaide.com.au/fixed-price-removalists-adelaide/
+- https://zqremovalsadelaide.com.au/removalists-adelaide/
+- https://zqremovalsadelaide.com.au/services/local-removals-adelaide/
 
 ## Sitemap submission checklist
 

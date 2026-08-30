@@ -1,6 +1,6 @@
 # ZQ Removals - Site Structure & Architecture Design
 
-This document outlines the URL directory architecture, sitemap rules, redirect policies, and structural quality gates for the **ZQ Removals** static website generator (`https://zqremovals.au`). It acts as a guide for ensuring crawl hygiene, cluster strength, and technical SEO compliance across all future updates.
+This document outlines the URL directory architecture, sitemap rules, redirect policies, and structural quality gates for the **ZQ Removals** static website generator (`https://zqremovalsadelaide.com.au`). It acts as a guide for ensuring crawl hygiene, cluster strength, and technical SEO compliance across all future updates.
 
 ---
 
@@ -101,7 +101,7 @@ To protect the crawling budget and site indexing health, future developers and c
 * **Intent:** Page is explicitly meant to be public and indexable.
 * **Robots Rule:** Page does not contain a `noindex` tag.
 * **Layout Rule:** Page uses the `standard` layout (not `redirect` or `bare`).
-* **Canonical Match:** Page's canonical URL matches the target URL exactly on the host `https://zqremovals.au` (including trailing slashes).
+* **Canonical Match:** Page's canonical URL matches the target URL exactly on the host `https://zqremovalsadelaide.com.au` (including trailing slashes).
 * **Utility Exclusions:** Specifically exclude the following files from the sitemap:
   * `404.html`
   * `thank-you.html` (or equivalent post-submit target)
@@ -117,11 +117,11 @@ To protect the crawling budget and site indexing health, future developers and c
 The apex domain **MUST** be used as the absolute canonical host. The generator forces this behavior across all generated elements.
 
 > [!CAUTION]
-> Never mix `www.zqremovals.au` and `zqremovals.au` in HTML metadata or sitemaps. Mixed targets trigger duplicate content penalties in modern search engines.
+> Never mix `zqremovalsadelaide.com.au` and `zqremovalsadelaide.com.au` in HTML metadata or sitemaps. Mixed targets trigger duplicate content penalties in modern search engines.
 
-* **Host Value:** `https://zqremovals.au`
+* **Host Value:** `https://zqremovalsadelaide.com.au`
 * **Coverage:** Canonical tags, `og:url`, JSON-LD `@id` elements, sitemap `<loc>` tags, social share image paths, and internal absolute hrefs.
-* **Trailing Slash:** All canonical links to page folders must contain a trailing slash (e.g., `https://zqremovals.au/removalists-adelaide-cbd/`).
+* **Trailing Slash:** All canonical links to page folders must contain a trailing slash (e.g., `https://zqremovalsadelaide.com.au/removalists-adelaide-cbd/`).
 
 ### Redirect Mapping Mappings (Legacy URLs)
 

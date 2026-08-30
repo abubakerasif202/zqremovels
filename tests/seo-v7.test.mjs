@@ -8,7 +8,7 @@ import { businessIdentity } from '../site-src/data/business.mjs';
 
 const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
-const canonicalHost = 'https://zqremovals.au';
+const canonicalHost = 'https://zqremovalsadelaide.com.au';
 const expectedAbn = businessIdentity.abn.formatted;
 
 const v7Docs = [

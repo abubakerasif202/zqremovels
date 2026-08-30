@@ -29,7 +29,7 @@ Our quotes are calculated based on the following key operational factors:
 ## How to Get a Quote
 We provide a detailed, written proposal after reviewing your move brief. 
 
-- **Quote Form:** [https://zqremovals.au/contact-us/#quote-form](https://zqremovals.au/contact-us/#quote-form)
+- **Quote Form:** [https://zqremovalsadelaide.com.au/contact-us/#quote-form](https://zqremovalsadelaide.com.au/contact-us/#quote-form)
 - **Phone:** 0433 819 989
 - **Email:** admin@zqremovals.au
 

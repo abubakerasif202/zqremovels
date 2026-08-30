@@ -32,7 +32,7 @@ test('Semrush overlap URLs redirect to one canonical page per intent', () => {
     assert.match(html, /<meta name="robots" content="noindex,nofollow"/i, output);
     assert.match(
       html,
-      new RegExp(`<link rel="canonical" href="https://zqremovals\\.au${escapeRegex(destination)}"`),
+      new RegExp(`<link rel="canonical" href="https://zqremovalsadelaide\\.com\\.au${escapeRegex(destination)}"`),
       output,
     );
     assert.match(
@@ -59,7 +59,7 @@ test('canonical winners remain indexable and ranking URLs stay unchanged', () =>
     assert.match(html, /<meta name="robots" content="index,follow,max-image-preview:large"/i, output);
     assert.match(
       html,
-      new RegExp(`<link rel="canonical" href="https://zqremovals\\.au${escapeRegex(canonical)}"`),
+      new RegExp(`<link rel="canonical" href="https://zqremovalsadelaide\\.com\\.au${escapeRegex(canonical)}"`),
       output,
     );
   }
@@ -85,7 +85,7 @@ test('sitemaps and indexable HTML do not advertise consolidated aliases', () => 
     .join('\n');
 
   for (const alias of aliasPatterns) {
-    assert.doesNotMatch(sitemap, new RegExp(`https://zqremovals\\.au${escapeRegex(alias)}`), alias);
+    assert.doesNotMatch(sitemap, new RegExp(`https://zqremovalsadelaide\\.com\\.au${escapeRegex(alias)}`), alias);
   }
 
   for (const htmlFile of walkHtmlFiles(distDir)) {

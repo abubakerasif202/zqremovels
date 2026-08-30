@@ -38,8 +38,8 @@ function extractInternalLinks(html = '') {
   const matches = [...html.matchAll(/<a[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi)];
   for (const match of matches) {
     let href = match[1];
-    if (href.startsWith('https://zqremovals.au')) {
-      href = href.replace('https://zqremovals.au', '');
+    if (href.startsWith('https://zqremovalsadelaide.com.au')) {
+      href = href.replace('https://zqremovalsadelaide.com.au', '');
     }
     const text = stripTags(match[2]).replace(/\s+/g, ' ').trim();
     if (href.startsWith('/') && !href.startsWith('//') && !href.startsWith('/#') && !href.startsWith('/tel:')) {
@@ -372,7 +372,7 @@ async function analyze() {
   
   // Write report
   let report = `# ZQ Removals Internal Linking Analysis Report\n\n`;
-  report += `This report provides an in-depth audit of the internal linking structure for [zqremovals.au](https://zqremovals.au). It detects orphan pages, weakly linked nodes, anchor text cannibalization, and identifies high-priority internal link opportunities to optimize crawlability and semantic authority flow.\n\n`;
+  report += `This report provides an in-depth audit of the internal linking structure for [zqremovalsadelaide.com.au](https://zqremovalsadelaide.com.au). It detects orphan pages, weakly linked nodes, anchor text cannibalization, and identifies high-priority internal link opportunities to optimize crawlability and semantic authority flow.\n\n`;
   
   report += `## Summary Dashboard\n\n`;
   report += `| Metric | Value | Description |\n`;
@@ -485,7 +485,7 @@ async function analyze() {
   }
   
   report += `## 6. Sitemaps and Canonical Validation\n`;
-  report += `- All page URLs in sitemap point to the apex domain \`https://zqremovals.au\` per policy.\n`;
+  report += `- All page URLs in sitemap point to the apex domain \`https://zqremovalsadelaide.com.au\` per policy.\n`;
   report += `- No utility pages, 404, or redirected aliases are included in the sitemaps.\n`;
   
   // Write the report file

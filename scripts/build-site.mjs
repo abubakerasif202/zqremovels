@@ -219,7 +219,7 @@ function applyVerifiedSeoPolicy(page) {
   }
 
   const normalizeEntityId = (value) => typeof value === 'string'
-    ? value.replaceAll('https://zqremovals.au/#business', 'https://zqremovals.au/#movingcompany')
+    ? value.replaceAll('https://zqremovalsadelaide.com.au/#business', 'https://zqremovalsadelaide.com.au/#movingcompany')
     : value;
   page.jsonLd = (page.jsonLd || []).map(normalizeEntityId);
 }
@@ -2969,7 +2969,7 @@ function buildOrganizationJsonLd(page) {
     {
       '@context': 'https://schema.org',
       '@type': 'Organization',
-      '@id': 'https://zqremovals.au/#organization',
+      '@id': 'https://zqremovalsadelaide.com.au/#organization',
       name: businessIdentity.name,
       url: `${businessIdentity.siteUrl}/`,
       logo: defaultLogoImage,
@@ -2990,12 +2990,12 @@ function buildWebSiteJsonLd(page) {
     {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
-      '@id': 'https://zqremovals.au/#website',
+      '@id': 'https://zqremovalsadelaide.com.au/#website',
       url: `${businessIdentity.siteUrl}/`,
       name: businessIdentity.name,
       inLanguage: 'en-AU',
       publisher: {
-        '@id': 'https://zqremovals.au/#organization',
+        '@id': 'https://zqremovalsadelaide.com.au/#organization',
       },
     },
     null,
@@ -3021,7 +3021,7 @@ function buildHomepageServiceJsonLd(page) {
       '@context': 'https://schema.org',
       '@graph': services.map(([name, urlPath, serviceType]) => ({
         '@type': 'Service',
-        '@id': `https://zqremovals.au${urlPath}#service`,
+        '@id': `https://zqremovalsadelaide.com.au${urlPath}#service`,
         name,
         serviceType,
         provider: {
@@ -3283,7 +3283,7 @@ function buildServiceJsonLd(page) {
       serviceType: config.serviceType,
       areaServed: config.areaServed,
       provider: {
-        '@id': 'https://zqremovals.au/#movingcompany',
+        '@id': 'https://zqremovalsadelaide.com.au/#movingcompany',
       },
       url: page.canonical,
       offers: {
@@ -3627,7 +3627,7 @@ function normalizeJsonLdNode(node, page) {
         name: 'Qasim Ali',
         jobTitle: 'Founder & Lead Operations Planner',
         worksFor: {
-          '@id': 'https://zqremovals.au/#movingcompany'
+          '@id': 'https://zqremovalsadelaide.com.au/#movingcompany'
         },
         sameAs: [
           'https://facebook.com/zqremovals',
@@ -3635,7 +3635,7 @@ function normalizeJsonLdNode(node, page) {
         ]
       },
       publisher: {
-        '@id': 'https://zqremovals.au/#movingcompany'
+        '@id': 'https://zqremovalsadelaide.com.au/#movingcompany'
       }
     };
   }
@@ -3655,7 +3655,7 @@ function normalizeServiceNode(node, page) {
     name: config.name,
     serviceType: config.serviceType,
     provider: {
-      '@id': 'https://zqremovals.au/#movingcompany',
+      '@id': 'https://zqremovalsadelaide.com.au/#movingcompany',
     },
     areaServed: Array.isArray(node.areaServed) && node.areaServed.length > 0 ? node.areaServed : config.areaServed,
     url: page.canonical,
@@ -4411,7 +4411,7 @@ function injectLeadMachineHiddenFields(content) {
     { name: 'access_key', value: '80c3ff0c-7ae6-4aa7-bb66-567612739824' },
     { name: 'subject', value: 'Quote request - ZQ Removals' },
     { name: 'from_name', value: 'ZQ Removals Website' },
-    { name: 'redirect', value: 'https://zqremovals.au/thank-you/' },
+    { name: 'redirect', value: 'https://zqremovalsadelaide.com.au/thank-you/' },
     { name: 'utm_source', value: '', attr: 'data-attribution-field="utm_source"' },
     { name: 'utm_medium', value: '', attr: 'data-attribution-field="utm_medium"' },
     { name: 'utm_campaign', value: '', attr: 'data-attribution-field="utm_campaign"' },
@@ -7091,8 +7091,8 @@ function renderLLMsTxt(pagesList) {
     `- Canonical host: ${seoConfig.siteUrl}`,
     '',
     'References:',
-    '- Pricing: https://zqremovals.au/pricing.md',
-    '- Full crawler brief: https://zqremovals.au/llms-full.txt',
+    '- Pricing: https://zqremovalsadelaide.com.au/pricing.md',
+    '- Full crawler brief: https://zqremovalsadelaide.com.au/llms-full.txt',
   ].join('\n');
 }
 
@@ -7173,8 +7173,8 @@ function renderLLMsFullTxt() {
     '- Adelaide to Smithfield NSW',
     '',
     'Resources:',
-    '- Pricing: https://zqremovals.au/pricing.md',
-    '- llms.txt: https://zqremovals.au/llms.txt',
+    '- Pricing: https://zqremovalsadelaide.com.au/pricing.md',
+    '- llms.txt: https://zqremovalsadelaide.com.au/llms.txt',
     '',
     'Contact details:',
     `- Phone: ${seoConfig.phone}`,
