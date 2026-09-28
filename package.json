@@ -14,7 +14,7 @@
     "test": "node scripts/quote-api-smoke.mjs && node scripts/run-node-tests.mjs",
     "test:quote-api": "node scripts/quote-api-smoke.mjs",
     "test:visual-mobile": "playwright test tests/mobile-seo-visual.spec.ts",
-    "lhci": "lhci autorun",
+    "lhci": "node scripts/lighthouse-audit.mjs",
     "check:sitemap": "node scripts/seo-validate.mjs",
     "seo:audit": "node scripts/seo-validate.mjs",
     "seo:validate": "node scripts/seo-validate.mjs",
@@ -24,21 +24,21 @@
     "gsc:submit-sitemap": "node scripts/gsc-submit-sitemap.mjs"
   },
   "devDependencies": {
-    "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.60.0",
     "browserslist": "^4.28.2",
     "browserslist-to-esbuild": "^2.1.1",
     "esbuild": "^0.28.1",
     "http-server": "^14.1.1",
+    "lighthouse": "^13.5.0",
     "lightningcss": "^1.32.0",
     "purgecss": "^8.0.0"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",
-    "astro": "^6.4.6",
+    "astro": "^7.3.5",
     "daisyui": "^5.6.13",
     "googleapis": "^171.4.0",
-    "sharp": "^0.34.5",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3"
   },
