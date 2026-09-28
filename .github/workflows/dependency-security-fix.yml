@@ -29,12 +29,14 @@ jobs:
       - name: Apply non-breaking transitive fixes
         run: npm audit fix --package-lock-only --ignore-scripts || true
 
-      - name: Upgrade vulnerable direct dependencies
+      - name: Replace vulnerable direct dependency set
         run: |
+          npm uninstall @lhci/cli --save-dev
+          npm install lighthouse@13.5.0 --save-dev
           npm install astro@7.3.5 sharp@0.35.5 --save
-          npm install @lhci/cli@0.12.0 --save-dev
+          npm audit fix --package-lock-only --ignore-scripts || true
 
-      - name: Audit candidate
+      - name: Require zero known npm vulnerabilities
         shell: bash
         run: |
           npm audit --json > audit-after.json || true
@@ -74,8 +76,46 @@ jobs:
       - name: TypeScript
         run: npx tsc --noEmit
 
-      - name: Lighthouse CI compatibility
-        run: npm run lhci
+      - name: Lighthouse compatibility smoke
+        shell: bash
+        run: |
+          PORT=4173 node scripts/serve-site.mjs > /tmp/zq-serve.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID 2>/dev/null || true' EXIT
+          for attempt in {1..30}; do
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then break; fi
+            sleep 1
+          done
+          mkdir -p lighthouse-reports
+          for route in / /contact-us/ /removalists-adelaide/; do
+            slug=$(printf '%s' "$route" | sed 's#^/##;s#/$##;s#/#-#g')
+            [ -n "$slug" ] || slug=home
+            npx lighthouse "http://127.0.0.1:4173$route"               --chrome-flags="--headless --no-sandbox"               --only-categories=performance,accessibility,seo               --output=json               --output-path="lighthouse-reports/$slug.json"               --quiet
+          done
+          node - <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          let failed = false;
+          for (const file of fs.readdirSync('lighthouse-reports').filter(f => f.endsWith('.json'))) {
+            const lhr = JSON.parse(fs.readFileSync(path.join('lighthouse-reports', file), 'utf8'));
+            const p = lhr.categories.performance.score;
+            const a = lhr.categories.accessibility.score;
+            const s = lhr.categories.seo.score;
+            const cls = lhr.audits['cumulative-layout-shift']?.numericValue;
+            const lcp = lhr.audits['largest-contentful-paint']?.numericValue;
+            const tbt = lhr.audits['total-blocking-time']?.numericValue;
+            const ttfb = lhr.audits['server-response-time']?.numericValue;
+            console.log(file, {performance:p, accessibility:a, seo:s, cls, lcp, tbt, ttfb});
+            if (s < 0.9) { console.error(file, 'SEO score below 0.90'); failed = true; }
+            if (p < 0.9) console.warn(file, 'performance score below 0.90');
+            if (a < 0.9) console.warn(file, 'accessibility score below 0.90');
+            if (cls > 0.1) console.warn(file, 'CLS above 0.1');
+            if (lcp > 2500) console.warn(file, 'LCP above 2500ms');
+            if (tbt > 200) console.warn(file, 'TBT above 200ms');
+            if (ttfb > 800) console.warn(file, 'TTFB above 800ms');
+          }
+          if (failed) process.exit(1);
+          NODE
 
       - name: Upload validated candidate
         if: always()
@@ -87,3 +127,4 @@ jobs:
             audit-after.json
             package.json
             package-lock.json
+            lighthouse-reports/
