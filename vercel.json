@@ -244,39 +244,6 @@
   ],
   "redirects": [
     {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.zqremovals.au"
-        }
-      ],
-      "destination": "https://zqremovalsadelaide.com.au/:path*",
-      "permanent": true
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "zqremovals.au"
-        }
-      ],
-      "destination": "https://zqremovalsadelaide.com.au/:path*",
-      "permanent": true
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.zqremovalsadelaide.com.au"
-        }
-      ],
-      "destination": "https://zqremovalsadelaide.com.au/:path*",
-      "permanent": true
-    },
-    {
       "source": "/index.html",
       "destination": "/",
       "permanent": true
@@ -2089,6 +2056,39 @@
     {
       "source": "/packing-services-queens-park/index.html",
       "destination": "/removalists-queens-park/",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.zqremovals.au"
+        }
+      ],
+      "destination": "https://zqremovalsadelaide.com.au/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "zqremovals.au"
+        }
+      ],
+      "destination": "https://zqremovalsadelaide.com.au/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.zqremovalsadelaide.com.au"
+        }
+      ],
+      "destination": "https://zqremovalsadelaide.com.au/:path*",
       "permanent": true
     }
   ]

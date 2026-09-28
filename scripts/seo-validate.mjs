@@ -524,6 +524,32 @@ function validateRedirects(redirectAuditState, failuresList) {
     }
   }
 
+  // A wildcard host-scoped redirect (e.g. legacy-domain -> canonical-domain,
+  // same path) shadows every path-specific rule that comes after it in the
+  // array, because Vercel applies the first matching rule. That produces a
+  // silent two-hop chain for any consolidated URL that also happens to be a
+  // valid legacy-domain path: old-domain/slug -> new-domain/slug -> new-domain/final.
+  // Static per-path chain detection above can't see this because the
+  // wildcard rule's destination is a template ("/:path*"), not a concrete
+  // path. Guard against it directly: every wildcard host rule must sort
+  // after all exact-path rules.
+  let sawWildcardHostRule = false;
+  for (const redirect of redirectAuditState.vercelRedirects) {
+    const source = String(redirect.source || '');
+    const hasHostCondition = Array.isArray(redirect.has)
+      && redirect.has.some((condition) => condition && condition.type === 'host');
+    const isWildcardSource = /[:*]/.test(source);
+    if (hasHostCondition && isWildcardSource) {
+      sawWildcardHostRule = true;
+      continue;
+    }
+    if (sawWildcardHostRule && !hasHostCondition) {
+      failuresList.push(
+        `redirect ordering hazard: path rule "${source}" is declared after a wildcard host redirect and will never be reached for legacy-host requests (causes a two-hop chain)`,
+      );
+    }
+  }
+
   for (const [source, destination] of redirectAuditState.redirectPaths.entries()) {
     if (!destination) {
       failuresList.push(`redirect page missing canonical destination: ${source}`);
