@@ -11,7 +11,7 @@ permissions:
 jobs:
   audit-fix-validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
 
@@ -24,57 +24,42 @@ jobs:
         run: npm ci
 
       - name: Audit before
-        shell: bash
-        run: |
-          npm audit --json > audit-before.json || true
-          node - <<'NODE'
-          const fs=require('fs');
-          const a=JSON.parse(fs.readFileSync('audit-before.json','utf8'));
-          console.log('AUDIT_BEFORE', JSON.stringify({
-            metadata:a.metadata?.vulnerabilities ?? null,
-            vulnerabilities:Object.fromEntries(Object.entries(a.vulnerabilities||{}).map(([k,v])=>[k,{
-              severity:v.severity,
-              isDirect:v.isDirect,
-              via:(v.via||[]).map(x=>typeof x==='string'?x:{source:x.source,name:x.name,severity:x.severity,range:x.range}),
-              effects:v.effects,
-              range:v.range,
-              nodes:v.nodes,
-              fixAvailable:v.fixAvailable
-            }]))
-          }, null, 2));
-          NODE
+        run: npm audit --json > audit-before.json || true
 
-      - name: Apply safe npm audit lockfile fixes
+      - name: Apply non-breaking transitive fixes
         run: npm audit fix --package-lock-only --ignore-scripts || true
 
-      - name: Show proposed manifest changes
-        shell: bash
+      - name: Upgrade vulnerable direct dependencies
         run: |
-          git diff -- package.json package-lock.json
-          git status --short package.json package-lock.json
+          npm install astro@7.3.5 sharp@0.35.5 --save
+          npm install @lhci/cli@0.12.0 --save-dev
 
-      - name: Audit after safe fixes
+      - name: Audit candidate
         shell: bash
         run: |
           npm audit --json > audit-after.json || true
           node - <<'NODE'
-          const fs=require('fs');
-          const a=JSON.parse(fs.readFileSync('audit-after.json','utf8'));
-          console.log('AUDIT_AFTER', JSON.stringify({
-            metadata:a.metadata?.vulnerabilities ?? null,
-            vulnerabilities:Object.fromEntries(Object.entries(a.vulnerabilities||{}).map(([k,v])=>[k,{
-              severity:v.severity,
-              isDirect:v.isDirect,
-              via:(v.via||[]).map(x=>typeof x==='string'?x:{source:x.source,name:x.name,severity:x.severity,range:x.range}),
-              effects:v.effects,
-              range:v.range,
-              nodes:v.nodes,
-              fixAvailable:v.fixAvailable
-            }]))
-          }, null, 2));
+          const fs = require('fs');
+          for (const file of ['audit-before.json', 'audit-after.json']) {
+            const audit = JSON.parse(fs.readFileSync(file, 'utf8'));
+            console.log(file, JSON.stringify(audit.metadata?.vulnerabilities ?? null));
+            for (const [name, v] of Object.entries(audit.vulnerabilities || {})) {
+              console.log(name, v.severity, v.isDirect ? 'direct' : 'transitive', JSON.stringify(v.fixAvailable));
+            }
+          }
+          const after = JSON.parse(fs.readFileSync('audit-after.json', 'utf8'));
+          if ((after.metadata?.vulnerabilities?.total || 0) !== 0) {
+            console.error('Candidate still contains dependency vulnerabilities.');
+            process.exit(1);
+          }
           NODE
 
-      - name: Reinstall from proposed lockfile
+      - name: Show candidate dependency diff
+        run: |
+          git diff -- package.json package-lock.json
+          git status --short package.json package-lock.json
+
+      - name: Clean reinstall candidate
         run: npm ci
 
       - name: Build
@@ -89,11 +74,14 @@ jobs:
       - name: TypeScript
         run: npx tsc --noEmit
 
-      - name: Upload audit evidence and proposed lockfile
+      - name: Lighthouse CI compatibility
+        run: npm run lhci
+
+      - name: Upload validated candidate
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: dependency-security-audit
+          name: dependency-security-candidate
           path: |
             audit-before.json
             audit-after.json
