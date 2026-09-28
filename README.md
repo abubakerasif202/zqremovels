@@ -33,5 +33,7 @@ npm ci
 or re-run `npm install` to ensure the platform-appropriate native packages for `lightningcss` are downloaded and linked.
 
 ### Auditing Dependencies
-Avoid using `npm audit fix --force` as it may downgrade `@lhci/cli` to a very old version (`0.1.0`) causing a breaking change. Prefer standard package updates where possible.
+Run `npm audit` and review major-version fixes explicitly instead of using `npm audit fix --force`.
+
+Lighthouse checks use the standalone `lighthouse` package through `scripts/lighthouse-audit.mjs`. The routes and pass/warn thresholds remain defined in `.lighthouserc.cjs`, and `npm run lhci` runs the compatibility audit.
 
