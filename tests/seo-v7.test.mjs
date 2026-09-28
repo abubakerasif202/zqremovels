@@ -178,7 +178,7 @@ test('office removals page includes b2b planning terms without unsupported crede
 test('priority pages use AEO answer formatting and FAQ schema only follows visible FAQ', () => {
   for (const output of [
     'removalists-adelaide-prices/index.html',
-    'adelaide-moving-guides/how-much-do-removalists-cost-adelaide/index.html',
+    'adelaide-moving-guides/removalists-cost-adelaide/index.html',
     'adelaide-to-sydney-removalists/index.html',
     'office-removals-adelaide/index.html',
   ]) {
@@ -296,7 +296,7 @@ function extractMain(html = '') {
 }
 
 function hasQuestionHeadingWithImmediateAnswer(html = '') {
-  return /<h[23]\b[^>]*>[^<]*\?<\/h[23]>\s*<p\b[^>]*>[^<]+\./i.test(html);
+  return /<(?:h[23]|summary)\b[^>]*>[^<]*\?<\/(?:h[23]|summary)>\s*(?:<div\b[^>]*>\s*)*<p\b[^>]*>[^<]+\./i.test(html);
 }
 
 function hasVisibleFaqMarkup(html = '') {

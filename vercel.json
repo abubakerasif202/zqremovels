@@ -753,23 +753,23 @@
     },
     {
       "source": "/guides/how-much-do-removalists-cost-adelaide",
-      "destination": "/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/",
-      "permanent": true
+      "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
+      "statusCode": 301
     },
     {
       "source": "/guides/how-much-do-removalists-cost-adelaide/",
-      "destination": "/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/",
-      "permanent": true
+      "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
+      "statusCode": 301
     },
     {
       "source": "/guides/how-much-do-removalists-cost-adelaide.html",
-      "destination": "/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/",
-      "permanent": true
+      "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
+      "statusCode": 301
     },
     {
       "source": "/guides/how-much-do-removalists-cost-adelaide/index.html",
-      "destination": "/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/",
-      "permanent": true
+      "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
+      "statusCode": 301
     },
     {
       "source": "/guides/how-to-choose-removalists-adelaide/",
@@ -978,7 +978,7 @@
     },
     {
       "source": "/apartment-removalists-queens-park/",
-      "destination": "/apartment-removalists-adelaide/",
+      "destination": "/removalists-queens-park/",
       "permanent": true
     },
     {
@@ -1193,7 +1193,7 @@
     },
     {
       "source": "/packing-services-queens-park/",
-      "destination": "/packing-services-adelaide/",
+      "destination": "/removalists-queens-park/",
       "permanent": true
     },
     {
@@ -2054,6 +2054,41 @@
     {
       "source": "/removalists-victor-harbor/",
       "destination": "/removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/adelaide-moving-guides/how-much-do-removalists-cost-adelaide",
+      "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
+      "statusCode": 301
+    },
+    {
+      "source": "/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/",
+      "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
+      "statusCode": 301
+    },
+    {
+      "source": "/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/index.html",
+      "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
+      "statusCode": 301
+    },
+    {
+      "source": "/apartment-removalists-queens-park",
+      "destination": "/removalists-queens-park/",
+      "permanent": true
+    },
+    {
+      "source": "/apartment-removalists-queens-park/index.html",
+      "destination": "/removalists-queens-park/",
+      "permanent": true
+    },
+    {
+      "source": "/packing-services-queens-park",
+      "destination": "/removalists-queens-park/",
+      "permanent": true
+    },
+    {
+      "source": "/packing-services-queens-park/index.html",
+      "destination": "/removalists-queens-park/",
       "permanent": true
     }
   ]

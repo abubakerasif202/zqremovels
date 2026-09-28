@@ -9,7 +9,7 @@ export const zqServiceLinkProfiles = {
     suburbs: [
       { href: '/removalists-glenelg/', label: 'Glenelg furniture access' },
       { href: '/removalists-norwood/', label: 'Norwood tight-entry moves' },
-      { href: '/removalists-hyde-park/', label: 'Hyde Park premium moving' },
+      { href: '/removalists-hyde-park/', label: 'moving in Hyde Park' },
       { href: '/removalists-toorak-gardens/', label: 'Toorak Gardens careful transport' },
       { href: '/removalists-marion/', label: 'Marion household furniture routes' },
     ],
@@ -29,7 +29,7 @@ export const zqServiceLinkProfiles = {
       { href: '/removalists-adelaide/', label: 'trusted removalists in Adelaide' },
       { href: '/apartment-removalists-adelaide/', label: 'apartment removalists Adelaide' },
       { href: '/packing-services-adelaide/', label: 'packing for apartments' },
-      { href: '/furniture-removals-adelaide/', label: 'furniture removals Adelaide' },
+      { href: '/furniture-removalists-adelaide/', label: 'furniture removals Adelaide' },
     ],
     suburbs: [
       { href: '/removalists-adelaide-cbd/', label: 'Adelaide CBD apartment moves' },
@@ -53,7 +53,7 @@ export const zqServiceLinkProfiles = {
     services: [
       { href: '/removalists-adelaide/', label: 'trusted removalists in Adelaide' },
       { href: '/house-removals-adelaide/', label: 'house moving services' },
-      { href: '/furniture-removals-adelaide/', label: 'furniture removals Adelaide' },
+      { href: '/furniture-removalists-adelaide/', label: 'furniture removals Adelaide' },
       { href: '/office-removals-adelaide/', label: 'office removalists Adelaide' },
     ],
     suburbs: [
@@ -78,7 +78,7 @@ export const zqServiceLinkProfiles = {
     services: [
       { href: '/removalists-adelaide/', label: 'trusted removalists in Adelaide' },
       { href: '/house-removals-adelaide/', label: 'house moving services' },
-      { href: '/furniture-removals-adelaide/', label: 'furniture removals Adelaide' },
+      { href: '/furniture-removalists-adelaide/', label: 'furniture removals Adelaide' },
       { href: '/office-removals-adelaide/', label: 'office removalists Adelaide' },
       { href: '/apartment-removals-adelaide/', label: 'apartment moving services Adelaide' },
     ],
@@ -97,12 +97,12 @@ export const zqServiceLinkProfiles = {
     siblings: [
       { href: '/local-removalists-adelaide/', label: 'local removalists Adelaide' },
       { href: '/moving-quotes-adelaide/', label: 'get a fast moving quote' },
-      { href: '/fixed-price-removalists-adelaide/', label: 'fixed-price moving quotes' },
+      { href: '/removalists-adelaide-prices/', label: 'published moving rates' },
     ],
   },
   'services/adelaide-cbd-apartment-removalists': {
     services: [
-      { href: '/fixed-price-removalists-adelaide/', label: 'fixed-price quote review' },
+      { href: '/removalists-adelaide-prices/', label: 'moving quote review' },
       { href: '/apartment-removalists-adelaide/', label: 'apartment removalists Adelaide' },
       { href: '/office-removals-adelaide/', label: 'office removals Adelaide' },
       { href: '/interstate-removals-adelaide/', label: 'interstate removals Adelaide' },
@@ -126,7 +126,7 @@ export const zqServiceLinkProfiles = {
   },
   'office-removalists-adelaide': {
     services: [
-      { href: '/fixed-price-removalists-adelaide/', label: 'fixed-price quote review' },
+      { href: '/removalists-adelaide-prices/', label: 'moving quote review' },
       { href: '/office-relocation-adelaide/', label: 'office relocation Adelaide' },
       { href: '/office-removals-adelaide/', label: 'office removals Adelaide' },
       { href: '/interstate-removals-adelaide/', label: 'interstate removals Adelaide' },
@@ -150,8 +150,8 @@ export const zqServiceLinkProfiles = {
   },
   'services/furniture-bulky-item-removalists-adelaide': {
     services: [
-      { href: '/fixed-price-removalists-adelaide/', label: 'fixed-price quote review' },
-      { href: '/furniture-removals-adelaide/', label: 'furniture removals Adelaide' },
+      { href: '/removalists-adelaide-prices/', label: 'moving quote review' },
+      { href: '/furniture-removalists-adelaide/', label: 'furniture removals Adelaide' },
       { href: '/house-removals-adelaide/', label: 'house removals Adelaide' },
       { href: '/packing-services-adelaide/', label: 'packing support' },
     ],
@@ -174,7 +174,7 @@ export const zqServiceLinkProfiles = {
   },
   'services/interstate-removalists-adelaide': {
     services: [
-      { href: '/fixed-price-removalists-adelaide/', label: 'fixed-price quote review' },
+      { href: '/removalists-adelaide-prices/', label: 'moving quote review' },
       { href: '/interstate-removals-adelaide/', label: 'interstate removals Adelaide' },
       { href: '/packing-services-adelaide/', label: 'packing services Adelaide' },
       { href: '/house-removals-adelaide/', label: 'house removals Adelaide' },
@@ -203,8 +203,8 @@ export const zqGuideLinkProfiles = {
     services: [
       { href: '/removalist-cost-adelaide/', label: 'removalist cost Adelaide' },
       { href: '/moving-quotes-adelaide/', label: 'get a fast moving quote' },
-      { href: '/fixed-price-removalists-adelaide/', label: 'fixed-price quote planning' },
-      { href: '/furniture-removals-adelaide/', label: 'furniture removals Adelaide' },
+      { href: '/removalists-adelaide-prices/', label: 'moving quote planning' },
+      { href: '/furniture-removalists-adelaide/', label: 'furniture removals Adelaide' },
     ],
     suburbs: [
       { href: '/removalists-glenelg/', label: 'Glenelg quote context' },
@@ -223,7 +223,7 @@ export const zqGuideLinkProfiles = {
       { href: '/house-removals-adelaide/', label: 'house moving services' },
       { href: '/packing-services-adelaide/', label: 'packing services Adelaide' },
       { href: '/local-removalists-adelaide/', label: 'local movers near you' },
-      { href: '/furniture-removals-adelaide/', label: 'furniture removals Adelaide' },
+      { href: '/furniture-removalists-adelaide/', label: 'furniture removals Adelaide' },
     ],
     suburbs: [
       { href: '/removalists-unley/', label: 'Unley house moves' },
@@ -258,7 +258,7 @@ export const zqGuideLinkProfiles = {
   },
   'how-to-prepare-furniture-for-moving': {
     services: [
-      { href: '/furniture-removals-adelaide/', label: 'furniture removals Adelaide' },
+      { href: '/furniture-removalists-adelaide/', label: 'furniture removals Adelaide' },
       { href: '/furniture-removalists-adelaide/', label: 'furniture removalists Adelaide' },
       { href: '/packing-services-adelaide/', label: 'packing and protection support' },
       { href: '/house-removals-adelaide/', label: 'house removals Adelaide' },
@@ -280,7 +280,7 @@ export const zqGuideLinkProfiles = {
       { href: '/apartment-removals-adelaide/', label: 'apartment moving services Adelaide' },
       { href: '/apartment-removalists-adelaide/', label: 'apartment removalists Adelaide' },
       { href: '/packing-services-adelaide/', label: 'packing for apartments' },
-      { href: '/furniture-removals-adelaide/', label: 'furniture removals Adelaide' },
+      { href: '/furniture-removalists-adelaide/', label: 'furniture removals Adelaide' },
     ],
     suburbs: [
       { href: '/removalists-adelaide-cbd/', label: 'Adelaide CBD apartment moves' },

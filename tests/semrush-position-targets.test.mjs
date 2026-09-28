@@ -19,10 +19,8 @@ test.before(async () => {
 
 test('Semrush commercial target pages expose indexable metadata, PAA answers, and useful cluster paths', () => {
   const expectedQuestions = [
-    /How much do cheap removalists cost in Adelaide\?/i,
-    /What affects an Adelaide removalist quote\?/i,
-    /Do removalists charge extra for stairs\?/i,
-    /How do I avoid surprise moving costs\?/i,
+    /What are the published ZQ Removals rates\?/i,
+    /What details should I send for a moving quote\?/i,
   ];
 
   for (const slug of rankingTargets) {
@@ -31,7 +29,7 @@ test('Semrush commercial target pages expose indexable metadata, PAA answers, an
     assert.match(html, /<meta name="description" content="[^"]+"/i, slug);
     assert.match(html, new RegExp(`<link rel="canonical" href="https://zqremovalsadelaide\\.com\\.au/${slug}/"`), slug);
     assert.equal((html.match(/<h1\b/gi) || []).length, 1, `${slug} h1`);
-    assert.match(html, /data-semrush-answer-block="quote-cost"/i, `${slug} missing quote answer block`);
+    assert.match(html, /Pack and label boxes|prepared inventory/i, `${slug} missing practical cost-saving advice`);
     assert.match(html, /stairs|lifts/i, `${slug} missing access factor`);
     assert.match(html, /parking/i, `${slug} missing parking factor`);
     assert.match(html, /packing/i, `${slug} missing packing factor`);

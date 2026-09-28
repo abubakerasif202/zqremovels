@@ -9,7 +9,7 @@ export const zqServicePages = [
     hero:
       'Furniture removals in Adelaide work best when item size, access, wrapping, and placement are planned before the truck arrives.',
     sections: [
-      'Use this page when the move is led by furniture rather than a full household relocation. Sofas, beds, wardrobes, dining tables, whitegoods, antiques, mirrors, and office pieces all need a different handling plan from standard cartons.',
+      'For furniture-only moves, list each item and describe the access at both addresses. Sofas, beds, wardrobes, dining tables, whitegoods, antiques, mirrors, and office pieces all need a different handling plan from standard cartons.',
       'ZQ Removals scopes furniture jobs around the actual access path: stairs, lifts, parking, tight turns, long carries, and whether pieces need disassembly or additional wrapping. That keeps the quote practical and reduces avoidable double handling on move day.',
     ],
     faq: [
@@ -42,9 +42,9 @@ export const zqServicePages = [
   },
   {
     slug: 'apartment-removals-adelaide',
-    title: 'Apartment Removals Adelaide | ZQ Removals',
+    title: 'Apartment Removals Adelaide | Lift & Access',
     description:
-      'Apartment removals Adelaide with lift bookings, loading zones, stairs, corridor protection and fixed-price quote planning.',
+      'Apartment removals Adelaide planned around service lifts, loading zones, stairs, shared corridors and building access. Send details for a moving quote.',
     canonical: '/apartment-removals-adelaide/',
     type: 'service',
     hero:
@@ -85,7 +85,7 @@ export const zqServicePages = [
     slug: 'local-removalists-adelaide',
     title: 'Local Removalists Adelaide | Suburb Movers',
     description:
-      'Local removalists in Adelaide for suburb-to-suburb moves, apartments, homes, furniture, access planning and fixed-price quote review.',
+      'Local removalists in Adelaide for suburb-to-suburb moves, apartments, homes, furniture, access planning and moving quote review.',
     canonical: '/local-removalists-adelaide/',
     type: 'service',
     hero:
@@ -132,7 +132,7 @@ export const zqServicePages = [
     hero:
       'Choosing a moving company in Adelaide should come down to quote clarity, careful handling, practical access planning, and reliable communication.',
     sections: [
-      'This page is for customers comparing moving company Adelaide options before they choose a removalist. The right provider should ask for the details that change the job: suburbs, property type, access, item list, timing, packing, and any heavier or fragile pieces.',
+      'Before choosing an Adelaide moving company, compare the written estimate and the details each provider asks you to confirm. The right provider should ask for the details that change the job: suburbs, property type, access, item list, timing, packing, and any heavier or fragile pieces.',
       'ZQ Removals is positioned around practical planning rather than vague promises. We connect house removals, apartment moves, office relocations, furniture handling, packing support, and interstate routes into one clear quote path.',
     ],
     faq: [
@@ -152,14 +152,14 @@ export const zqServicePages = [
           'Stairs, lifts, parking, long carries, tight streets, loading docks, and building rules can change labour time and how furniture should be protected.',
       },
       {
-        question: 'Can I request a fixed-price moving quote?',
+        question: 'Can I request a moving estimate?',
         answer:
-          'Yes. Send the route, inventory, property type, access notes, date, and packing needs so the team can review a fixed-price quote.',
+          'Yes. Send the route, inventory, property type, access notes, date, and packing needs so the team can review a moving estimate.',
       },
       {
-        question: 'Is this page for every Adelaide suburb?',
+        question: 'What local details should I include in a moving enquiry?',
         answer:
-          'It is an Adelaide-wide service page. If you already know the suburb, use the matching suburb page for more local access and route context.',
+          'Provide both pickup and delivery suburbs, the property types, parking, stairs or lifts, and your preferred date so the team can assess the move.',
       },
     ],
   },
@@ -167,14 +167,14 @@ export const zqServicePages = [
     slug: 'services/adelaide-cbd-apartment-removalists',
     title: 'Adelaide CBD Apartment Removalists | Lift Access | ZQ Removals',
     description:
-      'Adelaide CBD apartment removalists specializing in lift bookings, loading zones, tight parking windows, and fixed-price relocations.',
+      'Adelaide CBD apartment removalists specializing in lift bookings, loading zones, tight parking windows, and apartment move planning.',
     canonical: '/services/adelaide-cbd-apartment-removalists/',
     type: 'service',
     hero:
       'Adelaide CBD apartment moves need lift windows, parking control, and clear load sequencing before move day.',
     sections: [
-      'Use this page when the brief is city-led, apartment-led, or mixed-use and the building access rules will shape the quote more than travel distance.',
-      'ZQ Removals reviews the building notes, access path, inventory, and timing manually so you get a fixed price before moving day rather than a vague hourly estimate.',
+      'For city apartments and mixed-use buildings, confirm the building access rules alongside your item list.',
+      'ZQ Removals reviews the building notes, access path, inventory, and timing manually so your estimate accounts for building access and the time required.',
       'It also suits apartment, high-rise, commercial, fragile item, and interstate moving when the pickup or delivery side runs through the CBD.',
     ],
     processSteps: [
@@ -185,7 +185,7 @@ export const zqServicePages = [
       },
       {
         title: 'Review the city brief',
-        copy: 'Manually review the inventory, fragile items, and access path so the fixed-price quote reflects the real apartment job.',
+        copy: 'Manually review the inventory, fragile items, and access path so the moving estimate reflects the real apartment job.',
         points: ['Inventory and item sizes listed', 'Manual quote review before booking', 'No hourly slow-walking or hidden surprises'],
       },
       {
@@ -203,7 +203,7 @@ export const zqServicePages = [
       {
         question: 'Do city apartment moves need manual quote review?',
         answer:
-          'Yes. The CBD often adds access and timing variables, so manual review keeps the fixed-price quote aligned with the real job.',
+          'Yes. The CBD often adds access and timing variables, so manual review keeps the moving estimate aligned with the real job.',
       },
       {
         question: 'Can you handle office or mixed-use CBD moves?',
@@ -211,9 +211,9 @@ export const zqServicePages = [
           'Yes. CBD jobs often mix apartments, offices, studios, and fragile items, so the route and access brief should be reviewed as one plan.',
       },
       {
-        question: 'Is this page only for apartments?',
+        question: 'Can a CBD enquiry include an office move?',
         answer:
-          'No. It also fits high-rise, commercial, fragile item, and interstate moving when the CBD address changes the access brief.',
+          'Yes. Include workstation and furniture lists, building access, parking, and your preferred restart timing so the team can assess the commercial move.',
       },
     ],
   },
@@ -227,7 +227,7 @@ export const zqServicePages = [
     hero:
       'Office moves need a stable plan for desks, monitors, files, and restart timing before a single workstation is touched.',
     sections: [
-      'Use this page when the brief is commercial or mixed-use and downtime, dock access, and labelled unload order matter.',
+      'For office and mixed-use moves, confirm downtime, dock access, and the labelled unload order.',
       'ZQ Removals reviews the move manually before quoting so you do not get a vague hourly estimate or a moving-day surprise.',
       'It suits office, clinic, studio, high-rise, fragile item, and interstate moving where the business handover needs to stay orderly.',
     ],
@@ -275,13 +275,13 @@ export const zqServicePages = [
     slug: 'services/furniture-bulky-item-removalists-adelaide',
     title: 'Bulky Item Removalists Adelaide | Careful Handling | ZQ Removals',
     description:
-      'Furniture and bulky item removalists Adelaide for sofas, beds, wardrobes, whitegoods, and fragile pieces with fixed-price review.',
+      'Furniture and bulky item removalists Adelaide for sofas, beds, wardrobes, whitegoods, and fragile pieces with moving estimate review.',
     canonical: '/services/furniture-bulky-item-removalists-adelaide/',
     type: 'service',
     hero:
       'Bulky furniture needs the item size, access path, wrapping needs, and placement plan reviewed before the move is booked.',
     sections: [
-      'Use this page for sofas, beds, wardrobes, whitegoods, antiques, mirrors, and single items when the move is driven by bulky or fragile pieces.',
+      'List sofas, beds, wardrobes, whitegoods, antiques, mirrors, and any bulky or fragile pieces in your request.',
       'A manual review keeps the quote aligned with stairs, lifts, parking, long carries, disassembly, and the need for extra wrapping.',
       'It connects naturally to house, apartment, office, and interstate moving when one heavy item becomes part of a wider brief.',
     ],
@@ -335,8 +335,8 @@ export const zqServicePages = [
     hero:
       'Interstate moving should be scoped around both addresses, packing needs, and delivery windows before the truck leaves Adelaide.',
     sections: [
-      'Use this page when the move leaves South Australia and the brief needs route planning, handover timing, and transit protection.',
-      'ZQ Removals manually reviews the inventory, access, and destination details so the quote is fixed before moving day instead of changing on the road.',
+      'For moves leaving South Australia, confirm both addresses, the item list, and handover timing.',
+      'ZQ Removals manually reviews the inventory, access, and destination details so pricing and the agreed scope can be confirmed before moving day.',
       'It suits house, apartment, office, fragile item, and commercial moves when the destination needs precise timing and careful handover.',
     ],
     processSteps: [
@@ -353,7 +353,7 @@ export const zqServicePages = [
       {
         title: 'Deliver with a clear handover',
         copy: 'Sequence the load for transit, then deliver and place the items with the destination handover already planned.',
-        points: ['Load order staged for transit', 'Destination access followed', 'Fixed price before moving day'],
+        points: ['Load order staged for transit', 'Destination access followed', 'Confirm pricing before moving day'],
       },
     ],
     faq: [
@@ -383,15 +383,15 @@ export const zqServicePages = [
     slug: 'services/piano-movers-adelaide',
     title: 'Piano Movers Adelaide | ZQ Removals',
     description:
-      'Specialist piano movers in Adelaide. Safe transport for upright pianos, digital pianos, and organ moves with experienced crew and dedicated ramp setups.',
+      'Request a piano moving assessment in Adelaide. Send the instrument type, dimensions and access photos to confirm handling requirements and availability.',
     canonical: '/services/piano-movers-adelaide/',
     type: 'service',
     hero:
-      'Piano transport requires specialist handling, specialized ramps, correct trollies, and careful route-to-room access planning to protect both the instrument and the property.',
+      'Before booking a piano move, confirm the instrument dimensions and the complete access path at both properties.',
     sections: [
-      'Moving a piano is not a standard furniture move. Due to their weight, delicate internal mechanics, and high-gloss finishes, pianos require a dedicated setup including heavy-duty trollies, protective wrapping, and ramps.',
-      'ZQ Removals scopes piano moves around the exact access path: stair counts, landing dimensions, tight doorways, grass/gravel pathways, and floor surfaces. We review every detail manually so your fixed-price quote is based on real access conditions rather than guesswork.',
-      'This specialist service covers local Adelaide metro routes, storage transfers, and interstate departures when a piano is part of a larger residential move.',
+      'Piano weight, delicate internal mechanics, and surface finishes need careful assessment. Provide the instrument type and photos before confirming a booking.',
+      'ZQ Removals scopes piano moves around the exact access path: stair counts, landing dimensions, tight doorways, grass/gravel pathways, and floor surfaces. We review every detail manually so your moving estimate is based on real access conditions rather than guesswork.',
+      'Include both addresses and tell the team whether the piano is part of a larger move so the requested route and handling can be assessed.',
     ],
     processSteps: [
       {
@@ -401,20 +401,20 @@ export const zqServicePages = [
       },
       {
         title: 'Wrap and secure',
-        copy: 'Apply thick furniture blankets, shrink wrap, and edge padding. Secure the piano to a dedicated piano trolley or skid.',
-        points: ['Premium protective wrapping applied', 'Heavy-duty piano trolleys utilized', 'Transit restraints checked'],
+        copy: 'Confirm the handling and protection requirements with the team after they have reviewed the instrument and access photos.',
+        points: ['Protection requirements confirmed', 'Handling requirements reviewed', 'Transit restraints checked'],
       },
       {
         title: 'Safe transport & placement',
-        copy: 'Load using appropriate ramps or tailgates, transport securely in our fleet, and place the instrument precisely in its new room.',
-        points: ['Ramp and tailgate loading setups', 'Smooth transit positioning', 'Precise room placement and setup'],
+        copy: 'Confirm pickup and delivery access, the proposed placement, and any restrictions before approving the move.',
+        points: ['Loading access confirmed', 'Smooth transit positioning', 'Destination placement confirmed'],
       },
     ],
     faq: [
       {
         question: 'Do you move grand pianos in Adelaide?',
         answer:
-          'We specialize in upright pianos, digital pianos, and organs. Grand pianos require specialized disassembly and cranes, which we do not offer. Please contact us to confirm your specific piano profile.',
+          'Send the piano type, dimensions and access photos. The team must confirm whether the instrument and access can be accepted before you book.',
       },
       {
         question: 'What details do you need for a piano moving quote?',
@@ -424,12 +424,12 @@ export const zqServicePages = [
       {
         question: 'Does piano moving require a special crew size?',
         answer:
-          'Yes. Most standard upright piano moves require a minimum of two to three experienced movers to ensure the safety of the instrument, crew, and property walls.',
+          'Crew and handling requirements depend on the instrument and access. Ask the team to confirm these after reviewing your photos and dimensions.',
       },
       {
         question: 'Will my piano need tuning after the move?',
         answer:
-          'Yes. Although we transport pianos with maximum care, changes in temperature, humidity, and minor vibrations in transit usually mean you should tune the piano 1 to 2 weeks after placement.',
+          'Ask your piano technician whether tuning or other care is needed after relocation. Include any handling instructions from the manufacturer or technician in your enquiry.',
       },
     ],
   },
@@ -447,14 +447,14 @@ export const zqServiceIntentProfiles = {
     primaryKeyword: 'apartment removals Adelaide',
     secondaryKeywords: ['apartment movers Adelaide', 'unit removals Adelaide', 'high-rise movers Adelaide'],
     searchIntent: 'shared-building access and lift-aware move planning',
-    uniqueAngle: 'turns lift bookings, loading zones, stairs, corridors, and building rules into quote-ready details',
+    uniqueAngle: 'turns lift bookings, loading zones, stairs, corridors, and building rules into details for an accurate estimate',
     conversionCTA: 'Scope an apartment move',
   },
   'local-removalists-adelaide': {
     primaryKeyword: 'local removalists Adelaide',
     secondaryKeywords: ['local movers Adelaide', 'Adelaide local moving company', 'suburb to suburb movers Adelaide'],
     searchIntent: 'suburb-to-suburb local moving quote research',
-    uniqueAngle: 'keeps short-distance moves tied to parking, access, item list, suburb timing, and service fit',
+    uniqueAngle: 'keeps short-distance moves tied to parking, access, item list, suburb timing, and the support needed',
     conversionCTA: 'Plan a local Adelaide move',
   },
   'moving-company-adelaide': {
@@ -489,14 +489,14 @@ export const zqServiceIntentProfiles = {
     primaryKeyword: 'interstate removalists Adelaide',
     secondaryKeywords: ['interstate movers Adelaide', 'long distance removals Adelaide', 'fixed route moving'],
     searchIntent: 'route planning and long-distance logistics',
-    uniqueAngle: 'ties packing, inventory, route timing, destination access, and handover risk into one fixed-price review',
+    uniqueAngle: 'ties packing, inventory, route timing, destination access, and handover risk into one moving estimate review',
     conversionCTA: 'Plan the interstate route',
   },
   'services/piano-movers-adelaide': {
     primaryKeyword: 'piano movers Adelaide',
     secondaryKeywords: ['piano transport Adelaide', 'upright piano moving Adelaide', 'specialist piano removalists'],
     searchIntent: 'specialist upright piano transport and route-to-room access planning',
-    uniqueAngle: 'focuses on access paths, stairways, weight distribution, and specialist ramps rather than a generic furniture template',
+    uniqueAngle: 'focuses on access paths, stairways, weight distribution, and the handling requirements of the instrument',
     conversionCTA: 'Request a piano moving quote',
   },
 };
@@ -540,7 +540,7 @@ export const zqServiceHighlights = {
   'services/interstate-removalists-adelaide': [
     'Route timing and handover windows matter on both ends of the move',
     'Useful for long-distance moves that need packing and destination access review',
-    'Built for fixed-price interstate quoting before moving day',
+    'Confirm interstate costs and timing before moving day',
   ],
   'services/adelaide-cbd-apartment-removalists': [
     'Lift bookings, loading zones, and city parking need to be reviewed first',
@@ -560,10 +560,10 @@ export const zqServiceHighlights = {
   'services/interstate-removalists-adelaide': [
     'Route timing and handover windows matter on both ends of the move',
     'Useful for long-distance moves that need packing and destination access review',
-    'Built for fixed-price interstate quoting before moving day',
+    'Confirm interstate costs and timing before moving day',
   ],
   'services/piano-movers-adelaide': [
-    'Specialist ramps, skids, and heavy-duty trollies are standard',
+    'Instrument and access reviewed before booking',
     'Useful for upright pianos, digital pianos, and organs',
     'Built for manual access path and stair count review before quoting',
   ],
@@ -614,7 +614,7 @@ export const zqServiceFactorCards = {
   ],
   'moving-company-adelaide': [
     {
-      title: 'Service fit',
+      title: 'Moving requirements',
       copy: 'The best moving company page should help customers choose house, furniture, apartment, office, packing, or interstate support.',
     },
     {
@@ -650,7 +650,7 @@ export const zqServiceFactorCards = {
       copy: 'Workstations, monitors, documents, and archives need a clear handling sequence before move day.',
     },
     {
-      title: 'Fixed-price clarity',
+      title: 'Pricing details',
       copy: 'Manual review helps avoid hourly surprises when dock access, lifts, or after-hours timing affect the job.',
     },
   ],
@@ -679,7 +679,7 @@ export const zqServiceFactorCards = {
     },
     {
       title: 'Both ends matter',
-      copy: 'The origin and destination both need to be reviewed before a fixed interstate price can be confirmed.',
+      copy: 'The origin and destination both need to be reviewed before interstate pricing can be confirmed.',
     },
   ],
   'homepage': [
@@ -720,7 +720,7 @@ export const zqServiceFactorCards = {
       copy: 'Workstations, monitors, documents, and archives need a clear handling sequence before move day.',
     },
     {
-      title: 'Fixed-price clarity',
+      title: 'Pricing details',
       copy: 'Manual review helps avoid hourly surprises when dock access, lifts, or after-hours timing affect the job.',
     },
   ],
@@ -749,7 +749,7 @@ export const zqServiceFactorCards = {
     },
     {
       title: 'Both ends matter',
-      copy: 'The origin and destination both need to be reviewed before a fixed interstate price can be confirmed.',
+      copy: 'The origin and destination both need to be reviewed before interstate pricing can be confirmed.',
     },
   ],
   'services/piano-movers-adelaide': [
@@ -759,11 +759,11 @@ export const zqServiceFactorCards = {
     },
     {
       title: 'Specialist setup',
-      copy: 'Heavy-duty trolleys, custom ramps, tailgates, and protective blankets are required for every instrument.',
+      copy: 'Provide the instrument dimensions and access photos so the team can assess handling requirements before accepting the booking.',
     },
     {
       title: 'Transparent pricing',
-      copy: 'Every piano move is reviewed manually so the final price is fixed and matches the actual access route.',
+      copy: 'Every piano move is reviewed manually so pricing can account for the actual access route.',
     },
   ],
 };
@@ -812,12 +812,12 @@ export const zqServiceAeoProfiles = {
   'services/piano-movers-adelaide': {
     question: 'How should upright piano removals be planned in Adelaide?',
     answer:
-      'Plan piano moves by measuring all doors, stairs, and tight turns along the path. Provide photos of steps, confirm instrument dimensions, and request a fixed-price quote based on manual review.',
+      'Plan piano moves by measuring all doors, stairs, and tight turns along the path. Provide photos of steps, confirm instrument dimensions, and request a moving estimate based on manual review.',
   },
   'homepage': {
-    question: 'Who are the best fixed-price removalists in Adelaide?',
+    question: 'What are the published ZQ Removals Adelaide moving rates?',
     answer:
-      'ZQ Removals provides fixed-price house, apartment, and office moving services across Adelaide. Quotes are scoped from the inventory, access, route, timing, and support requested for the move.',
+      'ZQ Removals publishes $75 per 30 minutes for 2 men + truck and $89 per 30 minutes for 3 men + truck. A 1-hour call-out/travel charge applies where applicable. Total cost depends on the time required and the agreed move details.',
   },
 };
 

@@ -43,7 +43,7 @@ test('homepage targets Adelaide removalists with the approved Open Design conver
 
   assert.match(
     homepage,
-    /<h1[^>]*>Adelaide Removalists You Can Rely On<\/h1>/i,
+    /<h1[^>]*>ZQ Removals — helping Adelaide move<\/h1>/i,
   );
   assert.match(
     homepage,
@@ -238,7 +238,7 @@ test('interstate hub and surviving route pages keep the interstate conversion pa
 
 test('guide hub feeds the surviving guide cluster into service intent pages', () => {
   const guideHub = readDist(path.join('adelaide-moving-guides', 'index.html'));
-  for (const slug of ['how-much-do-removalists-cost-adelaide', 'how-to-choose-removalists-adelaide', 'moving-house-checklist-adelaide', 'office-relocation-checklist-adelaide']) {
+  for (const slug of ['removalists-cost-adelaide', 'how-to-choose-removalists-adelaide', 'moving-house-checklist-adelaide', 'office-relocation-checklist-adelaide']) {
     assert.ok(linksTo(guideHub, `/adelaide-moving-guides/${slug}/`), slug);
   }
   for (const svc of ['/packing-services-adelaide/', '/furniture-removalists-adelaide/', '/office-removals-adelaide/', '/interstate-removals-adelaide/']) {

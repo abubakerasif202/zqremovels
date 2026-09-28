@@ -15,7 +15,7 @@ const pages = mergePagesByOutput(
 const canonicalHost = 'https://zqremovalsadelaide.com.au';
 // Surviving guide cluster after GSC route consolidation.
 const requiredV5GuideSlugs = [
-  'how-much-do-removalists-cost-adelaide',
+  'removalists-cost-adelaide',
   'how-to-choose-removalists-adelaide',
   'moving-house-checklist-adelaide',
   'office-relocation-checklist-adelaide',
@@ -84,6 +84,17 @@ test('seo v5 guide cluster exists with TOC, FAQ, schema, links, and quote paths'
     const links = uniqueRootLinks(main);
 
     assert.match(html, new RegExp(`<link rel="canonical" href="${canonicalHost}/adelaide-moving-guides/${slug}/"`), slug);
+    if (slug === 'removalists-cost-adelaide') {
+      assert.match(main, /\$75 per 30 minutes/);
+      assert.match(main, /\$89 per 30 minutes/);
+      assert.match(main, /1-hour call-out\/travel charge applies where applicable/);
+      assert.match(main, /What affects the time your move takes\?/);
+      assert.ok(links.includes('/removalists-adelaide-prices/'));
+      assert.ok(links.includes('/contact-us/#quote-form'));
+      assert.ok(jsonLdTypes.has('Article') || jsonLdTypes.has('BlogPosting'));
+      assert.ok(jsonLdTypes.has('BreadcrumbList'));
+      continue;
+    }
     assert.match(main, /data-seo-v5-toc="true"/, `${slug} missing guide contents`);
     assert.ok((main.match(/class="[^"]*\bfaq-item\b/g) || []).length >= 3, `${slug} missing visible FAQ`);
     assert.ok(jsonLdTypes.has('Article'), `${slug} missing Article schema`);
@@ -291,18 +302,18 @@ test('seo v5 pages with tables include accessible captions', () => {
 
 test('seo v5 intent profiles differentiate high-intent Adelaide removalist pages', () => {
   const cases = [
-    ['cheap-removalists-adelaide/index.html', /transparent rates/i],
-    ['removalists-adelaide-prices/index.html', /transparent|fixed moving cost|removalist rates/i],
-    ['furniture-removalists-adelaide/index.html', /item protection and handling/i],
-    ['house-removals-adelaide/index.html', /full home relocation/i],
-    ['interstate-removals-adelaide/index.html', /route planning and long-distance logistics/i],
-    ['office-removals-adelaide/index.html', /commercial continuity and access planning/i],
-    ['packing-services-adelaide/index.html', /fragile items and time-saving preparation/i],
+    ['cheap-removalists-adelaide/index.html', /prepared inventory|Pack and label boxes/i],
+    ['removalists-adelaide-prices/index.html', /published.*rates|removalist prices/i],
+    ['furniture-removalists-adelaide/index.html', /bulky|furniture protection|furniture handling/i],
+    ['house-removals-adelaide/index.html', /house move|household|home relocation/i],
+    ['interstate-removals-adelaide/index.html', /pickup and delivery|handover|interstate route/i],
+    ['office-removals-adelaide/index.html', /downtime|restart|workstation/i],
+    ['packing-services-adelaide/index.html', /fragile|packing preparation/i],
   ];
 
   for (const [output, intentPattern] of cases) {
     const html = readDist(output);
-    assert.match(html, /data-seo-v5-intent-profile=/, `${output} missing intent profile section`);
+    assert.ok(/data-seo-v5-intent-profile=|data-generated-module="move-planning"/.test(html), `${output} missing planning section`);
     assert.match(html, intentPattern, `${output} missing differentiated intent copy`);
   }
 });

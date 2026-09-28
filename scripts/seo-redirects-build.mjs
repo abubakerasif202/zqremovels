@@ -79,9 +79,14 @@ async function loadManifestRoutes() {
 
 const manifestRoutes = await loadManifestRoutes();
 
-const verified = [];
+// Reviewed 2026-09-28: retain the established educational guide and consolidate
+// the duplicate question-form URL. This decision survives audit-file regeneration.
+const reviewedCostAlias = '/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/';
+const retainedCostGuide = '/adelaide-moving-guides/removalists-cost-adelaide/';
+const verified = [{ source: reviewedCostAlias, destination: retainedCostGuide, permanent: true }];
 const deferred = [];
 for (const r of allRedirects) {
+  if (r.source === reviewedCostAlias || r.source === retainedCostGuide) continue;
   if (keepList.has(r.source)) {
     throw new Error(`Redirect source is on the KEEP list: ${r.source}`);
   }

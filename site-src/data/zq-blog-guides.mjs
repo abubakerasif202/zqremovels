@@ -34,7 +34,7 @@ export const zqGuideIntentProfiles = {
     title: 'How Much Do Removalists Cost Adelaide',
     topic: 'removalist cost planning',
     primaryKeyword: 'how much do removalists cost Adelaide',
-    searchIntent: 'pricing research before requesting a fixed-price moving quote',
+    searchIntent: 'pricing research before requesting a moving estimate',
     uniqueAngle: 'explains quote factors without publishing fake universal prices or invented discounts',
   },
   'best-time-to-book-removalists-adelaide': {
@@ -61,8 +61,8 @@ export const zqGuideIntentProfiles = {
 };
 
 export const zqGuideRoutes = zqGuidePages.map(({ slug, basePath }) => ({
-  slug,
-  output: `${basePath}/${slug}/index.html`,
-  path: `/${basePath}/${slug}/`,
+  slug: slug === 'how-much-do-removalists-cost-adelaide' ? 'removalists-cost-adelaide' : slug,
+  output: `${basePath}/${slug === 'how-much-do-removalists-cost-adelaide' ? 'removalists-cost-adelaide' : slug}/index.html`,
+  path: `/${basePath}/${slug === 'how-much-do-removalists-cost-adelaide' ? 'removalists-cost-adelaide' : slug}/`,
   pageType: 'blog',
 }));

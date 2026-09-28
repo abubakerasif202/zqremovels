@@ -1,11 +1,5 @@
 [
   {
-    "source": "/adelaide-moving-guides/removalists-cost-adelaide/",
-    "destination": "/removalists-adelaide-prices/",
-    "permanent": true,
-    "hold": "manual-review"
-  },
-  {
     "source": "/cheap-removalists-adelaide/",
     "destination": "/removalists-adelaide-prices/",
     "permanent": true,
@@ -50,12 +44,6 @@
   {
     "source": "/removalists-gawler/",
     "destination": "/removalists-northern-adelaide/",
-    "permanent": true,
-    "hold": "manifest-route-conflict"
-  },
-  {
-    "source": "/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/",
-    "destination": "/removalists-adelaide-prices/",
     "permanent": true,
     "hold": "manifest-route-conflict"
   },

@@ -18,7 +18,7 @@ test('protected ranking pages keep their URL, indexability, and primary intent',
   const queensPark = readRoute('removalists-queens-park');
   assert.match(queensPark, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/removalists-queens-park\/"/i);
   assert.match(queensPark, /<meta name="robots" content="index,follow,max-image-preview:large"/i);
-  assert.match(queensPark, /<h1[^>]*>Queens Park removalists<\/h1>/i);
+  assert.match(queensPark, /<h1[^>]*>Moving from Queens Park NSW to Adelaide<\/h1>/i);
   assert.match(queensPark, /Queens Park NSW|Sydney to Adelaide/i);
 
   const office = readRoute('office-removals-adelaide');

@@ -51,7 +51,7 @@
   },
   {
     "source": "/apartment-removalists-queens-park/",
-    "destination": "/apartment-removalists-adelaide/",
+    "destination": "/removalists-queens-park/",
     "permanent": true
   },
   {
@@ -286,7 +286,7 @@
   },
   {
     "source": "/packing-services-queens-park/",
-    "destination": "/packing-services-adelaide/",
+    "destination": "/removalists-queens-park/",
     "permanent": true
   },
   {
@@ -1112,6 +1112,11 @@
   {
     "source": "/adelaide-moving-guides/apartment-moving-checklist-adelaide/",
     "destination": "/apartment-removalists-adelaide/",
+    "permanent": true
+  },
+  {
+    "source": "/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/",
+    "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
     "permanent": true
   }
 ]

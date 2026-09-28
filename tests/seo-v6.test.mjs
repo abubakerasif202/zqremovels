@@ -107,7 +107,8 @@ test('Door 2 Door Movers competitor alternative page stays honest and discoverab
   assert.match(html, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/door-2-door-movers-alternative-adelaide\/" \/>/);
   assert.match(html, /Door 2 Door Movers/i);
   assert.match(html, /ZQ Removals/i);
-  assert.match(html, /fixed-price/i);
+  assert.match(html, /published rates|moving quote|moving estimate/i);
+  assert.doesNotMatch(html, /fixed-price/i);
   assert.match(html, /data-generated-module="competitor-source-note"/);
   assert.match(html, /rel="nofollow noopener noreferrer"/);
   assert.match(html, /"@type": "FAQPage"/);

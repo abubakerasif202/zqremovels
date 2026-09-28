@@ -157,7 +157,7 @@ test('priority page titles and descriptions are unique, natural, and not abruptl
     assert.ok(title.length <= 68, `${file} title too long: ${title.length}`);
     assert.ok(description.length >= 120 && description.length <= 165, `${file} description length ${description.length}`);
     assert.doesNotMatch(description, /\b(?:and|or|with|for|around|across|before)$/i, `${file} description is abruptly truncated`);
-    assert.doesNotMatch(description, /\b(?:Call 0433 819 989|SEO V5|quote-first)\b/i, `${file} description contains noisy template text`);
+    assert.doesNotMatch(description, /\b(?:SEO V5|quote-first)\b/i, `${file} description contains noisy template text`);
 
     assert.ok(!seenTitles.has(title), `${file} duplicates title from ${seenTitles.get(title)}`);
     assert.ok(!seenDescriptions.has(description), `${file} duplicates description from ${seenDescriptions.get(description)}`);

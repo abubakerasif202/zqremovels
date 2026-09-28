@@ -55,8 +55,8 @@ function readDist(relativePath) {
 function stripApprovedQuotePackagePricing(html) {
   return html
     .replace(/<form\b[^>]*data-quote-form="quote"[^>]*>[\s\S]*?<\/form>/gi, '')
-    .replace(/\$75\s*(?:per|\/)\s*30 minutes/gi, '')
-    .replace(/\$89\s*(?:per|\/)\s*30 minutes/gi, '');
+    .replace(/\$75\s*(?:per|\/)\s*30 min(?:utes)?/gi, '')
+    .replace(/\$89\s*(?:per|\/)\s*30 min(?:utes)?/gi, '');
 }
 
 function extractRootLinks(html) {

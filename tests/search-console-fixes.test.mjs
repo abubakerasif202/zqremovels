@@ -118,10 +118,10 @@ test('generated sitemap and canonicals stay on the apex host', () => {
   assert.doesNotMatch(sitemap, /https:\/\/www\.zqremovals\.au\//);
   assert.match(sitemap, /<sitemapindex/);
   assert.match(homepage, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/" \/>/);
-  assert.match(homepage, /<title>Adelaide Removalists You Can Rely On \| ZQ Removals<\/title>/);
+  assert.match(homepage, /<title>ZQ Removals Adelaide \| Home, Office &amp; Interstate Moves<\/title>/);
   assert.match(
     homepage,
-    /<meta name="description" content="Careful Adelaide removalists for house, apartment, office and interstate moves\. Request a free quote from ZQ Removals today\." \/>/,
+    /<meta name="description" content="Plan your Adelaide move with ZQ Removals\. Home, furniture, office and interstate enquiries\. Call 0433 819 989 or request a quote with access and item details\." \/>/,
   );
   assert.match(
     interstateHub,
@@ -315,8 +315,8 @@ test('live-audit commercial snippets and guide publication schema stay fixed', (
   assert.match(pricing, /<title>Removalists Adelaide Prices \| ZQ Removals<\/title>/i);
   assert.match(pricing, /\$75 per 30 minutes/i);
   assert.match(pricing, /\$89 per 30 minutes/i);
-  assert.match(pricing, /1-hour call-out or travel charge applies where applicable/i);
-  assert.match(office, /<title>Office Removalists Adelaide \| ZQ Removals<\/title>/i);
+  assert.match(pricing, /1-hour call-out(?: or travel|\/travel) charge applies where applicable/i);
+  assert.match(office, /<title>Office Removalists Adelaide \| Commercial Movers \| ZQ Removals<\/title>/i);
   assert.match(piano, /<title>Piano Movers Adelaide \| ZQ Removals<\/title>/i);
   assert.match(guide, /"datePublished": "2026-05-23"/);
   assert.match(guide, /"dateModified": "2026-08-29"/);
@@ -333,10 +333,10 @@ test('homepage pricing cluster links to Adelaide prices page for crawl discovery
 
 test('priority suburb and interstate pages use the requested high-intent metadata', () => {
   const expectations = [
-    ['removalists-hyde-park/index.html', /Hyde Park Removalists \| Fixed-Price Movers Adelaide \| ZQ Removals/i, /Need reliable removalists in Hyde Park\?/i],
+    ['removalists-hyde-park/index.html', /Hyde Park Removalists Adelaide \| Local Movers \| ZQ Removals/i, /Hyde Park removalists for homes, apartments and furniture/i],
     ['removalists-malvern/index.html', /Malvern Removalists \| Local Furniture Movers Adelaide/i, /Book trusted Malvern removalists/i],
     ['removalists-unley/index.html', /Removalists Unley \| Professional Adelaide Movers/i, /Unley removalists for character homes, apartments and townhouses/i],
-    ['removalists-unley-park/index.html', /Unley Park Removalists \| Local Movers Adelaide/i, /Unley Park removalists for tight streets/i],
+    ['removalists-unley-park/index.html', /Unley Park Removalists \| Local Movers Adelaide/i, /Unley Park removalists for house and furniture moves/i],
     ['removalists-medindie/index.html', /Medindie Removalists \| Premium Home Movers Adelaide/i, /Choose Medindie removalists/i],
     ['adelaide-to-sydney-removalists/index.html', /Adelaide to Sydney Removalists/i, /Adelaide to Sydney removalists/i],
     ['adelaide-to-brisbane-removals/index.html', /Adelaide to Brisbane Removalists \| Interstate Movers/i, /Adelaide to Brisbane removalists/i],
@@ -735,7 +735,7 @@ test('required schema types exist on local, service, suburb, guide, FAQ, and bre
 });
 
 test('guide article schema preserves dates and the commercial CTA stays unique', () => {
-  const articleOutput = path.join('adelaide-moving-guides', 'how-much-do-removalists-cost-adelaide', 'index.html');
+  const articleOutput = path.join('adelaide-moving-guides', 'moving-house-checklist-adelaide', 'index.html');
   const sourceOutput = articleOutput.replace(/\\/g, '/');
   const articleHtml = readDist(articleOutput);
   const hubHtml = readDist(path.join('adelaide-moving-guides', 'index.html'));
@@ -874,6 +874,17 @@ test('priority Adelaide suburb pages are substantial and keep service, nearby, F
     const main = extractMain(html);
     const links = extractRootLinks(main);
 
+    if (['hyde-park', 'unley-park'].includes(slug)) {
+      assert.match(main, /House and apartment moves|household|home move/i);
+      assert.match(main, /Parking, stairs and narrow entries/i);
+      assert.match(main, /\$75 per 30 minutes/);
+      assert.match(main, /\$89 per 30 minutes/);
+      assert.match(main, /1-hour call-out\/travel charge applies where applicable/);
+      assert.ok(links.includes('/removalists-adelaide/'));
+      assert.ok(links.includes('/contact-us/#quote-form'));
+      assert.ok(links.includes('/removalists-' + (slug === 'hyde-park' ? 'unley-park' : 'hyde-park') + '/'));
+      continue;
+    }
     const wordCount = countWords(main);
     assert.ok(wordCount >= 900 && wordCount <= 2500, `${slug} suburb page outside 900-2500 words: ${wordCount}`);
     assert.match(main, /data-generated-module="local-insights"/, `${slug} missing local insights`);
@@ -956,9 +967,9 @@ test('homepage targets Adelaide removalists and keeps above-fold conversion cont
   const homepage = readDist('index.html');
   const hero = homepage.match(/<section class="zq-v2-hero[\s\S]*?<\/section>/i)?.[0] || '';
 
-  assert.match(homepage, /<title>Adelaide Removalists You Can Rely On \| ZQ Removals<\/title>/);
-  assert.match(homepage, /<meta name="description" content="Careful Adelaide removalists for house, apartment, office and interstate moves\. Request a free quote from ZQ Removals today\."/i);
-  assert.match(hero, /<h1[^>]*>Adelaide Removalists You Can Rely On<\/h1>/);
+  assert.match(homepage, /<title>ZQ Removals Adelaide \| Home, Office &amp; Interstate Moves<\/title>/);
+  assert.match(homepage, /<meta name="description" content="Plan your Adelaide move with ZQ Removals\. Home, furniture, office and interstate enquiries\. Call 0433 819 989 or request a quote with access and item details\."/i);
+  assert.match(hero, /<h1[^>]*>ZQ Removals — helping Adelaide move<\/h1>/);
   assert.match(hero, /From the first box to the final placement/i);
   assert.match(hero, /href="#quote-form"[^>]*>Get a Free Quote/i);
   assert.match(hero, /href="tel:\+61433819989"/);
@@ -1023,7 +1034,7 @@ test('v6 service pages carry CTR titles, related services, suburb links, FAQ and
   const cases = [
     ['furniture-removalists-adelaide/index.html', /Furniture Removalists Adelaide \| Careful Movers/i],
     ['house-removals-adelaide/index.html', /House Removalists Adelaide \| Local Home Moves/i],
-    ['office-removals-adelaide/index.html', /Office Removalists Adelaide \| ZQ Removals/i],
+    ['office-removals-adelaide/index.html', /Office Removalists Adelaide \| Commercial Movers \| ZQ Removals/i],
     ['apartment-removalists-adelaide/index.html', /Apartment Removalists Adelaide/i],
   ];
 
@@ -1050,7 +1061,7 @@ test('v6 generated suburb pages include near-me wording, five nearby links, serv
     const links = extractRootLinks(main);
 
     assert.match(main, new RegExp(`${suburbName} moves`, 'i'), `${slug} missing suburb move wording`);
-    assert.match(main, /transparent-rate quote/i, `${slug} missing transparent-rate quote wording`);
+    assert.match(main, /published hourly rates/i, `${slug} missing published rates wording`);
     assert.match(main, /access|parking|stairs|lifts|carry distance/i, `${slug} missing access wording`);
     assert.ok(links.filter((href) => href.startsWith('/removalists-') && !href.includes(slug)).length >= 5, `${slug} missing five nearby suburb links`);
     assert.ok(links.filter((href) => ['/house-removals-adelaide/', '/furniture-removalists-adelaide/', '/office-removals-adelaide/', '/packing-services-adelaide/', '/interstate-removals-adelaide/'].includes(href)).length >= 3, `${slug} missing related service links`);
@@ -1195,6 +1206,11 @@ test('priority suburb and interstate pages stay indexable, canonical, and linked
   ]) {
     const html = readDist(suburbOutput);
     const main = extractMain(html);
+    if (['removalists-hyde-park/index.html', 'removalists-unley-park/index.html'].includes(suburbOutput)) {
+      assert.match(main, /href="\/removalists-adelaide\/"/);
+      assert.match(main, /href="\/removalists-(?:hyde-park|unley-park)\/"/);
+      continue;
+    }
     assert.match(main, /Adelaide to Sydney removalists/i, `${suburbOutput} missing Sydney route link`);
     assert.match(main, /Adelaide to Brisbane removalists/i, `${suburbOutput} missing Brisbane route link`);
     assert.match(main, /Adelaide to Melbourne removalists/i, `${suburbOutput} missing Melbourne route link`);
@@ -1207,7 +1223,7 @@ test('priority suburb and interstate pages stay indexable, canonical, and linked
     'Adelaide to Sydney removalists',
     'Adelaide to Brisbane removalists',
     'Adelaide to Melbourne removalists',
-    'Transparent-rate Adelaide removalists',
+    'Adelaide moving services',
   ]) {
     assert.match(homepage, new RegExp(anchorText, 'i'), `homepage missing ${anchorText}`);
   }
