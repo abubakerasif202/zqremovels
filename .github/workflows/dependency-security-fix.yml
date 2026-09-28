@@ -1,0 +1,101 @@
+name: Dependency security remediation
+
+on:
+  push:
+    branches:
+      - security/dependency-alerts-2026-09-28
+
+permissions:
+  contents: read
+
+jobs:
+  audit-fix-validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install clean dependency graph
+        run: npm ci
+
+      - name: Audit before
+        shell: bash
+        run: |
+          npm audit --json > audit-before.json || true
+          node - <<'NODE'
+          const fs=require('fs');
+          const a=JSON.parse(fs.readFileSync('audit-before.json','utf8'));
+          console.log('AUDIT_BEFORE', JSON.stringify({
+            metadata:a.metadata?.vulnerabilities ?? null,
+            vulnerabilities:Object.fromEntries(Object.entries(a.vulnerabilities||{}).map(([k,v])=>[k,{
+              severity:v.severity,
+              isDirect:v.isDirect,
+              via:(v.via||[]).map(x=>typeof x==='string'?x:{source:x.source,name:x.name,severity:x.severity,range:x.range}),
+              effects:v.effects,
+              range:v.range,
+              nodes:v.nodes,
+              fixAvailable:v.fixAvailable
+            }]))
+          }, null, 2));
+          NODE
+
+      - name: Apply safe npm audit lockfile fixes
+        run: npm audit fix --package-lock-only --ignore-scripts || true
+
+      - name: Show proposed manifest changes
+        shell: bash
+        run: |
+          git diff -- package.json package-lock.json
+          git status --short package.json package-lock.json
+
+      - name: Audit after safe fixes
+        shell: bash
+        run: |
+          npm audit --json > audit-after.json || true
+          node - <<'NODE'
+          const fs=require('fs');
+          const a=JSON.parse(fs.readFileSync('audit-after.json','utf8'));
+          console.log('AUDIT_AFTER', JSON.stringify({
+            metadata:a.metadata?.vulnerabilities ?? null,
+            vulnerabilities:Object.fromEntries(Object.entries(a.vulnerabilities||{}).map(([k,v])=>[k,{
+              severity:v.severity,
+              isDirect:v.isDirect,
+              via:(v.via||[]).map(x=>typeof x==='string'?x:{source:x.source,name:x.name,severity:x.severity,range:x.range}),
+              effects:v.effects,
+              range:v.range,
+              nodes:v.nodes,
+              fixAvailable:v.fixAvailable
+            }]))
+          }, null, 2));
+          NODE
+
+      - name: Reinstall from proposed lockfile
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Full tests
+        run: npm test
+
+      - name: SEO validation
+        run: npm run seo:validate
+
+      - name: TypeScript
+        run: npx tsc --noEmit
+
+      - name: Upload audit evidence and proposed lockfile
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-security-audit
+          path: |
+            audit-before.json
+            audit-after.json
+            package.json
+            package-lock.json
