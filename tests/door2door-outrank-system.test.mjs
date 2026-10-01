@@ -59,7 +59,7 @@ function stripApprovedQuotePackagePricing(html) {
     .replace(/\$75\s*(?:per|\/)\s*30 min(?:utes)?/gi, '')
     .replace(/\$89\s*(?:per|\/)\s*30 min(?:utes)?/gi, '')
     // Published rates restated as arithmetic on the prices page: hourly equivalents and example-duration totals.
-    .replace(/\$(?:150|178) per hour/gi, '')
+    .replace(/\$(?:150|178)\/hour/gi, '')
     .replace(/<td>\$(?:300|356|450|534|600|712)<\/td>/g, '');
 }
 

@@ -5530,23 +5530,23 @@ ${renderPriorityPlanningFaq(slug)}${renderQuoteStrip({ eyebrow: 'Talk to ZQ Remo
 </main>`;
 }
 
-const rateTableHtml = `<div class="table-wrap" style="margin-top: 1.5rem;">
-  <table>
-    <caption>ZQ Removals published crew rates</caption>
+const rateTableHtml = `<style>.table-wrap table.rate-table{min-width:0}.table-wrap table.rate-table th,.table-wrap table.rate-table td{padding:.65rem .5rem;font-size:.92rem}.table-wrap table.rate-table caption{text-align:left;padding:.5rem}</style><div class="table-wrap" style="margin-top: 1.5rem;">
+  <table class="rate-table">
+    <caption>Published crew rates</caption>
     <thead>
-      <tr><th scope="col">Crew</th><th scope="col">Published rate</th><th scope="col">Hourly equivalent</th></tr>
+      <tr><th scope="col">Crew</th><th scope="col">Rate</th><th scope="col">Equivalent</th></tr>
     </thead>
     <tbody>
-      <tr><th scope="row">2 men and a truck</th><td>$75 per 30 minutes</td><td>$150 per hour</td></tr>
-      <tr><th scope="row">3 men and a truck</th><td>$89 per 30 minutes</td><td>$178 per hour</td></tr>
+      <tr><th scope="row">2 men and a truck</th><td>$75 / 30 min</td><td>$150/hour</td></tr>
+      <tr><th scope="row">3 men and a truck</th><td>$89 / 30 min</td><td>$178/hour</td></tr>
     </tbody>
   </table>
 </div>
-<p class="field-note" style="margin-top: 1rem;">A 1-hour call-out/travel charge applies where applicable. Ask whether it applies to your addresses when you request a quote.</p>`;
+<p class="field-note" style="margin-top: 1rem;">The equivalent column is the published 30-minute rate doubled. A 1-hour call-out/travel charge applies where applicable. Ask whether it applies to your addresses when you request a quote.</p>`;
 
-const rateExamplesTableHtml = `<div class="table-wrap" style="margin-top: 1.5rem;">
-  <table>
-    <caption>Published rates multiplied over example durations (before call-out/travel and other applicable charges)</caption>
+const rateExamplesTableHtml = `<style>.table-wrap table.rate-table{min-width:0}.table-wrap table.rate-table th,.table-wrap table.rate-table td{padding:.65rem .5rem;font-size:.92rem}.table-wrap table.rate-table caption{text-align:left;padding:.5rem}</style><div class="table-wrap" style="margin-top: 1.5rem;">
+  <table class="rate-table">
+    <caption>Rates over example durations</caption>
     <thead>
       <tr><th scope="col">Duration</th><th scope="col">2 men and a truck</th><th scope="col">3 men and a truck</th></tr>
     </thead>
@@ -5557,7 +5557,7 @@ const rateExamplesTableHtml = `<div class="table-wrap" style="margin-top: 1.5rem
     </tbody>
   </table>
 </div>
-<p class="field-note" style="margin-top: 1rem;">These figures are simple arithmetic on the published rates, not an estimate for your move. The time your move takes depends on volume, access and travel.</p>`;
+<p class="field-note" style="margin-top: 1rem;">These figures are simple arithmetic on the published rates, before call-out/travel and other applicable charges. They are not an estimate for your move. The time your move takes depends on volume, access and travel.</p>`;
 
 const priorityCommercialProfiles = {
   'removalists-adelaide-prices': {
@@ -5575,7 +5575,7 @@ const priorityCommercialProfiles = {
       ] },
     ],
     faqs: [
-      { question: 'What is the hourly rate for removalists in Adelaide?', answer: 'ZQ Removals charges $75 per 30 minutes for 2 men and a truck (equivalent to $150 per hour) and $89 per 30 minutes for 3 men and a truck (equivalent to $178 per hour). A 1-hour call-out/travel charge applies where applicable.' },
+      { question: 'What is the hourly rate for removalists in Adelaide?', answer: 'ZQ Removals charges $75 per 30 minutes for 2 men and a truck (equivalent to $150/hour) and $89 per 30 minutes for 3 men and a truck (equivalent to $178/hour). A 1-hour call-out/travel charge applies where applicable.' },
       { question: 'Is the call-out or travel charge always added?', answer: 'It applies where applicable. Confirm with ZQ Removals whether it applies to your pickup and delivery addresses when you request a quote.' },
       { question: 'Can I get a fixed total from these rates?', answer: 'The published rates describe time-based charging. Request an estimate based on your inventory and access, then confirm the charging basis and inclusions with ZQ Removals.' },
       { question: 'Do stairs or long carries change the cost?', answer: 'They can, because they add time on site. Include stairs, lift access and the distance from the truck to the door in your enquiry.' },
