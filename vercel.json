@@ -2059,36 +2059,36 @@
       "permanent": true
     },
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [
         {
           "type": "host",
           "value": "www.zqremovals.au"
         }
       ],
-      "destination": "https://zqremovalsadelaide.com.au/:path*",
+      "destination": "https://zqremovalsadelaide.com.au/$1",
       "permanent": true
     },
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [
         {
           "type": "host",
           "value": "zqremovals.au"
         }
       ],
-      "destination": "https://zqremovalsadelaide.com.au/:path*",
+      "destination": "https://zqremovalsadelaide.com.au/$1",
       "permanent": true
     },
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [
         {
           "type": "host",
           "value": "www.zqremovalsadelaide.com.au"
         }
       ],
-      "destination": "https://zqremovalsadelaide.com.au/:path*",
+      "destination": "https://zqremovalsadelaide.com.au/$1",
       "permanent": true
     }
   ]

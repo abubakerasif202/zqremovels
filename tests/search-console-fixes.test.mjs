@@ -429,7 +429,7 @@ test('vercel redirects cover legacy html aliases for crawlable pages and route f
 test('host migration redirects every old and www host to the new apex with path preservation', () => {
   const vercelConfig = readVercelConfig(root);
   const hostRedirects = vercelConfig.redirects.filter((redirect) => (
-    redirect.source === '/:path*'
+    redirect.source === '/(.*)'
     && redirect.permanent === true
     && Array.isArray(redirect.has)
     && redirect.has.some((condition) => condition.type === 'host')
@@ -440,7 +440,7 @@ test('host migration redirects every old and www host to the new apex with path 
     ['www.zqremovals.au', 'zqremovals.au', 'www.zqremovalsadelaide.com.au'].sort(),
   );
   for (const redirect of hostRedirects) {
-    assert.equal(redirect.destination, 'https://zqremovalsadelaide.com.au/:path*');
+    assert.equal(redirect.destination, 'https://zqremovalsadelaide.com.au/$1');
   }
 });
 

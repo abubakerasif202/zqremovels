@@ -516,7 +516,7 @@ function validateRedirects(redirectAuditState, failuresList) {
       || /https?:\/\/[^/]+\.vercel\.app(?:\/|$)/i.test(destination)) {
       failuresList.push(`redirect destination uses a non-canonical host: ${source} -> ${destination}`);
     }
-    if (!hasCanonicalTrailingSlash(destination)) {
+    if (!(destination.endsWith('$1') || destination.endsWith(':path*')) && !hasCanonicalTrailingSlash(destination)) {
       failuresList.push(`redirect destination missing trailing slash: ${source} -> ${destination}`);
     }
 
@@ -543,7 +543,7 @@ function validateRedirects(redirectAuditState, failuresList) {
     const source = String(redirect.source || '');
     const hasHostCondition = Array.isArray(redirect.has)
       && redirect.has.some((condition) => condition && condition.type === 'host');
-    const isWildcardSource = /[:*]/.test(source);
+    const isWildcardSource = /[:*(]/.test(source);
     if (hasHostCondition && isWildcardSource) {
       sawWildcardHostRule = true;
       continue;
