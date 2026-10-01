@@ -3,6 +3,7 @@ import path from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
+import { readVercelConfig } from './helpers/vercel-config.mjs';
 
 const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
@@ -46,7 +47,7 @@ const prioritySuburbs = [
 const verifiedRedirects = JSON.parse(
   readFileSync(path.join(root, 'site-src', 'data', 'zq-redirects-verified.json'), 'utf8'),
 );
-const vercelRedirects = JSON.parse(readFileSync(path.join(root, 'vercel.json'), 'utf8')).redirects;
+const vercelRedirects = readVercelConfig(root).redirects;
 
 function readDist(relativePath) {
   return readFileSync(path.join(distDir, relativePath), 'utf8');
@@ -56,7 +57,10 @@ function stripApprovedQuotePackagePricing(html) {
   return html
     .replace(/<form\b[^>]*data-quote-form="quote"[^>]*>[\s\S]*?<\/form>/gi, '')
     .replace(/\$75\s*(?:per|\/)\s*30 min(?:utes)?/gi, '')
-    .replace(/\$89\s*(?:per|\/)\s*30 min(?:utes)?/gi, '');
+    .replace(/\$89\s*(?:per|\/)\s*30 min(?:utes)?/gi, '')
+    // Published rates restated as arithmetic on the prices page: hourly equivalents and example-duration totals.
+    .replace(/\$(?:150|178) per hour/gi, '')
+    .replace(/<td>\$(?:300|356|450|534|600|712)<\/td>/g, '');
 }
 
 function extractRootLinks(html) {

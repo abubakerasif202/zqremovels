@@ -139,7 +139,6 @@ const localBusinessSchema = {
     name: 'ABN',
     value: businessIdentity.abn.machine,
   },
-  priceRange: '$$',
   address: buildPostalAddressSchema(),
   areaServed: [
     { '@type': 'City', name: 'Adelaide' },
@@ -944,8 +943,8 @@ const suburbSeoOverrides = {
     description: 'Glenelg removalists for coastal apartments and homes near Jetty Road and Anzac Highway, with parking, loading and furniture access planned early.',
   },
   'hyde-park': {
-    title: 'Hyde Park Removalists Adelaide | Local Movers | ZQ Removals',
-    description: 'Hyde Park removalists for homes, apartments and furniture. 2 men + truck $75/30 min; 3 men + truck $89/30 min. 1-hour call-out/travel applies where applicable.',
+    title: 'Hyde Park Removalists | $75/30 min Local Movers | ZQ Removals',
+    description: 'Local removalists for Hyde Park houses, units and furniture. 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. Call-out/travel may apply.',
   },
   'malvern': {
     title: 'Malvern Removalists | Local Furniture Movers Adelaide',
@@ -960,8 +959,8 @@ const suburbSeoOverrides = {
     description: 'Colonel Light Gardens removalists for heritage-style homes, careful access planning, inventory review, and moving quote scoping.',
   },
   'unley': {
-    title: 'Removalists Unley | Professional Adelaide Movers',
-    description: 'Unley removalists for character homes, apartments and townhouses near Unley Road, with inner-south access, parking and furniture handling planned.',
+    title: 'Removalists Unley | Villa & Townhouse Movers | ZQ Removals',
+    description: 'Unley removalists for character homes, apartments and townhouses near Unley Road. Parking, access and furniture handling planned first. Moving in Unley Park? See our Unley Park page.',
   },
   'mawson-lakes': {
     title: 'Removalists Mawson Lakes | Adelaide Moving Service',
@@ -972,8 +971,8 @@ const suburbSeoOverrides = {
     description: 'Mount Barker removalists for Adelaide Hills homes and metro-to-Hills moves, with freeway routing, property access and larger inventories planned.',
   },
   'unley-park': {
-    title: 'Unley Park Removalists | Local Movers Adelaide',
-    description: 'Unley Park removalists for house and furniture moves. Tell ZQ Removals about parking, stairs and large items for a quote. Call-out/travel may apply.',
+    title: 'Unley Park Removalists | Homes & Townhouses | ZQ Removals',
+    description: 'Unley Park removalists for homes, townhouses and furniture. Share parking, stairs and fragile items for a quote. 2 men + truck from $75 per 30 min.',
   },
   'toorak-gardens': {
     title: 'Toorak Gardens Removalists | Premium Local Movers | ZQ Removals',
@@ -1915,8 +1914,8 @@ const commercialPages = [
   },
   {
     slug: 'removalists-adelaide-prices',
-    title: 'Removalists Adelaide Prices | ZQ Removals',
-    description: 'Adelaide removalist rates: 2 men and a truck $75 per 30 minutes, or 3 men and a truck $89 per 30 minutes. Call-out or travel charges may apply.',
+    title: 'Removalists Adelaide Prices & Hourly Rates | ZQ Removals',
+    description: 'Adelaide removalist prices: 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. See example durations, call-out/travel and request a quote.',
     canonical: '/removalists-adelaide-prices/',
     type: 'money',
     hero: 'Compare current Adelaide removalist rates before booking. We confirm the crew package, access, route and any applicable call-out or travel charge in writing.',
@@ -4738,7 +4737,7 @@ function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel, inte
         { name: 'Removalists Adelaide', url: `${SITE_URL}/removalists-adelaide/` },
         { name: `Removalists ${suburb}`, url: canonical },
       ], canonical)),
-      JSON.stringify(buildFAQSchema(['hyde-park', 'unley-park'].includes(slug) ? priorityPlanningFaqItems : faqItems.slice(0, 5), canonical)),
+      JSON.stringify(buildFAQSchema(['hyde-park', 'unley-park'].includes(slug) ? getPrioritySuburbFaqItems(slug) : faqItems.slice(0, 5), canonical)),
     ],
     contentHtml: renderSuburbContent({
       slug,
@@ -4896,8 +4895,8 @@ function makeCommercialPage(page) {
       description: 'Small removals Adelaide for apartments, study rooms, single heavy items, and small loads. Safe handling, access planning, and transparent hourly rates.',
     },
     'removalists-adelaide-prices': {
-      title: 'Removalists Adelaide Prices | ZQ Removals',
-      description: 'Adelaide removalist rates: 2 men and a truck $75 per 30 minutes, or 3 men and a truck $89 per 30 minutes. Call-out or travel charges may apply.',
+      title: 'Removalists Adelaide Prices & Hourly Rates | ZQ Removals',
+      description: 'Adelaide removalist prices: 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. See example durations, call-out/travel and request a quote.',
     },
     'office-removalists-adelaide': {
       title: 'Office Removalists Adelaide | B2B Commercial Relocations',
@@ -4952,7 +4951,7 @@ function makeCommercialPage(page) {
         { name: 'Home', url: SITE_URL },
         { name: page.title, url: canonical },
       ], canonical)),
-      JSON.stringify(buildFAQSchema(['moving-company-adelaide', 'removalists-adelaide-prices', 'cheap-removalists-adelaide'].includes(page.slug) ? priorityPlanningFaqItems : page.faq, canonical)),
+      JSON.stringify(buildFAQSchema(['moving-company-adelaide', 'removalists-adelaide-prices', 'cheap-removalists-adelaide'].includes(page.slug) ? getPriorityCommercialFaqItems(page.slug) : page.faq, canonical)),
     ],
     contentHtml: renderCommercialContent(page, canonical, pageImage),
   };
@@ -5427,34 +5426,225 @@ function buildSuburbInterstateCards(suburb) {
 }
 
 
-const priorityPlanningFaqItems = [
-  { question: 'What are the published ZQ Removals rates?', answer: '2 men + truck costs $75 per 30 minutes. 3 men + truck costs $89 per 30 minutes. A 1-hour call-out/travel charge applies where applicable.' },
-  { question: 'What details should I send for a moving quote?', answer: 'Send both addresses, your preferred date, a furniture and box list, stairs or lift access, parking restrictions and any packing requirements. These details help estimate moving time and applicable charges.' },
-];
-function renderPriorityPlanningFaq() {
-  return renderFaqSectionBlock({ id: 'moving-questions', module: 'suburb-faq', eyebrow: 'Moving questions', heading: 'Rates and preparing your quote', intro: 'Confirm your requirements before booking.', items: priorityPlanningFaqItems });
+const priorityRateFaq = { question: 'What are the published ZQ Removals rates?', answer: '2 men + truck costs $75 per 30 minutes. 3 men + truck costs $89 per 30 minutes. A 1-hour call-out/travel charge applies where applicable.' };
+const priorityQuoteFaq = { question: 'What details should I send for a moving quote?', answer: 'Send both addresses, your preferred date, a furniture and box list, stairs or lift access, parking restrictions and any packing requirements. These details help estimate moving time and applicable charges.' };
+
+// Hyde Park and Unley Park are separate inner-south suburbs with their own landing pages, so each carries its
+// own copy, nearby links and FAQs instead of a name-swapped template.
+const prioritySuburbProfiles = {
+  'hyde-park': {
+    h1: 'Hyde Park removalists: local home and furniture moves',
+    lead: 'Looking for local removalists in Hyde Park? ZQ Removals moves houses, units and furniture in Hyde Park and the surrounding inner-south suburbs. Send both addresses and what needs moving, and we will discuss the crew size and likely moving time. Published rates start at $75 per 30 minutes for 2 men and a truck.',
+    points: ['House, unit and furniture moves in Hyde Park', 'Published crew rates, call-out/travel disclosed', 'Access and parking reviewed before booking'],
+    sections: [
+      {
+        module: 'local-intro',
+        eyebrow: 'Your Hyde Park move',
+        heading: 'Moving house or furniture in Hyde Park',
+        intro: 'Tell us what is moving and how the truck can reach it.',
+        paragraphs: [
+          'For a house move, list beds, sofas, dining furniture, boxes and anything stored in sheds or garages. Measure narrow entries and mention pieces that may need dismantling, so the handling plan is agreed before moving day.',
+          'For a unit or apartment move, check building rules, stairs, lift availability and where the truck can stop. Tell us if there is a long walk between the entrance and the loading point, because carry distance adds to moving time.',
+        ],
+      },
+      {
+        module: 'logistics-access',
+        eyebrow: 'Access matters',
+        heading: 'Parking and loading around Hyde Park',
+        intro: 'Street conditions at both addresses affect how long the move takes.',
+        paragraphs: [
+          'If your pickup or delivery address is on or near King William Road, check the posted parking and loading restrictions for the day and time of your move. Where the truck cannot stop at the door, tell us the distance to the nearest legal spot.',
+          'On side streets, check driveway width, overhanging trees and whether neighbours need notice. Photos of the entry, stairs and any tight turns help us allow the right time for large furniture.',
+        ],
+      },
+    ],
+    nearby: [
+      { title: 'Removalists Unley Park', copy: 'Moving between Hyde Park and Unley Park? Include the access details for both addresses.', href: '/removalists-unley-park/', cta: 'View Unley Park moving information' },
+      { title: 'Removalists Unley', copy: 'Unley moves along Unley Road have their own parking and building-access checks.', href: '/removalists-unley/', cta: 'View Unley removalists' },
+      { title: 'Removalists Malvern', copy: 'A nearby inner-south suburb with villa and townhouse moves.', href: '/removalists-malvern/', cta: 'View Malvern removalists' },
+      { title: 'Removalists Goodwood', copy: 'Planning a move that starts or ends in Goodwood? Check the local access notes.', href: '/removalists-goodwood/', cta: 'View Goodwood removalists' },
+    ],
+    faqs: [
+      { question: 'Do you offer local removalists for Hyde Park?', answer: 'Yes. ZQ Removals is based in Andrews Farm and moves homes, units and furniture across metropolitan Adelaide, including Hyde Park. A 1-hour call-out/travel charge applies where applicable, so confirm it when you ask for a quote.' },
+      { question: 'Can you move furniture only, without a full house move?', answer: 'Yes. Send the item list, dimensions and access notes for the pieces that need moving, and ask about the crew size and time that suits a smaller job.' },
+      { question: 'Do you move unit and apartment contents in Hyde Park?', answer: 'Yes. Include stairs, lift availability, building rules and the distance from the entrance to the truck so the moving time can be estimated realistically.' },
+    ],
+  },
+  'unley-park': {
+    h1: 'Unley Park removalists: home, townhouse and furniture moves',
+    lead: 'Moving in Unley Park? ZQ Removals handles house, townhouse and furniture moves in Unley Park and nearby inner-south suburbs. Send both addresses, the inventory and any access limits, and we will discuss the crew and moving time. Published rates start at $75 per 30 minutes for 2 men and a truck.',
+    points: ['Houses, townhouses and furniture', 'Packing help can be discussed before booking', 'Published crew rates, call-out/travel disclosed'],
+    sections: [
+      {
+        module: 'local-intro',
+        eyebrow: 'Your Unley Park move',
+        heading: 'Home and townhouse moves in Unley Park',
+        intro: 'List the whole household, including the items that are easy to forget.',
+        paragraphs: [
+          'List furniture room by room, including garage, outdoor and storage items. Photos of larger pieces and the path to the truck help explain the work involved.',
+          'For a premium home with mirrors, artwork, glass-top tables or timber furniture, note the fragile items early. Wrapping and packing take time, so ask about packing help before booking if you need it.',
+        ],
+      },
+      {
+        module: 'logistics-access',
+        eyebrow: 'Access matters',
+        heading: 'Streets, driveways and stairs in Unley Park',
+        intro: 'Tighter residential streets make the access notes more important.',
+        paragraphs: [
+          'Check where a truck can legally stop, how long the driveway is and whether the street is narrow enough that parked cars limit access. If a townhouse has shared entrances or stairs, include them in the brief.',
+          'Confirm any body-corporate or building requirements for loading times and lift bookings, and tell us if heavy items need to go up or down stairs.',
+        ],
+      },
+    ],
+    nearby: [
+      { title: 'Removalists Hyde Park', copy: 'Moving between Unley Park and Hyde Park? Include the access details for that address too.', href: '/removalists-hyde-park/', cta: 'View Hyde Park moving information' },
+      { title: 'Removalists Unley', copy: 'Unley is a separate suburb with its own page, covering moves around Unley Road.', href: '/removalists-unley/', cta: 'View Unley removalists' },
+      { title: 'Removalists Malvern', copy: 'Villa and townhouse moves in nearby Malvern.', href: '/removalists-malvern/', cta: 'View Malvern removalists' },
+      { title: 'Removalists Mitcham', copy: 'Planning a move to or from Mitcham? Check the Mitcham page.', href: '/removalists-mitcham/', cta: 'View Mitcham removalists' },
+    ],
+    faqs: [
+      { question: 'Is this page for Unley Park or Unley?', answer: 'This page covers Unley Park. Unley is a separate suburb with its own page, so use the Unley removalists page if your address is around Unley Road.' },
+      { question: 'Do you offer local removalists for Unley Park?', answer: 'Yes. ZQ Removals is based in Andrews Farm and moves homes, townhouses and furniture across metropolitan Adelaide, including Unley Park. A 1-hour call-out/travel charge applies where applicable, so confirm it when you ask for a quote.' },
+      { question: 'Can you help pack fragile items before an Unley Park move?', answer: 'Packing help can be discussed before booking. List mirrors, artwork, glassware and delicate furniture in the brief so the time allowed matches the work.' },
+    ],
+  },
+};
+
+function getPrioritySuburbFaqItems(slug) {
+  const profile = prioritySuburbProfiles[slug];
+  return [...(profile?.faqs || []), priorityRateFaq, priorityQuoteFaq];
+}
+
+function renderPriorityPlanningFaq(slug) {
+  return renderFaqSectionBlock({ id: 'moving-questions', module: 'suburb-faq', eyebrow: 'Moving questions', heading: 'Questions about moving in this suburb', intro: 'Confirm your requirements before booking.', items: getPrioritySuburbFaqItems(slug) });
 }
 
 function renderPrioritySuburb({ slug, suburb, image }) {
-  const isHyde = slug === 'hyde-park';
-  const other = isHyde ? 'Unley Park' : 'Hyde Park';
-  const otherSlug = isHyde ? 'unley-park' : 'hyde-park';
+  const profile = prioritySuburbProfiles[slug];
   return `<main id="main-content" data-generated-page="suburb-v5">
-${renderPageHero({ eyebrow: 'Local Adelaide moves', title: `${suburb} removalists for your home and furniture move`, lead: `Moving in ${suburb}? ZQ Removals can help with house, apartment and furniture moves. Tell us what needs moving and how we can access both properties so we can discuss the right crew and quote.`, supporting: [], points: ['House and apartment moves', 'Furniture moving and packing enquiries', 'Parking, stairs and entry details reviewed before booking'], primaryCta: { href: '/contact-us/#quote-form', label: 'Request a moving quote' }, secondaryCta: { href: 'tel:+61433819989', label: 'Call 0433 819 989' }, image, breadcrumbs: [{ href: '/', label: 'Home' }, { href: '/removalists-adelaide/', label: 'Adelaide removals' }, { label: suburb }], pageType: 'suburb' })}
-${renderTextSection({ module: 'local-intro', eyebrow: 'Your home move', heading: `House and apartment moves in ${suburb}`, intro: isHyde ? 'Prepare the rooms and the access before moving day.' : 'Include the whole household when listing what needs moving.', paragraphs: isHyde ? ['For a house move, list beds, sofas, dining furniture, boxes and items in sheds or garages. Measure narrow entries and mention any pieces that may need dismantling so handling can be discussed before booking.', 'For an apartment move, check building rules, stairs, lift availability and where the truck can stop. Tell us whether there is a long walk between the entrance and the loading point.'] : ['List furniture room by room, including garage, outdoor and storage items. Photos of larger pieces and the path to the truck help explain the work involved.', 'If you are moving from a unit or townhouse, include stairs, shared entrances and any building access restrictions. Discuss packing help before booking if you need assistance preparing fragile items.'] })}
-${renderTextSection({ module: 'logistics-access', eyebrow: 'Access matters', heading: 'Parking, stairs and narrow entries', intro: 'The conditions at both addresses affect moving time.', paragraphs: ['Check where a truck may legally stop and whether a driveway or kerbside space is available. Let us know about steps, tight doorways, narrow hallways and the distance from the truck to the front door.', 'Send photos of difficult access and dimensions for bulky furniture. Confirm any building booking requirements with the property manager and share the allowed loading times.'] })}
-${renderTextSection({ module: 'pricing', eyebrow: 'Published local rates', heading: `What does a ${suburb} move cost?`, intro: '2 men + truck: $75 per 30 minutes. 3 men + truck: $89 per 30 minutes.', paragraphs: ['A 1-hour call-out/travel charge applies where applicable. Total cost depends on moving time, the volume of items, access, travel and packing requirements. Confirm the applicable charges with ZQ Removals before booking.', 'For an accurate quote, provide pickup and delivery addresses, preferred date, a furniture and box list, stairs or lift details, parking information and any packing needs.'] })}
-${renderRouteCardSection({ module: 'related-services', eyebrow: 'Plan your move', heading: 'Moving services and nearby enquiries', intro: 'Choose the information that matches your move.', cards: [{title:'Adelaide moving services',copy:'Explore house, furniture, apartment and office moving options.',href:'/removalists-adelaide/',cta:'Explore Adelaide removals'}, {title:'Furniture moving',copy:'Discuss large items, dimensions and access before booking.',href:'/furniture-removalists-adelaide/',cta:'Furniture moving advice'}, {title:`Moving in ${other}`,copy:`For pickup or delivery in ${other}, include the access details for that address too.`,href:`/removalists-${otherSlug}/`,cta:`View ${other} moving information`}, {title:'Rates and charges',copy:'Check the published crew rates and what affects total moving time.',href:'/removalists-adelaide-prices/',cta:'View moving rates'}] })}
-${renderPriorityPlanningFaq()}${renderQuoteStrip({ eyebrow: 'Talk to ZQ Removals', heading: `Request your ${suburb} moving quote`, copy: 'Send your addresses, date, inventory and access notes, or call to discuss the move.', primaryCta:{href:'/contact-us/#quote-form',label:'Request a quote'},secondaryCta:{href:'tel:+61433819989',label:'Call 0433 819 989'},pageType:'suburb' })}
+${renderPageHero({ eyebrow: 'Local Adelaide moves', title: profile.h1, lead: profile.lead, supporting: [], points: profile.points, primaryCta: { href: '/contact-us/#quote-form', label: 'Request a moving quote' }, secondaryCta: { href: 'tel:+61433819989', label: 'Call 0433 819 989' }, image, breadcrumbs: [{ href: '/', label: 'Home' }, { href: '/removalists-adelaide/', label: 'Adelaide removals' }, { label: suburb }], pageType: 'suburb' })}
+${profile.sections.map((section) => renderTextSection(section)).join('\n')}
+${renderTextSection({ module: 'pricing', eyebrow: 'Published local rates', heading: `What does a ${suburb} move cost?`, intro: '2 men + truck: $75 per 30 minutes. 3 men + truck: $89 per 30 minutes.', paragraphs: ['A 1-hour call-out/travel charge applies where applicable. Total cost depends on moving time, the volume of items, access, travel and packing requirements. See the Adelaide removalist prices page for the full rate breakdown, then confirm the applicable charges with ZQ Removals before booking.'] })}
+${renderRouteCardSection({ module: 'related-services', eyebrow: 'Plan your move', heading: 'Nearby suburbs and related moving services', intro: 'Choose the page that matches your move.', cards: [...profile.nearby.map((card) => ({ eyebrow: 'Nearby suburb', ...card })), { eyebrow: 'Moving service', title: 'Furniture moving', copy: 'Discuss large items, dimensions and access before booking.', href: '/furniture-removalists-adelaide/', cta: 'Furniture moving advice' }, { eyebrow: 'Rates', title: 'Rates and charges', copy: 'Check the published crew rates and what affects total moving time.', href: '/removalists-adelaide-prices/', cta: 'View moving rates' }] })}
+${renderPriorityPlanningFaq(slug)}${renderQuoteStrip({ eyebrow: 'Talk to ZQ Removals', heading: `Request your ${suburb} moving quote`, copy: 'Send your addresses, date, inventory and access notes, or call to discuss the move.', primaryCta:{href:'/contact-us/#quote-form',label:'Request a quote'},secondaryCta:{href:'tel:+61433819989',label:'Call 0433 819 989'},pageType:'suburb' })}
 </main>`;
 }
 
+const rateTableHtml = `<div class="table-wrap" style="margin-top: 1.5rem;">
+  <table>
+    <caption>ZQ Removals published crew rates</caption>
+    <thead>
+      <tr><th scope="col">Crew</th><th scope="col">Published rate</th><th scope="col">Hourly equivalent</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">2 men and a truck</th><td>$75 per 30 minutes</td><td>$150 per hour</td></tr>
+      <tr><th scope="row">3 men and a truck</th><td>$89 per 30 minutes</td><td>$178 per hour</td></tr>
+    </tbody>
+  </table>
+</div>
+<p class="field-note" style="margin-top: 1rem;">A 1-hour call-out/travel charge applies where applicable. Ask whether it applies to your addresses when you request a quote.</p>`;
+
+const rateExamplesTableHtml = `<div class="table-wrap" style="margin-top: 1.5rem;">
+  <table>
+    <caption>Published rates multiplied over example durations (before call-out/travel and other applicable charges)</caption>
+    <thead>
+      <tr><th scope="col">Duration</th><th scope="col">2 men and a truck</th><th scope="col">3 men and a truck</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">2 hours</th><td>$300</td><td>$356</td></tr>
+      <tr><th scope="row">3 hours</th><td>$450</td><td>$534</td></tr>
+      <tr><th scope="row">4 hours</th><td>$600</td><td>$712</td></tr>
+    </tbody>
+  </table>
+</div>
+<p class="field-note" style="margin-top: 1rem;">These figures are simple arithmetic on the published rates, not an estimate for your move. The time your move takes depends on volume, access and travel.</p>`;
+
+const priorityCommercialProfiles = {
+  'removalists-adelaide-prices': {
+    h1: 'Removalists Adelaide prices: published hourly rates',
+    lead: 'ZQ Removals publishes its crew rates: 2 men and a truck at $75 per 30 minutes, and 3 men and a truck at $89 per 30 minutes. A 1-hour call-out/travel charge applies where applicable.',
+    blocks: [
+      { type: 'html', module: 'pricing-rates', eyebrow: 'Current rates', heading: 'Adelaide removalist rates', intro: 'Rates are quoted per 30 minutes.', html: rateTableHtml },
+      { type: 'html', module: 'pricing-examples', eyebrow: 'How the rates add up', heading: 'Example durations at the published rates', intro: 'Use these to see how time translates into cost.', html: rateExamplesTableHtml },
+      { type: 'text', module: 'move-planning', eyebrow: 'What changes the total', heading: 'What affects the total cost of your move', intro: 'The rate is only part of the picture. The time on site is the larger variable.', paragraphs: [
+        'The total depends on how long the job takes: the volume of furniture and boxes, stairs, lift bookings, the distance from the truck to the door, travel between addresses and any packing you add. A prepared inventory and clear access shorten the job.',
+        'These are time-based rates, not a fixed total for every move. For the reasoning behind moving time and what to send for an estimate, read the moving cost guide.',
+      ] },
+      { type: 'text', module: 'pricing-callout', eyebrow: 'Call-out and travel', heading: 'Call-out and travel charges', paragraphs: [
+        'A 1-hour call-out/travel charge applies where applicable. Because it depends on where the job starts and finishes, confirm it when you ask for a quote so there is no surprise on the day.',
+      ] },
+    ],
+    faqs: [
+      { question: 'What is the hourly rate for removalists in Adelaide?', answer: 'ZQ Removals charges $75 per 30 minutes for 2 men and a truck (equivalent to $150 per hour) and $89 per 30 minutes for 3 men and a truck (equivalent to $178 per hour). A 1-hour call-out/travel charge applies where applicable.' },
+      { question: 'Is the call-out or travel charge always added?', answer: 'It applies where applicable. Confirm with ZQ Removals whether it applies to your pickup and delivery addresses when you request a quote.' },
+      { question: 'Can I get a fixed total from these rates?', answer: 'The published rates describe time-based charging. Request an estimate based on your inventory and access, then confirm the charging basis and inclusions with ZQ Removals.' },
+      { question: 'Do stairs or long carries change the cost?', answer: 'They can, because they add time on site. Include stairs, lift access and the distance from the truck to the door in your enquiry.' },
+    ],
+    links: [
+      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'Moving cost guide: what drives moving time' },
+      { href: '/cheap-removalists-adelaide/', label: 'Cheap and budget moves: how to cut moving time' },
+      { href: '/removalists-adelaide/', label: 'Removalists Adelaide' },
+      { href: '/office-removals-adelaide/', label: 'Office removalists Adelaide' },
+    ],
+  },
+  'cheap-removalists-adelaide': {
+    h1: 'Cheap removalists Adelaide: cut your moving time',
+    lead: 'The cheapest move is usually the shortest one. Here is how to prepare so a crew charged by the half hour spends its time moving, not waiting, searching or carrying further than it has to.',
+    blocks: [
+      { type: 'text', module: 'move-planning', eyebrow: 'Practical ways to prepare', heading: 'Ways to keep a move short', intro: 'Each of these removes time from the job.', paragraphs: [
+        'Pack and label boxes before the crew arrives, and keep essentials separate. Make a room-by-room furniture list and arrange any dismantling before moving day.',
+        'Arrange legal loading access at both addresses and confirm building lift bookings. A short carry and a prepared inventory reduce time spent on the move; the final total depends on the actual work and applicable charges.',
+      ] },
+      { type: 'text', module: 'budget-compare', eyebrow: 'Comparing low quotes', heading: 'Check what a low price leaves out', intro: 'A low headline price is only useful if it covers your real move.', paragraphs: [
+        'Ask whether a quote covers stairs, long carries, lift waits, travel and packing, and whether the crew size matches the inventory. Compare quotes against the same inventory and access notes.',
+        'ZQ Removals publishes its rates so you can compare on the same terms: $75 per 30 minutes for 2 men and a truck, $89 per 30 minutes for 3 men and a truck, with a 1-hour call-out/travel charge where applicable. The prices page shows how those rates add up over time.',
+      ] },
+      { type: 'text', module: 'budget-small', eyebrow: 'Smaller jobs', heading: 'Not every job needs a full house move', paragraphs: [
+        'If you are moving a few large items or a small unit, say so in your enquiry and ask which crew size and time suit a smaller job.',
+      ] },
+    ],
+    faqs: [
+      { question: 'How can I reduce the cost of a removalist in Adelaide?', answer: 'Reduce the time on site. Pack and label before the crew arrives, dismantle what you can, arrange legal loading access and keep the path from the truck to the door clear.' },
+      { question: 'Does ZQ Removals publish its rates?', answer: 'Yes. 2 men and a truck is $75 per 30 minutes and 3 men and a truck is $89 per 30 minutes, with a 1-hour call-out/travel charge where applicable.' },
+      { question: 'Is the cheapest quote always the best value?', answer: 'Not necessarily. Compare the same inventory, access, crew size and charges, and ask what is excluded before you decide.' },
+    ],
+    links: [
+      { href: '/removalists-adelaide-prices/', label: 'Removalists Adelaide prices and rates' },
+      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'Moving cost guide' },
+      { href: '/packing-services-adelaide/', label: 'Packing services Adelaide' },
+      { href: '/removalists-adelaide/', label: 'Removalists Adelaide' },
+    ],
+  },
+  'moving-company-adelaide': {
+    h1: 'Choosing a moving company in Adelaide',
+    lead: 'Use a clear inventory and a written scope to compare your moving options.',
+    blocks: [
+      { type: 'text', module: 'move-planning', eyebrow: 'Before booking', heading: 'Questions to ask your moving company', intro: 'Provide details for both pickup and delivery.', paragraphs: [
+        'Compare the written scope of a move: the crew, inventory, access, packing needs, charges and any exclusions. Ask how bulky furniture, stairs and building restrictions will be handled.',
+        'If cover is important to your decision, ask for current policy details and exclusions before booking. Do not assume every item or circumstance is covered. Confirm your own responsibilities for disconnecting equipment, packing and building permissions.',
+      ] },
+    ],
+    faqs: [],
+    links: [
+      { href: '/removalists-adelaide/', label: 'Explore Adelaide moving services' },
+      { href: '/removalists-adelaide-prices/', label: 'Published rates and charges' },
+      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'How moving time affects cost' },
+    ],
+  },
+};
+
+function getPriorityCommercialFaqItems(slug) {
+  const profile = priorityCommercialProfiles[slug];
+  return [...(profile?.faqs || []), priorityRateFaq, priorityQuoteFaq];
+}
+
 function renderPriorityCommercial(page, image) {
- const pricing = page.slug === 'removalists-adelaide-prices';
- const cheap = page.slug === 'cheap-removalists-adelaide';
- const title = pricing ? 'Adelaide removalist prices and moving rates' : cheap ? 'Affordable Adelaide moves: reduce the time your move takes' : 'Choosing a moving company in Adelaide';
- const paragraphs = pricing ? ['2 men + truck: $75 per 30 minutes. 3 men + truck: $89 per 30 minutes. A 1-hour call-out/travel charge applies where applicable.', 'The total depends on the time required, furniture and box volume, stairs, lift bookings, distance to the truck, travel and packing needs. These published time-based rates are not a fixed total for every move. Confirm the applicable charges before booking.'] : cheap ? ['Pack and label boxes before the crew arrives. Keep essential items separate and make a clear room-by-room furniture list. Ask about any dismantling that is needed before moving day.', 'Arrange legal loading access at both addresses and confirm building lift bookings. A shorter carry and prepared inventory can reduce time spent on the move; the final total depends on the actual work and applicable charges.'] : ['Compare the written scope of a move: the crew, inventory, access, packing needs, charges and any exclusions. Ask how bulky furniture, stairs and building restrictions will be handled.', 'If cover is important to your decision, ask for current policy details and exclusions before booking. Do not assume every item or circumstance is covered. Confirm your own responsibilities for disconnecting equipment, packing and building permissions.'];
- return `<main id="main-content" data-generated-page="money-v5">${renderPageHero({eyebrow:'ZQ Removals Adelaide',title,lead: pricing ? 'Understand the published crew rates and the details that affect the total before requesting a quote.' : cheap ? 'Keep costs manageable by preparing your items and access before moving day.' : 'Use a clear inventory and a written scope to compare your moving options.',supporting:[],points:[],primaryCta:{href:'/contact-us/#quote-form',label:'Request a quote'},secondaryCta:{href:'tel:+61433819989',label:'Call 0433 819 989'},image,breadcrumbs:[{href:'/',label:'Home'},{href:'/removalists-adelaide/',label:'Adelaide removals'},{label:title}],pageType:'commercial'})}${renderTextSection({module:'move-planning',eyebrow:pricing?'Rates and charges':'Before booking',heading:pricing?'Published ZQ Removals rates':cheap?'Practical ways to prepare':'Questions to ask your moving company',intro:'Provide details for both pickup and delivery.',paragraphs})}${renderTextSection({module:'quote-details',eyebrow:'Your quote',heading:'What to include in your enquiry',intro:'Send pickup and delivery addresses, preferred date and a furniture and box list.',paragraphs:['Include stairs, lift access, parking restrictions, distance to the loading point and photos of large items or narrow entries. Mention packing help or additional stops so these can be discussed before booking.']})}<section class="section"><div class="container"><p><a href="/removalists-adelaide/">Explore Adelaide moving services</a> · <a href="/removalists-adelaide-prices/">Published rates and charges</a> · <a href="/adelaide-moving-guides/removalists-cost-adelaide/">How moving time affects cost</a></p></div></section>${renderPriorityPlanningFaq()}${renderQuoteStrip({eyebrow:'Plan your move',heading:'Discuss your move with ZQ Removals',copy:'Confirm the scope and applicable charges before booking.',primaryCta:{href:'/contact-us/#quote-form',label:'Request a quote'},secondaryCta:{href:'tel:+61433819989',label:'Call 0433 819 989'},pageType:'commercial'})}</main>`;
+  const profile = priorityCommercialProfiles[page.slug];
+  const blocks = profile.blocks.map((block) => block.type === 'html'
+    ? `<section class="section" data-generated-module="${block.module}"><div class="container">${renderSectionHeading(block.eyebrow, block.heading, block.intro)}${block.html}</div></section>`
+    : renderTextSection(block)).join('');
+  const links = profile.links.map((link) => `<a href="${link.href}">${link.label}</a>`).join(' · ');
+  return `<main id="main-content" data-generated-page="money-v5">${renderPageHero({ eyebrow: 'ZQ Removals Adelaide', title: profile.h1, lead: profile.lead, supporting: [], points: [], primaryCta: { href: '/contact-us/#quote-form', label: 'Request a quote' }, secondaryCta: { href: 'tel:+61433819989', label: 'Call 0433 819 989' }, image, breadcrumbs: [{ href: '/', label: 'Home' }, { href: '/removalists-adelaide/', label: 'Adelaide removals' }, { label: profile.h1 }], pageType: 'commercial' })}${blocks}${renderTextSection({ module: 'quote-details', eyebrow: 'Your quote', heading: 'What to include in your enquiry', intro: 'Send pickup and delivery addresses, preferred date and a furniture and box list.', paragraphs: ['Include stairs, lift access, parking restrictions, distance to the loading point and photos of large items or narrow entries. Mention packing help or additional stops so these can be discussed before booking.'] })}<section class="section"><div class="container"><p>${links}</p></div></section>${renderFaqSectionBlock({ id: 'moving-questions', module: 'suburb-faq', eyebrow: 'Moving questions', heading: 'Questions about rates and quotes', intro: 'Confirm your requirements before booking.', items: getPriorityCommercialFaqItems(page.slug) })}${renderQuoteStrip({ eyebrow: 'Plan your move', heading: 'Discuss your move with ZQ Removals', copy: 'Confirm the scope and applicable charges before booking.', primaryCta: { href: '/contact-us/#quote-form', label: 'Request a quote' }, secondaryCta: { href: 'tel:+61433819989', label: 'Call 0433 819 989' }, pageType: 'commercial' })}</main>`;
 }
 
 function renderSuburbContent({ slug, suburb, region, intro, logisticsLabel, nearby, clusterKey, intents, image, faqItems }) {
@@ -6111,7 +6301,7 @@ function renderCommercialContent(page, canonical, image) {
   if (['moving-company-adelaide', 'removalists-adelaide-prices', 'cheap-removalists-adelaide'].includes(page.slug)) return renderPriorityCommercial(page, image);
   const profile = commercialLinkProfiles[page.slug] || commercialLinkProfiles['cheap-removalists-adelaide'];
   const visibleTitle = cleanVisibleTitle(page.title);
-  const visibleTitleLower = visibleTitle.toLowerCase();
+  const visibleTitleLower = visibleTitle.split(' ').map((word) => (/^(Adelaide|CBD|SA|NSW|VIC|QLD|WA|ACT|NT|TAS)$/.test(word) ? word : word.toLowerCase())).join(' ');
   const intentProfile = buildCommercialIntentProfile(page);
   const serviceLinks = ensureLinkDepth(profile.services, seoV5DefaultServiceLinks, 6);
   const suburbLinks = ensureLinkDepth(profile.suburbs, seoV5DefaultSuburbLinks, 6);

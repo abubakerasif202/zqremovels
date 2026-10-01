@@ -4,6 +4,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
 import { getGeneratedPages, isVerifiedRedirectSource, mergePagesByOutput } from '../site-src/data/seo-v4.mjs';
+import { readVercelConfig } from './helpers/vercel-config.mjs';
 
 const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
@@ -86,7 +87,7 @@ test('No Limits competitor alternative page is consolidated into the Adelaide hu
   assert.ok(!sourcePage, 'consolidated competitor page should no longer be generated');
   assert.ok(!existsSync(path.join(distDir, output)), 'consolidated competitor page should not be built');
 
-  const redirects = JSON.parse(readFileSync(path.join(root, 'vercel.json'), 'utf8')).redirects;
+  const redirects = readVercelConfig(root).redirects;
   const entry = redirects.find((r) => r.source.replace(/\/$/, '') === '/no-limits-removalists-alternative-adelaide');
   assert.ok(entry && /\/removalists-adelaide\/$/.test(entry.destination), '301 to /removalists-adelaide/ missing');
 

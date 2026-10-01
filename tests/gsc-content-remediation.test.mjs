@@ -1,13 +1,14 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
+import { readVercelConfig } from './helpers/vercel-config.mjs';
 
 const read = (file) => readFileSync(new URL(`../${file}`, import.meta.url), 'utf8');
 const survivor = '/adelaide-moving-guides/removalists-cost-adelaide/';
 const alias = '/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/';
 
 test('duplicate educational cost guide and legacy aliases redirect directly to the survivor', () => {
-  const { redirects } = JSON.parse(read('vercel.json'));
+  const { redirects } = readVercelConfig();
   for (const stem of [alias.slice(0, -1), '/guides/how-much-do-removalists-cost-adelaide']) {
     for (const source of [stem, `${stem}/`, `${stem}/index.html`]) {
       const rule = redirects.find((entry) => entry.source === source && !entry.has);
@@ -21,7 +22,7 @@ test('duplicate educational cost guide and legacy aliases redirect directly to t
 });
 
 test('furniture aliases preserve the established canonical winner', () => {
-  const { redirects } = JSON.parse(read('vercel.json'));
+  const { redirects } = readVercelConfig();
   for (const source of ['/services/furniture-removals-adelaide/', '/furniture-removals-adelaide/']) {
     const rule = redirects.find((entry) => entry.source === source && !entry.has);
     assert.equal(rule?.destination, '/furniture-removalists-adelaide/');

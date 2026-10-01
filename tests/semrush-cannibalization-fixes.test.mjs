@@ -3,6 +3,7 @@ import { readFileSync, readdirSync, statSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { pathToFileURL } from 'node:url';
+import { readVercelConfig } from './helpers/vercel-config.mjs';
 
 const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
@@ -98,7 +99,7 @@ test('sitemaps and indexable HTML do not advertise consolidated aliases', () => 
 });
 
 test('Vercel serves permanent redirects for every consolidated GSC alias', () => {
-  const config = JSON.parse(readFileSync(path.join(root, 'vercel.json'), 'utf8'));
+  const config = readVercelConfig(root);
   const redirects = new Map(config.redirects.map(({ source, destination, permanent }) => [source, { destination, permanent }]));
   const aliases = [
     ['/services/house-removals-adelaide', '/house-removals-adelaide/'],
@@ -121,7 +122,7 @@ test('Vercel serves permanent redirects for every consolidated GSC alias', () =>
 test('high-impression top-ten pages use intent-matched search snippets', () => {
   const snippets = [
     ['removalists-adelaide-cbd/index.html', /Removalists Adelaide CBD \| Apartment &amp; Office Movers/i, /lift bookings, loading zones, parking and access/i],
-    ['removalists-unley-park/index.html', /Removalists Unley Park \| Home &amp; Furniture Movers/i, /homes, townhouses and furniture moves/i],
+    ['removalists-unley-park/index.html', /Unley Park Removalists \| Homes &amp; Townhouses \| ZQ Removals/i, /homes, townhouses and furniture/i],
     ['same-day-removalists-adelaide/index.html', /Same Day Removalists Adelaide \| Check Availability/i, /current crew availability/i],
     ['door-2-door-movers-alternative-adelaide/index.html', /Door 2 Door Movers Adelaide Alternative \| Compare ZQ/i, /local planning, furniture care, transparent rates/i],
   ];

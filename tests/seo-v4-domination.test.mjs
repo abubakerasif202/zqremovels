@@ -62,14 +62,14 @@ test('homepage metadata, schema, and crawl directives match v4 targets', async (
   const description = homepage.match(/<meta name="description" content="([^"]+)"/)?.[1] || '';
   const h1Count = (homepage.match(/<h1\b/gi) || []).length;
 
-  assert.equal(title, 'ZQ Removals Adelaide | Home, Office &amp; Interstate Moves');
+  assert.equal(title, 'Adelaide Removalists | Home &amp; Office Moves | ZQ Removals');
   assert.ok(title.length >= 50 && title.length <= 70, `title length out of range: ${title.length}`);
   assert.ok(description.length >= 120 && description.length <= 162, `description length out of range: ${description.length}`);
   assert.equal(h1Count, 1);
   assert.match(homepage, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/" \/>/);
   assert.match(homepage, /<html\b[^>]*lang="en-AU"[^>]*>/);
   assert.match(homepage, /"@type": "MovingCompany"/);
-  assert.match(homepage, /"@type": "Organization"/);
+  assert.match(homepage, /"@type": "MovingCompany"/);
   assert.match(homepage, /"@type": "WebSite"/);
   assert.match(homepage, /<meta property="og:title"/);
   assert.match(homepage, /<meta name="twitter:card"/);

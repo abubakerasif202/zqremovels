@@ -3,6 +3,7 @@ import path from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
+import { readVercelConfig } from './helpers/vercel-config.mjs';
 
 const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
@@ -43,7 +44,7 @@ test('homepage targets Adelaide removalists with the approved Open Design conver
 
   assert.match(
     homepage,
-    /<h1[^>]*>ZQ Removals — helping Adelaide move<\/h1>/i,
+    /<h1[^>]*>ZQ Removals: Adelaide removalists for home, office and interstate moves<\/h1>/i,
   );
   assert.match(
     homepage,
@@ -144,7 +145,7 @@ test('house removals page owns the residential keyword and old local-removals UR
   const houseRemovals = readDist(path.join('house-removals-adelaide', 'index.html'));
   const localRemovalsRedirect = readDist(path.join('local-removals-adelaide', 'index.html'));
   const sitemap = readDist('sitemap-services.xml');
-  const vercelConfig = JSON.parse(readFileSync(path.join(root, 'vercel.json'), 'utf8'));
+  const vercelConfig = readVercelConfig(root);
 
   assert.match(
     houseRemovals,
@@ -214,9 +215,7 @@ test('priority service and suburb pages carry the refined title targets and cros
 const verifiedRedirects = JSON.parse(
   readFileSync(path.join(root, 'site-src', 'data', 'zq-redirects-verified.json'), 'utf8'),
 );
-const vercelRedirects = JSON.parse(
-  readFileSync(path.join(root, 'vercel.json'), 'utf8'),
-).redirects;
+const vercelRedirects = readVercelConfig(root).redirects;
 const stripSlash = (value) => value.replace(/\/$/, '');
 const redirectDest = (src) => {
   const entry = vercelRedirects.find((r) => stripSlash(r.source) === stripSlash(src));

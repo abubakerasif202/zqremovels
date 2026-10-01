@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
+import { readVercelConfig } from './helpers/vercel-config.mjs';
 
 const dist = path.resolve('site-dist');
 const readRoute = (route) => readFileSync(path.join(dist, route, 'index.html'), 'utf8');
@@ -45,7 +46,7 @@ test('lower-cost page keeps verified rates; budget/quote aliases are consolidate
   assert.match(cheap, /\$89 per 30 minutes/i);
   assert.match(cheap, /1-hour call-out\/travel charge applies where applicable/i);
 
-  const redirects = JSON.parse(readFileSync(path.resolve('vercel.json'), 'utf8')).redirects;
+  const redirects = readVercelConfig().redirects;
   const bySource = new Map(redirects.map((r) => [r.source.replace(/\/$/, ''), r.destination]));
   for (const alias of ['/budget-removalists-adelaide', '/moving-quotes-adelaide', '/removalists-adelaide-quote']) {
     assert.match(bySource.get(alias) || '', /\/removalists-adelaide-prices\/$/, alias);

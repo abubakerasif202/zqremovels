@@ -96,6 +96,10 @@ const vercelRedirectEntries = JSON.parse(
 ).redirects || [];
 const consolidatedHrefMap = new Map(
   [...vercelRedirectEntries, ...verifiedRedirectEntries]
+    // vercel.json path redirects carry absolute canonical destinations (single-hop for legacy hosts); links stay origin-relative.
+    .map((entry) => (typeof entry.destination === 'string' && entry.destination.startsWith(`${seoConfig.siteUrl}/`)
+      ? { ...entry, destination: entry.destination.slice(seoConfig.siteUrl.length) }
+      : entry))
     .filter((entry) => (
       typeof entry.source === 'string'
       && typeof entry.destination === 'string'
@@ -163,16 +167,16 @@ const verifiedPricingMetadata = new Map([
     description: 'Somerton Park West removalists for beachside streets and apartments. Plan access, inventory and timing with a clear moving quote.',
   }],
   ['removalists-hyde-park/index.html', {
-    title: 'Hyde Park Removalists Adelaide | Local Movers | ZQ Removals',
-    description: 'Moving in Hyde Park? House, apartment and furniture moves from $75 per 30 minutes for 2 men + truck. A 1-hour call-out/travel charge may apply.',
+    title: 'Hyde Park Removalists | $75/30 min Local Movers | ZQ Removals',
+    description: 'Local removalists for Hyde Park houses, units and furniture. 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. Call-out/travel may apply.',
   }],
   ['removalists-adelaide-cbd/index.html', {
     title: 'Removalists Adelaide CBD | Apartment & Office Movers',
     description: 'Removalists Adelaide CBD for apartment, office and furniture moves. Plan lift bookings, loading zones, parking and access before requesting a clear quote.',
   }],
   ['removalists-unley-park/index.html', {
-    title: 'Removalists Unley Park | Home & Furniture Movers',
-    description: 'Removalists in Unley Park for homes, townhouses and furniture moves, with careful access planning, packing support and transparent Adelaide rates.',
+    title: 'Unley Park Removalists | Homes & Townhouses | ZQ Removals',
+    description: 'Unley Park removalists for homes, townhouses and furniture. Share parking, stairs and fragile items for a quote. 2 men + truck from $75 per 30 min.',
   }],
   ['same-day-removalists-adelaide/index.html', {
     title: 'Same Day Removalists Adelaide | Check Availability',
@@ -191,12 +195,12 @@ const verifiedPricingMetadata = new Map([
     description: 'Compare transparent hourly removalist rates in Adelaide with manual quote review for house, office, apartment, bulky-item and interstate moves.',
   }],
   ['office-removals-adelaide/index.html', {
-    title: 'Office Removalists Adelaide | Commercial Movers | ZQ Removals',
-    description: 'Office removalists Adelaide for offices, clinics and workspaces. Plan desks, IT equipment, files, access windows and restart order before booking.',
+    title: 'Office Removalists Adelaide | Business Moves | ZQ Removals',
+    description: 'Office removalists in Adelaide for offices, clinics and studios. Plan lifts, IT equipment and restart order, then request a quote or call 0433 819 989.',
   }],
   ['cheap-removalists-adelaide/index.html', {
-    title: 'Affordable Adelaide Moves | Preparation Tips | ZQ Removals',
-    description: 'Looking for cheap removalists in Adelaide? Reduce moving time with prepared boxes, clear access and a useful inventory. Compare ZQ rates and request a quote.',
+    title: 'Cheap Removalists Adelaide | Cut Moving Time | ZQ Removals',
+    description: 'Cheap or budget removalists in Adelaide? Cut moving time with prepared boxes, clear access and an inventory, and compare ZQ published rates before you book.',
   }],
   ['budget-removalists-adelaide/index.html', {
     title: 'Budget Removalists Adelaide | Efficient Planning | ZQ Removals',
@@ -2997,25 +3001,9 @@ function buildBusinessJsonLd(page) {
   return JSON.stringify(schema, null, 2);
 }
 
-function buildOrganizationJsonLd(page) {
-  if (page.output !== 'index.html' || pageHasJsonLdType(page, 'Organization')) {
-    return '';
-  }
-
-  return JSON.stringify(
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Organization',
-      '@id': 'https://zqremovalsadelaide.com.au/#organization',
-      name: businessIdentity.name,
-      url: `${businessIdentity.siteUrl}/`,
-      logo: defaultLogoImage,
-      telephone: businessIdentity.phone.display,
-      sameAs: companySameAsProfiles,
-    },
-    null,
-    2,
-  );
+// The MovingCompany node (#movingcompany) is the single business entity; a second Organization node would duplicate it.
+function buildOrganizationJsonLd() {
+  return '';
 }
 
 function buildWebSiteJsonLd(page) {
@@ -3032,7 +3020,7 @@ function buildWebSiteJsonLd(page) {
       name: businessIdentity.name,
       inLanguage: 'en-AU',
       publisher: {
-        '@id': 'https://zqremovalsadelaide.com.au/#organization',
+        '@id': 'https://zqremovalsadelaide.com.au/#movingcompany',
       },
     },
     null,
@@ -3709,7 +3697,7 @@ function normalizeMovingCompanyNode(node, page) {
     logo,
     openingHours,
     openingHoursSpecification,
-    priceRange,
+    priceRange: _unverifiedPriceRange,
     ...rest
   } = node;
 
@@ -3732,7 +3720,6 @@ function normalizeMovingCompanyNode(node, page) {
       name: 'ABN',
       value: businessIdentifiers.abnMachine,
     },
-    priceRange: '$$',
     serviceType: [
       'Local removals',
       'Interstate removals',
@@ -3761,8 +3748,6 @@ function normalizeMovingCompanyNode(node, page) {
       },
     ],
   };
-
-  result.priceRange = priceRange || '$';
 
   return result;
 }
@@ -4367,7 +4352,7 @@ function injectSeoV5GuideToc(content, page) {
   <div class="container">
     <div class="section-heading reveal-on-scroll">
       <span class="eyebrow">Guide contents</span>
-      <h2>Plan the details for ${escapeHtml(title)}.</h2>
+      <h2>${escapeHtml(title.endsWith('?') ? 'Plan the details before you move.' : `Plan the details for ${title}.`)}</h2>
       <p class="lede">Check the access, timing, packing, and quote details that can change the job on move day.</p>
     </div>
     <nav aria-label="Guide contents">
@@ -4399,7 +4384,7 @@ function injectSeoV5GuideFaq(content, page) {
   <div class="container">
     <div class="section-heading reveal-on-scroll">
       <span class="eyebrow">Guide FAQ</span>
-      <h2>${escapeHtml(normalizeFaqHeading(`Questions Adelaide customers ask before using ${title}.`))}</h2>
+      <h2>${escapeHtml(title.endsWith('?') ? 'Questions Adelaide customers ask before booking.' : normalizeFaqHeading(`Questions Adelaide customers ask before using ${title}.`))}</h2>
       <p class="lede">These answers keep the guide tied to a practical Adelaide moving quote brief.</p>
     </div>
     <div class="faq-list faq-list-premium">
@@ -4846,7 +4831,7 @@ function renderStrictFaqSection(page) {
   <div class="container">
     <div class="section-heading reveal-on-scroll">
       <span class="eyebrow">${escapeHtml(eyebrow)}</span>
-      <h2>${escapeHtml(normalizeFaqHeading(`Questions Adelaide customers ask before using ${title}.`))}</h2>
+      <h2>${escapeHtml(title.endsWith('?') ? 'Questions Adelaide customers ask before booking.' : normalizeFaqHeading(`Questions Adelaide customers ask before using ${title}.`))}</h2>
       <p class="lede">These answers keep the page tied to practical Adelaide moving decisions, quote clarity, and real access planning.</p>
     </div>
     <div class="faq-list faq-list-premium">
@@ -5084,6 +5069,9 @@ function renderServicePageReviewStrip(page) {
 </section>`;
 }
 
+// Pages whose hand-written content already ships a full FAQ section; the shared FAQ would duplicate it.
+const serviceOutputsWithOwnFaq = new Set(['office-removals-adelaide/index.html']);
+
 function renderServiceMoneyUpgrade(page) {
   const profiles = {
     'house-removals-adelaide/index.html': {
@@ -5101,6 +5089,8 @@ function renderServiceMoneyUpgrade(page) {
         ['/removalists-marion/', 'Marion family-home moves'],
         ['/removalists-salisbury/', 'Salisbury house removals'],
         ['/removalists-unley/', 'Unley townhouse moves'],
+        ['/removalists-hyde-park/', 'Hyde Park local house moves'],
+        ['/removalists-unley-park/', 'Unley Park family-home moves'],
         ['/removalists-prospect/', 'Prospect character homes'],
         ['/removalists-modbury/', 'Modbury family moves'],
       ],
@@ -5132,6 +5122,8 @@ function renderServiceMoneyUpgrade(page) {
         ['/removalists-henley-beach/', 'Henley Beach furniture moves'],
         ['/removalists-port-adelaide/', 'Port Adelaide furniture moves'],
         ['/removalists-mawson-lakes/', 'Mawson Lakes apartment furniture'],
+        ['/removalists-hyde-park/', 'Hyde Park furniture moves'],
+        ['/removalists-unley-park/', 'Unley Park furniture and packing'],
       ],
       faqs: [
         ['Can you move single furniture items?', 'Yes. Single-item moves can be quoted when pickup, delivery, access, and item dimensions are clear.'],
@@ -5209,6 +5201,7 @@ function renderServiceMoneyUpgrade(page) {
   const relatedServiceCards = [
     ['/house-removals-adelaide/', 'Home move services', 'Plan a complete home move'],
     ['/furniture-removalists-adelaide/', 'Furniture handling support', 'Protect bulky and fragile pieces'],
+    ['/services/piano-movers-adelaide/', 'Piano moving Adelaide', 'Plan access and handling for a piano'],
     ['/office-removals-adelaide/', 'Office relocation planning', 'Coordinate business relocation'],
     ['/apartment-removalists-adelaide/', 'Apartment access planning', 'Manage lifts and loading zones'],
     ['/packing-services-adelaide/', 'Packing and preparation', 'Prepare fragile rooms and cartons'],
@@ -5241,7 +5234,7 @@ ${profile.cost.map(([title, copy]) => `<article class="value-card reveal-on-scro
   <div class="container">
     <div class="section-heading reveal-on-scroll">
       <span class="eyebrow">Related services</span>
-      <h2>Planning links for ${escapeHtml(profile.label.toLowerCase())}.</h2>
+      <h2>Planning links for ${escapeHtml(profile.label.replace(/^./, (c) => c.toLowerCase()))}.</h2>
       <p class="lede">Move briefs often start with one service and then need packing, furniture, apartment, office, local, or interstate support once access and inventory are reviewed.</p>
     </div>
     <div class="route-grid">
@@ -5275,7 +5268,7 @@ ${profile.suburbs.map(([href, label]) => `<a href="${escapeAttribute(href)}">${e
     </div>
   </div>
 </section>
-<section class="section section-soft" data-service-faq-upgrade="${escapeAttribute(page.output)}">
+${serviceOutputsWithOwnFaq.has(page.output) ? '' : `<section class="section section-soft" data-service-faq-upgrade="${escapeAttribute(page.output)}">
   <div class="container">
     <div class="section-heading reveal-on-scroll">
       <span class="eyebrow">Service FAQ</span>
@@ -5293,7 +5286,7 @@ ${profile.faqs.map(([question, answer]) => `<article class="faq-item reveal-on-s
       <a class="button button-secondary" href="tel:+61433819989">Call 0433 819 989</a>
     </div>
   </div>
-</section>`;
+</section>`}`;
 }
 
 /**

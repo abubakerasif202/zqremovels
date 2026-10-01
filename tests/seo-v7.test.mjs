@@ -5,6 +5,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
 import { businessIdentity } from '../site-src/data/business.mjs';
+import { readVercelConfig } from './helpers/vercel-config.mjs';
 
 const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
@@ -113,7 +114,7 @@ test('priority interstate removals aliases redirect to removalists without sitem
     readDist('sitemap-suburbs.xml'),
     readDist('sitemap-guides.xml'),
   ].join('\n');
-  const vercel = JSON.parse(readFileSync(path.join(root, 'vercel.json'), 'utf8'));
+  const vercel = readVercelConfig(root);
   const redirects = vercel.redirects || [];
   const redirectSources = new Set(redirects.map((redirect) => redirect.source));
 
@@ -224,7 +225,7 @@ test('schema parses and keeps review, taxID, insurance, and AFRA guardrails safe
 });
 
 test('vercel security headers include the safe defaults required by the audit', () => {
-  const vercel = JSON.parse(readFileSync(path.join(root, 'vercel.json'), 'utf8'));
+  const vercel = readVercelConfig(root);
   const securityHeaderEntries = vercel.headers.filter((entry) =>
     entry.headers?.some((item) => String(item.key).toLowerCase() === 'content-security-policy')
   );

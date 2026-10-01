@@ -506,6 +506,11 @@ function validateRedirects(redirectAuditState, failuresList) {
     if (source === destination) {
       failuresList.push(`redirect loop: ${source}`);
     }
+    // Path redirects need an absolute canonical destination: a relative one keeps a legacy-host request on the legacy host,
+    // so it takes a second hop through the wildcard host rule before reaching the final URL.
+    if (!hostCondition && !String(redirect.destination || '').startsWith('https://zqremovalsadelaide.com.au/')) {
+      failuresList.push(`path redirect must use an absolute canonical destination (single hop for legacy hosts): ${source} -> ${redirect.destination}`);
+    }
     if (/https?:\/\/(?:www\.)?zqremovals\.au(?:\/|$)/i.test(destination)
       || /https?:\/\/www\.zqremovalsadelaide\.com\.au(?:\/|$)/i.test(destination)
       || /https?:\/\/[^/]+\.vercel\.app(?:\/|$)/i.test(destination)) {
