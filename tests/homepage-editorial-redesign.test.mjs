@@ -31,7 +31,7 @@ test('Open Design homepage contract is generator-native and complete', async () 
 
   for (const html of [source, built]) {
     assert.equal((html.match(/<h1\b/gi) || []).length, 1);
-    assert.match(html, /<h1[^>]*>ZQ Removals: Adelaide removalists for home, office and interstate moves<\/h1>/i);
+    assert.match(html, /<h1[^>]*>ZQ Removals: Adelaide removalists for home, apartment and interstate moves<\/h1>/i);
     assert.equal((html.match(/data-service-card/g) || []).length, 9);
     assert.equal((html.match(/itemtype="https:\/\/schema\.org\/Question"/g) || []).length, 8);
     assert.equal((html.match(/data-quote-form="quote"/g) || []).length, 2);

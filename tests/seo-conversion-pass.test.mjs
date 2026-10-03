@@ -44,7 +44,7 @@ test('homepage targets Adelaide removalists with the approved Open Design conver
 
   assert.match(
     homepage,
-    /<h1[^>]*>ZQ Removals: Adelaide removalists for home, office and interstate moves<\/h1>/i,
+    /<h1[^>]*>ZQ Removals: Adelaide removalists for home, apartment and interstate moves<\/h1>/i,
   );
   assert.match(
     homepage,

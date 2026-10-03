@@ -119,10 +119,10 @@ test('generated sitemap and canonicals stay on the apex host', () => {
   assert.doesNotMatch(sitemap, /https:\/\/www\.zqremovals\.au\//);
   assert.match(sitemap, /<sitemapindex/);
   assert.match(homepage, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/" \/>/);
-  assert.match(homepage, /<title>Adelaide Removalists \| Home &amp; Office Moves \| ZQ Removals<\/title>/);
+  assert.match(homepage, /<title>Adelaide Removalists \| Home &amp; Interstate Moves \| ZQ Removals<\/title>/);
   assert.match(
     homepage,
-    /<meta name="description" content="Adelaide removalists for home, furniture, office and interstate moves\. Published crew rates from \$75 per 30 min\. Call 0433 819 989 or request a quote\." \/>/,
+    /<meta name="description" content="Adelaide removalists for houses, apartments, furniture and interstate moves\. Published crew rates from \$75 per 30 min\. Call 0433 819 989 or request a quote\." \/>/,
   );
   assert.match(
     interstateHub,
@@ -968,9 +968,9 @@ test('homepage targets Adelaide removalists and keeps above-fold conversion cont
   const homepage = readDist('index.html');
   const hero = homepage.match(/<section class="zq-v2-hero[\s\S]*?<\/section>/i)?.[0] || '';
 
-  assert.match(homepage, /<title>Adelaide Removalists \| Home &amp; Office Moves \| ZQ Removals<\/title>/);
-  assert.match(homepage, /<meta name="description" content="Adelaide removalists for home, furniture, office and interstate moves\. Published crew rates from \$75 per 30 min\. Call 0433 819 989 or request a quote\."/i);
-  assert.match(hero, /<h1[^>]*>ZQ Removals: Adelaide removalists for home, office and interstate moves<\/h1>/);
+  assert.match(homepage, /<title>Adelaide Removalists \| Home &amp; Interstate Moves \| ZQ Removals<\/title>/);
+  assert.match(homepage, /<meta name="description" content="Adelaide removalists for houses, apartments, furniture and interstate moves\. Published crew rates from \$75 per 30 min\. Call 0433 819 989 or request a quote\."/i);
+  assert.match(hero, /<h1[^>]*>ZQ Removals: Adelaide removalists for home, apartment and interstate moves<\/h1>/);
   assert.match(hero, /From the first box to the final placement/i);
   assert.match(hero, /href="#quote-form"[^>]*>Get a Free Quote/i);
   assert.match(hero, /href="tel:\+61433819989"/);
