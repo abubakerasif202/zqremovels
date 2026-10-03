@@ -5457,17 +5457,42 @@ const prioritySuburbProfiles = {
           'On side streets, check driveway width, overhanging trees and whether neighbours need notice. Photos of the entry, stairs and any tight turns help us allow the right time for large furniture.',
         ],
       },
+      {
+        module: 'local-insights',
+        eyebrow: 'Character homes',
+        heading: 'Moving out of a Hyde Park villa or bungalow',
+        intro: 'Older homes need more planning at the doorways than at the truck.',
+        paragraphs: [
+          'Many Hyde Park homes are character villas and bungalows with long central hallways, narrow front doors, return verandas and polished timber floors. Measure the front door, hallway and any turns into bedrooms, and compare them with your largest pieces before moving day. A sofa or wardrobe that came in through a back door may need to leave the same way.',
+          'Tell us about timber floors, leadlight doors, fireplaces and ornate architraves along the carry path, so floor and door protection can be planned. Note antique furniture, heavy timber pieces and any piano separately, because they change the crew size and the handling time.',
+        ],
+      },
+      {
+        module: 'local-route',
+        eyebrow: 'Moves in the inner south',
+        heading: 'Moving to or from Hyde Park',
+        intro: 'Most Hyde Park moves start or finish within a few kilometres.',
+        paragraphs: [
+          'Hyde Park sits in the City of Unley, between Unley, Unley Park and Malvern, with King William Road running through it. Short moves between these inner-south suburbs are mostly loading and unloading time rather than driving, so the access at each address matters more than the distance.',
+          'If the truck needs to stand on the footpath or in a restricted zone, check with the City of Unley whether a permit applies before the moving date. For a move to another state, start planning earlier and ask about interstate removals when you request a quote.',
+        ],
+      },
     ],
     nearby: [
       { title: 'Removalists Unley Park', copy: 'Moving between Hyde Park and Unley Park? Include the access details for both addresses.', href: '/removalists-unley-park/', cta: 'View Unley Park moving information' },
       { title: 'Removalists Unley', copy: 'Unley moves along Unley Road have their own parking and building-access checks.', href: '/removalists-unley/', cta: 'View Unley removalists' },
       { title: 'Removalists Malvern', copy: 'A nearby inner-south suburb with villa and townhouse moves.', href: '/removalists-malvern/', cta: 'View Malvern removalists' },
       { title: 'Removalists Goodwood', copy: 'Planning a move that starts or ends in Goodwood? Check the local access notes.', href: '/removalists-goodwood/', cta: 'View Goodwood removalists' },
+      { eyebrow: 'Moving service', title: 'Piano moving', copy: 'Moving an upright or grand piano out of a Hyde Park home? Check what to send first.', href: '/services/piano-movers-adelaide/', cta: 'Piano moving information' },
+      { eyebrow: 'Moving service', title: 'Packing help', copy: 'Fragile glassware, artwork and antiques can be packed before the move.', href: '/packing-services-adelaide/', cta: 'Packing services' },
     ],
     faqs: [
       { question: 'Do you offer local removalists for Hyde Park?', answer: 'Yes. ZQ Removals is based in Andrews Farm and moves homes, units and furniture across metropolitan Adelaide, including Hyde Park. A 1-hour call-out/travel charge applies where applicable, so confirm it when you ask for a quote.' },
       { question: 'Can you move furniture only, without a full house move?', answer: 'Yes. Send the item list, dimensions and access notes for the pieces that need moving, and ask about the crew size and time that suits a smaller job.' },
       { question: 'Do you move unit and apartment contents in Hyde Park?', answer: 'Yes. Include stairs, lift availability, building rules and the distance from the entrance to the truck so the moving time can be estimated realistically.' },
+      { question: 'How do you protect floors and doorways in an older Hyde Park home?', answer: 'Tell us about timber floors, leadlight doors and narrow hallways when you request a quote, so floor and door protection can be allowed for. Measurements of the tightest doorway help confirm whether large pieces need dismantling.' },
+      { question: 'Can you move a piano or antique furniture in Hyde Park?', answer: 'Yes, when it is disclosed before booking. Send the piano type, any steps on the carry path and photos of antique or heavy timber pieces, so the right crew size and handling time are planned.' },
+      { question: 'Is a 2-man or 3-man crew better for a Hyde Park house move?', answer: 'A 2-man crew suits smaller homes, units and furniture-only jobs. A 3-man crew can suit larger family homes or moves with heavy pieces and long carries. Send the inventory and access notes and we will discuss which fits.' },
     ],
   },
   'unley-park': {
