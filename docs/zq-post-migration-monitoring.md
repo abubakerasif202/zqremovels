@@ -203,7 +203,54 @@ Current-run validation completed successfully under Windows Node 22:
 - `npm.cmd run seo:validate`: passed for 109 pages; zero bad pages; 80 sitemap page URLs (5 core, 16 service, 48 suburb, 11 guide), 80 image page entries, 28 redirect exclusions and one noindex exclusion.
 - `git diff --check`: passed.
 
-Delivery is documentation-only, committed locally without pushing or triggering deployment. No source/generator, page content, business facts, redirects, DNS or Vercel domain settings were changed. Existing unrelated asset/document deletions and untracked files were preserved. Production remains the verified repair release in section B. There is no new site deployment requiring post-deployment verification; live recon verified the existing release. Search Console actions remain pending regardless of local test results.
+The initial delivery was documentation-only, committed locally as `62ed67ad3d8ba2d602fc69db0cb27476fa317688`. The subsequent authentication investigation and authorized documentation push are recorded below. No source/generator, page content, business facts, redirects, DNS or Vercel domain settings were changed. Existing unrelated asset/document deletions and untracked files were preserved. No manual production deployment is required for these reports; pushing main may still trigger the existing Git-integrated Vercel build. Search Console actions remain pending regardless of local test results.
+
+## Verified GSC authentication investigation — 7 October 2026
+
+Checked at **2026-10-06 13:50:55 UTC / 2026-10-07 00:50:55 AEDT**. Authentication was not repaired and no new authorization was completed.
+
+- `.gsc-token.json` exists with an access token, a refresh token, Bearer token type and exactly `https://www.googleapis.com/auth/webmasters.readonly`.
+- Its recorded access-token expiry is **10 May 2026 18:41:38 UTC**. The client library attempts refresh automatically, but an explicit refresh failed with **HTTP 401 / `deleted_client`**.
+- The configured OAuth client is an installed/Desktop client. Client ID and secret fields exist; authorization/token endpoints are Google endpoints. Its configured redirect is `http://localhost`, without a callback port.
+- `sites.list` and individual read-only Search Analytics queries for **both** `sc-domain:zqremovalsadelaide.com.au` and `sc-domain:zqremovals.au` failed with the same **401 / `deleted_client`**. This establishes a client-level blocker, not a proven property-permission problem.
+- Current Google account identity, property permissions, API enablement and consent-screen publishing status cannot be verified through this failed grant. The deletion date and whether deletion was manual or automatic are unknown. No credentials or tokens were displayed, rewritten or committed.
+
+Google's [OAuth client management guidance](https://support.google.com/cloud/answer/15549257?hl=en) confirms that deleted clients cannot authorize or use associated tokens. Restore the existing client from Google Cloud's Deleted Credentials screen if recoverable; otherwise create a Desktop OAuth client in the intended project and save its downloaded JSON locally to `C:\Users\abuba\zq\secrets\gsc-oauth-client.json`. Confirm Search Console API enablement and use an account with access to both properties. Do not supply credentials in chat.
+
+Then run the existing workflow in PowerShell:
+
+```powershell
+Set-Location 'C:\Users\abuba\zq'
+$env:GSC_WRITE_SCOPE = '0'
+Remove-Item Env:GSC_AUTH_PRINT_ONLY -ErrorAction SilentlyContinue
+npm.cmd run gsc:auth
+```
+
+Approve only Search Console read-only access. With the current portless `http://localhost` redirect, the script prints an authorization URL and waits for a code; it does not automatically open the browser in that branch. Open the printed URL manually, approve access, then copy the `code` value from the redirected browser address into the waiting PowerShell terminal. A localhost connection error after consent does not itself invalidate the returned code. If replacement credentials configure a supported loopback port, the script captures the callback automatically. Do not paste authorization codes or tokens into chat. Client restoration/replacement and browser consent require user interaction; dependent data collection is stopped at this boundary.
+
+### Fresh-data status
+
+| Window | Old-domain clicks/impressions/CTR/position | New-domain clicks/impressions/CTR/position | Combined clicks/impressions/CTR | Previous equivalent period |
+| --- | --- | --- | --- | --- |
+| Last 7 complete days | NOT RETRIEVED | NOT RETRIEVED | NOT RETRIEVED | NOT RETRIEVED |
+| Last 14 complete days | NOT RETRIEVED | NOT RETRIEVED | NOT RETRIEVED | NOT RETRIEVED |
+| Last 28 complete days | NOT RETRIEVED | NOT RETRIEVED | NOT RETRIEVED | NOT RETRIEVED |
+
+**Data freshness cutoff: unverified. Migration trend: insufficient data.** Every priority URL in section C and every priority query in section D is **INSUFFICIENT DATA** for this attempted refresh; metrics are unavailable, not zero. No page-one or striking-distance opportunity can be established from fresh evidence yet. Historical baselines above remain intact.
+
+Canonical sitemap submission/read dates, warnings, errors and discovered URL counts: **NOT VERIFIED through the API**. No sitemap was submitted and no write scope requested. The seven requested new-domain URL Inspection results (home, piano, office, Hyde Park, Unley Park, Sydney, Brisbane) were not retrieved; indexing verdict, coverage, Google/user canonical, crawl time, robots state and referring sitemap remain unverified.
+
+**Change of Address: MANUAL SEARCH CONSOLE UI CHECK REQUIRED.** The documented [Search Console API services](https://developers.google.com/webmaster-tools/v1/api_reference_index) cover Search Analytics, Sites, Sitemaps and URL Inspection, not Change of Address. No authenticated browser automation was used.
+
+### Tooling findings for the next authenticated pass
+
+All four existing GSC scripts and `package.json` were inspected. The existing fetcher includes today's date in its requested 28-day window, resolves one property, exports into one shared directory and lacks daily/device/country reports and 7/14-day comparisons. Running it sequentially for old/new would overwrite the shared exports. The opportunities script expects those shared files and makes heuristic recommendations; it must not be treated as evidence to change production SEO.
+
+Do not run the unchanged fetcher for the pair comparison. After authentication succeeds, use isolated `data/gsc/zq-new/` and `data/gsc/zq-old/` exports, explicitly exclude incomplete days, use `dataState: final`, and query property-level totals separately from dimension rows. Discover a common finalized cutoff before defining equal-length windows; Search Analytics dates use Pacific time. Retrieve daily, query, page, query+page, device and country views; compute combined CTR from summed clicks/impressions, not averaged property CTRs. Query/page exports are top-row datasets and may omit anonymized queries, so they cannot replace property totals. [Search Analytics query reference](https://developers.google.com/webmaster-tools/v1/searchanalytics/query).
+
+The existing ignore rule `data/gsc/*.raw.json` does not establish protection for arbitrary nested exports. Before saving new exports, ensure those exact local export directories are ignored without changing or overwriting historical files. No fresh exports were written in this blocked pass. No GSC tooling source changes were made; only this report was updated.
+
+The original documentation commit and this verified-blocker report update are approved for a normal push to main after fetching and checking the remote frontier. No force push or unrelated staging is permitted. Website validation results above belong to the prior recovery pass; this report-only update requires `git diff --check`, not another site build.
 
 ## Google reference guidance
 
