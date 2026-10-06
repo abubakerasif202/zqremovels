@@ -257,3 +257,138 @@ The original documentation commit and this verified-blocker report update are ap
 Monitor both domains during the move and retain the working permanent redirects. Google's [site-move guidance](https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes) explains per-URL processing and expected ranking fluctuations.
 
 Check an existing move through the [Change of Address tool](https://support.google.com/webmasters/answer/9370220?hl=en). Use the [Sitemaps report](https://support.google.com/webmasters/answer/7451001?hl=en) for submission/read status and [URL Inspection](https://support.google.com/webmasters/answer/9012289?hl=en) for indexed canonical evidence and selective indexing requests.
+
+## Supplied CSV evidence — analysed 7 October 2026
+
+Source directory: `C:\Users\abuba\Desktop\ZQ-GSC-Data-2026-10-07`. All 13 supplied CSVs were read; originals remain unchanged outside the repository. No raw export or credential was committed. This section supplements the earlier blocked-API record and preserves historical baselines.
+
+### Provenance, access and cutoff
+
+`search-console-properties.csv` lists both exact domain properties with `siteOwner`. This establishes permission as represented in the supplied export, not the Google account identity or live access through the repository OAuth client. A fresh repository-client diagnostic at 6 October 2026 14:03:39 UTC / 7 October 01:03:39 AEDT still returned **401 / deleted_client** for refresh, Sites listing and both property queries. Authentication date and exporter identity are not supplied.
+
+Latest supplied daily date: **3 October 2026**. Old-domain daily range: 14 September 2025–3 October 2026, 385 rows. New-domain range: 30 August–3 October 2026, 35 rows. Both ranges are continuous without duplicate dates. CSVs contain no search-type/filter/dataState/fetch-time metadata; finalized API status and identical report settings are not independently proven. Comparisons below use fully populated calendar windows in these exports, exclude newer absent days, and assume matching settings. The directory date is not the reporting cutoff.
+
+All performance observations precede the **7 October repair** and the 4 October office/Hyde Park work. They cannot assess those changes. Page/query/query+page/device/country snapshots contain no date columns and cannot establish period-specific movement.
+
+### Daily-data 7/14/28-day baselines
+
+Cells show **clicks / impressions / CTR / average position**. Previous and latest windows have equal calendar lengths; incomplete coverage is explicitly marked. CTR is calculated from totals. Average position is reconstructed using daily impression weights; no combined average position is used.
+
+#### 7-day window
+
+| Property | Previous window | Latest window | Click change | Impression change |
+| --- | --- | --- | --- | --- |
+| Old | 8 / 868 / 0.922% / 14.07 | 3 / 468 / 0.641% / 13.28 | -62.5% | -46.1% |
+| New | 3 / 763 / 0.393% / 26.75 | 2 / 741 / 0.270% / 31.39 | -33.3% | -2.9% |
+| Combined | 11 / 1,631 / 0.674% | 5 / 1,209 / 0.414% | -54.5% | -25.9% |
+
+Previous dates: 2026-09-20–2026-09-26. Latest dates: 2026-09-27–2026-10-03.
+New-domain impression share: **46.8% → 61.3%** (+14.5 percentage points).
+
+#### 14-day window
+
+| Property | Previous window | Latest window | Click change | Impression change |
+| --- | --- | --- | --- | --- |
+| Old | 7 / 2,384 / 0.294% / 18.46 | 11 / 1,336 / 0.823% / 13.79 | +57.1% | -44.0% |
+| New | 7 / 1,641 / 0.427% / 44.87 | 5 / 1,504 / 0.332% / 29.03 | -28.6% | -8.3% |
+| Combined | 14 / 4,025 / 0.348% | 16 / 2,840 / 0.563% | +14.3% | -29.4% |
+
+Previous dates: 2026-09-06–2026-09-19. Latest dates: 2026-09-20–2026-10-03.
+New-domain impression share: **40.8% → 53.0%** (+12.2 percentage points).
+
+#### 28-day window
+
+| Property | Previous window | Latest window | Click change | Impression change |
+| --- | --- | --- | --- | --- |
+| Old | 66 / 9,107 / 0.725% / 22.85 | 18 / 3,720 / 0.484% / 16.78 | -72.7% | -59.2% |
+| New | 10 / 549 / 1.821% / 61.07 **PARTIAL: 7/28 days** | 12 / 3,145 / 0.382% / 37.30 | Not comparable | Not comparable |
+| Combined | 76 / 9,656 / 0.787% **PARTIAL new-domain coverage** | 30 / 6,865 / 0.437% | Not comparable | Not comparable |
+
+Previous dates: 2026-08-09–2026-09-05. Latest dates: 2026-09-06–2026-10-03.
+Previous new-domain export covers only 30 August–5 September; 9–29 August is absent. Do not assume these absent days are zero or claim a comparable 28-day new/combined decline. The latest 28-day totals and old-domain comparison are usable on their own.
+
+**Interpretation:** visibility is shifting toward the new domain, but total visibility is not fully retained in the supplied seven- and fourteen-day windows. Seven-day combined impressions fell 25.9% and clicks fell from 11 to 5; fourteen-day impressions fell 29.4% while clicks rose from 14 to 16. Small click counts do not meet the report's 20-click baseline warning threshold. The two overlapping impression comparisons are not two independent weekly reviews, and the report's warning does not justify a rollback. Observe post-repair weeks before attributing loss or proposing site changes.
+
+### Priority page snapshots
+
+Exact apex URLs only; historical aliases/www variants are not silently merged. Cells show **clicks / impressions / CTR / position**. Export date ranges are unspecified; old/new cumulative figures are not equal-period recovery measurements. All formal temporal classifications remain **INSUFFICIENT DATA**.
+
+| Path | Old snapshot | New snapshot | Recovery classification |
+| --- | --- | --- | --- |
+| `/` | 217 / 6,235 / 3.480% / 21.12 | 17 / 469 / 3.625% / 10.34 | INSUFFICIENT DATA |
+| `/office-removals-adelaide/` | 1 / 2,550 / 0.039% / 36.84 | 0 / 384 / 0.000% / 38.58 | INSUFFICIENT DATA |
+| `/services/piano-movers-adelaide/` | 3 / 2,344 / 0.128% / 28.86 | 0 / 522 / 0.000% / 77.27 | INSUFFICIENT DATA |
+| `/removalists-adelaide-prices/` | 2 / 1,752 / 0.114% / 15.89 | 1 / 409 / 0.244% / 32.33 | INSUFFICIENT DATA |
+| `/removalists-unley-park/` | 0 / 804 / 0.000% / 8.40 | 0 / 199 / 0.000% / 20.19 | INSUFFICIENT DATA |
+| `/removalists-hyde-park/` | 0 / 702 / 0.000% / 9.31 | 0 / 367 / 0.000% / 15.53 | INSUFFICIENT DATA |
+| `/adelaide-to-sydney-removalists/` | 0 / 1,284 / 0.000% / 34.69 | 0 / 119 / 0.000% / 81.09 | INSUFFICIENT DATA |
+| `/adelaide-to-brisbane-removals/` | 0 / 1,784 / 0.000% / 32.67 | 0 / 92 / 0.000% / 86.95 | INSUFFICIENT DATA |
+| `/adelaide-to-melbourne-removalists/` | 0 / 610 / 0.000% / 35.97 | 0 / 54 / 0.000% / 82.30 | INSUFFICIENT DATA |
+
+The homepage has a favorable new-domain snapshot position (~10.34 versus old ~21.12), but this alone does not prove transfer. Piano, Sydney, Brisbane and Melbourne remain deep in the new-domain snapshot; Unley Park is around 20 and Hyde Park around 15.5. Do not classify these as stalled/declining without matched page periods and post-repair inspection.
+
+### Priority query snapshots
+
+Cells show **clicks / impressions / position**. The impression-sum column adds exported old/new impressions as a snapshot inventory only, **not matched-period total visibility**. Movement direction over time is unavailable for every query.
+
+| Query | Old snapshot | New snapshot | Exported impression sum | New versus old average position (not temporal trend) |
+| --- | --- | --- | ---: | --- |
+| office removalists adelaide | 1 / 267 / 17.82 | 0 / 83 / 6.47 | 350 | Lower (better); temporal trend unknown |
+| removalists adelaide | 3 / 215 / 15.65 | 0 / 25 / 10.20 | 240 | Lower (better); temporal trend unknown |
+| removalists hyde park | 0 / 289 / 17.01 | 0 / 60 / 11.70 | 349 | Lower (better); temporal trend unknown |
+| hyde park removalists | 0 / 196 / 10.65 | 0 / 74 / 13.12 | 270 | Higher (worse); temporal trend unknown |
+| local removalist hyde park | 0 / 290 / 15.21 | 0 / 57 / 11.75 | 347 | Lower (better); temporal trend unknown |
+| removalists unley park | 0 / 405 / 13.71 | 0 / 44 / 21.59 | 449 | Higher (worse); temporal trend unknown |
+| piano movers adelaide | 0 / 274 / 23.17 | 0 / 64 / 82.03 | 338 | Higher (worse); temporal trend unknown |
+| piano removalists adelaide | 0 / 326 / 23.49 | 0 / 71 / 83.90 | 397 | Higher (worse); temporal trend unknown |
+| removalists adelaide prices | 0 / 573 / 22.02 | 0 / 79 / 28.30 | 652 | Higher (worse); temporal trend unknown |
+| adelaide to sydney removalists | 0 / 528 / 30.63 | 0 / 25 / 80.24 | 553 | Higher (worse); temporal trend unknown |
+| adelaide to brisbane removalists | 0 / 409 / 30.76 | 0 / 7 / 83.00 | 416 | Higher (worse); temporal trend unknown |
+| adelaide to melbourne removalists | 0 / 235 / 33.53 | 0 / 12 / 89.50 | 247 | Higher (worse); temporal trend unknown |
+
+### Query-to-page evidence and opportunity queue
+
+- **Office:** new query snapshot average position 6.47, 83 impressions, zero clicks. Query+page places 77 impressions at position 6.90 on the intended office page and six at position 1 on the homepage. Most visibility is associated with the right page in this snapshot. Confirm that assignment after the 4 October office-intent change and 7 October repair before considering a CTR experiment.
+
+- **Generic Adelaide:** all 25 new-domain query+page impressions for `removalists adelaide` are assigned to the homepage at position 10.20; no intended `/removalists-adelaide/` row is present for that query. Absence is not proof of zero exposure beyond the returned dataset. Monitor homepage/hub assignment in matched recent query+page exports; do not change canonicals or copy from this snapshot.
+
+- **Hyde Park:** `removalists hyde park` associates all 60 new impressions with the intended suburb page at 11.70. Other priority variants average 11.75 and 13.12. These are the clearest near-page-one monitoring candidates, with low volume and no clicks. Assess post-4-October data before recommending further changes.
+
+- **Unley Park:** priority query position 21.59; page-wide position 20.19. Watch as a secondary opportunity, not a verified page-one candidate.
+
+- **Piano and interstate routes:** prioritize Google-selected canonical, last crawl and matched-window recovery evidence. Their current supplied snapshot query positions are ~80–90; there is no basis for redirect experimentation or new competing pages.
+
+Average positions are aggregates, not exact live rankings; page-one/striking-distance labels here are candidate monitoring bands, not confirmed current SERP positions.
+
+### Device/country snapshots and reconciliation
+
+| Dataset | Old clicks / impressions | New clicks / impressions |
+| --- | --- | --- |
+| daily | 308 / 41,677 | 22 / 3,694 |
+| devices | 308 / 41,677 | 22 / 3,694 |
+| countries | 308 / 41,677 | 22 / 3,694 |
+| pages | 314 / 50,181 | 22 / 4,014 |
+| queries | 93 / 32,393 | 12 / 3,150 |
+| query-page | 94 / 37,212 | 12 / 3,293 |
+
+Daily, country and device sums reconcile exactly for each property. Page-level aggregation differs from property-level totals; query datasets can exclude anonymized/omitted queries. Because snapshot date/filter metadata is absent, do not assume every difference is explained solely by aggregation or corruption. Use daily totals for the pair comparison, not sums of page/query rows. These figures also differ from the owner-supplied historical baselines (old 41,741 versus supplied daily 41,677 impressions; new 3,923 versus 3,694), so both records are retained with separate provenance. New query export contains 318 rows, not the historical 331.
+
+| Device | Old clicks / impressions / CTR / position | New clicks / impressions / CTR / position |
+| --- | --- | --- |
+| MOBILE | 203 / 14,563 / 1.394% / 18.14 | 18 / 1,305 / 1.379% / 32.29 |
+| DESKTOP | 100 / 26,943 / 0.371% / 26.70 | 4 / 2,360 / 0.169% / 45.61 |
+| TABLET | 5 / 171 / 2.924% / 22.95 | 0 / 29 / 0.000% / 35.90 |
+
+| Country | Old clicks / impressions / CTR / position | New clicks / impressions / CTR / position |
+| --- | --- | --- |
+| Australia (`aus`) | 302 / 39,077 / 0.773% / 24.15 | 20 / 3,615 / 0.553% / 41.27 |
+
+Device/country files are cumulative snapshots, not date-segmented comparisons. Mobile versus desktop CTR can reflect query/position mix and does not establish a UX defect.
+
+### Still unresolved and next data request
+
+Sitemap status and all seven URL Inspection results remain API-unverified: these CSVs contain no sitemap or inspection evidence. No sitemap submission, indexing request or browser automation was performed. **Change of Address: MANUAL SEARCH CONSOLE UI CHECK REQUIRED.** The property listing does not verify Change of Address.
+
+Next: restore/re-authorize the repository client, or supply an export manifest (property, search type, filters, requested start/end, export timestamp, finalized-data setting) and date-bounded page/query/query+page/device/country exports for each current/previous 7/14/28-day window. For the prior 28-day new-domain window, provide explicit coverage or exporter confirmation of zero activity before 30 August. Obtain post-7-October performance and the priority URL Inspection/sitemap results before recommending website changes.
+
+No website source/configuration or business data was changed. This report update is documentation-only; raw files remain on Desktop. `git diff --check` is the relevant check; prior 190-test/build/SEO results were not rerun or presented as new validation.
