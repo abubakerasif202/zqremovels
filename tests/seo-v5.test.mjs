@@ -144,7 +144,7 @@ test('seo v5 sitemap and robots output is clean, canonical, grouped, and duplica
   const robots = readDist('robots.txt');
   assert.match(robots, /User-agent: \*/);
   assert.match(robots, /Allow: \//);
-  assert.match(robots, /Sitemap: https:\/\/zqremovalsadelaide\.com\.au\/sitemap-index\.xml/);
+  assert.match(robots, /Sitemap: https:\/\/zqremovalsadelaide\.com\.au\/sitemap\.xml/);
   assert.doesNotMatch(robots, /^LLM:/m);
   assert.match(robots, /# https:\/\/zqremovalsadelaide\.com\.au\/llms\.txt/);
 

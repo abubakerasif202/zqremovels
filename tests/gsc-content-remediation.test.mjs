@@ -7,6 +7,21 @@ const read = (file) => readFileSync(new URL(`../${file}`, import.meta.url), 'utf
 const survivor = '/adelaide-moving-guides/removalists-cost-adelaide/';
 const alias = '/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/';
 
+test('historical house and singular budget aliases map to live equivalent pages', () => {
+  const { redirects } = readVercelConfig();
+  for (const [stem, destination] of [
+    ['/moving-house-services-adelaide', '/house-removals-adelaide/'],
+    ['/cheap-removalist-adelaide', '/cheap-removalists-adelaide/'],
+  ]) {
+    for (const source of [stem, `${stem}/`, `${stem}/index.html`]) {
+      const rule = redirects.find((entry) => entry.source === source && !entry.has);
+      assert.equal(rule?.destination, destination, source);
+      assert.equal(rule?.permanent, true, source);
+      assert.equal(redirects.some((entry) => !entry.has && entry.source === destination), false);
+    }
+  }
+});
+
 test('duplicate educational cost guide and legacy aliases redirect directly to the survivor', () => {
   const { redirects } = readVercelConfig();
   for (const stem of [alias.slice(0, -1), '/guides/how-much-do-removalists-cost-adelaide']) {

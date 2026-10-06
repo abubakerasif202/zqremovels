@@ -7,6 +7,7 @@ import esbuild from 'esbuild';
 import browserslist from 'browserslist';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 import { PurgeCSS } from 'purgecss';
+import { createSitemapLastmodResolver } from './sitemap-lastmod.mjs';
 import {
   buildCanonical,
   buildDescription,
@@ -33,6 +34,7 @@ import { zqSuburbGeoData } from '../site-src/data/zq-suburbs.mjs';
 import { getGoogleMapsBrowserConfig } from '../site-src/data/maps.mjs';
 
 const projectRoot = process.cwd();
+const resolveSitemapLastmod = createSitemapLastmodResolver(projectRoot);
 const buildQueueKey = Symbol.for('zqremovals.build-site.queue');
 export const srcRoot = path.join(projectRoot, 'site-src');
 const distRoot = path.join(projectRoot, 'site-dist');
@@ -311,7 +313,6 @@ const SUBURB_PAGE_WORD_MAX = 900;
 const SUBURB_CONDITION_HEADING_WORDS = 4;
 const SUBURB_PADDING_PARAGRAPH =
   'Every move is reviewed for access, inventory, and timing before scheduling, so clients receive a practical plan supported by experienced local movers.';
-const sourceMtimeCache = new Map();
 const imageAssetExistsCache = new Map();
 const generatedServiceSitemapOutputSet = new Set(zqServiceSitemapOutputs);
 const heroImageRouteRules = {
@@ -2816,7 +2817,7 @@ export async function runLegacyGenerator() {
     await writeFile(path.join(distRoot, 'ai.txt'), `${renderAiTxt()}\n`, 'utf8');
     await writeFile(
       path.join(distRoot, 'robots.txt'),
-      `User-agent: *\nAllow: /\nSitemap: ${preferredSiteOrigin}/sitemap-index.xml\nSitemap: ${preferredSiteOrigin}/ai-sitemap.xml\n# AI crawler references:\n# ${preferredSiteOrigin}/llms.txt\n# ${preferredSiteOrigin}/llms-full.txt\n`,
+      `User-agent: *\nAllow: /\nSitemap: ${preferredSiteOrigin}/sitemap.xml\nSitemap: ${preferredSiteOrigin}/ai-sitemap.xml\n# AI crawler references:\n# ${preferredSiteOrigin}/llms.txt\n# ${preferredSiteOrigin}/llms-full.txt\n`,
       'utf8',
     );
 
@@ -7260,7 +7261,7 @@ async function renderSitemaps(pages, renderedHtmlByOutput = new Map()) {
     const lastmod = await getPageLastmod(page);
     const entry = `  <url>
     <loc>${escapeHtml(canonicalLoc)}</loc>
-    <lastmod>${lastmod}</lastmod>
+    ${lastmod ? `<lastmod>${lastmod}</lastmod>` : ''}
   </url>`;
 
     grouped['ai-sitemap.xml'].push(entry);
@@ -7320,7 +7321,7 @@ async function renderSitemaps(pages, renderedHtmlByOutput = new Map()) {
     const urlsetTag = name === 'sitemap-images.xml'
       ? '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">'
       : '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-    const sitemapLastmod = getLatestDateString(sitemapLastmods[name]) || new Date().toISOString().slice(0, 10);
+    const sitemapLastmod = getLatestDateString(sitemapLastmods[name].filter(Boolean));
     files[name] = `<?xml version="1.0" encoding="UTF-8"?>
 ${urlsetTag}
 ${urls.join('\n')}
@@ -7329,7 +7330,7 @@ ${urls.join('\n')}
     if (name !== 'ai-sitemap.xml') {
       indexEntries.push(`  <sitemap>
     <loc>${preferredSiteOrigin}/${name}</loc>
-    <lastmod>${sitemapLastmod}</lastmod>
+    ${sitemapLastmod ? `<lastmod>${sitemapLastmod}</lastmod>` : ''}
   </sitemap>`);
     }
   }
@@ -7363,35 +7364,7 @@ async function getPageLastmod(page) {
     );
   }
 
-  const mtimes = [];
-  for (const sourcePath of [...new Set(sourcePaths.map((item) => path.resolve(item)))]) {
-    const mtime = await getSourceMtime(sourcePath);
-    if (mtime) {
-      mtimes.push(mtime);
-    }
-  }
-
-  if (mtimes.length === 0) {
-    return new Date().toISOString().slice(0, 10);
-  }
-
-  return new Date(Math.max(...mtimes.map((mtime) => mtime.getTime()))).toISOString().slice(0, 10);
-}
-
-async function getSourceMtime(sourcePath) {
-  const key = path.resolve(sourcePath);
-  if (sourceMtimeCache.has(key)) {
-    return sourceMtimeCache.get(key);
-  }
-
-  try {
-    const { mtime } = await stat(key);
-    sourceMtimeCache.set(key, mtime);
-    return mtime;
-  } catch {
-    sourceMtimeCache.set(key, null);
-    return null;
-  }
+  return resolveSitemapLastmod(page, sourcePaths);
 }
 
 async function buildImageSitemapEntry(page, html, lastmod) {
@@ -7410,7 +7383,7 @@ async function buildImageSitemapEntry(page, html, lastmod) {
 
   return `  <url>
     <loc>${escapeHtml(page.canonical)}</loc>
-    <lastmod>${lastmod}</lastmod>
+    ${lastmod ? `<lastmod>${lastmod}</lastmod>` : ''}
 ${imageBlocks}
   </url>`;
 }

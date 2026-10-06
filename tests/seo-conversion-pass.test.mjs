@@ -4,6 +4,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
 import { readVercelConfig } from './helpers/vercel-config.mjs';
+import { createSitemapLastmodResolver } from '../scripts/sitemap-lastmod.mjs';
 
 const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
@@ -311,19 +312,16 @@ test('surviving money pages stay substantial, image-backed, and cross-linked', (
 });
 
 
-test('generated-page lastmod follows source file mtimes and image sitemap is powered by real page images', () => {
+test('generated-page lastmod follows committed source history and image sitemap uses real images', () => {
   const suburbsSitemap = readDist('sitemap-suburbs.xml');
   const servicesSitemap = readDist('sitemap-services.xml');
   const imageSitemap = readDist('sitemap-images.xml');
-  const expectedLastmod = [
-    statSync(path.join(root, 'site-src', 'data', 'seo-v4.mjs')).mtime.toISOString().slice(0, 10),
-    statSync(path.join(root, 'site-src', 'data', 'zq-blog-guides.mjs')).mtime.toISOString().slice(0, 10),
-    statSync(path.join(root, 'site-src', 'data', 'zq-internal-links.mjs')).mtime.toISOString().slice(0, 10),
-    statSync(path.join(root, 'site-src', 'data', 'zq-seo-pages.mjs')).mtime.toISOString().slice(0, 10),
-    statSync(path.join(root, 'site-src', 'data', 'zq-services.mjs')).mtime.toISOString().slice(0, 10),
-    statSync(path.join(root, 'site-src', 'data', 'zq-suburbs.mjs')).mtime.toISOString().slice(0, 10),
-    statSync(path.join(root, 'scripts', 'build-site.mjs')).mtime.toISOString().slice(0, 10),
-  ].sort().at(-1);
+  const expectedLastmod = createSitemapLastmodResolver(root)({}, [
+    'site-src/data/seo-v4.mjs', 'site-src/data/zq-blog-guides.mjs',
+    'site-src/data/zq-internal-links.mjs', 'site-src/data/zq-seo-pages.mjs',
+    'site-src/data/zq-services.mjs', 'site-src/data/zq-suburbs.mjs',
+    'scripts/build-site.mjs',
+  ].map((source) => path.join(root, source)));
 
   const semaphoreLastmod = suburbsSitemap.match(
     /<loc>https:\/\/zqremovalsadelaide\.com\.au\/removalists-semaphore\/<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/,
@@ -332,10 +330,15 @@ test('generated-page lastmod follows source file mtimes and image sitemap is pow
     /<loc>https:\/\/zqremovalsadelaide\.com\.au\/cheap-removalists-adelaide\/<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/,
   );
 
-  assert.ok(semaphoreLastmod);
-  assert.ok(cheapLastmod);
-  assert.equal(semaphoreLastmod[1], expectedLastmod);
-  assert.equal(cheapLastmod[1], expectedLastmod);
+  if (expectedLastmod) {
+    assert.ok(semaphoreLastmod);
+    assert.ok(cheapLastmod);
+    assert.equal(semaphoreLastmod[1], expectedLastmod);
+    assert.equal(cheapLastmod[1], expectedLastmod);
+  } else {
+    assert.equal(semaphoreLastmod, null);
+    assert.equal(cheapLastmod, null);
+  }
   assert.match(imageSitemap, /<image:loc>https:\/\/zqremovalsadelaide\.com\.au\/media\/zq-local-premium\.webp<\/image:loc>/);
   assert.match(imageSitemap, /<image:loc>https:\/\/zqremovalsadelaide\.com\.au\/media\/zq-service-premium\.webp<\/image:loc>/);
 });

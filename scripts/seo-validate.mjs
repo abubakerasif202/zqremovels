@@ -122,7 +122,7 @@ if (coverage.length !== generatedPages.filter((page) => page.generatedKind === '
 }
 
 const robots = await readFile(path.join(distRoot, 'robots.txt'), 'utf8').catch(() => '');
-if (!robots.includes('/sitemap-index.xml')) failures.push('robots missing sitemap index reference');
+if (!robots.includes(`Sitemap: ${seoConfig.siteUrl}/sitemap.xml`)) failures.push('robots missing canonical sitemap reference');
 
 const sitemapFiles = ['sitemap-index.xml', 'sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml'];
 const sitemapXmlByName = new Map();

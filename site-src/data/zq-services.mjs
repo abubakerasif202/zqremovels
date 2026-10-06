@@ -383,7 +383,7 @@ export const zqServicePages = [
     slug: 'services/piano-movers-adelaide',
     title: 'Piano Movers Adelaide | Piano Removalists | ZQ Removals',
     description:
-      'Piano movers in Adelaide: request an assessment for upright and digital pianos. Send the instrument type, dimensions and access photos to confirm handling and availability.',
+      'Piano movers Adelaide for upright and digital pianos. Send instrument dimensions and access photos for a handling assessment and moving quote.',
     canonical: '/services/piano-movers-adelaide/',
     type: 'service',
     hero:

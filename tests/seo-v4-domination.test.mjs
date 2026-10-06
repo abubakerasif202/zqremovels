@@ -76,7 +76,7 @@ test('homepage metadata, schema, and crawl directives match v4 targets', async (
   assert.doesNotMatch(homepage, /<meta name="robots" content="noindex/i);
 
   assert.ok(llms.includes('ZQ Removals'));
-  assert.match(robots, /Sitemap: https:\/\/zqremovalsadelaide\.com\.au\/sitemap-index\.xml/);
+  assert.match(robots, /Sitemap: https:\/\/zqremovalsadelaide\.com\.au\/sitemap\.xml/);
   assert.doesNotMatch(robots, /^LLM:/m);
   assert.match(robots, /# https:\/\/zqremovalsadelaide\.com\.au\/llms\.txt/);
   assert.match(sitemapIndex, /<sitemapindex/);

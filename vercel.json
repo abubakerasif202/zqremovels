@@ -804,6 +804,31 @@
       "permanent": true
     },
     {
+      "source": "/cheap-removalist-adelaide/",
+      "destination": "https://zqremovalsadelaide.com.au/cheap-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/cheap-removalist-adelaide/index.html",
+      "destination": "https://zqremovalsadelaide.com.au/cheap-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/moving-house-services-adelaide",
+      "destination": "https://zqremovalsadelaide.com.au/house-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/moving-house-services-adelaide/",
+      "destination": "https://zqremovalsadelaide.com.au/house-removals-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/moving-house-services-adelaide/index.html",
+      "destination": "https://zqremovalsadelaide.com.au/house-removals-adelaide/",
+      "permanent": true
+    },
+    {
       "source": "/adelaide-cbd",
       "destination": "https://zqremovalsadelaide.com.au/removalists-adelaide-cbd/",
       "permanent": true

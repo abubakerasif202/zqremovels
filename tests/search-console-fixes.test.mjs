@@ -128,7 +128,7 @@ test('generated sitemap and canonicals stay on the apex host', () => {
     interstateHub,
     /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/interstate-removals-adelaide\/" \/>/,
   );
-  assert.match(robots, /Sitemap: https:\/\/zqremovalsadelaide\.com\.au\/sitemap-index\.xml/);
+  assert.match(robots, /Sitemap: https:\/\/zqremovalsadelaide\.com\.au\/sitemap\.xml/);
   assert.match(llms, /Website: https:\/\/zqremovalsadelaide\.com\.au/);
   assert.match(llms, /Priority money pages:/);
   assert.match(llms, /\[Removalists Adelaide \| 5-Star Local Movers \| ZQ Removals\]\(https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide\/\)/);
@@ -372,7 +372,7 @@ test('robots and AI crawler files stay standards-compliant', () => {
   const llmsFull = readDist('llms-full.txt');
   const pricing = readDist('pricing.md');
 
-  assert.match(robots, /^User-agent: \*\r?\nAllow: \/\r?\nSitemap: https:\/\/zqremovalsadelaide\.com\.au\/sitemap-index\.xml/m);
+  assert.match(robots, /^User-agent: \*\r?\nAllow: \/\r?\nSitemap: https:\/\/zqremovalsadelaide\.com\.au\/sitemap\.xml/m);
   assert.doesNotMatch(robots, /^LLM:/m);
   assert.match(llms, /Website: https:\/\/zqremovalsadelaide\.com\.au/);
   assert.match(llmsFull, /Entity: ZQ Removals/);
@@ -1303,3 +1303,11 @@ function normalizeGoogleProfileTokens(value) {
   }
   return typeof value === 'string' ? value.replace(/\{\{\s*google\.profileUrl\s*\}\}/gi, googleReviews.profileUrl) : value;
 }
+
+
+test('piano migration snippet remains a complete assessment-based description', () => {
+  const piano = pages.find((page) => page.output === 'services/piano-movers-adelaide/index.html');
+  assert.equal(piano.description, 'Piano movers Adelaide for upright and digital pianos. Send instrument dimensions and access photos for a handling assessment and moving quote.');
+  assert.equal(piano.ogDescription, piano.description);
+  assert.equal(piano.twitterDescription, piano.description);
+});

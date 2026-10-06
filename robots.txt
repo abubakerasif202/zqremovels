@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://zqremovalsadelaide.com.au/sitemap-index.xml
+Sitemap: https://zqremovalsadelaide.com.au/sitemap.xml
 
 # AI crawler reference:
 # https://zqremovalsadelaide.com.au/llms.txt
