@@ -719,6 +719,15 @@ function normalizePageOutput(output) {
 function getGuideSupportProfile(guideSlug) {
   // Contextual links from guides back to money pages and relevant hubs
   const profiles = {
+    'how-to-prepare-furniture-for-moving': {
+      services: [
+        { href: '/house-removals-adelaide/', label: 'Adelaide house removals' },
+        { href: '/packing-services-adelaide/', label: 'packing and protection' },
+        { href: '/furniture-removalists-adelaide/', label: 'furniture moving support' },
+        { href: '/services/piano-movers-adelaide/', label: 'piano access assessment' },
+      ],
+      hubs: [{ href: '/removalists-adelaide/', label: 'Adelaide removals hub' }],
+    },
     'moving-checklist-adelaide': {
       services: [
         { href: '/house-removals-adelaide/', label: 'request a house removal quote' },

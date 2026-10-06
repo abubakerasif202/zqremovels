@@ -307,6 +307,17 @@ test('key titles and descriptions stay within safe SEO length guardrails', () =>
   }
 });
 
+test('furniture preparation guide provides a distinct piano assessment path', () => {
+  const guide = readDist('adelaide-moving-guides/how-to-prepare-furniture-for-moving/index.html');
+  const services = guide.match(/<section\b[^>]*data-generated-module="guide-services"[^>]*>[\s\S]*?<\/section>/)?.[0];
+  assert.ok(services, 'missing contextual guide service section');
+  for (const href of ['/house-removals-adelaide/', '/packing-services-adelaide/', '/furniture-removalists-adelaide/', '/services/piano-movers-adelaide/']) {
+    assert.equal(services.split(`href="${href}"`).length - 1, 1, `expected one service path to ${href}`);
+  }
+  assert.match(services, /piano access assessment/);
+  assert.match(guide, /href="\/removalists-adelaide\/"/);
+});
+
 test('live-audit commercial snippets and guide publication schema stay fixed', () => {
   const pricing = readDist('removalists-adelaide-prices/index.html');
   const office = readDist('office-removals-adelaide/index.html');
