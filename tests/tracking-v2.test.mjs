@@ -132,9 +132,8 @@ test("conversion events push payloads to dataLayer", async () => {
   analytics.trackFormStart("quote_form");
   analytics.trackFormSubmit("quote_form");
   assert.equal(dataLayer.some((entry) => entry.event === "generate_lead"), false);
-  analytics.trackFormSuccess("quote_form", "accepted-test-123");
-  analytics.trackFormSuccess("quote_form", "accepted-test-123");
-  assert.equal(dataLayer.filter((entry) => entry.event === "generate_lead").length, 1);
+  assert.equal(analytics.trackFormSuccess, undefined);
+  assert.equal(dataLayer.filter((entry) => entry.event === "zq_quote_submitted").length, 0);
   analytics.trackServiceCTA("house-removals");
   analytics.trackMobileMenuOpen();
   analytics.trackOutboundClick("https://example.com");
@@ -143,7 +142,7 @@ test("conversion events push payloads to dataLayer", async () => {
   assert.ok(names.includes("phone_click"));
   assert.ok(names.includes("quote_click"));
   assert.ok(names.includes("form_start"));
-  assert.ok(names.includes("generate_lead"));
+  assert.equal(names.includes("generate_lead"), false);
   assert.ok(names.includes("service_cta_click"));
   assert.ok(names.includes("mobile_menu_open"));
   assert.ok(names.includes("outbound_click"));
@@ -223,11 +222,14 @@ test("trackStickyCtaClick pushes payload to dataLayer", async () => {
 
 test("accepted lead deduplication is private, GTM-only and resilient to blocked storage", async () => {
   const analytics = await import(`../analytics.mjs?privacy=${Date.now()}`);
+  const { coordinateAcceptedQuote } = await import("../quote-tracking.mjs");
   const originalWindow = global.window;
   const dataLayer = [];
   let directCalls = 0;
   global.window = {
     dataLayer, gtag() { directCalls++; },
+    crypto: { randomUUID: () => "11111111-1111-4111-8111-111111111111" },
+    setTimeout, clearTimeout,
     location: { pathname: "/contact-us/", search: "?email=private@example.com" },
     sessionStorage: { getItem() { throw Error("blocked"); }, setItem() { throw Error("blocked"); } },
     __analyticsConfig: { gtmId: "GTM-WJGKPXFL" },
@@ -235,13 +237,18 @@ test("accepted lead deduplication is private, GTM-only and resilient to blocked 
   try {
     analytics.trackFormSubmit("test_form");
     assert.equal(dataLayer.some(entry => entry.event === "generate_lead"), false);
-    assert.equal(analytics.trackFormSuccess("test_form"), false);
-    assert.equal(analytics.trackFormSuccess("test_form", "accepted-server-123"), true);
-    assert.equal(analytics.trackFormSuccess("test_form", "accepted-server-123"), false);
+    assert.equal(analytics.trackFormSuccess, undefined);
+    const pending = coordinateAcceptedQuote(global.window);
+    const event = dataLayer.find(entry => entry.event === "zq_quote_submitted");
+    assert.equal(global.window.__zqClaimAcceptedQuoteForAds(event.submission_id, "quote_form", "accepted"), true);
+    assert.equal(global.window.__zqClaimAcceptedQuoteForAds(event.submission_id, "quote_form", "accepted"), false);
+    event.eventCallback(); await pending;
+    await coordinateAcceptedQuote(global.window);
     analytics.trackCallClick("header");
     analytics.trackWhatsAppClick("footer");
     assert.equal(directCalls, 0);
-    assert.equal(dataLayer.filter(entry => entry.event === "generate_lead").length, 1);
+    assert.equal(dataLayer.filter(entry => entry.event === "zq_quote_submitted").length, 1);
+    assert.equal(dataLayer.some(entry => entry.event === "generate_lead"), false);
     assert.doesNotMatch(JSON.stringify(dataLayer), /private@example/);
   } finally { global.window = originalWindow; }
 });

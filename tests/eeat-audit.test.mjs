@@ -115,11 +115,14 @@ test('minified stylesheet output is smaller than the source stylesheet', () => {
   assert.ok(minifiedCss.length < sourceCss.length, 'expected premium-home.min.css to be shorter than premium-site.css');
 });
 
-test('frontend quote flow emits a GA submission event hook', () => {
-  const clientScript = readDist('analytics.mjs');
+test('frontend quote flow bundles the accepted quote contract', () => {
+  const clientScript = readDist('site.js');
 
-  assert.match(clientScript, /generate_lead/);
-  assert.match(clientScript, /gtag\("event"/);
+  assert.match(clientScript, /zq_quote_submitted/);
+  assert.match(clientScript, /submission_status/);
+  assert.match(clientScript, /submission_id/);
+  assert.match(clientScript, /__zqClaimAcceptedQuoteForAds/);
+  assert.doesNotMatch(clientScript, /generate_lead/);
 });
 
 test('contact page keeps the quote layout while exposing Web3Forms-compatible contact fields', () => {

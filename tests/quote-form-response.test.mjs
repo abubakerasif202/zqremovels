@@ -5,23 +5,7 @@ import vm from 'node:vm';
 
 function loadQuoteSubmitter(fetchImpl) {
   const source = readFileSync('site.js', 'utf8')
-    .replace(
-      /^import[\s\S]*?from "\.\/analytics\.mjs";/,
-      `const getStoredAttribution = () => ({});
-function initAnalytics() {}
-function trackCallClick() {}
-function trackEmailClick() {}
-function trackFormSuccess() {}
-function trackFormStart() {}
-function trackFormSubmit() {}
-function trackMobileMenuOpen() {}
-function trackOutboundClick() {}
-function trackQuoteClick() {}
-function trackStickyCtaClick() {}
-function trackPricePageCTA() {}
-function trackSuburbCTA() {}
-function trackServiceCTA() {}`,
-    )
+    .replace(/^import .*quote-tracking\.mjs";\r?\n/, 'const coordinateAcceptedQuote = async () => {};')
     .concat('\nglobalThis.__quoteFormTest = { submitQuoteForm };\n');
 
   const noop = () => {};
@@ -144,4 +128,8 @@ test('quote form rejects failed non-JSON API responses with response details', a
     ),
     /Could not send the request/,
   );
+});
+
+test('quote form rejects HTTP failure even when JSON success is true', async () => {
+  await assert.rejects(runSubmitWithResponse(createWeb3FormsResponse({ ok: false, body: '{"success":true}' })));
 });

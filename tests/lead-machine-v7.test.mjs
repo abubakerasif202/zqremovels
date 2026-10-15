@@ -96,6 +96,7 @@ test('v7 quote forms expose required lead fields and attribution hidden fields',
 
 test('v7 tracking helper supports ad platforms, attribution, and lead events without hardcoded ad secrets', () => {
   const analytics = readFileSync(path.join(root, 'analytics.mjs'), 'utf8');
+  const coordinator = readFileSync(path.join(root, 'quote-tracking.mjs'), 'utf8');
   const site = readFileSync(path.join(root, 'site.js'), 'utf8');
   const build = readFileSync(path.join(root, 'scripts', 'build-site.mjs'), 'utf8');
 
@@ -103,7 +104,7 @@ test('v7 tracking helper supports ad platforms, attribution, and lead events wit
     'phone_click',
     'quote_form_start',
     'quote_form_submit',
-    'generate_lead',
+    'zq_quote_submitted',
     'email_click',
     'facebook_ad_landing',
     'google_ad_landing',
@@ -111,10 +112,11 @@ test('v7 tracking helper supports ad platforms, attribution, and lead events wit
     'suburb_cta_click',
     'price_page_cta_click',
   ]) {
-    assert.match(`${analytics}\n${site}`, new RegExp(token));
+    assert.match(`${analytics}\n${site}\n${coordinator}`, new RegExp(token));
   }
 
-  assert.match(analytics, /lead_id: leadId/);
+  assert.match(coordinator, /submission_id: id/);
+  assert.doesNotMatch(analytics, /generate_lead|lead_id/);
   assert.doesNotMatch(analytics, /sendGoogleAdsLeadConversion|sendMetaTrack\("Lead"/);
   assert.doesNotMatch(`${analytics}\n${build}`, /AW-\d{6,}/);
 });

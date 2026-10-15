@@ -174,23 +174,6 @@ export function trackFormSubmit(formName = "quote_form") {
   dispatchEvent("quote_form_submit", { form_name: formName });
 }
 
-export function trackFormSuccess(formName = "quote_form", leadId = "", onQueued) {
-  const win = safeWindow();
-  if (!win || !/^[a-zA-Z0-9_-]{8,128}$/.test(leadId)) return false;
-  const seen = win.__zqAcceptedLeads ||= new Set();
-  const key = `zq_accepted_lead:${leadId}`;
-  if (seen.has(leadId)) return false;
-  try { if (win.sessionStorage?.getItem(key)) return false; } catch {}
-  seen.add(leadId);
-  try { win.sessionStorage?.setItem(key, "1"); } catch {}
-  win.dataLayer ||= [];
-  sendGtmEvent("generate_lead", {
-    lead_type: "removal_quote", form_name: formName, lead_id: leadId,
-    ...(onQueued ? { eventCallback: onQueued, eventTimeout: 1500 } : {}),
-  });
-  return true;
-}
-
 export function trackEmailClick(location = "") {
   const payload = withAttribution({ category: "conversion", label: "email_click", location });
   dispatchEvent("email_click", payload);

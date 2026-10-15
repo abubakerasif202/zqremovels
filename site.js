@@ -1,3 +1,5 @@
+import { coordinateAcceptedQuote } from "./quote-tracking.mjs";
+
 const ATTRIBUTION_STORAGE_KEY = "zq_attribution_v7";
 const ATTRIBUTION_KEYS = [
   "utm_source",
@@ -779,26 +781,10 @@ function setupQuoteForms() {
       setQuoteFormSubmitting(form, true);
 
       try {
-        const result = await submitQuoteForm(form, payload);
+        await submitQuoteForm(form, payload);
         form.dataset.quoteAccepted = "true";
-        // Web3Forms does not guarantee a receipt ID. The local UUID is an event
-        // deduplication token, created only after explicit provider acceptance.
-        try {
-          const leadId = typeof result.lead_id === "string" && /^[a-zA-Z0-9_-]{8,128}$/.test(result.lead_id)
-            ? result.lead_id : window.crypto.randomUUID();
-          const formName = form.getAttribute("data-form-name") ||
-            `${window.location.pathname === "/" ? "home" : window.location.pathname.split("/").filter(Boolean).join("_")}_quote_${quoteForms.indexOf(form) + 1}`;
-          // Queue before navigation. Analytics failure must not turn an accepted enquiry into a retry.
-          const analytics = await loadAnalyticsModule();
-          await new Promise((resolve) => {
-            const timeout = window.setTimeout(resolve, 1600);
-            const queued = analytics.trackFormSuccess(formName, leadId, () => {
-              window.clearTimeout(timeout);
-              resolve();
-            });
-            if (!queued) { window.clearTimeout(timeout); resolve(); }
-          });
-        } catch { /* Enquiry accepted; tracking may be blocked by the browser. */ }
+        // Eager coordinator bounds all tracking work; accepted enquiries never retry.
+        await coordinateAcceptedQuote(window);
         applyQuoteFormErrors(form, {});
         form.reset();
         setQuoteDateMinimum();

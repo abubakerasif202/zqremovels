@@ -6999,8 +6999,8 @@ async function copyStaticAssets() {
     });
     console.log('site.js transpiled successfully.');
   } catch (error) {
-    console.error('esbuild transpilation failed, falling back to direct copy:', error);
-    await copyFile(path.join(projectRoot, 'site.js'), path.join(distRoot, 'site.js'));
+    console.error('site.js bundling failed:', error);
+    throw error;
   }
 
   // Optional branding assets (developer credit logo). Skipped when absent.

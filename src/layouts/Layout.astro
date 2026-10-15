@@ -39,15 +39,22 @@ const trackingConfigStr = JSON.stringify(
 <!doctype html>
 <html lang="en-AU" data-theme="zqtheme">
   <head>
-    <!-- Fail closed until an existing CMP supplies a consent update. Never replace queued decisions. -->
+    <!-- This bootstrap owns defaults only before a Google loader starts. -->
     <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      if (!window.dataLayer.some(function(entry) { return entry && entry[0] === 'consent'; })) {
-        window.dataLayer.push((function() { return arguments; })('consent', 'default', {
+      (function(w, d) {
+        var layer = w.dataLayer = w.dataLayer || [];
+        // Never reorder a live queue or reset consent already processed by Google.
+        if (w.__zqConsentInitialized || w.__zqGtmLoaded || w.__gtagLoaded ||
+            (w.google_tag_manager && Object.keys(w.google_tag_manager).length) ||
+            d.querySelector('script[src*="googletagmanager.com/gtm.js"],script[src*="googletagmanager.com/gtag/js"]')) return;
+        w.__zqConsentInitialized = true;
+        var baseline = (function() { return arguments; })('consent', 'default', {
           ad_storage: 'denied', analytics_storage: 'denied',
           ad_user_data: 'denied', ad_personalization: 'denied'
-        }));
-      }
+        });
+        // Prepending to the dormant queue preserves every queued choice and its order.
+        layer.unshift(baseline);
+      })(window, document);
     </script>
     <!-- Google Tag Manager -->
     <script is:inline>
