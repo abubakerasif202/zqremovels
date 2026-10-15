@@ -271,11 +271,10 @@
 </div>
 </div>
 <div class="quote-form-shell" id="quote-form">
-<form action="/thank-you.html" class="quote-form" data-dev-success="/thank-you.html?demo=1" data-netlify="true" method="POST" name="premium-contact" netlify-honeypot="bot-field">
-<input name="form-name" type="hidden" value="premium-contact"/>
+<form action="https://api.web3forms.com/submit" class="quote-form" data-quote-form="quote" data-form-name="southern_adelaide_quote" method="POST" novalidate>
 <input name="landing-page" type="hidden" value="removalists-southern-adelaide"/>
 <p aria-hidden="true" hidden="">
-<label>Do not fill this out if you're human: <input autocomplete="off" name="bot-field" tabindex="-1"/></label>
+<label>Do not fill this out if you're human: <input autocomplete="off" name="botcheck" tabindex="-1"/></label>
 </p>
 <div class="field-grid">
 <label>
@@ -292,19 +291,19 @@
 </label>
 <label>
 <span>Move date</span>
-<input name="move-date" type="date"/>
+<input name="move_date" type="date"/>
 </label>
 <label>
 <span>From suburb</span>
-<input autocomplete="address-level2" name="from-suburb" required="" type="text"/>
+<input autocomplete="address-level2" name="pickup_suburb" required="" type="text"/>
 </label>
 <label>
 <span>To suburb</span>
-<input autocomplete="address-level2" name="to-suburb" required="" type="text"/>
+<input autocomplete="address-level2" name="dropoff_suburb" required="" type="text"/>
 </label>
 <label>
 <span>Property type</span>
-<select name="property-type" required="">
+<select name="property_type" required="">
 <option value="">Select one</option>
 <option>House</option>
 <option>Unit / apartment</option>
@@ -315,7 +314,7 @@
 </label>
 <label>
 <span>Bedrooms / size</span>
-<select name="move-size">
+<select name="move_size">
 <option value="">Select one</option>
 <option>Studio / 1 bedroom</option>
 <option>2 bedroom</option>
@@ -327,12 +326,13 @@
 </div>
 <label>
 <span>Access, stairs, fragile items, or route notes</span>
-<textarea name="details" placeholder="Tell us about parking, stairs, lift access, heavy items, packing help, or interstate timing." rows="6"></textarea>
+<textarea name="move_details" placeholder="Tell us about parking, stairs, lift access, heavy items, packing help, or interstate timing." rows="6"></textarea>
 </label>
 <div class="form-actions">
 <button class="button button-primary" type="submit">Request a Southern Adelaide proposal</button>
 <p class="field-note">We review the move scope before final pricing is confirmed.</p>
 </div>
+<p class="form-feedback" data-form-feedback role="status" aria-live="polite"></p>
 </form>
 </div>
 </div>

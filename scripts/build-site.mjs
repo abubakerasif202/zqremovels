@@ -6794,15 +6794,11 @@ function escapeAttribute(value = '') {
 function renderTrackingHeadScripts() {
   const gaId = getBuildEnvValue('VITE_GA_MEASUREMENT_ID') || getBuildEnvValue('GA_MEASUREMENT_ID');
   const gtmId = getBuildEnvValue('VITE_GTM_ID') || getBuildEnvValue('GTM_ID');
-  const googleAdsConversionId = getBuildEnvValue('VITE_GOOGLE_ADS_CONVERSION_ID') || getBuildEnvValue('GOOGLE_ADS_CONVERSION_ID');
-  const googleAdsLeadLabel = getBuildEnvValue('VITE_GOOGLE_ADS_LEAD_LABEL') || getBuildEnvValue('GOOGLE_ADS_LEAD_LABEL');
   const metaPixelId = getBuildEnvValue('VITE_META_PIXEL_ID') || getBuildEnvValue('META_PIXEL_ID');
 
   const config = {
     gaMeasurementId: gaId,
     gtmId,
-    googleAdsConversionId,
-    googleAdsLeadLabel,
     metaPixelId,
   };
 

@@ -110,22 +110,15 @@ test('quote form accepts successful JSON Web3Forms responses', async () => {
   assert.equal(result.message, 'Submitted');
 });
 
-test('quote form accepts successful empty Web3Forms responses', async () => {
-  const result = await runSubmitWithResponse(
-    createWeb3FormsResponse({ body: '', jsonRejects: true }),
-  );
+for (const body of ['', 'OK', '{broken', '{}', 'null', '{"success":"true"}', '{"success":false}']) {
+  test(`quote form rejects unconfirmed HTTP 200 response: ${body}`, async () => {
+    await assert.rejects(runSubmitWithResponse(createWeb3FormsResponse({ body })));
+  });
+}
 
-  assert.equal(result.success, true);
-  assert.equal(result.message, 'Quote request sent.');
-});
-
-test('quote form accepts successful non-JSON Web3Forms responses', async () => {
-  const result = await runSubmitWithResponse(
-    createWeb3FormsResponse({ body: 'OK', jsonRejects: true }),
-  );
-
-  assert.equal(result.success, true);
-  assert.equal(result.message, 'Quote request sent.');
+test('quote form rejects network failures', async () => {
+  const submit = loadQuoteSubmitter(async () => { throw new Error('network'); });
+  await assert.rejects(submit({}, {}));
 });
 
 test('quote form rejects failed JSON API responses with the API payload', async () => {
@@ -136,12 +129,7 @@ test('quote form rejects failed JSON API responses with the API payload', async 
         body: JSON.stringify({ success: false, message: 'Invalid access key' }),
       }),
     ),
-    (error) => {
-      assert.equal(error.message, 'Invalid access key');
-      assert.equal(error.payload.success, false);
-      assert.equal(error.payload.message, 'Invalid access key');
-      return true;
-    },
+    /Could not send the request/,
   );
 });
 
@@ -154,12 +142,6 @@ test('quote form rejects failed non-JSON API responses with response details', a
         jsonRejects: true,
       }),
     ),
-    (error) => {
-      assert.equal(error.message, 'Could not send the request. Please try again.');
-      assert.equal(error.payload.success, false);
-      assert.equal(error.payload.message, 'Could not send the request. Please try again.');
-      assert.equal(error.payload.body, '<html>Service unavailable</html>');
-      return true;
-    },
+    /Could not send the request/,
   );
 });

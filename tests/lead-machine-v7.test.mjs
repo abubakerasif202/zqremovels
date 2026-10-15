@@ -103,7 +103,7 @@ test('v7 tracking helper supports ad platforms, attribution, and lead events wit
     'phone_click',
     'quote_form_start',
     'quote_form_submit',
-    'quote_form_success',
+    'generate_lead',
     'email_click',
     'facebook_ad_landing',
     'google_ad_landing',
@@ -114,11 +114,8 @@ test('v7 tracking helper supports ad platforms, attribution, and lead events wit
     assert.match(`${analytics}\n${site}`, new RegExp(token));
   }
 
-  assert.match(analytics, /googleAdsConversionId/);
-  assert.match(analytics, /googleAdsLeadLabel/);
-  assert.match(analytics, /sendMetaTrack\("Lead"/);
-  assert.match(build, /VITE_GOOGLE_ADS_CONVERSION_ID/);
-  assert.match(build, /VITE_GOOGLE_ADS_LEAD_LABEL/);
+  assert.match(analytics, /lead_id: leadId/);
+  assert.doesNotMatch(analytics, /sendGoogleAdsLeadConversion|sendMetaTrack\("Lead"/);
   assert.doesNotMatch(`${analytics}\n${build}`, /AW-\d{6,}/);
 });
 

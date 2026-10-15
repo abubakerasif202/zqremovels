@@ -53,8 +53,8 @@ function sendMetaCustom(eventName, params) {
 }
 
 function dispatchEvent(eventName, params = {}) {
-  sendGaEvent(eventName, params);
-  sendGtmEvent(eventName, params);
+  if (getConfig().gtmId) sendGtmEvent(eventName, params);
+  else sendGaEvent(eventName, params);
 }
 
 function getAttribution() {
@@ -69,26 +69,8 @@ function getAttribution() {
 }
 
 function withAttribution(params = {}) {
-  return { ...getAttribution(), ...params };
-}
-
-function sendGoogleAdsLeadConversion(params = {}) {
-  const win = safeWindow();
-  const config = getConfig();
-  if (
-    typeof win?.gtag !== "function" ||
-    !config.googleAdsConversionId ||
-    !config.googleAdsLeadLabel
-  ) {
-    return;
-  }
-
-  try {
-    win.gtag("event", "conversion", {
-      send_to: `${config.googleAdsConversionId}/${config.googleAdsLeadLabel}`,
-      ...params,
-    });
-  } catch {}
+  // Attribution remains in the enquiry payload; arbitrary query values can contain PII.
+  return { ...params };
 }
 
 export function captureAttribution() {
@@ -154,44 +136,59 @@ export function trackPageView(path = "") {
   const win = safeWindow();
   if (!win) return;
   const pagePath = path || `${win.location.pathname}${win.location.search}`;
-  sendGaEvent("page_view", { page_path: pagePath });
-  sendGtmEvent("page_view", { page_path: pagePath, category: "engagement", label: "page_view" });
+  if (!getConfig().gtmId) sendGaEvent("page_view", { page_path: pagePath.split("?")[0] });
+  sendGtmEvent("page_view", { page_path: pagePath.split("?")[0], category: "engagement", label: "page_view" });
   sendMetaTrack("PageView", { page_path: pagePath });
 }
 
 export function trackCallClick(location = "") {
-  const payload = withAttribution({ category: "conversion", label: "phone_call", location });
-  dispatchEvent("phone_click", payload);
-  dispatchEvent("call_click", payload);
-  sendMetaTrack("Contact", payload);
+  sendGtmEvent("phone_click", {
+    contact_method: "phone", link_location: location,
+    page_path: safeWindow()?.location.pathname || "/",
+  });
+}
+
+export function trackWhatsAppClick(location = "") {
+  sendGtmEvent("whatsapp_click", {
+    contact_method: "whatsapp", link_location: location,
+    page_path: safeWindow()?.location.pathname || "/",
+  });
 }
 
 export function trackQuoteClick(location = "") {
   const payload = withAttribution({ category: "conversion", label: "quote_button", location });
   dispatchEvent("quote_click", payload);
   dispatchEvent("quote_cta_click", payload);
-  sendMetaTrack("Lead", payload);
+
 }
 
 export function trackFormStart(formName = "quote_form") {
   const payload = withAttribution({ category: "lead", label: "quote_form", form_name: formName });
   dispatchEvent("quote_form_start", payload);
   dispatchEvent("form_start", payload);
-  sendMetaTrack("Lead", payload);
+
 }
 
+// A submit attempt is engagement only. Only the accepted-response handler calls success.
 export function trackFormSubmit(formName = "quote_form") {
-  const payload = withAttribution({ category: "conversion", label: "quote_form", form_name: formName });
-  dispatchEvent("quote_form_submit", payload);
-  dispatchEvent("generate_lead", payload);
-  sendMetaTrack("Lead", payload);
+  dispatchEvent("quote_form_submit", { form_name: formName });
 }
 
-export function trackFormSuccess(formName = "quote_form") {
-  const payload = withAttribution({ category: "conversion", label: "quote_form_success", form_name: formName });
-  dispatchEvent("quote_form_success", payload);
-  sendGoogleAdsLeadConversion(payload);
-  sendMetaTrack("Lead", payload);
+export function trackFormSuccess(formName = "quote_form", leadId = "", onQueued) {
+  const win = safeWindow();
+  if (!win || !/^[a-zA-Z0-9_-]{8,128}$/.test(leadId)) return false;
+  const seen = win.__zqAcceptedLeads ||= new Set();
+  const key = `zq_accepted_lead:${leadId}`;
+  if (seen.has(leadId)) return false;
+  try { if (win.sessionStorage?.getItem(key)) return false; } catch {}
+  seen.add(leadId);
+  try { win.sessionStorage?.setItem(key, "1"); } catch {}
+  win.dataLayer ||= [];
+  sendGtmEvent("generate_lead", {
+    lead_type: "removal_quote", form_name: formName, lead_id: leadId,
+    ...(onQueued ? { eventCallback: onQueued, eventTimeout: 1500 } : {}),
+  });
+  return true;
 }
 
 export function trackEmailClick(location = "") {
@@ -239,7 +236,9 @@ export function trackStickyCtaClick(location = "sticky_cta") {
 
 export function trackOutboundClick(url) {
   if (!url) return;
-  const payload = { category: "engagement", label: "outbound_link", url };
+  let safeUrl;
+  try { const parsed = new URL(url); safeUrl = `${parsed.origin}${parsed.pathname}`; } catch { return; }
+  const payload = { category: "engagement", label: "outbound_link", url: safeUrl };
   dispatchEvent("outbound_click", payload);
   sendMetaCustom("outbound_click", payload);
 }

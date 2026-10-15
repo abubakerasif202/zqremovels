@@ -90,11 +90,10 @@ function scheduleAnalyticsInit() {
   runWhenIdle(() => withAnalytics((analytics) => analytics.initAnalytics()), 1500);
 }
 
+function trackWhatsAppClick(...args) { withAnalytics((analytics) => analytics.trackWhatsAppClick(...args)); }
 function trackCallClick(...args) { withAnalytics((analytics) => analytics.trackCallClick(...args)); }
 function trackEmailClick(...args) { withAnalytics((analytics) => analytics.trackEmailClick(...args)); }
-function trackFormSuccess(...args) { withAnalytics((analytics) => analytics.trackFormSuccess(...args)); }
 function trackFormStart(...args) { withAnalytics((analytics) => analytics.trackFormStart(...args)); }
-function trackFormSubmit(...args) { withAnalytics((analytics) => analytics.trackFormSubmit(...args)); }
 function trackMobileMenuOpen(...args) { withAnalytics((analytics) => analytics.trackMobileMenuOpen(...args)); }
 function trackOutboundClick(...args) { withAnalytics((analytics) => analytics.trackOutboundClick(...args)); }
 function trackQuoteClick(...args) { withAnalytics((analytics) => analytics.trackQuoteClick(...args)); }
@@ -506,9 +505,6 @@ function isPriceContextPage() {
 
 function inferClickLocation(anchor) {
   const explicitLocation = anchor.getAttribute("data-lead-location");
-  if (explicitLocation) {
-    return explicitLocation;
-  }
   if (anchor.closest("#sticky-cta")) {
     return "sticky_cta";
   }
@@ -518,11 +514,7 @@ function inferClickLocation(anchor) {
   if (anchor.closest("footer")) {
     return "footer";
   }
-  return document.body.className || window.location.pathname;
-}
-
-function trackQuoteSubmission() {
-  trackFormSubmit("quote_form");
+  return explicitLocation || document.body.className || window.location.pathname;
 }
 
 function buildQuoteSubmissionPayload(payload) {
@@ -607,17 +599,9 @@ function syncQuoteFormHiddenFields() {
   });
 }
 
-function setupSuccessPageTracking() {
-  const node = document.querySelector("[data-conversion-success]");
-  if (!node) {
-    return;
-  }
-
-  const formName = node.getAttribute("data-form-name") || "quote_form";
-  trackFormSuccess(formName);
-}
-
 function setupConversionTracking() {
+  if (window.__zqContactTracking) return;
+  window.__zqContactTracking = true;
   const trackedForms = new WeakSet();
   const formStartStoragePrefix = "zq_form_started:";
 
@@ -644,8 +628,13 @@ function setupConversionTracking() {
     }
 
     const href = anchor.getAttribute("href") || "";
-    if (href.startsWith("tel:")) {
+    if (/^tel:(?:\+?61|0)433[\s-]*819[\s-]*989$/i.test(href.replace(/[() ]/g, ""))) {
       trackCallClick(inferClickLocation(anchor));
+      return;
+    }
+
+    if (/^https:\/\/(?:wa\.me\/|(?:api|web)\.whatsapp\.com\/send(?:[?\/]|$))/i.test(href)) {
+      trackWhatsAppClick(inferClickLocation(anchor));
       return;
     }
 
@@ -739,44 +728,15 @@ async function submitQuoteForm(form, payload) {
   const trimmedResponseText = responseText.trim();
   let result;
 
-  if (trimmedResponseText.startsWith("{") || trimmedResponseText.startsWith("[")) {
-    try {
-      result = JSON.parse(trimmedResponseText);
-    } catch {
-      if (response.ok) {
-        return {
-          success: true,
-          message: "Quote request sent.",
-        };
-      }
-      result = {
-        success: false,
-        message: DEFAULT_QUOTE_ERROR_MESSAGE,
-        body: responseText,
-      };
-    }
-  } else if (response.ok) {
-    return {
-      success: true,
-      message: "Quote request sent.",
-    };
-  } else {
-    result = {
-      success: false,
-      message: DEFAULT_QUOTE_ERROR_MESSAGE,
-      body: responseText,
-    };
+  try {
+    result = JSON.parse(trimmedResponseText);
+  } catch {
+    result = { success: false, message: DEFAULT_QUOTE_ERROR_MESSAGE, body: responseText };
   }
 
-  if (!response.ok || result.success === false) {
-    const error = new Error(
-      result.message ||
-        result.error ||
-        result.details ||
-        result.body?.message ||
-        DEFAULT_QUOTE_ERROR_MESSAGE,
-    );
-    error.payload = result;
+  if (!response.ok || result?.success !== true) {
+    const error = new Error(DEFAULT_QUOTE_ERROR_MESSAGE);
+    error.payload = { success: false, message: DEFAULT_QUOTE_ERROR_MESSAGE };
     throw error;
   }
 
@@ -791,13 +751,15 @@ function setupQuoteForms() {
   syncQuoteFormHiddenFields();
 
   quoteForms.forEach((form) => {
+    if (form.dataset.quoteBound) return;
+    form.dataset.quoteBound = "true";
     setQuoteFormSubmitting(form, false);
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
 
       const submitButton = form.querySelector('button[type="submit"]');
-      if (submitButton?.dataset.submitting === "true") {
+      if (form.dataset.quoteAccepted === "true" || submitButton?.dataset.submitting === "true") {
         return;
       }
 
@@ -817,8 +779,26 @@ function setupQuoteForms() {
       setQuoteFormSubmitting(form, true);
 
       try {
-        await submitQuoteForm(form, payload);
-        trackQuoteSubmission();
+        const result = await submitQuoteForm(form, payload);
+        form.dataset.quoteAccepted = "true";
+        // Web3Forms does not guarantee a receipt ID. The local UUID is an event
+        // deduplication token, created only after explicit provider acceptance.
+        try {
+          const leadId = typeof result.lead_id === "string" && /^[a-zA-Z0-9_-]{8,128}$/.test(result.lead_id)
+            ? result.lead_id : window.crypto.randomUUID();
+          const formName = form.getAttribute("data-form-name") ||
+            `${window.location.pathname === "/" ? "home" : window.location.pathname.split("/").filter(Boolean).join("_")}_quote_${quoteForms.indexOf(form) + 1}`;
+          // Queue before navigation. Analytics failure must not turn an accepted enquiry into a retry.
+          const analytics = await loadAnalyticsModule();
+          await new Promise((resolve) => {
+            const timeout = window.setTimeout(resolve, 1600);
+            const queued = analytics.trackFormSuccess(formName, leadId, () => {
+              window.clearTimeout(timeout);
+              resolve();
+            });
+            if (!queued) { window.clearTimeout(timeout); resolve(); }
+          });
+        } catch { /* Enquiry accepted; tracking may be blocked by the browser. */ }
         applyQuoteFormErrors(form, {});
         form.reset();
         setQuoteDateMinimum();
@@ -830,7 +810,6 @@ function setupQuoteForms() {
         setQuoteFormSubmitting(form, false);
         window.location.assign("/thank-you/");
       } catch (error) {
-        console.error(error);
         setQuoteFormFeedback(
           form,
           error?.payload?.message ||
@@ -1147,4 +1126,3 @@ setupStickyCta();
 setupServiceAreaLocator();
 setupConversionTracking();
 setupFooterSocialLinks();
-setupSuccessPageTracking();
