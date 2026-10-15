@@ -1,0 +1,9 @@
+Local function + changed-rule HTTP harness, not a deployed Vercel edge test.
+zqremovals.au/legacy-sitemap.xml -> 200
+www.zqremovals.au/legacy-sitemap.xml -> 200
+zqremovalsadelaide.com.au/legacy-sitemap.xml -> 404
+zqremovals.au/guides/how-to-prepare-furniture-for-moving/ -> 308 https://zqremovalsadelaide.com.au/adelaide-moving-guides/how-to-prepare-furniture-for-moving/
+zqremovals.au/adelaide-moving-guides/moving-house-checklist-adelaide -> 308 https://zqremovalsadelaide.com.au/adelaide-moving-guides/moving-house-checklist-adelaide/
+zqremovals.au/contact-us/ -> 308 https://zqremovalsadelaide.com.au/contact-us/
+zqremovals.au/unknown/ -> 308 https://zqremovalsadelaide.com.au/unknown/
+XML loc count: 224

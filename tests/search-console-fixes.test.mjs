@@ -437,10 +437,10 @@ test('vercel redirects cover legacy html aliases for crawlable pages and route f
   assert.equal(redirects.get('/removalists-:slug.html'), '/removalists-:slug/');
 });
 
-test('host migration redirects every old and www host to the new apex with path preservation', () => {
+test('host migration preserves paths except the intentional old-host legacy sitemap', () => {
   const vercelConfig = readVercelConfig(root);
   const hostRedirects = vercelConfig.redirects.filter((redirect) => (
-    redirect.source === '/(.*)'
+    ['/(.*)', '/:path((?!legacy-sitemap\\.xml$).*)'].includes(redirect.source)
     && redirect.permanent === true
     && Array.isArray(redirect.has)
     && redirect.has.some((condition) => condition.type === 'host')
@@ -451,7 +451,9 @@ test('host migration redirects every old and www host to the new apex with path 
     ['www.zqremovals.au', 'zqremovals.au', 'www.zqremovalsadelaide.com.au'].sort(),
   );
   for (const redirect of hostRedirects) {
-    assert.equal(redirect.destination, 'https://zqremovalsadelaide.com.au/$1');
+    assert.equal(redirect.destination, redirect.source === '/(.*)'
+      ? 'https://zqremovalsadelaide.com.au/$1'
+      : 'https://zqremovalsadelaide.com.au/:path');
   }
 });
 
