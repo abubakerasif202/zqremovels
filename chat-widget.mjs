@@ -29,6 +29,9 @@
   .zq-chat-status{margin-top:5px;color:#243f52;font-size:12px;min-height:17px}
   .zq-chat-enquiry{position:absolute;inset:60px 0 0;z-index:2;overflow:auto;background:#fff;padding:16px}
   .zq-chat-enquiry[hidden],.zq-chat-review[hidden],.zq-chat-fields[hidden]{display:none!important}
+  .zq-chat-enquiry-bar{position:sticky;top:-16px;z-index:3;display:flex;align-items:center;margin:-16px -16px 12px;padding:10px 16px;background:#fff;border-bottom:1px solid #cadde9}
+  .zq-chat-enquiry-bar button{border:1px solid #7896ab;border-radius:9px;background:#ecf3f7;color:#143954;font:700 14px/1.25 system-ui;padding:11px 14px;cursor:pointer}
+  .zq-chat-enquiry-bar button:focus-visible{outline:3px solid #fbbf24;outline-offset:2px}
   .zq-chat-enquiry h3{margin:4px 0 8px;font-size:19px;color:#142f45}
   .zq-chat-enquiry p{margin:4px 0 14px;font-size:13px;color:#3a5064}
   .zq-chat-fields{display:grid;gap:10px}
@@ -47,7 +50,30 @@
   .zq-chat-enquiry-feedback{margin-top:8px;font-size:13px;color:#2c465b}
   .zq-chat-honey{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
   .zq-chat-window{position:fixed}
-  @media(max-width:680px){.zq-chat-launcher{bottom:90px;right:12px;padding:12px 15px}.zq-chat-window{right:10px;bottom:146px;width:calc(100vw - 20px);height:min(570px,calc(100dvh - 160px))}}
+  @media(max-width:680px){
+    body.zq-chat-is-open{overflow:hidden!important}
+    .zq-chat-launcher{bottom:max(90px,env(safe-area-inset-bottom));right:12px;padding:12px 15px}
+    body.zq-chat-is-open .zq-chat-launcher{visibility:hidden;pointer-events:none}
+    .zq-chat-window{inset:var(--zq-chat-view-top,0px) 0 auto 0;right:0;bottom:auto;left:0;top:var(--zq-chat-view-top,0px);width:100vw;max-width:100vw;height:var(--zq-chat-view-height,100dvh);max-height:none;border:0;border-radius:0;box-shadow:none}
+    .zq-chat-head{flex-shrink:0;padding:calc(12px + env(safe-area-inset-top,0px)) 14px 11px;min-height:68px}
+    .zq-chat-head strong{font-size:16px}
+    .zq-chat-messages{flex:1 1 auto;min-height:40px;padding:12px}
+    .zq-chat-foot{position:relative;z-index:1;flex:0 0 auto;padding:10px 12px max(12px,env(safe-area-inset-bottom,12px));background:#fff;box-shadow:0 -5px 16px #142f451a}
+    .zq-chat-form{align-items:stretch;gap:8px}
+    .zq-chat-input{font-size:16px!important;line-height:1.35;min-height:52px;height:52px;max-height:104px;resize:none;outline-offset:2px;border:2px solid #466c87;border-radius:12px;box-sizing:border-box;-webkit-appearance:none;appearance:none;opacity:1}
+    .zq-chat-send{flex:0 0 72px;min-height:52px;font-size:15px;border-radius:12px}
+    .zq-chat-links{align-items:center;gap:8px;flex-wrap:wrap}
+    .zq-chat-links a{font-size:12px}
+    .zq-chat-enquiry-open{font-size:13px;min-height:38px;padding:8px 11px}
+    .zq-chat-privacy{font-size:10px;line-height:1.35}
+    .zq-chat-window.zq-chat-keyboard-open .zq-chat-links,.zq-chat-window.zq-chat-keyboard-open .zq-chat-privacy{display:none}
+    .zq-chat-window.zq-chat-keyboard-open .zq-chat-foot{padding-bottom:8px}
+    .zq-chat-enquiry{inset:var(--zq-chat-header-height,68px) 0 0}
+  }
+  @media(max-width:680px) and (max-height:560px){
+    .zq-chat-privacy{display:none}
+    .zq-chat-links{margin-top:6px}
+  }
   @media(prefers-reduced-motion:reduce){.zq-chat-launcher,.zq-chat-window{transition:none!important}}
   `;
   const style = document.createElement("style");
@@ -79,6 +105,7 @@
     </div>
     <div class="zq-chat-messages" role="log" aria-live="polite" aria-relevant="additions text" aria-label="Conversation"></div>
     <div class="zq-chat-enquiry" data-chat-enquiry hidden>
+      <div class="zq-chat-enquiry-bar"><button type="button" data-chat-enquiry-top-back>← Back to chat</button></div>
       <h3>Send a moving enquiry</h3>
       <p>Enter your moving details. You'll review everything and give explicit consent before we send your enquiry to ZQ Removals. This does not confirm a booking.</p>
       <form data-chat-enquiry-form>
@@ -180,6 +207,8 @@
   const openEnquiry = panel.querySelector("[data-chat-enquiry-open]");
   const closeEnquiry = panel.querySelector("[data-chat-enquiry-close]");
   const backEnquiry = panel.querySelector("[data-chat-enquiry-back]");
+  const topBackEnquiry = panel.querySelector("[data-chat-enquiry-top-back]");
+  const header = panel.querySelector(".zq-chat-head");
   function showLeadPanel(open) {
     leadPanel.hidden = !open;
     if (open) {
@@ -193,6 +222,7 @@
     showLeadPanel(true);
   });
   closeEnquiry.addEventListener("click", () => showLeadPanel(false));
+  topBackEnquiry.addEventListener("click", () => showLeadPanel(false));
   backEnquiry.addEventListener("click", () => {
     if (leadFinalised) return;
     reviewArea.hidden = true;
@@ -301,12 +331,48 @@
       append("system", "Live chat is currently unavailable. You can still request a free quote or call us using the links below.");
     }
   }
+  let normalMobileHeight = 0;
+  function syncMobileViewport() {
+    if (panel.hidden || !window.matchMedia("(max-width:680px)").matches) {
+      panel.style.removeProperty("--zq-chat-view-height");
+      panel.style.removeProperty("--zq-chat-view-top");
+      panel.style.removeProperty("--zq-chat-header-height");
+      panel.classList.remove("zq-chat-keyboard-open");
+      return;
+    }
+    const viewport = window.visualViewport;
+    const height = Math.max(180, Math.round(viewport?.height || window.innerHeight));
+    const top = Math.round(viewport?.offsetTop || 0);
+    if (!normalMobileHeight || height > normalMobileHeight) normalMobileHeight = height;
+    const keyboardOpen = height < normalMobileHeight - 120;
+    panel.style.setProperty("--zq-chat-view-height", height + "px");
+    panel.style.setProperty("--zq-chat-view-top", top + "px");
+    panel.style.setProperty("--zq-chat-header-height", Math.ceil(header.getBoundingClientRect().height) + "px");
+    panel.classList.toggle("zq-chat-keyboard-open", keyboardOpen);
+    if (keyboardOpen) messages.scrollTop = messages.scrollHeight;
+  }
+  window.visualViewport?.addEventListener("resize", syncMobileViewport);
+  window.visualViewport?.addEventListener("scroll", syncMobileViewport);
+  window.addEventListener("resize", syncMobileViewport);
+  input.addEventListener("focus", () => requestAnimationFrame(syncMobileViewport));
+  input.addEventListener("blur", () => requestAnimationFrame(syncMobileViewport));
   function toggle(open) {
     panel.hidden = !open;
+    document.body.classList.toggle("zq-chat-is-open", open);
     launcher.setAttribute("aria-expanded", String(open));
     launcher.setAttribute("aria-label", open ? "Close ZQ AI chat" : "Open ZQ AI chat");
-    if (open) { loadHistory(); input.focus(); }
-    else launcher.focus();
+    if (open) {
+      normalMobileHeight = 0;
+      syncMobileViewport();
+      loadHistory();
+      if (!window.matchMedia("(max-width:680px)").matches) input.focus();
+    } else {
+      leadPanel.hidden = true;
+      panel.classList.remove("zq-chat-keyboard-open");
+      input.blur();
+      syncMobileViewport();
+      launcher.focus();
+    }
   }
   launcher.addEventListener("click", () => toggle(panel.hidden));
   close.addEventListener("click", () => toggle(false));
