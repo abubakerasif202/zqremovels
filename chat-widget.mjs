@@ -21,7 +21,7 @@
   .zq-chat-form{display:flex;align-items:end;gap:8px}
   .zq-chat-input{flex:1;min-width:0;min-height:42px;max-height:130px;resize:vertical;border:1.5px solid #829aae;border-radius:10px;background:#fff;color:#122e46;padding:9px 11px;font:400 14px/1.4 system-ui}
   .zq-chat-input:focus-visible{outline:3px solid #fbbf24;outline-offset:1px}
-  .zq-chat-send{min-height:42px;border:0;border-radius:10px;padding:9px 13px;background:#d56a17;color:#fff;font-weight:800;cursor:pointer}
+  .zq-chat-send{min-height:42px;border:0;border-radius:10px;padding:9px 13px;background:#9d4306;color:#fff;font-weight:800;cursor:pointer}
   .zq-chat-send:disabled{background:#8e959b;cursor:not-allowed}
   .zq-chat-links{display:flex;justify-content:space-between;gap:8px;margin-top:9px}
   .zq-chat-links a{color:#114e81;font-weight:700;font-size:12px;text-decoration:underline;text-underline-offset:2px}
