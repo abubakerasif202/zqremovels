@@ -3,7 +3,8 @@ import { test, expect } from '@playwright/test';
 const routes = [
   '/',
   '/removalists-adelaide/',
-  '/moving-from-adelaide-cbd-to-salisbury/',
+  // The historical CBD-to-Salisbury URL is a Vercel redirect, not a rendered page.
+  '/removalists-southern-adelaide/',
   '/adelaide-to-sydney-removalists/'
 ];
 

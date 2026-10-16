@@ -603,14 +603,13 @@ module.exports = async function handler(req, res) {
       }
       return sendHtml(res, 502, "Submission failed", "The quote service returned an invalid response.");
     }
-    if (!web3Response.ok || web3Result.success === false) {
+    if (!web3Response.ok || web3Result?.success !== true) {
       console.error("Web3Forms upstream returned a failure response.", {
         status: web3Response.status,
-        body: web3Result,
       });
       const failureMessage =
-        web3Result.message ||
-        web3Result.error ||
+        web3Result?.message ||
+        web3Result?.error ||
         `Upstream error (${web3Response.status})`;
       if (wantsJsonResponse(req)) {
         return sendJson(res, 502, {

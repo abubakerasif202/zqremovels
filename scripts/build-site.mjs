@@ -4996,7 +4996,7 @@ function renderGoogleReviewBadge({ compact = false } = {}) {
   const countText = String(googleReviews.reviewCount);
   const classes = compact ? 'google-review-badge google-review-badge-compact' : 'google-review-badge';
 
-  return `<a class="${classes}" href="${escapeAttribute(googleReviews.profileUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Read ZQ Removals Google reviews. Rated ${ratingText} out of 5 from ${countText} reviews.">
+  return `<a class="${classes}" href="${escapeAttribute(googleReviews.profileUrl)}" target="_blank" rel="noopener noreferrer">
   ${renderStarIcons()}
   <span><strong>${ratingText} &#9733;</strong> from ${countText} <span>Google reviews</span></span>
 </a>`;
@@ -5062,7 +5062,7 @@ function renderServicePageReviewStrip(page) {
 
   return `<section class="service-review-strip" aria-label="Google review rating">
   <div class="container">
-    <a href="${escapeAttribute(googleReviews.profileUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Read ZQ Removals Google reviews. Trusted by Adelaide customers, rated ${Number(googleReviews.rating).toFixed(1)} from ${googleReviews.reviewCount} reviews.">
+    <a href="${escapeAttribute(googleReviews.profileUrl)}" target="_blank" rel="noopener noreferrer">
       ${renderStarIcons()}
       <span>Trusted by Adelaide customers &mdash; <strong>${Number(googleReviews.rating).toFixed(1)} from ${googleReviews.reviewCount} Google reviews</strong></span>
     </a>
@@ -6794,15 +6794,11 @@ function escapeAttribute(value = '') {
 function renderTrackingHeadScripts() {
   const gaId = getBuildEnvValue('VITE_GA_MEASUREMENT_ID') || getBuildEnvValue('GA_MEASUREMENT_ID');
   const gtmId = getBuildEnvValue('VITE_GTM_ID') || getBuildEnvValue('GTM_ID');
-  const googleAdsConversionId = getBuildEnvValue('VITE_GOOGLE_ADS_CONVERSION_ID') || getBuildEnvValue('GOOGLE_ADS_CONVERSION_ID');
-  const googleAdsLeadLabel = getBuildEnvValue('VITE_GOOGLE_ADS_LEAD_LABEL') || getBuildEnvValue('GOOGLE_ADS_LEAD_LABEL');
   const metaPixelId = getBuildEnvValue('VITE_META_PIXEL_ID') || getBuildEnvValue('META_PIXEL_ID');
 
   const config = {
     gaMeasurementId: gaId,
     gtmId,
-    googleAdsConversionId,
-    googleAdsLeadLabel,
     metaPixelId,
   };
 

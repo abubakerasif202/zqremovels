@@ -1,0 +1,10 @@
+{
+  "source": "local production build",
+  "renderedNonRedirectPages": 95,
+  "redirectStubs": 27,
+  "errors": [],
+  "notes": [
+    "Redirect-only HTML stubs use their destination canonical and noindex; self-canonical applies to actual content pages.",
+    "The host-restricted legacy sitemap is a function response, not a file in the new-domain sitemap or static output."
+  ]
+}

@@ -1,0 +1,686 @@
+{
+  "checkedAt": "2026-10-15T10:19:20.904Z",
+  "oldSitemap": {
+    "status": 308,
+    "location": "https://zqremovalsadelaide.com.au/sitemap.xml"
+  },
+  "newSitemap": {
+    "status": 200,
+    "children": [
+      {
+        "url": "https://zqremovalsadelaide.com.au/sitemap-pages.xml",
+        "status": 200,
+        "pageLocations": 5,
+        "oldHostReferences": false
+      },
+      {
+        "url": "https://zqremovalsadelaide.com.au/sitemap-services.xml",
+        "status": 200,
+        "pageLocations": 16,
+        "oldHostReferences": false
+      },
+      {
+        "url": "https://zqremovalsadelaide.com.au/sitemap-suburbs.xml",
+        "status": 200,
+        "pageLocations": 48,
+        "oldHostReferences": false
+      },
+      {
+        "url": "https://zqremovalsadelaide.com.au/sitemap-guides.xml",
+        "status": 200,
+        "pageLocations": 11,
+        "oldHostReferences": false
+      },
+      {
+        "url": "https://zqremovalsadelaide.com.au/sitemap-images.xml",
+        "status": 200,
+        "pageLocations": 80,
+        "oldHostReferences": false
+      }
+    ]
+  },
+  "uniquePageUrls": 80,
+  "pages": [
+    {
+      "url": "https://zqremovalsadelaide.com.au/about/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/about/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/about/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/contact-us/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/contact-us/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/contact-us/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/insurance-and-coverage/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/insurance-and-coverage/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/insurance-and-coverage/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/adelaide-movers-and-packers/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/adelaide-movers-and-packers/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/adelaide-movers-and-packers/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/adelaide-to-brisbane-removals/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/adelaide-to-brisbane-removals/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/adelaide-to-brisbane-removals/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/adelaide-to-canberra-removals/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/adelaide-to-canberra-removals/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/adelaide-to-canberra-removals/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/adelaide-to-perth-removals/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/adelaide-to-perth-removals/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/adelaide-to-perth-removals/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/furniture-removalists-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/furniture-removalists-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/furniture-removalists-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/house-removals-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/house-removals-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/house-removals-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/adelaide-to-sydney-removalists/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/adelaide-to-sydney-removalists/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/adelaide-to-sydney-removalists/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/adelaide-to-melbourne-removalists/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/adelaide-to-melbourne-removalists/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/adelaide-to-melbourne-removalists/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/cheap-removalists-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/cheap-removalists-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/cheap-removalists-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/same-day-removalists-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/same-day-removalists-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/same-day-removalists-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/apartment-removals-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/apartment-removals-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/apartment-removals-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/moving-company-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/moving-company-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/moving-company-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/services/piano-movers-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/services/piano-movers-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/services/piano-movers-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-adelaide-cbd/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-adelaide-cbd/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-cbd/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-andrews-farm/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-andrews-farm/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-andrews-farm/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-elizabeth/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-elizabeth/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-elizabeth/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-gawler/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-gawler/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-gawler/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-glenelg/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-glenelg/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-glenelg/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-marion/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-marion/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-marion/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-mawson-lakes/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-mawson-lakes/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-mawson-lakes/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-norwood/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-norwood/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-norwood/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-salisbury/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-salisbury/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-salisbury/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-adelaide-hills/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-adelaide-hills/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-hills/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-burnside/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-burnside/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-burnside/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-prospect/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-prospect/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-prospect/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-unley/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-unley/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-unley/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-goodwood/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-goodwood/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-goodwood/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-kensington-gardens/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-kensington-gardens/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-kensington-gardens/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-stepney/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-stepney/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-stepney/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-st-peters/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-st-peters/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-st-peters/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-magill/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-magill/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-magill/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-campbelltown/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-campbelltown/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-campbelltown/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-modbury/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-modbury/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-modbury/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-munno-para/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-munno-para/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-munno-para/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-pennington/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-pennington/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-pennington/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-port-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-port-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-port-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-west-lakes/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-west-lakes/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-west-lakes/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-henley-beach/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-henley-beach/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-henley-beach/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-grange/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-grange/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-grange/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-semaphore/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-semaphore/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-semaphore/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-brighton/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-brighton/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-brighton/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-woodcroft/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-woodcroft/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-woodcroft/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-medindie/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-medindie/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-medindie/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-walkerville/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-walkerville/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-walkerville/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-mitcham/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-mitcham/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-mitcham/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-west-beach/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-west-beach/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-west-beach/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-henley-beach-south/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-henley-beach-south/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-henley-beach-south/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-linden-park/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-linden-park/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-linden-park/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-toorak-gardens/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-toorak-gardens/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-toorak-gardens/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-hyde-park/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-hyde-park/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-hyde-park/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-malvern/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-malvern/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-malvern/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-unley-park/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-unley-park/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-unley-park/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-allenby-gardens/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-allenby-gardens/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-allenby-gardens/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-golden-grove/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-golden-grove/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-golden-grove/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-tea-tree-gully/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-tea-tree-gully/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-tea-tree-gully/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-mount-barker/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-mount-barker/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-mount-barker/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-queens-park/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-queens-park/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-queens-park/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/office-relocation-checklist-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/office-relocation-checklist-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/office-relocation-checklist-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/prepare-house-move-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/prepare-house-move-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/prepare-house-move-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/best-time-to-move-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/best-time-to-move-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/best-time-to-move-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/door-2-door-movers-alternative-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/door-2-door-movers-alternative-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/door-2-door-movers-alternative-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/apartment-moving-tips-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/apartment-moving-tips-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/apartment-moving-tips-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/moving-house-checklist-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/moving-house-checklist-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/moving-house-checklist-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/how-to-choose-removalists-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/how-to-choose-removalists-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/how-to-choose-removalists-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/best-time-to-book-removalists-adelaide/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/best-time-to-book-removalists-adelaide/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/best-time-to-book-removalists-adelaide/",
+      "noindex": false,
+      "oldHostReferences": false
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/how-to-prepare-furniture-for-moving/",
+      "status": 200,
+      "canonical": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/how-to-prepare-furniture-for-moving/",
+      "ogUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/how-to-prepare-furniture-for-moving/",
+      "noindex": false,
+      "oldHostReferences": false
+    }
+  ],
+  "failures": []
+}

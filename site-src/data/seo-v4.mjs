@@ -4296,7 +4296,7 @@ function renderCompetitorComparisonTable(data) {
       `ZQ Removals vs ${data.competitorName}`,
       'The useful question is not which company has the louder claim. It is which written scope best matches your Adelaide move.',
     )}
-    <div class="table-wrap">
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable comparison table">
       <table>
         <caption>Comparison of ZQ Removals and ${escapeHtml(data.competitorName)} for Adelaide moving briefs.</caption>
         <thead>
@@ -5564,7 +5564,7 @@ ${renderPriorityPlanningFaq(slug)}${renderQuoteStrip({ eyebrow: 'Talk to ZQ Remo
 </main>`;
 }
 
-const rateTableHtml = `<style>.table-wrap table.rate-table{min-width:0}.table-wrap table.rate-table th,.table-wrap table.rate-table td{padding:.65rem .5rem;font-size:.92rem}.table-wrap table.rate-table caption{text-align:left;padding:.5rem}</style><div class="table-wrap" style="margin-top: 1.5rem;">
+const rateTableHtml = `<style>.table-wrap table.rate-table{min-width:0}.table-wrap table.rate-table th,.table-wrap table.rate-table td{padding:.65rem .5rem;font-size:.92rem}.table-wrap table.rate-table caption{text-align:left;padding:.5rem}</style><div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable comparison table" style="margin-top: 1.5rem;">
   <table class="rate-table">
     <caption>Published crew rates</caption>
     <thead>
@@ -5578,7 +5578,7 @@ const rateTableHtml = `<style>.table-wrap table.rate-table{min-width:0}.table-wr
 </div>
 <p class="field-note" style="margin-top: 1rem;">The equivalent column is the published 30-minute rate doubled. A 1-hour call-out/travel charge applies where applicable. Ask whether it applies to your addresses when you request a quote.</p>`;
 
-const rateExamplesTableHtml = `<style>.table-wrap table.rate-table{min-width:0}.table-wrap table.rate-table th,.table-wrap table.rate-table td{padding:.65rem .5rem;font-size:.92rem}.table-wrap table.rate-table caption{text-align:left;padding:.5rem}</style><div class="table-wrap" style="margin-top: 1.5rem;">
+const rateExamplesTableHtml = `<style>.table-wrap table.rate-table{min-width:0}.table-wrap table.rate-table th,.table-wrap table.rate-table td{padding:.65rem .5rem;font-size:.92rem}.table-wrap table.rate-table caption{text-align:left;padding:.5rem}</style><div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable comparison table" style="margin-top: 1.5rem;">
   <table class="rate-table">
     <caption>Rates over example durations</caption>
     <thead>
@@ -6018,20 +6018,20 @@ ${renderQuoteStrip({
 function renderGuideAuthorBox() {
   return `<section class="section section-soft" data-generated-module="guide-author-box">
   <div class="container" style="max-width: 800px; margin: 0 auto;">
-    <div style="display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap; background: var(--card-bg, rgba(255, 255, 255, 0.03)); border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08)); border-radius: 12px; padding: 2rem; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);">
-      <div style="flex-shrink: 0; width: 80px; height: 80px; border-radius: 50%; overflow: hidden; border: 2px solid var(--accent-color, #10b981); background: var(--bg-soft, #10151d); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto;">
-        <span style="font-size: 2rem; font-weight: bold; color: var(--accent-color, #10b981);">ZQ</span>
+    <div style="display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap; background: var(--surface-light); border: 1px solid var(--border-on-light); border-radius: 12px; padding: 2rem; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);">
+      <div style="flex-shrink: 0; width: 80px; height: 80px; border-radius: 50%; overflow: hidden; border: 2px solid var(--link-on-light); background: var(--surface-light-muted); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto;">
+        <span style="font-size: 2rem; font-weight: bold; color: var(--link-on-light);">ZQ</span>
       </div>
-      <div style="flex: 1; min-width: 280px; text-align: left;">
+      <div style="flex: 1; min-width: min(100%, 16rem); text-align: left;">
         <span class="eyebrow" style="margin-bottom: 0.25rem; display: block; font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase;">Moving enquiries</span>
-        <h3 style="margin: 0 0 0.5rem 0; font-size: 1.5rem; font-weight: bold; color: var(--text-heading, #ffffff);">ZQ Removals</h3>
-        <p style="margin: 0 0 1rem 0; font-size: 0.95rem; line-height: 1.5; color: var(--text-copy, #a0aec0);">
+        <h3 style="margin: 0 0 0.5rem 0; font-size: 1.5rem; font-weight: bold; color: var(--heading-on-light);">ZQ Removals</h3>
+        <p style="margin: 0 0 1rem 0; font-size: 1rem; line-height: 1.5; color: var(--text-muted-on-light);">
           Contact ZQ Removals to discuss your addresses, inventory, access and preferred moving date. Confirm requirements and applicable charges before booking.
         </p>
         <div class="inline-link-group" style="margin: 0; justify-content: flex-start; gap: 1rem; font-size: 0.85rem;">
-          <a href="https://facebook.com/zqremovals" rel="noopener noreferrer" target="_blank" style="color: var(--accent-color, #10b981); text-decoration: none; font-weight: 600;">Facebook Profile</a>
-          <span style="color: rgba(255, 255, 255, 0.2);">|</span>
-          <a href="{{google.profileUrl}}" rel="noopener noreferrer" target="_blank" style="color: var(--accent-color, #10b981); text-decoration: none; font-weight: 600;">Google Business Profile</a>
+          <a href="https://facebook.com/zqremovals" rel="noopener noreferrer" target="_blank" style="color: var(--link-on-light); text-decoration: none; font-weight: 600;">Facebook Profile</a>
+          <span style="color: var(--text-muted-on-light);">|</span>
+          <a href="{{google.profileUrl}}" rel="noopener noreferrer" target="_blank" style="color: var(--link-on-light); text-decoration: none; font-weight: 600;">Google Business Profile</a>
         </div>
       </div>
     </div>
@@ -6042,7 +6042,7 @@ function renderGuideAuthorBox() {
 function renderQuoteModelComparison({ module = 'quote-model-comparison', soft = false } = {}) {
   return `<section class="section${soft ? ' section-soft' : ''}" data-generated-module="${escapeAttribute(module)}"><div class="container">
 ${renderSectionHeading('Rates and charges', 'Published ZQ Removals rates', 'Total cost depends on moving time, access, inventory and the agreed requirements.')}
-<div class="table-wrap"><table><caption>Published crew rates</caption><thead><tr><th scope="col">Crew</th><th scope="col">Rate</th></tr></thead><tbody><tr><th scope="row">2 men + truck</th><td>$75 per 30 minutes</td></tr><tr><th scope="row">3 men + truck</th><td>$89 per 30 minutes</td></tr></tbody></table></div>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable comparison table"><table><caption>Published crew rates</caption><thead><tr><th scope="col">Crew</th><th scope="col">Rate</th></tr></thead><tbody><tr><th scope="row">2 men + truck</th><td>$75 per 30 minutes</td></tr><tr><th scope="row">3 men + truck</th><td>$89 per 30 minutes</td></tr></tbody></table></div>
 <p>A 1-hour call-out/travel charge applies where applicable. Confirm moving time and applicable charges before booking.</p>
 </div></section>`;
 }

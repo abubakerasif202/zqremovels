@@ -1,0 +1,1570 @@
+[
+  {
+    "source": "/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/about/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/about/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/adelaide-movers-and-packers/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-movers-and-packers/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/adelaide-moving-guides/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/adelaide-moving-guides/apartment-lift-bookings-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/apartment-loading-zone-guide-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/apartment-moving-tips-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/apartment-moving-tips-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/adelaide-moving-guides/best-time-to-book-removalists-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/best-time-to-book-removalists-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/adelaide-moving-guides/best-time-to-move-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/best-time-to-move-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/adelaide-moving-guides/booking-timing-guide-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/cheap-vs-fixed-price-removalists-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/coastal-moving-access-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/downsizing-move-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/fixed-price-vs-hourly-removalists-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/hourly-vs-fixed-price-movers-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/how-long-moves-take-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/how-much-do-movers-cost-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/",
+    "equivalent": true,
+    "assessment": "Equivalent service/guide alias; destination retains the core topic",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/adelaide-moving-guides/how-to-choose-removalists-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/how-to-choose-removalists-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/adelaide-moving-guides/how-to-get-accurate-removalist-quotes-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/how-to-prepare-furniture-for-moving/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/how-to-prepare-furniture-for-moving/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/adelaide-moving-guides/interstate-moving-checklist-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/interstate-removal-checklist-adelaide-guide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/last-minute-moving-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/same-day-removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/moving-cost-adelaide-2026/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/moving-fragile-items-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/moving-from-apartment-buildings-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/moving-heavy-furniture-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/furniture-removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/moving-heavy-items-adelaide-guide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/furniture-removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/moving-house-adelaide-checklist/",
+    "equivalent": true,
+    "assessment": "Equivalent service/guide alias; destination retains the core topic",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/moving-house-checklist-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/adelaide-moving-guides/moving-house-checklist-adelaide",
+    "equivalent": true,
+    "assessment": "Equivalent service/guide alias; destination retains the core topic",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/moving-house-checklist-adelaide/",
+    "plannedAction": "flatten trailing-slash chain"
+  },
+  {
+    "source": "/adelaide-moving-guides/moving-house-checklist-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/moving-house-checklist-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/adelaide-moving-guides/moving-with-stairs-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/northern-suburbs-moving-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/office-relocation-checklist-adelaide-guide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/office-relocation-checklist-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/office-relocation-checklist-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/adelaide-moving-guides/office-relocation-preparation-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/packing-fragile-items-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/packing-timeline-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/prepare-house-move-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/prepare-house-move-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/adelaide-moving-guides/pricing-breakdown-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/removalist-quote-checklist-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/removalists-cost-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/adelaide-moving-guides/removalists-cost-marion/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/settlement-day-moving-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/small-office-move-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/storage-planning-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/storage-unit-move-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/suburb-move-preparation-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/weekend-vs-weekday-moving-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-moving-guides/when-to-book-packing-services-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-to-brisbane-removals/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-to-brisbane-removals/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/adelaide-to-canberra-removals/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-to-canberra-removals/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/adelaide-to-melbourne-removalists/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-to-melbourne-removalists/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/adelaide-to-perth-removals/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-to-perth-removals/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/adelaide-to-queensland-removals/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-to-smithfield-nsw-removalists/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/adelaide-to-sydney-removalists/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-to-sydney-removalists/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/affordable-removalists-adelaide/",
+    "equivalent": true,
+    "assessment": "Equivalent service/guide alias; destination retains the core topic",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/cheap-removalists-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/apartment-removalists-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/apartment-removalists-glenelg/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/apartment-removalists-hallett-cove/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/apartment-removalists-henley-beach-south/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/apartment-removalists-henley-beach/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/apartment-removalists-prospect/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/apartment-removalists-queens-park/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-queens-park/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/apartment-removals-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/apartment-removals-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/budget-removalists-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/cheap-removalists-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/cheap-removalists-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/cheap-vs-fixed-price-removalists-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/contact-us/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/contact-us/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/door-2-door-movers-alternative-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/door-2-door-movers-alternative-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/fixed-price-removalists-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/fixed-price-vs-hourly-removalists-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/furniture-removalists-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/furniture-removalists-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/furniture-removals-adelaide/",
+    "equivalent": true,
+    "assessment": "Equivalent service/guide alias; destination retains the core topic",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/furniture-removalists-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/guides/how-much-do-removalists-cost-adelaide/",
+    "equivalent": true,
+    "assessment": "Equivalent service/guide alias; destination retains the core topic",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/guides/how-to-prepare-furniture-for-moving/",
+    "equivalent": false,
+    "assessment": "Live destination is not 200; fix prepared",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/how-to-prepare-furniture-for-moving/",
+    "plannedAction": "fix missing equivalent mapping"
+  },
+  {
+    "source": "/guides/interstate-moving-from-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/house-removals-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/house-removals-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/insurance-and-coverage/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/insurance-and-coverage/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/interstate-removalists-vs-backloading-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/interstate-removals-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/last-minute-movers-adelaide/",
+    "equivalent": true,
+    "assessment": "Equivalent service/guide alias; destination retains the core topic",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/same-day-removalists-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/last-minute-removalists-adelaide/",
+    "equivalent": true,
+    "assessment": "Equivalent service/guide alias; destination retains the core topic",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/same-day-removalists-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/melbourne-to-adelaide-removalists/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/movers-and-packers-adelaide/",
+    "equivalent": true,
+    "assessment": "Equivalent service/guide alias; destination retains the core topic",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-movers-and-packers/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/moving-checklist-adelaide/",
+    "equivalent": true,
+    "assessment": "Equivalent service/guide alias; destination retains the core topic",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/moving-house-checklist-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/moving-from-adelaide-cbd-to-marion/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/moving-from-adelaide-cbd-to-mawson-lakes/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/moving-from-adelaide-cbd-to-salisbury/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/moving-from-marion-to-noarlunga/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/moving-from-modbury-to-salisbury/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/moving-from-port-adelaide-to-west-lakes/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/moving-from-prospect-to-mawson-lakes/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/moving-quotes-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/no-limits-removalists-alternative-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/office-relocation-adelaide/",
+    "equivalent": true,
+    "assessment": "Equivalent service/guide alias; destination retains the core topic",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/office-removalists-adelaide/",
+    "equivalent": true,
+    "assessment": "Equivalent service/guide alias; destination retains the core topic",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/office-removals-adelaide-cbd/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/office-removals-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/office-removals-edwardstown/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/office-removals-glenelg/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/office-removals-mile-end/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/office-removals-modbury/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/office-removals-oaklands-park/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/office-removals-port-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/office-removals-salisbury/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/packing-services-adelaide-cbd/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/packing-services-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/packing-services-elizabeth/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/packing-services-glenelg/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/packing-services-marion/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/packing-services-norwood/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/packing-services-queens-park/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-queens-park/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/packing-services-salisbury/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/packing-services-unley-park/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/professional-packers-vs-diy-packing-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removal-companies-adelaide/",
+    "equivalent": true,
+    "assessment": "Equivalent service/guide alias; destination retains the core topic",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalist-cost-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-adelaide-cbd/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-cbd/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-adelaide-hills/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-hills/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-adelaide-prices/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-adelaide-quote/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-albert-park/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-andrews-farm/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-andrews-farm/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-athelstone/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-belair/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-hills/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-blackwood/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-hills/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-blakeview/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-bridgewater/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-hills/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-burnside/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-burnside/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-campbelltown/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-campbelltown/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-christies-beach/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-clarence-park/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-clearview/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-colonel-light-gardens/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-coromandel-valley/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide-hills/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-croydon/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-dudley-park/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-edwardstown/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-elizabeth-vale/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-elizabeth/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-elizabeth/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-findon/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-fulham/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-gawler/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-gawler/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-glandore/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-glenelg/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-glenelg/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-glengowrie/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-golden-grove/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-golden-grove/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-goodwood/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-goodwood/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-grange/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-grange/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-hallett-cove/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-henley-beach-south/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-henley-beach-south/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-henley-beach/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-henley-beach/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-hope-valley/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-kilburn/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-klemzig/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-largs-bay/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-linden-park/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-linden-park/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-magill/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-magill/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-malvern/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-malvern/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-marion/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-marion/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-mawson-lakes/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-mawson-lakes/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-medindie/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-medindie/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-mile-end/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-mitcham/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-mitcham/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-moana/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-modbury/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-modbury/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-morphett-vale/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-munno-para/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-munno-para/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-myrtle-bank/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-newton/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-noarlunga/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-north-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-north-park/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-northern-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-northfield/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-norwood/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-norwood/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-oaklands-park/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-parafield-gardens/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-pennington/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-pennington/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-port-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-port-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-port-noarlunga/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-prospect/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-prospect/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-queens-park/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-queens-park/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-reynella/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-ridgehaven/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-rosemont/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-rosewater/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-salisbury/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-salisbury/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-seacliff/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-seaford/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-seaton-park/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-seaton/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-semaphore/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-semaphore/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-somerton-park-west/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-southern-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-st-peters/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-st-peters/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-stepney/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-stepney/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-toorak-gardens/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-toorak-gardens/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-trott-park/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-unley-park/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-unley-park/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-unley/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-unley/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-urrbrae/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-valley-view/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-victor-harbor/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-west-lakes/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-west-lakes/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-woodcroft/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-woodcroft/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/removalists-woodville/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/removalists-yatala-vale/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/same-day-removalists-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/same-day-removalists-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/services/apartment-removals-adelaide/",
+    "equivalent": true,
+    "assessment": "Equivalent service/guide alias; destination retains the core topic",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/apartment-removals-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/services/furniture-removals-adelaide/",
+    "equivalent": true,
+    "assessment": "Equivalent service/guide alias; destination retains the core topic",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/furniture-removalists-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/services/house-removals-adelaide/",
+    "equivalent": true,
+    "assessment": "Equivalent service/guide alias; destination retains the core topic",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/house-removals-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/services/interstate-removalists-adelaide/",
+    "equivalent": true,
+    "assessment": "Equivalent service/guide alias; destination retains the core topic",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/services/interstate-removals-adelaide/",
+    "equivalent": true,
+    "assessment": "Equivalent service/guide alias; destination retains the core topic",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/services/office-removals-adelaide/",
+    "equivalent": true,
+    "assessment": "Equivalent service/guide alias; destination retains the core topic",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/services/packing-services-adelaide/",
+    "equivalent": true,
+    "assessment": "Equivalent service/guide alias; destination retains the core topic",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/services/piano-movers-adelaide/",
+    "equivalent": true,
+    "assessment": "Same route/topic and self-canonical destination",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/services/piano-movers-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  },
+  {
+    "source": "/small-removalists-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/small-removals-adelaide/",
+    "equivalent": false,
+    "assessment": "Existing deliberate consolidation; broader destination loses original locality or planning/comparison intent; OWNER DECISION",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+    "plannedAction": "retain existing consolidation pending owner decision"
+  },
+  {
+    "source": "/urgent-movers-adelaide/",
+    "equivalent": true,
+    "assessment": "Equivalent service/guide alias; destination retains the core topic",
+    "plannedTarget": "https://zqremovalsadelaide.com.au/same-day-removalists-adelaide/",
+    "plannedAction": "keep equivalent redirect"
+  }
+]

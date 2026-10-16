@@ -1,0 +1,169 @@
+{
+  "retrieved_at_utc": "2026-10-15T09:13:25.808250+00:00",
+  "source": "https://www.googletagmanager.com/gtm.js?id=GTM-WJGKPXFL",
+  "response_sha256": "1d312ac00eb94df5b82922dbb16d60c2c691be4229056851f19b72a793c8591a",
+  "scope": "Public compiled resource only; not authenticated Ads settings, Preview or conversion verification",
+  "resource": {
+    "version": "3",
+    "macros": [
+      {
+        "function": "__e"
+      },
+      {
+        "function": "__u",
+        "vtp_enableMultiQueryKeys": false,
+        "vtp_enableIgnoreEmptyQueryParam": false
+      },
+      {
+        "function": "__v",
+        "vtp_dataLayerVersion": 2,
+        "vtp_setDefaultValue": false,
+        "vtp_name": "form_name"
+      },
+      {
+        "function": "__u",
+        "vtp_component": "URL",
+        "vtp_enableMultiQueryKeys": false,
+        "vtp_enableIgnoreEmptyQueryParam": false
+      },
+      {
+        "function": "__u",
+        "vtp_component": "HOST",
+        "vtp_enableMultiQueryKeys": false,
+        "vtp_enableIgnoreEmptyQueryParam": false
+      },
+      {
+        "function": "__u",
+        "vtp_component": "PATH",
+        "vtp_enableMultiQueryKeys": false,
+        "vtp_enableIgnoreEmptyQueryParam": false
+      },
+      {
+        "function": "__f",
+        "vtp_component": "URL"
+      },
+      {
+        "function": "__e"
+      }
+    ],
+    "tags": [
+      {
+        "function": "__gclidw",
+        "metadata": [
+          "map"
+        ],
+        "once_per_event": true,
+        "vtp_enableCrossDomain": false,
+        "vtp_enableUrlPassthrough": false,
+        "vtp_enableCookieOverrides": false,
+        "tag_id": 7
+      },
+      {
+        "function": "__awct",
+        "metadata": [
+          "map"
+        ],
+        "once_per_event": true,
+        "vtp_enableNewCustomerReporting": false,
+        "vtp_enableConversionLinker": true,
+        "vtp_enableProductReporting": false,
+        "vtp_enableShippingData": false,
+        "vtp_conversionId": "18413688842",
+        "vtp_conversionLabel": "aMLuCIvzzZUdEIqwqsxE",
+        "vtp_rdp": false,
+        "vtp_url": [
+          "macro",
+          1
+        ],
+        "vtp_enableProductReportingCheckbox": true,
+        "vtp_enableNewCustomerReportingCheckbox": true,
+        "vtp_enableCustomerLifecycleReporting": false,
+        "vtp_enableEnhancedConversionsCheckbox": false,
+        "vtp_enableRdpCheckbox": true,
+        "vtp_enableTransportUrl": false,
+        "vtp_enableCustomParams": false,
+        "vtp_enableEventParameters": true,
+        "tag_id": 9
+      },
+      {
+        "function": "__html",
+        "metadata": [
+          "map"
+        ],
+        "once_per_event": true,
+        "vtp_html": "<script type=\"text/gtmscript\">(function(){window.dataLayer=window.dataLayer||[];window.__zqQuoteSubmittedSent||(window.__zqQuoteSubmittedSent=!0,window.dataLayer.push({event:\"zq_quote_submitted\",form_name:\"quote_form\"}))})();</script>",
+        "vtp_supportDocumentWrite": false,
+        "vtp_enableIframeMode": false,
+        "vtp_enableEditJsMacroBehavior": false,
+        "tag_id": 8
+      }
+    ],
+    "predicates": [
+      {
+        "function": "_eq",
+        "arg0": [
+          "macro",
+          0
+        ],
+        "arg1": "gtm.js"
+      },
+      {
+        "function": "_eq",
+        "arg0": [
+          "macro",
+          0
+        ],
+        "arg1": "zq_quote_submitted"
+      },
+      {
+        "function": "_eq",
+        "arg0": [
+          "macro",
+          2
+        ],
+        "arg1": "quote_form"
+      },
+      {
+        "function": "_eq",
+        "arg0": [
+          "macro",
+          0
+        ],
+        "arg1": "generate_lead"
+      }
+    ],
+    "rules": [
+      [
+        [
+          "if",
+          0
+        ],
+        [
+          "add",
+          0
+        ]
+      ],
+      [
+        [
+          "if",
+          1
+        ],
+        [
+          "add",
+          1
+        ]
+      ],
+      [
+        [
+          "if",
+          2,
+          3
+        ],
+        [
+          "add",
+          2
+        ]
+      ]
+    ]
+  }
+}

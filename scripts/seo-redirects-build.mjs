@@ -83,10 +83,15 @@ const manifestRoutes = await loadManifestRoutes();
 // the duplicate question-form URL. This decision survives audit-file regeneration.
 const reviewedCostAlias = '/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/';
 const retainedCostGuide = '/adelaide-moving-guides/removalists-cost-adelaide/';
-const verified = [{ source: reviewedCostAlias, destination: retainedCostGuide, permanent: true }];
+// Migration recovery: the legacy /guides/ furniture-preparation alias was a live 404.
+const furniturePreparationAlias = '/guides/how-to-prepare-furniture-for-moving/';
+const verified = [
+  { source: reviewedCostAlias, destination: retainedCostGuide, permanent: true },
+  { source: furniturePreparationAlias, destination: '/adelaide-moving-guides/how-to-prepare-furniture-for-moving/', permanent: true },
+];
 const deferred = [];
 for (const r of allRedirects) {
-  if (r.source === reviewedCostAlias || r.source === retainedCostGuide) continue;
+  if (r.source === reviewedCostAlias || r.source === retainedCostGuide || r.source === furniturePreparationAlias) continue;
   if (keepList.has(r.source)) {
     throw new Error(`Redirect source is on the KEEP list: ${r.source}`);
   }

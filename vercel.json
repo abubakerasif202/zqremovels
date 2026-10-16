@@ -244,6 +244,16 @@
   ],
   "redirects": [
     {
+      "source": "/guides/how-to-prepare-furniture-for-moving/",
+      "destination": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/how-to-prepare-furniture-for-moving/",
+      "permanent": true
+    },
+    {
+      "source": "/adelaide-moving-guides/moving-house-checklist-adelaide",
+      "destination": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/moving-house-checklist-adelaide/",
+      "permanent": true
+    },
+    {
       "source": "/index.html",
       "destination": "https://zqremovalsadelaide.com.au/",
       "permanent": true
@@ -2084,25 +2094,25 @@
       "permanent": true
     },
     {
-      "source": "/(.*)",
+      "source": "/:path((?!legacy-sitemap\\.xml$).*)",
       "has": [
         {
           "type": "host",
           "value": "www.zqremovals.au"
         }
       ],
-      "destination": "https://zqremovalsadelaide.com.au/$1",
+      "destination": "https://zqremovalsadelaide.com.au/:path",
       "permanent": true
     },
     {
-      "source": "/(.*)",
+      "source": "/:path((?!legacy-sitemap\\.xml$).*)",
       "has": [
         {
           "type": "host",
           "value": "zqremovals.au"
         }
       ],
-      "destination": "https://zqremovalsadelaide.com.au/$1",
+      "destination": "https://zqremovalsadelaide.com.au/:path",
       "permanent": true
     },
     {
@@ -2116,5 +2126,32 @@
       "destination": "https://zqremovalsadelaide.com.au/$1",
       "permanent": true
     }
-  ]
+  ],
+  "rewrites": [
+    {
+      "source": "/legacy-sitemap.xml",
+      "has": [
+        {
+          "type": "host",
+          "value": "zqremovals.au"
+        }
+      ],
+      "destination": "/api/legacy-sitemap/"
+    },
+    {
+      "source": "/legacy-sitemap.xml",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.zqremovals.au"
+        }
+      ],
+      "destination": "/api/legacy-sitemap/"
+    }
+  ],
+  "functions": {
+    "api/legacy-sitemap.js": {
+      "includeFiles": "data/migration/legacy-paths.txt"
+    }
+  }
 }

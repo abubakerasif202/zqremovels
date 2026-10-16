@@ -131,12 +131,16 @@ test("conversion events push payloads to dataLayer", async () => {
   analytics.trackQuoteClick("hero");
   analytics.trackFormStart("quote_form");
   analytics.trackFormSubmit("quote_form");
+  assert.equal(dataLayer.some((entry) => entry.event === "generate_lead"), false);
+  analytics.trackFormSuccess("quote_form", "accepted-test-123");
+  analytics.trackFormSuccess("quote_form", "accepted-test-123");
+  assert.equal(dataLayer.filter((entry) => entry.event === "generate_lead").length, 1);
   analytics.trackServiceCTA("house-removals");
   analytics.trackMobileMenuOpen();
   analytics.trackOutboundClick("https://example.com");
 
   const names = dataLayer.map((entry) => entry.event);
-  assert.ok(names.includes("call_click"));
+  assert.ok(names.includes("phone_click"));
   assert.ok(names.includes("quote_click"));
   assert.ok(names.includes("form_start"));
   assert.ok(names.includes("generate_lead"));
@@ -214,4 +218,30 @@ test("trackStickyCtaClick pushes payload to dataLayer", async () => {
   assert.equal(entry.location, "test_location");
 
   global.window = originalWindow;
+});
+
+
+test("accepted lead deduplication is private, GTM-only and resilient to blocked storage", async () => {
+  const analytics = await import(`../analytics.mjs?privacy=${Date.now()}`);
+  const originalWindow = global.window;
+  const dataLayer = [];
+  let directCalls = 0;
+  global.window = {
+    dataLayer, gtag() { directCalls++; },
+    location: { pathname: "/contact-us/", search: "?email=private@example.com" },
+    sessionStorage: { getItem() { throw Error("blocked"); }, setItem() { throw Error("blocked"); } },
+    __analyticsConfig: { gtmId: "GTM-WJGKPXFL" },
+  };
+  try {
+    analytics.trackFormSubmit("test_form");
+    assert.equal(dataLayer.some(entry => entry.event === "generate_lead"), false);
+    assert.equal(analytics.trackFormSuccess("test_form"), false);
+    assert.equal(analytics.trackFormSuccess("test_form", "accepted-server-123"), true);
+    assert.equal(analytics.trackFormSuccess("test_form", "accepted-server-123"), false);
+    analytics.trackCallClick("header");
+    analytics.trackWhatsAppClick("footer");
+    assert.equal(directCalls, 0);
+    assert.equal(dataLayer.filter(entry => entry.event === "generate_lead").length, 1);
+    assert.doesNotMatch(JSON.stringify(dataLayer), /private@example/);
+  } finally { global.window = originalWindow; }
 });

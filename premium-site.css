@@ -389,7 +389,7 @@ body.page-home .home-editorial-hero .lede {
 }
 
 body.page-home .home-editorial-hero .button-secondary {
-  border-color: rgba(255, 255, 255, 0.5);
+  border-color: #bdc9c2;
   background: transparent;
   color: #fff;
 }
@@ -2362,7 +2362,7 @@ textarea:focus {
   min-height: 1.15rem;
   margin-top: 0.35rem;
   font-size: 0.78rem;
-  color: #fecaca;
+  color: var(--feedback-error);
 }
 
 .quote-form-premium :is(input, select, textarea)[aria-invalid="true"] {
@@ -2402,7 +2402,8 @@ textarea:focus {
   margin-top: 2.5rem;
   padding: 2rem;
   border: 1px solid var(--color-border);
-  background: var(--color-surface);
+  color: var(--text-on-dark);
+  background: var(--surface-dark-elevated);
   box-shadow: var(--shadow-soft);
   display: grid;
   gap: 1rem;
@@ -3407,8 +3408,9 @@ textarea:focus {
 
 .google-review-card a {
   align-self: end;
-  color: var(--color-accent-strong);
+  color: var(--link-on-light);
   font-weight: 800;
+  text-decoration: underline;
   text-underline-offset: 0.2em;
 }
 
@@ -4417,19 +4419,18 @@ textarea:focus {
 }
 
 /* Readability guardrails: explicit high-contrast text for shared surfaces. */
-body { color: #20342e; }
+body { color: var(--text-on-dark); font-size: 1rem; }
 :where(.section, .section-soft, .home-redesign-section, .card, .service-card, .value-card,
   .logistics-card, .proof-card, .route-card, .guide-card, .quote-form-shell) p,
 :where(.section, .section-soft, .home-redesign-section, .card, .service-card, .value-card,
   .logistics-card, .proof-card, .route-card, .guide-card, .quote-form-shell) li {
-  color: #3f534c;
+  color: var(--text-muted-on-dark);
 }
 :where(.field-note, .form-note, .cta-reassurance, .nav-link-desc) { color: #52665f; }
-.route-card small,
 .proof-label,
 .button-link,
 .home-premium-comparison-card .is-premium span { color: #7a4b0c; }
-.proof-card .proof-label { color: #7a4b0c; }
+.proof-card .proof-label { color: var(--link-on-dark); }
 :where(.section-dark, .section-dark-plan, .surface-dark, .footer-shell) .route-card small {
   color: #f7d890;
 }
@@ -4470,8 +4471,8 @@ body { color: #20342e; }
 .footer-shell,
 .footer-shell :where(h2, h3, strong) { color: #fffdf8; }
 .footer-shell :where(p, li, span, address) { color: #dce6e1; }
-.footer-shell a { color: #f7d890; }
-.footer-shell a:hover { color: #fff; }
+.footer-shell a:not(.button, .btn) { color: #f7d890; text-decoration: underline; }
+.footer-shell a:not(.button, .btn):hover { color: #fff; }
 .footer-shell .field-note { color: #c5d3cd; }
 .form-feedback[data-state="error"],
 .form-feedback.is-error { color: #991b1b; }
@@ -4483,7 +4484,7 @@ body { color: #20342e; }
 :where(.hero-shell-home, .home-redesign-hero, .home-redesign-quote, .home-redesign-final-cta,
   .quote-strip, .section-dark, .surface-dark) :where(p, li) { color: #e4ebe8; }
 :where(.hero-shell-home, .home-redesign-hero, .home-redesign-quote, .home-redesign-final-cta,
-  .quote-strip, .section-dark, .surface-dark) a:not(.button) { color: #f7d890; }
+  .quote-strip, .section-dark, .surface-dark) a:not(.button, .btn) { color: #f7d890; }
 
 .hero-shell:not(.hero-shell-home) {
   background:
@@ -4527,9 +4528,15 @@ body { color: #20342e; }
   color: var(--zq-text);
 }
 
-.hero-shell:not(.hero-shell-home) .button-secondary {
-  border-color: var(--zq-border-gold);
-  color: var(--zq-text);
+.hero-shell .button-secondary {
+  border-color: var(--border-on-light);
+  color: var(--button-secondary-text);
+  background: var(--button-secondary-bg);
+}
+.hero-shell:not(.hero-shell-home) .button-secondary:hover,
+.hero-shell:not(.hero-shell-home) .button-secondary:focus-visible {
+  color: var(--button-secondary-text);
+  background: var(--button-secondary-hover-bg);
 }
 
 .js .reveal-on-scroll {
@@ -4893,7 +4900,6 @@ button[type="submit"]:active,
 .trust-item,
 .review-card,
 .editorial-panel,
-.conversion-cta-block,
 .quote-form-shell,
 .home-redesign-review-grid article,
 .home-redesign-route-grid a,
@@ -5130,7 +5136,7 @@ body.page-home .home-redesign-section-heading h2,
 body.page-home .home-redesign-quote h2 {
   max-width: 14ch;
   font-size: clamp(3rem, 7vw, 6rem);
-  line-height: 0.94;
+  line-height: 1.06;
 }
 
 body.page-home .home-editorial-services {
@@ -7465,7 +7471,7 @@ body.page-home .home-redesign-quote h2 {
   color: #10231f;
   font-size: clamp(3rem, 7vw, 6rem);
   letter-spacing: -0.05em;
-  line-height: 0.94;
+  line-height: 1.06;
 }
 
 body.page-home .home-redesign-gallery-section .home-redesign-section-heading h2 {
@@ -7670,10 +7676,10 @@ body.page-home .home-redesign-final-shell {
 }
 
 .hero-shell:not(.hero-shell-home) .trust-chips li {
-  border-color: rgba(16, 35, 31, 0.1);
-  background: rgba(14, 107, 92, 0.08);
-  color: #30483f;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  border-color: var(--border-on-dark);
+  background: rgba(7, 23, 19, 0.9);
+  color: var(--text-on-dark);
+  box-shadow: none;
 }
 
 /* AEO TL;DR Blockquote Style */
@@ -9001,13 +9007,13 @@ body.page-guide-article .hero-copy h1 {
 }
 
 .footer-shell .footer-link-list a,
-.footer-shell .footer-panel a,
+.footer-shell .footer-panel a:not(.button, .btn),
 .footer-shell .footer-bottom a {
   color: #f7d890;
 }
 
 .footer-shell .footer-link-list a:hover,
-.footer-shell .footer-panel a:hover,
+.footer-shell .footer-panel a:not(.button, .btn):hover,
 .footer-shell .footer-bottom a:hover {
   color: #ffffff;
 }
@@ -9722,6 +9728,8 @@ body.page-home .button-cta {
   box-shadow: 0 12px 26px rgba(11, 31, 28, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
+.hero-shell-home .button-primary:hover,
+.hero-shell-home .button-primary:focus-visible,
 .button-primary:hover,
 .button-primary:focus-visible,
 .button-cta:hover,
@@ -9904,6 +9912,7 @@ body.page-home .utility-bar {
     box-shadow 180ms ease, transform 180ms ease;
 }
 
+.hero-shell-home .button-primary,
 .button-primary,
 .button-cta,
 .btn-primary,
@@ -9916,6 +9925,8 @@ body.page-home .button-cta {
   box-shadow: 0 12px 28px rgba(217, 67, 11, 0.22);
 }
 
+.hero-shell-home .button-primary:hover,
+.hero-shell-home .button-primary:focus-visible,
 .button-primary:hover,
 .button-primary:focus-visible,
 .button-cta:hover,
@@ -9970,7 +9981,7 @@ main :is(p, li) { text-wrap: pretty; }
   font-size: clamp(2.75rem, 6vw, 5.6rem);
   font-weight: 600;
   letter-spacing: -0.052em;
-  line-height: 0.94;
+  line-height: 1.06;
 }
 
 .eyebrow,
@@ -10203,11 +10214,11 @@ body.page-guide-article .hero-copy h1 {
 .footer-shell .footer-bottom { color: rgba(255, 253, 248, 0.66); }
 
 .footer-shell .footer-link-list a,
-.footer-shell .footer-panel a,
+.footer-shell .footer-panel a:not(.button, .btn),
 .footer-shell .footer-bottom a { color: rgba(255, 253, 248, 0.78); }
 
 .footer-shell .footer-link-list a:hover,
-.footer-shell .footer-panel a:hover,
+.footer-shell .footer-panel a:not(.button, .btn):hover,
 .footer-shell .footer-bottom a:hover { color: var(--premium-orange); }
 
 .footer-link-list { gap: 0.65rem; }
@@ -10827,12 +10838,12 @@ a {
   text-underline-offset: 0.18em;
 }
 
-main a:not(.button, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile-nav-link) {
+main a:not(.button, .btn, .zq-v2-button, .service-review-strip a, .google-review-badge, .google-review-card a, .quote-form-premium a, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile-nav-link) {
   color: var(--zq-accent-2);
   font-weight: 750;
 }
 
-main a:not(.button, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile-nav-link):hover {
+main a:not(.button, .btn, .zq-v2-button, .service-review-strip a, .google-review-badge, .google-review-card a, .quote-form-premium a, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile-nav-link):hover {
   color: var(--zq-ink);
   text-decoration: underline;
 }
@@ -11027,6 +11038,8 @@ main a:not(.button, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile
   box-shadow: 0 14px 32px rgba(7, 23, 19, 0.18);
 }
 
+.hero-shell-home .button-primary:hover,
+.hero-shell-home .button-primary:focus-visible,
 .button-primary:hover,
 .button-primary:focus-visible,
 .button-cta:hover,
@@ -11439,7 +11452,7 @@ select option {
 }
 
 .footer-shell .footer-link-list a,
-.footer-shell .footer-panel a,
+.footer-shell .footer-panel a:not(.button, .btn),
 .footer-shell .footer-bottom a {
   color: rgba(255, 253, 248, 0.88);
 }
@@ -11686,7 +11699,8 @@ body.page-home .od-final-cta .button-secondary {
     letter-spacing: 0.025em;
   }
 
-  .mobile-menu-trigger {
+  .mobile-nav details summary.mobile-menu-trigger {
+    width: calc(100% - 1.5rem);
     min-height: 3rem;
     margin-inline: 0.75rem;
   }
@@ -11898,8 +11912,8 @@ body.page-home .od-link-panel a {
 }
 
 /* Final UI corrections: keep shared text and persistent actions readable. */
-main a:not(.button, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile-nav-link):hover,
-main a:not(.button, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile-nav-link):focus-visible {
+main a:not(.button, .btn, .zq-v2-button, .service-review-strip a, .google-review-badge, .google-review-card a, .quote-form-premium a, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile-nav-link):hover,
+main a:not(.button, .btn, .zq-v2-button, .service-review-strip a, .google-review-badge, .google-review-card a, .quote-form-premium a, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile-nav-link):focus-visible {
   color: var(--zq-gold-light);
 }
 
@@ -11955,6 +11969,19 @@ body.page-home .od-hero-note span {
   --surface-dark-elevated: #10231f;
   --surface-light: #fffdf8;
   --surface-light-muted: #f3efe6;
+  --brand-primary: #10231f;
+  --brand-secondary: #071421;
+  --brand-accent: #c9a86a;
+  --focus-on-light: #175f50;
+  --focus-on-dark: #f0cf8a;
+  --feedback-error: var(--feedback-error-on-dark);
+  --feedback-success: var(--feedback-success-on-dark);
+  --feedback-error-on-light: #a82323;
+  --feedback-error-on-dark: #ffb4ab;
+  --feedback-success-on-light: #176b42;
+  --feedback-success-on-dark: #8de0b1;
+  --border-on-light: #76664f;
+  --border-on-dark: #879b92;
 
   --text-on-dark: #fffdf8;
   --text-muted-on-dark: #e4ded2;
@@ -11977,8 +12004,8 @@ body.page-home .od-hero-note span {
   --input-bg: #fffdf8;
   --input-text: #10231f;
   --input-label: #10231f;
-  --input-placeholder: #5d716a;
-  --input-border: #9c8970;
+  --input-placeholder: #4d625a;
+  --input-border: #76664f;
   --input-focus-bg: #ffffff;
 
   --zq-bg-deep: var(--surface-dark);
@@ -12026,16 +12053,17 @@ body.page-home .od-hero-note span {
 }
 
 :focus-visible {
-  outline: 3px solid var(--zq-gold-light);
+  outline: 3px solid var(--focus-on-dark);
+  box-shadow: 0 0 0 6px var(--surface-dark);
   outline-offset: 3px;
 }
 
-main a:not(.button, .btn, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile-nav-link) {
+main a:not(.button, .btn, .zq-v2-button, .service-review-strip a, .google-review-badge, .google-review-card a, .quote-form-premium a, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile-nav-link) {
   color: var(--link-on-dark);
 }
 
-main a:not(.button, .btn, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile-nav-link):hover,
-main a:not(.button, .btn, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile-nav-link):focus-visible {
+main a:not(.button, .btn, .zq-v2-button, .service-review-strip a, .google-review-badge, .google-review-card a, .quote-form-premium a, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile-nav-link):hover,
+main a:not(.button, .btn, .zq-v2-button, .service-review-strip a, .google-review-badge, .google-review-card a, .quote-form-premium a, .nav-panel-link, .od-service-card, .od-link-panel a, .mobile-nav-link):focus-visible {
   color: #fff3c4;
   text-decoration: underline;
 }
@@ -12049,27 +12077,27 @@ main a:not(.button, .btn, .nav-panel-link, .od-service-card, .od-link-panel a, .
   background: var(--surface-light-muted);
 }
 
-.section-soft :is(h1, h2, h3, h4, strong, summary),
-.section-mist :is(h1, h2, h3, h4, strong, summary),
-.bg-light :is(h1, h2, h3, h4, strong, summary),
-.od-band-light :is(h1, h2, h3, h4, strong, summary),
-.lead-machine-cta :is(h1, h2, h3, h4, strong, summary) {
+.section-soft :is(h1, h2, h3, h4, strong, summary):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.section-mist :is(h1, h2, h3, h4, strong, summary):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.bg-light :is(h1, h2, h3, h4, strong, summary):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.od-band-light :is(h1, h2, h3, h4, strong, summary):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.lead-machine-cta :is(h1, h2, h3, h4, strong, summary):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)) {
   color: var(--heading-on-light);
 }
 
-.section-soft :is(p, li, dd, figcaption, small, span),
-.section-mist :is(p, li, dd, figcaption, small, span),
-.bg-light :is(p, li, dd, figcaption, small, span),
-.od-band-light :is(p, li, dd, figcaption, small, span),
-.lead-machine-cta :is(p, li, dd, figcaption, small, span) {
+.section-soft :is(p, li, dd, figcaption, small, span):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.section-mist :is(p, li, dd, figcaption, small, span):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.bg-light :is(p, li, dd, figcaption, small, span):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.od-band-light :is(p, li, dd, figcaption, small, span):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.lead-machine-cta :is(p, li, dd, figcaption, small, span):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)) {
   color: var(--text-muted-on-light);
 }
 
-.section-soft a:not(.button, .btn),
-.section-mist a:not(.button, .btn),
-.bg-light a:not(.button, .btn),
-.od-band-light a:not(.button, .btn),
-.lead-machine-cta a:not(.button, .btn) {
+.section-soft a:not(.button, .btn):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.section-mist a:not(.button, .btn):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.bg-light a:not(.button, .btn):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.od-band-light a:not(.button, .btn):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.lead-machine-cta a:not(.button, .btn):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)) {
   color: var(--link-on-light);
 }
 
@@ -12088,13 +12116,16 @@ body.page-home .od-final-cta {
   color: var(--text-on-dark);
 }
 
-.section-dark :is(h1, h2, h3, h4, strong, summary),
-.section-dark-plan :is(h1, h2, h3, h4, strong, summary),
-.section-reassurance-pull :is(h1, h2, h3, h4, strong, summary),
-.bg-dark :is(h1, h2, h3, h4, strong, summary),
-.hero-shell :is(h1, h2, h3, h4, strong, summary),
-.hero-shell-home :is(h1, h2, h3, h4, strong, summary),
-.contact-hero-shell :is(h1, h2, h3, h4, strong, summary),
+.section-soft .quote-strip :is(h1, h2, h3, h4, strong, summary),
+.section-soft .estimator-card :is(h1, h2, h3, h4, strong, summary),
+.conversion-cta-block :is(h1, h2, h3, h4, strong, summary),
+.section-dark :is(h1, h2, h3, h4, strong, summary):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.section-dark-plan :is(h1, h2, h3, h4, strong, summary):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.section-reassurance-pull :is(h1, h2, h3, h4, strong, summary):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.bg-dark :is(h1, h2, h3, h4, strong, summary):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.hero-shell :is(h1, h2, h3, h4, strong, summary):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.hero-shell-home :is(h1, h2, h3, h4, strong, summary):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.contact-hero-shell :is(h1, h2, h3, h4, strong, summary):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
 .footer-shell :is(h1, h2, h3, h4, strong, summary),
 body.page-home .od-hero :is(h1, h2, h3, h4, strong, summary),
 body.page-home .od-quote-section :is(h1, h2, h3, h4, strong, summary),
@@ -12103,13 +12134,16 @@ body.page-home .od-final-cta :is(h1, h2, h3, h4, strong, summary) {
   color: var(--heading-on-dark);
 }
 
-.section-dark :is(p, li, dd, figcaption, small, span),
-.section-dark-plan :is(p, li, dd, figcaption, small, span),
-.section-reassurance-pull :is(p, li, dd, figcaption, small, span),
-.bg-dark :is(p, li, dd, figcaption, small, span),
-.hero-shell :is(p, li, dd, figcaption, small, span),
-.hero-shell-home :is(p, li, dd, figcaption, small, span),
-.contact-hero-shell :is(p, li, dd, figcaption, small, span),
+.section-soft .quote-strip :is(p, li, dd, figcaption, small, span),
+.section-soft .estimator-card :is(p, li, dd, figcaption, small, span),
+.conversion-cta-block :is(p, li, dd, figcaption, small, span),
+.section-dark :is(p, li, dd, figcaption, small, span):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.section-dark-plan :is(p, li, dd, figcaption, small, span):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.section-reassurance-pull :is(p, li, dd, figcaption, small, span):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.bg-dark :is(p, li, dd, figcaption, small, span):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.hero-shell :is(p, li, dd, figcaption, small, span):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.hero-shell-home :is(p, li, dd, figcaption, small, span):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.contact-hero-shell :is(p, li, dd, figcaption, small, span):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
 .footer-shell :is(p, li, dd, figcaption, small, span, address),
 body.page-home .od-hero :is(p, li, dd, figcaption, small, span),
 body.page-home .od-quote-section :is(p, li, dd, figcaption, small, span),
@@ -12141,6 +12175,17 @@ body.page-home .od-final-cta :is(p, li, dd, figcaption, small, span) {
   color: var(--text-muted-on-dark);
 }
 
+.mobile-nav .mobile-nav-top a.mobile-nav-call {
+  color: var(--button-secondary-text);
+  background: var(--button-secondary-bg);
+  border-color: var(--border-on-light);
+}
+.mobile-nav .mobile-nav-top a.mobile-nav-call:hover,
+.mobile-nav .mobile-nav-top a.mobile-nav-call:focus-visible {
+  color: var(--button-secondary-text);
+  background: var(--button-secondary-hover-bg);
+}
+
 .desktop-nav > .nav-link:hover,
 .desktop-nav > .nav-link:focus-visible,
 .desktop-nav > .nav-group > summary:hover,
@@ -12164,14 +12209,16 @@ body.page-home .od-final-cta :is(p, li, dd, figcaption, small, span) {
   color: var(--heading-on-dark);
 }
 
+.route-card small { color: var(--link-on-dark); }
+
 :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(p, li, span, small) {
   color: var(--text-muted-on-dark);
 }
 
-.section-soft :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel),
-.section-mist :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel),
-.bg-light :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel),
-.od-band-light :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel),
+.section-soft :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.section-mist :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.bg-light :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.od-band-light :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
 body.page-home .od-service-card,
 body.page-home .od-quote-card,
 body.page-home .home-redesign-faq-list details {
@@ -12180,26 +12227,27 @@ body.page-home .home-redesign-faq-list details {
   border-color: rgba(16, 35, 31, 0.22);
 }
 
-.section-soft :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(h2, h3, h4, strong, summary),
-.section-mist :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(h2, h3, h4, strong, summary),
-.bg-light :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(h2, h3, h4, strong, summary),
-.od-band-light :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(h2, h3, h4, strong, summary),
+.section-soft :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(h2, h3, h4, strong, summary):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.section-mist :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(h2, h3, h4, strong, summary):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.bg-light :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(h2, h3, h4, strong, summary):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.od-band-light :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(h2, h3, h4, strong, summary):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
 body.page-home .od-service-card :is(strong, h2, h3, h4),
 body.page-home .od-quote-card :is(strong, h2, h3, h4),
 body.page-home .home-redesign-faq-list summary {
   color: var(--heading-on-light);
 }
 
-.section-soft :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(p, li, span, small),
-.section-mist :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(p, li, span, small),
-.bg-light :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(p, li, span, small),
-.od-band-light :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(p, li, span, small),
+.section-soft :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(p, li, span, small):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.section-mist :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(p, li, span, small):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.bg-light :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(p, li, span, small):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.od-band-light :is(.service-card, .value-card, .proof-card, .route-card, .guide-card, .review-card, .testimonial-card, .content-card, .info-card, .home-editorial-service, .step-card, .timeline-card, .editorial-panel) :is(p, li, span, small):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
 body.page-home .od-service-card :is(p, li, span, small),
 body.page-home .od-quote-card :is(p, li, span, small),
 body.page-home .home-redesign-faq-list p {
   color: var(--text-muted-on-light);
 }
 
+.hero-shell-home .button-primary,
 .button-primary,
 .button-cta,
 .btn-primary,
@@ -12208,9 +12256,11 @@ body.page-home .button-primary,
 body.page-home .button-cta {
   border-color: #d7b36a;
   color: var(--button-primary-text) !important;
-  background: linear-gradient(135deg, var(--button-primary-bg) 0%, #173f38 58%, #9f6b2e 100%);
+  background: var(--button-primary-bg);
 }
 
+.hero-shell-home .button-primary:hover,
+.hero-shell-home .button-primary:focus-visible,
 .button-primary:hover,
 .button-primary:focus-visible,
 .button-cta:hover,
@@ -12224,7 +12274,7 @@ body.page-home .button-primary:focus-visible,
 body.page-home .button-cta:hover,
 body.page-home .button-cta:focus-visible {
   color: var(--button-primary-text) !important;
-  background: linear-gradient(135deg, var(--button-primary-hover-bg) 0%, #236358 55%, #b88438 100%);
+  background: var(--button-primary-hover-bg);
 }
 
 .button-secondary,
@@ -12251,17 +12301,30 @@ body.page-home .button-secondary:focus-visible {
 .quote-form-premium,
 .quote-form-shell,
 .contact-form-card {
+  --feedback-error: var(--feedback-error-on-light);
+  --feedback-success: var(--feedback-success-on-light);
   color: var(--text-on-light);
   background: var(--surface-light);
   border-color: rgba(16, 35, 31, 0.24);
 }
+
+.quote-form-premium .quote-form-intro .eyebrow { color: var(--link-on-light); }
 
 .quote-form-premium :is(h2, h3, h4, legend, label span),
 .contact-form-card :is(h2, h3, h4, legend, label span) {
   color: var(--input-label);
 }
 
-.quote-form-premium :is(p, li, .field-note, .form-note, .cta-reassurance),
+.quote-form-premium .field-error { color: var(--feedback-error); }
+.quote-form-premium a { color: var(--link-on-light); text-decoration: underline; }
+
+.quote-form-shell p.field-note,
+.quote-form-shell p.form-note,
+.quote-form-shell p.form-feedback,
+.quote-form-premium p.form-feedback,
+.quote-form-premium p.form-note,
+.quote-form-premium p.field-note,
+.quote-form-premium :is(p, li, small, .field-note, .form-note, .cta-reassurance),
 .contact-form-card :is(p, li, .field-note, .form-note, .cta-reassurance),
 .form-feedback {
   color: var(--text-muted-on-light);
@@ -12292,6 +12355,20 @@ select option {
   background: var(--input-bg);
 }
 
+.button:disabled,
+.zq-v2-button:disabled {
+  color: #10231f !important;
+  background: #d9dfda !important;
+  border-color: #697e75;
+  opacity: 1;
+  cursor: wait;
+}
+
+.quote-form-premium :is(input, select, textarea)[aria-invalid="true"] {
+  border-color: var(--feedback-error) !important;
+  box-shadow: inset 0 0 0 1px var(--feedback-error);
+}
+
 :is(input, select, textarea):disabled {
   color: #5d716a;
   background: #e7dfd0;
@@ -12303,19 +12380,27 @@ select option {
   border-color: #7a4b0c;
   color: var(--input-text);
   background: var(--input-focus-bg);
-  outline: 3px solid rgba(201, 168, 106, 0.45);
+  outline: 3px solid var(--focus-on-light);
   outline-offset: 1px;
 }
 
+.quote-form-shell .form-feedback.is-error,
+.quote-form-shell .form-feedback[data-state="error"],
+.quote-form-premium .form-feedback.is-error,
+.quote-form-premium .form-feedback[data-state="error"],
 .form-feedback.is-error,
 .form-feedback[data-state="error"],
 .quote-form-premium :is(input, select, textarea)[aria-invalid="true"] + .form-feedback {
-  color: #a82323;
+  color: var(--feedback-error);
 }
 
+.quote-form-shell .form-feedback.is-success,
+.quote-form-shell .form-feedback[data-state="success"],
+.quote-form-premium .form-feedback.is-success,
+.quote-form-premium .form-feedback[data-state="success"],
 .form-feedback.is-success,
 .form-feedback[data-state="success"] {
-  color: #176b42;
+  color: var(--feedback-success);
 }
 
 .table-wrap {
@@ -12339,12 +12424,14 @@ select option {
   border-color: rgba(16, 35, 31, 0.24);
 }
 
-.faq-section summary,
+.faq-section summary { color: var(--heading-on-dark); }
+
 .home-redesign-faq-list summary {
   color: var(--heading-on-light);
 }
 
-.faq-section p,
+.faq-section p { color: var(--text-muted-on-dark); }
+
 .home-redesign-faq-list p {
   color: var(--text-muted-on-light);
 }
@@ -12361,16 +12448,16 @@ select option {
 }
 
 .footer-shell .footer-link-list a,
-.footer-shell .footer-panel a,
+.footer-shell .footer-panel a:not(.button, .btn),
 .footer-shell .footer-bottom a {
   color: var(--link-on-dark);
 }
 
 .footer-shell .footer-link-list a:hover,
-.footer-shell .footer-panel a:hover,
+.footer-shell .footer-panel a:not(.button, .btn):hover,
 .footer-shell .footer-bottom a:hover,
 .footer-shell .footer-link-list a:focus-visible,
-.footer-shell .footer-panel a:focus-visible,
+.footer-shell .footer-panel a:not(.button, .btn):focus-visible,
 .footer-shell .footer-bottom a:focus-visible {
   color: #fff3c4;
 }
@@ -12820,6 +12907,8 @@ body.page-home .zq-v2-quote-caption {
 }
 
 body.page-home .zq-v2-quote-form {
+  --feedback-error: var(--feedback-error-on-dark);
+  --feedback-success: var(--feedback-success-on-dark);
   padding: 1.5rem;
   color: var(--zq-v2-ink);
   background: var(--zq-v2-surface);
@@ -13050,8 +13139,10 @@ body.page-home .zq-v2-check-grid svg {
   width: 1.25rem;
   height: 1.25rem;
   margin-top: 0.15rem;
-  color: var(--zq-v2-success);
+  color: #476500;
 }
+
+body.page-home .zq-v2-check-grid strong { color: var(--zq-v2-ink); }
 
 body.page-home .zq-v2-check-grid strong,
 body.page-home .zq-v2-check-grid span {
@@ -13450,6 +13541,8 @@ body.page-home .zq-v2-form-helper {
   margin-top: 0.7rem !important;
 }
 
+body.page-home .form-feedback.is-error,
+body.page-home .form-feedback[data-state="error"] { color: var(--feedback-error); }
 body.page-home .form-feedback {
   min-height: 1.5em;
   margin-top: 0.75rem !important;
@@ -13463,7 +13556,8 @@ body.page-home .footer-shell {
   background: var(--zq-v2-dark);
 }
 
-body.page-home .footer-shell :is(h2, strong, a) {
+body.page-home .footer-shell :is(h2, strong),
+body.page-home .footer-shell a:not(.button, .btn) {
   color: #fffdfa;
 }
 
@@ -13784,46 +13878,52 @@ body.page-home .zq-v2-home :focus-visible {
 }
 
 /* Final WCAG contrast guardrails. Keep surface-specific copy readable after legacy component rules. */
-.section-soft :is(.section-heading h2, .hero-copy h1, .page-hero-copy h1, h1, h2, h3, h4, h5, h6),
-.section-mist :is(.section-heading h2, .hero-copy h1, .page-hero-copy h1, h1, h2, h3, h4, h5, h6),
-.bg-light :is(.section-heading h2, .hero-copy h1, .page-hero-copy h1, h1, h2, h3, h4, h5, h6),
-.od-band-light :is(.section-heading h2, .hero-copy h1, .page-hero-copy h1, h1, h2, h3, h4, h5, h6),
-.lead-machine-cta :is(.section-heading h2, .hero-copy h1, .page-hero-copy h1, h1, h2, h3, h4, h5, h6) {
+.section-soft :is(.section-heading h2, .hero-copy h1, .page-hero-copy h1, h1, h2, h3, h4, h5, h6):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.section-mist :is(.section-heading h2, .hero-copy h1, .page-hero-copy h1, h1, h2, h3, h4, h5, h6):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.bg-light :is(.section-heading h2, .hero-copy h1, .page-hero-copy h1, h1, h2, h3, h4, h5, h6):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.od-band-light :is(.section-heading h2, .hero-copy h1, .page-hero-copy h1, h1, h2, h3, h4, h5, h6):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.lead-machine-cta :is(.section-heading h2, .hero-copy h1, .page-hero-copy h1, h1, h2, h3, h4, h5, h6):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)) {
   color: var(--heading-on-light);
 }
 
-.section-soft :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
-.section-mist :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
-.bg-light :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
-.od-band-light :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
-.lead-machine-cta :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small) {
+.section-soft :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.section-mist :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.bg-light :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.od-band-light :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.lead-machine-cta :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)) {
   color: var(--text-muted-on-light);
 }
 
-.section-soft :is(.eyebrow, a:not(.button, .btn)),
-.section-mist :is(.eyebrow, a:not(.button, .btn)),
-.bg-light :is(.eyebrow, a:not(.button, .btn)),
-.od-band-light :is(.eyebrow, a:not(.button, .btn)),
-.lead-machine-cta :is(.eyebrow, a:not(.button, .btn)) {
+.section-soft :is(.eyebrow, a:not(.button, .btn)):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.section-mist :is(.eyebrow, a:not(.button, .btn)):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.bg-light :is(.eyebrow, a:not(.button, .btn)):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.od-band-light :is(.eyebrow, a:not(.button, .btn)):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.lead-machine-cta :is(.eyebrow, a:not(.button, .btn)):not(:where(.quote-strip *, .estimator-card *, .conversion-cta-block *, .quote-form-premium *, .quote-form-shell *, .contact-form-card *)) {
   color: var(--link-on-light);
 }
 
-.section-dark :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
-.section-dark-plan :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
-.section-reassurance-pull :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
-.bg-dark :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
-.hero-shell :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
-.hero-shell-home :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
+.section-soft .quote-strip :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
+.section-soft .estimator-card :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
+.conversion-cta-block :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small),
+.section-dark :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.section-dark-plan :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.section-reassurance-pull :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.bg-dark :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.hero-shell :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.hero-shell-home :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
 .footer-shell :is(.section-heading p, .hero-copy p, .page-hero-copy p, .lede, p, li, dd, figcaption, small) {
   color: var(--text-muted-on-dark);
 }
 
-.section-dark :is(.eyebrow, a:not(.button, .btn)),
-.section-dark-plan :is(.eyebrow, a:not(.button, .btn)),
-.section-reassurance-pull :is(.eyebrow, a:not(.button, .btn)),
-.bg-dark :is(.eyebrow, a:not(.button, .btn)),
-.hero-shell :is(.eyebrow, a:not(.button, .btn)),
-.hero-shell-home :is(.eyebrow, a:not(.button, .btn)),
+.section-soft .quote-strip :is(.eyebrow, a:not(.button, .btn)),
+.section-soft .estimator-card :is(.eyebrow, a:not(.button, .btn)),
+.conversion-cta-block :is(.eyebrow, a:not(.button, .btn)),
+.section-dark :is(.eyebrow, a:not(.button, .btn)):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.section-dark-plan :is(.eyebrow, a:not(.button, .btn)):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.section-reassurance-pull :is(.eyebrow, a:not(.button, .btn)):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.bg-dark :is(.eyebrow, a:not(.button, .btn)):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.hero-shell :is(.eyebrow, a:not(.button, .btn)):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
+.hero-shell-home :is(.eyebrow, a:not(.button, .btn)):not(:where(.quote-form-premium *, .quote-form-shell *, .contact-form-card *)),
 .footer-shell :is(.eyebrow, a:not(.button, .btn)) {
   color: var(--link-on-dark);
 }
@@ -13883,7 +13983,7 @@ body.page-home .header-main .button-primary,
 body.page-home .mobile-nav .button-primary,
 body.page-home .sticky-mobile-cta .button-primary {
   border-color: var(--zq-v2-accent);
-  color: #071421;
+  color: #071421 !important;
   background: var(--zq-v2-accent);
   box-shadow: none;
 }
@@ -13900,6 +14000,14 @@ body.page-home .mobile-nav .nav-panel {
   background: #ffffff;
 }
 
+body.page-home .desktop-nav .nav-panel-link {
+  color: var(--zq-v2-ink);
+  background: var(--zq-v2-surface);
+  border-color: #697e8b;
+}
+body.page-home .desktop-nav .nav-panel-link .nav-link-title { color: var(--zq-v2-ink); }
+body.page-home .desktop-nav .nav-panel-link .nav-link-desc { color: var(--zq-v2-muted); }
+
 body.page-home .desktop-nav .nav-panel-link,
 body.page-home .mobile-nav .nav-panel-link,
 body.page-home .mobile-nav-link,
@@ -13911,7 +14019,7 @@ body.page-home .zq-v2-hero {
   min-height: 56rem;
   padding: 9rem 0 8.5rem;
   background:
-    linear-gradient(90deg, rgba(7, 20, 33, 0.98) 0%, rgba(7, 20, 33, 0.86) 32%, rgba(7, 20, 33, 0.35) 68%, rgba(7, 20, 33, 0.2) 100%),
+    linear-gradient(90deg, rgba(7, 20, 33, 0.98) 0%, rgba(7, 20, 33, 0.94) 32%, rgba(7, 20, 33, 0.8) 68%, rgba(7, 20, 33, 0.65) 100%),
     linear-gradient(0deg, rgba(7, 20, 33, 0.86), transparent 32%),
     url("/media/home-local-hero-branded.webp") center / cover no-repeat;
 }
@@ -13931,7 +14039,8 @@ body.page-home .zq-v2-hero-copy {
   padding-block: 2rem;
 }
 
-body.page-home .zq-v2-eyebrow,
+body.page-home .zq-v2-eyebrow { color: #476500; }
+body.page-home .zq-v2-hero .zq-v2-eyebrow,
 body.page-home .zq-v2-dark .zq-v2-eyebrow {
   color: var(--zq-v2-accent);
 }
@@ -13940,10 +14049,10 @@ body.page-home .zq-v2-hero-copy h1 {
   max-width: 8ch;
   color: #f6f8f2;
   font-family: var(--font-body, Inter, Arial, sans-serif);
-  font-size: clamp(3.7rem, 6.7vw, 6.5rem);
+  font-size: clamp(3.25rem, 6.7vw, 6.5rem);
   font-weight: 850;
-  letter-spacing: -0.065em;
-  line-height: 0.94;
+  letter-spacing: -0.045em;
+  line-height: 1.06;
 }
 
 body.page-home .zq-v2-hero-copy .zq-v2-lead {
@@ -13990,6 +14099,8 @@ body.page-home .zq-v2-quote-media {
 }
 
 body.page-home .zq-v2-quote-form {
+  --feedback-error: var(--feedback-error-on-dark);
+  --feedback-success: var(--feedback-success-on-dark);
   padding: clamp(1.4rem, 2.5vw, 2rem);
   color: #f6f8f2;
   background: transparent;
@@ -14009,6 +14120,13 @@ body.page-home .zq-v2-form-helper {
   color: #9db0bd;
 }
 
+body.page-home .zq-v2-home form .quote-package-option > span {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+body.page-home .zq-v2-home form .quote-package-option :is(strong, small),
 body.page-home .zq-v2-home form label,
 body.page-home .zq-v2-home form label > span {
   color: #f0f4f6 !important;
@@ -14031,6 +14149,17 @@ body.page-home .zq-v2-home form :is(input, select, textarea):focus-visible {
   border-color: var(--zq-v2-accent) !important;
   box-shadow: 0 0 0 3px rgba(184, 242, 41, 0.18);
   background: rgba(4, 16, 27, 0.88) !important;
+}
+
+body.page-home .zq-v2-home form :is(input, select, textarea)[aria-invalid="true"] {
+  border-color: var(--feedback-error-on-dark) !important;
+  box-shadow: inset 0 0 0 1px var(--feedback-error-on-dark);
+}
+
+body.page-home .zq-v2-home form :is(input, select, textarea):disabled {
+  color: #c3d0d7 !important;
+  background: #203443 !important;
+  opacity: 1;
 }
 
 body.page-home .zq-v2-form-footer {
@@ -14067,7 +14196,7 @@ body.page-home .zq-v2-trust-cards > article {
 }
 
 body.page-home .zq-v2-service-icon {
-  color: #6e9b00;
+  color: #476500;
   background: #edf6d7;
 }
 
@@ -14108,11 +14237,13 @@ body.page-home .zq-v2-final {
 }
 
 body.page-home .zq-v2-final .zq-v2-short-form {
+  --feedback-error: var(--feedback-error-on-dark);
+  --feedback-success: var(--feedback-success-on-dark);
   border-color: rgba(157, 176, 189, 0.42);
   background: #071421;
 }
 
-body.page-home .zq-v2-final .zq-v2-short-form :is(label, h3) {
+body.page-home .zq-v2-final .zq-v2-short-form :is(label, h3, small) {
   color: #f6f8f2;
 }
 
@@ -14121,6 +14252,41 @@ body.page-home .zq-v2-final .zq-v2-short-form p {
 }
 
 @media (max-width: 1120px) {
+  body:is(.page-home, .page-contact) .desktop-nav,
+  body:is(.page-home, .page-contact) .header-actions,
+  body:is(.page-home, .page-contact) .mobile-nav-top {
+    display: none !important;
+  }
+  body:is(.page-home, .page-contact) .header-main {
+    display: flex;
+    align-items: center;
+    min-height: 5.5rem;
+  }
+  body:is(.page-home, .page-contact) .mobile-nav {
+    display: block;
+    position: static;
+    overflow: visible;
+    border: 0;
+    background: transparent;
+  }
+  body:is(.page-home, .page-contact) .mobile-nav > details > summary.mobile-menu-trigger {
+    position: absolute;
+    z-index: 5;
+    top: 1.15rem;
+    right: 1.25rem;
+    width: auto;
+    min-width: 5rem;
+    min-height: 3rem;
+  }
+  body:is(.page-home, .page-contact) .mobile-nav-panel {
+    max-height: calc(100dvh - 6rem);
+    overflow-y: auto;
+  }
+  body.page-home .zq-v2-hero {
+    background-image: linear-gradient(90deg, rgba(7, 20, 33, 0.96), rgba(7, 20, 33, 0.86)), url("/media/home-local-hero-branded.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
   body.page-home .zq-v2-hero-grid {
     grid-template-columns: 1fr;
   }
@@ -14238,7 +14404,7 @@ body.page-contact .header-main .button-primary,
 body.page-contact .mobile-nav .button-primary,
 body.page-contact .sticky-mobile-cta .button-primary {
   border-color: var(--zq-v2-accent);
-  color: var(--zq-v2-ink);
+  color: var(--zq-v2-ink) !important;
   background: var(--zq-v2-accent);
   box-shadow: none;
 }
@@ -14250,17 +14416,40 @@ body.page-contact .mobile-nav .nav-panel {
   color: var(--zq-v2-ink);
   background: var(--zq-v2-surface);
 }
+body.page-contact .desktop-nav .nav-panel-link {
+  color: var(--zq-v2-ink);
+  background: var(--zq-v2-surface);
+  border-color: #697e8b;
+}
+body.page-contact .desktop-nav .nav-panel-link .nav-link-title { color: var(--zq-v2-ink); }
+body.page-contact .desktop-nav .nav-panel-link .nav-link-desc { color: var(--zq-v2-muted); }
+
 body.page-contact .desktop-nav .nav-panel-link,
 body.page-contact .mobile-nav .nav-panel-link,
 body.page-contact .mobile-nav-link,
 body.page-contact .mobile-nav summary { color: var(--zq-v2-ink); }
+body.page-contact .mobile-nav summary.mobile-menu-trigger { color: var(--text-on-dark); background: var(--zq-v2-dark); }
+
+body.page-contact .mobile-nav-panel,
+body.page-contact .mobile-nav-panel .mobile-nav-link,
+body.page-contact .mobile-nav-panel .nav-panel-link {
+  color: var(--zq-v2-ink);
+  background: var(--zq-v2-surface);
+  border-color: #697e8b;
+}
+body.page-contact .mobile-nav-panel :is(summary, .nav-link-title) { color: var(--zq-v2-ink); }
+body.page-contact .mobile-nav-panel .nav-link-desc { color: var(--zq-v2-muted); }
+body.page-contact .mobile-nav-panel :is(.mobile-nav-link, .nav-panel-link):is(:hover, :focus-visible) {
+  color: var(--zq-v2-ink);
+  background: var(--zq-v2-mint);
+}
 
 body.page-contact .contact-hero-shell {
   min-height: 56rem;
   padding: 9rem 0 8.5rem;
   color: #f6f8f2;
   background:
-    linear-gradient(90deg, rgba(7, 20, 33, 0.98) 0%, rgba(7, 20, 33, 0.86) 32%, rgba(7, 20, 33, 0.35) 68%, rgba(7, 20, 33, 0.2) 100%),
+    linear-gradient(90deg, rgba(7, 20, 33, 0.98) 0%, rgba(7, 20, 33, 0.94) 32%, rgba(7, 20, 33, 0.8) 68%, rgba(7, 20, 33, 0.65) 100%),
     linear-gradient(0deg, rgba(7, 20, 33, 0.86), transparent 32%),
     url("/media/home-local-hero-branded.webp") center / cover no-repeat;
 }
@@ -14275,17 +14464,17 @@ body.page-contact .contact-hero-shell :is(h1, h2, h3) { color: #f6f8f2; }
 body.page-contact .contact-hero-shell h1 {
   max-width: 9ch;
   font-family: var(--font-body, Inter, Arial, sans-serif);
-  font-size: clamp(3.7rem, 6.7vw, 6.5rem);
+  font-size: clamp(3.25rem, 6.7vw, 6.5rem);
   font-weight: 850;
-  letter-spacing: -0.065em;
-  line-height: 0.94;
+  letter-spacing: -0.045em;
+  line-height: 1.06;
 }
 body.page-contact .contact-hero-shell :is(.lead, p, li) { color: #d8e2e8; }
 body.page-contact .contact-hero-shell .breadcrumb,
 body.page-contact .contact-hero-shell .breadcrumb a,
 body.page-contact .contact-hero-shell .zq-v2-eyebrow { color: var(--zq-v2-accent); }
 body.page-contact .trust-chips { gap: 0.6rem; }
-body.page-contact .trust-chips li {
+body.page-contact .contact-hero-shell .trust-chips li {
   border: 1px solid rgba(184, 242, 41, 0.42);
   color: #f6f8f2;
   background: rgba(7, 20, 33, 0.58);
@@ -14341,11 +14530,12 @@ body.page-contact .quote-form-premium {
   background: var(--zq-v2-surface);
   box-shadow: none;
 }
-body.page-contact .quote-form-premium :is(h2, h3, legend, label span) { color: var(--zq-v2-ink) !important; }
+body.page-contact .quote-form-premium :is(h2, h3, legend, label span, label strong) { color: var(--zq-v2-ink) !important; }
+body.page-contact .quote-form-premium .quote-form-intro .eyebrow { color: var(--link-on-light); }
 body.page-contact .quote-form-premium :is(.field-note, .form-note, .quote-form-disclaimer, .form-feedback) { color: var(--zq-v2-muted); }
 body.page-contact .quote-form-premium :is(input, select, textarea) {
   min-height: 3.15rem;
-  border: 1px solid rgba(157, 176, 189, 0.68) !important;
+  border: 1px solid #697e8b !important;
   border-radius: 0.45rem;
   color: var(--zq-v2-ink) !important;
   background-color: #ffffff !important;
@@ -14358,7 +14548,7 @@ body.page-contact .quote-form-premium :is(input, textarea)::placeholder { color:
 body.page-contact .quote-form-premium select option { color: var(--zq-v2-ink) !important; background: #ffffff !important; }
 body.page-contact .quote-form-premium :is(input, select, textarea):is(:focus, :focus-visible) {
   border-color: var(--zq-v2-accent) !important;
-  outline: 3px solid rgba(184, 242, 41, 0.35);
+  outline: 3px solid var(--focus-on-light);
   outline-offset: 1px;
   box-shadow: none;
 }
@@ -14382,8 +14572,10 @@ body.page-contact .form-feedback:is(.is-error, [data-state="error"]) { color: #b
 body.page-contact .form-feedback:is(.is-success, [data-state="success"]) { color: #176b42; }
 body.page-contact .quote-form-footer { border-top-color: var(--zq-v2-border); }
 body.page-contact .quote-form-footer .zq-v2-button { width: 100%; }
-body.page-contact .quote-form-premium a { color: #254b68; }
+body.page-contact .quote-form-premium a { color: #254b68; text-decoration: underline; }
 
+body.page-contact .section > .container > .section-heading :is(h2, p) { color: var(--zq-v2-ink); }
+body.page-contact .faq-answer a { color: var(--link-on-light); text-decoration: underline; }
 body.page-contact .section-soft { color: var(--zq-v2-ink); background: var(--zq-v2-surface); }
 body.page-contact .section-soft :is(h2, h3, p, li, small, span) { color: inherit; }
 body.page-contact .section-dark-plan {
@@ -14409,17 +14601,36 @@ body.page-contact .route-card :is(h3, p, small),
 body.page-contact .faq-item :is(h3, p),
 body.page-contact .value-card :is(h3, p) { color: inherit; }
 body.page-contact .route-card small,
-body.page-contact .section-heading .eyebrow { color: #6e9b00; }
+body.page-contact .section-heading .eyebrow { color: #476500; }
 body.page-contact .footer-shell { color: #f6f8f2; background: #071421; }
 
 @media (max-width: 1120px) {
+  body.page-contact .contact-hero-shell {
+    background-image: linear-gradient(90deg, rgba(7, 20, 33, 0.96), rgba(7, 20, 33, 0.86)), url("/media/home-local-hero-branded.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
   body.page-contact .contact-hero-grid { grid-template-columns: 1fr; }
   body.page-contact .quote-form-shell { max-width: 42rem; }
 }
 
 @media (max-width: 640px) {
   body.page-contact .site-header { position: absolute; }
-  body.page-contact .contact-hero-shell {
+  body.page-contact .mobile-nav-panel,
+body.page-contact .mobile-nav-panel .mobile-nav-link,
+body.page-contact .mobile-nav-panel .nav-panel-link {
+  color: var(--zq-v2-ink);
+  background: var(--zq-v2-surface);
+  border-color: #697e8b;
+}
+body.page-contact .mobile-nav-panel :is(summary, .nav-link-title) { color: var(--zq-v2-ink); }
+body.page-contact .mobile-nav-panel .nav-link-desc { color: var(--zq-v2-muted); }
+body.page-contact .mobile-nav-panel :is(.mobile-nav-link, .nav-panel-link):is(:hover, :focus-visible) {
+  color: var(--zq-v2-ink);
+  background: var(--zq-v2-mint);
+}
+
+body.page-contact .contact-hero-shell {
     min-height: auto;
     padding: 8rem 0 6rem;
     background-position: 66% center;
@@ -14503,7 +14714,7 @@ body.page-home .zq-v2-hero::before {
 }
 
 .agency-credit-label {
-  color: rgba(255, 255, 255, 0.5);
+  color: #bdc9c2;
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.14em;
@@ -14552,7 +14763,7 @@ body.page-home .zq-v2-hero::before {
 
 .agency-credit-link:hover .agency-credit-arrow,
 .agency-credit-link:focus-visible .agency-credit-arrow {
-  color: #a20c2d;
+  color: #ffe0a3;
   transform: translate(1px, -1px);
 }
 

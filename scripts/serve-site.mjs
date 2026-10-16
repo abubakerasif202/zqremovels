@@ -54,7 +54,15 @@ const server = createServer(async (request, response) => {
 
     const fileType = contentTypes[extname(file).toLowerCase()] || 'application/octet-stream';
     response.writeHead(200, { 'cache-control': 'no-store', 'content-type': fileType });
-    createReadStream(file).pipe(response);
+    const stream = createReadStream(file);
+    // Browser audits cancel image requests while switching routes and widths.
+    // Release those streams instead of retaining paused reads and file handles.
+    response.once('close', () => stream.destroy());
+    stream.once('error', (error) => {
+      console.error(`Static asset read failed (${file}): ${error.message}`);
+      response.destroy();
+    });
+    stream.pipe(response);
   } catch {
     response.writeHead(400, { 'content-type': 'text/plain; charset=utf-8' });
     response.end('Bad request');

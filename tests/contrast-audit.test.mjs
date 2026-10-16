@@ -74,7 +74,8 @@ test('shared light-surface contrast contracts use dark readable foregrounds', ()
   assert.match(css, /\.lead-machine-cta-shell p\s*\{\s*color:\s*#3f534c;\s*\}/s);
   assert.match(css, /\.lead-machine-cta-shell \.eyebrow\s*\{\s*color:\s*#0b5d50;\s*\}/s);
   assert.match(css, /\.button-primary\s*\{\s*color:\s*#fffdf8\s*!important;\s*\}/s);
-  assert.match(css, /\.route-card small,\s*\n\.proof-label,\s*\n\.button-link,[^}]*color:\s*#7a4b0c;/s);
+  assert.match(css, /\.route-card small\s*\{\s*color:\s*var\(--link-on-dark\);/s);
+  assert.match(css, /\.proof-label,\s*\n\.button-link,[^}]*color:\s*#7a4b0c;/s);
   assert.doesNotMatch(css, /\.button-primary,\s*\n\.button-cta\s*\{\s*color:\s*#10231f\s*!important;/s);
 });
 
@@ -118,4 +119,25 @@ test('priority routes preserve canonical, indexability, and sitemap inclusion', 
     assert.doesNotMatch(html, /<meta name="robots" content="[^"]*noindex/i, `${route} must remain indexable`);
     assert.match(sitemap, new RegExp(canonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `${route} missing from sitemap`);
   }
+});
+
+// These pairs protect actual control boundaries and feedback on both surfaces.
+test('control, focus and feedback tokens meet their surface contrast requirements', () => {
+  for (const [foreground, background, minimum, label] of [
+    [lastTokenValue('--input-border'), '#fffdf8', 3, 'input boundary'],
+    ['#697e8b', '#ffffff', 3, 'contact input boundary'],
+    [lastTokenValue('--button-secondary-text'), lastTokenValue('--button-secondary-bg'), 4.5, 'secondary button default'],
+    [lastTokenValue('--button-secondary-text'), lastTokenValue('--button-secondary-hover-bg'), 4.5, 'secondary button hover'],
+    [lastTokenValue('--focus-on-light'), '#fffdf8', 3, 'light focus ring'],
+    [lastTokenValue('--focus-on-dark'), '#10231f', 3, 'dark focus ring'],
+    ['#476500', '#ffffff', 4.5, 'lime theme light caption'],
+    [lastTokenValue('--feedback-error-on-light'), '#fffdf8', 4.5, 'light error feedback'],
+    [lastTokenValue('--feedback-error-on-dark'), '#10231f', 4.5, 'dark error feedback'],
+    [lastTokenValue('--feedback-success-on-light'), '#fffdf8', 4.5, 'light success feedback'],
+    [lastTokenValue('--feedback-success-on-dark'), '#10231f', 4.5, 'dark success feedback'],
+  ]) assertContrast(foreground, background, minimum, label);
+  assert.match(css, /\.hero-shell \.button-secondary\s*\{[^}]*color: var\(--button-secondary-text\);[^}]*background: var\(--button-secondary-bg\);/s);
+  assert.match(css, /body\.page-home \.footer-shell a:not\(\.button, \.btn\)/);
+  assert.match(css, /background: var\(--button-primary-hover-bg\);/);
+  assert.doesNotMatch(css, /background: linear-gradient\(135deg, var\(--button-primary-(?:hover-)?bg\)/);
 });

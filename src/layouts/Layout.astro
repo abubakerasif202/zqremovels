@@ -18,18 +18,6 @@ const gaId =
 
 const gtmId = 'GTM-WJGKPXFL';
 
-const googleAdsConversionId =
-  import.meta.env.VITE_GOOGLE_ADS_CONVERSION_ID ||
-  process.env.VITE_GOOGLE_ADS_CONVERSION_ID ||
-  import.meta.env.GOOGLE_ADS_CONVERSION_ID ||
-  process.env.GOOGLE_ADS_CONVERSION_ID;
-
-const googleAdsLeadLabel =
-  import.meta.env.VITE_GOOGLE_ADS_LEAD_LABEL ||
-  process.env.VITE_GOOGLE_ADS_LEAD_LABEL ||
-  import.meta.env.GOOGLE_ADS_LEAD_LABEL ||
-  process.env.GOOGLE_ADS_LEAD_LABEL;
-
 const metaPixelId =
   import.meta.env.VITE_META_PIXEL_ID ||
   process.env.VITE_META_PIXEL_ID ||
@@ -39,8 +27,6 @@ const metaPixelId =
 const trackingConfig = {
   gaMeasurementId: gaId || null,
   gtmId: gtmId || null,
-  googleAdsConversionId: googleAdsConversionId || null,
-  googleAdsLeadLabel: googleAdsLeadLabel || null,
   metaPixelId: metaPixelId || null,
 };
 
@@ -53,9 +39,19 @@ const trackingConfigStr = JSON.stringify(
 <!doctype html>
 <html lang="en-AU" data-theme="zqtheme">
   <head>
+    <!-- Fail closed until an existing CMP supplies a consent update. Never replace queued decisions. -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      if (!window.dataLayer.some(function(entry) { return entry && entry[0] === 'consent'; })) {
+        window.dataLayer.push((function() { return arguments; })('consent', 'default', {
+          ad_storage: 'denied', analytics_storage: 'denied',
+          ad_user_data: 'denied', ad_personalization: 'denied'
+        }));
+      }
+    </script>
     <!-- Google Tag Manager -->
     <script is:inline>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      (function(w,d,s,l,i){if(w.__zqGtmLoaded)return;w.__zqGtmLoaded=true;w[l]=w[l]||[];w[l].push({'gtm.start':
       new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
       j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
