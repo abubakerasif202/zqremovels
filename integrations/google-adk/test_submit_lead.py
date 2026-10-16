@@ -106,7 +106,7 @@ class SubmissionTests(unittest.TestCase):
                 self.assertEqual(post.call_args.args[0]["submission_id"], initial["submission_id"])
 
     @patch.object(tool.http.client, "HTTPSConnection")
-    @patch.dict(tool.os.environ, {"ZQ_AI_LEAD_URL": "https://example.invalid/api/ai-lead",
+    @patch.dict(tool.os.environ, {"ZQ_AI_LEAD_URL": "https://example.invalid/api/ai-lead/",
                                  "ZQ_AI_LEAD_SECRET": "s" * 32})
     def test_transport_auth_redirects_and_delivery_failure(self, connection):
         payload = {"submission_id": "id", "dry_run": False}
@@ -115,6 +115,7 @@ class SubmissionTests(unittest.TestCase):
         response.read.return_value = json.dumps(tool.result("id", "unauthorized", "Denied")).encode()
         self.assertFalse(tool._post(payload)["success"])
         self.assertEqual(connection.return_value.request.call_args.args[3]["Authorization"], "Bearer " + "s" * 32)
+        self.assertEqual(connection.return_value.request.call_args.args[1], "/api/ai-lead/")
         response.status = 302
         with self.assertRaises(ValueError):
             tool._post(payload)
@@ -123,7 +124,7 @@ class SubmissionTests(unittest.TestCase):
         self.assertFalse(tool._post(payload)["success"])
 
     @patch.object(tool.http.client, "HTTPSConnection")
-    @patch.dict(tool.os.environ, {"ZQ_AI_LEAD_URL": "https://example.invalid/api/ai-lead",
+    @patch.dict(tool.os.environ, {"ZQ_AI_LEAD_URL": "https://example.invalid/api/ai-lead/",
                                  "ZQ_AI_LEAD_SECRET": "s" * 32})
     def test_dry_run_and_live_acceptance_must_match_mode(self, connection):
         response = connection.return_value.getresponse.return_value
