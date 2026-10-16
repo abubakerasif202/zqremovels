@@ -1,5 +1,7 @@
 ---
 import { businessIdentity } from '../../site-src/data/business.mjs';
+import { normalizeSchedulingUrl } from '../../site-src/data/scheduling.mjs';
+const consultationUrl = normalizeSchedulingUrl(import.meta.env.PUBLIC_ZQ_CAL_CONSULTATION_URL);
 ---
 <header class="site-header">
   <div class="utility-bar">
@@ -45,6 +47,7 @@ import { businessIdentity } from '../../site-src/data/business.mjs';
       <a class="nav-link hvr-underline-from-center" href="/about/">About</a>
       <a class="nav-link hvr-underline-from-center" href="/#reviews">Reviews</a>
       <a class="nav-link hvr-underline-from-center" href="/contact-us/">Contact</a>
+      {consultationUrl && <a class="nav-link hvr-underline-from-center" href="/book-consultation/">Book a Call</a>}
     </nav>
 
     <div class="header-actions">
@@ -79,6 +82,7 @@ import { businessIdentity } from '../../site-src/data/business.mjs';
         <a class="mobile-nav-link" href="/about/">About</a>
         <a class="mobile-nav-link" href="/#reviews">Reviews</a>
         <a class="mobile-nav-link" href="/contact-us/">Contact</a>
+        {consultationUrl && <a class="mobile-nav-link" href="/book-consultation/">Book a Call</a>}
       </div>
     </details>
   </nav>
