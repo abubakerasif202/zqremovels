@@ -21,7 +21,8 @@
     "gsc:auth": "node scripts/gsc-auth.mjs",
     "gsc:fetch": "node scripts/gsc-fetch.mjs",
     "gsc:opportunities": "node scripts/gsc-analyze-opportunities.mjs",
-    "gsc:submit-sitemap": "node scripts/gsc-submit-sitemap.mjs"
+    "gsc:submit-sitemap": "node scripts/gsc-submit-sitemap.mjs",
+    "test:readability": "node scripts/readability-audit.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.60.0",
@@ -31,7 +32,8 @@
     "http-server": "^14.1.1",
     "lighthouse": "^13.5.0",
     "lightningcss": "^1.32.0",
-    "purgecss": "^8.0.0"
+    "purgecss": "^8.0.0",
+    "axe-core": "^4.13.0"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",

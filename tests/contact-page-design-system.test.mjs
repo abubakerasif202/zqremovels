@@ -21,5 +21,5 @@ assert.match(css, /body\.page-contact\s*\{[\s\S]*--zq-v2-ink: #071421;[\s\S]*--z
 assert.match(css, /body\.page-contact \.contact-hero-shell\s*\{[\s\S]*url\("\/media\/home-local-hero-branded\.webp"\)/);
 assert.match(css, /body\.page-contact \.zq-v2-button-primary\s*\{[\s\S]*background: var\(--zq-v2-accent\) !important;/);
 assert.match(css, /body\.page-contact \.zq-v2-button-outline\s*\{[\s\S]*color: #f6f8f2 !important;/);
-assert.match(css, /body\.page-contact \.quote-form-premium :is\(h2, h3, legend, label span\)\s*\{ color: var\(--zq-v2-ink\) !important;/);
+assert.match(css, /body\.page-contact \.quote-form-premium :is\(h2, h3, legend, label span, label strong\)\s*\{ color: var\(--zq-v2-ink\) !important;/);
 assert.match(css, /body\.page-contact \.quote-form-premium :is\(input, select, textarea\):is\(:focus, :focus-visible\)\s*\{[\s\S]*border-color: var\(--zq-v2-accent\) !important;/);
