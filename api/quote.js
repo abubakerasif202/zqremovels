@@ -3,6 +3,8 @@
  * Engineered by FuckTheBug.com.au
  */
 
+const { requestWeb3Forms } = require("../lib/server/web3forms.js");
+
 const QUOTE_REQUIRED_FIELDS = [
   "pickup_suburb",
   "dropoff_suburb",
@@ -568,17 +570,7 @@ module.exports = async function handler(req, res) {
 
     let web3Response;
     try {
-      web3Response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: accessKey,
-          ...submission.upstreamPayload,
-        }),
-      });
+      web3Response = await requestWeb3Forms(submission.upstreamPayload, accessKey);
     } catch (error) {
       console.error("Web3Forms request failed.", error);
       if (wantsJsonResponse(req)) {
