@@ -6957,6 +6957,7 @@ async function pathExists(target) {
 async function copyStaticAssets() {
   const fileAssets = [
     'analytics.mjs',
+    'chat-widget.mjs',
     'brand-logo.png',
     'brand-logo-64.webp',
     'brand-logo-256.webp',
