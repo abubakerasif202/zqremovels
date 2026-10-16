@@ -53,8 +53,8 @@ test("full authenticated quote conversation persists only bounded Redis turns", 
       if(command==="SET") { if(args.includes("NX") && values.has(args[0])) return result({result:null}); values.set(args[0],args[1]); return result({result:"OK"}); }
       if(command==="DEL") { values.delete(args[0]); return result({result:1}); }
     }
-    if (u.includes("sts.googleapis.com")) return result({access_token:"federated-token"});
-    if (u.includes("iamcredentials.googleapis.com")) return result({token:"google-cloudrun-id-token"});
+    if (new URL(u).hostname === "sts.googleapis.com") return result({access_token:"federated-token"});
+    if (new URL(u).hostname === "iamcredentials.googleapis.com") return result({token:"google-cloudrun-id-token"});
     if (u.endsWith("/run")) return result([{author:"zq_receptionist",content:{role:"model",parts:[{text:"Two movers are A$75 per 30 minutes. Final price depends on duration."}]}}]);
     if (u.includes("/sessions/") && opts.method==="POST") return result({id:"s123"});
     if (u.includes("/sessions/") && opts.method==="DELETE") return new Response(null, {status:204});
@@ -74,8 +74,8 @@ test("full authenticated quote conversation persists only bounded Redis turns", 
   assert.match(res.body.reply,/A\$75/);
   assert.equal(res.body.turns.length,2);
   assert.match(res.headers["set-cookie"],/HttpOnly; SameSite=Lax/);
-  assert.ok(seen.some(v=>v.url.includes("sts.googleapis.com")));
-  assert.ok(seen.some(v=>v.url.includes("iamcredentials.googleapis.com")));
+  assert.ok(seen.some(v=>new URL(v.url).hostname === "sts.googleapis.com"));
+  assert.ok(seen.some(v=>new URL(v.url).hostname === "iamcredentials.googleapis.com"));
   assert.ok(seen.some(v=>v.method==="DELETE" && v.url.includes("/sessions/")));
   assert.equal(seen.filter(v=>v.url.endsWith("/run")).length,1);
 });
