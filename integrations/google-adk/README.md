@@ -31,7 +31,7 @@ follow the application's normal privacy and session retention controls.
 Set these environment variables only in the trusted agent runtime, backed by
 Secret Manager for the credential (Google Cloud project `sincere-kit-506814-u8`):
 
-- `ZQ_AI_LEAD_URL`: approved HTTPS website origin plus `/api/ai-lead`; no query,
+- `ZQ_AI_LEAD_URL`: approved HTTPS website origin plus `/api/ai-lead/`; no query,
   credentials, fragment or alternate port. Use the canonical route without a redirect.
 - `ZQ_AI_LEAD_SECRET`: same strong server-only secret configured on the website,
   at least 32 characters. Never put it in agent instructions, browser code, tool
