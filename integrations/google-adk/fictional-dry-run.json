@@ -1,0 +1,15 @@
+{
+  "full_name": "Test Customer",
+  "phone": "0400000000",
+  "email": "fictional@example.com",
+  "pickup_suburb": "Test Pickup",
+  "dropoff_suburb": "Test Dropoff",
+  "crew_package": "2 removalists + truck",
+  "move_scope": "Local move",
+  "property_type": "House",
+  "move_size": "1 bedroom",
+  "pickup_access": "Ground floor",
+  "dropoff_access": "Ground floor",
+  "packing_required": "No",
+  "move_details": "FICTIONAL TEST DATA. Do not contact or book."
+}
