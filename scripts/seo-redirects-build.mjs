@@ -109,6 +109,12 @@ for (const r of allRedirects) {
   }
 }
 
+// Reviewed destination overrides (data/migration/redirect-overrides.json) win over the audit file.
+for (const o of JSON.parse(rd('data/migration/redirect-overrides.json'))) {
+  const hit = verified.find((r) => r.source === o.source);
+  if (hit) hit.destination = o.destination;
+}
+
 // Integrity checks on the verified set.
 const vSources = new Set(verified.map((r) => r.source));
 const vDentnations = verified.map((r) => r.destination);

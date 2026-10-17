@@ -52,8 +52,8 @@ test('contact page matches the homepage design system and remains readable', asy
   expect(visualContract.field.background).toBe('rgb(255, 255, 255)');
   expect(visualContract.field.color).toBe('rgb(7, 20, 33)');
 
-  await page.locator('select[name="move_scope"]').focus();
-  await expect(page.locator('select[name="move_scope"]')).toBeFocused();
+  await page.locator('.quote-form-premium select[name="move_scope"]').focus();
+  await expect(page.locator('.quote-form-premium select[name="move_scope"]')).toBeFocused();
   await page.screenshot({
     path: `test-results/screenshots/${testInfo.project.name}-contact-us.png`,
     fullPage: true,
