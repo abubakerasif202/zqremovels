@@ -18,6 +18,11 @@ test-results/
 # Node
 node_modules/
 
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
 # AI tools
 .claude/
 .codex/
@@ -33,6 +38,7 @@ node_modules/
 secrets/
 .gsc-token.json
 data/gsc/*.raw.json
+/gsc-queries.json
 
 # Astro
 .astro/

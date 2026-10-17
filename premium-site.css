@@ -14791,3 +14791,79 @@ body.page-home .zq-v2-hero::before {
   .agency-credit { flex-direction: column; gap: 0.5rem; }
   .agency-credit-label { font-size: 0.64rem; }
 }
+
+/* ==========================================================================
+   UI/UX PRO MAX: INTERACTION & ACCESSIBILITY UPGRADES
+   ========================================================================== */
+
+/* Enhanced cursor & interaction affordances */
+summary,
+[role="button"],
+label[for],
+input[type="checkbox"],
+input[type="radio"],
+select {
+  cursor: pointer;
+}
+
+summary {
+  user-select: none;
+}
+
+/* Micro-transitions without layout shifts */
+.btn,
+.button,
+a.button,
+button.button,
+.header-actions a,
+.mobile-call-btn,
+.nav-link {
+  transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease, transform 150ms ease;
+}
+
+.btn:active,
+.button:active,
+a.button:active,
+button.button:active {
+  transform: translateY(1px);
+}
+
+/* Card hover affordance */
+.service-card,
+.pricing-card,
+.feature-card,
+.suburb-card,
+.guide-card,
+.faq-item {
+  transition: border-color 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+}
+
+/* Mobile Touch Target Standards (>= 44px) */
+@media (max-width: 768px) {
+  .nav-toggle,
+  .mobile-nav-toggle,
+  .header-actions a,
+  .sticky-mobile-cta a,
+  .sticky-mobile-cta button,
+  .btn,
+  .button,
+  a.button {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Universal Reduced Motion Guard */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

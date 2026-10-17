@@ -4996,7 +4996,7 @@ function renderGoogleReviewBadge({ compact = false } = {}) {
   const countText = String(googleReviews.reviewCount);
   const classes = compact ? 'google-review-badge google-review-badge-compact' : 'google-review-badge';
 
-  return `<a class="${classes}" href="${escapeAttribute(googleReviews.profileUrl)}" target="_blank" rel="noopener noreferrer">
+  return `<a class="${classes}" href="${escapeAttribute(googleReviews.profileUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Read ZQ Removals Google reviews. Rated ${ratingText} out of 5 from ${countText} reviews.">
   ${renderStarIcons()}
   <span><strong>${ratingText} &#9733;</strong> from ${countText} <span>Google reviews</span></span>
 </a>`;
@@ -5718,23 +5718,23 @@ ${profile.scenarios
     <div class="editorial-grid">
       <div class="editorial-copy reveal-on-scroll">
         <div class="section-heading">
-          <span class="eyebrow" style="color: white; border-color: rgba(255,255,255,0.3);">Verified Integrity</span>
-          <h2 style="color: white;">Why clients choose ZQ for ${escapeHtml(profile.suburb)} relocations.</h2>
+          <span class="eyebrow" style="color: var(--zq-gold-light); border-color: rgba(201, 168, 106, 0.4);">Verified Integrity</span>
+          <h2 style="color: var(--text-on-dark);">Why clients choose ZQ for ${escapeHtml(profile.suburb)} relocations.</h2>
         </div>
-        <p style="color: rgba(255,255,255,0.8);">${escapeHtml(profile.trust[0])}</p>
-        <p style="color: rgba(255,255,255,0.8);">${escapeHtml(profile.trust[1])}</p>
-        ${extraParagraph ? extraParagraph.replace('<p>', '<p style="color: rgba(255,255,255,0.8);">') : ''}
-        <p style="color: rgba(255,255,255,0.8);">${escapeHtml(targetCopy)}</p>
+        <p style="color: var(--text-muted-on-dark);">${escapeHtml(profile.trust[0])}</p>
+        <p style="color: var(--text-muted-on-dark);">${escapeHtml(profile.trust[1])}</p>
+        ${extraParagraph ? extraParagraph.replace('<p>', '<p style="color: var(--text-muted-on-dark);">') : ''}
+        <p style="color: var(--text-muted-on-dark);">${escapeHtml(targetCopy)}</p>
       </div>
       <div class="editorial-copy reveal-on-scroll">
         <h3 style="color: var(--color-accent); font-family: var(--font-heading); font-size: 1.6rem; margin-bottom: 2rem;">Related Relocation Services</h3>
         <ul aria-label="Service navigation" class="value-card" style="background: transparent; border: 0; box-shadow: none; padding: 0; gap: 1rem;">
-          <li style="color: white;"><a href="/house-removals-adelaide/" style="color: inherit; font-weight: 600;">House Removals Adelaide</a></li>
-          <li style="color: white;"><a href="/removalists-adelaide/" style="color: inherit; font-weight: 600;">All Suburb Coverage</a></li>
-          <li style="color: white;"><a href="/packing-services-adelaide/" style="color: inherit; font-weight: 600;">Packing & Unpacking</a></li>
-          <li style="color: white;"><a href="/furniture-removalists-adelaide/" style="color: inherit; font-weight: 600;">Furniture Specialists</a></li>
-          <li style="color: white;"><a href="/office-removals-adelaide/" style="color: inherit; font-weight: 600;">Office & Commercial</a></li>
-          <li style="color: white;"><a href="/interstate-removals-adelaide/" style="color: inherit; font-weight: 600;">Interstate Logistics</a></li>
+          <li style="color: var(--text-on-dark);"><a href="/house-removals-adelaide/" style="color: inherit; font-weight: 600;">House Removals Adelaide</a></li>
+          <li style="color: var(--text-on-dark);"><a href="/removalists-adelaide/" style="color: inherit; font-weight: 600;">All Suburb Coverage</a></li>
+          <li style="color: var(--text-on-dark);"><a href="/packing-services-adelaide/" style="color: inherit; font-weight: 600;">Packing & Unpacking</a></li>
+          <li style="color: var(--text-on-dark);"><a href="/furniture-removalists-adelaide/" style="color: inherit; font-weight: 600;">Furniture Specialists</a></li>
+          <li style="color: var(--text-on-dark);"><a href="/office-removals-adelaide/" style="color: inherit; font-weight: 600;">Office & Commercial</a></li>
+          <li style="color: var(--text-on-dark);"><a href="/interstate-removals-adelaide/" style="color: inherit; font-weight: 600;">Interstate Logistics</a></li>
           <li style="color: var(--color-accent-strong); margin-top: 1rem;"><a href="/contact-us/#quote-form" style="color: inherit; font-weight: 700; text-decoration: underline;">Get a Moving Quote</a></li>
         </ul>
       </div>

@@ -11,7 +11,7 @@ function walkFiles(directory, results = []) {
     const fullPath = path.join(directory, entry);
     const stats = statSync(fullPath);
     if (stats.isDirectory()) {
-      if (!['.git', 'node_modules', 'site-dist'].includes(entry)) walkFiles(fullPath, results);
+      if (!['.git', 'node_modules', 'site-dist', 'tmp'].includes(entry)) walkFiles(fullPath, results);
     } else {
       results.push(fullPath);
     }
