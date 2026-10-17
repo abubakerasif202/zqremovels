@@ -52,14 +52,16 @@ function readDist(route) {
 
 test('shared light-surface contrast contracts use dark readable foregrounds', () => {
   assert.match(css, /--color-surface-strong:\s*#10231f/i);
-  assert.equal(lastTokenValue('--surface-dark'), '#071713');
-  assert.equal(lastTokenValue('--surface-dark-elevated'), '#10231f');
-  assert.equal(lastTokenValue('--surface-light'), '#fffdf8');
-  assert.equal(lastTokenValue('--surface-light-muted'), '#f3efe6');
-  assert.equal(lastTokenValue('--text-on-dark'), '#fffdf8');
-  assert.equal(lastTokenValue('--heading-on-dark'), '#fffdf8');
-  assert.equal(lastTokenValue('--text-on-light'), '#10231f');
-  assert.equal(lastTokenValue('--heading-on-light'), '#071713');
+  for (const [foreground, background] of [
+    ['--text-on-dark', '--surface-dark'],
+    ['--heading-on-dark', '--surface-dark'],
+    ['--text-on-dark', '--surface-dark-elevated'],
+    ['--text-on-light', '--surface-light'],
+    ['--heading-on-light', '--surface-light'],
+    ['--text-muted-on-light', '--surface-light-muted'],
+  ]) {
+    assertContrast(lastTokenValue(foreground), lastTokenValue(background), 4.5, `${foreground} on ${background}`);
+  }
   assert.notEqual(lastTokenValue('--text-on-light'), lastTokenValue('--text-on-dark'));
   assert.notEqual(lastTokenValue('--bg-light'), lastTokenValue('--bg-dark'));
   assertContrast('#fffdf8', '#071713', 4.5, 'dark surface body text');

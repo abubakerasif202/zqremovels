@@ -39,3 +39,4 @@ data/gsc/*.raw.json
 
 .vercel
 .env*
+.gstack/

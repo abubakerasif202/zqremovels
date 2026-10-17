@@ -23,10 +23,17 @@ test('contact page matches the homepage design system and remains readable', asy
       const element = document.querySelector<HTMLElement>(selector);
       if (!element) throw new Error(`Missing ${selector}`);
       const computed = getComputedStyle(element);
+      let surface: HTMLElement | null = element;
+      let background = computed.backgroundColor;
+      while (surface && (background === 'rgba(0, 0, 0, 0)' || background === 'transparent')) {
+        surface = surface.parentElement;
+        if (surface) background = getComputedStyle(surface).backgroundColor;
+      }
       return {
-        background: computed.backgroundColor,
+        background,
         color: computed.color,
         borderColor: computed.borderColor,
+        fontSize: Number.parseFloat(computed.fontSize),
       };
     };
 
@@ -38,22 +45,34 @@ test('contact page matches the homepage design system and remains readable', asy
       primaryCta: style('.contact-hero-shell a.zq-v2-button-primary'),
       secondaryCta: style('.contact-hero-shell .zq-v2-button-outline'),
       label: style('.quote-form-premium label span'),
-      field: style('.quote-form-premium input'),
+      field: style('.quote-form-premium input[name="name"]'),
     };
   });
 
   expect(visualContract.documentWidth).toBeLessThanOrEqual(visualContract.viewportWidth);
-  expect(visualContract.header.background).toBe('rgba(0, 0, 0, 0)');
-  expect(visualContract.heroHeading.color).toBe('rgb(246, 248, 242)');
-  expect(visualContract.primaryCta.background).toBe('rgb(184, 242, 41)');
-  expect(visualContract.primaryCta.color).toBe('rgb(7, 20, 33)');
-  expect(visualContract.secondaryCta.color).toBe('rgb(246, 248, 242)');
-  expect(visualContract.label.color).toBe('rgb(7, 20, 33)');
-  expect(visualContract.field.background).toBe('rgb(255, 255, 255)');
-  expect(visualContract.field.color).toBe('rgb(7, 20, 33)');
+  const luminance = (color: string) => {
+    const components = color.match(/[\d.]+/g)?.map(Number);
+    if (!components || components.length < 3) throw new Error(`Unsupported computed color: ${color}`);
+    if (components.length > 3 && components[3] !== 1) throw new Error(`Contrast requires an opaque surface: ${color}`);
+    const [red, green, blue] = components.slice(0, 3).map((value) => {
+      const channel = value / 255;
+      return channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+    });
+    return red * 0.2126 + green * 0.7152 + blue * 0.0722;
+  };
+  for (const [name, style] of Object.entries({ primaryCta: visualContract.primaryCta, label: visualContract.label, field: visualContract.field })) {
+    const foreground = luminance(style.color);
+    const background = luminance(style.background);
+    expect((Math.max(foreground, background) + 0.05) / (Math.min(foreground, background) + 0.05), `${name} text contrast`).toBeGreaterThanOrEqual(4.5);
+  }
+  expect(visualContract.heroHeading.fontSize).toBeGreaterThanOrEqual(32);
+  expect(visualContract.field.fontSize).toBeGreaterThanOrEqual(16);
+  await expect(page.locator('.contact-hero-shell h1')).toBeVisible();
+  await expect(page.locator('.contact-hero-shell .zq-v2-button-outline')).toBeVisible();
 
-  await page.locator('.quote-form-premium select[name="move_scope"]').focus();
-  await expect(page.locator('.quote-form-premium select[name="move_scope"]')).toBeFocused();
+  const moveScope = page.locator('form[data-quote-form="quote"] select[name="move_scope"]');
+  await moveScope.focus();
+  await expect(moveScope).toBeFocused();
   await page.screenshot({
     path: `test-results/screenshots/${testInfo.project.name}-contact-us.png`,
     fullPage: true,
