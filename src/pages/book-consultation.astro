@@ -1,0 +1,122 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { renderHead } from '../../scripts/build-site.mjs';
+import { normalizeSchedulingUrl } from '../../site-src/data/scheduling.mjs';
+
+const consultationUrl = normalizeSchedulingUrl(import.meta.env.PUBLIC_ZQ_CAL_CONSULTATION_URL);
+const page = {
+  output: 'book-consultation/index.html',
+  layout: 'standard',
+  title: 'Book a Moving Consultation | ZQ Removals Adelaide',
+  description: 'Arrange a short consultation about your Adelaide or interstate move. Removal dates and quotes are confirmed separately after the move details are reviewed.',
+  canonical: 'https://zqremovalsadelaide.com.au/book-consultation/',
+  robots: 'noindex,follow',
+  jsonLd: [],
+};
+const headHtml = renderHead(page, '');
+---
+
+<Layout headHtml={headHtml} layout="standard" bodyClasses={['page-book-consultation']}>
+  <Header />
+  <main id="main-content" class="consultation-page">
+    <section class="container consultation-panel" aria-labelledby="consultation-title">
+      <div class="consultation-content">
+        <span class="eyebrow">Talk through your move</span>
+        <h1 id="consultation-title">Arrange a moving consultation.</h1>
+        <p class="consultation-lead">
+          Speak with ZQ Removals about the route, your property and the support you need.
+          We'll review the details before providing a quote or confirming a moving date.
+        </p>
+        {
+          consultationUrl ? (
+            <div class="consultation-actions">
+              <a class="button button-primary" href={consultationUrl} target="_blank" rel="noopener noreferrer">
+                Choose a consultation time
+              </a>
+              <a class="button button-secondary" href="/contact-us/#quote-form">Request a moving quote</a>
+            </div>
+          ) : (
+            <div class="consultation-actions">
+              <a class="button button-primary" href="/contact-us/#quote-form">Request a moving quote</a>
+              <a class="button button-secondary" href="tel:+61433819989">Call 0433 819 989</a>
+            </div>
+          )
+        }
+        <p class="consultation-note">
+          A consultation is for discussing your move, not a confirmed truck or crew booking.
+          Removal dates remain subject to availability, scope review and acceptance of the quote.
+        </p>
+      </div>
+      <aside class="consultation-aside" aria-label="Prepare for your consultation">
+        <span class="eyebrow">Before we talk</span>
+        <h2>Have these details handy</h2>
+        <ul>
+          <li>Pickup and delivery suburbs</li>
+          <li>Preferred moving date or timeframe</li>
+          <li>Property size and large items</li>
+          <li>Stairs, lifts, parking and access</li>
+        </ul>
+        <p>For urgent or same-day moves, call <a href="tel:+61433819989">0433 819 989</a>.</p>
+      </aside>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .consultation-page {
+    min-height: 65vh;
+    padding: clamp(4rem, 8vw, 7rem) 0;
+    background: radial-gradient(ellipse at 78% 18%, rgba(18, 95, 75, 0.26), transparent 55%), #0a1410;
+  }
+  .consultation-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(260px, 0.85fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: center;
+  }
+  .consultation-content h1 {
+    margin: 0.8rem 0 1.25rem;
+    font-size: clamp(2.6rem, 6vw, 5.4rem);
+    line-height: 1.08;
+    max-width: 14ch;
+    color: #f5f8f5;
+  }
+  .consultation-lead {
+    max-width: 63ch;
+    color: #d3e0d9;
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
+    line-height: 1.75;
+  }
+  .consultation-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    margin: 2rem 0 1.25rem;
+  }
+  .consultation-note {
+    max-width: 65ch;
+    color: #c5d3ca;
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+  .consultation-aside {
+    border: 1px solid rgba(187, 220, 201, 0.25);
+    border-radius: 1.4rem;
+    padding: clamp(1.5rem, 3vw, 2.4rem);
+    background: rgba(14, 40, 31, 0.88);
+    color: #edf7ee;
+    box-shadow: 0 20px 55px rgba(0, 0, 0, 0.16);
+  }
+  .consultation-aside h2 { margin: 0.65rem 0 1rem; font-size: clamp(1.4rem, 2.3vw, 2rem); }
+  .consultation-aside ul { padding-left: 1.35rem; line-height: 2; }
+  .consultation-aside p { color: #c5d3ca; margin-top: 1.35rem; }
+  .consultation-aside a { color: #f2dec1; text-underline-offset: 3px; }
+  @media (max-width: 780px) {
+    .consultation-panel { grid-template-columns: 1fr; }
+    .consultation-page { padding-bottom: 7.5rem; }
+    .consultation-actions .button { text-align: center; }
+  }
+</style>

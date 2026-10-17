@@ -4996,7 +4996,7 @@ function renderGoogleReviewBadge({ compact = false } = {}) {
   const countText = String(googleReviews.reviewCount);
   const classes = compact ? 'google-review-badge google-review-badge-compact' : 'google-review-badge';
 
-  return `<a class="${classes}" href="${escapeAttribute(googleReviews.profileUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Read ZQ Removals Google reviews. Rated ${ratingText} out of 5 from ${countText} reviews.">
+  return `<a class="${classes}" href="${escapeAttribute(googleReviews.profileUrl)}" target="_blank" rel="noopener noreferrer">
   ${renderStarIcons()}
   <span><strong>${ratingText} &#9733;</strong> from ${countText} <span>Google reviews</span></span>
 </a>`;
@@ -6957,6 +6957,7 @@ async function pathExists(target) {
 async function copyStaticAssets() {
   const fileAssets = [
     'analytics.mjs',
+    'chat-widget.mjs',
     'brand-logo.png',
     'brand-logo-64.webp',
     'brand-logo-256.webp',

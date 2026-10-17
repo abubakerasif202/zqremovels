@@ -26,7 +26,7 @@ The AI endpoint emits no browser conversion, telemetry event or offline Ads uplo
 | `WEB3FORMS_ACCESS_KEY` | Website | Explicit existing verified delivery key; AI does not accept a `VITE_` key or embedded fallback |
 | `KV_REST_API_URL` | Website | HTTPS Redis REST endpoint for durable idempotency and AI rate limiting |
 | `KV_REST_API_TOKEN` | Website | Redis REST credential supporting GET, SET NX/XX, EVAL, INCR and EXPIRE |
-| `ZQ_AI_LEAD_URL` | ADK runtime | Approved canonical HTTPS origin plus `/api/ai-lead`, without query, fragment, credentials or redirects |
+| `ZQ_AI_LEAD_URL` | ADK runtime | Approved canonical HTTPS origin plus `/api/ai-lead/`, without query, fragment, credentials or redirects |
 
 Keep secrets in hosting environment storage and Google Secret Manager in project
 `sincere-kit-506814-u8`, injected into the trusted agent process by its runtime.

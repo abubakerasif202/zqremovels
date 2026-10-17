@@ -33,7 +33,7 @@ def _post(payload: dict) -> dict:
     secret = os.environ.get("ZQ_AI_LEAD_SECRET", "")
     if (target.scheme != "https" or not target.hostname or target.username
             or target.password or target.query or target.fragment
-            or target.path != "/api/ai-lead" or target.port not in (None, 443)
+            or target.path != "/api/ai-lead/" or target.port not in (None, 443)
             or len(secret) < 32 or any(c in secret for c in "\r\n")):
         raise ValueError("Invalid server-side lead endpoint configuration")
     connection = http.client.HTTPSConnection(target.hostname, timeout=20)
