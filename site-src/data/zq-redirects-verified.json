@@ -41,7 +41,7 @@
   },
   {
     "source": "/adelaide-to-queensland-removals/",
-    "destination": "/interstate-removals-adelaide/",
+    "destination": "/adelaide-to-brisbane-removals/",
     "permanent": true
   },
   {
@@ -66,7 +66,7 @@
   },
   {
     "source": "/adelaide-moving-guides/apartment-lift-bookings-adelaide/",
-    "destination": "/apartment-removalists-adelaide/",
+    "destination": "/adelaide-moving-guides/apartment-moving-tips-adelaide/",
     "permanent": true
   },
   {
@@ -81,7 +81,7 @@
   },
   {
     "source": "/adelaide-to-smithfield-nsw-removalists/",
-    "destination": "/interstate-removals-adelaide/",
+    "destination": "/adelaide-to-sydney-removalists/",
     "permanent": true
   },
   {
@@ -96,7 +96,7 @@
   },
   {
     "source": "/office-removals-modbury/",
-    "destination": "/office-removals-adelaide/",
+    "destination": "/removalists-modbury/",
     "permanent": true
   },
   {
@@ -156,17 +156,17 @@
   },
   {
     "source": "/adelaide-moving-guides/how-much-do-movers-cost-adelaide/",
-    "destination": "/removalists-adelaide-prices/",
+    "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
     "permanent": true
   },
   {
     "source": "/adelaide-moving-guides/removalists-cost-marion/",
-    "destination": "/removalists-adelaide-prices/",
+    "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
     "permanent": true
   },
   {
     "source": "/adelaide-moving-guides/moving-from-apartment-buildings-adelaide/",
-    "destination": "/apartment-removalists-adelaide/",
+    "destination": "/adelaide-moving-guides/apartment-moving-tips-adelaide/",
     "permanent": true
   },
   {
@@ -206,12 +206,12 @@
   },
   {
     "source": "/removalists-newton/",
-    "destination": "/removalists-northern-adelaide/",
+    "destination": "/removalists-campbelltown/",
     "permanent": true
   },
   {
     "source": "/office-removals-port-adelaide/",
-    "destination": "/office-removals-adelaide/",
+    "destination": "/removalists-port-adelaide/",
     "permanent": true
   },
   {
@@ -221,12 +221,12 @@
   },
   {
     "source": "/melbourne-to-adelaide-removalists/",
-    "destination": "/interstate-removals-adelaide/",
+    "destination": "/adelaide-to-melbourne-removalists/",
     "permanent": true
   },
   {
     "source": "/office-removals-salisbury/",
-    "destination": "/office-removals-adelaide/",
+    "destination": "/removalists-salisbury/",
     "permanent": true
   },
   {
@@ -236,7 +236,7 @@
   },
   {
     "source": "/removalists-glengowrie/",
-    "destination": "/removalists-southern-adelaide/",
+    "destination": "/removalists-glenelg/",
     "permanent": true
   },
   {
@@ -251,7 +251,7 @@
   },
   {
     "source": "/adelaide-moving-guides/moving-cost-adelaide-2026/",
-    "destination": "/removalists-adelaide-prices/",
+    "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
     "permanent": true
   },
   {
@@ -266,7 +266,7 @@
   },
   {
     "source": "/apartment-removalists-henley-beach/",
-    "destination": "/apartment-removalists-adelaide/",
+    "destination": "/removalists-henley-beach/",
     "permanent": true
   },
   {
@@ -281,7 +281,7 @@
   },
   {
     "source": "/apartment-removalists-prospect/",
-    "destination": "/apartment-removalists-adelaide/",
+    "destination": "/removalists-prospect/",
     "permanent": true
   },
   {
@@ -291,7 +291,7 @@
   },
   {
     "source": "/removalists-somerton-park-west/",
-    "destination": "/removalists-southern-adelaide/",
+    "destination": "/removalists-glenelg/",
     "permanent": true
   },
   {
@@ -311,7 +311,7 @@
   },
   {
     "source": "/removalists-athelstone/",
-    "destination": "/removalists-adelaide/",
+    "destination": "/removalists-campbelltown/",
     "permanent": true
   },
   {
@@ -336,12 +336,12 @@
   },
   {
     "source": "/removalists-north-adelaide/",
-    "destination": "/removalists-adelaide/",
+    "destination": "/removalists-adelaide-cbd/",
     "permanent": true
   },
   {
     "source": "/removalists-seaton/",
-    "destination": "/removalists-adelaide/",
+    "destination": "/removalists-west-lakes/",
     "permanent": true
   },
   {
@@ -361,7 +361,7 @@
   },
   {
     "source": "/adelaide-moving-guides/settlement-day-moving-adelaide/",
-    "destination": "/adelaide-moving-guides/",
+    "destination": "/adelaide-moving-guides/best-time-to-move-adelaide/",
     "permanent": true
   },
   {
@@ -376,12 +376,12 @@
   },
   {
     "source": "/removalists-urrbrae/",
-    "destination": "/removalists-southern-adelaide/",
+    "destination": "/removalists-mitcham/",
     "permanent": true
   },
   {
     "source": "/removalists-clarence-park/",
-    "destination": "/removalists-southern-adelaide/",
+    "destination": "/removalists-goodwood/",
     "permanent": true
   },
   {
@@ -396,12 +396,12 @@
   },
   {
     "source": "/adelaide-moving-guides/weekend-vs-weekday-moving-adelaide/",
-    "destination": "/adelaide-moving-guides/",
+    "destination": "/adelaide-moving-guides/best-time-to-move-adelaide/",
     "permanent": true
   },
   {
     "source": "/removalists-seacliff/",
-    "destination": "/removalists-southern-adelaide/",
+    "destination": "/removalists-brighton/",
     "permanent": true
   },
   {
@@ -461,7 +461,7 @@
   },
   {
     "source": "/removalists-kilburn/",
-    "destination": "/removalists-northern-adelaide/",
+    "destination": "/removalists-prospect/",
     "permanent": true
   },
   {
@@ -491,7 +491,7 @@
   },
   {
     "source": "/adelaide-moving-guides/suburb-move-preparation-adelaide/",
-    "destination": "/adelaide-moving-guides/",
+    "destination": "/adelaide-moving-guides/prepare-house-move-adelaide/",
     "permanent": true
   },
   {
@@ -521,7 +521,7 @@
   },
   {
     "source": "/removalists-elizabeth-vale/",
-    "destination": "/removalists-northern-adelaide/",
+    "destination": "/removalists-elizabeth/",
     "permanent": true
   },
   {
@@ -531,7 +531,7 @@
   },
   {
     "source": "/removalists-findon/",
-    "destination": "/removalists-adelaide/",
+    "destination": "/removalists-west-lakes/",
     "permanent": true
   },
   {
@@ -571,12 +571,12 @@
   },
   {
     "source": "/removalists-seaton-park/",
-    "destination": "/removalists-adelaide/",
+    "destination": "/removalists-allenby-gardens/",
     "permanent": true
   },
   {
     "source": "/removalists-rosewater/",
-    "destination": "/removalists-adelaide/",
+    "destination": "/removalists-allenby-gardens/",
     "permanent": true
   },
   {
@@ -616,7 +616,7 @@
   },
   {
     "source": "/office-removals-glenelg/",
-    "destination": "/office-removals-adelaide/",
+    "destination": "/removalists-glenelg/",
     "permanent": true
   },
   {
@@ -686,7 +686,7 @@
   },
   {
     "source": "/removalists-largs-bay/",
-    "destination": "/removalists-adelaide/",
+    "destination": "/removalists-semaphore/",
     "permanent": true
   },
   {
@@ -696,7 +696,7 @@
   },
   {
     "source": "/removalists-hope-valley/",
-    "destination": "/removalists-northern-adelaide/",
+    "destination": "/removalists-tea-tree-gully/",
     "permanent": true
   },
   {
@@ -726,12 +726,12 @@
   },
   {
     "source": "/adelaide-moving-guides/pricing-breakdown-adelaide/",
-    "destination": "/removalists-adelaide-prices/",
+    "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
     "permanent": true
   },
   {
     "source": "/adelaide-moving-guides/office-relocation-preparation-adelaide/",
-    "destination": "/office-removals-adelaide/",
+    "destination": "/adelaide-moving-guides/office-relocation-checklist-adelaide/",
     "permanent": true
   },
   {
@@ -746,7 +746,7 @@
   },
   {
     "source": "/adelaide-moving-guides/apartment-loading-zone-guide-adelaide/",
-    "destination": "/apartment-removalists-adelaide/",
+    "destination": "/adelaide-moving-guides/apartment-moving-tips-adelaide/",
     "permanent": true
   },
   {
@@ -881,7 +881,7 @@
   },
   {
     "source": "/apartment-removalists-henley-beach-south/",
-    "destination": "/apartment-removalists-adelaide/",
+    "destination": "/removalists-henley-beach-south/",
     "permanent": true
   },
   {
@@ -901,7 +901,7 @@
   },
   {
     "source": "/removalists-fulham/",
-    "destination": "/removalists-adelaide/",
+    "destination": "/removalists-west-lakes/",
     "permanent": true
   },
   {
@@ -1071,7 +1071,7 @@
   },
   {
     "source": "/adelaide-moving-guides/booking-timing-guide-adelaide/",
-    "destination": "/adelaide-moving-guides/",
+    "destination": "/adelaide-moving-guides/best-time-to-book-removalists-adelaide/",
     "permanent": true
   },
   {
@@ -1081,7 +1081,7 @@
   },
   {
     "source": "/adelaide-moving-guides/office-relocation-checklist-adelaide-guide/",
-    "destination": "/office-removals-adelaide/",
+    "destination": "/adelaide-moving-guides/office-relocation-checklist-adelaide/",
     "permanent": true
   },
   {

@@ -223,6 +223,9 @@ const redirectDest = (src) => {
   return entry ? entry.destination : '';
 };
 const linksTo = (html, href) => html.includes(`href="${href}"`);
+const reviewedOverrideDestinations = new Set(
+  JSON.parse(readFileSync(path.join(root, 'data', 'migration', 'redirect-overrides.json'), 'utf8')).map((o) => o.destination),
+);
 
 test('interstate hub and surviving route pages keep the interstate conversion path', () => {
   const hub = readDist(path.join('interstate-removals-adelaide', 'index.html'));
@@ -231,9 +234,10 @@ test('interstate hub and surviving route pages keep the interstate conversion pa
     assert.ok(linksTo(hub, route), `hub missing ${route}`);
   }
   assert.ok(linksTo(homepage, '/interstate-removals-adelaide/'));
-  for (const gone of ['/adelaide-to-queensland-removals/', '/adelaide-to-smithfield-nsw-removalists/', '/adelaide-to-western-sydney-removalists/']) {
-    assert.equal(redirectDest(gone), '/interstate-removals-adelaide/', gone);
-  }
+  // Reviewed overrides (data/migration/redirect-overrides.json) send these to the surviving route page.
+  assert.equal(redirectDest('/adelaide-to-queensland-removals/'), '/adelaide-to-brisbane-removals/');
+  assert.equal(redirectDest('/adelaide-to-smithfield-nsw-removalists/'), '/adelaide-to-sydney-removalists/');
+  assert.equal(redirectDest('/adelaide-to-western-sydney-removalists/'), '/interstate-removals-adelaide/');
 });
 
 test('guide hub feeds the surviving guide cluster into service intent pages', () => {
@@ -261,7 +265,11 @@ test('consolidated suburb and guide URLs 301 to a hub and leave the sitemap', ()
   for (const r of verifiedRedirects) {
     if (r.source.startsWith('/removalists-')) {
       assert.ok(!suburbsSitemap.includes(`zqremovalsadelaide.com.au${r.source}`), `${r.source} still in suburb sitemap`);
-      assert.match(redirectDest(r.source), /^\/removalists-(southern|northern|adelaide)/, r.source);
+      const dest = redirectDest(r.source);
+      assert.ok(
+        /^\/removalists-(southern|northern|adelaide)/.test(dest) || reviewedOverrideDestinations.has(dest),
+        `${r.source} -> ${dest} must be a hub or a reviewed override target`,
+      );
     }
     if (r.source.startsWith('/adelaide-moving-guides/')) {
       assert.ok(!guidesSitemap.includes(`zqremovalsadelaide.com.au${r.source}`), `${r.source} still in guide sitemap`);

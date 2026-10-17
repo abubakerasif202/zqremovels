@@ -14791,3 +14791,46 @@ body.page-home .zq-v2-hero::before {
   .agency-credit { flex-direction: column; gap: 0.5rem; }
   .agency-credit-label { font-size: 0.64rem; }
 }
+
+/* 2026-10 brand consistency pass.
+   The homepage and contact page use the navy/lime contract; every other route
+   inherited older dark-green/orange variants. These rules unify the shared
+   chrome (wordmark, primary CTA, footer address) using the homepage tokens. */
+body:not(.page-home):not(.page-contact) .site-header .brand-copy strong {
+  color: #f6f8f2;
+}
+
+body .button-primary,
+body .button-cta {
+  background: #b8f229;
+  background-image: none;
+  border-color: transparent;
+  color: #071421 !important;
+  box-shadow: 0 14px 30px rgba(184, 242, 41, 0.18);
+}
+
+body .button-primary:hover,
+body .button-primary:focus-visible,
+body .button-cta:hover,
+body .button-cta:focus-visible {
+  background: #cbff43;
+  background-image: none;
+  color: #071421 !important;
+  box-shadow: 0 18px 36px rgba(184, 242, 41, 0.26);
+}
+
+.footer-shell .nap {
+  display: grid;
+  gap: 0.3rem;
+  margin-top: 1rem;
+  font-style: normal;
+}
+
+.footer-shell .nap > *,
+.footer-shell .nap [itemprop="address"] {
+  display: block;
+}
+
+.footer-shell .footer-brand-panel {
+  align-self: start;
+}
