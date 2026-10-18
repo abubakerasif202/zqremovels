@@ -124,8 +124,12 @@ if (coverage.length !== generatedPages.filter((page) => page.generatedKind === '
 const robots = await readFile(path.join(distRoot, 'robots.txt'), 'utf8').catch(() => '');
 if (!robots.includes(`Sitemap: ${seoConfig.siteUrl}/sitemap.xml`)) failures.push('robots missing canonical sitemap reference');
 
-const sitemapFiles = ['sitemap-index.xml', 'sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml'];
+const sitemapFiles = ['sitemap.xml', 'sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml'];
 const sitemapXmlByName = new Map();
+// sitemap.xml is the single sitemap index; sitemap-index.xml is a retired alias served by a 301 in vercel.json.
+if (await readFile(path.join(distRoot, 'sitemap-index.xml'), 'utf8').catch(() => '')) {
+  failures.push('sitemap-index.xml must not be emitted (sitemap.xml is the single index)');
+}
 for (const file of sitemapFiles) {
   const xml = await readFile(path.join(distRoot, file), 'utf8').catch(() => '');
   if (!xml) failures.push(`missing sitemap file: ${file}`);
@@ -662,7 +666,7 @@ function summarizeSitemaps(sitemapXmlByName, pagesList) {
     .flatMap((name) => extractSitemapLocs(sitemapXmlByName.get(name) || ''))
     .length;
   const imageUrlCount = extractSitemapLocs(sitemapXmlByName.get('sitemap-images.xml') || '').length;
-  const indexSitemapCount = extractSitemapLocs(sitemapXmlByName.get('sitemap-index.xml') || '').length;
+  const indexSitemapCount = extractSitemapLocs(sitemapXmlByName.get('sitemap.xml') || '').length;
 
   const redirectExclusions = pagesList.filter((p) => p.layout === 'redirect').length;
   const noindexExclusions = pagesList.filter((p) =>

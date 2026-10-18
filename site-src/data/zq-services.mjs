@@ -389,25 +389,26 @@ export const zqServicePages = [
     hero:
       'Before booking a piano move, confirm the instrument dimensions and the complete access path at both properties.',
     sections: [
-      'Piano weight, delicate internal mechanics, and surface finishes need careful assessment. Provide the instrument type and photos before confirming a booking.',
-      'ZQ Removals scopes piano moves around the exact access path: stair counts, landing dimensions, tight doorways, grass/gravel pathways, and floor surfaces. We review every detail manually so your moving estimate is based on real access conditions rather than guesswork.',
-      'Include both addresses and tell the team whether the piano is part of a larger move so the requested route and handling can be assessed.',
+      'Pianos are heavy, awkward and sensitive to knocks, so the plan starts with the instrument and the route it has to travel. Tell us the piano type, its approximate size and both addresses before booking.',
+      'Upright pianos are the most common request. A grand piano has a different shape and usually needs a different handling plan, and digital pianos and keyboards are lighter but still need protecting. Say which you have, and send the make and model if you know it, so the team can confirm whether and how the move can be done.',
+      'Access matters as much as the piano. Measure the front door and any internal doorways, count the steps and turns, note stairs or landings, and check for gravel, grass, ramps or uneven paths. Clear the route and decide where the piano will sit at the destination before the day.',
+      'In your enquiry, include both addresses, the piano type and dimensions, photos of the piano and of the access path, whether there are stairs at either end, and whether the piano is part of a larger move. If the piano needs tuning after the move, arrange that with your own piano technician.',
     ],
     processSteps: [
       {
         title: 'Assess instrument & access',
         copy: 'Confirm piano type (e.g. upright, organ), weight, dimensions, and path details like stairs, turns, and flooring types at both ends.',
-        points: ['Upright and digital piano profiles noted', 'Staircases and tight turns measured', 'Floor surface protection planned'],
+        points: ['Piano type and dimensions noted', 'Staircases and tight turns measured', 'Floor surfaces and protection discussed'],
       },
       {
         title: 'Wrap and secure',
         copy: 'Confirm the handling and protection requirements with the team after they have reviewed the instrument and access photos.',
-        points: ['Protection requirements confirmed', 'Handling requirements reviewed', 'Transit restraints checked'],
+        points: ['Protection requirements confirmed', 'Handling requirements reviewed', 'Securing for transport discussed'],
       },
       {
         title: 'Safe transport & placement',
         copy: 'Confirm pickup and delivery access, the proposed placement, and any restrictions before approving the move.',
-        points: ['Loading access confirmed', 'Smooth transit positioning', 'Destination placement confirmed'],
+        points: ['Loading access confirmed', 'Position in the truck discussed', 'Destination placement confirmed'],
       },
     ],
     faq: [
@@ -415,6 +416,11 @@ export const zqServicePages = [
         question: 'Do you move grand pianos in Adelaide?',
         answer:
           'Send the piano type, dimensions and access photos. The team must confirm whether the instrument and access can be accepted before you book.',
+      },
+      {
+        question: 'Is moving an upright piano different from moving a grand piano?',
+        answer:
+          'Yes. An upright is tall and compact but can be difficult to turn on stairs and landings, while a grand piano has a long, curved body and needs a different handling plan. Send photos, the make and model and the access path for either type, and the team will confirm whether and how the move can be done before you book.',
       },
       {
         question: 'What details do you need for a piano moving quote?',
@@ -494,8 +500,8 @@ export const zqServiceIntentProfiles = {
   },
   'services/piano-movers-adelaide': {
     primaryKeyword: 'piano movers Adelaide',
-    secondaryKeywords: ['piano transport Adelaide', 'upright piano moving Adelaide', 'specialist piano removalists'],
-    searchIntent: 'specialist upright piano transport and route-to-room access planning',
+    secondaryKeywords: ['piano transport Adelaide', 'upright piano moving Adelaide', 'piano removalists Adelaide'],
+    searchIntent: 'upright piano transport and route-to-room access planning',
     uniqueAngle: 'focuses on access paths, stairways, weight distribution, and the handling requirements of the instrument',
     conversionCTA: 'Request a piano moving quote',
   },
@@ -758,12 +764,12 @@ export const zqServiceFactorCards = {
       copy: 'Stairs, steps, grass, gravel, and narrow turns are the biggest factors in a safe piano move.',
     },
     {
-      title: 'Specialist setup',
-      copy: 'Provide the instrument dimensions and access photos so the team can assess handling requirements before accepting the booking.',
+      title: 'Instrument details',
+      copy: 'Provide the piano type, dimensions and access photos so the team can assess the handling requirements before accepting the booking.',
     },
     {
-      title: 'Transparent pricing',
-      copy: 'Every piano move is reviewed manually so pricing can account for the actual access route.',
+      title: 'Time-based pricing',
+      copy: 'Piano moves are charged on the published crew rates, so the time spent on stairs, turns and carries is what changes the total.',
     },
   ],
 };
@@ -831,6 +837,7 @@ const zqConsolidatedServiceAliases = new Set([
   'local-removalists-adelaide',
   'services/local-removals-adelaide',
   'services/adelaide-cbd-apartment-removalists',
+  'apartment-removals-adelaide',
   'services/furniture-bulky-item-removalists-adelaide',
 ]);
 

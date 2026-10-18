@@ -60,7 +60,11 @@ function stripApprovedQuotePackagePricing(html) {
     .replace(/\$89\s*(?:per|\/)\s*30 min(?:utes)?/gi, '')
     // Published rates restated as arithmetic on the prices page: hourly equivalents and example-duration totals.
     .replace(/\$(?:150|178)\/hour/gi, '')
-    .replace(/<td>\$(?:300|356|450|534|600|712)<\/td>/g, '');
+    .replace(/<td>\$(?:300|356|450|534|600|712)<\/td>/g, '')
+    // Hypothetical worked examples that include the call-out/travel charge carry their assumptions as data attributes.
+    .replace(/<tr\b[^>]*data-half-hours[\s\S]*?<\/tr>/g, '')
+    // Approved rates and the call-out amounts derived from them (one hour of the selected crew rate).
+    .replace(/\$(?:75|89|150|178)(?!\d)/g, '');
 }
 
 function extractRootLinks(html) {

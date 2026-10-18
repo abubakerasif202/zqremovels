@@ -31,7 +31,7 @@ const coreServiceOutputs = [
   'office-removals-adelaide/index.html',
   'interstate-removals-adelaide/index.html',
   'packing-services-adelaide/index.html',
-  'apartment-removals-adelaide/index.html',
+  'apartment-removalists-adelaide/index.html',
 ];
 
 test.before(async () => {
@@ -155,7 +155,7 @@ test('seo v5 sitemap and robots output is clean, canonical, grouped, and duplica
     'sitemap-guides.xml',
     'sitemap-images.xml',
   ];
-  const sitemapIndex = readDist('sitemap-index.xml');
+  const sitemapIndex = readDist('sitemap.xml');
   assert.match(sitemapIndex, /^<\?xml version="1\.0" encoding="UTF-8"\?>\n/);
 
   for (const sitemap of expectedSitemaps) {
@@ -201,7 +201,6 @@ test('seo v5 llms files and alternate markdown links are published', () => {
 test('seo v5 thank-you and utility pages stay noindex and out of sitemap', () => {
   const sitemap = [
     readDist('sitemap.xml'),
-    readDist('sitemap-index.xml'),
     readDist('sitemap-pages.xml'),
     readDist('sitemap-services.xml'),
     readDist('sitemap-suburbs.xml'),
@@ -254,7 +253,7 @@ test('seo v5 indexable pages have complete twitter cards and concise hero headin
 });
 
 test('seo v5 sitemap files never include the www homepage variant', () => {
-  for (const file of ['sitemap.xml', 'sitemap-index.xml', 'sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml', 'sitemap-images.xml']) {
+  for (const file of ['sitemap.xml', 'sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml', 'sitemap-images.xml']) {
     assert.doesNotMatch(readDist(file), /https:\/\/www\.zqremovals\.au\//i, `${file} must not include the www host`);
   }
 });

@@ -71,7 +71,7 @@ test('build output keeps apex canonical host and excludes unsupported review sch
 });
 
 test('sitemap contains the canonical pricing page and excludes consolidated price aliases', () => {
-  const sitemapFiles = ['sitemap-index.xml', 'sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml'];
+  const sitemapFiles = ['sitemap.xml', 'sitemap-pages.xml', 'sitemap-services.xml', 'sitemap-suburbs.xml', 'sitemap-guides.xml'];
   const sitemap = sitemapFiles
     .map((file) => readFileSync(path.join(distDir, file), 'utf8'))
     .join('\n');

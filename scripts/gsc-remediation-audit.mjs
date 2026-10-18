@@ -27,7 +27,6 @@ const requiredRoutes = [
 ];
 for (const name of [
   "sitemap.xml",
-  "sitemap-index.xml",
   "sitemap-pages.xml",
   "sitemap-services.xml",
   "sitemap-suburbs.xml",

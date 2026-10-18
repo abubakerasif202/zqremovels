@@ -158,7 +158,7 @@ const verifiedPricingMetadata = new Map([
   }],
   ['removalists-kensington-gardens/index.html', {
     title: 'Removalists Kensington Gardens | Adelaide Movers',
-    description: 'Kensington Gardens removalists for family-home moves. Plan access, inventory and timing with a clear, tailored Adelaide moving quote.',
+    description: 'Kensington Gardens removalists for family homes. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply.',
   }],
   ['removalists-parafield-gardens/index.html', {
     title: 'Removalists Parafield Gardens | Adelaide Movers',
@@ -538,7 +538,7 @@ const suburbPageProfiles = {
       ],
     },
     nearbyLinks: [
-      { href: '/removalists-blakeview/', label: 'Blakeview removalists' },
+      { href: '/removalists-elizabeth/', label: 'Elizabeth removalists' },
       { href: '/removalists-northern-adelaide/', label: 'Northern Adelaide movers and planning notes' },
       { href: '/removalists-andrews-farm/', label: 'Andrews Farm removalists' },
       { href: '/removalists-salisbury/', label: 'Salisbury removalists' },
@@ -768,7 +768,7 @@ const suburbPageProfiles = {
   },
   'northern-adelaide': {
     suburb: 'Northern Adelaide',
-    nearby: 'Salisbury, Elizabeth, Andrews Farm, Mawson Lakes, Blakeview, and Gawler',
+    nearby: 'Salisbury, Elizabeth, Andrews Farm, Mawson Lakes, Munno Para, Modbury and Gawler',
     eyebrow: 'Removalists Northern Suburbs Adelaide',
     h1: 'Northern Adelaide removalists for family homes and estates.',
     hero:
@@ -794,7 +794,8 @@ const suburbPageProfiles = {
       { href: '/removalists-elizabeth/', label: 'Elizabeth removalists' },
       { href: '/removalists-andrews-farm/', label: 'Andrews Farm removalists' },
       { href: '/removalists-mawson-lakes/', label: 'Mawson Lakes removalists' },
-      { href: '/removalists-blakeview/', label: 'Blakeview removalists' },
+      { href: '/removalists-munno-para/', label: 'Munno Para removalists' },
+      { href: '/removalists-modbury/', label: 'Modbury removalists' },
       { href: '/removalists-gawler/', label: 'Gawler removalists' },
       { href: '/removalists-adelaide/', label: 'All Adelaide suburb coverage' },
     ],
@@ -7027,7 +7028,7 @@ function renderLLMsTxt(pagesList) {
     '/packing-services-adelaide/',
     '/furniture-removals-adelaide/',
     '/furniture-removalists-adelaide/',
-    '/apartment-removals-adelaide/',
+    '/apartment-removalists-adelaide/',
     '/local-removalists-adelaide/',
     '/moving-company-adelaide/',
     '/adelaide-moving-guides/',
@@ -7053,7 +7054,7 @@ function renderLLMsTxt(pagesList) {
       output === 'packing-services-adelaide/index.html' ||
       output === 'furniture-removals-adelaide/index.html' ||
       output === 'furniture-removalists-adelaide/index.html' ||
-      output === 'apartment-removals-adelaide/index.html' ||
+      output === 'apartment-removalists-adelaide/index.html' ||
       output === 'local-removalists-adelaide/index.html' ||
       output === 'moving-company-adelaide/index.html' ||
       output === 'interstate-removals-adelaide/index.html'
@@ -7328,12 +7329,11 @@ ${urls.join('\n')}
     }
   }
 
-  files['sitemap-index.xml'] = `<?xml version="1.0" encoding="UTF-8"?>
+  files['sitemap.xml'] = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${indexEntries.join('\n')}
 </sitemapindex>
 `;
-  files['sitemap.xml'] = files['sitemap-index.xml'];
   return files;
 }
 

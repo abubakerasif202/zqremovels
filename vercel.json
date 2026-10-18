@@ -299,6 +299,26 @@
       "permanent": true
     },
     {
+      "source": "/apartment-removals-adelaide/",
+      "destination": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/apartment-removals-adelaide",
+      "destination": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/apartment-removals-adelaide/index.html",
+      "destination": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/sitemap-index.xml",
+      "destination": "https://zqremovalsadelaide.com.au/sitemap.xml",
+      "permanent": true
+    },
+    {
       "source": "/adelaide-movers",
       "destination": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
       "permanent": true
@@ -320,12 +340,12 @@
     },
     {
       "source": "/apartment-movers-adelaide",
-      "destination": "https://zqremovalsadelaide.com.au/apartment-removals-adelaide/",
+      "destination": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
       "permanent": true
     },
     {
       "source": "/apartment-movers-adelaide/",
-      "destination": "https://zqremovalsadelaide.com.au/apartment-removals-adelaide/",
+      "destination": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
       "permanent": true
     },
     {
@@ -550,17 +570,17 @@
     },
     {
       "source": "/services/apartment-removals-adelaide",
-      "destination": "https://zqremovalsadelaide.com.au/apartment-removals-adelaide/",
+      "destination": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
       "permanent": true
     },
     {
       "source": "/services/apartment-removals-adelaide/",
-      "destination": "https://zqremovalsadelaide.com.au/apartment-removals-adelaide/",
+      "destination": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
       "permanent": true
     },
     {
       "source": "/services/apartment-removals-adelaide/index.html",
-      "destination": "https://zqremovalsadelaide.com.au/apartment-removals-adelaide/",
+      "destination": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
       "permanent": true
     },
     {

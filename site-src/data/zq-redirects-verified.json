@@ -1123,5 +1123,10 @@
     "source": "/guides/how-to-prepare-furniture-for-moving/",
     "destination": "/adelaide-moving-guides/how-to-prepare-furniture-for-moving/",
     "permanent": true
+  },
+  {
+    "source": "/apartment-removals-adelaide/",
+    "destination": "/apartment-removalists-adelaide/",
+    "permanent": true
   }
 ]

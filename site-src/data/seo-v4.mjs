@@ -88,7 +88,7 @@ export function normalizeInternalHref(href = '') {
       '/services/packing-services-adelaide/': '/packing-services-adelaide/',
       '/services/interstate-removals-adelaide/': '/interstate-removals-adelaide/',
       '/services/interstate-removalists-adelaide/': '/interstate-removals-adelaide/',
-      '/services/apartment-removals-adelaide/': '/apartment-removals-adelaide/',
+      '/services/apartment-removals-adelaide/': '/apartment-removalists-adelaide/',
       '/services/furniture-removals-adelaide/': '/furniture-removalists-adelaide/',
       '/furniture-removals-adelaide/': '/furniture-removalists-adelaide/',
       '/movers-and-packers-adelaide/': '/adelaide-movers-and-packers/',
@@ -956,12 +956,16 @@ const suburbSeoOverrides = {
     description: 'Local removalists for Hyde Park houses, units and furniture. 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. Call-out/travel may apply.',
   },
   'malvern': {
-    title: 'Malvern Removalists | Local Furniture Movers Adelaide',
-    description: 'Book trusted Malvern removalists for house moves, apartment moves, furniture removals, packing support, access planning, and a clear moving quote.',
+    title: 'Removalists Malvern, Adelaide, SA 5061 | ZQ Removals',
+    description: 'Malvern, Adelaide, SA 5061 removalists for villas and townhouses. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply.',
+  },
+  'brighton': {
+    title: 'Brighton SA Removalists | Local Movers | ZQ Removals',
+    description: 'Brighton SA removalists for family homes and apartments. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply.',
   },
   'medindie': {
     title: 'Medindie Removalists | Premium Home Movers Adelaide',
-    description: 'Choose Medindie removalists for premium homes, careful furniture handling, parking access planning, and moving quotes from local Adelaide movers.',
+    description: 'Medindie removalists for larger homes. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply. Send access details.',
   },
   'colonel-light-gardens': {
     title: 'Colonel Light Gardens Removalists | ZQ Removals',
@@ -985,7 +989,7 @@ const suburbSeoOverrides = {
   },
   'toorak-gardens': {
     title: 'Toorak Gardens Removalists | Premium Local Movers | ZQ Removals',
-    description: 'Trusted Toorak Gardens removalists for premium relocations. We specialize in careful furniture handling, tight access planning, and upfront hourly pricing.',
+    description: 'Toorak Gardens removalists for premium homes. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply.',
   },
   'victor-harbor-road': {
     title: 'Victor Harbor Road Removalists | ZQ Removals',
@@ -1924,7 +1928,7 @@ const commercialPages = [
   {
     slug: 'removalists-adelaide-prices',
     title: 'Removalists Adelaide Prices & Hourly Rates | ZQ Removals',
-    description: 'Adelaide removalist prices: 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. See example durations, call-out/travel and request a quote.',
+    description: 'Adelaide removalist prices: 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. See 30-minute billing, call-out/travel and hypothetical examples.',
     canonical: '/removalists-adelaide-prices/',
     type: 'money',
     hero: 'Compare current Adelaide removalist rates before booking. We confirm the crew package, access, route and any applicable call-out or travel charge in writing.',
@@ -3465,7 +3469,7 @@ export function getGeneratedPages() {
     description: 'Planning a move from Queens Park NSW to Adelaide? Discuss inventory, pickup access and Adelaide delivery details with ZQ Removals before booking.',
     canonical: buildCanonical('/removalists-queens-park/'), robots: seoConfig.robots,
     ogImage: seoConfig.defaultOgImage, twitterImage: seoConfig.defaultOgImage,
-    contentHtml: `<main id="main-content"><section class="hero-shell"><div class="container"><span class="eyebrow">Sydney to Adelaide enquiries</span><h1>Moving from Queens Park NSW to Adelaide</h1><p class="lead">Queens Park is in Sydney, NSW. This page is for an interstate move connecting Queens Park with Adelaide.</p><p>Send your pickup and delivery addresses, moving date, furniture and box list, and any packing requirements. Include stairs, parking restrictions and the distance from the loading point at both ends. Confirm route suitability, timing and charges with ZQ Removals before booking.</p><p><a href="/sydney-to-adelaide-removalists/">Sydney to Adelaide moving information</a> | <a href="/interstate-removals-adelaide/">Interstate moving enquiries</a></p><div class="cta-cluster"><a class="button button-primary" href="/contact-us/#quote-form">Request an interstate quote</a><a class="button button-secondary" href="tel:+61433819989">Call 0433 819 989</a></div></div></section></main>`,
+    contentHtml: `<main id="main-content"><section class="hero-shell"><div class="container"><span class="eyebrow">Sydney to Adelaide enquiries</span><h1>Moving from Queens Park NSW to Adelaide</h1><p class="lead">Queens Park is in Sydney, NSW. This page is for an interstate move connecting Queens Park with Adelaide.</p><p>Send your pickup and delivery addresses, moving date, furniture and box list, and any packing requirements. Include stairs, parking restrictions and the distance from the loading point at both ends. Confirm route suitability, timing and charges with ZQ Removals before booking.</p><p><a href="/sydney-to-adelaide-removalists/">Sydney to Adelaide moving information</a> | <a href="/interstate-removals-adelaide/">Interstate moving enquiries</a></p><div class="cta-cluster"><a class="button button-primary" href="/contact-us/#quote-form">Request an interstate quote</a><a class="button button-secondary" href="tel:+61433819989">Call 0433 819 989</a></div></div></section>${renderSuburbMoveBrief('queens-park')}</main>`,
     jsonLd: [JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebPage', url: buildCanonical('/removalists-queens-park/'), name: 'Queens Park NSW to Adelaide Moves', description: 'Interstate move enquiries from Queens Park NSW to Adelaide.' })],
   });
 
@@ -3611,7 +3615,7 @@ export function getGeneratedPages() {
     ['services/packing-services-adelaide/index.html', '/packing-services-adelaide/', 'Packing Services Adelaide'],
     ['services/interstate-removals-adelaide/index.html', '/interstate-removals-adelaide/', 'Interstate Removals Adelaide'],
     ['services/interstate-removalists-adelaide/index.html', '/interstate-removals-adelaide/', 'Interstate Removalists Adelaide'],
-    ['services/apartment-removals-adelaide/index.html', '/apartment-removals-adelaide/', 'Apartment Removals Adelaide'],
+    ['services/apartment-removals-adelaide/index.html', '/apartment-removalists-adelaide/', 'Apartment Removals Adelaide'],
     ['services/furniture-removals-adelaide/index.html', '/furniture-removalists-adelaide/', 'Furniture Removals Adelaide'],
     ['furniture-removals-adelaide/index.html', '/furniture-removalists-adelaide/', 'Furniture Removals Adelaide'],
     ['movers-and-packers-adelaide/index.html', '/adelaide-movers-and-packers/', 'Movers and Packers Adelaide'],
@@ -4905,7 +4909,7 @@ function makeCommercialPage(page) {
     },
     'removalists-adelaide-prices': {
       title: 'Removalists Adelaide Prices & Hourly Rates | ZQ Removals',
-      description: 'Adelaide removalist prices: 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. See example durations, call-out/travel and request a quote.',
+      description: 'Adelaide removalist prices: 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. See 30-minute billing, call-out/travel and hypothetical examples.',
     },
     'office-removalists-adelaide': {
       title: 'Office Removalists Adelaide | B2B Commercial Relocations',
@@ -5544,6 +5548,159 @@ const prioritySuburbProfiles = {
   },
 };
 
+// Per-suburb planning sections for the priority suburb landing pages. Every paragraph is general move-planning
+// guidance built from the suburb descriptors already held in this file. Nothing here is a customer claim, a
+// completed-job claim, a travel time or a council rule. Each entry must stay materially different from the others.
+const suburbMoveBriefs = {
+  'malvern': {
+    eyebrow: 'Malvern, Adelaide, SA 5061',
+    heading: 'Villa and townhouse moves in Malvern, SA',
+    intro: 'Planning notes for a Malvern removal before the crew size and moving time are discussed.',
+    paragraphs: [
+      'This page is about Malvern in Adelaide\'s inner south, postcode 5061, which sits beside Hyde Park, Unley Park and Unley. Malvern in Melbourne, Victoria is a different suburb, so give South Australian addresses with postcodes in your quote request.',
+      'A villa and a townhouse raise different questions. For a villa, measure the front door and the hallway and list what is stored in a shed or garage. For a townhouse, count the stairs, check whether the entrance is shared and work out how far the truck will be from the door.',
+      'In the brief, name the property type at both ends, the heaviest pieces, anything that needs dismantling and the day the keys change hands. A move between neighbouring suburbs is mostly handling time, so those details matter more than the distance.',
+    ],
+  },
+  'medindie': {
+    eyebrow: 'Larger homes',
+    heading: 'Planning the carry path in a Medindie home',
+    intro: 'Premium and larger homes need a clear walk-through before the quote, not after.',
+    paragraphs: [
+      'Medindie sits just north of North Adelaide and the Parklands, and moves here are often larger-home moves with several living areas, a garage and outdoor furniture. List each room and any outbuilding separately, because a household that looks modest from the street can hold a lot.',
+      'Walk the route from the furthest room to the spot where the truck can stand, and note every step, turn and doorway on the way. A long carry through a big house adds time. Mention pieces such as artwork, mirrors or a large dining table that need wrapping or dismantling.',
+      'If you are sorting a big household as part of a downsize, say which items are going, which are staying and whether any are headed for storage, so the sorting is not left to moving day. Polished floors, stair rails and door frames along the route are worth a mention so protection can be planned.',
+    ],
+  },
+  'toorak-gardens': {
+    eyebrow: 'Careful handling',
+    heading: 'Protecting fragile and valuable pieces in Toorak Gardens',
+    intro: 'In premium moves the contents often decide the plan more than the distance does.',
+    paragraphs: [
+      'Take photos of valuable or delicate pieces such as mirrors, artwork, glass-top tables, display cabinets and timber furniture, and send approximate dimensions with them. That lets wrapping and handling time be allowed for in the estimate rather than discovered on the day.',
+      'Eastern-suburb access varies from a wide driveway to a narrow street with little room to stop. Tell us where a truck can stand, whether the entry has steps or a gate, and whether any piece must be turned or tilted to clear a doorway.',
+      'For an apartment or unit, ask the building about lift bookings and loading rules early and pass the answers on. Say which items you want boxed and which should travel unpacked; packing help can be discussed before booking.',
+    ],
+  },
+  'brighton': {
+    eyebrow: 'Coastal access',
+    heading: 'Brighton homes and apartments near the coast',
+    intro: 'Parking, buildings and weather are the three things to settle before a Brighton move.',
+    paragraphs: [
+      'Brighton is in the City of Holdfast Bay, so the first question for any address is where the truck can stop. Near Jetty Road Brighton and the streets close to the beach, find the nearest place the truck can legally stand and measure the walk from there to the door. If the move is on a weekend, mention it in the brief.',
+      'For a Brighton apartment, ask the building about lift bookings, loading areas and move-in times, and send us what you learn. For a family home, list the garage, the shed and the outdoor furniture, which often make up a large part of the load.',
+      'Coastal moves also depend on the weather. If rain or wind is forecast, tell us about upholstered furniture and mattresses so that covering and wrapping can be planned for the day.',
+    ],
+  },
+  'kensington-gardens': {
+    eyebrow: 'Family homes',
+    heading: 'Counting the inventory of a Kensington Gardens family home',
+    intro: 'Family-home moves go smoothly when the whole household is listed once, room by room.',
+    paragraphs: [
+      'Kensington Gardens is in the City of Burnside, and a typical enquiry here is a family home with several bedrooms, living and dining areas and a garage or shed behind. Count beds, wardrobes, desks, sofas, appliances and boxed items, then add the garage and garden so the crew size is discussed against a realistic inventory.',
+      'Children\'s furniture and outdoor items are easy to overlook until moving day. Bunk beds, trampolines, bikes and play equipment may need taking apart, so decide who will dismantle each one and say so in the brief.',
+      'Decide early whether you will pack the boxes yourself. Boxes stacked by room near the door load quickly, while loose items add handling time. Give us the day you must be out of the old home and the day you can get into the new one, so the schedule suits both ends.',
+    ],
+  },
+  'hyde-park': {
+    eyebrow: 'Loading order',
+    heading: 'Getting the load order right at a compact Hyde Park address',
+    intro: 'Where streets are compact, what leaves the house first makes a real difference.',
+    paragraphs: [
+      'Keep one doorway and the path to the truck clear before the crew arrives, and ask whoever is at home to stay out of the hallway. Label each box with its destination room so unloading follows the same order as loading.',
+      'Large furniture usually goes first and boxes fill the gaps, so tell us early about any piece that cannot be moved in one go. Set aside keys, documents, medication and valuables to carry yourself rather than putting them on the truck.',
+      'If premium furniture or artwork is involved, group it in one room and mark it clearly. The crew can then wrap and load those pieces together instead of finding them throughout the house.',
+    ],
+  },
+  'unley-park': {
+    eyebrow: 'Final week',
+    heading: 'The final week before an Unley Park move',
+    intro: 'Most delays on the day trace back to something that could have been settled a week earlier.',
+    paragraphs: [
+      'A week out, confirm any body-corporate or building approvals, confirm lift bookings if there is a lift, and tell neighbours that a truck will be on the street. Re-measure the largest piece of furniture against the narrowest doorway on its route.',
+      'Two or three days before, finish packing everything that will not be used again, take heavy contents out of drawers and wardrobes, and put mirrors and artwork where the crew can find them. Disconnect appliances and empty the fridge and freezer.',
+      'On the morning, leave the driveway clear, keep pets away from open doors and be ready to walk the crew through the rooms. A short walk-through tells them what is going and what is staying, which saves time that would otherwise be charged by the half hour.',
+    ],
+  },
+  'queens-park': {
+    eyebrow: 'Sydney pickup',
+    heading: 'Preparing the Queens Park pickup',
+    intro: 'For an interstate move, the Sydney end decides a good share of the loading time.',
+    paragraphs: [
+      'Queens Park is in the Waverley Council area of Sydney, close to Centennial Park. Many properties nearby are Victorian terraces, semi-detached homes and low-rise apartments, so check the width of the front door and hallway and count every internal and external step.',
+      'Streets in this part of Sydney can be narrow and tree-lined, with timed parking. Look at the posted restrictions for the day and time of the pickup and tell us how far the nearest place to stop is from your door.',
+      'Send the Adelaide delivery address at the same time, with its own access notes, because an interstate job is planned across both ends. Say which furniture needs dismantling, whether anything goes to storage first and how flexible your dates are, then confirm timing and charges with ZQ Removals before booking.',
+    ],
+  },
+};
+
+const suburbHeroOverrides = {
+  malvern: {
+    title: 'Removalists in Malvern, Adelaide, SA 5061',
+    lead: 'ZQ Removals moves villas, townhouses and furniture in Malvern, Adelaide, SA 5061, and the surrounding inner-south suburbs. Send both addresses and the inventory, and we will discuss the crew and moving time. Published rates start at $75 per 30 minutes for 2 men and a truck.',
+  },
+};
+
+function renderSuburbMoveBrief(slug) {
+  const brief = suburbMoveBriefs[slug];
+  return brief ? renderTextSection({ module: 'suburb-move-brief', ...brief }) : '';
+}
+
+// Curated nearby pages for the priority suburbs that use the shared suburb template. Pairs are adjacent suburbs or
+// same-corridor suburbs that already have a live page; the copy avoids distances, travel times and council rules.
+const SUBURB_LINK_COPY = {
+  'malvern': [
+    ['hyde-park', 'Hyde Park is on the north-western side of Malvern. If a move runs between the two, send the access notes for both addresses.'],
+    ['unley-park', 'Unley Park lies to the west of Malvern and has its own page for townhouse and larger-home moves.'],
+    ['unley', 'Unley, to the north, covers moves around Unley Road, which come with their own building-access checks.'],
+  ],
+  'medindie': [
+    ['adelaide-cbd', 'Adelaide CBD is south of Medindie, past North Adelaide and the Parklands, and has its own lift and loading-zone planning.'],
+    ['walkerville', 'Walkerville adjoins Medindie to the east and has a page for house and villa moves.'],
+    ['prospect', 'Prospect, to the north-west, covers character homes and apartment access.'],
+  ],
+  'toorak-gardens': [
+    ['norwood', 'Norwood, to the north, covers terraces and mixed residential-commercial access around The Parade.'],
+    ['linden-park', 'Linden Park, to the south-east, has its own notes on premium homes and driveways.'],
+    ['burnside', 'Burnside is another eastern-suburbs page, covering heritage and premium home moves.'],
+    ['kensington-gardens', 'Kensington Gardens, also in the eastern suburbs, is mainly family-home moves.'],
+  ],
+  'brighton': [
+    ['glenelg', 'Glenelg, up the coast in the same City of Holdfast Bay, covers beachside apartments and weekend parking pressure.'],
+    ['marion', 'Marion, inland from the coast, covers family homes and townhouse access.'],
+    ['west-beach', 'West Beach is further along the coastal corridor and covers coastal homes and airport-side access.'],
+  ],
+  'kensington-gardens': [
+    ['magill', 'Magill adjoins Kensington Gardens on its north-eastern side and covers family-home and university-adjacent moves.'],
+    ['norwood', 'Norwood is the nearest terrace-and-townhouse area, with parking and access around The Parade.'],
+    ['burnside', 'Burnside covers heritage and premium home moves in the eastern suburbs.'],
+    ['toorak-gardens', 'Toorak Gardens covers premium homes where careful handling shapes the plan.'],
+  ],
+};
+
+// Reverse links: nearby suburb pages that point at the priority suburbs (adjacent or same-corridor pages only).
+const SUBURB_INBOUND_COPY = {
+  'glenelg': [['brighton', 'Brighton, further south in the City of Holdfast Bay, has family homes and apartment access to plan around.']],
+  'marion': [['brighton', 'Brighton is a coastal suburb to the west of Marion with its own apartment and family-home notes.']],
+  'norwood': [
+    ['toorak-gardens', 'Toorak Gardens, just south of Norwood, centres on careful handling of premium furniture.'],
+    ['kensington-gardens', 'Kensington Gardens, east of Norwood, is mainly a family-home move with garages and outdoor items.'],
+  ],
+  'burnside': [
+    ['toorak-gardens', 'Toorak Gardens is a neighbouring eastern-suburbs page for premium homes and careful handling.'],
+    ['kensington-gardens', 'Kensington Gardens is a neighbouring eastern-suburbs page for family-home moves.'],
+  ],
+  'magill': [['kensington-gardens', 'Kensington Gardens adjoins Magill and covers family-home moves with garage and outdoor inventory.']],
+  'linden-park': [['toorak-gardens', 'Toorak Gardens, to the north-west of Linden Park, covers premium homes and careful handling.']],
+};
+
+function buildNeighbourItems(entries = []) {
+  return entries.map(([neighbourSlug, copy]) => {
+    const name = suburbDataBySlug.get(neighbourSlug)?.suburb || toTitle(neighbourSlug);
+    return { href: `/removalists-${neighbourSlug}/`, label: `removalists in ${name}`, suburb: name, copy };
+  });
+}
+
 function getPrioritySuburbFaqItems(slug) {
   const profile = prioritySuburbProfiles[slug];
   return [...(profile?.faqs || []), priorityRateFaq, priorityQuoteFaq];
@@ -5558,6 +5715,7 @@ function renderPrioritySuburb({ slug, suburb, image }) {
   return `<main id="main-content" data-generated-page="suburb-v5">
 ${renderPageHero({ eyebrow: 'Local Adelaide moves', title: profile.h1, lead: profile.lead, supporting: [], points: profile.points, primaryCta: { href: '/contact-us/#quote-form', label: 'Request a moving quote' }, secondaryCta: { href: 'tel:+61433819989', label: 'Call 0433 819 989' }, image, breadcrumbs: [{ href: '/', label: 'Home' }, { href: '/removalists-adelaide/', label: 'Adelaide removals' }, { label: suburb }], pageType: 'suburb' })}
 ${profile.sections.map((section) => renderTextSection(section)).join('\n')}
+${renderSuburbMoveBrief(slug)}
 ${renderTextSection({ module: 'pricing', eyebrow: 'Published local rates', heading: `What does a ${suburb} move cost?`, intro: '2 men + truck: $75 per 30 minutes. 3 men + truck: $89 per 30 minutes.', paragraphs: ['A 1-hour call-out/travel charge applies where applicable. Total cost depends on moving time, the volume of items, access, travel and packing requirements. See the Adelaide removalist prices page for the full rate breakdown, then confirm the applicable charges with ZQ Removals before booking.'] })}
 ${renderRouteCardSection({ module: 'related-services', eyebrow: 'Plan your move', heading: 'Nearby suburbs and related moving services', intro: 'Choose the page that matches your move.', cards: [...profile.nearby.map((card) => ({ eyebrow: 'Nearby suburb', ...card })), { eyebrow: 'Moving service', title: 'Furniture moving', copy: 'Discuss large items, dimensions and access before booking.', href: '/furniture-removalists-adelaide/', cta: 'Furniture moving advice' }, { eyebrow: 'Rates', title: 'Rates and charges', copy: 'Check the published crew rates and what affects total moving time.', href: '/removalists-adelaide-prices/', cta: 'View moving rates' }] })}
 ${renderPriorityPlanningFaq(slug)}${renderQuoteStrip({ eyebrow: 'Talk to ZQ Removals', heading: `Request your ${suburb} moving quote`, copy: 'Send your addresses, date, inventory and access notes, or call to discuss the move.', primaryCta:{href:'/contact-us/#quote-form',label:'Request a quote'},secondaryCta:{href:'tel:+61433819989',label:'Call 0433 819 989'},pageType:'suburb' })}
@@ -5580,7 +5738,7 @@ const rateTableHtml = `<style>.table-wrap table.rate-table{min-width:0}.table-wr
 
 const rateExamplesTableHtml = `<style>.table-wrap table.rate-table{min-width:0}.table-wrap table.rate-table th,.table-wrap table.rate-table td{padding:.65rem .5rem;font-size:.92rem}.table-wrap table.rate-table caption{text-align:left;padding:.5rem}</style><div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable comparison table" style="margin-top: 1.5rem;">
   <table class="rate-table">
-    <caption>Rates over example durations</caption>
+    <caption>Hypothetical example durations (before call-out/travel)</caption>
     <thead>
       <tr><th scope="col">Duration</th><th scope="col">2 men and a truck</th><th scope="col">3 men and a truck</th></tr>
     </thead>
@@ -5591,7 +5749,21 @@ const rateExamplesTableHtml = `<style>.table-wrap table.rate-table{min-width:0}.
     </tbody>
   </table>
 </div>
-<p class="field-note" style="margin-top: 1rem;">These figures are simple arithmetic on the published rates, before call-out/travel and other applicable charges. They are not an estimate for your move. The time your move takes depends on volume, access and travel.</p>`;
+<p class="field-note" style="margin-top: 1rem;">Hypothetical example: these figures are simple arithmetic on the published rates, assuming the crew is on the job for the whole duration shown and that no call-out/travel charge applies. They are not an estimate for your move. The time your move takes depends on volume, access and travel.</p>`;
+
+const rateCalloutExamplesHtml = `<div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable hypothetical examples with call-out" style="margin-top: 1.5rem;">
+  <table class="rate-table" data-hypothetical-example="callout">
+    <caption>Hypothetical examples with the call-out/travel charge</caption>
+    <thead>
+      <tr><th scope="col">Assumptions</th><th scope="col">Time charge</th><th scope="col">Call-out/travel</th><th scope="col">Total</th></tr>
+    </thead>
+    <tbody>
+      <tr data-crew="2" data-rate="75" data-half-hours="6" data-callout="150" data-total="600"><th scope="row">2 men and a truck, 3 hours (6 x 30 minutes), call-out applies</th><td>6 x $75 = $450</td><td>$150</td><td>$600</td></tr>
+      <tr data-crew="3" data-rate="89" data-half-hours="5" data-callout="178" data-total="623"><th scope="row">3 men and a truck, 2.5 hours (5 x 30 minutes), call-out applies</th><td>5 x $89 = $445</td><td>$178</td><td>$623</td></tr>
+    </tbody>
+  </table>
+</div>
+<p class="field-note" style="margin-top: 1rem;">Hypothetical examples, not quotes. They assume the call-out/travel charge applies and equals one hour of the selected crew rate ($150 for 2 men and a truck, $178 for 3 men and a truck). They assume the stated time on site only and exclude packing, extra stops and any other applicable charges. Ask ZQ Removals whether the call-out applies to your addresses and how part-increments are counted.</p>`;
 
 const priorityCommercialProfiles = {
   'removalists-adelaide-prices': {
@@ -5599,18 +5771,24 @@ const priorityCommercialProfiles = {
     lead: 'ZQ Removals publishes its crew rates: 2 men and a truck at $75 per 30 minutes, and 3 men and a truck at $89 per 30 minutes. A 1-hour call-out/travel charge applies where applicable.',
     blocks: [
       { type: 'html', module: 'pricing-rates', eyebrow: 'Current rates', heading: 'Adelaide removalist rates', intro: 'Rates are quoted per 30 minutes.', html: rateTableHtml },
-      { type: 'html', module: 'pricing-examples', eyebrow: 'How the rates add up', heading: 'Example durations at the published rates', intro: 'Use these to see how time translates into cost.', html: rateExamplesTableHtml },
-      { type: 'text', module: 'move-planning', eyebrow: 'What changes the total', heading: 'What affects the total cost of your move', intro: 'The rate is only part of the picture. The time on site is the larger variable.', paragraphs: [
-        'The total depends on how long the job takes: the volume of furniture and boxes, stairs, lift bookings, the distance from the truck to the door, travel between addresses and any packing you add. A prepared inventory and clear access shorten the job.',
-        'These are time-based rates, not a fixed total for every move. For the reasoning behind moving time and what to send for an estimate, read the moving cost guide.',
+      { type: 'text', module: 'pricing-billing', eyebrow: 'How billing works', heading: 'Rates are charged in 30-minute increments', intro: 'Choose a crew, then time on site is counted in half-hours.', paragraphs: [
+        'The selected crew package is charged per 30 minutes: $75 for 2 men and a truck, or $89 for 3 men and a truck. Two half-hours make the hourly equivalent shown in the table.',
+        'How a part-increment at the end of a job is counted is confirmed in your quote, so ask before booking. A 3-man crew has a higher rate, but it can finish sooner on larger inventories, so ask which crew suits your move.',
       ] },
+      { type: 'html', module: 'pricing-examples', eyebrow: 'How the rates add up', heading: 'Hypothetical example durations at the published rates', intro: 'Use these to see how time translates into cost.', html: rateExamplesTableHtml },
       { type: 'text', module: 'pricing-callout', eyebrow: 'Call-out and travel', heading: 'Call-out and travel charges', paragraphs: [
-        'A 1-hour call-out/travel charge applies where applicable. Because it depends on where the job starts and finishes, confirm it when you ask for a quote so there is no surprise on the day.',
+        'A 1-hour call-out/travel charge applies where applicable. It is one hour of the selected crew rate, which is $150 for 2 men and a truck or $178 for 3 men and a truck. Because it depends on where the job starts and finishes, confirm whether it applies when you ask for a quote so there is no surprise on the day.',
+      ] },
+      { type: 'html', module: 'pricing-callout-examples', eyebrow: 'Putting it together', heading: 'Hypothetical examples including call-out', intro: 'Time charge plus call-out/travel, with the assumptions shown.', html: rateCalloutExamplesHtml },
+      { type: 'text', module: 'move-planning', eyebrow: 'What changes the total', heading: 'What changes the time on site', intro: 'The rate is fixed. The time on site is the variable.', paragraphs: [
+        'These are time-based rates, not a fixed total for every move. Volume, stairs, lifts, parking, carry distance and packing change the time, and a prepared inventory with clear access shortens the job.',
+        'The moving cost guide explains each factor in detail and what to tell the removalist, so you can brief every company the same way.',
       ] },
     ],
     faqs: [
       { question: 'What is the hourly rate for removalists in Adelaide?', answer: 'ZQ Removals charges $75 per 30 minutes for 2 men and a truck (equivalent to $150/hour) and $89 per 30 minutes for 3 men and a truck (equivalent to $178/hour). A 1-hour call-out/travel charge applies where applicable.' },
-      { question: 'Is the call-out or travel charge always added?', answer: 'It applies where applicable. Confirm with ZQ Removals whether it applies to your pickup and delivery addresses when you request a quote.' },
+      { question: 'How is time billed?', answer: 'Time is charged per 30 minutes at the rate of the crew you select: $75 for 2 men and a truck or $89 for 3 men and a truck. Confirm how a part-increment is counted when you request a quote.' },
+      { question: 'Is the call-out or travel charge always added?', answer: 'It applies where applicable. It is one hour of the selected crew rate ($150 for 2 men and a truck, $178 for 3 men and a truck). Confirm with ZQ Removals whether it applies to your pickup and delivery addresses when you request a quote.' },
       { question: 'Can I get a fixed total from these rates?', answer: 'The published rates describe time-based charging. Request an estimate based on your inventory and access, then confirm the charging basis and inclusions with ZQ Removals.' },
       { question: 'Do stairs or long carries change the cost?', answer: 'They can, because they add time on site. Include stairs, lift access and the distance from the truck to the door in your enquiry.' },
     ],
@@ -5691,7 +5869,7 @@ function renderSuburbContent({ slug, suburb, region, intro, logisticsLabel, near
   const nearbyCards = nearby.map((item, index) => ({
     eyebrow: index === 0 ? 'Nearby suburb' : 'Compare the route',
     title: item.suburb,
-    copy: `Researching removalists in ${item.suburb} often yields similar logistics to ${suburb} due to their proximity and shared property styles.`,
+    copy: item.copy || `Researching removalists in ${item.suburb} often yields similar logistics to ${suburb} due to their proximity and shared property styles.`,
     href: item.href,
     cta: item.label,
   }));
@@ -5711,6 +5889,7 @@ function renderSuburbContent({ slug, suburb, region, intro, logisticsLabel, near
     href: item.href,
     cta: item.label,
   }));
+  const heroOverride = suburbHeroOverrides[slug] || {};
   const isSouthern = clusterKey.includes('southern') || clusterKey.includes('south') || ['glenelg', 'brighton', 'seaford', 'hallett-cove', 'somerton-park', 'hove', 'seacliff', 'christies-beach', 'port-noarlunga'].includes(slug);
   const isNorthern = clusterKey.includes('northern') || clusterKey.includes('north') || ['semaphore', 'largs-bay', 'west-lakes', 'port-adelaide', 'pennington', 'findon', 'seaton', 'fulham', 'kidman-park', 'henley-beach', 'grange'].includes(slug);
 
@@ -5723,8 +5902,8 @@ function renderSuburbContent({ slug, suburb, region, intro, logisticsLabel, near
   return `<main id="main-content" data-generated-page="suburb-v5">
 ${renderPageHero({
   eyebrow: `Removalists ${suburb}`,
-  title: `${suburb} removalists for ${logisticsLabel} and clearer Adelaide route planning`,
-  lead: `${suburb} moves work best when the route, the access pattern, and the inventory mix are reviewed together before the quote is approved.`,
+  title: heroOverride.title || `${suburb} removalists for ${logisticsLabel} and clearer Adelaide route planning`,
+  lead: heroOverride.lead || `${suburb} moves work best when the route, the access pattern, and the inventory mix are reviewed together before the quote is approved.`,
   supporting: [
     `Check truck parking, stairs, lifts and the carrying distance at both properties before your ${suburb} move.`,
     `People comparing ${suburb} moves often want access notes, route context, and a moving quote before they book.`,
@@ -5757,6 +5936,7 @@ ${renderTextSection({
   intro: `Tell us what needs moving and how we can reach both properties.`,
   paragraphs: introParagraphs.slice(0, 1),
 })}
+${renderSuburbMoveBrief(slug)}
 ${renderValueCardSection({
   module: 'local-service-summary',
   eyebrow: 'Local service summary',
@@ -6511,6 +6691,9 @@ function renderLinkListItems(items = []) {
 }
 
 function getSuburbPeerLinks(slug, clusterKey, templateNearby = [], limit = 4) {
+  if (SUBURB_LINK_COPY[slug]) {
+    return buildNeighbourItems(SUBURB_LINK_COPY[slug]).slice(0, limit);
+  }
   const normalizedClusterKey = normalizeClusterKey(clusterKey);
   const members = suburbsByClusterKey.get(normalizedClusterKey) || [];
   const currentIndex = members.findIndex((item) => item.slug === slug);
@@ -6538,8 +6721,8 @@ function getSuburbPeerLinks(slug, clusterKey, templateNearby = [], limit = 4) {
     }
   }
 
-  return [...new Set(slugs)]
-    .slice(0, limit)
+  const inboundItems = buildNeighbourItems(SUBURB_INBOUND_COPY[slug] || []);
+  const peerItems = [...new Set(slugs)]
     .map((peerSlug, index) => {
       const suburb = suburbDataBySlug.get(peerSlug);
       return {
@@ -6548,6 +6731,10 @@ function getSuburbPeerLinks(slug, clusterKey, templateNearby = [], limit = 4) {
         suburb: suburb?.suburb || toTitle(peerSlug),
       };
     });
+  // Keep every existing peer link and add the curated inbound links on top, so no other page loses its inbound link.
+  const keptPeers = peerItems.slice(0, limit);
+  const keptHrefs = new Set(keptPeers.map((item) => item.href));
+  return [...keptPeers, ...inboundItems.filter((item) => !keptHrefs.has(item.href))];
 }
 
 function getSuburbLinkLabel(suburb, index) {

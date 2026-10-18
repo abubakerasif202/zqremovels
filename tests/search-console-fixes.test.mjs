@@ -109,7 +109,7 @@ test.before(async () => {
 });
 
 test('generated sitemap and canonicals stay on the apex host', () => {
-  const sitemap = readDist('sitemap-index.xml');
+  const sitemap = readDist('sitemap.xml');
   const homepage = readDist('index.html');
   const interstateHub = readDist(path.join('interstate-removals-adelaide', 'index.html'));
   const robots = readDist('robots.txt');
@@ -131,9 +131,9 @@ test('generated sitemap and canonicals stay on the apex host', () => {
   assert.match(robots, /Sitemap: https:\/\/zqremovalsadelaide\.com\.au\/sitemap\.xml/);
   assert.match(llms, /Website: https:\/\/zqremovalsadelaide\.com\.au/);
   assert.match(llms, /Priority money pages:/);
-  assert.match(llms, /\[Removalists Adelaide \| 5-Star Local Movers \| ZQ Removals\]\(https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide\/\)/);
+  assert.match(llms, /\[Removalists Adelaide \| Local Moving Services \| ZQ Removals\]\(https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide\/\)/);
   assert.match(llms, /Best pages by task:/);
-  assert.match(llms, /\[Quote request: Removalists Adelaide \| 5-Star Local Movers \| ZQ Removals\]\(https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide\/\)/);
+  assert.match(llms, /\[Quote request: Removalists Adelaide \| Local Moving Services \| ZQ Removals\]\(https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide\/\)/);
   assert.match(llms, /\[Packing help: Packing Services Adelaide \| Professional Packing Help\]\(https:\/\/zqremovalsadelaide\.com\.au\/packing-services-adelaide\/\)/);
   assert.match(llms, /Best entry pages:/);
   assert.match(ai, /Entity: ZQ Removals/);
@@ -144,7 +144,6 @@ test('generated sitemap and canonicals stay on the apex host', () => {
 test('sitemap xml files start with a clean xml declaration', () => {
   for (const file of [
     'sitemap.xml',
-    'sitemap-index.xml',
     'sitemap-pages.xml',
     'sitemap-services.xml',
     'sitemap-suburbs.xml',
@@ -346,10 +345,10 @@ test('homepage pricing cluster links to Adelaide prices page for crawl discovery
 test('priority suburb and interstate pages use the requested high-intent metadata', () => {
   const expectations = [
     ['removalists-hyde-park/index.html', /Hyde Park Removalists \| \$75\/30 min Local Movers \| ZQ Removals/i, /Local removalists for Hyde Park houses, units and furniture/i],
-    ['removalists-malvern/index.html', /Malvern Removalists \| Local Furniture Movers Adelaide/i, /Book trusted Malvern removalists/i],
+    ['removalists-malvern/index.html', /Removalists Malvern, Adelaide, SA 5061 \| ZQ Removals/i, /Malvern, Adelaide, SA 5061 removalists for villas and townhouses/i],
     ['removalists-unley/index.html', /Removalists Unley \| Villa &(?:amp;)? Townhouse Movers \| ZQ Removals/i, /Unley removalists for character homes, apartments and townhouses/i],
     ['removalists-unley-park/index.html', /Unley Park Removalists \| Homes &(?:amp;)? Townhouses \| ZQ Removals/i, /Unley Park removalists for homes, townhouses and furniture/i],
-    ['removalists-medindie/index.html', /Medindie Removalists \| Premium Home Movers Adelaide/i, /Choose Medindie removalists/i],
+    ['removalists-medindie/index.html', /Medindie Removalists \| Premium Home Movers Adelaide/i, /Medindie removalists for larger homes/i],
     ['adelaide-to-sydney-removalists/index.html', /Adelaide to Sydney Removalists/i, /Adelaide to Sydney removalists/i],
     ['adelaide-to-brisbane-removals/index.html', /Adelaide to Brisbane Removalists \| Interstate Movers/i, /Adelaide to Brisbane removalists/i],
     ['adelaide-to-melbourne-removalists/index.html', /Adelaide to Melbourne Removalists/i, /Adelaide to Melbourne removalists/i],
@@ -667,7 +666,6 @@ test('production output avoids localhost and vercel deployment urls', () => {
   const forbidden = /(?:localhost|127\.0\.0\.1|\.vercel\.app|vercel\.app)/i;
   for (const file of [
     'sitemap.xml',
-    'sitemap-index.xml',
     'sitemap-pages.xml',
     'sitemap-services.xml',
     'sitemap-suburbs.xml',
@@ -983,7 +981,7 @@ test('homepage targets Adelaide removalists and keeps above-fold conversion cont
 
   assert.match(homepage, /<title>Adelaide Removalists \| Home &amp; Interstate Moves \| ZQ Removals<\/title>/);
   assert.match(homepage, /<meta name="description" content="Adelaide removalists for houses, apartments, furniture and interstate moves\. Published crew rates from \$75 per 30 min\. Call 0433 819 989 or request a quote\."/i);
-  assert.match(hero, /<h1[^>]*>Adelaide moves\.<br\s*\/?>(?:\s*)<em>Handled with care\.<\/em><\/h1>/);
+  assert.match(hero, /<h1[^>]*>Adelaide removalists\.<br\s*\/?>(?:\s*)<em>Moves handled with care\.<\/em><\/h1>/);
   assert.match(hero, /From the first box to the final placement/i);
   assert.match(hero, /href="#quote-form"[^>]*>Get a Free Quote/i);
   assert.match(hero, /href="tel:\+61433819989"/);
@@ -995,7 +993,7 @@ test('homepage targets Adelaide removalists and keeps above-fold conversion cont
     '/house-removals-adelaide/',
     '/furniture-removalists-adelaide/',
     '/office-removals-adelaide/',
-    '/apartment-removals-adelaide/',
+    '/apartment-removalists-adelaide/',
     '/removalists-glenelg/',
   ]) {
     assert.match(homepage, new RegExp(`href="${href.replace(/\//g, '\\/')}"`));
@@ -1116,7 +1114,7 @@ test('removalists Adelaide hub has focused intent, schema, CTA and supporting in
   const firstSection = main.match(/<section\b[\s\S]*?<\/section>/i)?.[0] || '';
 
   assert.equal((main.match(/<h1\b/gi) || []).length, 1);
-  assert.match(html, /<title>Removalists Adelaide \| 5-Star Local Movers \| ZQ Removals<\/title>/i);
+  assert.match(html, /<title>Removalists Adelaide \| Local Moving Services \| ZQ Removals<\/title>/i);
   assert.match(html, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide\/"/i);
   assert.match(html, /"@type":"BreadcrumbList"|"@type": "BreadcrumbList"/i);
   assert.match(html, /"@type":"Service"|"@type": "Service"/i);

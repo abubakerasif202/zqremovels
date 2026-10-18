@@ -16,7 +16,7 @@ const requiredFaqs = [
 ];
 const serviceRoutes = [
   '/house-removals-adelaide/',
-  '/apartment-removals-adelaide/',
+  '/apartment-removalists-adelaide/',
   '/office-removals-adelaide/',
   '/interstate-removals-adelaide/',
   '/packing-services-adelaide/',
@@ -31,7 +31,7 @@ test('Open Design homepage contract is generator-native and complete', async () 
 
   for (const html of [source, built]) {
     assert.equal((html.match(/<h1\b/gi) || []).length, 1);
-    assert.match(html, /<h1[^>]*>Adelaide moves\.<br\s*\/?>(?:\s*)<em>Handled with care\.<\/em><\/h1>/i);
+    assert.match(html, /<h1[^>]*>Adelaide removalists\.<br\s*\/?>(?:\s*)<em>Moves handled with care\.<\/em><\/h1>/i);
     assert.equal((html.match(/data-service-card/g) || []).length, 9);
     assert.equal((html.match(/itemtype="https:\/\/schema\.org\/Question"/g) || []).length, 8);
     assert.equal((html.match(/data-quote-form="quote"/g) || []).length, 2);

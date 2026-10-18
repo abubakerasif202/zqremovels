@@ -24,12 +24,6 @@
     "hold": "manual-review"
   },
   {
-    "source": "/apartment-removals-adelaide/",
-    "destination": "/apartment-removalists-adelaide/",
-    "permanent": true,
-    "hold": "manifest-route-conflict"
-  },
-  {
     "source": "/removalists-toorak-gardens/",
     "destination": "/removalists-adelaide/",
     "permanent": true,

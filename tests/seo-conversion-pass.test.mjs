@@ -45,7 +45,7 @@ test('homepage targets Adelaide removalists with the approved Open Design conver
 
   assert.match(
     homepage,
-    /<h1[^>]*>Adelaide moves\.<br\s*\/?>(?:\s*)<em>Handled with care\.<\/em><\/h1>/i,
+    /<h1[^>]*>Adelaide removalists\.<br\s*\/?>(?:\s*)<em>Moves handled with care\.<\/em><\/h1>/i,
   );
   assert.match(
     homepage,
@@ -59,7 +59,7 @@ test('homepage targets Adelaide removalists with the approved Open Design conver
   assert.match(homepage, /href="\/office-removals-adelaide\/"/);
   assert.match(homepage, /href="\/interstate-removals-adelaide\/"/);
   assert.match(homepage, /href="\/packing-services-adelaide\/"/);
-  assert.match(homepage, /href="\/apartment-removals-adelaide\/"/);
+  assert.match(homepage, /href="\/apartment-removalists-adelaide\/"/);
   assert.match(homepage, /href="\/removalists-adelaide-cbd\/"/);
   assert.match(homepage, /href="\/removalists-marion\/"/);
   assert.match(homepage, /href="\/removalists-unley\/"/);

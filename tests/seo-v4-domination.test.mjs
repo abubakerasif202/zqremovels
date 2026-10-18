@@ -54,7 +54,7 @@ test('homepage metadata, schema, and crawl directives match v4 targets', async (
   await buildSite();
   const homepage = readDist('index.html');
   const robots = readDist('robots.txt');
-  const sitemapIndex = readDist('sitemap-index.xml');
+  const sitemapIndex = readDist('sitemap.xml');
   const llms = readDist('llms.txt');
   const servicesSitemap = readDist('sitemap-services.xml');
 
