@@ -11,7 +11,7 @@ const dist = process.env.AUDIT_DIST_DIR || 'site-dist';
 const output = process.env.AUDIT_OUTPUT || 'tmp/readability/final';
 const fastSolid = process.env.AUDIT_FAST_SOLID === '1';
 const routeFilter = process.env.AUDIT_ROUTES ? new Set(process.env.AUDIT_ROUTES.split(',')) : null;
-const widths = [320, 390, 768, 1024, 1440, 1920];
+const widths = [320, 360, 375, 390, 430, 768, 1024, 1440, 1920];
 const workers = Math.max(1, Math.min(3, Number(process.env.AUDIT_WORKERS) || 3));
 const screenshotRoutes = new Set([
   '/', '/about/', '/404.html', '/contact-us/', '/house-removals-adelaide/',

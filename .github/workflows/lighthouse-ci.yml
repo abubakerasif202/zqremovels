@@ -24,5 +24,23 @@ jobs:
       - name: Build static site
         run: npm run build
 
+      - name: Check TypeScript
+        run: npx tsc --noEmit
+
+      - name: Run regression tests
+        run: npm test
+
+      - name: Rebuild without test fixture environment
+        run: npm run build
+
+      - name: Validate SEO and internal assets
+        run: npm run seo:validate
+
+      - name: Install browser for smoke tests
+        run: npx playwright install --with-deps chromium
+
+      - name: Verify responsive and conversion journeys
+        run: npx playwright test --workers=2 --reporter=line
+
       - name: Run Lighthouse CI
         run: npm run lhci

@@ -809,8 +809,7 @@ A documentation-only change does not require rebuilding generated output, but so
 Inspect:
 
 - `AGENTS.md`
-- `.stitch/DESIGN.md`
-- `.stitch/SITE.md`
+- `DESIGN.md`
 - `opendesign/design-systems/zq-removals/`
 - `site-src/content/index.html`
 - `site-src/partials/`

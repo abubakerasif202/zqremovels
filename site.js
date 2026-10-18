@@ -784,7 +784,7 @@ function setupQuoteForms() {
         // Web3Forms does not guarantee a receipt ID. The local UUID is an event
         // deduplication token, created only after explicit provider acceptance.
         try {
-          const leadId = typeof result.lead_id === "string" && /^[a-zA-Z0-9_-]{8,128}$/.test(result.lead_id)
+          const leadId = typeof result.lead_id === "string" && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(result.lead_id)
             ? result.lead_id : window.crypto.randomUUID();
           const formName = form.getAttribute("data-form-name") ||
             `${window.location.pathname === "/" ? "home" : window.location.pathname.split("/").filter(Boolean).join("_")}_quote_${quoteForms.indexOf(form) + 1}`;

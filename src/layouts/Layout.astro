@@ -81,20 +81,30 @@ const trackingConfigStr = JSON.stringify(
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', '${gaId}');
         window.__loadGtag = function(){
           if (window.__gtagLoaded) return;
+          var existing = Array.from(document.scripts).some(function(script) {
+            try {
+              var url = new URL(script.src, location.href);
+              return url.hostname === 'www.googletagmanager.com' &&
+                url.pathname === '/gtag/js' && url.searchParams.get('id') === '${gaId}';
+            } catch (_) { return false; }
+          });
           window.__gtagLoaded = true;
+          if (existing) return;
           var script = document.createElement('script');
           script.async = true;
           script.src = 'https://www.googletagmanager.com/gtag/js?id=${gaId}';
           document.head.appendChild(script);
-          gtag('js', new Date());
-          gtag('config', '${gaId}');
         };
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(window.__loadGtag, { timeout: 3500 });
+        // GTM processes the queued config and loads its destination. Keep a fallback
+        // for blocked or unavailable containers without injecting a second GA loader.
+        if (${Boolean(gtmId)}) {
+          setTimeout(window.__loadGtag, 3500);
         } else {
-          window.addEventListener('load', function(){ setTimeout(window.__loadGtag, 1200); }, { once: true });
+          window.__loadGtag();
         }
       `} />
     )}

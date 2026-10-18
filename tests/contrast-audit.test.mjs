@@ -51,7 +51,7 @@ function readDist(route) {
 }
 
 test('shared light-surface contrast contracts use dark readable foregrounds', () => {
-  assert.match(css, /--color-surface-strong:\s*#10231f/i);
+  assert.match(css, /--color-surface-strong:\s*#102b43/i);
   for (const [foreground, background] of [
     ['--text-on-dark', '--surface-dark'],
     ['--heading-on-dark', '--surface-dark'],
@@ -64,21 +64,21 @@ test('shared light-surface contrast contracts use dark readable foregrounds', ()
   }
   assert.notEqual(lastTokenValue('--text-on-light'), lastTokenValue('--text-on-dark'));
   assert.notEqual(lastTokenValue('--bg-light'), lastTokenValue('--bg-dark'));
-  assertContrast('#fffdf8', '#071713', 4.5, 'dark surface body text');
-  assertContrast('#e4ded2', '#10231f', 4.5, 'dark elevated muted text');
-  assertContrast('#10231f', '#fffdf8', 4.5, 'light surface body text');
+  assertContrast('#fffdf8', '#071525', 4.5, 'dark surface body text');
+  assertContrast('#e4ded2', '#102b43', 4.5, 'dark elevated muted text');
+  assertContrast('#102b43', '#fffdf8', 4.5, 'light surface body text');
   assertContrast('#3f534c', '#f3efe6', 4.5, 'light muted body text');
-  assertContrast('#10231f', '#c9a86a', 4.5, 'gold CTA text');
+  assertContrast('#102b43', '#ff8a3d', 4.5, 'orange CTA text');
   assert.match(css, /--input-bg:\s*#fffdf8/i);
-  assert.match(css, /--input-text:\s*#10231f/i);
-  assert.match(css, /\.lead-machine-cta\s*\{[^}]*background:\s*#f3efe6;[^}]*color:\s*#10231f;/s);
-  assert.match(css, /\.lead-machine-cta-shell h2,\s*\n\.lead-machine-cta-shell p\s*\{\s*color:\s*#10231f;\s*\}/s);
+  assert.match(css, /--input-text:\s*#102b43/i);
+  assert.match(css, /\.lead-machine-cta\s*\{[^}]*background:\s*#f3efe6;[^}]*color:\s*#102b43;/s);
+  assert.match(css, /\.lead-machine-cta-shell h2,\s*\n\.lead-machine-cta-shell p\s*\{\s*color:\s*#102b43;\s*\}/s);
   assert.match(css, /\.lead-machine-cta-shell p\s*\{\s*color:\s*#3f534c;\s*\}/s);
   assert.match(css, /\.lead-machine-cta-shell \.eyebrow\s*\{\s*color:\s*#0b5d50;\s*\}/s);
   assert.match(css, /\.button-primary\s*\{\s*color:\s*#fffdf8\s*!important;\s*\}/s);
   assert.match(css, /\.route-card small\s*\{\s*color:\s*var\(--link-on-dark\);/s);
   assert.match(css, /\.proof-label,\s*\n\.button-link,[^}]*color:\s*#7a4b0c;/s);
-  assert.doesNotMatch(css, /\.button-primary,\s*\n\.button-cta\s*\{\s*color:\s*#10231f\s*!important;/s);
+  assert.doesNotMatch(css, /\.button-primary,\s*\n\.button-cta\s*\{\s*color:\s*#102b43\s*!important;/s);
 });
 
 test('dark-surface interaction states keep readable accent text', () => {
@@ -87,7 +87,7 @@ test('dark-surface interaction states keep readable accent text', () => {
     css,
     /main a:not\([^)]*\):hover,\s*\nmain a:not\([^)]*\):focus-visible\s*\{[\s\S]*color:\s*var\(--zq-gold-light\);/s,
   );
-  assert.match(css, /\.sticky-mobile-cta \.button-secondary\s*\{[\s\S]*color:\s*#071713;/s);
+  assert.match(css, /\.sticky-mobile-cta \.button-secondary\s*\{[\s\S]*color:\s*#071525;/s);
 });
 
 test('generated urgency banner keeps dark copy on its light premium surface', () => {
@@ -131,15 +131,23 @@ test('control, focus and feedback tokens meet their surface contrast requirement
     [lastTokenValue('--button-secondary-text'), lastTokenValue('--button-secondary-bg'), 4.5, 'secondary button default'],
     [lastTokenValue('--button-secondary-text'), lastTokenValue('--button-secondary-hover-bg'), 4.5, 'secondary button hover'],
     [lastTokenValue('--focus-on-light'), '#fffdf8', 3, 'light focus ring'],
-    [lastTokenValue('--focus-on-dark'), '#10231f', 3, 'dark focus ring'],
+    [lastTokenValue('--focus-on-dark'), '#102b43', 3, 'dark focus ring'],
     ['#476500', '#ffffff', 4.5, 'lime theme light caption'],
     [lastTokenValue('--feedback-error-on-light'), '#fffdf8', 4.5, 'light error feedback'],
-    [lastTokenValue('--feedback-error-on-dark'), '#10231f', 4.5, 'dark error feedback'],
+    [lastTokenValue('--feedback-error-on-dark'), '#102b43', 4.5, 'dark error feedback'],
     [lastTokenValue('--feedback-success-on-light'), '#fffdf8', 4.5, 'light success feedback'],
-    [lastTokenValue('--feedback-success-on-dark'), '#10231f', 4.5, 'dark success feedback'],
+    [lastTokenValue('--feedback-success-on-dark'), '#102b43', 4.5, 'dark success feedback'],
   ]) assertContrast(foreground, background, minimum, label);
   assert.match(css, /\.hero-shell \.button-secondary\s*\{[^}]*color: var\(--button-secondary-text\);[^}]*background: var\(--button-secondary-bg\);/s);
   assert.match(css, /body\.page-home \.footer-shell a:not\(\.button, \.btn\)/);
   assert.match(css, /background: var\(--button-primary-hover-bg\);/);
   assert.doesNotMatch(css, /background: linear-gradient\(135deg, var\(--button-primary-(?:hover-)?bg\)/);
+});
+
+// White estimator cards can sit inside dark sections; their text must not inherit the dark-section light colours.
+test('estimator cards keep dark text on their white surface inside dark sections', () => {
+  assert.match(css, /\.estimator-card\.estimator-card :is\(h1,h2,h3,h4,strong,summary\)\s*\{\s*color: #102b43;/);
+  assert.match(css, /\.estimator-card\.estimator-card :is\(p,li,dd,small,span,figcaption,\.field-note\)\s*\{\s*color: #20374b;/);
+  assertContrast('#102b43', '#ffffff', 4.5, 'estimator card heading');
+  assertContrast('#20374b', '#ffffff', 4.5, 'estimator card body');
 });

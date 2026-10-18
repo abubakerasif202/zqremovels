@@ -8,7 +8,7 @@ test.beforeEach(async ({ page }) => {
     const originalPush = layer.push.bind(layer);
     layer.push = (...items: any[]) => {
       for (const item of items) {
-        if (['generate_lead', 'phone_click', 'whatsapp_click'].includes(item.event)) {
+        if (['zq_quote_submitted', 'generate_lead', 'phone_click', 'whatsapp_click'].includes(item.event)) {
           const events = JSON.parse(sessionStorage.getItem('qa_events') || '[]');
           events.push(item);
           sessionStorage.setItem('qa_events', JSON.stringify(events));
@@ -49,7 +49,8 @@ for (const [path, formIndex] of [['/', 0], ['/', 1], ['/contact-us/', 0], ['/rem
     await page.route('https://api.web3forms.com/submit', async route => {
       requests++;
       await new Promise(resolve => setTimeout(resolve, 100));
-      await route.fulfill({ json: { success: true } });
+      // Provider references need not be UUIDs; the Ads transaction contract is UUIDv4.
+      await route.fulfill({ json: { success: true, lead_id: 'provider-reference-12345' } });
     });
     await page.goto(path);
     await fillForm(page, formIndex);
@@ -60,18 +61,25 @@ for (const [path, formIndex] of [['/', 0], ['/', 1], ['/contact-us/', 0], ['/rem
     await page.waitForURL('**/thank-you/');
     expect(requests).toBe(1);
     const recorded = await events(page);
-    expect(recorded).toHaveLength(1);
+    expect(recorded).toHaveLength(2);
     expect(recorded[0]).toEqual({
-      event: 'generate_lead', lead_type: 'removal_quote',
-      form_name: expect.any(String), lead_id: expect.stringMatching(/^[a-f0-9-]{36}$/), eventTimeout: 1500,
+      event: 'zq_quote_submitted', form_name: 'quote_form', submission_status: 'accepted',
+      submission_id: expect.stringMatching(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i),
+      lead_id: expect.stringMatching(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i), source_form: expect.any(String),
     });
+    expect(recorded[1]).toEqual({
+      event: 'generate_lead', lead_type: 'removal_quote',
+      form_name: expect.any(String), lead_id: expect.stringMatching(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i), eventTimeout: 1500,
+      submission_status: 'accepted', submission_id: recorded[0].submission_id,
+    });
+    expect(recorded[0].lead_id).toBe(recorded[1].lead_id);
     expect(JSON.stringify(recorded)).not.toMatch(/qa@example|0400000000|QA fixture/);
     await page.reload();
     expect(await events(page)).toEqual(recorded);
   });
 }
 
-for (const scenario of ['invalid', 'network', 'server', 'rejected', 'empty', 'malformed', 'missing-success']) {
+for (const scenario of ['invalid', 'network', 'server', 'rejected', 'empty', 'malformed', 'missing-success', 'truthy-success']) {
   test(`no conversion for ${scenario}`, async ({ page }) => {
     let requests = 0;
     await page.route('https://api.web3forms.com/submit', async route => {
@@ -79,7 +87,7 @@ for (const scenario of ['invalid', 'network', 'server', 'rejected', 'empty', 'ma
       if (scenario === 'network') return route.abort();
       return route.fulfill({ status: scenario === 'server' ? 500 : 200,
         contentType: 'application/json', body: scenario === 'empty' ? '' : scenario === 'malformed' ? '{oops' :
-          JSON.stringify(scenario === 'missing-success' ? {} : { success: scenario === 'server' }) });
+          JSON.stringify(scenario === 'missing-success' ? {} : { success: scenario === 'truthy-success' ? 'true' : scenario === 'server' }) });
     });
     await page.goto('/contact-us/');
     if (scenario !== 'invalid') await fillForm(page);

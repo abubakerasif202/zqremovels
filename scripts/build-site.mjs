@@ -3992,7 +3992,6 @@ async function acquireBuildLock(retries = 800) {
 
         if (
           (!ownerPid && lockAgeMs > 5_000)
-          || (!ownerProcessStart && lockAgeMs > 5_000)
           || (ownerPid && !ownerIsRunning)
         ) {
           await rm(lockDir, { recursive: true, force: true });
@@ -4226,8 +4225,7 @@ export function transformContent(content, page) {
   if (page.output === 'index.html') {
     next = next
       .replaceAll('/zq-removals-social-share.png', '/zq-removals-social-share.webp')
-      .replaceAll('/brand-logo.png', '/brand-logo.webp')
-      .replaceAll('/screen.png', '/screen.webp');
+      .replaceAll('/brand-logo.png', '/brand-logo.webp');
     if (!next.includes('google-review-badge-compact')) {
       next = next.replace(
         /(<div class="zq-v2-actions">[\s\S]*?<\/div>)/,
@@ -6970,8 +6968,6 @@ async function copyStaticAssets() {
     'manifest.json',
     'pricing.md',
     'robots.txt',
-    'screen.png',
-    'screen.webp',
     'zq-removals-social-share.png',
     'zq-removals-social-share.webp',
   ];

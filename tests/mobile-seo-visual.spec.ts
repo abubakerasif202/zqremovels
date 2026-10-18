@@ -1,5 +1,60 @@
 import { test, expect } from '@playwright/test';
 
+test('mobile chat sends a mocked message and keeps its composer visible in a reduced viewport', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'Mobile Chrome (390px)', 'Run the simulated keyboard viewport once.');
+  let submissions = 0;
+  await page.route('**/api/ai-chat/**', async route => {
+    if (route.request().method() === 'POST') {
+      submissions += 1;
+      expect(route.request().postDataJSON()).toEqual({ message: 'Can you help with packing?' });
+      await route.fulfill({ json: { reply: 'We can discuss packing when preparing your moving quote. '.repeat(20) } });
+    } else await route.fulfill({ json: { messages: [] } });
+  });
+  await page.goto('/');
+  await page.locator('#zq-chat-launcher').click();
+  const input = page.getByRole('textbox', { name: 'Your message', exact: true });
+  await input.fill('Can you help with packing?');
+  // This checks a reduced visual area; physical iOS/Android keyboard behavior remains a device check.
+  await page.setViewportSize({ width: 390, height: 430 });
+  await page.locator('.zq-chat-send').click();
+  await expect(page.locator('.zq-chat-bubble[data-role="assistant"]').last()).toContainText('We can discuss packing');
+  expect(submissions).toBe(1);
+  await expect(input).toBeFocused();
+  const box = await input.boundingBox();
+  expect(box).not.toBeNull();
+  expect(box!.y).toBeGreaterThanOrEqual(0);
+  expect(box!.y + box!.height).toBeLessThanOrEqual(430);
+  const send = await page.locator('.zq-chat-send').boundingBox();
+  expect(send!.y + send!.height).toBeLessThanOrEqual(430);
+  expect(send!.height).toBeLessThanOrEqual(56);
+  await expect(page.locator('.zq-chat-send')).toHaveCSS('border-radius', '12px');
+  expect(await page.locator('.zq-chat-send').evaluate(node => getComputedStyle(node, '::after').content)).toBe('none');
+  const scroll = await page.locator('.zq-chat-messages').evaluate(node => ({ top: node.scrollTop, height: node.scrollHeight, client: node.clientHeight }));
+  expect(scroll.height - scroll.client - scroll.top).toBeLessThanOrEqual(2);
+});
+
+test('chat keeps keyboard focus and enquiry controls inside the visible panel', async ({ page }) => {
+  await page.route('**/api/ai-chat/**', route => route.fulfill({ json: { messages: [] } }));
+  await page.goto('/');
+  const launcher = page.locator('#zq-chat-launcher');
+  await launcher.click();
+  const panel = page.locator('#zq-chat-window');
+  await expect(panel).toBeVisible();
+  await panel.getByRole('link', { name: 'Call us', exact: true }).focus();
+  await page.keyboard.press('Tab');
+  await expect(panel.getByRole('button', { name: 'Start a new conversation' })).toBeFocused();
+  await page.keyboard.press('Shift+Tab');
+  await expect(panel.getByRole('link', { name: 'Call us', exact: true })).toBeFocused();
+  await panel.getByRole('button', { name: 'Send enquiry', exact: true }).click();
+  await expect(panel.getByLabel('Full name', { exact: true })).toBeFocused();
+  await expect(panel.locator('.zq-chat-foot')).toHaveAttribute('inert', '');
+  await panel.getByRole('button', { name: 'Back to chat', exact: true }).last().click();
+  await expect(panel.locator('.zq-chat-foot')).not.toHaveAttribute('inert', '');
+  await page.keyboard.press('Escape');
+  await expect(panel).toBeHidden();
+  await expect(launcher).toBeFocused();
+});
+
 const routes = [
   '/',
   '/removalists-adelaide/',
@@ -34,7 +89,7 @@ for (const route of routes) {
     }
     if (viewport && viewport.width > 1023) {
       for (const link of await page.locator('.desktop-nav > .nav-link').all()) {
-        await expect(link).toHaveCSS('color', 'rgb(37, 58, 50)');
+        await expect(link).toHaveCSS('color', 'rgb(32, 55, 75)');
       }
     }
 
@@ -43,7 +98,7 @@ for (const route of routes) {
       await expect(page.locator('[data-service-card]')).toHaveCount(9);
       await expect(page.locator('.zq-v2-faq-list details')).toHaveCount(8);
       for (const packageText of await page.locator('form[data-quote-form="quote"] .quote-package-group :is(legend,.field-note)').all()) {
-        await expect(packageText).toHaveCSS('color', 'rgb(37, 58, 50)');
+        await expect(packageText).toHaveCSS('color', 'rgb(32, 55, 75)');
       }
 
       if (viewport && viewport.width <= 768) {
@@ -53,7 +108,7 @@ for (const route of routes) {
         await expect(menuTrigger).toHaveAttribute('aria-expanded', 'true');
         const menuPanel = page.locator('#mobile-nav-panel');
         for (const heading of await menuPanel.locator('.mobile-nav-heading').all()) {
-          await expect(heading).toHaveCSS('color', 'rgb(20, 44, 37)');
+          await expect(heading).toHaveCSS('color', 'rgb(16, 43, 67)');
         }
         await expect(menuPanel.getByRole('link', { name: 'About', exact: true })).toBeVisible();
         await expect(menuPanel.getByRole('link', { name: 'Reviews', exact: true })).toBeVisible();
@@ -69,7 +124,7 @@ for (const route of routes) {
     }
 
     for (const link of await page.locator('main > :is(.section-dark,.section-dark-plan,.section-reassurance-pull) a:not(.button,.btn,.zq-v2-button)').all()) {
-      await expect(link).toHaveCSS('color', 'rgb(222, 194, 140)');
+      await expect(link).toHaveCSS('color', 'rgb(255, 173, 115)');
     }
 
     if (viewport && viewport.width <= 768) {

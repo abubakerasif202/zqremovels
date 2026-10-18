@@ -1,49 +1,39 @@
 import assert from 'node:assert/strict';
-import { access, readFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
 
 const root = process.cwd();
 const pages = JSON.parse(await readFile(path.join(root, 'site-src', 'pages.json'), 'utf8'));
-const gallerySource = await readFile(
-  path.join(root, 'site-src', 'content', 'premium-moving-concepts', 'index.html'),
-  'utf8',
-);
-
-const assets = [
-  'email-header-concept.webp',
-  'social-card-concept.webp',
-  'banner-ad-concept.webp',
-  'loading-state-concept.webp',
-  'corporate-relocation-concept.webp',
-  'homepage-redesign-1-concept.webp',
-  'homepage-redesign-2-concept.webp',
-  'white-glove-service-concept.webp',
-  'marketing-email-concept.webp',
+const conceptPages = pages.filter((page) => page.output.startsWith('premium-moving-concepts/'));
+const expectedRoutes = [
+  'premium-moving-concepts/index.html',
+  'premium-moving-concepts/premium-hero-and-trust-section/index.html',
+  'premium-moving-concepts/brand-logo/index.html',
+  'premium-moving-concepts/luxury-pricing-packages/index.html',
+  'premium-moving-concepts/testimonials-and-premium-footer/index.html',
 ];
 
-test('remaining Stitch exports are integrated into the noindex concept gallery', async () => {
-  const galleryPage = pages.find((page) => page.output === 'premium-moving-concepts/index.html');
-
-  assert.ok(galleryPage, 'premium concept gallery route must exist');
-  assert.match(galleryPage.robots, /noindex/i);
-  assert.match(gallerySource, /placeholder contacts, ratings, client marks/i);
-
-  for (const asset of assets) {
-    await access(path.join(root, 'media', 'stitch', asset));
-    assert.match(gallerySource, new RegExp(`/media/stitch/${asset.replace('.', '\\.')}`));
+test('archived concept routes retain source content without deleted asset references', async () => {
+  assert.deepEqual(conceptPages.map((page) => page.output).sort(), expectedRoutes.sort());
+  for (const page of conceptPages) {
+    assert.match(page.robots, /noindex/i);
+    assert.equal(page.layout, 'standard', 'archive uses the maintained shared stylesheet');
+    assert.doesNotMatch(JSON.stringify(page), /\/media\/stitch\//);
+    const source = await readFile(path.join(root, 'site-src', page.contentFile), 'utf8');
+    assert.doesNotMatch(source, /\/media\/stitch\//);
+    assert.match(source, /original (?:concept )?screenshots?[^<]*(?:unavailable|removed)|original screenshot unavailable/i);
+    assert.equal((source.match(/<h1\b/g) || []).length, 1);
+    assert.match(source, /id="main-content"/);
   }
 });
 
-test('integrated Stitch references publish through the normal build output', async () => {
-  for (const asset of assets) {
-    await access(path.join(root, 'site-dist', 'media', 'stitch', asset));
+test('built concept archive retains routes, noindex and truthful unavailable notices', async () => {
+  for (const page of conceptPages) {
+    const html = await readFile(path.join(root, 'site-dist', page.output), 'utf8');
+    assert.match(html, /<meta name="robots" content="noindex,follow"/i);
+    assert.doesNotMatch(html, /\/media\/stitch\//);
+    assert.match(html, /screenshot[^<]*(?:unavailable|removed)/i);
+    assert.match(html, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/premium-moving-concepts\//);
   }
-
-  const builtGallery = await readFile(
-    path.join(root, 'site-dist', 'premium-moving-concepts', 'index.html'),
-    'utf8',
-  );
-  assert.match(builtGallery, /<meta name="robots" content="noindex,follow"/i);
-  assert.match(builtGallery, /\/media\/stitch\/marketing-email-concept\.webp/);
 });

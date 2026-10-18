@@ -1611,26 +1611,26 @@
     "output": "premium-moving-concepts/index.html",
     "layout": "standard",
     "title": "Premium Moving Concepts | ZQ Removals",
-    "description": "A source-managed concept gallery showing four premium Stitch-inspired landing-page screens rebuilt inside the ZQ Removals static site.",
+    "description": "Archived ZQ Removals design concepts. Original screenshots are unavailable; source-managed concept routes remain available for review.",
     "canonical": "https://zqremovalsadelaide.com.au/premium-moving-concepts/",
     "robots": "noindex,follow",
     "themeColor": "#0b1026",
     "ogTitle": "Premium Moving Concepts | ZQ Removals",
-    "ogDescription": "Review four premium Stitch-inspired concept screens rebuilt as route-based previews inside the ZQ Removals site build.",
+    "ogDescription": "Archived ZQ Removals design concepts. Original screenshots are unavailable; source-managed concept routes remain available for review.",
     "ogType": "website",
     "ogUrl": "https://zqremovalsadelaide.com.au/premium-moving-concepts/",
-    "ogImage": "https://zqremovalsadelaide.com.au/media/stitch/premium-hero-and-trust-section.jpg",
+    "ogImage": "https://zqremovalsadelaide.com.au/zq-removals-social-share.webp",
     "twitterCard": "summary_large_image",
     "twitterTitle": "Premium Moving Concepts | ZQ Removals",
-    "twitterDescription": "Review four premium Stitch-inspired concept screens rebuilt as route-based previews inside the ZQ Removals site build.",
-    "twitterImage": "https://zqremovalsadelaide.com.au/media/stitch/premium-hero-and-trust-section.jpg",
+    "twitterDescription": "Archived ZQ Removals design concepts. Original screenshots are unavailable; source-managed concept routes remain available for review.",
+    "twitterImage": "https://zqremovalsadelaide.com.au/zq-removals-social-share.webp",
     "refresh": "",
     "jsonLd": [],
     "contentFile": "content/premium-moving-concepts/index.html"
   },
   {
     "output": "premium-moving-concepts/premium-hero-and-trust-section/index.html",
-    "layout": "bare",
+    "layout": "standard",
     "title": "Premium Hero and Trust Concept | ZQ Removals",
     "description": "Premium ZQ Removals hero and trust concept rebuilt from a Stitch screen and published as a shareable preview route.",
     "canonical": "https://zqremovalsadelaide.com.au/premium-moving-concepts/premium-hero-and-trust-section/",
@@ -1640,21 +1640,18 @@
     "ogDescription": "Premium ZQ Removals hero and trust concept rebuilt from a Stitch screen and published as a shareable preview route.",
     "ogType": "website",
     "ogUrl": "https://zqremovalsadelaide.com.au/premium-moving-concepts/premium-hero-and-trust-section/",
-    "ogImage": "https://zqremovalsadelaide.com.au/media/stitch/premium-hero-and-trust-section.jpg",
+    "ogImage": "https://zqremovalsadelaide.com.au/zq-removals-social-share.webp",
     "twitterCard": "summary_large_image",
     "twitterTitle": "Premium Hero and Trust Concept | ZQ Removals",
     "twitterDescription": "Premium ZQ Removals hero and trust concept rebuilt from a Stitch screen and published as a shareable preview route.",
-    "twitterImage": "https://zqremovalsadelaide.com.au/media/stitch/premium-hero-and-trust-section.jpg",
+    "twitterImage": "https://zqremovalsadelaide.com.au/zq-removals-social-share.webp",
     "refresh": "",
     "jsonLd": [],
-    "contentFile": "content/premium-moving-concepts/premium-hero-and-trust-section/index.html",
-    "extraStylesheets": [
-      "/media/stitch/stitch-screens.css"
-    ]
+    "contentFile": "content/premium-moving-concepts/premium-hero-and-trust-section/index.html"
   },
   {
     "output": "premium-moving-concepts/brand-logo/index.html",
-    "layout": "bare",
+    "layout": "standard",
     "title": "Brand Logo Concept Stage | ZQ Removals",
     "description": "Brand lockup concept stage rebuilt from the Stitch export set and published as a dedicated ZQ Removals preview route.",
     "canonical": "https://zqremovalsadelaide.com.au/premium-moving-concepts/brand-logo/",
@@ -1664,21 +1661,18 @@
     "ogDescription": "Brand lockup concept stage rebuilt from the Stitch export set and published as a dedicated ZQ Removals preview route.",
     "ogType": "website",
     "ogUrl": "https://zqremovalsadelaide.com.au/premium-moving-concepts/brand-logo/",
-    "ogImage": "https://zqremovalsadelaide.com.au/media/stitch/brand-logo-screen.jpg",
+    "ogImage": "https://zqremovalsadelaide.com.au/zq-removals-social-share.webp",
     "twitterCard": "summary_large_image",
     "twitterTitle": "Brand Logo Concept Stage | ZQ Removals",
     "twitterDescription": "Brand lockup concept stage rebuilt from the Stitch export set and published as a dedicated ZQ Removals preview route.",
-    "twitterImage": "https://zqremovalsadelaide.com.au/media/stitch/brand-logo-screen.jpg",
+    "twitterImage": "https://zqremovalsadelaide.com.au/zq-removals-social-share.webp",
     "refresh": "",
     "jsonLd": [],
-    "contentFile": "content/premium-moving-concepts/brand-logo/index.html",
-    "extraStylesheets": [
-      "/media/stitch/stitch-screens.css"
-    ]
+    "contentFile": "content/premium-moving-concepts/brand-logo/index.html"
   },
   {
     "output": "premium-moving-concepts/luxury-pricing-packages/index.html",
-    "layout": "bare",
+    "layout": "standard",
     "title": "Luxury Pricing Packages Concept | ZQ Removals",
     "description": "Premium pricing concept rebuilt from the Stitch export set and published as a dedicated ZQ Removals preview route.",
     "canonical": "https://zqremovalsadelaide.com.au/premium-moving-concepts/luxury-pricing-packages/",
@@ -1688,21 +1682,18 @@
     "ogDescription": "Premium pricing concept rebuilt from the Stitch export set and published as a dedicated ZQ Removals preview route.",
     "ogType": "website",
     "ogUrl": "https://zqremovalsadelaide.com.au/premium-moving-concepts/luxury-pricing-packages/",
-    "ogImage": "https://zqremovalsadelaide.com.au/media/stitch/luxury-pricing-packages.jpg",
+    "ogImage": "https://zqremovalsadelaide.com.au/zq-removals-social-share.webp",
     "twitterCard": "summary_large_image",
     "twitterTitle": "Luxury Pricing Packages Concept | ZQ Removals",
     "twitterDescription": "Premium pricing concept rebuilt from the Stitch export set and published as a dedicated ZQ Removals preview route.",
-    "twitterImage": "https://zqremovalsadelaide.com.au/media/stitch/luxury-pricing-packages.jpg",
+    "twitterImage": "https://zqremovalsadelaide.com.au/zq-removals-social-share.webp",
     "refresh": "",
     "jsonLd": [],
-    "contentFile": "content/premium-moving-concepts/luxury-pricing-packages/index.html",
-    "extraStylesheets": [
-      "/media/stitch/stitch-screens.css"
-    ]
+    "contentFile": "content/premium-moving-concepts/luxury-pricing-packages/index.html"
   },
   {
     "output": "premium-moving-concepts/testimonials-and-premium-footer/index.html",
-    "layout": "bare",
+    "layout": "standard",
     "title": "Testimonials and Premium Footer Concept | ZQ Removals",
     "description": "Premium testimonials and footer concept rebuilt from the Stitch export set and published as a dedicated ZQ Removals preview route.",
     "canonical": "https://zqremovalsadelaide.com.au/premium-moving-concepts/testimonials-and-premium-footer/",
@@ -1712,17 +1703,14 @@
     "ogDescription": "Premium testimonials and footer concept rebuilt from the Stitch export set and published as a dedicated ZQ Removals preview route.",
     "ogType": "website",
     "ogUrl": "https://zqremovalsadelaide.com.au/premium-moving-concepts/testimonials-and-premium-footer/",
-    "ogImage": "https://zqremovalsadelaide.com.au/media/stitch/testimonials-and-premium-footer.jpg",
+    "ogImage": "https://zqremovalsadelaide.com.au/zq-removals-social-share.webp",
     "twitterCard": "summary_large_image",
     "twitterTitle": "Testimonials and Premium Footer Concept | ZQ Removals",
     "twitterDescription": "Premium testimonials and footer concept rebuilt from the Stitch export set and published as a dedicated ZQ Removals preview route.",
-    "twitterImage": "https://zqremovalsadelaide.com.au/media/stitch/testimonials-and-premium-footer.jpg",
+    "twitterImage": "https://zqremovalsadelaide.com.au/zq-removals-social-share.webp",
     "refresh": "",
     "jsonLd": [],
-    "contentFile": "content/premium-moving-concepts/testimonials-and-premium-footer/index.html",
-    "extraStylesheets": [
-      "/media/stitch/stitch-screens.css"
-    ]
+    "contentFile": "content/premium-moving-concepts/testimonials-and-premium-footer/index.html"
   },
   {
     "output": "services/local-removals-adelaide/index.html",

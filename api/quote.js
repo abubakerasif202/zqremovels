@@ -88,23 +88,22 @@ function checkRateLimitMemory(ip) {
 }
 
 async function checkRateLimitKV(ip, kvUrl, kvToken) {
-  const minute = Math.floor(Date.now() / 60000);
-  const key = `rate_limit:${ip}:${minute}`;
+  const key = `rate_limit:${ip}:${Math.floor(Date.now() / 60000)}`;
   try {
-    const incrRes = await fetch(`${kvUrl}/incr/${key}`, {
-      headers: { Authorization: `Bearer ${kvToken}` },
+    const target = new URL(kvUrl);
+    if (target.protocol !== "https:" || target.username || target.password) throw new Error("Invalid datastore configuration");
+    const response = await fetch(target.href, {
+      method: "POST", redirect: "error",
+      headers: { Authorization: `Bearer ${kvToken}`, "Content-Type": "application/json" },
+      body: JSON.stringify(["EVAL", "local n=redis.call('INCR',KEYS[1]); if n==1 then redis.call('EXPIRE',KEYS[1],60) end; return n", "1", key]),
+      signal: AbortSignal.timeout(5000),
     });
-    const incrData = await incrRes.json();
-    const count = incrData.result;
-    if (count === 1) {
-      await fetch(`${kvUrl}/expire/${key}/60`, {
-        headers: { Authorization: `Bearer ${kvToken}` },
-      });
-    }
-    return count > 5;
-  } catch (err) {
-    console.error("Vercel KV rate limit fetch failed:", err);
-    return false;
+    const data = await response.json();
+    if (!response.ok || data.error || !Number.isInteger(data.result) || data.result < 1) throw new Error("Datastore unavailable");
+    return data.result > 5;
+  } catch {
+    // Keep an abuse limit during datastore outages instead of allowing unlimited sends.
+    return checkRateLimitMemory(ip);
   }
 }
 
@@ -113,6 +112,8 @@ async function verifyTurnstile(token, ip, secretKey) {
   try {
     const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
       method: "POST",
+      redirect: "error",
+      signal: AbortSignal.timeout(5000),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({
         secret: secretKey,
@@ -121,7 +122,7 @@ async function verifyTurnstile(token, ip, secretKey) {
       }),
     });
     const data = await res.json();
-    return !!data.success;
+    return res.ok !== false && data.success === true;
   } catch (err) {
     console.error("Turnstile verification error:", err);
     return false;
@@ -133,6 +134,8 @@ async function verifyRecaptcha(token, ip, secretKey) {
   try {
     const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
       method: "POST",
+      redirect: "error",
+      signal: AbortSignal.timeout(5000),
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({
         secret: secretKey,
@@ -141,7 +144,7 @@ async function verifyRecaptcha(token, ip, secretKey) {
       }),
     });
     const data = await res.json();
-    return !!(data.success && (data.score === undefined || data.score >= 0.5));
+    return res.ok !== false && data.success === true && (data.score === undefined || (typeof data.score === "number" && data.score >= 0.5));
   } catch (err) {
     console.error("reCAPTCHA verification error:", err);
     return false;
@@ -154,10 +157,19 @@ function sendJson(res, status, payload) {
 }
 
 async function readJsonBody(req) {
-  let body = "";
+  const chunks = [];
+  let bytes = 0;
   for await (const chunk of req) {
-    body += chunk;
+    const buffer = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
+    bytes += buffer.length;
+    if (bytes > 32000) {
+      const error = new Error("Request too large");
+      error.statusCode = 413;
+      throw error;
+    }
+    chunks.push(buffer);
   }
+  const body = Buffer.concat(chunks).toString("utf8");
   return body;
 }
 
@@ -211,7 +223,14 @@ function parseRequestPayload(rawBody, contentType) {
   return JSON.parse(rawBody);
 }
 
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]);
+}
+
 function sendHtml(res, status, title, message, details = "") {
+  title = escapeHtml(title);
+  message = escapeHtml(message);
+  details = escapeHtml(details);
   res.status(status).setHeader("Content-Type", "text/html; charset=utf-8");
   res.end(`<!doctype html>
 <html lang="en">
@@ -455,6 +474,7 @@ module.exports = async function handler(req, res) {
     try {
       const contentType = getHeaderValue(req, "content-type").split(";")[0].trim();
       payload = parseRequestPayload(rawBody, contentType);
+      if (!payload || typeof payload !== "object" || Array.isArray(payload)) throw new Error("Invalid payload shape");
     } catch (error) {
       console.error("Quote API received malformed JSON.", error);
       if (wantsJsonResponse(req)) {
@@ -621,6 +641,10 @@ module.exports = async function handler(req, res) {
 
     return sendJson(res, 200, { success: true, message: "Quote submitted" });
   } catch (error) {
+    if (error.statusCode === 413) {
+      if (wantsJsonResponse(req)) return sendJson(res, 413, { success: false, message: "Quote request is too large" });
+      return sendHtml(res, 413, "Request too large", "Please shorten your enquiry and try again.");
+    }
     console.error("Quote API handler failed.", error);
     if (wantsJsonResponse(req)) {
       return sendJson(res, 500, { success: false, message: "Unexpected server error" });

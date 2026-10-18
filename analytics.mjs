@@ -174,9 +174,11 @@ export function trackFormSubmit(formName = "quote_form") {
   dispatchEvent("quote_form_submit", { form_name: formName });
 }
 
+const UUID_V4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
 export function trackFormSuccess(formName = "quote_form", leadId = "", onQueued) {
   const win = safeWindow();
-  if (!win || !/^[a-zA-Z0-9_-]{8,128}$/.test(leadId)) return false;
+  if (!win || !UUID_V4.test(leadId)) return false;
   const seen = win.__zqAcceptedLeads ||= new Set();
   const key = `zq_accepted_lead:${leadId}`;
   if (seen.has(leadId)) return false;
@@ -184,8 +186,16 @@ export function trackFormSuccess(formName = "quote_form", leadId = "", onQueued)
   seen.add(leadId);
   try { win.sessionStorage?.setItem(key, "1"); } catch {}
   win.dataLayer ||= [];
+  // The installed GTM legacy bridge also translates generate_lead. Mark it
+  // before pushing either event so a genuine acceptance produces one Ads event.
+  win.__zqQuoteSubmittedSent = true;
+  sendGtmEvent("zq_quote_submitted", {
+    form_name: "quote_form", submission_status: "accepted", submission_id: leadId,
+    lead_id: leadId, source_form: formName,
+  });
   sendGtmEvent("generate_lead", {
     lead_type: "removal_quote", form_name: formName, lead_id: leadId,
+    submission_status: "accepted", submission_id: leadId,
     ...(onQueued ? { eventCallback: onQueued, eventTimeout: 1500 } : {}),
   });
   return true;

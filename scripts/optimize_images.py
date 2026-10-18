@@ -9,7 +9,6 @@ TARGETS = [
     (ROOT / 'brand-logo.png', ROOT / 'brand-logo-64.webp', 80, (64, 64)),
     (ROOT / 'brand-logo.png', ROOT / 'brand-logo-256.webp', 82, (256, 256)),
     (ROOT / 'brand-logo.png', ROOT / 'brand-logo-96.webp', 80, (96, 96)),
-    (ROOT / 'screen.png', ROOT / 'screen.webp', 84, None),
     (ROOT / 'zq-removals-social-share.png', ROOT / 'zq-removals-social-share.webp', 86, None),
 ]
 RESIZED_TARGETS = [

@@ -11,7 +11,7 @@
   .zq-chat-head strong{display:block;font-size:16px;color:white}
   .zq-chat-head small{display:block;font-size:12px;color:#d7e9f3}
   .zq-chat-actions{display:flex;align-items:center;gap:4px}
-  .zq-chat-iconbtn{display:grid;place-items:center;width:34px;height:34px;border:1px solid #87a0b3;border-radius:8px;background:transparent;color:white;cursor:pointer;font-size:20px}
+  .zq-chat-iconbtn{display:grid;place-items:center;width:44px;height:44px;border:1px solid #87a0b3;border-radius:8px;background:transparent;color:white;cursor:pointer;font-size:20px}
   .zq-chat-iconbtn:hover,.zq-chat-iconbtn:focus-visible{background:#245373;outline:2px solid #ffcb57}
   .zq-chat-messages{min-height:0;flex:1;overflow-y:auto;overscroll-behavior:contain;padding:16px;background:#f6fafc}
   .zq-chat-bubble{max-width:94%;width:fit-content;margin:0 0 12px;padding:11px 13px;border-radius:13px;background:#fff;border:1px solid #dae4ea;color:#102d43;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.55}
@@ -20,6 +20,7 @@
   .zq-chat-foot{padding:12px;border-top:1px solid #d7e2e9;background:#fff}
   .zq-chat-form{display:flex;align-items:end;gap:8px}
   .zq-chat-input{flex:1;min-width:0;min-height:42px;max-height:130px;resize:vertical;border:1.5px solid #829aae;border-radius:10px;background:#fff;color:#122e46;padding:9px 11px;font:400 14px/1.4 system-ui}
+  .zq-chat-input::placeholder{color:#526477;opacity:1}
   .zq-chat-input:focus-visible{outline:3px solid #fbbf24;outline-offset:1px}
   .zq-chat-send{min-height:42px;border:0;border-radius:10px;padding:9px 13px;background:#9d4306;color:#fff;font-weight:800;cursor:pointer}
   .zq-chat-send:disabled{background:#8e959b;cursor:not-allowed}
@@ -36,7 +37,7 @@
   .zq-chat-enquiry p{margin:4px 0 14px;font-size:13px;color:#3a5064}
   .zq-chat-fields{display:grid;gap:10px}
   .zq-chat-field{display:grid;gap:4px;font-size:13px;font-weight:700;color:#243d53}
-  .zq-chat-field input,.zq-chat-field select,.zq-chat-field textarea{display:block;width:100%;min-width:0;padding:9px 10px;border:1.5px solid #738da1;border-radius:8px;background:white;color:#102b41;font:400 14px/1.3 system-ui}
+  .zq-chat-field input,.zq-chat-field select,.zq-chat-field textarea{display:block;width:100%;min-width:0;padding:9px 10px;border:1.5px solid #738da1;border-radius:8px;background:white;color:#102b41;font:400 16px/1.3 system-ui;box-sizing:border-box}
   .zq-chat-field input:focus-visible,.zq-chat-field select:focus-visible,.zq-chat-field textarea:focus-visible{outline:3px solid #ffcb57;outline-offset:1px}
   .zq-chat-enquiry-controls[hidden]{display:none!important}
   .zq-chat-enquiry-controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
@@ -211,6 +212,8 @@
   const header = panel.querySelector(".zq-chat-head");
   function showLeadPanel(open) {
     leadPanel.hidden = !open;
+    messages.inert = open;
+    form.closest(".zq-chat-foot").inert = open;
     if (open) {
       leadPanel.scrollTop = 0;
       const first = leadForm.querySelector('input[name="full_name"]');
@@ -365,9 +368,12 @@
       normalMobileHeight = 0;
       syncMobileViewport();
       loadHistory();
-      if (!window.matchMedia("(max-width:680px)").matches) input.focus();
+      if (window.matchMedia("(max-width:680px)").matches) close.focus();
+      else input.focus();
     } else {
       leadPanel.hidden = true;
+      messages.inert = false;
+      form.closest(".zq-chat-foot").inert = false;
       panel.classList.remove("zq-chat-keyboard-open");
       input.blur();
       syncMobileViewport();
@@ -377,7 +383,20 @@
   launcher.addEventListener("click", () => toggle(panel.hidden));
   close.addEventListener("click", () => toggle(false));
   document.addEventListener("keydown", event => {
-    if (event.key === "Escape" && !panel.hidden) toggle(false);
+    if (panel.hidden) return;
+    if (event.key === "Escape") toggle(false);
+    if (event.key !== "Tab") return;
+    const controls = [...panel.querySelectorAll('button, a[href], input, select, textarea, [tabindex]')]
+      .filter(element => !element.disabled && element.tabIndex >= 0 && !element.closest('[inert]') && element.getClientRects().length);
+    const first = controls[0];
+    const last = controls.at(-1);
+    if (event.shiftKey && (document.activeElement === first || !panel.contains(document.activeElement))) {
+      event.preventDefault();
+      last?.focus();
+    } else if (!event.shiftKey && (document.activeElement === last || !panel.contains(document.activeElement))) {
+      event.preventDefault();
+      first?.focus();
+    }
   });
   reset.addEventListener("click", async () => {
     if (sending) return;
@@ -387,6 +406,8 @@
       messages.replaceChildren();
       leadForm.reset();
       leadPanel.hidden = true;
+      messages.inert = false;
+      form.closest(".zq-chat-foot").inert = false;
       leadFieldsArea.hidden = false;
       leadFieldsActions.hidden = false;
       reviewArea.hidden = true;
