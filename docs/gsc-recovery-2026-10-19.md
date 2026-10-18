@@ -155,7 +155,26 @@ Submitting a request does not mean Google has re-indexed or re-ranked anything.
 - axe/readability audit: 95 pages, 0 rule failures, 0 overflowing pages, 0 button-contrast failures.
 - New tests: `sitemap-and-apartment-consolidation`, `priority-suburb-pages`, `top-page-targeting`.
 
-Commit and production deployment status are recorded at the end of this file after release.
+## Release
+
+- Commit: `3b662e6d6d4a2260a5093caa3b13f7de112803f4` on `main` (pushed directly; `main` is not branch-protected).
+- Vercel: existing project `zq`, production deployment `dpl_3EGUjZce5qSnrhBC28CfvfmGDLnz`, state READY,
+  built from that commit.
+- Live checks after deployment (19 Oct 2026):
+  - `/sitemap-index.xml`, `/apartment-removals-adelaide/`, `/services/apartment-removals-adelaide/`,
+    `/cbd-apartment-removals-adelaide/`, `/apartment-movers-adelaide/` and the old cost-guide URL each
+    redirect in one hop to their canonical target; `zqremovals.au/apartment-removals-adelaide/`
+    reaches the retained page in one hop.
+  - The no-slash form `/apartment-removals-adelaide` takes two hops because the site's
+    trailing-slash rule normalises it first; this applies to every legacy path and is unchanged.
+  - `sitemap.xml` lists five child sitemaps (pages 5, services 15, suburbs 48, guides 11, images 79 URLs);
+    no sitemap contains `apartment-removals-adelaide`.
+  - Titles, H1s and canonical tags on the homepage, `/removalists-adelaide/`, office, prices, cost
+    guide, Malvern, Brighton, Hyde Park, northern hub and piano pages match the changes above.
+  - Browser smoke test at 390px on five changed pages: zero console errors, zero failed requests,
+    no horizontal overflow, chat launcher present, quote links present.
+- Not verified: Google's re-indexing, any ranking change, or the Search Console actions below.
+
 
 ## Eight-week review targets (same seven-week window, brand and non-brand separated)
 
