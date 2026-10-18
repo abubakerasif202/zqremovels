@@ -137,7 +137,7 @@ for (const consent of [false, 'true', 1, null, undefined]) {
   });
 }
 for (const field of Object.keys(payload().lead).filter(field => field !== 'move_date')) {
-  for (const invalid of [undefined, '', ' ', 12, 'bad\u0000value']) {
+  for (const invalid of [undefined, '', ' ', 12, 'bad\u0000value'].filter(value => field !== 'email' || (value !== undefined && value !== ''))) {
     test(`rejects invalid ${field}: ${String(invalid)}`, async () => {
       const h = harness(); const data = payload(); data.lead[field] = invalid;
       check(await invoke(h.handler, data), 400, 'invalid_request');
@@ -190,6 +190,18 @@ test('rate limit prevents upstream delivery', async () => {
   const h = harness({ rateCount: 31 });
   check(await invoke(h.handler, payload()), 429, 'rate_limited');
   assert.equal(h.deliveries, 0);
+});
+test('an enquiry without an email address is accepted and delivered without an email field', async () => {
+  const h = harness(); const data = payload(); delete data.lead.email;
+  check(await invoke(h.handler, data), 200, 'accepted', true);
+  assert.equal(h.deliveries, 1);
+  assert.equal(Object.hasOwn(h.calls[0]?.body ?? h.calls[0] ?? {}, 'email') && (h.calls[0].body ?? h.calls[0]).email, false);
+});
+test('an empty email string is treated as omitted but a malformed address is still rejected', async () => {
+  const blank = harness(); const data = payload(); data.lead.email = '';
+  check(await invoke(blank.handler, data), 200, 'accepted', true);
+  const bad = harness(); const invalid = payload(); invalid.lead.email = 'nope';
+  check(await invoke(bad.handler, invalid), 400, 'invalid_request');
 });
 test('provider-confirmed acceptance is replayed without sending twice', async () => {
   const h = harness();

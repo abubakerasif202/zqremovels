@@ -5,12 +5,12 @@ import path from 'node:path';
 const root = process.cwd();
 const testsDir = path.join(root, 'tests');
 const testFiles = (await readdir(testsDir))
-  .filter((file) => file.endsWith('.test.mjs'))
+  .filter((file) => file.endsWith('.test.mjs') || file.endsWith('.test.cjs'))
   .sort()
   .map((file) => path.join('tests', file));
 
 if (testFiles.length === 0) {
-  console.error('No test files found in tests/*.test.mjs');
+  console.error('No test files found in tests/*.test.{mjs,cjs}');
   process.exit(1);
 }
 

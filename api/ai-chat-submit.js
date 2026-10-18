@@ -93,7 +93,7 @@ function createHandler({env=process.env, fetcher=globalThis.fetch}={}) {
         return respond(res,409,{status:"conflict",message:"An enquiry has already been attempted in this conversation. Please contact our team before starting another."});
       }
       if(record.status === "accepted") {
-        return respond(res,200,{status:"accepted",success:true,submission_id:record.submission_id,
+        return respond(res,200,{status:"accepted",success:true,replayed:true,submission_id:record.submission_id,
           message:"Your enquiry was already accepted by the delivery service. This is not a confirmed booking."});
       }
       if(record.status === "pending") {

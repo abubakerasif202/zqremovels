@@ -29,6 +29,8 @@
   .zq-chat-privacy{display:block;margin-top:7px;color:#4b6074;font-size:11px;line-height:1.35}
   .zq-chat-status{margin-top:5px;color:#243f52;font-size:12px;min-height:17px}
   .zq-chat-enquiry{position:absolute;inset:60px 0 0;z-index:2;overflow:auto;background:#fff;padding:16px}
+  .zq-chat-action-row{align-self:flex-start;margin:2px 0 6px}
+  .zq-chat-action{min-height:44px;font-size:14px}
   .zq-chat-enquiry[hidden],.zq-chat-review[hidden],.zq-chat-fields[hidden]{display:none!important}
   .zq-chat-enquiry-bar{position:sticky;top:-16px;z-index:3;display:flex;align-items:center;margin:-16px -16px 12px;padding:10px 16px;background:#fff;border-bottom:1px solid #cadde9}
   .zq-chat-enquiry-bar button{border:1px solid #7896ab;border-radius:9px;background:#ecf3f7;color:#143954;font:700 14px/1.25 system-ui;padding:11px 14px;cursor:pointer}
@@ -156,7 +158,7 @@
   const leadFields = [
     ["full_name", "Full name", "text", 120],
     ["phone", "Phone number", "tel", 30],
-    ["email", "Email address", "email", 254],
+    ["email", "Email address (optional)", "email", 254],
     ["pickup_suburb", "Pickup suburb", "text", 120],
     ["dropoff_suburb", "Delivery suburb", "text", 120],
     ["move_date", "Preferred move date (optional)", "date", 10],
@@ -194,10 +196,13 @@
       if (type === "textarea") control.rows = 3;
     }
     control.name = key;
-    control.required = key !== "move_date";
+    control.required = key !== "move_date" && key !== "email";
     label.append(caption, control);
     leadFieldsArea.appendChild(label);
   }
+  leadForm.addEventListener("input", event => {
+    if (event.isTrusted && event.target?.name) event.target.dataset.dirty = "1";
+  });
   const trap = document.createElement("input");
   trap.name = "botcheck";
   trap.autocomplete = "off";
@@ -220,10 +225,60 @@
       first?.focus();
     } else openEnquiry.focus();
   }
-  openEnquiry.addEventListener("click", async () => {
+  let draftedFor = -1;
+  let drafting = false;
+  function userTurnCount() {
+    return messages.querySelectorAll('.zq-chat-bubble[data-role="user"]').length;
+  }
+  // The model only suggests values; the customer reviews, edits and consents before anything is sent.
+  async function prefillFromChat() {
+    const count = userTurnCount();
+    if (!count || drafting || draftedFor === count || leadFinalised || !reviewArea.hidden) return;
+    drafting = true;
+    leadFeedback.textContent = "Preparing your details from the chat…";
+    try {
+      const response = await fetch("/api/ai-chat/", {
+        method: "POST", credentials: "same-origin",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "draft" })
+      });
+      const data = await response.json();
+      if (!response.ok || !data.lead || typeof data.lead !== "object") throw new Error("No draft");
+      let filled = 0;
+      for (const [key] of leadFields) {
+        const control = leadForm.elements[key];
+        const value = typeof data.lead[key] === "string" ? data.lead[key] : "";
+        if (control && value && control.dataset.dirty !== "1") { control.value = value; filled += 1; }
+      }
+      draftedFor = count;
+      leadFeedback.textContent = filled
+        ? "We pre-filled " + filled + " detail" + (filled === 1 ? "" : "s") + " from your chat. Please check every field and complete anything missing."
+        : "Please enter your moving details below.";
+    } catch {
+      leadFeedback.textContent = "We couldn't pre-fill your details. Please enter them below.";
+    } finally { drafting = false; }
+  }
+  async function openFromChat() {
     await loadHistory();
     showLeadPanel(true);
-  });
+    prefillFromChat();
+  }
+  function showEnquiryPrompt() {
+    messages.querySelector("[data-chat-enquiry-prompt]")?.remove();
+    if (leadFinalised) return;
+    const row = document.createElement("div");
+    row.className = "zq-chat-action-row";
+    row.dataset.chatEnquiryPrompt = "";
+    const action = document.createElement("button");
+    action.type = "button";
+    action.className = "zq-chat-enquiry-open zq-chat-action";
+    action.textContent = "Review & send my enquiry";
+    action.addEventListener("click", openFromChat);
+    row.appendChild(action);
+    messages.appendChild(row);
+    messages.scrollTop = messages.scrollHeight;
+  }
+  openEnquiry.addEventListener("click", openFromChat);
   closeEnquiry.addEventListener("click", () => showLeadPanel(false));
   topBackEnquiry.addEventListener("click", () => showLeadPanel(false));
   backEnquiry.addEventListener("click", () => {
@@ -242,7 +297,7 @@
     const lead = {};
     for (const [key] of leadFields) {
       const value = String(form.get(key) || "").trim();
-      if (value || key !== "move_date") lead[key] = value;
+      if (value || (key !== "move_date" && key !== "email")) lead[key] = value;
     }
     currentLead = lead;
     if (!submissionId) submissionId = crypto.randomUUID();
@@ -275,6 +330,10 @@
       const result = await response.json();
       if (response.status === 200 && result.status === "accepted" && result.success === true) {
         leadFinalised = true;
+        messages.querySelector("[data-chat-enquiry-prompt]")?.remove();
+        if (!result.replayed) {
+          import("/analytics.mjs").then(module => module.trackFormSuccess("ai_chat_enquiry", result.submission_id)).catch(() => {});
+        }
         const note = result.message + (result.submission_id ? "\nReference: " + result.submission_id : "");
         leadFeedback.textContent = note;
         append("assistant", note);
@@ -309,7 +368,7 @@
     messages.scrollTop = messages.scrollHeight;
   }
   function greet() {
-    append("assistant", "Hi! I'm the ZQ Removals AI receptionist. I can help with moving questions, packing advice and transparent estimates. Where are you moving from and to?");
+    append("assistant", "Hi! I'm the ZQ Removals AI receptionist. I can help with moving questions, packing advice and transparent estimates, and I can gather your details so you can review and send an enquiry to the team. Where are you moving from and to?");
   }
   function setSending(flag) {
     sending = flag;
@@ -415,6 +474,8 @@
       leadFeedback.textContent = "";
       currentLead = null;
       submissionId = null;
+      draftedFor = -1;
+      leadForm.querySelectorAll("[data-dirty]").forEach(control => { delete control.dataset.dirty; });
       leadFinalised = false;
       confirmLead.disabled = false;
       backEnquiry.disabled = false;
@@ -439,6 +500,7 @@
       const data = await response.json();
       if (!response.ok || !data.reply) throw new Error(data.error || "Unable to contact the receptionist");
       append("assistant", data.reply);
+      if (data.enquiry_ready === true) showEnquiryPrompt();
     } catch (error) {
       append("system", error.message || "AI chat unavailable. Please use our quote form or call us.");
     } finally { setSending(false); input.focus(); }

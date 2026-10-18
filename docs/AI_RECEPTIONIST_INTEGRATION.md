@@ -163,3 +163,37 @@ Runtime references checked via Context7:
 [Vercel Node.js functions](https://vercel.com/docs/functions/runtimes/node-js),
 [Redis REST command format](https://upstash.com/docs/redis/features/restapi),
 [ADK native confirmation sample](https://github.com/google/adk-python/blob/main/contributing/samples/hitl/tool_confirmation/README.md).
+
+## Website chat enquiry journey (customer-confirmed, in-chat)
+
+The Cloud Run agent still never submits a lead from the website: `api/ai-chat.js`
+rejects any `submit_lead` call, and no ADK confirmation bridge is needed. The
+customer completes the journey inside the chat widget:
+
+1. The receptionist gathers details conversationally (name, phone, optional
+   email, suburbs, date, property, stairs/lifts/parking, packing, crew) and ends
+   its reply with `[[ENQUIRY_READY]]` when enough is known. The server strips the
+   token and returns `enquiry_ready: true`, which shows the **Review & send my
+   enquiry** button (the footer **Send enquiry** button does the same).
+2. Opening the form calls `POST /api/ai-chat/` with `{"action":"draft"}`. The
+   agent extracts a JSON draft from the stored chat; `sanitizeDraft` whitelists
+   keys, enums, formats and lengths. The draft only pre-fills the editable form
+   and never overwrites a field the customer has typed. It has its own
+   4 per minute per-session limit, separate from the 12 per minute chat limit.
+3. The customer edits, reviews the exact details, ticks the consent box and
+   presses **Confirm & send enquiry**. The widget posts to
+   `/api/ai-chat-submit/` (origin + server-created session cookie, per-IP daily
+   limit, durable one-enquiry-per-chat receipt, bearer-secret call to
+   `/api/ai-lead/`).
+4. Success text and the reference (the submission UUID) appear only after an
+   explicit `accepted` response. Pending, unknown, rejected and network failures
+   never claim success and never retry automatically.
+5. On a first-time acceptance only (`replayed` absent), the widget calls
+   `trackFormSuccess("ai_chat_enquiry", submission_id)`, which emits
+   `zq_quote_submitted` (`form_name=quote_form`, `submission_status=accepted`) and
+   `generate_lead` once per UUIDv4. Chat leads therefore count as quote
+   conversions in the existing GTM/Ads trigger; no account setting was changed.
+
+Email is optional: an empty or absent email is omitted from delivery, while a
+supplied email must still be valid. Web3Forms then has no reply-to for that lead,
+so staff phone the customer.

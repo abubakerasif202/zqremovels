@@ -122,3 +122,10 @@ axe "incomplete" items (text over gradients/images), not violations.
   decision and was not changed.
 - Four development-only advisories (PurgeCSS chain) remain; production
   dependencies report 0.
+
+## Chat enquiry journey and CSP (19 October 2026)
+
+- CSP `connect-src` now allows `pagead2.googlesyndication.com` (Ads consent ping), with a regression test.
+- In-chat enquiry journey added (see `docs/AI_RECEPTIONIST_INTEGRATION.md`): conversational collection, chat-derived pre-fill, review/edit, explicit consent, acceptance-only success and conversion. No Cloud Run change was required.
+- `npm test` now also runs `tests/*.test.cjs`; previously the chat API tests were never part of the suite.
+- Verification: 377 node tests pass; Playwright 145 passed (80 skipped by design); tsc, SEO validation (109 pages) and the axe audit (96 pages, 0 failures) pass. The journey is exercised at 320, 375, 390 and 430px and on desktop with all backends mocked.

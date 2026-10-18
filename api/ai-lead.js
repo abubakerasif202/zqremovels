@@ -43,13 +43,17 @@ function validatePayload(value) {
     if (key === "move_date" && value.lead[key] === undefined) {
       continue;
     }
+    // Email is optional for customers who prefer to be contacted by phone.
+    if (key === "email" && (value.lead[key] === undefined || value.lead[key] === "")) {
+      continue;
+    }
     const field = value.lead[key];
     if (typeof field !== "string" || !field.trim() || field.length > max || /[\x00-\x1f\x7f]/.test(field)) {
       throw new Error(`Invalid field: ${key}.`);
     }
     lead[key] = field.trim();
   }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email)) {
+  if (lead.email !== undefined && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email)) {
     throw new Error("Invalid email.");
   }
   if (!/^\+?[0-9 ()-]+$/.test(lead.phone) || lead.phone.replace(/\D/g, "").length < 8 || lead.phone.replace(/\D/g, "").length > 15) {
