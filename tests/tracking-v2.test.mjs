@@ -132,8 +132,8 @@ test("conversion events push payloads to dataLayer", async () => {
   analytics.trackFormStart("quote_form");
   analytics.trackFormSubmit("quote_form");
   assert.equal(dataLayer.some((entry) => entry.event === "generate_lead"), false);
-  analytics.trackFormSuccess("quote_form", "accepted-test-123");
-  analytics.trackFormSuccess("quote_form", "accepted-test-123");
+  analytics.trackFormSuccess("quote_form", "6b1f0c2a-4d7e-4a3b-9c58-1e2f3a4b5c6d");
+  analytics.trackFormSuccess("quote_form", "6b1f0c2a-4d7e-4a3b-9c58-1e2f3a4b5c6d");
   assert.equal(dataLayer.filter((entry) => entry.event === "generate_lead").length, 1);
   analytics.trackServiceCTA("house-removals");
   analytics.trackMobileMenuOpen();
@@ -236,8 +236,8 @@ test("accepted lead deduplication is private, GTM-only and resilient to blocked 
     analytics.trackFormSubmit("test_form");
     assert.equal(dataLayer.some(entry => entry.event === "generate_lead"), false);
     assert.equal(analytics.trackFormSuccess("test_form"), false);
-    assert.equal(analytics.trackFormSuccess("test_form", "accepted-server-123"), true);
-    assert.equal(analytics.trackFormSuccess("test_form", "accepted-server-123"), false);
+    assert.equal(analytics.trackFormSuccess("test_form", "9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d"), true);
+    assert.equal(analytics.trackFormSuccess("test_form", "9a8b7c6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d"), false);
     analytics.trackCallClick("header");
     analytics.trackWhatsAppClick("footer");
     assert.equal(directCalls, 0);
