@@ -1,4 +1,5 @@
 import { chromium } from '@playwright/test';
+import { spawn } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -49,6 +50,35 @@ for (const file of await htmlFiles(dist)) {
   templates.add(template);
   routes.push({ route, template, file });
 }
+
+let spawnedServer = null;
+try {
+  const ping = await fetch(`${origin}/`, { redirect: 'manual' });
+  if (!ping.ok && ping.status !== 404) throw new Error('Not ready');
+} catch {
+  const port = new URL(origin).port || '3000';
+  spawnedServer = spawn(process.execPath, ['scripts/serve-site.mjs'], {
+    cwd: process.cwd(),
+    env: { ...process.env, PORT: String(port) },
+    stdio: 'ignore',
+  });
+  let ready = false;
+  for (let attempt = 0; attempt < 40; attempt += 1) {
+    try {
+      const res = await fetch(`${origin}/`, { redirect: 'manual' });
+      if (res.ok || res.status === 404) {
+        ready = true;
+        break;
+      }
+    } catch {}
+    await new Promise((r) => setTimeout(r, 250));
+  }
+  if (!ready) {
+    if (spawnedServer) spawnedServer.kill();
+    throw new Error(`Failed to start local static server on ${origin}`);
+  }
+}
+
 const browser = await chromium.launch({
   headless: true,
   ...(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH
@@ -154,6 +184,9 @@ try {
     await page.close();
   }));
 } finally {
+  if (spawnedServer) {
+    spawnedServer.kill();
+  }
   await browser.close();
   results.sort((a, b) => a.route.localeCompare(b.route));
   // Persist partial results on failure as well as complete successful runs.

@@ -2909,6 +2909,8 @@ export function renderHead(page, content) {
   }
 
   if (page.layout !== 'redirect') {
+    tags.push('<link rel="preconnect" href="https://api.web3forms.com" crossorigin />');
+    tags.push('<link rel="dns-prefetch" href="https://www.googletagmanager.com" />');
     tags.push('<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />');
     tags.push('<link rel="preload" href="/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin />');
 
@@ -6956,7 +6958,6 @@ async function pathExists(target) {
 async function copyStaticAssets() {
   const fileAssets = [
     'analytics.mjs',
-    'chat-widget.mjs',
     'brand-logo.png',
     'brand-logo-64.webp',
     'brand-logo-256.webp',
@@ -6977,8 +6978,8 @@ async function copyStaticAssets() {
     await copyFile(path.join(projectRoot, asset), path.join(distRoot, asset));
   }
 
-  // Transpile site.js using esbuild, synchronized with the browserslist target
-  console.log('Transpiling site.js with esbuild...');
+  // Transpile site.js and chat-widget.mjs using esbuild, synchronized with the browserslist target
+  console.log('Transpiling site.js and chat-widget.mjs with esbuild...');
   try {
     const browsers = browserslist();
     const targets = browserslistToEsbuild(browsers);
@@ -6995,10 +6996,20 @@ async function copyStaticAssets() {
       entryNames: '[name]',
       chunkNames: 'chunks/[name]-[hash]',
     });
-    console.log('site.js transpiled successfully.');
+    await esbuild.build({
+      entryPoints: [path.join(projectRoot, 'chat-widget.mjs')],
+      bundle: false,
+      minify: true,
+      sourcemap: false,
+      format: 'esm',
+      target: targets,
+      outfile: path.join(distRoot, 'chat-widget.mjs'),
+    });
+    console.log('site.js and chat-widget.mjs transpiled successfully.');
   } catch (error) {
     console.error('esbuild transpilation failed, falling back to direct copy:', error);
     await copyFile(path.join(projectRoot, 'site.js'), path.join(distRoot, 'site.js'));
+    await copyFile(path.join(projectRoot, 'chat-widget.mjs'), path.join(distRoot, 'chat-widget.mjs'));
   }
 
   // Optional branding assets (developer credit logo). Skipped when absent.

@@ -955,8 +955,6 @@ function playEntrance(node) {
 function setupEntranceAnimations() {
   const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
   if (preference.matches) return;
-  const hero = document.querySelector(".page-home .zq-v2-hero-copy");
-  if (hero) playEntrance(hero);
   const nodes = document.querySelectorAll(
     ".page-home .zq-v2-service-card, .page-home .zq-v2-trust-cards > article, " +
     ".testimonial-card, .google-review-card, .rate-table"
@@ -1198,10 +1196,25 @@ setupQuoteForms();
 trackHandedOffAcceptedQuote();
 setupLocalFormPreview();
 setupHeaderState();
-setupRevealAnimations();
-setupInteractiveSpotlights();
-setupAnimatedCounters();
 setupStickyCta();
-setupServiceAreaLocator();
 setupConversionTracking();
-setupFooterSocialLinks();
+
+function runWhenIdleFast(callback, timeout = 1200) {
+  if (typeof window !== "undefined" && typeof window.requestIdleCallback === "function") {
+    window.requestIdleCallback(callback, { timeout });
+  } else if (typeof setTimeout === "function") {
+    setTimeout(callback, 20);
+  } else if (typeof window !== "undefined" && typeof window.setTimeout === "function") {
+    window.setTimeout(callback, 20);
+  } else {
+    callback();
+  }
+}
+
+runWhenIdleFast(() => {
+  setupRevealAnimations();
+  setupInteractiveSpotlights();
+  setupAnimatedCounters();
+  setupServiceAreaLocator();
+  setupFooterSocialLinks();
+});
