@@ -743,6 +743,43 @@ async function submitQuoteForm(form, payload) {
   return result;
 }
 
+// The Ads conversion request leaves 0.45-1s after the accepted event, after GTM's eventCallback,
+// so redirecting from the form cancels it. Hand the accepted receipt to /thank-you/, which stays open.
+const PENDING_ACCEPTED_QUOTE_KEY = "zq_pending_accepted_quote";
+const PENDING_ACCEPTED_QUOTE_MAX_AGE_MS = 10 * 60 * 1000;
+
+function handOffAcceptedQuote(formName, leadId) {
+  try {
+    window.sessionStorage.setItem(PENDING_ACCEPTED_QUOTE_KEY, JSON.stringify({ formName, leadId, at: Date.now() }));
+    return window.sessionStorage.getItem(PENDING_ACCEPTED_QUOTE_KEY) !== null;
+  } catch {
+    return false;
+  }
+}
+
+function trackHandedOffAcceptedQuote() {
+  if (window.location.pathname !== "/thank-you/") return;
+  let pending;
+  try {
+    const raw = window.sessionStorage.getItem(PENDING_ACCEPTED_QUOTE_KEY);
+    // Consume before tracking so a reload or back/forward visit cannot replay it.
+    window.sessionStorage.removeItem(PENDING_ACCEPTED_QUOTE_KEY);
+    pending = raw ? JSON.parse(raw) : null;
+  } catch {
+    return;
+  }
+  if (
+    typeof pending?.leadId !== "string" ||
+    typeof pending.formName !== "string" ||
+    !/^[a-z0-9_-]{1,80}$/i.test(pending.formName) ||
+    !(Date.now() - pending.at >= 0 && Date.now() - pending.at <= PENDING_ACCEPTED_QUOTE_MAX_AGE_MS)
+  ) {
+    return;
+  }
+  // trackFormSuccess re-validates the UUIDv4 and dedupes by id.
+  withAnalytics((analytics) => analytics.trackFormSuccess(pending.formName, pending.leadId));
+}
+
 function setupQuoteForms() {
   if (quoteForms.length === 0) {
     return;
@@ -788,16 +825,18 @@ function setupQuoteForms() {
             ? result.lead_id : window.crypto.randomUUID();
           const formName = form.getAttribute("data-form-name") ||
             `${window.location.pathname === "/" ? "home" : window.location.pathname.split("/").filter(Boolean).join("_")}_quote_${quoteForms.indexOf(form) + 1}`;
-          // Queue before navigation. Analytics failure must not turn an accepted enquiry into a retry.
-          const analytics = await loadAnalyticsModule();
-          await new Promise((resolve) => {
-            const timeout = window.setTimeout(resolve, 1600);
-            const queued = analytics.trackFormSuccess(formName, leadId, () => {
-              window.clearTimeout(timeout);
-              resolve();
+          if (!handOffAcceptedQuote(formName, leadId)) {
+            // No sessionStorage: queue before navigation. Analytics failure must not turn an accepted enquiry into a retry.
+            const analytics = await loadAnalyticsModule();
+            await new Promise((resolve) => {
+              const timeout = window.setTimeout(resolve, 1600);
+              const queued = analytics.trackFormSuccess(formName, leadId, () => {
+                window.clearTimeout(timeout);
+                resolve();
+              });
+              if (!queued) { window.clearTimeout(timeout); resolve(); }
             });
-            if (!queued) { window.clearTimeout(timeout); resolve(); }
-          });
+          }
         } catch { /* Enquiry accepted; tracking may be blocked by the browser. */ }
         applyQuoteFormErrors(form, {});
         form.reset();
@@ -1117,6 +1156,7 @@ setupFormState();
 setupQuoteFormStepAccessibility();
 syncQuoteFormHiddenFields();
 setupQuoteForms();
+trackHandedOffAcceptedQuote();
 setupLocalFormPreview();
 setupHeaderState();
 setupRevealAnimations();

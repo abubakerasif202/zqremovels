@@ -192,6 +192,10 @@ export function trackFormSuccess(formName = "quote_form", leadId = "", onQueued)
   sendGtmEvent("zq_quote_submitted", {
     form_name: "quote_form", submission_status: "accepted", submission_id: leadId,
     lead_id: leadId, source_form: formName,
+    // GTM keeps the last value of each key, so a later bare zq_quote_submitted push would inherit
+    // accepted/submission_id and convert again. Clear them once GTM has processed this event; no
+    // eventTimeout, because a timeout could clear them before a still-loading gtm.js reads them.
+    eventCallback: clearAcceptedQuoteKeys,
   });
   sendGtmEvent("generate_lead", {
     lead_type: "removal_quote", form_name: formName, lead_id: leadId,
@@ -199,6 +203,17 @@ export function trackFormSuccess(formName = "quote_form", leadId = "", onQueued)
     ...(onQueued ? { eventCallback: onQueued, eventTimeout: 1500 } : {}),
   });
   return true;
+}
+
+function clearAcceptedQuoteKeys() {
+  const win = safeWindow();
+  if (!Array.isArray(win?.dataLayer)) return;
+  try {
+    win.dataLayer.push({
+      form_name: undefined, submission_status: undefined, submission_id: undefined,
+      lead_id: undefined, source_form: undefined, lead_type: undefined,
+    });
+  } catch {}
 }
 
 export function trackEmailClick(location = "") {

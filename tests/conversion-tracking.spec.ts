@@ -12,6 +12,9 @@ test.beforeEach(async ({ page }) => {
           const events = JSON.parse(sessionStorage.getItem('qa_events') || '[]');
           events.push(item);
           sessionStorage.setItem('qa_events', JSON.stringify(events));
+          const paths = JSON.parse(sessionStorage.getItem('qa_event_paths') || '[]');
+          paths.push(location.pathname);
+          sessionStorage.setItem('qa_event_paths', JSON.stringify(paths));
         }
       }
       return originalPush(...items);
@@ -44,7 +47,9 @@ async function fillForm(page: any, formIndex = 0) {
 }
 
 for (const [path, formIndex] of [['/', 0], ['/', 1], ['/contact-us/', 0], ['/removalists-southern-adelaide/', 0], ['/adelaide-removalists-facebook-offer/', 0]] as const) {
-  test(`accepted quote queues one private event before navigation: ${path} form ${formIndex}`, async ({ page }) => {
+  // The Ads tag sends 0.45-1s after the push, after GTM's eventCallback, so the event is handed
+  // to /thank-you/ (which stays open) instead of racing the redirect.
+  test(`accepted quote fires one private event on the thank-you page: ${path} form ${formIndex}`, async ({ page }) => {
     let requests = 0;
     await page.route('https://api.web3forms.com/submit', async route => {
       requests++;
@@ -60,8 +65,10 @@ for (const [path, formIndex] of [['/', 0], ['/', 1], ['/contact-us/', 0], ['/rem
     });
     await page.waitForURL('**/thank-you/');
     expect(requests).toBe(1);
+    await expect.poll(async () => (await events(page)).length).toBe(2);
     const recorded = await events(page);
-    expect(recorded).toHaveLength(2);
+    expect(await page.evaluate(() => JSON.parse(sessionStorage.getItem('qa_event_paths') || '[]'))).toEqual(['/thank-you/', '/thank-you/']);
+    expect(await page.evaluate(() => sessionStorage.getItem('zq_pending_accepted_quote'))).toBeNull();
     expect(recorded[0]).toEqual({
       event: 'zq_quote_submitted', form_name: 'quote_form', submission_status: 'accepted',
       submission_id: expect.stringMatching(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i),
@@ -69,7 +76,7 @@ for (const [path, formIndex] of [['/', 0], ['/', 1], ['/contact-us/', 0], ['/rem
     });
     expect(recorded[1]).toEqual({
       event: 'generate_lead', lead_type: 'removal_quote',
-      form_name: expect.any(String), lead_id: expect.stringMatching(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i), eventTimeout: 1500,
+      form_name: expect.any(String), lead_id: expect.stringMatching(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i),
       submission_status: 'accepted', submission_id: recorded[0].submission_id,
     });
     expect(recorded[0].lead_id).toBe(recorded[1].lead_id);
@@ -96,9 +103,28 @@ for (const scenario of ['invalid', 'network', 'server', 'rejected', 'empty', 'ma
     });
     await expect(page.locator('[data-form-feedback]').first()).toContainText(scenario === 'invalid' ? 'highlighted' : 'Could not send');
     expect(await events(page)).toHaveLength(0);
+    expect(await page.evaluate(() => sessionStorage.getItem('zq_pending_accepted_quote'))).toBeNull();
     expect(requests).toBe(scenario === 'invalid' ? 0 : 1);
   });
 }
+
+test('a stale or malformed hand-off never establishes a lead', async ({ page }) => {
+  await page.addInitScript(() => {
+    if (sessionStorage.getItem('qa_seeded')) return;
+    sessionStorage.setItem('qa_seeded', '1');
+    sessionStorage.setItem('zq_pending_accepted_quote', JSON.stringify({
+      leadId: '3f2b8c1e-9d4a-4b6f-8a1c-2e5d7f903b14', formName: 'contact-us_quote_1', at: Date.now() - 60 * 60 * 1000,
+    }));
+  });
+  await page.goto('/thank-you/');
+  await page.waitForLoadState('networkidle');
+  expect(await events(page)).toEqual([]);
+  expect(await page.evaluate(() => sessionStorage.getItem('zq_pending_accepted_quote'))).toBeNull();
+  await page.evaluate(() => sessionStorage.setItem('zq_pending_accepted_quote', '{oops'));
+  await page.reload();
+  await page.waitForLoadState('networkidle');
+  expect(await events(page)).toEqual([]);
+});
 
 test('one GTM loader, consent defaults, delegated contacts and history navigation', async ({ page }) => {
   await page.goto('/contact-us/');

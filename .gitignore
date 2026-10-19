@@ -39,4 +39,6 @@ data/gsc/*.raw.json
 
 .vercel
 .env*
+*.env
+*.log
 .gstack/

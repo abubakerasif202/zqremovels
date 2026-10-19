@@ -1,0 +1,274 @@
+{
+  "retrieved_at_utc": "2026-10-19T04:53:05Z",
+  "source": "https://www.googletagmanager.com/gtm.js?id=GTM-WJGKPXFL",
+  "response_sha256": "6cc5c1d6dff827c31fa34dfba420410102eba5425d7188342bf2c91dda9fba5b",
+  "scope": "Public compiled resource only (version 4). Earlier local snapshot of the same version taken 2026-10-18 23:12 +11:00.",
+  "resource": {
+    "version": "4",
+    "macros": [
+      {
+        "function": "__e"
+      },
+      {
+        "function": "__v",
+        "vtp_dataLayerVersion": 2,
+        "vtp_setDefaultValue": false,
+        "vtp_name": "form_name"
+      },
+      {
+        "function": "__v",
+        "vtp_dataLayerVersion": 2,
+        "vtp_setDefaultValue": false,
+        "vtp_name": "submission_status"
+      },
+      {
+        "function": "__v",
+        "vtp_dataLayerVersion": 2,
+        "vtp_setDefaultValue": false,
+        "vtp_name": "submission_id"
+      },
+      {
+        "function": "__u",
+        "vtp_component": "HOST",
+        "vtp_enableMultiQueryKeys": false,
+        "vtp_enableIgnoreEmptyQueryParam": false
+      },
+      {
+        "function": "__e"
+      },
+      {
+        "function": "__jsm",
+        "vtp_javascript": [
+          "template",
+          "(function(){try{if(",
+          [
+            "escape",
+            [
+              "macro",
+              5
+            ],
+            8,
+            16
+          ],
+          "!==\"zq_quote_submitted\"||",
+          [
+            "escape",
+            [
+              "macro",
+              4
+            ],
+            8,
+            16
+          ],
+          "!==\"zqremovalsadelaide.com.au\"||",
+          [
+            "escape",
+            [
+              "macro",
+              1
+            ],
+            8,
+            16
+          ],
+          "!==\"quote_form\"||",
+          [
+            "escape",
+            [
+              "macro",
+              2
+            ],
+            8,
+            16
+          ],
+          "!==\"accepted\")return!1;var a=",
+          [
+            "escape",
+            [
+              "macro",
+              3
+            ],
+            8,
+            16
+          ],
+          ";return typeof a===\"string\"&&/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(a)&&typeof window.__zqClaimAcceptedQuoteForAds===\"function\"?window.__zqClaimAcceptedQuoteForAds(a,\"quote_form\",\"accepted\")===!0:!1}catch(b){return!1}})();"
+        ]
+      },
+      {
+        "function": "__u",
+        "vtp_enableMultiQueryKeys": false,
+        "vtp_enableIgnoreEmptyQueryParam": false
+      },
+      {
+        "function": "__u",
+        "vtp_component": "URL",
+        "vtp_enableMultiQueryKeys": false,
+        "vtp_enableIgnoreEmptyQueryParam": false
+      },
+      {
+        "function": "__u",
+        "vtp_component": "PATH",
+        "vtp_enableMultiQueryKeys": false,
+        "vtp_enableIgnoreEmptyQueryParam": false
+      },
+      {
+        "function": "__f",
+        "vtp_component": "URL"
+      }
+    ],
+    "tags": [
+      {
+        "function": "__gclidw",
+        "metadata": [
+          "map"
+        ],
+        "once_per_event": true,
+        "vtp_enableCrossDomain": false,
+        "vtp_enableUrlPassthrough": false,
+        "vtp_enableCookieOverrides": false,
+        "tag_id": 7
+      },
+      {
+        "function": "__paused",
+        "vtp_originalTagType": "html",
+        "tag_id": 8
+      },
+      {
+        "function": "__awct",
+        "metadata": [
+          "map"
+        ],
+        "once_per_event": true,
+        "vtp_enableNewCustomerReporting": false,
+        "vtp_enableConversionLinker": true,
+        "vtp_enableProductReporting": false,
+        "vtp_orderId": [
+          "macro",
+          3
+        ],
+        "vtp_enableShippingData": false,
+        "vtp_conversionId": "18413688842",
+        "vtp_conversionLabel": "aMLuCIvzzZUdEIqwqsxE",
+        "vtp_rdp": false,
+        "vtp_url": [
+          "macro",
+          7
+        ],
+        "vtp_enableProductReportingCheckbox": true,
+        "vtp_enableNewCustomerReportingCheckbox": true,
+        "vtp_enableCustomerLifecycleReporting": false,
+        "vtp_enableEnhancedConversionsCheckbox": false,
+        "vtp_enableRdpCheckbox": true,
+        "vtp_enableTransportUrl": false,
+        "vtp_enableCustomParams": false,
+        "vtp_enableEventParameters": true,
+        "tag_id": 9
+      }
+    ],
+    "predicates": [
+      {
+        "function": "_eq",
+        "arg0": [
+          "macro",
+          0
+        ],
+        "arg1": "gtm.js"
+      },
+      {
+        "function": "_eq",
+        "arg0": [
+          "macro",
+          1
+        ],
+        "arg1": "quote_form"
+      },
+      {
+        "function": "_eq",
+        "arg0": [
+          "macro",
+          0
+        ],
+        "arg1": "generate_lead"
+      },
+      {
+        "function": "_eq",
+        "arg0": [
+          "macro",
+          2
+        ],
+        "arg1": "accepted"
+      },
+      {
+        "function": "_re",
+        "arg0": [
+          "macro",
+          3
+        ],
+        "arg1": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+        "ignore_case": true
+      },
+      {
+        "function": "_eq",
+        "arg0": [
+          "macro",
+          4
+        ],
+        "arg1": "zqremovalsadelaide.com.au"
+      },
+      {
+        "function": "_eq",
+        "arg0": [
+          "macro",
+          6
+        ],
+        "arg1": "true"
+      },
+      {
+        "function": "_eq",
+        "arg0": [
+          "macro",
+          0
+        ],
+        "arg1": "zq_quote_submitted"
+      }
+    ],
+    "rules": [
+      [
+        [
+          "if",
+          0
+        ],
+        [
+          "add",
+          0
+        ]
+      ],
+      [
+        [
+          "if",
+          1,
+          2
+        ],
+        [
+          "add",
+          1
+        ]
+      ],
+      [
+        [
+          "if",
+          1,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        [
+          "add",
+          2
+        ]
+      ]
+    ]
+  }
+}
+
