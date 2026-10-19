@@ -15166,3 +15166,15 @@ body.page-home .zq-v2-service-card > a:hover::before { animation: zq-cta-shine-h
   body .header-main, body.page-home .header-main, body.page-contact .header-main { padding-block: 10px; }
   body .brand-copy strong, body.page-home .brand-copy strong, body.page-contact .brand-copy strong { font-size: 1.15rem; }
 }
+
+/* Opacity only: no geometry changes, hidden waiting state, or transform conflicts. */
+body .zq-entrance.animate__animated {
+  animation-duration: 600ms;
+  animation-delay: -400ms;
+  animation-iteration-count: 1;
+  animation-fill-mode: none;
+  animation-timing-function: linear;
+}
+@media (prefers-reduced-motion: reduce) {
+  body .zq-entrance.animate__animated { animation: none !important; }
+}

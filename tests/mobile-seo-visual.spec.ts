@@ -190,3 +190,36 @@ for (const route of ['/', '/contact-us/', '/house-removals-adelaide/', '/removal
     }
   });
 }
+
+test('entrances remain visible, run once, and stop for reduced motion', async ({ page }) => {
+  await page.goto('/');
+  const card = page.locator('.zq-v2-service-card').first();
+  await expect(card).toHaveCSS('opacity', '1');
+  await card.evaluate(node => {
+    (window as any).__entranceCount = 0;
+    node.addEventListener('animationstart', () => { (window as any).__entranceCount += 1; });
+  });
+  await card.scrollIntoViewIfNeeded();
+  await expect.poll(() => page.evaluate(() => (window as any).__entranceCount)).toBe(1);
+  await expect(card).not.toHaveClass(/animate__animated/);
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await card.scrollIntoViewIfNeeded();
+  expect(await page.evaluate(() => (window as any).__entranceCount)).toBe(1);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.reload();
+  await card.scrollIntoViewIfNeeded();
+  await expect(card).toHaveCSS('opacity', '1');
+  await expect(page.locator('.zq-entrance')).toHaveCount(0);
+});
+
+test('homepage content stays visible without JavaScript', async ({ browser, baseURL }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 375, height: 812 } });
+  const page = await context.newPage();
+  await page.goto(baseURL + '/');
+  await expect(page.locator('h1')).toBeVisible();
+  const card = page.locator('.zq-v2-service-card').first();
+  await card.scrollIntoViewIfNeeded();
+  await expect(card).toHaveCSS('opacity', '1');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+  await context.close();
+});

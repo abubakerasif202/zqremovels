@@ -26,17 +26,18 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.60.0",
+    "axe-core": "^4.13.0",
     "browserslist": "^4.28.2",
     "browserslist-to-esbuild": "^2.1.1",
     "esbuild": "^0.28.1",
     "http-server": "^14.1.1",
     "lighthouse": "^13.5.0",
     "lightningcss": "^1.32.0",
-    "purgecss": "^8.0.0",
-    "axe-core": "^4.13.0"
+    "purgecss": "^8.0.0"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",
+    "animate.css": "^4.1.1",
     "astro": "^7.3.5",
     "daisyui": "^5.6.13",
     "googleapis": "^171.4.0",

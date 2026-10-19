@@ -473,6 +473,7 @@ function setQuoteFormFeedback(form, message, state = "") {
   feedbackNode.classList.remove("is-success", "is-error");
   if (state === "success") {
     feedbackNode.classList.add("is-success");
+    playEntrance(feedbackNode);
   }
   if (state === "error") {
     feedbackNode.classList.add("is-error");
@@ -942,7 +943,45 @@ function setupHeaderState() {
   window.addEventListener("scroll", syncState, { passive: true });
 }
 
+// Never pre-hide content: a negative delay starts Animate.css fadeIn already visible.
+function playEntrance(node) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  node.classList.add("zq-entrance", "animate__animated", "animate__fadeIn");
+  node.addEventListener("animationend", () => {
+    node.classList.remove("zq-entrance", "animate__animated", "animate__fadeIn");
+  }, { once: true });
+}
+
+function setupEntranceAnimations() {
+  const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (preference.matches) return;
+  const hero = document.querySelector(".page-home .zq-v2-hero-copy");
+  if (hero) playEntrance(hero);
+  const nodes = document.querySelectorAll(
+    ".page-home .zq-v2-service-card, .page-home .zq-v2-trust-cards > article, " +
+    ".testimonial-card, .google-review-card, .rate-table"
+  );
+  // Unsupported browsers retain the fully visible, static experience.
+  if (!("IntersectionObserver" in window) || !nodes.length) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      observer.unobserve(entry.target);
+      playEntrance(entry.target);
+    });
+  }, { threshold: 0.08 });
+  nodes.forEach((node) => observer.observe(node));
+  preference.addEventListener("change", () => {
+    if (!preference.matches) return;
+    observer.disconnect();
+    document.querySelectorAll(".zq-entrance").forEach((node) => {
+      node.classList.remove("zq-entrance", "animate__animated", "animate__fadeIn");
+    });
+  });
+}
+
 function setupRevealAnimations() {
+  setupEntranceAnimations();
   const revealSelectors = [
     ".home-redesign-section-heading",
     ".home-editorial-service",
