@@ -57,71 +57,76 @@
           </picture>
           <span class="zq-v2-quote-caption">Local crew. Practical planning.</span>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <!-- Quick Move Estimator Card -->
-        <div class="zq-hero-estimator" id="hero-estimator">
-          <div class="estimator-header">
-            <span class="estimator-tag">Instant Ballpark Preview</span>
-            <h2 class="estimator-title">Quick Move Estimator</h2>
-            <p class="estimator-sub">Select your move size and locations for an instant indicative estimate.</p>
-          </div>
+  <!-- Quick Move Estimator: its own band beneath the hero so it never overlaps the quote form -->
+  <section class="zq-v2-estimator-band" aria-labelledby="hero-estimator-title">
+    <div class="container">
+    <!-- Quick Move Estimator Card -->
+    <div class="zq-hero-estimator" id="hero-estimator">
+      <div class="estimator-header">
+        <span class="estimator-tag">Instant Ballpark Preview</span>
+        <h2 class="estimator-title" id="hero-estimator-title">Quick Move Estimator</h2>
+        <p class="estimator-sub">Select your move size and locations for an instant indicative estimate.</p>
+      </div>
 
-          <div class="hero-scope-tabs" role="tablist" aria-label="Move scope selection">
-            <button type="button" role="tab" aria-selected="true" id="scope-local" onclick="window.setHeroScope?.('local')" class="hero-scope-tab is-active">Local Adelaide</button>
-            <button type="button" role="tab" aria-selected="false" id="scope-interstate" onclick="window.setHeroScope?.('interstate')" class="hero-scope-tab">Interstate</button>
-            <button type="button" role="tab" aria-selected="false" id="scope-office" onclick="window.setHeroScope?.('office')" class="hero-scope-tab">Office / B2B</button>
-          </div>
+      <div class="hero-scope-tabs" role="tablist" aria-label="Move scope selection">
+        <button type="button" role="tab" aria-selected="true" id="scope-local" onclick="window.setHeroScope?.('local')" class="hero-scope-tab is-active">Local Adelaide</button>
+        <button type="button" role="tab" aria-selected="false" id="scope-interstate" onclick="window.setHeroScope?.('interstate')" class="hero-scope-tab">Interstate</button>
+        <button type="button" role="tab" aria-selected="false" id="scope-office" onclick="window.setHeroScope?.('office')" class="hero-scope-tab">Office / B2B</button>
+      </div>
 
-          <div class="hero-size-group">
-            <label class="hero-label">Home / Load Size</label>
-            <div class="hero-size-grid" id="heroSizeButtons">
-              <button type="button" onclick="window.setHeroSize?.(0)" data-size="0" class="hero-size-btn">
-                <strong>1–2 Bed Unit</strong>
-                <small>~12–18 m³ • 4.5T Truck</small>
-              </button>
-              <button type="button" onclick="window.setHeroSize?.(1)" data-size="1" class="hero-size-btn is-active">
-                <strong>3 Bed House</strong>
-                <small>~25–32 m³ • 8T Truck</small>
-              </button>
-              <button type="button" onclick="window.setHeroSize?.(2)" data-size="2" class="hero-size-btn">
-                <strong>4+ Bed Family</strong>
-                <small>~40–55 m³ • 12T Truck</small>
-              </button>
-              <button type="button" onclick="window.setHeroSize?.(3)" data-size="3" class="hero-size-btn">
-                <strong>Few Heavy Items</strong>
-                <small>~5–10 m³ • Express Crew</small>
-              </button>
-            </div>
-          </div>
-
-          <div class="hero-inputs-grid">
-            <label class="hero-field">
-              <span>Pickup Suburb</span>
-              <input id="heroPickup" type="text" value="Norwood, SA" placeholder="e.g. Glenelg, SA" />
-            </label>
-            <label class="hero-field">
-              <span>Dropoff Destination</span>
-              <input id="heroDropoff" type="text" value="Henley Beach, SA" placeholder="e.g. Stirling or Melbourne" />
-            </label>
-          </div>
-
-          <div class="hero-est-box">
-            <div class="hero-est-copy">
-              <span class="hero-est-label" id="heroEstLabel">Estimated Crew &amp; Published Rate</span>
-              <div class="hero-est-price" id="heroEstPrice">$75 per 30 min <small>(2 Men + 8T Truck)</small></div>
-              <div class="hero-est-sub" id="heroEstSub">Typical total: Calculated based on duration &amp; transit cover</div>
-            </div>
-            <div class="hero-est-icon" aria-hidden="true">
-              <svg><use href="#zq-i-truck" /></svg>
-            </div>
-          </div>
-
-          <button type="button" onclick="window.transferHeroToQuote?.()" class="zq-v2-button zq-v2-button-primary hero-transfer-btn">
-            <span>Lock In Your Moving Quote</span>
-            <svg aria-hidden="true"><use href="#zq-i-arrow" /></svg>
+      <div class="hero-size-group">
+        <label class="hero-label">Home / Load Size</label>
+        <div class="hero-size-grid" id="heroSizeButtons">
+          <button type="button" onclick="window.setHeroSize?.(0)" data-size="0" class="hero-size-btn">
+            <strong>1–2 Bed Unit</strong>
+            <small>~12–18 m³ • 4.5T Truck</small>
+          </button>
+          <button type="button" onclick="window.setHeroSize?.(1)" data-size="1" class="hero-size-btn is-active">
+            <strong>3 Bed House</strong>
+            <small>~25–32 m³ • 8T Truck</small>
+          </button>
+          <button type="button" onclick="window.setHeroSize?.(2)" data-size="2" class="hero-size-btn">
+            <strong>4+ Bed Family</strong>
+            <small>~40–55 m³ • 12T Truck</small>
+          </button>
+          <button type="button" onclick="window.setHeroSize?.(3)" data-size="3" class="hero-size-btn">
+            <strong>Few Heavy Items</strong>
+            <small>~5–10 m³ • Express Crew</small>
           </button>
         </div>
       </div>
+
+      <div class="hero-inputs-grid">
+        <label class="hero-field">
+          <span>Pickup Suburb</span>
+          <input id="heroPickup" type="text" value="Norwood, SA" placeholder="e.g. Glenelg, SA" />
+        </label>
+        <label class="hero-field">
+          <span>Dropoff Destination</span>
+          <input id="heroDropoff" type="text" value="Henley Beach, SA" placeholder="e.g. Stirling or Melbourne" />
+        </label>
+      </div>
+
+      <div class="hero-est-box">
+        <div class="hero-est-copy">
+          <span class="hero-est-label" id="heroEstLabel">Estimated Crew &amp; Published Rate</span>
+          <div class="hero-est-price" id="heroEstPrice">$75 per 30 min <small>(2 Men + 8T Truck)</small></div>
+          <div class="hero-est-sub" id="heroEstSub">Typical total: Calculated based on duration &amp; transit cover</div>
+        </div>
+        <div class="hero-est-icon" aria-hidden="true">
+          <svg><use href="#zq-i-truck" /></svg>
+        </div>
+      </div>
+
+      <button type="button" onclick="window.transferHeroToQuote?.()" class="zq-v2-button zq-v2-button-primary hero-transfer-btn">
+        <span>Lock In Your Moving Quote</span>
+        <svg aria-hidden="true"><use href="#zq-i-arrow" /></svg>
+      </button>
+    </div>
     </div>
   </section>
 
@@ -611,11 +616,11 @@
       </div>
       <div class="zq-v2-gallery-grid">
         <figure><img src="/media/home-local-hero-branded.webp" width="768" height="406" loading="lazy" decoding="async" alt="ZQ Removals truck parked beside an Adelaide home while removalists move wrapped furniture" /><figcaption>Moving trucks and local routes</figcaption></figure>
-        <figure><img src="/media/zq-service-premium.webp" width="960" height="640" loading="lazy" decoding="async" alt="Removalist wrapping a dining chair for furniture protection" /><figcaption>Furniture protection</figcaption></figure>
-        <figure><img src="/media/packing-station-hero.webp" width="960" height="640" loading="lazy" decoding="async" alt="Removalist packing a moving box inside a bright house" /><figcaption>House moves</figcaption></figure>
-        <figure><img src="/media/cbd-apartment-hero.webp" width="960" height="640" loading="lazy" decoding="async" alt="Removalist manoeuvring boxes through a shared apartment building corridor" /><figcaption>Apartment access</figcaption></figure>
-        <figure><img src="/media/office-relocation-hero.webp" width="960" height="640" loading="lazy" decoding="async" alt="Removal team protecting and moving office equipment" /><figcaption>Office relocations</figcaption></figure>
-        <figure><img src="/media/furniture-wrapping-hero.webp" width="960" height="640" loading="lazy" decoding="async" alt="Adelaide removalists carefully wrapping furniture before loading" /><figcaption>Packing and careful loading</figcaption></figure>
+        <figure><img src="/media/zq-service-premium.webp" width="1200" height="900" loading="lazy" decoding="async" alt="Removalist wrapping a dining chair for furniture protection" /><figcaption>Furniture protection</figcaption></figure>
+        <figure><img src="/media/zq-local-premium.webp" width="1200" height="900" loading="lazy" decoding="async" alt="Two removalists carrying a sofa onto a ZQ Removals truck outside an Adelaide home" /><figcaption>House moves</figcaption></figure>
+        <figure><img src="/media/custom-operations-source.webp" width="1200" height="805" loading="lazy" decoding="async" alt="Removal team moving boxes and equipment through a bright office foyer" /><figcaption>Office relocations</figcaption></figure>
+        <figure><img src="/media/about-team-branded.webp" width="1200" height="805" loading="lazy" decoding="async" alt="The ZQ Removals crew standing beside the company truck" /><figcaption>Your Adelaide crew</figcaption></figure>
+        <figure><img src="/media/zq-interstate-premium.webp" width="1200" height="900" loading="lazy" decoding="async" alt="ZQ Removals truck on an open highway at sunset" /><figcaption>Interstate runs</figcaption></figure>
       </div>
     </div>
   </section>
