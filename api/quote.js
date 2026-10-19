@@ -55,6 +55,7 @@ const QUOTE_INDICATOR_FIELDS = [
   "inventory_special_items",
   "preferred_move_date",
   "move_date",
+  "attached_inventory",
 ];
 
 const memoryStore = new Map();
@@ -423,6 +424,7 @@ function normaliseSubmission(payload, geoContext) {
       pickup_access: getFirstTrimmedString(payload, ["pickup_access"], "not-sure"),
       dropoff_access: getFirstTrimmedString(payload, ["dropoff_access"], "not-sure"),
       packing_required: getFirstTrimmedString(payload, ["packing_required"], "not-sure"),
+      attached_inventory: getTrimmedString(payload, "attached_inventory"),
       move_details: getFirstTrimmedString(payload, [
         "move_details",
         "message",

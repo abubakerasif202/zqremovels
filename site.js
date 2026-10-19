@@ -560,6 +560,7 @@ function buildQuoteSubmissionPayload(payload) {
     email: getFirstNonEmptyPayloadValue(payload, ["email"]),
     move_details: moveDetails,
     message: moveDetails,
+    attached_inventory: getTrimmedPayloadValue(payload, "attached_inventory"),
   };
 }
 
@@ -1185,6 +1186,688 @@ function setupServiceAreaLocator() {
   } else start();
 }
 
+function setupHeroEstimator() {
+  const form = document.querySelector(".zq-hero-estimator");
+  if (!form) return;
+
+  const scopeTabs = form.querySelectorAll(".hero-scope-tab");
+  const sizeBtns = form.querySelectorAll(".hero-size-btn");
+  const pickupInput = document.getElementById("heroPickup");
+  const dropoffInput = document.getElementById("heroDropoff");
+  const priceDisplay = document.getElementById("heroEstPrice");
+  const subDisplay = document.getElementById("heroEstSub");
+  const labelDisplay = document.getElementById("heroEstLabel");
+
+  let currentScope = "local";
+  let currentSizeIndex = 1;
+
+  const SIZES = [
+    { label: "Two bedrooms", name: "1–2 Bed Unit", truck: "4.5T Truck + 2 Men", rate: "$75 / 30 min ($150/hr)", sub: "Typical total: $375 – $525 inc. GST" },
+    { label: "Three bedrooms", name: "3 Bed House", truck: "8T Truck + 2 Men", rate: "$75 / 30 min ($150/hr)", sub: "Typical total: $600 – $825 inc. GST" },
+    { label: "Four or more bedrooms", name: "4+ Bed Family", truck: "12T Truck + 3 Men", rate: "$89 / 30 min ($178/hr)", sub: "Typical total: $979 – $1,335 inc. GST" },
+    { label: "Furniture or selected items", name: "Few Heavy Items", truck: "Agile Pantech + 2 Men", rate: "$75 / 30 min ($150/hr)", sub: "2-hour minimum booking applies" },
+  ];
+
+  const updateEstimates = () => {
+    if (!priceDisplay) return;
+
+    if (currentScope === "local") {
+      const s = SIZES[currentSizeIndex] || SIZES[1];
+      if (labelDisplay) labelDisplay.textContent = "Estimated Crew & Published Rate";
+      priceDisplay.innerHTML = `${s.rate} <small>(${s.truck})</small>`;
+      if (subDisplay) subDisplay.textContent = s.sub;
+    } else if (currentScope === "interstate") {
+      if (labelDisplay) labelDisplay.textContent = "Interstate Corridor Transit";
+      if (currentSizeIndex === 0) {
+        priceDisplay.innerHTML = "Weekly Adelaide Backload <small>(Part Load)</small>";
+        if (subDisplay) subDisplay.textContent = "1–3 Business Days Transit • Itemized manifest";
+      } else if (currentSizeIndex === 1) {
+        priceDisplay.innerHTML = "Dedicated 35 m³ Pantech <small>(Full Home)</small>";
+        if (subDisplay) subDisplay.textContent = "Direct express interstate transit from Adelaide depot";
+      } else if (currentSizeIndex === 2) {
+        priceDisplay.innerHTML = "Full 50 m³ Linehaul <small>(Family Home)</small>";
+        if (subDisplay) subDisplay.textContent = "Complete linehaul logistics • Full transit protection";
+      } else {
+        priceDisplay.innerHTML = "Selected Furniture Linehaul <small>(Express)</small>";
+        if (subDisplay) subDisplay.textContent = "Protective blanket wrap • Scheduled dispatch";
+      }
+    } else if (currentScope === "office") {
+      if (labelDisplay) labelDisplay.textContent = "Commercial Relocation Service";
+      priceDisplay.innerHTML = "$89 / 30 min <small>(Commercial Crew + Tail-Lift)</small>";
+      if (subDisplay) subDisplay.textContent = "Staged workstation move • Rolling crates available";
+    }
+  };
+
+  window.setHeroScope = (scope, btn) => {
+    currentScope = scope;
+    scopeTabs.forEach((tab) => tab.classList.remove("is-active"));
+    const activeTab = btn || document.getElementById(`scope-${scope}`) || Array.from(scopeTabs).find((t) => t.textContent.toLowerCase().includes(scope));
+    if (activeTab) activeTab.classList.add("is-active");
+
+    if (pickupInput && dropoffInput) {
+      if (scope === "local") {
+        pickupInput.placeholder = "e.g. Glenelg, SA";
+        dropoffInput.placeholder = "e.g. Stirling or Norwood";
+      } else if (scope === "interstate") {
+        pickupInput.placeholder = "e.g. Adelaide, SA";
+        dropoffInput.placeholder = "e.g. Melbourne VIC or Sydney NSW";
+      } else {
+        pickupInput.placeholder = "e.g. Adelaide CBD (Building & Level)";
+        dropoffInput.placeholder = "e.g. Norwood or Technology Park";
+      }
+    }
+    updateEstimates();
+  };
+
+  window.setHeroSize = (size, btn) => {
+    currentSizeIndex = typeof size === "number" ? size : Number.parseInt(size, 10) || 0;
+    sizeBtns.forEach((b) => b.classList.remove("is-active"));
+    const activeBtn = btn || sizeBtns[currentSizeIndex];
+    if (activeBtn) activeBtn.classList.add("is-active");
+    updateEstimates();
+  };
+
+  window.transferHeroToQuote = () => {
+    const targetForm = document.getElementById("quote-form") || document.querySelector('[data-quote-form="quote"]');
+    if (!targetForm) return;
+
+    const pickupVal = pickupInput?.value?.trim() || "";
+    const dropoffVal = dropoffInput?.value?.trim() || "";
+
+    if (pickupVal) {
+      const pickupField = targetForm.querySelector('input[name="pickup_suburb"]');
+      if (pickupField) pickupField.value = pickupVal;
+    }
+    if (dropoffVal) {
+      const dropoffField = targetForm.querySelector('input[name="dropoff_suburb"]');
+      if (dropoffField) dropoffField.value = dropoffVal;
+    }
+
+    const scopeSelect = targetForm.querySelector('select[name="move_scope"]');
+    if (scopeSelect) {
+      if (currentScope === "interstate") {
+        scopeSelect.value = "Interstate move";
+      } else if (currentScope === "office") {
+        scopeSelect.value = "Office move";
+      } else {
+        scopeSelect.value = "House move";
+      }
+    }
+
+    const sizeSelect = targetForm.querySelector('select[name="move_size"]');
+    if (sizeSelect) {
+      const s = SIZES[currentSizeIndex] || SIZES[1];
+      sizeSelect.value = s.label;
+    }
+
+    targetForm.scrollIntoView({ behavior: "smooth", block: "start" });
+    const nameInput = targetForm.querySelector('input[name="name"]');
+    if (nameInput) {
+      setTimeout(() => nameInput.focus(), 400);
+    }
+  };
+
+  updateEstimates();
+}
+
+const CALC_CATEGORIES = [
+  { id: "living", name: "Living Room" },
+  { id: "bedroom", name: "Bedrooms" },
+  { id: "kitchen", name: "Kitchen" },
+  { id: "dining", name: "Dining" },
+  { id: "laundry", name: "Laundry" },
+  { id: "garage", name: "Garage" },
+  { id: "outdoor", name: "Outdoor" },
+  { id: "boxes", name: "Boxes & Cartons" },
+  { id: "specialty", name: "Specialty Items" },
+];
+
+const CALC_ITEMS = {
+  // Living
+  sofa_3s: { name: "3-Seater Lounge Sofa", m3: 2.2, cat: "living" },
+  sofa_2s: { name: "2-Seater Loveseat", m3: 1.5, cat: "living" },
+  armchair: { name: "Armchair / Recliner", m3: 0.8, cat: "living" },
+  tv_large: { name: "Large TV (55\"–75\")", m3: 0.4, cat: "living" },
+  tv_unit: { name: "Entertainment / TV Unit", m3: 0.9, cat: "living" },
+  coffee_tab: { name: "Coffee Table", m3: 0.5, cat: "living" },
+  bookcase: { name: "Bookcase / Display Cabinet", m3: 1.0, cat: "living" },
+  // Bedroom
+  bed_king: { name: "King Bed & Mattress", m3: 2.4, cat: "bedroom" },
+  bed_queen: { name: "Queen Bed & Mattress", m3: 2.0, cat: "bedroom" },
+  bed_single: { name: "Single Bed & Mattress", m3: 1.2, cat: "bedroom" },
+  wardrobe: { name: "Wardrobe / Armoire", m3: 2.0, cat: "bedroom" },
+  drawers: { name: "Chest of Drawers", m3: 1.0, cat: "bedroom" },
+  bedside: { name: "Bedside Table", m3: 0.3, cat: "bedroom" },
+  // Kitchen
+  fridge_double: { name: "Double / French Door Fridge", m3: 1.8, cat: "kitchen" },
+  fridge_single: { name: "Standard Fridge / Freezer", m3: 1.2, cat: "kitchen" },
+  microwave: { name: "Microwave & Countertops", m3: 0.3, cat: "kitchen" },
+  kitchen_island: { name: "Kitchen Trolley / Island", m3: 0.8, cat: "kitchen" },
+  // Dining
+  dining_table_6: { name: "Dining Table (6–8 Seater)", m3: 1.6, cat: "dining" },
+  dining_table_4: { name: "Dining Table (4 Seater)", m3: 1.1, cat: "dining" },
+  dining_chair: { name: "Dining Chair", m3: 0.25, cat: "dining" },
+  buffet: { name: "Sideboard / Buffet", m3: 1.2, cat: "dining" },
+  // Laundry
+  washing_mach: { name: "Washing Machine", m3: 0.6, cat: "laundry" },
+  dryer: { name: "Clothes Dryer", m3: 0.5, cat: "laundry" },
+  ironing_board: { name: "Ironing Board & Hamper", m3: 0.2, cat: "laundry" },
+  // Garage
+  lawnmower: { name: "Lawn Mower", m3: 0.5, cat: "garage" },
+  tool_chest: { name: "Tool Chest / Work Bench", m3: 1.0, cat: "garage" },
+  bicycle: { name: "Bicycle / E-Bike", m3: 0.5, cat: "garage" },
+  ladder: { name: "Ladder / Step Stool", m3: 0.4, cat: "garage" },
+  storage_tub: { name: "Storage Tub / Plastic Tote", m3: 0.2, cat: "garage" },
+  // Outdoor
+  outdoor_setting: { name: "Outdoor Dining Table + Chairs", m3: 2.0, cat: "outdoor" },
+  bbq: { name: "4-6 Burner BBQ", m3: 1.0, cat: "outdoor" },
+  sun_lounge: { name: "Sun Lounge / Daybed", m3: 0.8, cat: "outdoor" },
+  plant_pot: { name: "Large Planter / Pot", m3: 0.3, cat: "outdoor" },
+  // Boxes
+  box_standard: { name: "Standard Moving Carton (Tea Chest)", m3: 0.12, cat: "boxes" },
+  box_book: { name: "Book / Heavy Carton", m3: 0.06, cat: "boxes" },
+  box_portarobe: { name: "Port-A-Robe (Hanging Clothes)", m3: 0.4, cat: "boxes" },
+  // Specialty
+  upright_piano: { name: "Upright Piano", m3: 2.5, cat: "specialty" },
+  pool_table: { name: "Slate Pool Table (7ft/8ft)", m3: 3.5, cat: "specialty" },
+  safe_heavy: { name: "Heavy Safe (>100kg)", m3: 0.8, cat: "specialty" },
+  gym_equipment: { name: "Treadmill / Exercise Bike", m3: 1.2, cat: "specialty" },
+};
+
+const CALC_PRESETS = {
+  studio: {
+    bed_queen: 1, sofa_2s: 1, tv_large: 1, tv_unit: 1, dining_table_4: 1,
+    dining_chair: 2, fridge_single: 1, washing_mach: 1, box_standard: 15, box_book: 5,
+  },
+  "2bed": {
+    bed_queen: 1, bed_single: 1, sofa_3s: 1, armchair: 1, tv_large: 1,
+    tv_unit: 1, coffee_tab: 1, dining_table_4: 1, dining_chair: 4, fridge_single: 1,
+    washing_mach: 1, dryer: 1, drawers: 1, bedside: 2, box_standard: 25, box_book: 10,
+  },
+  "3bed": {
+    bed_king: 1, bed_queen: 1, bed_single: 1, sofa_3s: 1, sofa_2s: 1,
+    armchair: 1, tv_large: 1, tv_unit: 1, coffee_tab: 1, bookcase: 1,
+    dining_table_6: 1, dining_chair: 6, fridge_double: 1, washing_mach: 1,
+    dryer: 1, drawers: 2, bedside: 4, outdoor_setting: 1, bbq: 1,
+    box_standard: 35, box_book: 15, box_portarobe: 3,
+  },
+  "4bed": {
+    bed_king: 1, bed_queen: 2, bed_single: 1, sofa_3s: 1, sofa_2s: 2,
+    armchair: 2, tv_large: 2, tv_unit: 2, coffee_tab: 1, bookcase: 2,
+    dining_table_6: 1, dining_chair: 8, fridge_double: 1, washing_mach: 1,
+    dryer: 1, drawers: 3, bedside: 6, outdoor_setting: 1, bbq: 1,
+    lawnmower: 1, tool_chest: 1, box_standard: 50, box_book: 25, box_portarobe: 5,
+  },
+  clear: {},
+};
+
+let calcQuantities = {};
+let activeCalcCategory = "living";
+let calcCurrentTotalM3 = 0;
+
+function setupInventoryCalculator() {
+  const calcRoot = document.getElementById("calculator");
+  if (!calcRoot) return;
+
+  const tabsContainer = document.getElementById("calcCategoryTabs");
+  const itemsContainer = document.getElementById("calcItemsGrid");
+
+  calcQuantities = { ...CALC_PRESETS["3bed"] };
+
+  const renderTabs = () => {
+    if (!tabsContainer) return;
+    tabsContainer.innerHTML = CALC_CATEGORIES.map(
+      (c) => `<button type="button" onclick="window.switchCalcCategory?.('${c.id}')" data-calc-cat="${c.id}" class="calc-cat-btn ${c.id === activeCalcCategory ? "is-active" : ""}" role="tab">${c.name}</button>`
+    ).join("");
+  };
+
+  const renderItems = () => {
+    if (!itemsContainer) return;
+    const catItems = Object.entries(CALC_ITEMS).filter(([_, item]) => item.cat === activeCalcCategory);
+    itemsContainer.innerHTML = catItems.map(([id, item]) => {
+      const qty = calcQuantities[id] || 0;
+      return `
+        <div class="calc-item-row" data-item-id="${id}">
+          <div class="calc-item-meta">
+            <span class="calc-item-name">${item.name}</span>
+            <span class="calc-item-volume">${item.m3} m³</span>
+          </div>
+          <div class="calc-stepper" role="group" aria-label="${item.name} quantity">
+            <button type="button" onclick="window.adjustItem?.('${id}', -1)" class="calc-step-btn" aria-label="Decrease ${item.name}">&minus;</button>
+            <span class="calc-step-val" id="qty-${id}">${qty}</span>
+            <button type="button" onclick="window.adjustItem?.('${id}', 1)" class="calc-step-btn" aria-label="Increase ${item.name}">&#43;</button>
+          </div>
+        </div>
+      `;
+    }).join("");
+  };
+
+  window.switchCalcCategory = (catId) => {
+    activeCalcCategory = catId;
+    renderTabs();
+    renderItems();
+  };
+
+  window.adjustItem = (itemId, delta) => {
+    calcQuantities[itemId] = Math.max(0, (calcQuantities[itemId] || 0) + delta);
+    const qtySpan = document.getElementById(`qty-${itemId}`);
+    if (qtySpan) qtySpan.textContent = calcQuantities[itemId];
+    window.recalculateVolume();
+  };
+
+  window.applyPreset = (presetKey) => {
+    const pills = document.querySelectorAll(".calc-preset-pill");
+    pills.forEach((p) => p.classList.remove("is-active"));
+    const matchPill = Array.from(pills).find((p) => p.getAttribute("onclick")?.includes(presetKey));
+    if (matchPill) matchPill.classList.add("is-active");
+
+    calcQuantities = presetKey === "clear" ? {} : { ...CALC_PRESETS[presetKey] };
+    renderItems();
+    window.recalculateVolume();
+  };
+
+  window.recalculateVolume = () => {
+    const totalM3 = Object.entries(calcQuantities).reduce((acc, [id, qty]) => acc + (qty * (CALC_ITEMS[id]?.m3 || 0)), 0);
+    const totalItems = Object.values(calcQuantities).reduce((acc, qty) => acc + qty, 0);
+    calcCurrentTotalM3 = totalM3;
+
+    let truckName = "Select items to calculate";
+    let truckCapacity = 20;
+    let crewRate = 150;
+    let rateText = "$75 / 30 min ($150/hr)";
+    let baseHours = 0;
+
+    if (totalM3 > 0) {
+      if (totalM3 <= 16) {
+        truckName = "4.5T Truck + 2 Men";
+        truckCapacity = 20;
+        crewRate = 150;
+        rateText = "$75 / 30 min ($150/hr)";
+        baseHours = Math.max(2.0, totalM3 / 5.0);
+      } else if (totalM3 <= 28) {
+        truckName = "8-Tonne Pantech + 2 Men";
+        truckCapacity = 35;
+        crewRate = 150;
+        rateText = "$75 / 30 min ($150/hr)";
+        baseHours = Math.max(3.0, totalM3 / 5.5);
+      } else if (totalM3 <= 45) {
+        truckName = "10-12T Heavy Pantech + 3 Men";
+        truckCapacity = 50;
+        crewRate = 178;
+        rateText = "$89 / 30 min ($178/hr)";
+        baseHours = Math.max(4.0, totalM3 / 6.5);
+      } else {
+        truckName = "Semi-Trailer / Multiple Trips + 3 Men";
+        truckCapacity = 65;
+        crewRate = 178;
+        rateText = "$89 / 30 min ($178/hr)";
+        baseHours = Math.max(5.5, totalM3 / 7.0);
+      }
+    }
+
+    const accessSelect = document.getElementById("calcAccess");
+    const accessVal = accessSelect?.value || "easy";
+    let accessHours = 0;
+    if (accessVal === "stairs") accessHours = 0.75;
+    else if (accessVal === "lift") accessHours = 0.5;
+    else if (accessVal === "steep") accessHours = 0.5;
+
+    const packingSelect = document.getElementById("calcPacking");
+    const packingVal = packingSelect?.value || "none";
+    let packingCost = 0;
+    if (packingVal === "fragile") packingCost = 280;
+    else if (packingVal === "full") packingCost = 690;
+
+    let minHours = "2.0";
+    let maxHours = "3.0";
+    let minCost = 300;
+    let maxCost = 450;
+
+    if (totalM3 > 0) {
+      const computedMin = Math.max(2.0, Math.round((baseHours + accessHours - 0.4) * 2) / 2);
+      const computedMax = Math.max(computedMin + 1.0, Math.round((baseHours + accessHours + 0.6) * 2) / 2);
+      minHours = computedMin.toFixed(1);
+      maxHours = computedMax.toFixed(1);
+      minCost = Math.round(Number(minHours) * crewRate + packingCost);
+      maxCost = Math.round(Number(maxHours) * crewRate + packingCost);
+    }
+
+    const fillPct = totalM3 > 0 ? Math.min(100, Math.round((totalM3 / truckCapacity) * 100)) : 0;
+
+    const totalM3Node = document.getElementById("calcTotalM3");
+    if (totalM3Node) totalM3Node.textContent = totalM3.toFixed(1);
+
+    const btnM3Span = document.getElementById("btnM3Span");
+    if (btnM3Span) btnM3Span.textContent = totalM3.toFixed(1);
+
+    const interstateM3Text = document.getElementById("calcInterstateM3Text");
+    if (interstateM3Text) interstateM3Text.textContent = `${totalM3.toFixed(1)} m³`;
+
+    const itemCountBadge = document.getElementById("calcItemCountBadge");
+    if (itemCountBadge) itemCountBadge.textContent = `${totalItems} Item${totalItems === 1 ? "" : "s"} Selected`;
+
+    const truckNameNode = document.getElementById("calcTruckName");
+    if (truckNameNode) truckNameNode.textContent = truckName;
+
+    const fillPctNode = document.getElementById("calcTruckFillPct");
+    if (fillPctNode) fillPctNode.textContent = `${fillPct}% of ${truckCapacity} m³ Truck`;
+
+    const fillBarNode = document.getElementById("calcTruckFillBar");
+    if (fillBarNode) fillBarNode.style.width = `${fillPct}%`;
+
+    const estHoursNode = document.getElementById("calcEstHours");
+    if (estHoursNode) estHoursNode.textContent = totalM3 > 0 ? `${minHours} – ${maxHours} Hours` : "—";
+
+    const hourlyRateNode = document.getElementById("calcHourlyRate");
+    if (hourlyRateNode) hourlyRateNode.textContent = rateText;
+
+    const totalCostNode = document.getElementById("calcTotalCostRange");
+    if (totalCostNode) totalCostNode.innerHTML = totalM3 > 0 ? `$${minCost} – $${maxCost} <small>inc. GST</small>` : "—";
+  };
+
+  window.sendCalculatorToForm = () => {
+    const targetForm = document.getElementById("quote-form") || document.querySelector('[data-quote-form="quote"]');
+    if (!targetForm) return;
+
+    const totalItems = Object.values(calcQuantities).reduce((acc, qty) => acc + qty, 0);
+    if (totalItems === 0) {
+      targetForm.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+
+    const activeList = Object.entries(calcQuantities)
+      .filter(([_, q]) => q > 0)
+      .map(([id, q]) => `${CALC_ITEMS[id]?.name || id}: ${q}`)
+      .join(", ");
+
+    const accessSelect = document.getElementById("calcAccess");
+    const accessLabel = accessSelect?.options[accessSelect.selectedIndex]?.text || "Standard";
+
+    const packingSelect = document.getElementById("calcPacking");
+    const packingLabel = packingSelect?.options[packingSelect.selectedIndex]?.text || "Self-Packed";
+
+    const truckName = document.getElementById("calcTruckName")?.textContent || "Truck";
+    const estHours = document.getElementById("calcEstHours")?.textContent || "";
+    const totalCost = document.getElementById("calcTotalCostRange")?.textContent?.replace(/\s+/g, " ") || "";
+
+    const inventorySummary = `[Attached Inventory: ${calcCurrentTotalM3.toFixed(1)} m³ | ${truckName} | Est: ${estHours} (${totalCost}) | Access: ${accessLabel} | Packing: ${packingLabel}]\nSelected items: ${activeList}`;
+
+    const messageField = targetForm.querySelector('textarea[name="message"]');
+    if (messageField) {
+      const existing = messageField.value.trim();
+      const cleaned = existing.replace(/\[Attached Inventory:[^\]]*\](?:\nSelected items:[^\n]*)?/s, "").trim();
+      messageField.value = cleaned ? `${inventorySummary}\n\n${cleaned}` : inventorySummary;
+    }
+
+    let hiddenInput = targetForm.querySelector('input[name="attached_inventory"]');
+    if (!hiddenInput) {
+      hiddenInput = document.createElement("input");
+      hiddenInput.type = "hidden";
+      hiddenInput.name = "attached_inventory";
+      targetForm.appendChild(hiddenInput);
+    }
+    hiddenInput.value = `${calcCurrentTotalM3.toFixed(1)} m³ (${truckName})`;
+
+    const sizeSelect = targetForm.querySelector('select[name="move_size"]');
+    if (sizeSelect) {
+      if (calcCurrentTotalM3 <= 15) {
+        sizeSelect.value = "Two bedrooms";
+      } else if (calcCurrentTotalM3 <= 28) {
+        sizeSelect.value = "Three bedrooms";
+      } else {
+        sizeSelect.value = "Four or more bedrooms";
+      }
+    }
+
+    const banner = document.getElementById("attachedInventoryBanner");
+    const bannerText = document.getElementById("attachedInventoryText");
+    if (banner && bannerText) {
+      bannerText.textContent = `Attached Calculator Load: ${calcCurrentTotalM3.toFixed(1)} m³ (${truckName.split('+')[0].trim()})`;
+      banner.classList.remove("hidden");
+    }
+
+    const attachBtn = document.querySelector(".calc-attach-btn");
+    if (attachBtn) {
+      const origHtml = attachBtn.innerHTML;
+      attachBtn.innerHTML = `<span>&#10003; Attached to Quote Form!</span>`;
+      setTimeout(() => {
+        attachBtn.innerHTML = origHtml;
+      }, 2500);
+    }
+
+    targetForm.scrollIntoView({ behavior: "smooth", block: "start" });
+    const nameInput = targetForm.querySelector('input[name="name"]');
+    if (nameInput) setTimeout(() => nameInput.focus(), 400);
+  };
+
+  window.clearAttachedInventory = () => {
+    const banner = document.getElementById("attachedInventoryBanner");
+    if (banner) banner.classList.add("hidden");
+
+    const targetForm = document.getElementById("quote-form") || document.querySelector('[data-quote-form="quote"]');
+    if (targetForm) {
+      const messageField = targetForm.querySelector('textarea[name="message"]');
+      if (messageField) {
+        messageField.value = messageField.value.replace(/\[Attached Inventory:[^\]]*\](?:\nSelected items:[^\n]*)?/s, "").trim();
+      }
+      const hiddenInput = targetForm.querySelector('input[name="attached_inventory"]');
+      if (hiddenInput) hiddenInput.value = "";
+    }
+  };
+
+  renderTabs();
+  renderItems();
+  window.recalculateVolume();
+}
+
+function setupSuburbsExplorer() {
+  const grid = document.getElementById("suburbsGrid");
+  if (!grid) return;
+
+  const SUBURB_DATA = [
+    { name: "Adelaide CBD", region: "cbd", postcode: "5000", features: "Loading docks, lift booking coordination, clearway permits", truckFit: "Medium Pantech / CBD clearance", url: "/removalists-adelaide-cbd/" },
+    { name: "North Adelaide", region: "cbd", postcode: "5006", features: "Narrow heritage lanes, cottage access, leafy street parking", truckFit: "4.5T – 6T Agile Truck", url: "/removalists-north-adelaide/" },
+    { name: "Glenelg", region: "coastal", postcode: "5045", features: "Beachfront apartments, balcony drops, underground docks", truckFit: "Pantech with tail-lift", url: "/removalists-glenelg/" },
+    { name: "Brighton", region: "coastal", postcode: "5048", features: "Esplanade properties, coastal sands protection, tight carports", truckFit: "Standard 8T Pantech", url: "/removalists-brighton-sa/" },
+    { name: "Norwood", region: "east", postcode: "5067", features: "Victorian villas, bluestone cottages, tight side-access", truckFit: "Agile 6T Pantech", url: "/removalists-norwood/" },
+    { name: "Burnside", region: "east", postcode: "5066", features: "Sprawling family homes, long driveways, high-value antiques", truckFit: "10T Heavy Pantech", url: "/removalists-burnside/" },
+    { name: "Stirling", region: "hills", postcode: "5152", features: "Steep terrain, tree canopies, winding access driveways", truckFit: "Low-clearance 6T Truck", url: "/removalists-stirling-sa/" },
+    { name: "Mount Barker", region: "hills", postcode: "5251", features: "New residential estates, acreage moves, freeway transit", truckFit: "Large 10-12T Pantech", url: "/removalists-mount-barker/" },
+    { name: "Mawson Lakes", region: "north-south", postcode: "5095", features: "Multi-storey townhomes, narrow stairwells, modern estates", truckFit: "8T Pantech + 2 Men", url: "/removalists-mawson-lakes/" },
+    { name: "Marion", region: "north-south", postcode: "5043", features: "Suburban family blocks, garage clearances, southern corridor", truckFit: "8T – 10T Pantech", url: "/removalists-marion/" }
+  ];
+
+  const renderCards = (regionFilter = "all") => {
+    grid.innerHTML = SUBURB_DATA
+      .filter((s) => regionFilter === "all" || s.region === regionFilter)
+      .map((s) => `
+        <article class="zq-suburb-card" data-region="${s.region}">
+          <div class="suburb-card-head">
+            <h3>${s.name} <small class="text-subtle">SA ${s.postcode}</small></h3>
+            <span class="suburb-badge">${s.truckFit}</span>
+          </div>
+          <p class="suburb-features">${s.features}</p>
+          <div class="suburb-card-actions">
+            <button type="button" onclick="window.prefillSuburb?.('${s.name}')" class="suburb-prefill-btn">Select for Quote</button>
+            <a href="${s.url}" class="suburb-link">Area Details &rarr;</a>
+          </div>
+        </article>
+      `).join("");
+  };
+
+  window.filterSuburbs = (region, btn) => {
+    const tabs = document.querySelectorAll(".suburb-tab");
+    tabs.forEach((tab) => tab.classList.remove("is-active"));
+    if (btn) {
+      btn.classList.add("is-active");
+    } else {
+      const match = Array.from(tabs).find((t) => t.dataset.region === region);
+      if (match) match.classList.add("is-active");
+    }
+    renderCards(region);
+  };
+
+  window.prefillSuburb = (suburbName) => {
+    const heroPickup = document.getElementById("heroPickup");
+    if (heroPickup) heroPickup.value = suburbName;
+
+    const targetForm = document.getElementById("quote-form") || document.querySelector('[data-quote-form="quote"]');
+    if (targetForm) {
+      const pickupField = targetForm.querySelector('input[name="pickup_suburb"]');
+      if (pickupField) pickupField.value = suburbName;
+      targetForm.scrollIntoView({ behavior: "smooth", block: "start" });
+      const nameInput = targetForm.querySelector('input[name="name"]');
+      if (nameInput) setTimeout(() => nameInput.focus(), 400);
+    }
+  };
+
+  renderCards("all");
+}
+
+function setupInterstateMatrix() {
+  const panel = document.getElementById("routeDetailPanel");
+  if (!panel) return;
+
+  const ROUTES = {
+    mel: {
+      title: "Adelaide ↔ Melbourne Relocations",
+      dest: "Melbourne VIC",
+      distance: "725 km via Dukes Hwy & Western Hwy",
+      transit: "1–2 Days Direct / 2–4 Days Backload",
+      departures: "Twice weekly (Tuesday & Friday) from Adelaide depot",
+      features: [
+        "Direct express truck or cost-effective backload options",
+        "Full transit protective blanket wrapping for all furniture",
+        "Itemized inventory manifest & direct crew communication",
+        "Inner-city Melbourne high-rise and apartment lift coordination"
+      ]
+    },
+    syd: {
+      title: "Adelaide ↔ Sydney Relocations",
+      dest: "Sydney NSW",
+      distance: "1,375 km via Sturt Hwy & Hume Hwy",
+      transit: "2–3 Days Direct / 3–5 Days Backload",
+      departures: "Twice weekly (Monday & Thursday) from Adelaide depot",
+      features: [
+        "Door-to-door transit between Adelaide and Greater Sydney",
+        "Tail-lift pantechs suitable for residential & commercial loads",
+        "Transit protection and comprehensive item strapping included",
+        "Flexible delivery scheduling aligned with lease or settlement dates"
+      ]
+    },
+    per: {
+      title: "Adelaide ↔ Perth Relocations",
+      dest: "Perth WA",
+      distance: "2,700 km via Eyre Hwy (Nullarbor Corridor)",
+      transit: "4–6 Days Direct / 5–8 Days Shared",
+      departures: "Weekly departures every Wednesday",
+      features: [
+        "Specialised long-distance Nullarbor crossing equipment",
+        "Enclosed dust-proof pantechs and 20ft container logistics",
+        "Quarantine and bio-security compliant handling for WA borders",
+        "Full transit protection and heavy furniture strapping"
+      ]
+    },
+    bne: {
+      title: "Adelaide ↔ Brisbane & Gold Coast",
+      dest: "Brisbane QLD",
+      distance: "2,000 km via Newell Hwy Corridor",
+      transit: "3–4 Days Direct / 4–6 Days Backload",
+      departures: "Weekly departures every Tuesday",
+      features: [
+        "Direct connection to Brisbane, Gold Coast & Sunshine Coast",
+        "Careful staging and secure Adelaide depot storage available",
+        "Heavy appliance and fragile goods handling protocol",
+        "Comprehensive digital loading inventory"
+      ]
+    },
+    cbr: {
+      title: "Adelaide ↔ Canberra Relocations",
+      dest: "Canberra ACT",
+      distance: "1,160 km via Sturt Hwy & Barton Hwy",
+      transit: "2 Days Direct / 3–4 Days Backload",
+      departures: "Fortnightly scheduled departures",
+      features: [
+        "Corporate, government and family relocations catered",
+        "Careful handling of diplomatic, delicate and antique items",
+        "Flexible delivery scheduling aligned with ACT leasing cycles",
+        "Full unpacking and carton removal assistance available"
+      ]
+    }
+  };
+
+  const renderRoute = (routeKey) => {
+    const r = ROUTES[routeKey] || ROUTES.mel;
+    panel.innerHTML = `
+      <div class="route-panel-grid">
+        <div class="route-info-col">
+          <span class="route-tag">Scheduled Corridor</span>
+          <h3>${r.title}</h3>
+          <div class="route-metrics-grid">
+            <div class="route-metric-card">
+              <span class="metric-label">Transit Distance</span>
+              <strong>${r.distance}</strong>
+            </div>
+            <div class="route-metric-card">
+              <span class="metric-label">Typical Transit</span>
+              <strong>${r.transit}</strong>
+            </div>
+            <div class="route-metric-card">
+              <span class="metric-label">Departures</span>
+              <strong>${r.departures}</strong>
+            </div>
+          </div>
+          <div class="route-actions-row">
+            <button type="button" onclick="window.bookInterstateRoute?.('${r.dest}')" class="zq-v2-button zq-v2-button-primary">
+              <span>Request Quote for ${r.dest}</span>
+              <svg aria-hidden="true"><use href="#zq-i-arrow" /></svg>
+            </button>
+            <a href="/interstate-removals-adelaide/" class="zq-v2-button zq-v2-button-ghost">View All Routes</a>
+          </div>
+        </div>
+        <div class="route-features-col">
+          <h4>Corridor Standards &amp; Inclusions</h4>
+          <ul class="route-features-list">
+            ${r.features.map((f) => `<li><svg aria-hidden="true"><use href="#zq-i-check" /></svg> <span>${f}</span></li>`).join("")}
+          </ul>
+        </div>
+      </div>
+    `;
+  };
+
+  window.selectInterstateRoute = (routeKey, btn) => {
+    const tabs = document.querySelectorAll(".route-tab");
+    tabs.forEach((tab) => tab.classList.remove("is-active"));
+    if (btn) {
+      btn.classList.add("is-active");
+    } else {
+      const match = document.getElementById(`route-tab-${routeKey}`);
+      if (match) match.classList.add("is-active");
+    }
+    renderRoute(routeKey);
+  };
+
+  window.bookInterstateRoute = (destName) => {
+    const targetForm = document.getElementById("quote-form") || document.querySelector('[data-quote-form="quote"]');
+    if (!targetForm) return;
+
+    const pickupField = targetForm.querySelector('input[name="pickup_suburb"]');
+    if (pickupField) pickupField.value = "Adelaide SA";
+
+    const dropoffField = targetForm.querySelector('input[name="dropoff_suburb"]');
+    if (dropoffField) dropoffField.value = destName;
+
+    const scopeSelect = targetForm.querySelector('select[name="move_scope"]');
+    if (scopeSelect) scopeSelect.value = "Interstate move";
+
+    targetForm.scrollIntoView({ behavior: "smooth", block: "start" });
+    const nameInput = targetForm.querySelector('input[name="name"]');
+    if (nameInput) setTimeout(() => nameInput.focus(), 400);
+  };
+
+  renderRoute("mel");
+}
+
 setCurrentYear();
 scheduleAnalyticsInit();
 setQuoteDateMinimum();
@@ -1217,4 +1900,8 @@ runWhenIdleFast(() => {
   setupAnimatedCounters();
   setupServiceAreaLocator();
   setupFooterSocialLinks();
+  setupHeroEstimator();
+  setupInventoryCalculator();
+  setupSuburbsExplorer();
+  setupInterstateMatrix();
 });

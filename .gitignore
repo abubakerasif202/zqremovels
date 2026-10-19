@@ -9,6 +9,7 @@ tmp/
 /phase1_audit_payload.txt
 /phase2_audit_payload.txt
 /scratch/
+/zq_removals_complete_website.html
 
 # Playwright
 playwright-report/

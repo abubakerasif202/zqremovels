@@ -441,6 +441,9 @@
   }
   launcher.addEventListener("click", () => toggle(panel.hidden));
   close.addEventListener("click", () => toggle(false));
+  if (typeof window !== "undefined") {
+    window.toggleZqChat = (force) => toggle(typeof force === "boolean" ? force : panel.hidden);
+  }
   document.addEventListener("keydown", event => {
     if (panel.hidden) return;
     if (event.key === "Escape") toggle(false);
