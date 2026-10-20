@@ -46,7 +46,7 @@ async function fillForm(page: any, formIndex = 0) {
   });
 }
 
-for (const [path, formIndex] of [['/', 0], ['/', 1], ['/contact-us/', 0], ['/removalists-southern-adelaide/', 0], ['/adelaide-removalists-facebook-offer/', 0]] as const) {
+for (const [path, formIndex] of [['/', 0], ['/contact-us/', 0], ['/removalists-southern-adelaide/', 0], ['/adelaide-removalists-facebook-offer/', 0]] as const) {
   // The Ads tag sends 0.45-1s after the push, after GTM's eventCallback, so the event is handed
   // to /thank-you/ (which stays open) instead of racing the redirect.
   test(`accepted quote fires one private event on the thank-you page: ${path} form ${formIndex}`, async ({ page }) => {

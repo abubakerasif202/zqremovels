@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
-  testMatch: ['mobile-seo-visual.spec.ts', 'contact-page-visual.spec.ts', 'conversion-tracking.spec.ts', 'chat-enquiry-journey.spec.ts'],
+  testMatch: ['mobile-seo-visual.spec.ts', 'contact-page-visual.spec.ts', 'conversion-tracking.spec.ts', 'chat-enquiry-journey.spec.ts', 'stitch-functional.spec.ts'],
   timeout: 30 * 1000,
   expect: {
     timeout: 5000,

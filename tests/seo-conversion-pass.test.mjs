@@ -52,7 +52,7 @@ test('homepage targets Adelaide removalists with the approved Open Design conver
     /From the first box to the final placement/i,
   );
   assert.match(homepage, /href="tel:\+61433819989"/i);
-  assert.equal((homepage.match(/data-service-card/g) || []).length, 9);
+  assert.equal((homepage.match(/data-service-card/g) || []).length, 6);
   assert.equal((homepage.match(/itemtype="https:\/\/schema\.org\/Question"/g) || []).length, 8);
   assert.match(homepage, /href="\/house-removals-adelaide\/"/);
   assert.match(homepage, /href="\/furniture-removalists-adelaide\/"/);

@@ -1,5 +1,9 @@
 import { test, expect } from '@playwright/test';
 
+test.beforeEach(async ({ page }) => {
+  await page.route(/^https?:\/\/(?!127\.0\.0\.1:3000)/, route => route.abort());
+});
+
 test('contact page matches the homepage design system and remains readable', async ({ page }, testInfo) => {
   await page.goto('/contact-us/');
   await page.waitForLoadState('networkidle');

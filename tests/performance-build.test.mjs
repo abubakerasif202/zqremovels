@@ -34,7 +34,10 @@ test('performance bundles are smaller than their source inputs', async () => {
   const builtScriptBytes = (await stat(path.join(dist, 'site.js'))).size;
 
   assert.ok(homeCssBytes < sourceCssBytes * 0.45, 'homepage CSS should remove legacy route styles');
-  assert.ok(contactCssBytes < sourceCssBytes * 0.45, 'contact CSS should remove unrelated route styles');
+  // The Stitch integration pruned ~7k lines of legacy homepage CSS, so the source (denominator) shrank;
+  // the contact bundle is held to a ratio of the new source plus an absolute budget.
+  assert.ok(contactCssBytes < sourceCssBytes * 0.6, 'contact CSS should remove unrelated route styles');
+  assert.ok(contactCssBytes < 180 * 1024, 'contact CSS stays within its absolute budget');
   assert.ok(generalCssBytes < sourceCssBytes * 0.8, 'general CSS should remove inactive homepage layers');
   assert.ok(builtScriptBytes < sourceScriptBytes * 0.85, 'site.js should be minified');
 });
@@ -50,8 +53,8 @@ test('purged bundles retain critical shared and route-specific selectors', async
     assert.match(css, /\.is-visible/);
   }
 
-  assert.match(homeCss, /\.zq-v2-hero/);
-  assert.match(homeCss, /\.zq-v2-short-form/);
+  assert.match(homeCss, /\.zqh-hero/);
+  assert.match(homeCss, /\.zqh-form/);
   assert.match(contactCss, /\.contact-hero-grid/);
   assert.match(contactCss, /\.quote-form-premium/);
   assert.match(generalCss, /\.page-hero/);

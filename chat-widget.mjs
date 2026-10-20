@@ -3,9 +3,9 @@
 (function initZqReceptionist() {
   if (typeof document === "undefined" || document.getElementById("zq-chat-launcher")) return;
   const css = `
-  .zq-chat-launcher{position:fixed;bottom:24px;right:20px;z-index:9998;display:flex;align-items:center;gap:9px;border:2px solid #fff;border-radius:999px;padding:13px 19px;background:#14324f;color:#fff;box-shadow:0 8px 30px #08192955;cursor:pointer;font:700 14px/1.2 system-ui,-apple-system,sans-serif}
+  .zq-chat-launcher{position:fixed;bottom:var(--zq-chat-launcher-bottom,24px);right:20px;z-index:9998;display:flex;align-items:center;gap:9px;border:2px solid #fff;border-radius:999px;padding:13px 19px;background:#14324f;color:#fff;box-shadow:0 8px 30px #08192955;cursor:pointer;font:700 14px/1.2 system-ui,-apple-system,sans-serif}
   .zq-chat-launcher:hover,.zq-chat-launcher:focus-visible{background:#20577d;outline:3px solid #ffcb57;outline-offset:2px}
-  .zq-chat-window{position:fixed;right:20px;bottom:91px;z-index:9999;width:min(390px,calc(100vw - 24px));height:min(580px,calc(100dvh - 120px));display:flex;flex-direction:column;overflow:hidden;border:1px solid #b4c9d4;border-radius:18px;background:#fff;color:#152839;box-shadow:0 16px 55px #071b2d66;font:400 14px/1.55 system-ui,-apple-system,sans-serif}
+  .zq-chat-window{position:fixed;right:20px;bottom:calc(var(--zq-chat-launcher-bottom,24px) + 67px);z-index:9999;width:min(390px,calc(100vw - 24px));height:min(580px,calc(100dvh - var(--zq-chat-launcher-bottom,24px) - 96px));display:flex;flex-direction:column;overflow:hidden;border:1px solid #b4c9d4;border-radius:18px;background:#fff;color:#152839;box-shadow:0 16px 55px #071b2d66;font:400 14px/1.55 system-ui,-apple-system,sans-serif}
   .zq-chat-window[hidden]{display:none!important}
   .zq-chat-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;background:#12314d;color:white}
   .zq-chat-head strong{display:block;font-size:16px;color:white}
@@ -55,7 +55,7 @@
   .zq-chat-window{position:fixed}
   @media(max-width:680px){
     body.zq-chat-is-open{overflow:hidden!important}
-    .zq-chat-launcher{bottom:max(90px,env(safe-area-inset-bottom));right:12px;padding:12px 15px}
+    .zq-chat-launcher{bottom:max(var(--zq-chat-launcher-bottom,24px),calc(16px + env(safe-area-inset-bottom)));right:12px;padding:12px 15px}
     body.zq-chat-is-open .zq-chat-launcher{visibility:hidden;pointer-events:none}
     .zq-chat-window{inset:var(--zq-chat-view-top,0px) 0 auto 0;right:0;bottom:auto;left:0;top:var(--zq-chat-view-top,0px);width:100vw;max-width:100vw;height:var(--zq-chat-view-height,100dvh);max-height:none;border:0;border-radius:0;box-shadow:none}
     .zq-chat-head{flex-shrink:0;padding:calc(12px + env(safe-area-inset-top,0px)) 14px 11px;min-height:68px}
@@ -136,6 +136,26 @@
       <small class="zq-chat-privacy">AI estimates aren't bookings. Chat history is retained for up to 24 hours to continue this conversation. Don't enter payment details.</small>
     </div>`;
   document.body.append(launcher, panel);
+
+  // Follow the actual CTA height, including wrapped text and safe-area insets.
+  // A fixed phone offset misses the CTA on tablets and at larger text sizes.
+  const stickyCta = document.querySelector(".sticky-mobile-cta");
+  const syncLauncherClearance = () => {
+    const rect = stickyCta?.getBoundingClientRect();
+    const style = stickyCta ? getComputedStyle(stickyCta) : null;
+    const visible = stickyCta?.classList.contains("is-visible") && rect?.height > 0
+      && style?.display !== "none";
+    // Ignore its entrance transform: class mutations arrive before it finishes.
+    const clearance = visible ? Math.max(24, rect.height + (parseFloat(style.bottom) || 0) + 12) : 24;
+    document.documentElement.style.setProperty("--zq-chat-launcher-bottom", `${clearance}px`);
+  };
+  if (stickyCta) {
+    new ResizeObserver(syncLauncherClearance).observe(stickyCta);
+    new MutationObserver(syncLauncherClearance).observe(stickyCta, { attributes: true, attributeFilter: ["class", "hidden"] });
+  }
+  window.addEventListener("resize", syncLauncherClearance, { passive: true });
+  window.addEventListener("pageshow", syncLauncherClearance);
+  syncLauncherClearance();
   const messages = panel.querySelector(".zq-chat-messages");
   const input = panel.querySelector(".zq-chat-input");
   const form = panel.querySelector(".zq-chat-form");

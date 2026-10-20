@@ -33,10 +33,20 @@ function contrastRatio(foreground, background) {
   return (lighter + 0.05) / (darker + 0.05);
 }
 
-function lastTokenValue(name) {
-  const matches = [...css.matchAll(new RegExp(`${name}:\\s*([^;]+);`, 'g'))];
+// Resolve root declarations in source order, including aliases, rather than silently
+// falling back to an obsolete hex value when a later declaration uses var().
+const rootDeclarations = [...css.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(/(?:^|})\s*(?::root)(?:\s*,\s*body\.page-contact)?\s*\{([^}]+)}/g)]
+  .map((match) => match[1]).join('\n');
+
+function lastTokenValue(name, declarations = rootDeclarations, seen = new Set()) {
+  assert.ok(!seen.has(name), `${name} contains a token cycle`);
+  const matches = [...declarations.matchAll(new RegExp(`${name}:\\s*([^;]+);`, 'g'))];
   assert.ok(matches.length > 0, `${name} token is missing`);
-  return matches.at(-1)[1].trim();
+  const value = matches.at(-1)[1].trim();
+  const alias = value.match(/^var\((--[\w-]+)\)$/);
+  if (alias) return lastTokenValue(alias[1], declarations, new Set([...seen, name]));
+  assert.match(value, /^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i, `${name} must resolve to a colour`);
+  return value;
 }
 
 function assertContrast(foreground, background, minimum, label) {
@@ -82,7 +92,7 @@ test('shared light-surface contrast contracts use dark readable foregrounds', ()
 });
 
 test('dark-surface interaction states keep readable accent text', () => {
-  assert.match(css, /body\.page-home \.od-band \.od-kicker\s*\{\s*color:\s*var\(--zq-gold-light\);/s);
+  assert.match(css, /\.zqh \.zqh-dark \.zqh-eyebrow\s*\{\s*color:\s*var\(--zqh-orange-hover\);/s);
   assert.match(
     css,
     /main a:not\([^)]*\):hover,\s*\nmain a:not\([^)]*\):focus-visible\s*\{[\s\S]*color:\s*var\(--zq-gold-light\);/s,
@@ -139,7 +149,7 @@ test('control, focus and feedback tokens meet their surface contrast requirement
     [lastTokenValue('--feedback-success-on-dark'), '#102b43', 4.5, 'dark success feedback'],
   ]) assertContrast(foreground, background, minimum, label);
   assert.match(css, /\.hero-shell \.button-secondary\s*\{[^}]*color: var\(--button-secondary-text\);[^}]*background: var\(--button-secondary-bg\);/s);
-  assert.match(css, /body\.page-home \.footer-shell a:not\(\.button, \.btn\)/);
+  assert.match(css, /\.footer-shell a:not\(\.button, \.btn\)\s*\{\s*color:\s*#f7d890/);
   assert.match(css, /background: var\(--button-primary-hover-bg\);/);
   assert.doesNotMatch(css, /background: linear-gradient\(135deg, var\(--button-primary-(?:hover-)?bg\)/);
 });
@@ -150,4 +160,21 @@ test('estimator cards keep dark text on their white surface inside dark sections
   assert.match(css, /\.estimator-card\.estimator-card :is\(p,li,dd,small,span,figcaption,\.field-note\)\s*\{\s*color: #20374b;/);
   assertContrast('#102b43', '#ffffff', 4.5, 'estimator card heading');
   assertContrast('#20374b', '#ffffff', 4.5, 'estimator card body');
+});
+
+// Homepage (Stitch-aligned) palette: the pairs the .zqh system relies on.
+test('homepage palette pairs meet contrast requirements', () => {
+  const homepageTokens = [...css.matchAll(/\.zqh\s*\{([^}]+)}/g)].map(match => match[1]).join('\n');
+  const token = (name) => lastTokenValue(name, homepageTokens);
+  for (const [foreground, background, minimum, label] of [
+    [token('--zqh-ink'), token('--zqh-bg'), 4.5, 'body on page background'],
+    [token('--zqh-muted'), token('--zqh-white'), 4.5, 'muted on white'],
+    [token('--zqh-heading'), token('--zqh-orange'), 4.5, 'navy on orange button'],
+    [token('--zqh-heading'), token('--zqh-orange-hover'), 4.5, 'navy on orange hover'],
+    [token('--zqh-orange-text'), token('--zqh-white'), 4.5, 'dark-orange text on white'],
+    [token('--zqh-orange-hover'), token('--zqh-heading'), 4.5, 'orange accent on midnight navy'],
+    [token('--zqh-line-strong'), token('--zqh-white'), 3, 'input boundary on white'],
+  ]) assertContrast(foreground, background, minimum, label);
+  assert.match(css, /--zqh-orange:\s*#ff8a3d/);
+  assert.match(css, /--zqh-navy:\s*#0b1e32/);
 });

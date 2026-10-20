@@ -116,7 +116,6 @@ test('mobile nav contrast classes remain explicit after css cleanup', async () =
   assert.match(css, /body\{[^}]*padding-bottom:calc\(/i);
   assert.match(css, /@media \((max-width:\s*640px|width<=640px)\)/i);
   assert.match(css, /\.home-route-columns details/i);
-  assert.match(css, /body\.page-home \.mobile-nav-panel\{[^}]*color:#f6f8f2;[^}]*background:#071421;/i);
-  assert.match(css, /body\.page-home \.mobile-nav-panel>\.mobile-nav-link\{[^}]*color:#f6f8f2;[^}]*background:#0b2235;/i);
-  assert.match(css, /body\.page-home \.mobile-nav-panel \.nav-panel-link \.nav-link-title[^}]*\{[^}]*color:#f6f8f2;/i);
+  assert.match(css, /\.mobile-nav-panel\{[^}]*color:var\(--zq-copy\);[^}]*background:var\(--zq-paper\);/i);
+  assert.match(css, /\.nav-panel-link \.nav-link-title\{color:#102b43 !important;|\.nav-panel-link \.nav-link-title\{color:var\(--zq-v2-ink\);/i);
 });

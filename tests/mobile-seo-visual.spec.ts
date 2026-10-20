@@ -1,4 +1,29 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Locator } from '@playwright/test';
+
+test.beforeEach(async ({ page }) => {
+  await page.route(/^https?:\/\/(?!127\.0\.0\.1:3000)/, route => route.abort());
+});
+
+async function expectReadableText(locator: Locator) {
+  const ratio = await locator.evaluate(node => {
+    const channels = (value: string) => value.match(/[\d.]+/g)!.map(Number);
+    const foreground = channels(getComputedStyle(node).color);
+    let ancestor: Element | null = node;
+    let background = [255, 255, 255];
+    while (ancestor) {
+      const candidate = channels(getComputedStyle(ancestor).backgroundColor);
+      if (candidate.length === 3 || candidate[3] === 1) { background = candidate; break; }
+      ancestor = ancestor.parentElement;
+    }
+    const luminance = (rgb: number[]) => rgb.slice(0, 3).reduce((sum, channel, index) => {
+      const normalized = channel / 255;
+      return sum + [0.2126, 0.7152, 0.0722][index] * (normalized <= 0.04045 ? normalized / 12.92 : ((normalized + 0.055) / 1.055) ** 2.4);
+    }, 0);
+    const fg = luminance(foreground), bg = luminance(background);
+    return (Math.max(fg, bg) + 0.05) / (Math.min(fg, bg) + 0.05);
+  });
+  expect(ratio).toBeGreaterThanOrEqual(4.5);
+}
 
 test('mobile chat sends a mocked message and keeps its composer visible in a reduced viewport', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'Mobile Chrome (390px)', 'Run the simulated keyboard viewport once.');
@@ -87,7 +112,7 @@ for (const route of routes) {
       expect(headingBox).not.toBeNull();
       expect(headingBox!.y).toBeLessThan(viewport!.height);
     }
-    if (viewport && viewport.width > 1023) {
+    if (viewport && viewport.width > 1120) {
       for (const link of await page.locator('.desktop-nav > .nav-link').all()) {
         await expect(link).toHaveCSS('color', 'rgb(32, 55, 75)');
       }
@@ -95,13 +120,14 @@ for (const route of routes) {
 
     if (route === '/') {
       await expect(page.locator('h1')).toHaveCount(1);
-      await expect(page.locator('[data-service-card]')).toHaveCount(9);
-      await expect(page.locator('.zq-v2-faq-list details')).toHaveCount(8);
+      await expect(page.locator('[data-service-card]')).toHaveCount(6);
+      await expect(page.locator('.zqh-faq-list details')).toHaveCount(8);
+      await expect(page.locator('form[data-quote-form="quote"] .quote-package-group legend')).toHaveCount(1);
       for (const packageText of await page.locator('form[data-quote-form="quote"] .quote-package-group :is(legend,.field-note)').all()) {
-        await expect(packageText).toHaveCSS('color', 'rgb(32, 55, 75)');
+        await expectReadableText(packageText);
       }
 
-      if (viewport && viewport.width <= 768) {
+      if (viewport && viewport.width <= 1120) {
         const menuTrigger = page.locator('.mobile-menu-trigger');
         await expect(menuTrigger).toBeVisible();
         await menuTrigger.click();
@@ -127,7 +153,7 @@ for (const route of routes) {
       await expect(link).toHaveCSS('color', 'rgb(255, 173, 115)');
     }
 
-    if (viewport && viewport.width <= 768) {
+    if (viewport && viewport.width <= 1023) {
       const stickyCta = page.locator('.sticky-mobile-cta');
       await page.evaluate(() => window.scrollTo(0, 700));
       await expect(stickyCta).toHaveClass(/is-visible/);
@@ -193,7 +219,7 @@ for (const route of ['/', '/contact-us/', '/house-removals-adelaide/', '/removal
 
 test('entrances remain visible, run once, and stop for reduced motion', async ({ page }) => {
   await page.goto('/');
-  const card = page.locator('.zq-v2-service-card').first();
+  const card = page.locator('[data-service-card]').first();
   await expect(card).toHaveCSS('opacity', '1');
   await card.evaluate(node => {
     (window as any).__entranceCount = 0;
@@ -217,7 +243,7 @@ test('homepage content stays visible without JavaScript', async ({ browser, base
   const page = await context.newPage();
   await page.goto(baseURL + '/');
   await expect(page.locator('h1')).toBeVisible();
-  const card = page.locator('.zq-v2-service-card').first();
+  const card = page.locator('[data-service-card]').first();
   await card.scrollIntoViewIfNeeded();
   await expect(card).toHaveCSS('opacity', '1');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);

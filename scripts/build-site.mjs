@@ -4236,7 +4236,7 @@ export function transformContent(content, page) {
       );
     }
     next = next.replace(
-      /<section class="zq-v2-section" id="reviews" aria-labelledby="reviews-title">[\s\S]*?<\/section>\s*(?=<section class="zq-v2-section zq-v2-surface" aria-labelledby="gallery-title">)/,
+      /<section class="zqh-section zqh-soft" id="reviews" aria-labelledby="reviews-title">[\s\S]*?<\/section>\s*(?=<section class="zqh-section" aria-labelledby="gallery-title">)/,
       renderGoogleReviewsSection(),
     );
   }
@@ -5028,14 +5028,12 @@ function renderGoogleReviewsSection() {
       </a>
     </div>`;
 
-  return `<section class="zq-v2-section google-reviews-section" id="reviews" aria-labelledby="reviews-title">
+  return `<section class="zqh-section zqh-soft google-reviews-section" id="reviews" aria-labelledby="reviews-title">
   <div class="container">
-    <div class="zq-v2-section-head">
-      <div>
-        <p class="zq-v2-eyebrow">Adelaide's 5-star removalists</p>
-        <h2 id="reviews-title">Rated 5 Stars by Adelaide Customers</h2>
-      </div>
-      <p class="zq-v2-lead">Rated ${Number(googleReviews.rating).toFixed(1)} from ${googleReviews.reviewCount} Google reviews, with customers looking for reliable arrival, careful furniture handling, clear pricing, and trusted support for local and long-distance moves.</p>
+    <div class="zqh-section-head">
+      <p class="zqh-eyebrow">Adelaide's 5-star removalists</p>
+      <h2 id="reviews-title">Rated 5 Stars by Adelaide Customers</h2>
+      <p class="zqh-lead">Rated ${Number(googleReviews.rating).toFixed(1)} from ${googleReviews.reviewCount} Google reviews, with customers looking for reliable arrival, careful furniture handling, clear pricing, and trusted support for local and long-distance moves.</p>
     </div>
     <div class="google-reviews-summary">
       ${renderGoogleReviewBadge()}
