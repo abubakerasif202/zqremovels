@@ -35,14 +35,15 @@ const HUB_OUTPUTS = new Set([
   'removalists-southern-adelaide',
 ]);
 
-test('homepage H1 and first paragraph carry the Adelaide removalists term', () => {
+test('homepage keeps Adelaide positioning, search intent and visible published rates', () => {
   const html = readRoute('/');
-  assert.match(h1(html), /Adelaide removalists/i);
+  assert.match(h1(html), /Adelaide moves, planned properly/i);
   const lead = strip(html.match(/<p class="zqh-lead">([\s\S]*?)<\/p>/i)?.[1] ?? '');
   assert.match(lead, /Adelaide removalists/i);
-  assert.match(lead, /\$75 per 30 minutes/);
-  assert.match(lead, /\$89 per 30 minutes/);
-  assert.match(lead, /call-out\/travel/i);
+  const pricing = strip(html.match(/<p class="zqh-pricing-note">([\s\S]*?)<\/p>/i)?.[1] ?? '');
+  assert.match(pricing, /\$75 per 30 minutes/);
+  assert.match(pricing, /\$89 per 30 minutes/);
+  assert.match(pricing, /one-hour call-out\/travel/i);
   assert.ok(hasLink(html, '/office-removals-adelaide/'), 'homepage must link to the office page');
   assert.match(html, /data-lead-event="quote_cta_click"/);
 });

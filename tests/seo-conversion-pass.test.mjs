@@ -40,16 +40,16 @@ test.before(async () => {
   await buildSite();
 });
 
-test('homepage targets Adelaide removalists with the approved Open Design conversion structure', () => {
+test('homepage targets Adelaide removalists with the premium template conversion structure', () => {
   const homepage = readDist('index.html');
 
   assert.match(
     homepage,
-    /<h1[^>]*>Adelaide removalists\.<br\s*\/?>(?:\s*)<em>Moves handled with care\.<\/em><\/h1>/i,
+    /<h1[^>]*>Adelaide moves,<br\s*\/?>(?:\s*)planned properly\.<\/h1>/i,
   );
   assert.match(
     homepage,
-    /From the first box to the final placement/i,
+    /Your Adelaide removalists for local and interstate moves/i,
   );
   assert.match(homepage, /href="tel:\+61433819989"/i);
   assert.equal((homepage.match(/data-service-card/g) || []).length, 6);

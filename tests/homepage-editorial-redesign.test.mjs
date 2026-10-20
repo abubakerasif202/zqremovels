@@ -25,13 +25,13 @@ const serviceRoutes = [
   '/same-day-removalists-adelaide/',
 ];
 
-test('Open Design homepage contract is generator-native and complete', async () => {
+test('Premium template homepage contract is generator-native and complete', async () => {
   const source = await readFile(path.join(root, 'site-src', 'content', 'index.html'), 'utf8');
   const built = await readFile(path.join(root, 'site-dist', 'index.html'), 'utf8');
 
   for (const html of [source, built]) {
     assert.equal((html.match(/<h1\b/gi) || []).length, 1);
-    assert.match(html, /<h1[^>]*>Adelaide removalists\.<br\s*\/?>(?:\s*)<em>Moves handled with care\.<\/em><\/h1>/i);
+    assert.match(html, /<h1[^>]*>Adelaide moves,<br\s*\/?>(?:\s*)planned properly\.<\/h1>/i);
     assert.equal((html.match(/data-service-card/g) || []).length, 6);
     assert.equal((html.match(/itemtype="https:\/\/schema\.org\/Question"/g) || []).length, 8);
     assert.equal((html.match(/data-quote-form="quote"/g) || []).length, 1);
@@ -95,11 +95,11 @@ test('homepage visual layer preserves contrast, responsive navigation and reduce
   const astroCss = await readFile(path.join(root, 'src', 'styles', 'premium-site.css'), 'utf8');
 
   for (const css of [generatorCss, astroCss]) {
-    assert.match(css, /ZQH HOMEPAGE 2026 \(Stitch-aligned\)/);
-    assert.match(css, /--zqh-navy:\s*#0b1e32/);
-    assert.match(css, /--zqh-bg:\s*#f5f7fa/);
-    assert.match(css, /--zqh-orange:\s*#ff8a3d/);
-    assert.match(css, /--zqh-orange-text:\s*#a43d06/);
+    assert.match(css, /Premium reference presentation/);
+    assert.match(css, /--zqh-navy:\s*#071421/);
+    assert.match(css, /--zqh-bg:\s*#f6f8f2/);
+    assert.match(css, /--zqh-orange:\s*#b8f229/);
+    assert.match(css, /--zqh-orange-text:\s*#486600/);
     assert.match(css, /@media \(max-width: 1120px\)[\s\S]*?\.desktop-nav[\s\S]*?display:\s*none\s*!important/);
     assert.match(css, /@media \(max-width: 640px\)[\s\S]*?\.sticky-mobile-cta/);
     assert.match(css, /@media \(min-width: 1024px\)\s*\{\s*\.sticky-mobile-cta\s*\{\s*display:\s*none;/);
