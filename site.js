@@ -284,6 +284,19 @@ function setupHeaderDetails() {
   });
 }
 
+const submitButtonContents = new WeakMap();
+
+function rememberSubmitButtonContents(button) {
+  if (!submitButtonContents.has(button)) {
+    submitButtonContents.set(button, Array.from(button.childNodes));
+  }
+}
+
+function restoreSubmitButtonContents(button) {
+  const contents = submitButtonContents.get(button);
+  if (contents) button.replaceChildren(...contents);
+}
+
 function setupFormState() {
   if (forms.length === 0) {
     return;
@@ -299,6 +312,7 @@ function setupFormState() {
       return;
     }
 
+    rememberSubmitButtonContents(submitButton);
     if (!submitButton.dataset.defaultLabel) {
       submitButton.dataset.defaultLabel =
         submitButton.textContent?.trim() ?? "Get My Moving Quote";
@@ -318,6 +332,7 @@ function setupFormState() {
 
   window.addEventListener("pageshow", () => {
     forms.forEach((form) => {
+      if (form.getAttribute("data-quote-form") === "quote") return;
       const submitButton = form.querySelector('button[type="submit"]');
       if (!submitButton) {
         return;
@@ -325,8 +340,7 @@ function setupFormState() {
 
       submitButton.disabled = false;
       submitButton.dataset.submitting = "false";
-      submitButton.textContent =
-        submitButton.dataset.defaultLabel ?? submitButton.textContent ?? "Get My Moving Quote";
+      restoreSubmitButtonContents(submitButton);
     });
   });
 }
@@ -697,6 +711,7 @@ function setQuoteFormSubmitting(form, isSubmitting) {
     return;
   }
 
+  rememberSubmitButtonContents(submitButton);
   if (!submitButton.dataset.defaultLabel) {
     submitButton.dataset.defaultLabel =
       submitButton.textContent?.trim() ?? "Get My Moving Quote";
@@ -704,9 +719,8 @@ function setQuoteFormSubmitting(form, isSubmitting) {
 
   submitButton.disabled = isSubmitting;
   submitButton.dataset.submitting = isSubmitting ? "true" : "false";
-  submitButton.textContent = isSubmitting
-    ? "Sending quote..."
-    : submitButton.dataset.defaultLabel || "Get My Moving Quote";
+  if (isSubmitting) submitButton.textContent = "Sending quote...";
+  else restoreSubmitButtonContents(submitButton);
 }
 
 async function submitQuoteForm(form, payload) {
@@ -957,7 +971,7 @@ function setupEntranceAnimations() {
   const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
   if (preference.matches) return;
   const nodes = document.querySelectorAll(
-    ".page-home .zq-v2-service-card, .page-home .zq-v2-trust-cards > article, " +
+    ".page-home .zqh-service-card, .page-home .zq-v2-service-card, .page-home .zq-v2-trust-cards > article, " +
     ".testimonial-card, .google-review-card, .rate-table"
   );
   // Unsupported browsers retain the fully visible, static experience.
@@ -1018,7 +1032,7 @@ function setupInteractiveSpotlights() {
   }
 
   const targets = document.querySelectorAll(
-    "body.page-home .zq-v2-service-card, body.page-home .zq-v2-trust-cards article, body.page-home .zq-v2-gallery-grid figure",
+    "body.page-home .zqh-service-card, body.page-home .zq-v2-service-card, body.page-home .zq-v2-trust-cards article, body.page-home .zq-v2-gallery-grid figure, body.page-home .zqh-gallery figure",
   );
 
   targets.forEach((target) => {
@@ -1219,17 +1233,17 @@ function setupHeroEstimator() {
     } else if (currentScope === "interstate") {
       if (labelDisplay) labelDisplay.textContent = "Interstate Corridor Transit";
       if (currentSizeIndex === 0) {
-        priceDisplay.innerHTML = "Weekly Adelaide Backload <small>(Part Load)</small>";
-        if (subDisplay) subDisplay.textContent = "1–3 Business Days Transit • Itemized manifest";
+        priceDisplay.innerHTML = "Adelaide shared-load enquiry <small>(Part Load)</small>";
+        if (subDisplay) subDisplay.textContent = "Timing confirmed with your quote";
       } else if (currentSizeIndex === 1) {
         priceDisplay.innerHTML = "Dedicated 35 m³ Pantech <small>(Full Home)</small>";
-        if (subDisplay) subDisplay.textContent = "Direct express interstate transit from Adelaide depot";
+        if (subDisplay) subDisplay.textContent = "Route and load reviewed before confirmation";
       } else if (currentSizeIndex === 2) {
         priceDisplay.innerHTML = "Full 50 m³ Linehaul <small>(Family Home)</small>";
-        if (subDisplay) subDisplay.textContent = "Complete linehaul logistics • Full transit protection";
+        if (subDisplay) subDisplay.textContent = "Route and load reviewed before confirmation";
       } else {
-        priceDisplay.innerHTML = "Selected Furniture Linehaul <small>(Express)</small>";
-        if (subDisplay) subDisplay.textContent = "Protective blanket wrap • Scheduled dispatch";
+        priceDisplay.innerHTML = "Selected Furniture Linehaul <small>(Quote Required)</small>";
+        if (subDisplay) subDisplay.textContent = "Timing confirmed with your quote";
       }
     } else if (currentScope === "office") {
       if (labelDisplay) labelDisplay.textContent = "Commercial Relocation Service";
@@ -1240,9 +1254,15 @@ function setupHeroEstimator() {
 
   window.setHeroScope = (scope, btn) => {
     currentScope = scope;
-    scopeTabs.forEach((tab) => tab.classList.remove("is-active"));
+    scopeTabs.forEach((tab) => {
+      tab.classList.remove("is-active");
+      tab.setAttribute("aria-selected", "false");
+    });
     const activeTab = btn || document.getElementById(`scope-${scope}`) || Array.from(scopeTabs).find((t) => t.textContent.toLowerCase().includes(scope));
-    if (activeTab) activeTab.classList.add("is-active");
+    if (activeTab) {
+      activeTab.classList.add("is-active");
+      activeTab.setAttribute("aria-selected", "true");
+    }
 
     if (pickupInput && dropoffInput) {
       if (scope === "local") {
@@ -1697,13 +1717,17 @@ function setupSuburbsExplorer() {
 
   window.filterSuburbs = (region, btn) => {
     const tabs = document.querySelectorAll(".suburb-tab");
-    tabs.forEach((tab) => tab.classList.remove("is-active"));
+    tabs.forEach((tab) => {
+      tab.classList.remove("is-active");
+      tab.setAttribute("aria-pressed", "false");
+    });
     if (btn) {
       btn.classList.add("is-active");
     } else {
       const match = Array.from(tabs).find((t) => t.dataset.region === region);
       if (match) match.classList.add("is-active");
     }
+    tabs.forEach((tab) => tab.setAttribute("aria-pressed", String(tab.classList.contains("is-active"))));
     renderCards(region);
   };
 
@@ -1721,7 +1745,7 @@ function setupSuburbsExplorer() {
     }
   };
 
-  renderCards("all");
+  window.filterSuburbs("all");
 }
 
 function setupInterstateMatrix() {
@@ -1734,11 +1758,11 @@ function setupInterstateMatrix() {
       dest: "Melbourne VIC",
       distance: "725 km via Dukes Hwy & Western Hwy",
       transit: "1–2 Days Direct / 2–4 Days Backload",
-      departures: "Twice weekly (Tuesday & Friday) from Adelaide depot",
+      departures: "Dates confirmed when your quote is prepared",
       features: [
-        "Direct express truck or cost-effective backload options",
-        "Full transit protective blanket wrapping for all furniture",
-        "Itemized inventory manifest & direct crew communication",
+        "Direct or shared-load options discussed at quote",
+        "Furniture protected with blankets and wrap",
+        "Inventory reviewed with you before confirmation",
         "Inner-city Melbourne high-rise and apartment lift coordination"
       ]
     },
@@ -1747,11 +1771,11 @@ function setupInterstateMatrix() {
       dest: "Sydney NSW",
       distance: "1,375 km via Sturt Hwy & Hume Hwy",
       transit: "2–3 Days Direct / 3–5 Days Backload",
-      departures: "Twice weekly (Monday & Thursday) from Adelaide depot",
+      departures: "Dates confirmed when your quote is prepared",
       features: [
         "Door-to-door transit between Adelaide and Greater Sydney",
         "Tail-lift pantechs suitable for residential & commercial loads",
-        "Transit protection and comprehensive item strapping included",
+        "Items wrapped and strapped for the journey",
         "Flexible delivery scheduling aligned with lease or settlement dates"
       ]
     },
@@ -1760,12 +1784,12 @@ function setupInterstateMatrix() {
       dest: "Perth WA",
       distance: "2,700 km via Eyre Hwy (Nullarbor Corridor)",
       transit: "4–6 Days Direct / 5–8 Days Shared",
-      departures: "Weekly departures every Wednesday",
+      departures: "Dates confirmed when your quote is prepared",
       features: [
-        "Specialised long-distance Nullarbor crossing equipment",
-        "Enclosed dust-proof pantechs and 20ft container logistics",
-        "Quarantine and bio-security compliant handling for WA borders",
-        "Full transit protection and heavy furniture strapping"
+        "Long-distance route planning across the Nullarbor",
+        "Vehicle and load options reviewed for the distance",
+        "Interstate border requirements raised during planning",
+        "Heavy furniture wrapped and strapped for transit"
       ]
     },
     bne: {
@@ -1773,12 +1797,12 @@ function setupInterstateMatrix() {
       dest: "Brisbane QLD",
       distance: "2,000 km via Newell Hwy Corridor",
       transit: "3–4 Days Direct / 4–6 Days Backload",
-      departures: "Weekly departures every Tuesday",
+      departures: "Dates confirmed when your quote is prepared",
       features: [
         "Direct connection to Brisbane, Gold Coast & Sunshine Coast",
-        "Careful staging and secure Adelaide depot storage available",
-        "Heavy appliance and fragile goods handling protocol",
-        "Comprehensive digital loading inventory"
+        "Storage assistance can be discussed as part of the plan",
+        "Heavy appliances and fragile goods handled with care",
+        "Loading inventory prepared for the move"
       ]
     },
     cbr: {
@@ -1786,12 +1810,12 @@ function setupInterstateMatrix() {
       dest: "Canberra ACT",
       distance: "1,160 km via Sturt Hwy & Barton Hwy",
       transit: "2 Days Direct / 3–4 Days Backload",
-      departures: "Fortnightly scheduled departures",
+      departures: "Dates confirmed when your quote is prepared",
       features: [
         "Corporate, government and family relocations catered",
-        "Careful handling of diplomatic, delicate and antique items",
+        "Delicate and valuable items handled with care",
         "Flexible delivery scheduling aligned with ACT leasing cycles",
-        "Full unpacking and carton removal assistance available"
+        "Packing and unpacking help can be included in scope"
       ]
     }
   };
@@ -1801,7 +1825,7 @@ function setupInterstateMatrix() {
     panel.innerHTML = `
       <div class="route-panel-grid">
         <div class="route-info-col">
-          <span class="route-tag">Scheduled Corridor</span>
+          <span class="route-tag">Interstate route</span>
           <h3>${r.title}</h3>
           <div class="route-metrics-grid">
             <div class="route-metric-card">
@@ -1809,11 +1833,11 @@ function setupInterstateMatrix() {
               <strong>${r.distance}</strong>
             </div>
             <div class="route-metric-card">
-              <span class="metric-label">Typical Transit</span>
+              <span class="metric-label">Indicative transit</span>
               <strong>${r.transit}</strong>
             </div>
             <div class="route-metric-card">
-              <span class="metric-label">Departures</span>
+              <span class="metric-label">Scheduling</span>
               <strong>${r.departures}</strong>
             </div>
           </div>
@@ -1826,7 +1850,7 @@ function setupInterstateMatrix() {
           </div>
         </div>
         <div class="route-features-col">
-          <h4>Corridor Standards &amp; Inclusions</h4>
+          <h4>What we plan with you</h4>
           <ul class="route-features-list">
             ${r.features.map((f) => `<li><svg aria-hidden="true"><use href="#zq-i-check" /></svg> <span>${f}</span></li>`).join("")}
           </ul>
@@ -1837,13 +1861,17 @@ function setupInterstateMatrix() {
 
   window.selectInterstateRoute = (routeKey, btn) => {
     const tabs = document.querySelectorAll(".route-tab");
-    tabs.forEach((tab) => tab.classList.remove("is-active"));
+    tabs.forEach((tab) => {
+      tab.classList.remove("is-active");
+      tab.setAttribute("aria-pressed", "false");
+    });
     if (btn) {
       btn.classList.add("is-active");
     } else {
       const match = document.getElementById(`route-tab-${routeKey}`);
       if (match) match.classList.add("is-active");
     }
+    tabs.forEach((tab) => tab.setAttribute("aria-pressed", String(tab.classList.contains("is-active"))));
     renderRoute(routeKey);
   };
 
@@ -1865,7 +1893,7 @@ function setupInterstateMatrix() {
     if (nameInput) setTimeout(() => nameInput.focus(), 400);
   };
 
-  renderRoute("mel");
+  window.selectInterstateRoute("mel");
 }
 
 setCurrentYear();

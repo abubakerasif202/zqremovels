@@ -1,0 +1,30 @@
+[
+  {
+    "path": "/about/",
+    "width": 768,
+    "keyboardOpen": true,
+    "escapeClose": true,
+    "focusRestored": true
+  },
+  {
+    "path": "/about/",
+    "width": 1024,
+    "keyboardOpen": true,
+    "escapeClose": true,
+    "focusRestored": true
+  },
+  {
+    "path": "/contact-us/",
+    "width": 768,
+    "keyboardOpen": true,
+    "escapeClose": true,
+    "focusRestored": true
+  },
+  {
+    "path": "/contact-us/",
+    "width": 1024,
+    "keyboardOpen": true,
+    "escapeClose": true,
+    "focusRestored": true
+  }
+]

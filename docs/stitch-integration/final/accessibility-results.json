@@ -1,0 +1,146 @@
+[
+  {
+    "name": "home",
+    "width": 390,
+    "passes": 34,
+    "violations": []
+  },
+  {
+    "name": "home",
+    "width": 768,
+    "passes": 33,
+    "violations": []
+  },
+  {
+    "name": "home",
+    "width": 1440,
+    "passes": 33,
+    "violations": []
+  },
+  {
+    "name": "glenelg",
+    "width": 390,
+    "passes": 25,
+    "violations": []
+  },
+  {
+    "name": "glenelg",
+    "width": 768,
+    "passes": 25,
+    "violations": []
+  },
+  {
+    "name": "glenelg",
+    "width": 1440,
+    "passes": 22,
+    "violations": []
+  },
+  {
+    "name": "norwood",
+    "width": 390,
+    "passes": 25,
+    "violations": []
+  },
+  {
+    "name": "norwood",
+    "width": 768,
+    "passes": 25,
+    "violations": []
+  },
+  {
+    "name": "norwood",
+    "width": 1440,
+    "passes": 22,
+    "violations": []
+  },
+  {
+    "name": "adelaide",
+    "width": 390,
+    "passes": 33,
+    "violations": []
+  },
+  {
+    "name": "adelaide",
+    "width": 768,
+    "passes": 33,
+    "violations": []
+  },
+  {
+    "name": "adelaide",
+    "width": 1440,
+    "passes": 33,
+    "violations": []
+  },
+  {
+    "name": "interstate",
+    "width": 390,
+    "passes": 28,
+    "violations": []
+  },
+  {
+    "name": "interstate",
+    "width": 768,
+    "passes": 28,
+    "violations": []
+  },
+  {
+    "name": "interstate",
+    "width": 1440,
+    "passes": 28,
+    "violations": []
+  },
+  {
+    "name": "sydney",
+    "width": 390,
+    "passes": 26,
+    "violations": []
+  },
+  {
+    "name": "sydney",
+    "width": 768,
+    "passes": 26,
+    "violations": []
+  },
+  {
+    "name": "sydney",
+    "width": 1440,
+    "passes": 23,
+    "violations": []
+  },
+  {
+    "name": "perth",
+    "width": 390,
+    "passes": 26,
+    "violations": []
+  },
+  {
+    "name": "perth",
+    "width": 768,
+    "passes": 26,
+    "violations": []
+  },
+  {
+    "name": "perth",
+    "width": 1440,
+    "passes": 23,
+    "violations": []
+  },
+  {
+    "name": "brisbane",
+    "width": 390,
+    "passes": 26,
+    "violations": []
+  },
+  {
+    "name": "brisbane",
+    "width": 768,
+    "passes": 26,
+    "violations": []
+  },
+  {
+    "name": "brisbane",
+    "width": 1440,
+    "passes": 23,
+    "violations": []
+  }
+]

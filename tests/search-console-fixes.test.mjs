@@ -403,8 +403,8 @@ test('responsive image handling keeps hero images sized and prioritized correctl
   assert.match(heroImg, /fetchpriority="high"/i);
   assert.match(serviceGalleryImg, /src="\/media\/zq-service-premium\.webp"/i);
   assert.match(serviceGalleryImg, /loading="lazy"/i);
-  assert.match(serviceGalleryImg, /width="960"/i);
-  assert.match(serviceGalleryImg, /height="640"/i);
+  assert.match(serviceGalleryImg, /width="1200"/i);
+  assert.match(serviceGalleryImg, /height="900"/i);
 });
 
 test('vercel redirects cover legacy html aliases for crawlable pages and route families', () => {
@@ -966,7 +966,7 @@ test('core money pages include cost breakdowns, trust upgrades, suburb links, an
 test('conversion prompts keep mobile call, above-fold quote access, and qualified urgency copy', () => {
   const template = readFileSync(path.join(root, 'site-src', 'templates', 'standard.html'), 'utf8');
   const homepage = readDist('index.html');
-  const hero = homepage.match(/<section class="zq-v2-hero[\s\S]*?<\/section>/i)?.[0] || '';
+  const hero = homepage.match(/<section class="zqh-hero[\s\S]*?<\/section>/i)?.[0] || '';
 
   assert.match(template, /sticky-mobile-cta/);
   assert.match(template, /href="tel:\+61433819989"[^>]*>Call 0433 819 989<\/a>/);
@@ -977,7 +977,7 @@ test('conversion prompts keep mobile call, above-fold quote access, and qualifie
 
 test('homepage targets Adelaide removalists and keeps above-fold conversion controls', () => {
   const homepage = readDist('index.html');
-  const hero = homepage.match(/<section class="zq-v2-hero[\s\S]*?<\/section>/i)?.[0] || '';
+  const hero = homepage.match(/<section class="zqh-hero[\s\S]*?<\/section>/i)?.[0] || '';
 
   assert.match(homepage, /<title>Adelaide Removalists \| Home &amp; Interstate Moves \| ZQ Removals<\/title>/);
   assert.match(homepage, /<meta name="description" content="Adelaide removalists for houses, apartments, furniture and interstate moves\. Published crew rates from \$75 per 30 min\. Call 0433 819 989 or request a quote\."/i);
@@ -1036,8 +1036,8 @@ test('homepage conversion audit requirements stay visible, accessible, and schem
   assert.match(main, /Request my quote/i);
   assert.equal((main.match(/itemtype="https:\/\/schema\.org\/Question"/g) || []).length, 8);
   assert.match(homepage, /"@type": "FAQPage"/);
-  assert.match(main, /alt="ZQ Removals truck and Adelaide removalists moving protected furniture outside a home"/i);
-  assert.match(main, /alt="Adelaide removalists wrapping a dining chair and packing a moving box inside a bright home"/i);
+  assert.match(main, /alt="Two removalists carrying a sofa onto a removal truck outside an Adelaide home"/i);
+  assert.match(main, /alt="Removalist wrapping a dining chair for furniture protection"/i);
   assert.doesNotMatch(main, /Site owner to replace|Placeholder for a verified Google review|Review excerpts below are placeholders/i);
   assert.doesNotMatch(main, /54 Google|5\.0\/5|fully insured|award-winning/i);
 });

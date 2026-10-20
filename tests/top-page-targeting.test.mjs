@@ -38,7 +38,7 @@ const HUB_OUTPUTS = new Set([
 test('homepage H1 and first paragraph carry the Adelaide removalists term', () => {
   const html = readRoute('/');
   assert.match(h1(html), /Adelaide removalists/i);
-  const lead = strip(html.match(/<p class="zq-v2-lead">([\s\S]*?)<\/p>/i)?.[1] ?? '');
+  const lead = strip(html.match(/<p class="zqh-lead">([\s\S]*?)<\/p>/i)?.[1] ?? '');
   assert.match(lead, /Adelaide removalists/i);
   assert.match(lead, /\$75 per 30 minutes/);
   assert.match(lead, /\$89 per 30 minutes/);

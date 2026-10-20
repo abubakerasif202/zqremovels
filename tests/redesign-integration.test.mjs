@@ -45,10 +45,11 @@ test('Redesign integration: homepage markup contains all required interactive se
   assert.match(source, /id="routeDetailPanel"/);
   assert.match(source, /selectInterstateRoute/);
 
-  // Competitor Comparison Table
-  assert.match(source, /id="comparison"/);
-  assert.match(source, /<table[^>]*class="[^"]*comparison-table[^"]*"/);
-  assert.match(source, /<caption[^>]*>/i); // Must have caption for accessibility
+  // The competitor comparison table was removed in the Stitch integration: its claims about
+  // other businesses and cover levels could not be verified. Keep it out until they can be.
+  assert.doesNotMatch(source, /id="comparison"/);
+  assert.doesNotMatch(source, /comparison-table/);
+  assert.doesNotMatch(source, /lead brokers|Zero hidden stair surcharges|140\+ Suburbs|public liability/i);
 });
 
 test('Redesign integration: site.js exports all interactive functions and structures', async () => {

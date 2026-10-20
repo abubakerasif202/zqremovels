@@ -32,9 +32,9 @@ test('Open Design homepage contract is generator-native and complete', async () 
   for (const html of [source, built]) {
     assert.equal((html.match(/<h1\b/gi) || []).length, 1);
     assert.match(html, /<h1[^>]*>Adelaide removalists\.<br\s*\/?>(?:\s*)<em>Moves handled with care\.<\/em><\/h1>/i);
-    assert.equal((html.match(/data-service-card/g) || []).length, 9);
+    assert.equal((html.match(/data-service-card/g) || []).length, 6);
     assert.equal((html.match(/itemtype="https:\/\/schema\.org\/Question"/g) || []).length, 8);
-    assert.equal((html.match(/data-quote-form="quote"/g) || []).length, 2);
+    assert.equal((html.match(/data-quote-form="quote"/g) || []).length, 1);
 
     for (const route of serviceRoutes) {
       assert.match(html, new RegExp(`href="${route.replace(/\//g, '\\/')}"`));
@@ -95,15 +95,16 @@ test('homepage visual layer preserves contrast, responsive navigation and reduce
   const astroCss = await readFile(path.join(root, 'src', 'styles', 'premium-site.css'), 'utf8');
 
   for (const css of [generatorCss, astroCss]) {
-    assert.match(css, /2026 OPEN DESIGN HOMEPAGE V2/);
-    assert.match(css, /--zq-v2-ink:\s*#10263f/);
-    assert.match(css, /--zq-v2-surface:\s*#fffdfa/);
-    assert.match(css, /--zq-v2-accent:\s*#d6a45b/);
+    assert.match(css, /ZQH HOMEPAGE 2026 \(Stitch-aligned\)/);
+    assert.match(css, /--zqh-navy:\s*#0b1e32/);
+    assert.match(css, /--zqh-bg:\s*#f5f7fa/);
+    assert.match(css, /--zqh-orange:\s*#ff8a3d/);
+    assert.match(css, /--zqh-orange-text:\s*#a43d06/);
     assert.match(css, /@media \(max-width: 1120px\)[\s\S]*?\.desktop-nav[\s\S]*?display:\s*none\s*!important/);
     assert.match(css, /@media \(max-width: 640px\)[\s\S]*?\.sticky-mobile-cta/);
-    assert.match(css, /@media \(min-width: 1121px\)[\s\S]*?body\.page-home \.sticky-mobile-cta[\s\S]*?display:\s*none\s*!important/);
+    assert.match(css, /@media \(min-width: 1024px\)\s*\{\s*\.sticky-mobile-cta\s*\{\s*display:\s*none;/);
     assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
-    assert.match(css, /\.zq-v2-home :focus-visible/);
+    assert.match(css, /\.zqh[^{]*:focus-visible/);
   }
 });
 
