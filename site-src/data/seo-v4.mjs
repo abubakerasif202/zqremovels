@@ -406,7 +406,7 @@ export function buildTitle(partial, variant = 'brand') {
     interstate: `${cleanedPartial} | Direct Interstate Moving`,
     urgent: `${cleanedPartial} | Urgent & Last Minute Movers`,
     experts: `${cleanedPartial} | Professional Local Experts`,
-    fast: `${cleanedPartial} | Fast Service & Clear Pricing`,
+    fast: `${cleanedPartial} | Fast & Clear Pricing`,
   };
 
   return clampText(cleanupSeoPhraseRepeats(templates[variant] || templates.brand), seoConfig.titleMaxLength);
@@ -944,7 +944,7 @@ const suburbSeoOverrides = {
     description: 'Queens Park NSW home movers for houses, terraces and apartments connecting with Adelaide. Plan access, furniture handling and the interstate route.',
   },
   'norwood': {
-    title: 'Removalists Norwood | Professional Adelaide Movers',
+    title: 'Removalists Norwood | Local Adelaide Movers',
     description: 'Norwood removalists for homes, apartments and townhouses near The Parade. Plan parking, loading, furniture access and Adelaide CBD connections.',
   },
   'glenelg': {
@@ -988,7 +988,7 @@ const suburbSeoOverrides = {
     description: 'Unley Park removalists for homes, townhouses and furniture. Share parking, stairs and fragile items for a quote. 2 men + truck from $75 per 30 min.',
   },
   'toorak-gardens': {
-    title: 'Toorak Gardens Removalists | Premium Local Movers | ZQ Removals',
+    title: 'Toorak Gardens Removalists | Local Movers | ZQ Removals',
     description: 'Toorak Gardens removalists for premium homes. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply.',
   },
   'victor-harbor-road': {
@@ -3189,7 +3189,7 @@ function normalizeGeneratedHeading(heading = '') {
 
 function buildHeroHeading(title, pageType) {
   let heading = cleanupSeoPhraseRepeats(title).replace(/\s*\|\s*ZQ Removals$/i, '').trim();
-  heading = heading.replace(/\s*\|\s*(Moving Quote|Local Adelaide Removalists|Direct Interstate Moving|Urgent & Last Minute Movers|Professional Local Experts|Fast Service & Clear Pricing)$/i, '').trim();
+  heading = heading.replace(/\s*\|\s*(Moving Quote|Local Adelaide Removalists|Direct Interstate Moving|Urgent & Last Minute Movers|Professional Local Experts|Fast Service & Clear Pricing|Fast & Clear Pricing)$/i, '').trim();
   heading = heading.split(/\s*\|\s*/)[0]?.trim() || heading;
   heading = heading.replace(/\s+\bfor\b\s+the\b.*$/i, '').trim();
   heading = heading.replace(/\s+\bwith\b\s+clear\b.*$/i, '').trim();
