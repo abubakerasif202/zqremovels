@@ -1,0 +1,7 @@
+# Never commit invoice or customer data, generated secrets, or vendor source.
+.env
+upstream/
+backups/
+*.sql
+*.sql.gz
+*.tar.gz
