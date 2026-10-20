@@ -234,13 +234,13 @@ test('schema stays on canonical host and review schema requires visible proof', 
   }
 });
 
-test('homepage hero image is prioritized for mobile LCP', () => {
+test('homepage decorative hero image is prioritized for mobile LCP', () => {
   const homepage = readDist('index.html');
-  const heroImg = homepage.match(/<picture>[\s\S]*?<img[\s\S]*?<\/picture>/i)?.[0] || '';
-  assert.match(homepage, /<img[\s\S]*src="\/media\/home-local-hero-branded\.webp"/i);
-  assert.match(homepage, /fetchpriority="high"/i);
-  assert.match(homepage, /loading="eager"/i);
-  assert.doesNotMatch(heroImg, /loading="lazy"/i);
+  const heroPreload = homepage.match(/<link[^>]+rel="preload"[^>]+href="\/media\/premium-template-hero\.webp"[^>]*>/i)?.[0] || '';
+  assert.match(heroPreload, /as="image"/i);
+  assert.match(heroPreload, /fetchpriority="high"/i);
+  assert.match(heroPreload, /type="image\/webp"/i);
+  assert.doesNotMatch(heroPreload, /loading="lazy"/i);
 });
 
 function readDist(relativePath) {

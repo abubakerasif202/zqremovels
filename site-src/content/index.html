@@ -23,13 +23,13 @@
     <symbol id="zq-i-sparkle" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7L21 11.5l-4.5 4.4 1 6.3-5.5-2.9-5.5 2.9 1-6.3-4.5-4.4 6.2-2.8L12 3z" fill="currentColor"/></symbol>
   </svg>
 
-  <!-- 1. Hero: one message, one primary CTA, one photograph -->
+  <!-- Premium template hero; the existing estimator retains its quote hand-off. -->
   <section class="zqh-hero" aria-labelledby="home-hero-title">
     <div class="container zqh-hero-grid">
       <div class="zqh-hero-copy">
         <p class="zqh-eyebrow">Adelaide local and interstate removalists</p>
-        <h1 id="home-hero-title">Adelaide removalists.<br /><em>Moves handled with care.</em></h1>
-        <p class="zqh-lead">ZQ Removals are Adelaide removalists for careful local and interstate moves, from the first box to the final placement in homes, apartments and offices. Crew rates are published: 2 men and a truck is $75 per 30 minutes and 3 men and a truck is $89 per 30 minutes, with a one-hour call-out/travel charge where applicable. Moving a business? See our <a href="/office-removals-adelaide/">office removalists in Adelaide</a>.</p>
+        <h1 id="home-hero-title">Adelaide moves,<br />planned properly.</h1>
+        <p class="zqh-lead">Your Adelaide removalists for local and interstate moves, carefully planned and handled by an experienced team.</p>
         <div class="zqh-actions">
           <a class="zq-v2-button zq-v2-button-primary" href="#quote-form" data-lead-event="quote_cta_click" data-lead-location="homepage">Get a Free Quote <svg aria-hidden="true"><use href="#zq-i-arrow" /></svg></a>
           <a class="zq-v2-button zq-v2-button-outline" href="tel:+61433819989" data-lead-event="phone_click" data-lead-location="homepage"><svg aria-hidden="true"><use href="#zq-i-phone" /></svg>Call 0433 819 989</a>
@@ -38,38 +38,15 @@
           <span class="google-review-stars" role="img" aria-label="5 out of 5 stars"><span aria-hidden="true">&#9733;</span><span aria-hidden="true">&#9733;</span><span aria-hidden="true">&#9733;</span><span aria-hidden="true">&#9733;</span><span aria-hidden="true">&#9733;</span></span>
           <span><strong>{{google.rating}} &#9733;</strong> from {{google.reviewCount}} <span>Google reviews</span></span>
         </a>
+        <p class="zqh-hero-proof"><svg aria-hidden="true"><use href="#zq-i-check" /></svg><span><strong>Adelaide-based team</strong> · Local and interstate move planning</span></p>
       </div>
 
-      <figure class="zqh-hero-media">
-        <picture>
-          <source srcset="/media/responsive/home-local-hero-branded-320w.webp 320w, /media/responsive/home-local-hero-branded-480w.webp 480w, /media/home-local-hero-branded.webp 768w" type="image/webp" />
-          <img src="/media/home-local-hero-branded.webp" width="768" height="406" sizes="(max-width: 900px) 100vw, 46vw" loading="eager" fetchpriority="high" decoding="async" alt="Removalists carrying wrapped furniture beside a removal truck outside an Adelaide home" />
-        </picture>
-      </figure>
-    </div>
-  </section>
-
-  <!-- 2. Trust summary: verified facts only -->
-  <section class="zqh-trust" aria-label="What to expect from ZQ Removals">
-    <div class="container">
-      <ul class="zqh-trust-grid">
-        <li><svg aria-hidden="true"><use href="#zq-i-map" /></svg><span><strong>Adelaide based</strong>Based in Andrews Farm, moving across Adelaide</span></li>
-        <li><svg aria-hidden="true"><use href="#zq-i-home" /></svg><span><strong>Homes to offices</strong>Houses, apartments and commercial moves</span></li>
-        <li><svg aria-hidden="true"><use href="#zq-i-clock" /></svg><span><strong>Published crew rates</strong>$75 or $89 per 30 minutes, by crew size</span></li>
-        <li><svg aria-hidden="true"><use href="#zq-i-shield" /></svg><span><strong>Furniture protection</strong>Blankets, wrap and straps ready on the truck</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- 3. Quick move estimate: its own contained band -->
-  <section class="zqh-estimate" aria-labelledby="hero-estimator-title">
-    <div class="container">
       <div class="zq-hero-estimator zqh-estimate-card" id="hero-estimator">
         <div class="zqh-estimate-head">
           <div>
-            <p class="zqh-eyebrow">Quick move estimate</p>
-            <h2 id="hero-estimator-title">Get a ballpark price in a few clicks</h2>
-            <p class="zqh-lead">Pick your move size and suburbs for an indicative figure. Your final quote is confirmed after the move details are reviewed.</p>
+            <p class="zqh-eyebrow">Free move brief</p>
+            <h2 id="hero-estimator-title">Get your moving quote</h2>
+            <p class="zqh-lead">Start with your move size and suburbs. Confirm the remaining details in your free enquiry.</p>
           </div>
           <div class="hero-scope-tabs" role="tablist" aria-label="Move scope selection">
             <button type="button" role="tab" aria-selected="true" id="scope-local" onclick="window.setHeroScope?.('local')" class="hero-scope-tab is-active">Local Adelaide</button>
@@ -124,6 +101,19 @@
         </div>
         <p class="zqh-note">Crew rates are published. A one-hour call-out/travel charge applies where applicable.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- 2. Trust summary: verified facts only -->
+  <section class="zqh-trust" aria-label="What to expect from ZQ Removals">
+    <div class="container">
+      <p class="zqh-pricing-note">Published crew rates: 2 men and a truck $75 per 30 minutes; 3 men and a truck $89 per 30 minutes. A one-hour call-out/travel charge applies where applicable. <a href="/office-removals-adelaide/">Office removalists Adelaide</a>.</p>
+      <ul class="zqh-trust-grid">
+        <li><svg aria-hidden="true"><use href="#zq-i-map" /></svg><span><strong>Adelaide based</strong>Based in Andrews Farm, moving across Adelaide</span></li>
+        <li><svg aria-hidden="true"><use href="#zq-i-home" /></svg><span><strong>Homes to offices</strong>Houses, apartments and commercial moves</span></li>
+        <li><svg aria-hidden="true"><use href="#zq-i-clock" /></svg><span><strong>Published crew rates</strong>$75 or $89 per 30 minutes, by crew size</span></li>
+        <li><svg aria-hidden="true"><use href="#zq-i-shield" /></svg><span><strong>Furniture protection</strong>Blankets, wrap and straps ready on the truck</span></li>
+      </ul>
     </div>
   </section>
 

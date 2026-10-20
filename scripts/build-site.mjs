@@ -2915,7 +2915,7 @@ export function renderHead(page, content) {
     tags.push('<link rel="preload" href="/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin />');
 
     if (page.output === 'index.html') {
-      tags.push('<link rel="preload" as="image" href="/media/home-local-hero-branded.webp" type="image/webp" fetchpriority="high" imagesrcset="/media/responsive/home-local-hero-branded-320w.webp 320w, /media/responsive/home-local-hero-branded-480w.webp 480w, /media/home-local-hero-branded.webp 768w" imagesizes="(max-width: 900px) 100vw, 48vw" />');
+      tags.push('<link rel="preload" as="image" href="/media/premium-template-hero.webp" type="image/webp" fetchpriority="high" />');
       tags.push(`<link rel="stylesheet" href="/${performanceStylesheetNames.home}" />`);
     } else if (page.output === 'contact-us/index.html') {
       tags.push(`<link rel="stylesheet" href="/${performanceStylesheetNames.contact}" />`);

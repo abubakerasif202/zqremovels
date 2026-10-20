@@ -114,7 +114,7 @@ for (const route of routes) {
     }
     if (viewport && viewport.width > 1120) {
       for (const link of await page.locator('.desktop-nav > .nav-link').all()) {
-        await expect(link).toHaveCSS('color', 'rgb(32, 55, 75)');
+        await expectReadableText(link);
       }
     }
 
@@ -134,7 +134,7 @@ for (const route of routes) {
         await expect(menuTrigger).toHaveAttribute('aria-expanded', 'true');
         const menuPanel = page.locator('#mobile-nav-panel');
         for (const heading of await menuPanel.locator('.mobile-nav-heading').all()) {
-          await expect(heading).toHaveCSS('color', 'rgb(16, 43, 67)');
+          await expectReadableText(heading);
         }
         await expect(menuPanel.getByRole('link', { name: 'About', exact: true })).toBeVisible();
         await expect(menuPanel.getByRole('link', { name: 'Reviews', exact: true })).toBeVisible();

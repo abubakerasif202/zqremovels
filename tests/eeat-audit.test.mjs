@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import sharp from 'sharp';
 import { pathToFileURL } from 'node:url';
 
 const root = process.cwd();
@@ -97,15 +98,19 @@ test('build injects env-driven analytics tags and uses the social share image fa
   assert.match(aboutPage, /"image": "https:\/\/zqremovalsadelaide\.com\.au\/zq-removals-social-share\.webp"/);
 });
 
-test('homepage hero serves the current WebP asset and dimensions', () => {
+test('homepage decorative hero serves the current optimized WebP asset', async () => {
   const homepage = readDist('index.html');
-  const heroSource = homepage.match(/<picture>[\s\S]*?(<source\b[^>]+>)/i)?.[1] || '';
+  const preload = homepage.match(/<link[^>]+rel="preload"[^>]+href="\/media\/premium-template-hero\.webp"[^>]*>/i)?.[0] || '';
+  const stylesheet = readFileSync(path.join(root, 'premium-site.css'), 'utf8');
+  const metadata = await sharp(path.join(distDir, 'media', 'premium-template-hero.webp')).metadata();
 
-  assert.match(heroSource, /\bsrcset="[^"]*\/media\/home-local-hero-branded[^"]*"/i);
-  assert.match(heroSource, /\btype="image\/webp"/i);
-  assert.match(homepage, /<img[^>]+src="\/media\/home-local-hero-branded\.webp"/i);
-  assert.match(homepage, /<img[^>]+width="768"/i);
-  assert.match(homepage, /<img[^>]+height="406"/i);
+  assert.match(preload, /as="image"/i);
+  assert.match(preload, /type="image\/webp"/i);
+  assert.match(preload, /fetchpriority="high"/i);
+  assert.match(stylesheet, /url\(['"]?\/media\/premium-template-hero\.webp['"]?\)/);
+  assert.equal(metadata.format, 'webp');
+  assert.equal(metadata.width, 1440);
+  assert.equal(metadata.height, 900);
 });
 
 test('minified stylesheet output is smaller than the source stylesheet', () => {
