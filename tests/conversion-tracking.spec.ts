@@ -51,11 +51,11 @@ for (const [path, formIndex] of [['/', 0], ['/contact-us/', 0], ['/removalists-s
   // to /thank-you/ (which stays open) instead of racing the redirect.
   test(`accepted quote fires one private event on the thank-you page: ${path} form ${formIndex}`, async ({ page }) => {
     let requests = 0;
-    await page.route('https://api.web3forms.com/submit', async route => {
+    await page.route('**/api/quote/', async route => {
       requests++;
       await new Promise(resolve => setTimeout(resolve, 100));
-      // Provider references need not be UUIDs; the Ads transaction contract is UUIDv4.
-      await route.fulfill({ json: { success: true, lead_id: 'provider-reference-12345' } });
+      // Echo the accepted server receipt for the exact request.
+      await route.fulfill({ json: { success: true, submission_status: 'accepted', submission_id: route.request().postDataJSON().submission_id } });
     });
     await page.goto(path);
     await fillForm(page, formIndex);
@@ -83,16 +83,20 @@ for (const [path, formIndex] of [['/', 0], ['/contact-us/', 0], ['/removalists-s
     expect(JSON.stringify(recorded)).not.toMatch(/qa@example|0400000000|QA fixture/);
     await page.reload();
     expect(await events(page)).toEqual(recorded);
+    await page.goto("/contact-us/");
+    await page.goto("/thank-you/");
+    expect(await events(page)).toEqual(recorded);
   });
 }
 
-for (const scenario of ['invalid', 'network', 'server', 'rejected', 'empty', 'malformed', 'missing-success', 'truthy-success']) {
+for (const scenario of ['invalid', 'network', 'server', 'rejected', 'empty', 'malformed', 'missing-success', 'truthy-success', 'timeout', 'spam', 'invalid-id', 'missing-id']) {
   test(`no conversion for ${scenario}`, async ({ page }) => {
     let requests = 0;
-    await page.route('https://api.web3forms.com/submit', async route => {
+    await page.route('**/api/quote/', async route => {
       requests++;
-      if (scenario === 'network') return route.abort();
-      return route.fulfill({ status: scenario === 'server' ? 500 : 200,
+      if (scenario === 'network' || scenario === 'timeout') return route.abort(scenario === 'timeout' ? 'timedout' : 'failed');
+      if (scenario === 'invalid-id' || scenario === 'missing-id') return route.fulfill({json:{success:true,submission_status:'accepted',...(scenario === 'invalid-id' ? {submission_id:'invalid'} : {})}});
+      return route.fulfill({ status: scenario === 'server' ? 500 : scenario === 'spam' ? 403 : 200,
         contentType: 'application/json', body: scenario === 'empty' ? '' : scenario === 'malformed' ? '{oops' :
           JSON.stringify(scenario === 'missing-success' ? {} : { success: scenario === 'truthy-success' ? 'true' : scenario === 'server' }) });
     });
@@ -171,4 +175,57 @@ test('direct thank-you visits never establish a lead', async ({ page }) => {
   expect(await events(page)).toEqual([]);
   await page.reload();
   expect(await events(page)).toEqual([]);
+});
+
+test('ambiguous response retry across reload keeps one logical receipt', async ({ page }) => {
+  const ids: string[] = [];
+  await page.route('**/api/quote/', async route => {
+    ids.push(route.request().postDataJSON().submission_id);
+    if (ids.length === 1) return route.abort('timedout');
+    return route.fulfill({ json: { success: true, submission_status: 'accepted', submission_id: ids[0] } });
+  });
+  await page.goto('/contact-us/');
+  await fillForm(page);
+  await page.locator('form[data-quote-form="quote"]').first().evaluate((form: HTMLFormElement) => form.dispatchEvent(new Event('submit', { bubbles:true, cancelable:true })));
+  await expect(page.locator('[data-form-feedback]').first()).toContainText('Could not send');
+  expect(await events(page)).toHaveLength(0);
+  await page.reload();
+  await fillForm(page);
+  await page.locator('form[data-quote-form="quote"]').first().evaluate((form: HTMLFormElement) => form.dispatchEvent(new Event('submit', { bubbles:true, cancelable:true })));
+  await page.waitForURL('**/thank-you/');
+  expect(ids).toHaveLength(2);
+  expect(ids[1]).toBe(ids[0]);
+  await expect.poll(async () => (await events(page)).filter((entry: any) => entry.event === 'zq_quote_submitted').length).toBe(1);
+});
+
+test('explicit server-confirmed rejection allows a corrected request with a new ID',async({page})=>{
+  const ids:string[]=[];
+  await page.route('**/api/quote/',async route=>{
+    ids.push(route.request().postDataJSON().submission_id);
+    return ids.length===1?route.fulfill({status:502,json:{success:false,status:'rejected'}}):route.fulfill({json:{success:true,submission_status:'accepted',submission_id:ids[1]}});
+  });
+  await page.goto('/contact-us/');await fillForm(page);
+  const submit=()=>page.locator('form[data-quote-form="quote"]').first().evaluate((f:HTMLFormElement)=>f.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true})));
+  await submit();await expect(page.locator('[data-form-feedback]').first()).toContainText('was rejected');
+  expect(await events(page)).toHaveLength(0);await submit();await page.waitForURL('**/thank-you/');
+  expect(ids[1]).not.toBe(ids[0]);
+  await expect.poll(async()=>(await events(page)).filter((e:any)=>e.event==='zq_quote_submitted').length).toBe(1);
+});
+
+test('CMP late-choice hook captures grants and clears revoked attribution',async({page})=>{
+  await page.goto('/?gclid=fixture-click&gbraid=fixture-gbraid&wbraid=fixture-wbraid&utm_campaign=fixture');
+  expect(await page.evaluate(()=>sessionStorage.getItem('zq_attribution_v7'))).toBeNull();
+  await page.evaluate(()=>{
+    window.dataLayer!.push(['consent','update',{ad_storage:'granted',analytics_storage:'granted'}]);
+    window.dispatchEvent(new Event('zq:consent-updated'));
+  });
+  const attribution=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('zq_attribution_v7')||'{}'));
+  expect(attribution.gbraid).toBe('fixture-gbraid');expect(attribution.wbraid).toBe('fixture-wbraid');
+  await page.evaluate(()=>{
+    window.dataLayer!.push(['consent','update',{ad_storage:'denied',analytics_storage:'denied'}]);
+    window.dispatchEvent(new Event('zq:consent-updated'));
+  });
+  expect(await page.evaluate(()=>sessionStorage.getItem('zq_attribution_v7'))).toBeNull();
+  await expect(page.locator('input[name="gclid"]').first()).toHaveValue('');
+  expect(await events(page)).toHaveLength(0);
 });

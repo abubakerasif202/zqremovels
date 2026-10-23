@@ -1,0 +1,1900 @@
+{
+  "source": "historical GSC web/pages daily archive",
+  "testedAtUtc": "2026-10-23T01:52:33.389633+00:00",
+  "checked": 312,
+  "failureCount": 3,
+  "failed": [
+    {
+      "oldUrl": "https://zqremovals.au/guides/moving-house-adelaide-checklist/",
+      "impressions": 29,
+      "status": 404,
+      "finalUrl": "https://zqremovalsadelaide.com.au/guides/moving-house-adelaide-checklist/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/guides/best-time-to-book-removalists-adelaide/",
+      "impressions": 5,
+      "status": 404,
+      "finalUrl": "https://zqremovalsadelaide.com.au/guides/best-time-to-book-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/guides/apartment-moving-tips-adelaide/",
+      "impressions": 4,
+      "status": 404,
+      "finalUrl": "https://zqremovalsadelaide.com.au/guides/apartment-moving-tips-adelaide/"
+    }
+  ],
+  "mappings": [
+    {
+      "oldUrl": "https://zqremovals.au/",
+      "impressions": 6236,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/house-removals-adelaide/",
+      "impressions": 2618,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/house-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/office-removals-adelaide/",
+      "impressions": 2550,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/office-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/services/piano-movers-adelaide/",
+      "impressions": 2344,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/services/piano-movers-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/removalists-cost-adelaide/",
+      "impressions": 2294,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-adelaide-prices/",
+      "impressions": 2206,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-to-brisbane-removals/",
+      "impressions": 1784,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-to-brisbane-removals/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-malvern/",
+      "impressions": 1323,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-malvern/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-adelaide/",
+      "impressions": 1313,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-to-sydney-removalists/",
+      "impressions": 1284,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-to-sydney-removalists/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-unley/",
+      "impressions": 1253,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-unley/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/budget-removalists-adelaide/",
+      "impressions": 1250,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/affordable-removalists-adelaide/",
+      "impressions": 1101,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/cheap-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalist-cost-adelaide/",
+      "impressions": 1036,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-unley-park/",
+      "impressions": 899,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-unley-park/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-northern-adelaide/",
+      "impressions": 829,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-toorak-gardens/",
+      "impressions": 776,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-toorak-gardens/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/moving-house-checklist-adelaide/",
+      "impressions": 758,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/moving-house-checklist-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-adelaide-hills/",
+      "impressions": 740,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-hills/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/packing-services-adelaide/",
+      "impressions": 702,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-hyde-park/",
+      "impressions": 702,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-hyde-park/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/moving-quotes-adelaide/",
+      "impressions": 616,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-to-melbourne-removalists/",
+      "impressions": 610,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-to-melbourne-removalists/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/same-day-removalists-adelaide/",
+      "impressions": 556,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/same-day-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-adelaide-cbd/",
+      "impressions": 543,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-cbd/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/door-2-door-movers-alternative-adelaide/",
+      "impressions": 514,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/door-2-door-movers-alternative-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/cheap-removalists-adelaide/",
+      "impressions": 500,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/cheap-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-salisbury/",
+      "impressions": 491,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-salisbury/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/contact-us/",
+      "impressions": 471,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/contact-us/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-southern-adelaide/",
+      "impressions": 456,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/cheap-vs-fixed-price-removalists-adelaide/",
+      "impressions": 423,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/about/",
+      "impressions": 417,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/about/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removal-companies-adelaide/",
+      "impressions": 399,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/furniture-removalists-adelaide/",
+      "impressions": 365,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/furniture-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/office-relocation-checklist-adelaide/",
+      "impressions": 340,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/office-relocation-checklist-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-glenelg/",
+      "impressions": 335,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-glenelg/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/",
+      "impressions": 332,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-to-canberra-removals/",
+      "impressions": 315,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-to-canberra-removals/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/interstate-removals-adelaide/",
+      "impressions": 308,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/contact-us/#quote-form",
+      "impressions": 287,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/contact-us/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/services/packing-services-adelaide/",
+      "impressions": 261,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/fixed-price-removalists-adelaide/",
+      "impressions": 220,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-andrews-farm/",
+      "impressions": 210,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-andrews-farm/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-adelaide-quote/",
+      "impressions": 207,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/services/house-removals-adelaide/",
+      "impressions": 203,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/house-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/services/office-removals-adelaide/",
+      "impressions": 199,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/office-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/fixed-price-vs-hourly-removalists-adelaide/",
+      "impressions": 198,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-movers-and-packers/",
+      "impressions": 192,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-movers-and-packers/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-linden-park/",
+      "impressions": 190,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-linden-park/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-to-perth-removals/",
+      "impressions": 182,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-to-perth-removals/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/professional-packers-vs-diy-packing-adelaide/",
+      "impressions": 173,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-croydon/",
+      "impressions": 165,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-mawson-lakes/",
+      "impressions": 164,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-mawson-lakes/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/movers-and-packers-adelaide/",
+      "impressions": 163,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-movers-and-packers/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-to-queensland-removals/",
+      "impressions": 159,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-to-brisbane-removals/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-norwood/",
+      "impressions": 159,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-norwood/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/apartment-removalists-adelaide/",
+      "impressions": 152,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/removalist-cost-adelaide/",
+      "impressions": 144,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-clarence-park/",
+      "impressions": 132,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-goodwood/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-marion/",
+      "impressions": 130,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-marion/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-prospect/",
+      "impressions": 130,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-prospect/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/northern-suburbs-moving-adelaide/",
+      "impressions": 127,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-port-adelaide/",
+      "impressions": 121,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-port-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-modbury/",
+      "impressions": 120,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-modbury/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-queens-park/",
+      "impressions": 113,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-queens-park/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/coastal-moving-access-adelaide/",
+      "impressions": 105,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-goodwood/",
+      "impressions": 103,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-goodwood/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-elizabeth/",
+      "impressions": 102,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-elizabeth/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-medindie/",
+      "impressions": 97,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-medindie/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/office-relocation-adelaide/",
+      "impressions": 96,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/office-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-woodcroft/",
+      "impressions": 93,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-woodcroft/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/guides/removalist-cost-adelaide/",
+      "impressions": 90,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/apartment-lift-bookings-adelaide/",
+      "impressions": 89,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/apartment-moving-tips-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/moving-company-adelaide/",
+      "impressions": 89,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/moving-company-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-munno-para/",
+      "impressions": 87,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-munno-para/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/apartment-removalists-queens-park/",
+      "impressions": 87,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-queens-park/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/guides/interstate-moving-from-adelaide/",
+      "impressions": 85,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/office-removalists-adelaide/",
+      "impressions": 85,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/office-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/services/interstate-removalists-adelaide/",
+      "impressions": 80,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/moving-heavy-furniture-adelaide/",
+      "impressions": 77,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/furniture-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-to-sydney-removals/",
+      "impressions": 74,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-to-sydney-removalists/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-to-melbourne-removals/",
+      "impressions": 73,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-to-melbourne-removalists/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/apartment-removals-adelaide/",
+      "impressions": 70,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/#contact",
+      "impressions": 69,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/guides/how-much-do-removalists-cost-adelaide/",
+      "impressions": 60,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/interstate-removalists-vs-backloading-adelaide/",
+      "impressions": 59,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/prepare-house-move-adelaide/",
+      "impressions": 58,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/prepare-house-move-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/how-to-choose-removalists-adelaide/",
+      "impressions": 57,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/how-to-choose-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/interstate-moving-checklist-adelaide/",
+      "impressions": 57,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/when-to-book-packing-services-adelaide/",
+      "impressions": 56,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/last-minute-moving-adelaide/",
+      "impressions": 56,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/same-day-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/office-access-planning-adelaide-cbd/",
+      "impressions": 55,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/office-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-to-smithfield-nsw-removalists/",
+      "impressions": 55,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-to-sydney-removalists/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/moving-house-adelaide-checklist/",
+      "impressions": 53,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/moving-house-checklist-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-northfield/",
+      "impressions": 51,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/office-removals-salisbury/",
+      "impressions": 50,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-salisbury/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-athelstone/",
+      "impressions": 48,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-campbelltown/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-gawler/",
+      "impressions": 44,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-gawler/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/how-to-get-accurate-removalist-quotes-adelaide/",
+      "impressions": 43,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/office-removals-modbury/",
+      "impressions": 43,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-modbury/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/how-much-do-movers-cost-adelaide/",
+      "impressions": 41,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/how-long-moves-take-adelaide/",
+      "impressions": 41,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-pennington/",
+      "impressions": 39,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-pennington/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-morphett-vale/",
+      "impressions": 38,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/office-removals-oaklands-park/",
+      "impressions": 38,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/office-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-burnside/",
+      "impressions": 37,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-burnside/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-reynella/",
+      "impressions": 37,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/moving-from-apartment-buildings-adelaide/",
+      "impressions": 36,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/apartment-moving-tips-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-st-peters/",
+      "impressions": 34,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-st-peters/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/fixed-price-vs-hourly-removalists-adelaide/",
+      "impressions": 34,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/no-limits-removalists-alternative-adelaide/",
+      "impressions": 34,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/services/furniture-removals-adelaide/",
+      "impressions": 33,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/furniture-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/glenelg.html",
+      "impressions": 31,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-glenelg/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-clearview/",
+      "impressions": 30,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/office-removals-mile-end/",
+      "impressions": 30,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/office-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/packing-fragile-items-adelaide/",
+      "impressions": 30,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/",
+      "impressions": 30,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/guides/moving-house-adelaide-checklist/",
+      "impressions": 29,
+      "status": 404,
+      "finalUrl": "https://zqremovalsadelaide.com.au/guides/moving-house-adelaide-checklist/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/moving-checklist-adelaide/",
+      "impressions": 29,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/moving-house-checklist-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-fairview-park/",
+      "impressions": 29,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-cbd.html",
+      "impressions": 28,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-cbd/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-klemzig/",
+      "impressions": 27,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/last-minute-movers-adelaide/",
+      "impressions": 25,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/same-day-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/removalists-cost-marion/",
+      "impressions": 25,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/services/furniture-bulky-item-removalists-adelaide/",
+      "impressions": 25,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/furniture-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/best-time-to-move-adelaide/",
+      "impressions": 24,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/best-time-to-move-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/packing-services-burnside/",
+      "impressions": 24,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/services/interstate-removals-adelaide/",
+      "impressions": 23,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-hallett-cove/",
+      "impressions": 23,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-fulham/",
+      "impressions": 23,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-west-lakes/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-newton/",
+      "impressions": 22,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-campbelltown/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/office-removals-port-adelaide/",
+      "impressions": 22,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-port-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/best-time-to-book-removalists-adelaide/",
+      "impressions": 22,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/best-time-to-book-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/furniture-removals-adelaide/",
+      "impressions": 20,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/furniture-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/packing-tips-adelaide/",
+      "impressions": 19,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/guides/cheap-vs-fixed-price-removalists-adelaide/",
+      "impressions": 19,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-edwardstown/",
+      "impressions": 19,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/storage-unit-move-adelaide/",
+      "impressions": 19,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-oaklands-park/",
+      "impressions": 19,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-trott-park/",
+      "impressions": 18,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-to-western-sydney-removalists/",
+      "impressions": 18,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/small-removalists-adelaide/",
+      "impressions": 18,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/moving-from-modbury-to-salisbury/",
+      "impressions": 17,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-myrtle-bank/",
+      "impressions": 17,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/moving-cost-adelaide-2026/",
+      "impressions": 16,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-albert-park/",
+      "impressions": 15,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-seaford/",
+      "impressions": 15,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/melbourne-to-adelaide-removalists/",
+      "impressions": 15,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-to-melbourne-removalists/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-new-port/",
+      "impressions": 14,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-elizabeth-vale/",
+      "impressions": 14,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-elizabeth/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-somerton-park-west/",
+      "impressions": 14,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-glenelg/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-grange/",
+      "impressions": 14,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-grange/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/removalists-cost-adelaide-cbd/",
+      "impressions": 13,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/packing-services-unley-park/",
+      "impressions": 13,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/insurance-and-coverage/",
+      "impressions": 13,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/insurance-and-coverage/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-christies-beach/",
+      "impressions": 12,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/urgent-movers-adelaide/",
+      "impressions": 12,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/same-day-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-glengowrie/",
+      "impressions": 12,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-glenelg/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-west-beach/",
+      "impressions": 11,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-west-beach/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/storage-planning-adelaide/",
+      "impressions": 11,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-rosemont/",
+      "impressions": 11,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/last-minute-removalists-adelaide/",
+      "impressions": 11,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/same-day-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-blakeview/",
+      "impressions": 11,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-parafield-gardens/",
+      "impressions": 11,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/moving-from-brighton-to-glenelg/",
+      "impressions": 11,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/moving-from-prospect-to-mawson-lakes/",
+      "impressions": 11,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/terms.html",
+      "impressions": 10,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/terms-and-conditions/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-colonel-light-gardens/",
+      "impressions": 10,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-stepney/",
+      "impressions": 10,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-stepney/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-magill/",
+      "impressions": 10,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-magill/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/services/apartment-removals-adelaide/",
+      "impressions": 10,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-belair/",
+      "impressions": 9,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-hills/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/weekend-vs-weekday-moving-adelaide/",
+      "impressions": 9,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/best-time-to-move-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/office-removals-adelaide-cbd/",
+      "impressions": 9,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/office-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-glandore/",
+      "impressions": 9,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/packing-services-queens-park/",
+      "impressions": 9,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-queens-park/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/apartment-removalists-henley-beach/",
+      "impressions": 9,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-henley-beach/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/privacy.html",
+      "impressions": 8,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/privacy-policy/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-hope-valley/",
+      "impressions": 8,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-tea-tree-gully/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-walkerville/",
+      "impressions": 8,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-walkerville/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/services/local-removals-adelaide/",
+      "impressions": 8,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-to-smithfield-nsw-removals/",
+      "impressions": 8,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-henley-beach/",
+      "impressions": 8,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-henley-beach/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-urrbrae/",
+      "impressions": 8,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-mitcham/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/apartment-removalists-adelaide-cbd/",
+      "impressions": 8,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-seaton/",
+      "impressions": 8,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-west-lakes/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/moving-from-unley-to-mitcham/",
+      "impressions": 8,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-woodville/",
+      "impressions": 8,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/settlement-day-moving-adelaide/",
+      "impressions": 8,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/best-time-to-move-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/apartment-removalists-prospect/",
+      "impressions": 8,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-prospect/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-allenby-gardens/",
+      "impressions": 7,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-allenby-gardens/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-dudley-park/",
+      "impressions": 7,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-findon/",
+      "impressions": 7,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-west-lakes/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/suburb-move-preparation-adelaide/",
+      "impressions": 7,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/prepare-house-move-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-golden-grove/",
+      "impressions": 7,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-golden-grove/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-kensington-gardens/",
+      "impressions": 7,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-kensington-gardens/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-north-adelaide/",
+      "impressions": 7,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-cbd/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-semaphore/",
+      "impressions": 7,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-semaphore/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-trinity-gardens/",
+      "impressions": 6,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-payneham/",
+      "impressions": 6,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/last-minute-movers-adelaide-guide/",
+      "impressions": 6,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/same-day-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-angle-park/",
+      "impressions": 6,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/storage-friendly-removals-adelaide/",
+      "impressions": 6,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-elizabeth-downs/",
+      "impressions": 6,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/small-office-move-adelaide/",
+      "impressions": 6,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/office-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/downsizing-move-adelaide/",
+      "impressions": 6,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-adelaide-parklands/",
+      "impressions": 6,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-tea-tree-gully/",
+      "impressions": 5,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-tea-tree-gully/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/moving-house-services-adelaide/",
+      "impressions": 5,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/house-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/cheap-vs-professional-removalists-adelaide/",
+      "impressions": 5,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-bridgewater/",
+      "impressions": 5,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-hills/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/guides/best-time-to-book-removalists-adelaide/",
+      "impressions": 5,
+      "status": 404,
+      "finalUrl": "https://zqremovalsadelaide.com.au/guides/best-time-to-book-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/packing-services-adelaide-cbd/",
+      "impressions": 5,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/cheap-vs-fixed-price-removalists-adelaide/",
+      "impressions": 5,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-mount-barker/",
+      "impressions": 5,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-mount-barker/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/moving-with-stairs-adelaide/",
+      "impressions": 5,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-windsor-gardens/",
+      "impressions": 5,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-victor-harbor/",
+      "impressions": 5,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/how-to-prepare-furniture-for-moving/",
+      "impressions": 5,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/how-to-prepare-furniture-for-moving/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-west-lakes/",
+      "impressions": 5,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-west-lakes/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/moving-from-port-adelaide-to-west-lakes/",
+      "impressions": 5,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/booking-timing-guide-adelaide/",
+      "impressions": 4,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/best-time-to-book-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/moving-heavy-items-adelaide-guide/",
+      "impressions": 4,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/furniture-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-glenunga/",
+      "impressions": 4,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/apartment-moving-checklist-adelaide/",
+      "impressions": 4,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-valley-view/",
+      "impressions": 4,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/apartment-moving-tips-adelaide/",
+      "impressions": 4,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/apartment-moving-tips-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-birkenhead/",
+      "impressions": 4,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/interstate-removal-checklist-adelaide-guide/",
+      "impressions": 4,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-kilburn/",
+      "impressions": 4,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-prospect/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/apartment-removalists-north-adelaide/",
+      "impressions": 4,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/packing-services-henley-beach/",
+      "impressions": 4,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/office-removals-melrose-park/",
+      "impressions": 4,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/office-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-coromandel-valley/",
+      "impressions": 4,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-hills/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/removalists-cost-glenelg/",
+      "impressions": 4,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/guides/apartment-moving-tips-adelaide/",
+      "impressions": 4,
+      "status": 404,
+      "finalUrl": "https://zqremovalsadelaide.com.au/guides/apartment-moving-tips-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/guides/how-to-prepare-furniture-for-moving/",
+      "impressions": 4,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/how-to-prepare-furniture-for-moving/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-blackwood/",
+      "impressions": 4,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-hills/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-port-noarlunga/",
+      "impressions": 4,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-seacliff/",
+      "impressions": 4,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-brighton/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/moving-from-marion-to-noarlunga/",
+      "impressions": 4,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-west-terrace/",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-victor-harbor-road/",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-paradise/",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-north-park/",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-rosewater/",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-allenby-gardens/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/packing-timeline-adelaide/",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-torrensville/",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/apartment-removalists-glenelg/",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/apartment-removalists-henley-beach-south/",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-henley-beach-south/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/moving-from-adelaide-cbd-to-salisbury/",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/apartment-loading-zone-guide-adelaide/",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/apartment-moving-tips-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/sitemap.xml",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/sitemap.xml"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-noarlunga/",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-west-croydon/",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/moving-fragile-items-adelaide/",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-ridgehaven/",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-campbelltown/",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-campbelltown/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/office-relocation-preparation-adelaide/",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/office-relocation-checklist-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-mile-end/",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-henley-beach-south/",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-henley-beach-south/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/sydney-to-adelaide-removalists/",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/office-removals-glenelg/",
+      "impressions": 3,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-glenelg/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-ferryden-park/",
+      "impressions": 2,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/pricing-breakdown-adelaide/",
+      "impressions": 2,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/hourly-vs-fixed-price-movers-adelaide/",
+      "impressions": 2,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/moving-checklist-adelaide/",
+      "impressions": 2,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/moving-house-checklist-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/removalist-quote-checklist-adelaide/",
+      "impressions": 2,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-yatala-vale/",
+      "impressions": 2,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/apartment-removalists-brighton/",
+      "impressions": 2,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/packing-services-unley/",
+      "impressions": 2,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/office-removals-marion/",
+      "impressions": 2,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/office-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/packing-services-mawson-lakes/",
+      "impressions": 2,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/packing-services-norwood/",
+      "impressions": 2,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/apartment-removalists-new-port/",
+      "impressions": 2,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/office-removals-norwood/",
+      "impressions": 2,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/office-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/office-relocation-checklist-adelaide-guide/",
+      "impressions": 2,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/office-relocation-checklist-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/office-removals-edwardstown/",
+      "impressions": 2,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/office-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-moana/",
+      "impressions": 2,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/blog/",
+      "impressions": 2,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-mitcham/",
+      "impressions": 2,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-mitcham/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-seaton-park/",
+      "impressions": 2,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-allenby-gardens/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/packing-services-salisbury/",
+      "impressions": 2,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/#pricing",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/#quote",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/#reviews",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/#services",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/guides/moving-house-checklist-adelaide/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/moving-house-checklist-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/avoiding-damage-adelaide/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/furniture-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-to-western-sydney-removals/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-seaton-south/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/office-removals-mawson-lakes/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/office-removals-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/moving-from-norwood-to-burnside/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/moving-from-salisbury-to-mawson-lakes/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/packing-services-north-adelaide/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-kidman-park/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/local-removalists-adelaide/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-fullarton/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-glen-osmond/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-melrose-park/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-hove/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/packing-services-mitcham/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-somerton-park/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/removalists-largs-bay/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-semaphore/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/apartment-removalists-hallett-cove/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/small-removals-adelaide/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/moving-from-adelaide-cbd-to-marion/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/adelaide-moving-guides/moving-house-checklist-adelaide",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/moving-house-checklist-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/moving-from-adelaide-cbd-to-mawson-lakes/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/packing-services-glenelg/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/packing-services-elizabeth/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+    },
+    {
+      "oldUrl": "https://zqremovals.au/packing-services-marion/",
+      "impressions": 1,
+      "status": 200,
+      "finalUrl": "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+    }
+  ]
+}

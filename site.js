@@ -6,6 +6,8 @@ const ATTRIBUTION_KEYS = [
   "utm_content",
   "utm_term",
   "gclid",
+  "gbraid",
+  "wbraid",
   "fbclid",
 ];
 let analyticsModulePromise;
@@ -43,7 +45,19 @@ function runWhenIdle(callback, timeout = 2500) {
   );
 }
 
+function attributionStorageAllowed() {
+  const win = typeof window === "undefined" ? null : window;
+  let ads = "denied", analytics = "denied";
+  for (const entry of win?.dataLayer || []) {
+    if (entry?.[0] !== "consent" || !["default", "update"].includes(entry[1])) continue;
+    if (entry[2]?.ad_storage) ads = entry[2].ad_storage;
+    if (entry[2]?.analytics_storage) analytics = entry[2].analytics_storage;
+  }
+  return ads === "granted" && analytics === "granted";
+}
+
 function getStoredAttribution() {
+  if (!attributionStorageAllowed()) return {};
   try {
     const raw = window.sessionStorage?.getItem(ATTRIBUTION_STORAGE_KEY);
     return raw ? JSON.parse(raw) : {};
@@ -53,6 +67,10 @@ function getStoredAttribution() {
 }
 
 function captureAttributionLite() {
+  if (!attributionStorageAllowed()) {
+    try { window.sessionStorage?.removeItem(ATTRIBUTION_STORAGE_KEY); } catch {}
+    return {};
+  }
   let params;
   try {
     params = new URL(window.location.href).searchParams;
@@ -93,6 +111,7 @@ function scheduleAnalyticsInit() {
 function trackWhatsAppClick(...args) { withAnalytics((analytics) => analytics.trackWhatsAppClick(...args)); }
 function trackCallClick(...args) { withAnalytics((analytics) => analytics.trackCallClick(...args)); }
 function trackEmailClick(...args) { withAnalytics((analytics) => analytics.trackEmailClick(...args)); }
+function trackQuoteDiagnostic(...args) { withAnalytics((analytics) => analytics.trackQuoteDiagnostic(...args)); }
 function trackFormStart(...args) { withAnalytics((analytics) => analytics.trackFormStart(...args)); }
 function trackMobileMenuOpen(...args) { withAnalytics((analytics) => analytics.trackMobileMenuOpen(...args)); }
 function trackOutboundClick(...args) { withAnalytics((analytics) => analytics.trackOutboundClick(...args)); }
@@ -149,8 +168,8 @@ const quoteForms = Array.from(
 const quoteDateFields = Array.from(
   document.querySelectorAll('input[type="date"][name*="date"]'),
 );
-const QUOTE_API_ENDPOINT = "https://api.web3forms.com/submit";
-const DEFAULT_QUOTE_ERROR_MESSAGE = "Could not send the request. Please try again.";
+const QUOTE_API_ENDPOINT = "/api/quote/";
+const DEFAULT_QUOTE_ERROR_MESSAGE = "Could not send the request or confirm its status. Retry to check, or call ZQ Removals before starting another request.";
 const SOCIAL_PROFILES = {
   facebook: "",
   instagram: "",
@@ -533,7 +552,8 @@ function inferClickLocation(anchor) {
 }
 
 function buildQuoteSubmissionPayload(payload) {
-  const attribution = getStoredAttribution();
+  const attribution = captureAttributionLite();
+  const attributionPayload = attributionStorageAllowed() ? payload : {};
   const fullName = getFirstNonEmptyPayloadValue(payload, ["full_name", "name"]);
   const moveDetails = getFirstNonEmptyPayloadValue(payload, [
     "move_details",
@@ -543,21 +563,25 @@ function buildQuoteSubmissionPayload(payload) {
   ]);
 
   return {
-    access_key: getTrimmedPayloadValue(payload, "access_key"),
+    submission_id: payload.submission_id,
+    "cf-turnstile-response": getTrimmedPayloadValue(payload, "cf-turnstile-response"),
+    "g-recaptcha-response": getTrimmedPayloadValue(payload, "g-recaptcha-response"),
     subject: getTrimmedPayloadValue(payload, "subject") || "Quote request - ZQ Removals",
     from_name: fullName || getTrimmedPayloadValue(payload, "from_name") || "ZQ Removals Website",
     botcheck: getFirstNonEmptyPayloadValue(payload, ["botcheck"]),
     redirect: getTrimmedPayloadValue(payload, "redirect") || "https://zqremovalsadelaide.com.au/thank-you/",
     source_page: window.location.href,
-    utm_source: attribution.utm_source || getTrimmedPayloadValue(payload, "utm_source"),
-    utm_medium: attribution.utm_medium || getTrimmedPayloadValue(payload, "utm_medium"),
-    utm_campaign: attribution.utm_campaign || getTrimmedPayloadValue(payload, "utm_campaign"),
-    utm_content: attribution.utm_content || getTrimmedPayloadValue(payload, "utm_content"),
-    utm_term: attribution.utm_term || getTrimmedPayloadValue(payload, "utm_term"),
-    gclid: attribution.gclid || getTrimmedPayloadValue(payload, "gclid"),
-    fbclid: attribution.fbclid || getTrimmedPayloadValue(payload, "fbclid"),
-    landing_page: attribution.landing_page || getTrimmedPayloadValue(payload, "landing_page"),
-    captured_at: attribution.captured_at || getTrimmedPayloadValue(payload, "captured_at"),
+    utm_source: attribution.utm_source || getTrimmedPayloadValue(attributionPayload, "utm_source"),
+    utm_medium: attribution.utm_medium || getTrimmedPayloadValue(attributionPayload, "utm_medium"),
+    utm_campaign: attribution.utm_campaign || getTrimmedPayloadValue(attributionPayload, "utm_campaign"),
+    utm_content: attribution.utm_content || getTrimmedPayloadValue(attributionPayload, "utm_content"),
+    utm_term: attribution.utm_term || getTrimmedPayloadValue(attributionPayload, "utm_term"),
+    gclid: attribution.gclid || getTrimmedPayloadValue(attributionPayload, "gclid"),
+    gbraid: attribution.gbraid || "",
+    wbraid: attribution.wbraid || "",
+    fbclid: attribution.fbclid || getTrimmedPayloadValue(attributionPayload, "fbclid"),
+    landing_page: attribution.landing_page || getTrimmedPayloadValue(attributionPayload, "landing_page"),
+    captured_at: attribution.captured_at || getTrimmedPayloadValue(attributionPayload, "captured_at"),
     move_date: getFirstNonEmptyPayloadValue(payload, ["move_date", "preferred_move_date"]),
     crew_package: getFirstNonEmptyPayloadValue(payload, ["crew_package"]),
     pickup_suburb: getFirstNonEmptyPayloadValue(payload, ["pickup_suburb"]),
@@ -723,7 +747,28 @@ function setQuoteFormSubmitting(form, isSubmitting) {
   else restoreSubmitButtonContents(submitButton);
 }
 
+function quoteRequestStorageKey(form) {
+  return `zq_quote_request:${window.location.pathname}:${form.id || quoteForms.indexOf(form)}`;
+}
+
+function getQuoteRequestId(form) {
+  if (form.dataset.submissionId) return form.dataset.submissionId;
+  try {
+    const saved = JSON.parse(window.sessionStorage.getItem(quoteRequestStorageKey(form)) || "null");
+    if (typeof saved?.id === "string" && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(saved.id) &&
+        Date.now() - saved.at >= 0 && Date.now() - saved.at < 7 * 86400000) {
+      return form.dataset.submissionId = saved.id;
+    }
+  } catch {}
+  const id = form.dataset.submissionId = window.crypto.randomUUID();
+  try { window.sessionStorage.setItem(quoteRequestStorageKey(form), JSON.stringify({ id, at: Date.now() })); } catch {}
+  return id;
+}
+
 async function submitQuoteForm(form, payload) {
+  // Keep the same logical ID across retries, including ambiguous network outcomes.
+  if (!form.dataset) form.dataset = {};
+  payload.submission_id = getQuoteRequestId(form);
   let response;
   try {
     response = await fetch(QUOTE_API_ENDPOINT, {
@@ -733,6 +778,7 @@ async function submitQuoteForm(form, payload) {
         Accept: "application/json",
       },
       body: JSON.stringify(buildQuoteSubmissionPayload(payload)),
+      signal: AbortSignal.timeout(50000),
     });
   } catch (error) {
     const requestError = new Error(DEFAULT_QUOTE_ERROR_MESSAGE);
@@ -750,9 +796,21 @@ async function submitQuoteForm(form, payload) {
     result = { success: false, message: DEFAULT_QUOTE_ERROR_MESSAGE, body: responseText };
   }
 
-  if (!response.ok || result?.success !== true) {
+  if (!response.ok || result?.success !== true || result.submission_status !== "accepted" ||
+      result.submission_id !== payload.submission_id ||
+      !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(result.submission_id)) {
+    if (result?.status === "rejected") {
+      delete form.dataset.submissionId;
+      try { window.sessionStorage.removeItem(quoteRequestStorageKey(form)); } catch {}
+    }
     const error = new Error(DEFAULT_QUOTE_ERROR_MESSAGE);
-    error.payload = { success: false, message: DEFAULT_QUOTE_ERROR_MESSAGE };
+    error.payload = { success: false, message: result?.status === "pending"
+      ? "Your request may have been received. Please call ZQ Removals to confirm before sending again."
+      : result?.status === "rejected"
+        ? "Could not send the request: it was rejected. Review your details and try again."
+        : result?.status === "conflict"
+          ? "This request is already associated with different details. Please call ZQ Removals to confirm before starting another request."
+          : DEFAULT_QUOTE_ERROR_MESSAGE };
     throw error;
   }
 
@@ -806,6 +864,15 @@ function setupQuoteForms() {
   quoteForms.forEach((form) => {
     if (form.dataset.quoteBound) return;
     form.dataset.quoteBound = "true";
+    if ("IntersectionObserver" in window) {
+      const viewObserver = new IntersectionObserver(entries => {
+        if (entries.some(entry => entry.isIntersecting)) {
+          trackQuoteDiagnostic("zq_quote_form_view");
+          viewObserver.disconnect();
+        }
+      });
+      viewObserver.observe(form);
+    }
     setQuoteFormSubmitting(form, false);
 
     form.addEventListener("submit", async (event) => {
@@ -820,6 +887,7 @@ function setupQuoteForms() {
       applyQuoteFormErrors(form, errors);
 
       if (Object.keys(errors).length > 0) {
+        trackQuoteDiagnostic("zq_quote_validation_error", "invalid_fields");
         setQuoteFormFeedback(form, "Check the highlighted fields and try again.", "error");
         const firstErrorField = Array.from(form.elements).find(
           (field) => isSupportedFormField(field) && errors[field.name],
@@ -834,11 +902,10 @@ function setupQuoteForms() {
       try {
         const result = await submitQuoteForm(form, payload);
         form.dataset.quoteAccepted = "true";
-        // Web3Forms does not guarantee a receipt ID. The local UUID is an event
-        // deduplication token, created only after explicit provider acceptance.
+        try { window.sessionStorage.removeItem(quoteRequestStorageKey(form)); } catch {}
+        // Only the server's durably stored, provider-accepted receipt qualifies.
         try {
-          const leadId = typeof result.lead_id === "string" && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(result.lead_id)
-            ? result.lead_id : window.crypto.randomUUID();
+          const leadId = result.submission_id;
           const formName = form.getAttribute("data-form-name") ||
             `${window.location.pathname === "/" ? "home" : window.location.pathname.split("/").filter(Boolean).join("_")}_quote_${quoteForms.indexOf(form) + 1}`;
           if (!handOffAcceptedQuote(formName, leadId)) {
@@ -865,6 +932,7 @@ function setupQuoteForms() {
         setQuoteFormSubmitting(form, false);
         window.location.assign("/thank-you/");
       } catch (error) {
+        trackQuoteDiagnostic("zq_quote_submission_error", "unconfirmed_response");
         setQuoteFormFeedback(
           form,
           error?.payload?.message ||
@@ -1897,6 +1965,10 @@ function setupInterstateMatrix() {
 }
 
 setCurrentYear();
+window.addEventListener("zq:consent-updated", () => {
+  captureAttributionLite();
+  syncQuoteFormHiddenFields();
+});
 scheduleAnalyticsInit();
 setQuoteDateMinimum();
 setupHeaderDetails();
