@@ -61,3 +61,9 @@ npm run seo:verify-migrated-guides -- --origin https://zqremovalsadelaide.com.au
 ```
 
 The legacy-origin option requires one permanent hop directly to each intended canonical URL. The current Production's known 308 same-path host redirect would fail this check until the legacy-host/domain redirect behavior is corrected. The current Production deployment and this branch have not been conflated; no live fix is claimed.
+
+## Redirect order and platform metadata follow-up — 23 October 2026
+
+Read-only Vercel inspection found **zero project-level route rules** and the old and new project domains have no configured domain redirect target. The source-level Production deployment configuration therefore explains the observed 308→404 chain: the deployed historical `vercel.json` has host-conditioned catch-all rules for `zqremovals.au` and `www.zqremovals.au` that preserve `:path`, while that deployment does not include the three exact migrated-guide redirects. The redirect sends each old URL to the same new-domain path, where it is a 404.
+
+The reviewed branch already has three exact permanent mappings to the corresponding canonical guide routes before those host catch-alls. The regression test now asserts every exact guide mapping precedes the catch-all rule, and asserts the destination exists in the sitemap and is not itself indexed as an alias. This is the safest correction available in repository code; no Vercel domain settings were changed. It remains **PREPARED / NOT DEPLOYED** until an authorized Preview deployment proves one direct 308→200 hop and the verifier passes. If the deployed branch still reaches a same-path 404, inspect Vercel project routes and domain forwarding again before adding another rule.

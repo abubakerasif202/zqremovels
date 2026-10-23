@@ -30,4 +30,14 @@ test('historical GSC guide URLs have permanent, relevant, indexable destinations
     assert.ok(urls.has(origin + target), target + ' must be canonical and indexable');
     assert.equal(urls.has(origin + source), false, source + ' must not be indexed');
   }
+
+  const catchAllIndex = redirects.findIndex((rule) =>
+    rule.has?.some((condition) => condition.type === 'host' && /^(?:www\.)?zqremovals\.au$/.test(condition.value || '')) &&
+    rule.destination === 'https://zqremovalsadelaide.com.au/:path',
+  );
+  assert.notEqual(catchAllIndex, -1, 'legacy host same-path migration rule exists');
+  for (const source of migratedGuides.keys()) {
+    const exactIndex = redirects.findIndex((rule) => rule.source === source);
+    assert.ok(exactIndex < catchAllIndex, `${source} must precede the host catch-all redirect`);
+  }
 });

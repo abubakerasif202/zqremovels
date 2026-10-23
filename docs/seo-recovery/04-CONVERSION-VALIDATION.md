@@ -39,6 +39,22 @@ The deployment also needs an approved consent manager's real preference and rest
 
 Production quote acceptance and Ads attribution remain unverified. Keep this release blocked until the isolated staging checks pass.
 
+## First-party consent implementation — 23 October 2026
+
+The site now includes a first-party preference panel because no approved external consent manager was available in the connected project accounts or source. This does not represent visitor consent: all optional Google consent values default to denied before other tracking code; visitors can accept all, reject optional storage, or choose analytics and advertising separately. The choice is saved in a first-party 180-day cookie, restored before tags on later visits, and can be revoked or changed from the persistent **Privacy choices** control. A link to the existing privacy policy is included.
+
+GTM is loaded only after analytics or advertising consent is explicitly granted. The optional direct GA loader runs only for analytics consent; Meta Pixel loads only for advertising consent. Site analytics helpers suppress optional events while both categories are denied, and accepted quote delivery continues normally without emitting optional conversion events when consent is denied. On revocation, Consent Mode receives all four updated states and attribution storage is cleared. This local implementation does not verify the live GTM container's tag-level consent configuration; the account owner must review GA4 analytics consent, Google Ads ad consent and transaction-ID mapping in GTM Preview before authorizing publish.
+
+Local test evidence: Node tests verify no-choice denied defaults, valid partial-choice restoration, expiry and no eager external tag requests. The 390px Chromium conversion suite passes 25/25 tests and uses mocked quote responses with outbound requests intercepted. It covers accepted-event UUID matching, failures, duplicate/retry paths, accept, reject, partial grant, persistence, revocation, attribution removal, keyboard focus and a scoped axe-core check. These tests do not submit to Redis or Web3Forms and do not prove staging delivery.
+
+## Current external staging blockers — 23 October 2026
+
+Read-only Vercel `zq` metadata shows Preview is missing `KV_REST_API_URL` and `KV_REST_API_TOKEN`; both receipt-store variables target Production only. The connected Upstash Redis listing is empty, so no separate existing Preview database can be verified. No database was created, no credentials were copied, and no variable was edited. The single `WEB3FORMS_ACCESS_KEY` configuration is scoped to Production, Preview and Development; the actual recipient cannot be inferred from Vercel metadata. The branch has no Vercel deployment. Real Redis operations, one test-inbox delivery, replay/conflict/failure/concurrency behavior and real conversion delivery therefore remain **BLOCKED / NOT RUN**.
+
+Exact Preview-only setup: identify or approve a non-production Redis database distinct from Production; issue a Preview token supporting atomic `GET`, `SET NX`, `SET XX` and `EVAL`; add only `KV_REST_API_URL` and `KV_REST_API_TOKEN` to Vercel project **zq → Settings → Environment Variables → Preview**. Verify the Preview-scoped `WEB3FORMS_ACCESS_KEY` belongs to an approved test inbox; if not, obtain a test-only provider key and replace its Preview scope without changing Production. These steps require account-owner authorization and must not use Production credentials. Then authorize a Preview deploy of this branch and run the controlled provider acceptance matrix in this document.
+
+Current staging decision: **CODE READY — STAGING BLOCKED.**
+
 ## Release-blocker verification — 23 October 2026
 
 Read-only Vercel project metadata for `zq` confirms `KV_REST_API_URL` and `KV_REST_API_TOKEN` target **Production only**. `WEB3FORMS_ACCESS_KEY` is defined for Preview as well as Production/Development, but its destination and isolation are not verifiable from variable metadata. No Preview deployment exists for `fix/ads-conversion-recovery-2026-10-22`; the checkout is not linked to a live Preview URL. No secret values were decrypted or read.
