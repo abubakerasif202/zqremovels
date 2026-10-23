@@ -8,6 +8,8 @@ const ATTRIBUTION_KEYS = [
   "utm_content",
   "utm_term",
   "gclid",
+  "gbraid",
+  "wbraid",
   "fbclid",
 ];
 
@@ -57,9 +59,20 @@ function dispatchEvent(eventName, params = {}) {
   else sendGaEvent(eventName, params);
 }
 
+function attributionStorageAllowed() {
+  const win = typeof window === "undefined" ? null : window;
+  let ads = "denied", analytics = "denied";
+  for (const entry of win?.dataLayer || []) {
+    if (entry?.[0] !== "consent" || !["default", "update"].includes(entry[1])) continue;
+    if (entry[2]?.ad_storage) ads = entry[2].ad_storage;
+    if (entry[2]?.analytics_storage) analytics = entry[2].analytics_storage;
+  }
+  return ads === "granted" && analytics === "granted";
+}
+
 function getAttribution() {
   const win = safeWindow();
-  if (!win) return {};
+  if (!win || !attributionStorageAllowed()) return {};
   try {
     const raw = win.sessionStorage?.getItem(ATTRIBUTION_STORAGE_KEY);
     return raw ? JSON.parse(raw) : {};
@@ -76,6 +89,10 @@ function withAttribution(params = {}) {
 export function captureAttribution() {
   const win = safeWindow();
   if (!win) return {};
+  if (!attributionStorageAllowed()) {
+    try { win.sessionStorage?.removeItem(ATTRIBUTION_STORAGE_KEY); } catch {}
+    return {};
+  }
 
   const params = new URLSearchParams(win.location.search || "");
   const captured = {};
@@ -162,8 +179,14 @@ export function trackQuoteClick(location = "") {
 
 }
 
+export function trackQuoteDiagnostic(eventName, reason = "") {
+  if (!["zq_quote_form_view", "zq_quote_form_start", "zq_quote_validation_error", "zq_quote_submission_error"].includes(eventName)) return;
+  sendGtmEvent(eventName, { form_name: "quote_form", ...(reason ? { reason } : {}) });
+}
+
 export function trackFormStart(formName = "quote_form") {
   const payload = withAttribution({ category: "lead", label: "quote_form", form_name: formName });
+  trackQuoteDiagnostic("zq_quote_form_start");
   dispatchEvent("quote_form_start", payload);
   dispatchEvent("form_start", payload);
 
@@ -179,6 +202,7 @@ const UUID_V4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f
 export function trackFormSuccess(formName = "quote_form", leadId = "", onQueued) {
   const win = safeWindow();
   if (!win || !UUID_V4.test(leadId)) return false;
+  leadId = leadId.toLowerCase();
   const seen = win.__zqAcceptedLeads ||= new Set();
   const key = `zq_accepted_lead:${leadId}`;
   if (seen.has(leadId)) return false;
@@ -200,7 +224,8 @@ export function trackFormSuccess(formName = "quote_form", leadId = "", onQueued)
   sendGtmEvent("generate_lead", {
     lead_type: "removal_quote", form_name: formName, lead_id: leadId,
     submission_status: "accepted", submission_id: leadId,
-    ...(onQueued ? { eventCallback: onQueued, eventTimeout: 1500 } : {}),
+    eventCallback: () => { clearAcceptedQuoteKeys(); if (onQueued) onQueued(); },
+    ...(onQueued ? { eventTimeout: 1500 } : {}),
   });
   return true;
 }

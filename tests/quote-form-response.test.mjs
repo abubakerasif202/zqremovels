@@ -56,6 +56,7 @@ function trackServiceCTA() {}`,
       setItem: noop,
     },
     scrollY: 0,
+    crypto: { randomUUID: () => "3f2b8c1e-9d4a-4b6f-8a1c-2e5d7f903b14" },
   };
 
   const context = vm.createContext({
@@ -65,6 +66,7 @@ function trackServiceCTA() {}`,
     globalThis: {},
     requestAnimationFrame: (callback) => callback(),
     URL,
+    AbortSignal,
     WeakSet,
     window,
   });
@@ -102,7 +104,7 @@ async function runSubmitWithResponse(response) {
 test('quote form accepts successful JSON Web3Forms responses', async () => {
   const result = await runSubmitWithResponse(
     createWeb3FormsResponse({
-      body: JSON.stringify({ success: true, message: 'Submitted' }),
+      body: JSON.stringify({ success: true, submission_status: 'accepted', submission_id: '3f2b8c1e-9d4a-4b6f-8a1c-2e5d7f903b14', message: 'Submitted' }),
     }),
   );
 
@@ -110,7 +112,7 @@ test('quote form accepts successful JSON Web3Forms responses', async () => {
   assert.equal(result.message, 'Submitted');
 });
 
-for (const body of ['', 'OK', '{broken', '{}', 'null', '{"success":"true"}', '{"success":false}']) {
+for (const body of ['', 'OK', '{broken', '{}', 'null', '{"success":true}', '{"success":true,"submission_status":"accepted","submission_id":"invalid"}', '{"success":"true"}', '{"success":false}']) {
   test(`quote form rejects unconfirmed HTTP 200 response: ${body}`, async () => {
     await assert.rejects(runSubmitWithResponse(createWeb3FormsResponse({ body })));
   });
@@ -144,4 +146,26 @@ test('quote form rejects failed non-JSON API responses with response details', a
     ),
     /Could not send the request/,
   );
+});
+
+test('revoked consent cannot reuse stale hidden advertising attribution', async () => {
+  let sent;
+  const submit = loadQuoteSubmitter(async (_url, options) => {
+    sent = JSON.parse(options.body);
+    return createWeb3FormsResponse({ body: JSON.stringify({success:true,submission_status:'accepted',submission_id:'3f2b8c1e-9d4a-4b6f-8a1c-2e5d7f903b14'}) });
+  });
+  await submit({}, { gclid:'fixture-stale', utm_campaign:'fixture-stale' });
+  assert.equal(sent.gclid, '');
+  assert.equal(sent.utm_campaign, '');
+});
+
+test('quote transport forwards configured CAPTCHA response fields without adding them to analytics',async()=>{
+  let sent;
+  const submit=loadQuoteSubmitter(async(_url,options)=>{
+    sent=JSON.parse(options.body);
+    return createWeb3FormsResponse({body:JSON.stringify({success:true,submission_status:'accepted',submission_id:'3f2b8c1e-9d4a-4b6f-8a1c-2e5d7f903b14'})});
+  });
+  await submit({}, {'cf-turnstile-response':'fixture-turnstile','g-recaptcha-response':'fixture-recaptcha'});
+  assert.equal(sent['cf-turnstile-response'],'fixture-turnstile');
+  assert.equal(sent['g-recaptcha-response'],'fixture-recaptcha');
 });

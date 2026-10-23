@@ -60,3 +60,12 @@ test('purged bundles retain critical shared and route-specific selectors', async
   assert.match(generalCss, /\.page-hero/);
   assert.match(generalCss, /\.service-card/);
 });
+
+test('homepage bundle excludes other static route contexts without removing dynamic states', async () => {
+  const css = await readDist('premium-home.min.css');
+  assert.doesNotMatch(css, /\.page-suburb\b/);
+  assert.match(css, /\.is-visible/);
+  assert.match(css, /\.quote-form-premium/);
+  const home = await readDist('index.html');
+  assert.doesNotMatch(home, /rel="preconnect" href="https:\/\/api\.web3forms\.com/);
+});

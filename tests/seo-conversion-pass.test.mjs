@@ -106,7 +106,7 @@ test('generated html keeps internal hrefs root-absolute', () => {
   }
 });
 
-test('quote forms post directly to Web3Forms with attribution and the required contact field names', () => {
+test('quote forms use protected receipt endpoint and preserve non-JS provider fallback', () => {
   const homepage = readDist('index.html');
   const contactPage = readDist(path.join('contact-us', 'index.html'));
   const clientScript = readFileSync(path.join(root, 'site.js'), 'utf8');
@@ -128,10 +128,10 @@ test('quote forms post directly to Web3Forms with attribution and the required c
   assert.match(clientScript, /function updateFormStepAccessibility\(form, activeStepIndex\)/);
   assert.match(clientScript, /fieldset\.setAttribute\("aria-hidden", "true"\)/);
   assert.match(clientScript, /el\.setAttribute\("tabindex", "-1"\)/);
-  assert.match(clientScript, /\b(?:const|var) QUOTE_API_ENDPOINT = "https:\/\/api\.web3forms\.com\/submit";/);
+  assert.match(clientScript, /\b(?:const|var) QUOTE_API_ENDPOINT = "\/api\/quote\/";/);
   assert.match(clientScript, /fetch\(QUOTE_API_ENDPOINT,/);
   assert.match(clientScript, /"Content-Type": "application\/json"/);
-  assert.match(clientScript, /access_key: getTrimmedPayloadValue\(payload, "access_key"\)/);
+  assert.match(clientScript, /submission_id: payload\.submission_id/);
   assert.match(clientScript, /subject: getTrimmedPayloadValue\(payload, "subject"\)/);
   assert.match(clientScript, /source_page: window\.location\.href/);
   assert.match(clientScript, /utm_source: attribution\.utm_source/);

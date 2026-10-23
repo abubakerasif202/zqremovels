@@ -2909,7 +2909,6 @@ export function renderHead(page, content) {
   }
 
   if (page.layout !== 'redirect') {
-    tags.push('<link rel="preconnect" href="https://api.web3forms.com" crossorigin />');
     tags.push('<link rel="dns-prefetch" href="https://www.googletagmanager.com" />');
     tags.push('<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />');
     tags.push('<link rel="preload" href="/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin />');
@@ -3790,7 +3789,10 @@ function minifyCss(css) {
 async function purgeStylesheet(css, htmlDocuments, siteScript) {
   const content = [
     ...htmlDocuments.map((raw) => ({ raw, extension: 'html' })),
-    { raw: siteScript, extension: 'js' },
+    // Page-context classes are static body attributes, not JS-created state. Keeping every
+    // route name from shared selectors retains suburb/service CSS on the homepage.
+    // Actual route classes remain discoverable in each bundle's complete HTML documents.
+    { raw: siteScript.replace(/\bpage-[a-z0-9-]+\b/g, ''), extension: 'js' },
   ];
   const [result] = await new PurgeCSS().purge({
     content,

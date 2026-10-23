@@ -65,5 +65,23 @@ test('chat acceptance keeps the accepted contract and adds no redirect callback'
   assert.equal(accepted.form_name, 'quote_form');
   assert.equal(accepted.source_form, 'ai_chat_enquiry');
   assert.equal(dataLayer.some(event => 'eventTimeout' in event), false);
-  assert.equal('eventCallback' in dataLayer.find(event => event.event === 'generate_lead'), false);
+  assert.equal(typeof dataLayer.find(event => event.event === 'generate_lead').eventCallback, 'function');
+});
+
+test('UUID case cannot bypass accepted receipt deduplication', t => {
+  const original = global.window;
+  global.window = { dataLayer: [] };
+  t.after(() => { global.window = original; });
+  assert.equal(trackFormSuccess('quote_form', '3F2B8C1E-9D4A-4B6F-8A1C-2E5D7F903B14'), true);
+  assert.equal(trackFormSuccess('quote_form', '3f2b8c1e-9d4a-4b6f-8a1c-2e5d7f903b14'), false);
+  for (const id of ['', 'not-a-uuid', '3f2b8c1e-9d4a-1b6f-8a1c-2e5d7f903b14']) assert.equal(trackFormSuccess('quote_form', id), false);
+});
+test('GA4 analytics event also clears inherited accepted keys', t => {
+  const original = global.window;
+  const dataLayer = [];
+  global.window = { dataLayer };
+  t.after(() => { global.window = original; });
+  trackFormSuccess('quote_form', '3f2b8c1e-9d4a-4b6f-8a1c-2e5d7f903b14');
+  dataLayer.find(e => e.event === 'generate_lead').eventCallback();
+  assert.equal(dataLayer.at(-1).submission_status, undefined);
 });

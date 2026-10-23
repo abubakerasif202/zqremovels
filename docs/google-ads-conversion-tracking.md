@@ -1,3 +1,5 @@
+> Historical report. For the current accepted UUID receipt contract, use [22 October manual configuration](google-ads-manual-changes-2026-10-22.md) and [production verification](production-verification-2026-10-22.md). Older generate_lead trigger recipes and observed public-container settings below are historical evidence, not current configuration instructions. Do not copy historical labels into logs or new tags.
+
 # Google Ads conversion tracking implementation
 
 Status: website changes implemented; account configuration and production verification PENDING. No push, deployment, GTM publication or Google Ads account mutation is authorized by this change.
