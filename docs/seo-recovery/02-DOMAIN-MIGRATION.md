@@ -41,3 +41,7 @@ Local generated output uses the apex production host. `npm run seo:validate` pas
 ## Manual Search Console actions
 
 In Search Console, retain both verified properties, submit the new-domain sitemap, use Change of Address if Google still permits the completed migration workflow, and inspect the three repaired guide destinations plus the price, service and high-interest suburb pages. Recheck the old-domain redirect report and the new-domain indexing/canonical reports after Google recrawls. These account actions were not performed by this repository audit.
+
+## Follow-up live route check — 23 October 2026
+
+A fresh request-chain check confirms the old-domain platform redirect is active but the current Production deployment lacks the path mapping: each `https://zqremovals.au/guides/.../` responds **308** to the identical path on `https://zqremovalsadelaide.com.au/`, which responds **404**. The three intended destinations each respond **200** and expose their own apex canonical. Current branch `vercel.json` contains permanent path mappings, and the local build includes each target with a self-canonical and sitemap entry. Deploying this branch is required to test the mappings in Vercel; if the post-deploy chain still returns 404, investigate Vercel domain/route precedence before release. Do not describe Production as fixed before a live 301/308→200 check passes.

@@ -447,7 +447,7 @@ function normaliseSubmission(payload, geoContext) {
   };
 }
 
-async function triggerServerTelemetryLog(upstreamPayload) {
+async function triggerServerTelemetryLog() {
   if (!process.env.TELEMETRY_LOG_ENDPOINT) return;
 
   try {
@@ -457,13 +457,7 @@ async function triggerServerTelemetryLog(upstreamPayload) {
       body: JSON.stringify({
         timestamp: new Date().toISOString(),
         business: "ZQ Removals",
-        lead_name: upstreamPayload.from_name,
-        email: upstreamPayload.email,
-        phone: upstreamPayload.phone,
-        utm_source: upstreamPayload.utm_source,
-        utm_medium: upstreamPayload.utm_medium,
-        utm_campaign: upstreamPayload.utm_campaign,
-        location: upstreamPayload._edge_location,
+        event: "quote_accepted",
       }),
       signal: AbortSignal.timeout(3000),
     });
@@ -681,7 +675,7 @@ module.exports = async function handler(req, res) {
       try { await receiptStore.accept(receiptClaim); }
       catch { return sendJson(res, 503, { success: false, status: "pending", message: "Your request may have been received. Please call to confirm before sending again." }); }
     }
-    triggerServerTelemetryLog(submission.upstreamPayload);
+    triggerServerTelemetryLog();
 
     if (!wantsJsonResponse(req)) {
       return sendRedirect(res, "/thank-you/");
