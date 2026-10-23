@@ -22,7 +22,35 @@ function getConfig() {
   return win?.__analyticsConfig || {};
 }
 
+function currentConsent() {
+  const win = safeWindow();
+  let state = {
+    ad_storage: "denied",
+    analytics_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+  };
+  for (const entry of win?.dataLayer || []) {
+    if (entry?.[0] !== "consent" || !["default", "update"].includes(entry[1]) || !entry[2]) continue;
+    state = { ...state, ...entry[2] };
+  }
+  return state;
+}
+
+function analyticsAllowed() {
+  return currentConsent().analytics_storage === "granted";
+}
+
+function advertisingAllowed() {
+  return currentConsent().ad_storage === "granted";
+}
+
+function optionalTrackingAllowed() {
+  return analyticsAllowed() || advertisingAllowed();
+}
+
 function sendGaEvent(eventName, params) {
+  if (!analyticsAllowed()) return;
   const win = safeWindow();
   if (typeof win?.gtag !== "function") return;
   try {
@@ -31,6 +59,7 @@ function sendGaEvent(eventName, params) {
 }
 
 function sendGtmEvent(eventName, params) {
+  if (!optionalTrackingAllowed()) return;
   const win = safeWindow();
   if (!Array.isArray(win?.dataLayer)) return;
   try {
@@ -39,6 +68,7 @@ function sendGtmEvent(eventName, params) {
 }
 
 function sendMetaTrack(eventName, params) {
+  if (!advertisingAllowed()) return;
   const win = safeWindow();
   if (typeof win?.fbq !== "function") return;
   try {
@@ -47,6 +77,7 @@ function sendMetaTrack(eventName, params) {
 }
 
 function sendMetaCustom(eventName, params) {
+  if (!advertisingAllowed()) return;
   const win = safeWindow();
   if (typeof win?.fbq !== "function") return;
   try {
@@ -55,19 +86,14 @@ function sendMetaCustom(eventName, params) {
 }
 
 function dispatchEvent(eventName, params = {}) {
+  if (!optionalTrackingAllowed()) return;
   if (getConfig().gtmId) sendGtmEvent(eventName, params);
   else sendGaEvent(eventName, params);
 }
 
 function attributionStorageAllowed() {
-  const win = typeof window === "undefined" ? null : window;
-  let ads = "denied", analytics = "denied";
-  for (const entry of win?.dataLayer || []) {
-    if (entry?.[0] !== "consent" || !["default", "update"].includes(entry[1])) continue;
-    if (entry[2]?.ad_storage) ads = entry[2].ad_storage;
-    if (entry[2]?.analytics_storage) analytics = entry[2].analytics_storage;
-  }
-  return ads === "granted" && analytics === "granted";
+  const consent = currentConsent();
+  return consent.ad_storage === "granted" && consent.analytics_storage === "granted";
 }
 
 function getAttribution() {
@@ -129,7 +155,7 @@ export function initGA4() {
   const win = safeWindow();
   if (!win) return false;
   const config = getConfig();
-  return Boolean(config.gaMeasurementId && typeof win.gtag === "function");
+  return Boolean(analyticsAllowed() && config.gaMeasurementId && typeof win.gtag === "function");
 }
 
 export function initGTM() {
@@ -146,7 +172,7 @@ export function initMetaPixel() {
   const win = safeWindow();
   if (!win) return false;
   const config = getConfig();
-  return Boolean(config.metaPixelId && typeof win.fbq === "function");
+  return Boolean(advertisingAllowed() && config.metaPixelId && typeof win.fbq === "function");
 }
 
 export function trackPageView(path = "") {
@@ -209,6 +235,10 @@ export function trackFormSuccess(formName = "quote_form", leadId = "", onQueued)
   try { if (win.sessionStorage?.getItem(key)) return false; } catch {}
   seen.add(leadId);
   try { win.sessionStorage?.setItem(key, "1"); } catch {}
+  if (!optionalTrackingAllowed()) {
+    if (typeof onQueued === "function") onQueued();
+    return true;
+  }
   win.dataLayer ||= [];
   // The installed GTM legacy bridge also translates generate_lead. Mark it
   // before pushing either event so a genuine acceptance produces one Ads event.

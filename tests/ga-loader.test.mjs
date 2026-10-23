@@ -2,27 +2,46 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
-const source = readFileSync(new URL('../src/layouts/Layout.astro', import.meta.url), 'utf8');
-const block = source.slice(source.indexOf('        window.dataLayer = window.dataLayer || [];', source.indexOf('{gaId && (')), source.indexOf('\n      `} />', source.indexOf('{gaId && (')));
-function run(gtm, existing = []) {
-  const appended = [], timers = [];
-  const context = { window: {}, document: { scripts: existing.map(src => ({ src })), createElement: () => ({}), head: { appendChild: s => appended.push(s) } }, location: { href: 'https://zqremovalsadelaide.com.au/' }, URL, Date, setTimeout: fn => timers.push(fn) };
+
+const layout = readFileSync(new URL('../src/layouts/Layout.astro', import.meta.url), 'utf8');
+const boot = layout.match(/<script is:inline>([\s\S]*?)<\/script>/)?.[1];
+assert.ok(boot, 'inline consent boot runs before optional tag code');
+
+function bootConsent(cookie = '') {
+  const context = {
+    document: { cookie },
+    window: {},
+    Date,
+    JSON,
+    Number,
+  };
   context.window = context;
-  vm.runInNewContext(block.replaceAll('${gaId}', 'G-TEST').replace('${Boolean(gtmId)}', String(gtm)), context);
-  return { context, appended, timers };
+  vm.runInNewContext(boot, context);
+  return context;
 }
-test('GTM destination owns its loader while GA configuration remains queued', () => {
-  const r = run(true);
-  assert.equal(r.appended.length, 0);
-  assert.equal(r.context.dataLayer[1][0], 'config');
-  assert.equal(r.context.dataLayer[1][1], 'G-TEST');
-  r.context.document.scripts.push({ src: 'https://www.googletagmanager.com/gtag/js?id=G-TEST&cx=c' });
-  r.timers[0]();
-  assert.equal(r.appended.length, 0);
+
+test('no saved user choice establishes denied Google consent defaults', () => {
+  const result = bootConsent();
+  assert.deepEqual(JSON.parse(JSON.stringify(Array.from(result.dataLayer[0]))), ['consent', 'default', {
+    ad_storage: 'denied', analytics_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+  }]);
 });
-test('unavailable GTM falls back once and standalone GA loads immediately', () => {
-  const r = run(true);
-  r.timers[0](); r.context.__loadGtag();
-  assert.equal(r.appended.length, 1);
-  assert.equal(run(false).appended.length, 1);
+
+test('only a valid unexpired saved choice restores grants before tags', () => {
+  const choice = { version: 1, analytics: true, advertising: false, updatedAt: Date.now() };
+  const result = bootConsent(`zq_consent_v1=${encodeURIComponent(JSON.stringify(choice))}`);
+  assert.deepEqual(JSON.parse(JSON.stringify(Array.from(result.dataLayer[0]))), ['consent', 'default', {
+    ad_storage: 'denied', analytics_storage: 'granted', ad_user_data: 'denied', ad_personalization: 'denied',
+  }]);
+  assert.equal(result.__zqConsentChoice.analytics, true);
+
+  const expired = bootConsent(`zq_consent_v1=${encodeURIComponent(JSON.stringify({ ...choice, updatedAt: Date.now() - 181 * 24 * 60 * 60 * 1000 }))}`);
+  assert.equal(expired.dataLayer[0][2].analytics_storage, 'denied');
+});
+
+test('optional tag loaders are created only by the consent manager', () => {
+  assert.match(layout, /src="\/consent-manager\.mjs"/);
+  assert.doesNotMatch(layout, /src=["']https:\/\/www\.googletagmanager\.com\/gtm\.js/);
+  assert.doesNotMatch(layout, /ns\.html\?id=/);
+  assert.match(readFileSync(new URL('../consent-manager.mjs', import.meta.url), 'utf8'), /function loadOptionalTags/);
 });

@@ -12044,3 +12044,31 @@ body .footer-shell.footer-shell .footer-brand-panel .btn.btn-primary { backgroun
   body .site-header .brand-mark-logo img { flex: none; width: 32px; height: 32px; }
   body .site-header .mobile-nav > details > summary.mobile-menu-trigger { min-width: 88px; padding-inline: 12px; }
 }
+
+.zq-consent[hidden], .zq-consent-manage[hidden] { display: none; }
+.zq-consent {
+  position: fixed; z-index: 10020; inset-inline: max(16px, env(safe-area-inset-left));
+  bottom: max(16px, env(safe-area-inset-bottom)); margin-inline: auto; max-width: 760px;
+  color: #fff; background: #071525; border: 1px solid #526276; border-radius: 14px;
+  box-shadow: 0 16px 48px rgb(0 0 0 / 38%); padding: 20px;
+}
+.zq-consent h2 { margin: 0 0 6px; color: #fff; font-size: 1.15rem; }
+.zq-consent p { margin: 0; max-width: 68ch; color: #e1e8ef; line-height: 1.5; }
+.zq-consent a { color: #ffb38f; text-decoration: underline; text-underline-offset: 2px; }
+.zq-consent__preferences { display: flex; flex-wrap: wrap; gap: 14px 24px; margin-top: 14px; }
+.zq-consent__preferences label { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; color: #fff; }
+.zq-consent__preferences input { width: 20px; height: 20px; accent-color: #ff6426; }
+.zq-consent__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.zq-consent__actions button, .zq-consent-manage {
+  min-height: 44px; border: 1px solid #8998a9; border-radius: 8px; padding: 9px 14px;
+  color: #fff; background: #14283c; font: inherit; font-weight: 600; cursor: pointer;
+}
+.zq-consent__actions [data-consent-accept] { border-color: #ff6426; color: #071525; background: #ff6426; }
+.zq-consent__actions button:hover, .zq-consent-manage:hover { filter: brightness(1.12); }
+.zq-consent :focus-visible, .zq-consent-manage:focus-visible { outline: 3px solid #ffb38f; outline-offset: 3px; }
+.zq-consent-manage { position: fixed; z-index: 10019; right: max(12px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); box-shadow: 0 3px 16px rgb(0 0 0 / 30%); }
+@media (max-width: 520px) {
+  .zq-consent { inset-inline: 10px; bottom: max(10px, env(safe-area-inset-bottom)); padding: 16px; }
+  .zq-consent__actions button { flex: 1 1 42%; }
+  .zq-consent-manage { right: max(8px, env(safe-area-inset-right)); bottom: max(8px, env(safe-area-inset-bottom)); }
+}

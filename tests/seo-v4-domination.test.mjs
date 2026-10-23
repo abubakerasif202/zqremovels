@@ -83,12 +83,14 @@ test('homepage metadata, schema, and crawl directives match v4 targets', async (
   assert.match(servicesSitemap, /https:\/\/zqremovalsadelaide\.com\.au\/(services\/)?[a-z-]*removals?-adelaide\//);
 });
 
-test('GTM is always injected while optional analytics tags require v4 env vars', async () => {
+test('optional tracking remains deferred until the visitor makes a consent choice', async () => {
   await buildSite();
   let homepage = readDist('index.html');
   assert.doesNotMatch(homepage, /googletagmanager\.com\/gtag\/js\?id=/);
   assert.match(homepage, /GTM-WJGKPXFL/);
-  assert.match(homepage, /googletagmanager\.com\/ns\.html\?id=GTM-WJGKPXFL/);
+  assert.match(homepage, /data-consent-banner/);
+  assert.match(homepage, /consent-manager\.mjs/);
+  assert.doesNotMatch(homepage, /googletagmanager\.com\/ns\.html/);
   assert.doesNotMatch(homepage, /fbevents\.js/);
 
   await buildSite({
@@ -97,12 +99,12 @@ test('GTM is always injected while optional analytics tags require v4 env vars',
     VITE_META_PIXEL_ID: '1234567890',
   });
   homepage = readDist('index.html');
-  assert.match(homepage, /googletagmanager\.com\/gtag\/js\?id=G-SEO4TEST1/);
-  assert.match(homepage, /gtm\.js/);
+  assert.doesNotMatch(homepage, /<script[^>]+src=["']https:\/\/www\.googletagmanager\.com\/gtag\/js/);
+  assert.doesNotMatch(homepage, /<script[^>]+src=["']https:\/\/www\.googletagmanager\.com\/gtm\.js/);
   assert.match(homepage, /GTM-WJGKPXFL/);
   assert.doesNotMatch(homepage, /GTM-SEO4TST/);
-  assert.match(homepage, /googletagmanager\.com\/ns\.html\?id=GTM-WJGKPXFL/);
-  assert.match(homepage, /fbevents\.js/);
+  assert.doesNotMatch(homepage, /googletagmanager\.com\/ns\.html/);
+  assert.doesNotMatch(homepage, /connect\.facebook\.net\/en_US\/fbevents\.js/);
 });
 
 test('mobile nav contrast classes remain explicit after css cleanup', async () => {
