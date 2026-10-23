@@ -52,3 +52,37 @@ The website event contract remains tested locally: `zq_quote_submitted`, `form_n
 The commit review found and removed customer fields from the optional server telemetry payload. Regression coverage now asserts that accepted quote telemetry contains only `timestamp`, `business` and the static `event`; it confirms names, email, phone, UTM campaign and click IDs are excluded.
 
 Required next staging steps: create an isolated Preview Redis database/token with the required atomic commands and `EVAL`; verify the Preview provider key sends only to an approved test inbox; deploy this commit to an approved Preview; then run the controlled accepted, same-ID replay, conflicting payload, rejection, timeout, outage and concurrency scenarios while checking one provider delivery and one event. Keep Production credentials, customer leads, Ads and GTM untouched.
+
+## Final Preview setup and staging plan — 23 October 2026
+
+Read-only Vercel project `zq` environment metadata (decryption disabled) shows the following required names and scopes:
+
+| Variable name | Current Preview scope | Action |
+| --- | --- | --- |
+| `KV_REST_API_URL` | Missing | Add the endpoint for a dedicated Preview Redis database. |
+| `KV_REST_API_TOKEN` | Missing | Add a Preview-only write token for that database. |
+| `WEB3FORMS_ACCESS_KEY` | Present | Confirm or replace the Preview-scoped value with a provider key whose destination is the approved test inbox. |
+
+The first two variables exist for Production only. No values were read, decrypted, copied or printed. Vercel variable metadata cannot prove which inbox the Preview Web3Forms key reaches. No Preview deployment matching this branch is available. No Redis resource was created and no live enquiry was sent.
+
+### Isolated Preview setup
+
+1. In the authorized Vercel team, open project **zq → Storage/Integrations** and select an already approved, non-billable Redis database or obtain approval before creating one. Verify its database/endpoint identity differs from Production; do not reuse Production credentials or a shared database.
+2. Issue a least-privilege token for the Preview database that permits receipt `GET`, `SET NX`, `SET XX` and the existing rate-limit `EVAL` script. Confirm the provider supports atomic conditional `SET` and Lua `EVAL` for this database.
+3. In **Project → Settings → Environment Variables**, configure `KV_REST_API_URL` and `KV_REST_API_TOKEN` for **Preview only**. Keep Production and Development scopes unchanged. Never paste credential values into tickets, logs, source or this report.
+4. In Web3Forms, verify the Preview access key routes only to the explicitly approved test inbox. Configure its value for Preview scope under `WEB3FORMS_ACCESS_KEY`; never use the Production inbox or real customer payloads for validation.
+5. Trigger an authorized Preview deployment from the reviewed branch commit, then confirm the deployment reports Ready before any POST test.
+
+Do not use an in-memory receipt fallback. Missing Redis must remain fail-closed. The existing API smoke and Playwright suite use mocked providers and are not a substitute for one real staging delivery.
+
+### Controlled staging acceptance sequence
+
+Use an obviously synthetic but non-personal fixture, for example `ZQ Preview QA` and an owned test email alias, only after the approved test inbox and isolated Preview Redis have been confirmed. Capture sanitized browser event count and provider inbox message count. Submit once and verify backend response `success: true`, `submission_status: accepted`, valid UUIDv4; exactly one test-inbox message; exactly one `zq_quote_submitted` event with `form_name=quote_form`, `submission_status=accepted`, and the same `submission_id`. Replay the same request ID and verify no second delivery or event. Change business fields under that ID and expect conflict. Then independently exercise provider rejection, timeout, Redis outage, concurrent same-ID requests, and recovery using only Preview credentials. Never manually create a success event.
+
+Current result remains **BLOCKED / NOT RUN** for every real-provider and real-Redis case above. Local mocks cover these code paths, but no accepted staging receipt exists.
+
+### Consent and tracking readiness
+
+There is no approved CMP/provider or customer-facing preference UI identified in source or available account metadata. Consent Mode defaults to denied before GTM; the `dataLayer` and `zq:consent-updated` listener are consumers/hooks, not a consent manager. Do not grant consent by code or test fixture. The owner must identify/approve an existing CMP and its documented callback, then verify accept-all, reject-all, partial choices, revocation, return visits, route navigation and attribution expiration/restoration with the actual choice state. If an approved CMP is unavailable, leave optional tracking denied and Ads attribution validation blocked. Authenticated read-only GTM configuration was unavailable; the website event contract is locally tested only.
+
+After staging delivery, use GTM Preview/Tag Assistant (read-only; do not publish) to confirm the existing `ZQ - Quote Form Submitted` action fires once per accepted lead and uses the UUIDv4 `submission_id` as its transaction ID. Confirm Ads **Count = One** in the existing action without changing settings. Provider delivery, browser event, GTM firing and Ads reporting are separate proof points.

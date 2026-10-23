@@ -45,3 +45,19 @@ In Search Console, retain both verified properties, submit the new-domain sitema
 ## Follow-up live route check — 23 October 2026
 
 A fresh request-chain check confirms the old-domain platform redirect is active but the current Production deployment lacks the path mapping: each `https://zqremovals.au/guides/.../` responds **308** to the identical path on `https://zqremovalsadelaide.com.au/`, which responds **404**. The three intended destinations each respond **200** and expose their own apex canonical. Current branch `vercel.json` contains permanent path mappings, and the local build includes each target with a self-canonical and sitemap entry. Deploying this branch is required to test the mappings in Vercel; if the post-deploy chain still returns 404, investigate Vercel domain/route precedence before release. Do not describe Production as fixed before a live 301/308→200 check passes.
+
+### Repeatable post-deployment verification
+
+Added `scripts/verify-migrated-guides.mjs` and `npm run seo:verify-migrated-guides`. It checks the three aliases return one permanent response directly to the canonical destination, each deployed destination returns 200 with one indexable canonical, and every destination appears in the guide sitemap. Run first against the authorized Preview deployment:
+
+```powershell
+npm run seo:verify-migrated-guides -- --origin https://<ready-preview-deployment-host>
+```
+
+After an authorized Production deployment, additionally test the historical host:
+
+```powershell
+npm run seo:verify-migrated-guides -- --origin https://zqremovalsadelaide.com.au --legacy-origin https://zqremovals.au
+```
+
+The legacy-origin option requires one permanent hop directly to each intended canonical URL. The current Production's known 308 same-path host redirect would fail this check until the legacy-host/domain redirect behavior is corrected. The current Production deployment and this branch have not been conflated; no live fix is claimed.
