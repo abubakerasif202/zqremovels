@@ -146,3 +146,41 @@ node scripts/ads-readiness-visual.mjs after
 ```
 
 The recorded baseline was captured before the CSS change. Re-running `baseline` on the finished branch measures the finished branch, not the historical pre-change state; preserve the existing evidence files when reproducing comparisons.
+
+## Continuation: final release blockers — 23 October 2026
+
+Checkout is `C:\Users\abuba\zqremovels`, branch `fix/ads-conversion-recovery-2026-10-22`, starting HEAD `7cf1ef97776583f23bf18b2730b8d548fa16c90b`. Existing `artifacts/` remained untracked and untouched. This continuation has not deployed, pushed, merged, or changed Google Ads/GTM.
+
+### Current account and staging proof
+
+Read-only Vercel metadata for project `zq` (secret values unavailable to output and not decrypted) shows `KV_REST_API_URL` and `KV_REST_API_TOKEN` are Production-only; Preview has neither. The Preview-scoped `WEB3FORMS_ACCESS_KEY` exists, but Vercel does not reveal its destination. Current deployment listing contains no Preview deployment for the release branch. No separate Redis database/token was created, no environment values were changed, and no live POST was sent. Thus **real staging delivery, accepted receipt persistence, retry deduplication and conversion are NOT RUN/BLOCKED**. Local mocks do not constitute staging verification.
+
+Required Preview variable names are `KV_REST_API_URL`, `KV_REST_API_TOKEN` and `WEB3FORMS_ACCESS_KEY` (Preview-specific test destination). Use a distinct, approved non-billable Redis database and Preview-only least-privilege token; verify atomic `GET`, `SET NX`, `SET XX`, and `EVAL`. Never copy Production secrets. Full safe setup and controlled test procedure are in `docs/seo-recovery/04-CONVERSION-VALIDATION.md`.
+
+### Consent and Ads tracking
+
+Source inspection confirms all four Consent Mode categories default to denied before GTM. No approved CMP/provider, choice UI or persistence/restoration integration was found. `dataLayer` and the `zq:consent-updated` listener only receive/read real consent updates. No grant was fabricated. Read-only GTM container access was unavailable. Keep consent preference journeys and Ads delivery verification blocked until the approved CMP and actual GTM trigger are inspected. Local mocked event contract remains `zq_quote_submitted`, `form_name=quote_form`, `submission_status=accepted`, with the server-accepted UUIDv4 as `submission_id`; it fires only on accepted responses in the mock tests.
+
+### Migration routes and post-deploy command
+
+The local `vercel.json` mappings and built guide targets are present; previous live evidence has all three old paths returning 308 old host → same path on canonical host → 404 on the then-current deployment. Destination pages returned 200, self-canonical, and were listed in the generated sitemap. Added `scripts/verify-migrated-guides.mjs` (`npm run seo:verify-migrated-guides`) to check direct permanent aliases, target 200/canonical/indexability/sitemap, and optionally direct legacy-host redirects. After an approved Preview deploy, run:
+
+```powershell
+npm run seo:verify-migrated-guides -- --origin https://<ready-preview-host>
+```
+
+After an approved Production deploy, run:
+
+```powershell
+npm run seo:verify-migrated-guides -- --origin https://zqremovalsadelaide.com.au --legacy-origin https://zqremovals.au
+```
+
+The optional old-host test will fail if Vercel's current domain-level redirect still causes a same-path hop followed by the path redirect. Vercel's per-domain redirect setting does not express per-path exceptions; if it remains, the owner must authorize and coordinate a project-domain/host-scoped redirect configuration that sends these three legacy paths directly to their new canonical pages while preserving a deliberate catch-all redirect for other old paths. No Vercel domain setting was changed.
+
+### Current performance result
+
+Existing three-run mobile simulation measured median Performance 79, LCP 4,502 ms, TBT 168 ms and CLS 0 on the local static server. The H1 is the LCP element; its reported trace breakdown is approximately 35 ms TTFB plus 192 ms element render delay, inconsistent with the 4.5-second aggregate metric. The hero image is already preloaded/high priority, local fonts are preloaded and `font-display` audit passes, unused JavaScript is zero; homepage CSS is 155,205 uncompressed bytes with 49,548 bytes estimated unused. The local server does not model Vercel Brotli delivery. No speculative font, stylesheet or layout change was justified; the LCP target remains unmet and needs repeat measurement on a ready Preview/CDN deployment, with a full trace if it remains slow.
+
+### Release disposition
+
+**CODE READY — STAGING BLOCKED.** Local mock coverage is available, but real isolated Redis/provider delivery, genuine consent behavior, branch Preview and direct production migration redirects remain unverified. Production approval is premature.
