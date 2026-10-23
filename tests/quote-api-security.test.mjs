@@ -100,6 +100,24 @@ test('public delivery failures never trigger success telemetry', async t => {
   assert.equal(res.body.success, false);
 });
 
+test('accepted quote telemetry contains no customer or attribution fields', async t => {
+  let telemetryPayload;
+  setup(t, async (url, options) => {
+    if (url === 'https://api.web3forms.com/submit') {
+      return { ok: true, status: 200, json: async () => ({ success: true }) };
+    }
+    assert.equal(url, 'https://telemetry.example.com');
+    telemetryPayload = JSON.parse(options.body);
+    return { ok: true, status: 202 };
+  }, { TELEMETRY_LOG_ENDPOINT: 'https://telemetry.example.com' });
+  const res = await submit({ name: 'Private Fixture Name', email: 'private@example.com',
+    phone: '0400000000', utm_campaign: 'private-fixture', gclid: 'private-click-id' });
+  assert.equal(res.statusCode, 200);
+  assert.deepEqual(Object.keys(telemetryPayload).sort(), ['business', 'event', 'timestamp']);
+  assert.equal(telemetryPayload.event, 'quote_accepted');
+  assert.doesNotMatch(JSON.stringify(telemetryPayload), /Private Fixture Name|private@example\.com|0400000000|private-fixture|private-click-id/);
+});
+
 test('shared transport fixes destination, secret, timeout and disallows redirects', async () => {
   await requestWeb3Forms({ access_key: 'untrusted', email: 'fictional@example.com' }, 'server-secret',
     async (url, options) => {
