@@ -48,7 +48,7 @@
   },
   "overrides": {
     "braces": "^3.0.3",
-    "esbuild": "$esbuild",
+    "esbuild": "^0.28.1",
     "js-yaml": "^4.2.0",
     "micromatch": "^4.0.8",
     "tmp": "0.2.7",

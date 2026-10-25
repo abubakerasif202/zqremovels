@@ -15,6 +15,12 @@ interface Mocks { chatPosts: any[]; draftCalls: number; submissions: any[] }
 
 test.beforeEach(async ({ page }) => {
   await page.route(/^https?:\/\/(?!127\.0\.0\.1:3000)/, route => route.abort());
+  // Accepted-lead events are only emitted for visitors who allowed optional tracking.
+  await page.context().addCookies([{
+    name: 'zq_consent_v1',
+    value: encodeURIComponent(JSON.stringify({ version: 1, updatedAt: Date.now(), analytics: true, advertising: true })),
+    url: 'http://127.0.0.1:3000',
+  }]);
   await page.addInitScript(() => {
     const layer: any[] = [];
     const originalPush = layer.push.bind(layer);
@@ -175,6 +181,21 @@ test('customer completes and sends an enquiry inside the chat on desktop', async
   await expect(panel.locator('.zq-chat-bubble[data-role="assistant"]').last()).toContainText('Reference:');
   expect(mocks.submissions).toHaveLength(1);
   await expect.poll(async () => (await recordedEvents(page)).length).toBe(2);
+});
+
+test('an accepted chat enquiry emits no lead events without optional-tracking consent', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'Desktop Chrome (1366px)', 'Desktop journey runs once.');
+  await page.context().clearCookies();
+  const mocks = await mockBackend(page, accepted);
+  const panel = await chatToReview(page);
+  await completeDetails(panel);
+  await panel.getByRole('button', { name: 'Review my details' }).click();
+  await panel.getByRole('checkbox').check();
+  await panel.getByRole('button', { name: 'Confirm & send enquiry' }).click();
+  await expect(panel.locator('.zq-chat-bubble[data-role="assistant"]').last()).toContainText('Reference:');
+  expect(mocks.submissions).toHaveLength(1);
+  await page.waitForTimeout(1500);
+  expect(await recordedEvents(page)).toHaveLength(0);
 });
 
 test('the footer Send enquiry button also pre-fills from the conversation', async ({ page }, testInfo) => {
