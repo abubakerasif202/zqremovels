@@ -2911,10 +2911,14 @@ export function renderHead(page, content) {
   if (page.layout !== 'redirect') {
     tags.push('<link rel="dns-prefetch" href="https://www.googletagmanager.com" />');
     tags.push('<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />');
-    tags.push('<link rel="preload" href="/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin />');
+    // The homepage only uses Fraunces in the footer, so it is not worth competing with the hero for bandwidth there.
+    if (page.output !== 'index.html') {
+      tags.push('<link rel="preload" href="/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin />');
+    }
 
     if (page.output === 'index.html') {
-      tags.push('<link rel="preload" as="image" href="/media/premium-template-hero.webp" type="image/webp" fetchpriority="high" />');
+      tags.push('<link rel="preload" as="image" href="/media/premium-template-hero-mobile.webp" type="image/webp" fetchpriority="high" media="(max-width: 760px)" />');
+      tags.push('<link rel="preload" as="image" href="/media/premium-template-hero.webp" type="image/webp" fetchpriority="high" media="(min-width: 761px)" />');
       tags.push(`<link rel="stylesheet" href="/${performanceStylesheetNames.home}" />`);
     } else if (page.output === 'contact-us/index.html') {
       tags.push(`<link rel="stylesheet" href="/${performanceStylesheetNames.contact}" />`);
