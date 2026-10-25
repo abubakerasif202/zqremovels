@@ -12066,9 +12066,12 @@ body .footer-shell.footer-shell .footer-brand-panel .btn.btn-primary { backgroun
 .zq-consent__actions [data-consent-accept] { border-color: #ff6426; color: #071525; background: #ff6426; }
 .zq-consent__actions button:hover, .zq-consent-manage:hover { filter: brightness(1.12); }
 .zq-consent :focus-visible, .zq-consent-manage:focus-visible { outline: 3px solid #ffb38f; outline-offset: 3px; }
-.zq-consent-manage { position: fixed; z-index: 10019; right: max(12px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); box-shadow: 0 3px 16px rgb(0 0 0 / 30%); }
+/* Stacks above the chat launcher, which already clears the sticky CTA via --zq-chat-launcher-bottom. */
+.zq-consent-manage { position: fixed; z-index: 10019; right: 20px; bottom: calc(var(--zq-chat-launcher-bottom, 24px) + 60px); box-shadow: 0 3px 16px rgb(0 0 0 / 30%); }
+@media (max-width: 680px) {
+  .zq-consent-manage { right: 12px; bottom: calc(max(var(--zq-chat-launcher-bottom, 24px), 16px + env(safe-area-inset-bottom)) + 60px); }
+}
 @media (max-width: 520px) {
   .zq-consent { inset-inline: 10px; bottom: max(10px, env(safe-area-inset-bottom)); padding: 16px; }
   .zq-consent__actions button { flex: 1 1 42%; }
-  .zq-consent-manage { right: max(8px, env(safe-area-inset-right)); bottom: max(8px, env(safe-area-inset-bottom)); }
 }

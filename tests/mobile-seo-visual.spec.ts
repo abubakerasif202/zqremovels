@@ -80,6 +80,32 @@ test('chat keeps keyboard focus and enquiry controls inside the visible panel', 
   await expect(launcher).toBeFocused();
 });
 
+test('privacy choices button stays clear of the chat launcher and sticky CTA after a consent choice', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('[data-consent-reject]').first().click();
+  const manage = page.locator('[data-consent-manage]');
+  await expect(manage).toBeVisible();
+  const overlaps = async () => page.evaluate(() => {
+    const box = (selector: string) => {
+      const node = document.querySelector(selector);
+      if (!node) return null;
+      const style = getComputedStyle(node);
+      const rect = node.getBoundingClientRect();
+      return style.display === 'none' || style.visibility === 'hidden' || !rect.width ? null : rect;
+    };
+    const hit = (a: DOMRect | null, b: DOMRect | null) => !!a && !!b && !(a.right <= b.left || b.right <= a.left || a.bottom <= b.top || b.bottom <= a.top);
+    const manageBox = box('[data-consent-manage]');
+    return {
+      launcher: hit(manageBox, box('#zq-chat-launcher')),
+      sticky: hit(manageBox, box('.sticky-mobile-cta.is-visible')),
+    };
+  });
+  expect(await overlaps()).toEqual({ launcher: false, sticky: false });
+  await page.evaluate(() => window.scrollTo(0, 1200));
+  await page.waitForTimeout(900);
+  expect(await overlaps()).toEqual({ launcher: false, sticky: false });
+});
+
 const routes = [
   '/',
   '/removalists-adelaide/',
