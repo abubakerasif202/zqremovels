@@ -18,6 +18,7 @@
     "check:sitemap": "node scripts/seo-validate.mjs",
     "seo:audit": "node scripts/seo-validate.mjs",
     "seo:validate": "node scripts/seo-validate.mjs",
+    "seo:verify-migrated-guides": "node scripts/verify-migrated-guides.mjs",
     "gsc:auth": "node scripts/gsc-auth.mjs",
     "gsc:fetch": "node scripts/gsc-fetch.mjs",
     "gsc:opportunities": "node scripts/gsc-analyze-opportunities.mjs",

@@ -5,6 +5,8 @@
 
 const { requestWeb3Forms } = require("../lib/server/web3forms.js");
 
+const { createReceiptStore, UUID } = require("../lib/server/quote-receipts.js");
+
 const QUOTE_REQUIRED_FIELDS = [
   "pickup_suburb",
   "dropoff_suburb",
@@ -125,7 +127,7 @@ async function verifyTurnstile(token, ip, secretKey) {
     const data = await res.json();
     return res.ok !== false && data.success === true;
   } catch (err) {
-    console.error("Turnstile verification error:", err);
+    console.error("Turnstile verification error:");
     return false;
   }
 }
@@ -147,13 +149,14 @@ async function verifyRecaptcha(token, ip, secretKey) {
     const data = await res.json();
     return res.ok !== false && data.success === true && (data.score === undefined || (typeof data.score === "number" && data.score >= 0.5));
   } catch (err) {
-    console.error("reCAPTCHA verification error:", err);
+    console.error("reCAPTCHA verification error:");
     return false;
   }
 }
 
 function sendJson(res, status, payload) {
   res.status(status).setHeader("Content-Type", "application/json");
+  res.setHeader("Cache-Control", "no-store");
   res.end(JSON.stringify(payload));
 }
 
@@ -295,6 +298,8 @@ function normaliseSubmission(payload, geoContext) {
           utm_content: getTrimmedString(payload, "utm_content"),
           utm_term: getTrimmedString(payload, "utm_term"),
           gclid: getTrimmedString(payload, "gclid"),
+          gbraid: getTrimmedString(payload, "gbraid"),
+          wbraid: getTrimmedString(payload, "wbraid"),
           fbclid: getTrimmedString(payload, "fbclid"),
           landing_page: getTrimmedString(payload, "landing_page"),
         };
@@ -309,6 +314,8 @@ function normaliseSubmission(payload, geoContext) {
     utm_content: clientAttribution.utm_content || "",
     utm_term: clientAttribution.utm_term || "",
     gclid: clientAttribution.gclid || "",
+    gbraid: clientAttribution.gbraid || "",
+    wbraid: clientAttribution.wbraid || "",
     fbclid: clientAttribution.fbclid || "",
     landing_page: clientAttribution.landing_page || "",
   };
@@ -440,7 +447,7 @@ function normaliseSubmission(payload, geoContext) {
   };
 }
 
-async function triggerServerTelemetryLog(upstreamPayload) {
+async function triggerServerTelemetryLog() {
   if (!process.env.TELEMETRY_LOG_ENDPOINT) return;
 
   try {
@@ -450,18 +457,12 @@ async function triggerServerTelemetryLog(upstreamPayload) {
       body: JSON.stringify({
         timestamp: new Date().toISOString(),
         business: "ZQ Removals",
-        lead_name: upstreamPayload.from_name,
-        email: upstreamPayload.email,
-        phone: upstreamPayload.phone,
-        utm_source: upstreamPayload.utm_source,
-        utm_medium: upstreamPayload.utm_medium,
-        utm_campaign: upstreamPayload.utm_campaign,
-        location: upstreamPayload._edge_location,
+        event: "quote_accepted",
       }),
       signal: AbortSignal.timeout(3000),
     });
   } catch (err) {
-    console.error("Server-side conversion telemetric tracking failed asynchronously.", err);
+    console.error("Server-side conversion telemetric tracking failed asynchronously.");
   }
 }
 
@@ -478,7 +479,7 @@ module.exports = async function handler(req, res) {
       payload = parseRequestPayload(rawBody, contentType);
       if (!payload || typeof payload !== "object" || Array.isArray(payload)) throw new Error("Invalid payload shape");
     } catch (error) {
-      console.error("Quote API received malformed JSON.", error);
+      console.error("Quote API received malformed JSON.");
       if (wantsJsonResponse(req)) {
         return sendJson(res, 400, { success: false, message: "Malformed JSON payload" });
       }
@@ -534,6 +535,41 @@ module.exports = async function handler(req, res) {
       );
     }
 
+    const submission = normaliseSubmission(payload, geoContext);
+    if (submission.error) {
+      return sendJson(res, submission.error.status, {
+        success: false,
+        message: submission.error.message,
+      });
+    }
+
+    // Receipt replay does not deliver a lead: allow it before a one-use CAPTCHA is rechecked.
+    let receiptStore, receiptClaim, receiptFingerprint;
+    const replayReceipt = previous => {
+      if (previous.conflict) return sendJson(res, 409, { success: false, status: "conflict", message: "This request ID already belongs to different details. Please call to confirm before starting another request." });
+      if (previous.record.status === "accepted") return sendJson(res, 200, {
+        success: true, submission_status: "accepted", submission_id: previous.record.submission_id,
+      });
+      if (previous.record.status === "rejected") return sendJson(res, 409, { success: false, status: "rejected", message: "The previous request was rejected. Review your details and try again." });
+      return sendJson(res, 409, { success: false, status: "pending", message: "Your request may already be processing. Please call to confirm before sending again." });
+    };
+    if (payload.submission_id !== undefined) {
+      if (typeof payload.submission_id !== "string" || !UUID.test(payload.submission_id)) {
+        return sendJson(res, 400, { success: false, message: "Invalid submission ID" });
+      }
+      // Consent, attribution and the page URL can change on reload. Only lead details identify a retry.
+      const volatileFields = new Set(["source_page", "landing_page", "captured_at", "gclid", "gbraid", "wbraid", "fbclid"]);
+      receiptFingerprint = Object.fromEntries(Object.entries(submission.upstreamPayload)
+        .filter(([key]) => !key.startsWith("_edge_") && !key.startsWith("utm_") && !volatileFields.has(key)));
+      try {
+        receiptStore = createReceiptStore();
+        const previous = await receiptStore.lookup(payload.submission_id, receiptFingerprint);
+        if (previous) return replayReceipt(previous);
+      } catch {
+        return sendJson(res, 503, { success: false, message: "Quote service temporarily unavailable. Please try again or call." });
+      }
+    }
+
     // Bot verification challenge
     const turnstileSecret = process.env.TURNSTILE_SECRET_KEY || process.env.CF_TURNSTILE_SECRET;
     const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY;
@@ -560,19 +596,7 @@ module.exports = async function handler(req, res) {
       }
     }
 
-    const submission = normaliseSubmission(payload, geoContext);
-    if (submission.error) {
-      return sendJson(res, submission.error.status, {
-        success: false,
-        message: submission.error.message,
-      });
-    }
-
-    const isTest = process.argv[1] && (process.argv[1].includes("smoke") || process.argv[1].includes("test"));
-    const accessKey =
-      process.env.WEB3FORMS_ACCESS_KEY?.trim() ||
-      process.env.VITE_WEB3FORMS_ACCESS_KEY?.trim() ||
-      (isTest ? "" : "80c3ff0c-7ae6-4aa7-bb66-567612739824");
+    const accessKey = process.env.WEB3FORMS_ACCESS_KEY?.trim() || process.env.VITE_WEB3FORMS_ACCESS_KEY?.trim();
     if (!accessKey) {
       if (wantsJsonResponse(req)) {
         return sendJson(res, 500, {
@@ -590,15 +614,27 @@ module.exports = async function handler(req, res) {
       );
     }
 
+    // Claim only after all validation and spam checks have passed.
+    if (receiptStore) {
+      try {
+        receiptClaim = await receiptStore.claim(payload.submission_id, receiptFingerprint);
+        if (!receiptClaim.fresh) return replayReceipt(receiptClaim);
+        submission.upstreamPayload.submission_id = receiptClaim.record.submission_id;
+      } catch {
+        return sendJson(res, 503, { success: false, message: "Quote service temporarily unavailable. Please try again or call." });
+      }
+    }
+
     let web3Response;
     try {
       web3Response = await requestWeb3Forms(submission.upstreamPayload, accessKey);
     } catch (error) {
-      console.error("Web3Forms request failed.", error);
+      console.error("Web3Forms request failed.");
       if (wantsJsonResponse(req)) {
         return sendJson(res, 502, {
           success: false,
           message: "Failed to reach quote service",
+          ...(receiptClaim ? { status: "pending" } : {}),
         });
       }
       return sendHtml(res, 502, "Submission failed", "Failed to reach the quote service.");
@@ -608,11 +644,12 @@ module.exports = async function handler(req, res) {
     try {
       web3Result = await web3Response.json();
     } catch (error) {
-      console.error("Web3Forms response parse failed.", error);
+      console.error("Web3Forms response parse failed.");
       if (wantsJsonResponse(req)) {
         return sendJson(res, 502, {
           success: false,
           message: "Invalid response from quote service",
+          ...(receiptClaim ? { status: "pending" } : {}),
         });
       }
       return sendHtml(res, 502, "Submission failed", "The quote service returned an invalid response.");
@@ -621,33 +658,38 @@ module.exports = async function handler(req, res) {
       console.error("Web3Forms upstream returned a failure response.", {
         status: web3Response.status,
       });
-      const failureMessage =
-        web3Result?.message ||
-        web3Result?.error ||
-        `Upstream error (${web3Response.status})`;
+      let status = "pending";
+      // A strict negative receipt on HTTP 200 or 4xx confirms rejection. Queued/other outcomes are ambiguous.
+      if (receiptClaim && web3Result?.success === false && (web3Response.status === 200 || (web3Response.status >= 400 && web3Response.status < 500))) {
+        try { await receiptStore.reject(receiptClaim); status = "rejected"; } catch { /* Retain pending on storage failure. */ }
+      }
       if (wantsJsonResponse(req)) {
         return sendJson(res, 502, {
-          success: false,
-          message: "Quote submission failed",
-          details: failureMessage,
+          success: false, ...(receiptClaim ? { status } : {}), message: "Quote submission failed",
         });
       }
-      return sendHtml(res, 502, "Submission failed", "Quote submission failed.", failureMessage);
+      return sendHtml(res, 502, "Submission failed", "Quote submission failed.");
     }
 
-    triggerServerTelemetryLog(submission.upstreamPayload);
+    if (receiptClaim) {
+      try { await receiptStore.accept(receiptClaim); }
+      catch { return sendJson(res, 503, { success: false, status: "pending", message: "Your request may have been received. Please call to confirm before sending again." }); }
+    }
+    triggerServerTelemetryLog();
 
     if (!wantsJsonResponse(req)) {
       return sendRedirect(res, "/thank-you/");
     }
 
-    return sendJson(res, 200, { success: true, message: "Quote submitted" });
+    return sendJson(res, 200, { success: true, message: "Quote submitted",
+      ...(receiptClaim ? { submission_status: "accepted", submission_id: receiptClaim.record.submission_id } : {}),
+    });
   } catch (error) {
     if (error.statusCode === 413) {
       if (wantsJsonResponse(req)) return sendJson(res, 413, { success: false, message: "Quote request is too large" });
       return sendHtml(res, 413, "Request too large", "Please shorten your enquiry and try again.");
     }
-    console.error("Quote API handler failed.", error);
+    console.error("Quote API handler failed.");
     if (wantsJsonResponse(req)) {
       return sendJson(res, 500, { success: false, message: "Unexpected server error" });
     }

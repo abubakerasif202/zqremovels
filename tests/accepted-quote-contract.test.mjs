@@ -10,6 +10,7 @@ test('accepted quote event preserves receipt contract and suppresses legacy brid
     dataLayer,
     sessionStorage: { getItem: key => records.get(key), setItem: (key, value) => records.set(key, value) },
   };
+  dataLayer.push(['consent', 'default', { ad_storage: 'granted', analytics_storage: 'granted' }]);
   t.after(() => { global.window = original; });
   dataLayer.push = function (event) {
     Array.prototype.push.call(this, event);
@@ -33,18 +34,29 @@ test('accepted quote event preserves receipt contract and suppresses legacy brid
   assert.equal(trackFormSuccess('quote_form', ''), false);
 });
 
+test('accepted quotes do not emit optional conversions while consent is denied', t => {
+  const original = global.window;
+  const dataLayer = [['consent', 'default', { ad_storage: 'denied', analytics_storage: 'denied' }]];
+  let continued = 0;
+  global.window = { dataLayer, sessionStorage: { getItem: () => null, setItem: () => {} } };
+  t.after(() => { global.window = original; });
+  assert.equal(trackFormSuccess('quote_form', '3f2b8c1e-9d4a-4b6f-8a1c-2e5d7f903b14', () => continued++), true);
+  assert.equal(dataLayer.some(entry => entry.event === 'zq_quote_submitted'), false);
+  assert.equal(continued, 1, 'accepted enquiry journey continues without optional tracking');
+});
+
 // GTM's data model keeps the last value of each key, so a later bare zq_quote_submitted push
 // (e.g. the legacy bridge) would inherit accepted/submission_id and convert again.
 test('accepted event clears its submission keys from the GTM data model afterwards', t => {
   const original = global.window;
-  const dataLayer = [];
+  const dataLayer = [['consent', 'default', { ad_storage: 'granted', analytics_storage: 'granted' }]];
   global.window = { dataLayer, sessionStorage: { getItem: () => null, setItem: () => {} } };
   t.after(() => { global.window = original; });
   assert.equal(trackFormSuccess('contact-us_quote_1', '7c9e6679-7425-40de-944b-e07fc1f90ae7'), true);
   const accepted = dataLayer.find(event => event.event === 'zq_quote_submitted');
   // Reset only after GTM has processed the event, with no timeout, so it can never run before the
   // conversion tag reads the keys, whatever the load order of gtm.js.
-  assert.equal(dataLayer.some(event => !event.event), false);
+  assert.equal(dataLayer.some(event => !Array.isArray(event) && !event.event), false);
   assert.equal(typeof accepted.eventCallback, 'function');
   assert.equal('eventTimeout' in accepted, false);
   accepted.eventCallback();
@@ -57,7 +69,7 @@ test('accepted event clears its submission keys from the GTM data model afterwar
 
 test('chat acceptance keeps the accepted contract and adds no redirect callback', t => {
   const original = global.window;
-  const dataLayer = [];
+  const dataLayer = [['consent', 'default', { ad_storage: 'granted', analytics_storage: 'granted' }]];
   global.window = { dataLayer, sessionStorage: { getItem: () => null, setItem: () => {} } };
   t.after(() => { global.window = original; });
   assert.equal(trackFormSuccess('ai_chat_enquiry', '9b2f4a1c-3d5e-4f60-8a7b-1c2d3e4f5a6b'), true);
@@ -65,5 +77,23 @@ test('chat acceptance keeps the accepted contract and adds no redirect callback'
   assert.equal(accepted.form_name, 'quote_form');
   assert.equal(accepted.source_form, 'ai_chat_enquiry');
   assert.equal(dataLayer.some(event => 'eventTimeout' in event), false);
-  assert.equal('eventCallback' in dataLayer.find(event => event.event === 'generate_lead'), false);
+  assert.equal(typeof dataLayer.find(event => event.event === 'generate_lead').eventCallback, 'function');
+});
+
+test('UUID case cannot bypass accepted receipt deduplication', t => {
+  const original = global.window;
+  global.window = { dataLayer: [['consent', 'default', { ad_storage: 'granted', analytics_storage: 'granted' }]] };
+  t.after(() => { global.window = original; });
+  assert.equal(trackFormSuccess('quote_form', '3F2B8C1E-9D4A-4B6F-8A1C-2E5D7F903B14'), true);
+  assert.equal(trackFormSuccess('quote_form', '3f2b8c1e-9d4a-4b6f-8a1c-2e5d7f903b14'), false);
+  for (const id of ['', 'not-a-uuid', '3f2b8c1e-9d4a-1b6f-8a1c-2e5d7f903b14']) assert.equal(trackFormSuccess('quote_form', id), false);
+});
+test('GA4 analytics event also clears inherited accepted keys', t => {
+  const original = global.window;
+  const dataLayer = [['consent', 'default', { ad_storage: 'granted', analytics_storage: 'granted' }]];
+  global.window = { dataLayer };
+  t.after(() => { global.window = original; });
+  trackFormSuccess('quote_form', '3f2b8c1e-9d4a-4b6f-8a1c-2e5d7f903b14');
+  dataLayer.find(e => e.event === 'generate_lead').eventCallback();
+  assert.equal(dataLayer.at(-1).submission_status, undefined);
 });

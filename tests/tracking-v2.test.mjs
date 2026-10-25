@@ -6,6 +6,9 @@ import { pathToFileURL } from "node:url";
 
 const root = process.cwd();
 const distDir = path.join(root, "site-dist");
+const grantedConsent = ["consent", "default", {
+  ad_storage: "granted", analytics_storage: "granted", ad_user_data: "granted", ad_personalization: "granted",
+}];
 
 function readDist(relativePath) {
   const normalized = relativePath.replace(/\\/g, '/');
@@ -50,24 +53,22 @@ async function buildSite(extraEnv = {}) {
   }
 }
 
-test("GTM loads site-wide while optional providers require matching env vars", async () => {
+test("optional tag requests stay blocked until a stored visitor choice permits loading", async () => {
   await buildSite();
   let homepage = readDist("index.html");
-  assert.doesNotMatch(homepage, /www\.googletagmanager\.com\/gtag\/js/);
-  assert.match(homepage, /www\.googletagmanager\.com\/gtm\.js\?id='\+i\+dl/);
+  assert.doesNotMatch(homepage, /<script[^>]+src=["']https:\/\/www\.googletagmanager\.com\/gtm\.js/);
+  assert.match(homepage, /consent-manager\.mjs/);
   assert.match(homepage, /GTM-WJGKPXFL/);
-  assert.doesNotMatch(homepage, /connect\.facebook\.net\/en_US\/fbevents\.js/);
-  assert.match(homepage, /ns\.html\?id=GTM-WJGKPXFL/);
+  assert.doesNotMatch(homepage, /googletagmanager\.com\/ns\.html/);
 
   await buildSite({
     VITE_GA_MEASUREMENT_ID: "G-MNHNPP0087",
     VITE_META_PIXEL_ID: "123456789012345",
   });
   homepage = readDist("index.html");
-  assert.match(homepage, /www\.googletagmanager\.com\/gtag\/js\?id=G-MNHNPP0087/);
+  assert.doesNotMatch(homepage, /<script[^>]+src=["']https:\/\/www\.googletagmanager\.com\/gtag\/js/);
   assert.match(homepage, /GTM-WJGKPXFL/);
-  assert.match(homepage, /connect\.facebook\.net\/en_US\/fbevents\.js/);
-  assert.match(homepage, /ns\.html\?id=GTM-WJGKPXFL/);
+  assert.doesNotMatch(homepage, /googletagmanager\.com\/ns\.html/);
 });
 
 test("scripts are not duplicated in generated html", async () => {
@@ -78,9 +79,9 @@ test("scripts are not duplicated in generated html", async () => {
   const homepage = readDist("index.html");
 
   const count = (pattern) => (homepage.match(pattern) || []).length;
-  assert.equal(count(/www\.googletagmanager\.com\/gtag\/js\?id=G-MNHNPP0087/g), 1);
-  assert.equal(count(/\(window,document,'script','dataLayer','GTM-WJGKPXFL'\)/g), 1);
-  assert.equal(count(/ns\.html\?id=GTM-WJGKPXFL/g), 1);
+  assert.equal(count(/consent-manager\.mjs/g), 1);
+  assert.equal(count(/<script[^>]+src=["']https:\/\/www\.googletagmanager\.com\/gtm\.js/g), 0);
+  assert.equal(count(/<script[^>]+src=["']https:\/\/www\.googletagmanager\.com\/gtag\/js/g), 0);
 });
 
 test("analytics utility does not throw when providers are unavailable", async () => {
@@ -115,7 +116,7 @@ test("conversion events push payloads to dataLayer", async () => {
   const analytics = await import(`${moduleUrl}?events=${Date.now()}${Math.random()}`);
 
   const originalWindow = global.window;
-  const dataLayer = [];
+  const dataLayer = [grantedConsent];
   global.window = {
     location: { pathname: "/services/house-removals-adelaide/", search: "" },
     history: {
@@ -156,7 +157,7 @@ test("route tracking emits page_view after history changes", async () => {
   const analytics = await import(`${moduleUrl}?route=${Date.now()}${Math.random()}`);
 
   const originalWindow = global.window;
-  const dataLayer = [];
+  const dataLayer = [grantedConsent];
   const listeners = new Map();
   const location = { pathname: "/", search: "" };
   const history = {
@@ -201,7 +202,7 @@ test("trackStickyCtaClick pushes payload to dataLayer", async () => {
   const analytics = await import(`${moduleUrl}?sticky=${Date.now()}${Math.random()}`);
 
   const originalWindow = global.window;
-  const dataLayer = [];
+  const dataLayer = [grantedConsent];
   global.window = {
     location: { pathname: "/", search: "" },
     history: { pushState() {}, replaceState() {} },
@@ -224,7 +225,7 @@ test("trackStickyCtaClick pushes payload to dataLayer", async () => {
 test("accepted lead deduplication is private, GTM-only and resilient to blocked storage", async () => {
   const analytics = await import(`../analytics.mjs?privacy=${Date.now()}`);
   const originalWindow = global.window;
-  const dataLayer = [];
+  const dataLayer = [grantedConsent];
   let directCalls = 0;
   global.window = {
     dataLayer, gtag() { directCalls++; },

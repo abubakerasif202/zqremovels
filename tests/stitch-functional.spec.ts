@@ -6,7 +6,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('submit artwork survives initial pageshow, rejected submission and history restoration', async ({ page }) => {
-  await page.route('https://api.web3forms.com/submit', route => route.fulfill({ json: { success: false } }));
+  await page.route('**/api/quote/', route => route.fulfill({ json: { success: false } }));
   await page.goto('/');
   await expect(page.locator('form[data-quote-form="quote"]')).toHaveCount(1);
   const form = page.locator('#quote-form');
@@ -31,9 +31,9 @@ test('submit artwork survives initial pageshow, rejected submission and history 
   await expect(button).toBeEnabled();
 });
 
-test('calculator updates and preserves attached inventory in the actual provider payload', async ({ page }) => {
+test('calculator updates and preserves attached inventory in the actual quote endpoint payload', async ({ page }) => {
   let payload: Record<string, unknown> | undefined;
-  await page.route('https://api.web3forms.com/submit', async route => {
+  await page.route('**/api/quote/', async route => {
     payload = route.request().postDataJSON();
     await route.fulfill({ json: { success: false } });
   });

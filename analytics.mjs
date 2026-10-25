@@ -8,6 +8,8 @@ const ATTRIBUTION_KEYS = [
   "utm_content",
   "utm_term",
   "gclid",
+  "gbraid",
+  "wbraid",
   "fbclid",
 ];
 
@@ -20,7 +22,35 @@ function getConfig() {
   return win?.__analyticsConfig || {};
 }
 
+function currentConsent() {
+  const win = safeWindow();
+  let state = {
+    ad_storage: "denied",
+    analytics_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+  };
+  for (const entry of win?.dataLayer || []) {
+    if (entry?.[0] !== "consent" || !["default", "update"].includes(entry[1]) || !entry[2]) continue;
+    state = { ...state, ...entry[2] };
+  }
+  return state;
+}
+
+function analyticsAllowed() {
+  return currentConsent().analytics_storage === "granted";
+}
+
+function advertisingAllowed() {
+  return currentConsent().ad_storage === "granted";
+}
+
+function optionalTrackingAllowed() {
+  return analyticsAllowed() || advertisingAllowed();
+}
+
 function sendGaEvent(eventName, params) {
+  if (!analyticsAllowed()) return;
   const win = safeWindow();
   if (typeof win?.gtag !== "function") return;
   try {
@@ -29,6 +59,7 @@ function sendGaEvent(eventName, params) {
 }
 
 function sendGtmEvent(eventName, params) {
+  if (!optionalTrackingAllowed()) return;
   const win = safeWindow();
   if (!Array.isArray(win?.dataLayer)) return;
   try {
@@ -37,6 +68,7 @@ function sendGtmEvent(eventName, params) {
 }
 
 function sendMetaTrack(eventName, params) {
+  if (!advertisingAllowed()) return;
   const win = safeWindow();
   if (typeof win?.fbq !== "function") return;
   try {
@@ -45,6 +77,7 @@ function sendMetaTrack(eventName, params) {
 }
 
 function sendMetaCustom(eventName, params) {
+  if (!advertisingAllowed()) return;
   const win = safeWindow();
   if (typeof win?.fbq !== "function") return;
   try {
@@ -53,13 +86,19 @@ function sendMetaCustom(eventName, params) {
 }
 
 function dispatchEvent(eventName, params = {}) {
+  if (!optionalTrackingAllowed()) return;
   if (getConfig().gtmId) sendGtmEvent(eventName, params);
   else sendGaEvent(eventName, params);
 }
 
+function attributionStorageAllowed() {
+  const consent = currentConsent();
+  return consent.ad_storage === "granted" && consent.analytics_storage === "granted";
+}
+
 function getAttribution() {
   const win = safeWindow();
-  if (!win) return {};
+  if (!win || !attributionStorageAllowed()) return {};
   try {
     const raw = win.sessionStorage?.getItem(ATTRIBUTION_STORAGE_KEY);
     return raw ? JSON.parse(raw) : {};
@@ -76,6 +115,10 @@ function withAttribution(params = {}) {
 export function captureAttribution() {
   const win = safeWindow();
   if (!win) return {};
+  if (!attributionStorageAllowed()) {
+    try { win.sessionStorage?.removeItem(ATTRIBUTION_STORAGE_KEY); } catch {}
+    return {};
+  }
 
   const params = new URLSearchParams(win.location.search || "");
   const captured = {};
@@ -112,7 +155,7 @@ export function initGA4() {
   const win = safeWindow();
   if (!win) return false;
   const config = getConfig();
-  return Boolean(config.gaMeasurementId && typeof win.gtag === "function");
+  return Boolean(analyticsAllowed() && config.gaMeasurementId && typeof win.gtag === "function");
 }
 
 export function initGTM() {
@@ -129,7 +172,7 @@ export function initMetaPixel() {
   const win = safeWindow();
   if (!win) return false;
   const config = getConfig();
-  return Boolean(config.metaPixelId && typeof win.fbq === "function");
+  return Boolean(advertisingAllowed() && config.metaPixelId && typeof win.fbq === "function");
 }
 
 export function trackPageView(path = "") {
@@ -162,8 +205,14 @@ export function trackQuoteClick(location = "") {
 
 }
 
+export function trackQuoteDiagnostic(eventName, reason = "") {
+  if (!["zq_quote_form_view", "zq_quote_form_start", "zq_quote_validation_error", "zq_quote_submission_error"].includes(eventName)) return;
+  sendGtmEvent(eventName, { form_name: "quote_form", ...(reason ? { reason } : {}) });
+}
+
 export function trackFormStart(formName = "quote_form") {
   const payload = withAttribution({ category: "lead", label: "quote_form", form_name: formName });
+  trackQuoteDiagnostic("zq_quote_form_start");
   dispatchEvent("quote_form_start", payload);
   dispatchEvent("form_start", payload);
 
@@ -179,12 +228,17 @@ const UUID_V4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f
 export function trackFormSuccess(formName = "quote_form", leadId = "", onQueued) {
   const win = safeWindow();
   if (!win || !UUID_V4.test(leadId)) return false;
+  leadId = leadId.toLowerCase();
   const seen = win.__zqAcceptedLeads ||= new Set();
   const key = `zq_accepted_lead:${leadId}`;
   if (seen.has(leadId)) return false;
   try { if (win.sessionStorage?.getItem(key)) return false; } catch {}
   seen.add(leadId);
   try { win.sessionStorage?.setItem(key, "1"); } catch {}
+  if (!optionalTrackingAllowed()) {
+    if (typeof onQueued === "function") onQueued();
+    return true;
+  }
   win.dataLayer ||= [];
   // The installed GTM legacy bridge also translates generate_lead. Mark it
   // before pushing either event so a genuine acceptance produces one Ads event.
@@ -200,7 +254,8 @@ export function trackFormSuccess(formName = "quote_form", leadId = "", onQueued)
   sendGtmEvent("generate_lead", {
     lead_type: "removal_quote", form_name: formName, lead_id: leadId,
     submission_status: "accepted", submission_id: leadId,
-    ...(onQueued ? { eventCallback: onQueued, eventTimeout: 1500 } : {}),
+    eventCallback: () => { clearAcceptedQuoteKeys(); if (onQueued) onQueued(); },
+    ...(onQueued ? { eventTimeout: 1500 } : {}),
   });
   return true;
 }

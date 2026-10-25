@@ -244,6 +244,21 @@
   ],
   "redirects": [
     {
+      "source": "/guides/moving-house-adelaide-checklist/",
+      "destination": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/moving-house-checklist-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/guides/best-time-to-book-removalists-adelaide/",
+      "destination": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/best-time-to-book-removalists-adelaide/",
+      "permanent": true
+    },
+    {
+      "source": "/guides/apartment-moving-tips-adelaide/",
+      "destination": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/apartment-moving-tips-adelaide/",
+      "permanent": true
+    },
+    {
       "source": "/guides/how-to-prepare-furniture-for-moving/",
       "destination": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/how-to-prepare-furniture-for-moving/",
       "permanent": true
@@ -2170,6 +2185,9 @@
     }
   ],
   "functions": {
+    "api/quote.js": {
+      "maxDuration": 45
+    },
     "api/legacy-sitemap.js": {
       "includeFiles": "data/migration/legacy-paths.txt"
     }

@@ -198,7 +198,7 @@ const verifiedPricingMetadata = new Map([
   }],
   ['office-removals-adelaide/index.html', {
     title: 'Office Removalists Adelaide | Business Moves | ZQ Removals',
-    description: 'Office removalists in Adelaide for offices, clinics and studios. Plan lifts, IT equipment and restart order, then request a quote or call 0433 819 989.',
+    description: 'Office removalists in Adelaide for offices, clinics and studios. Lift and dock checks, IT equipment care, restart planning. Crew rates from $75/30 min.',
   }],
   ['cheap-removalists-adelaide/index.html', {
     title: 'Cheap Removalists Adelaide | Cut Moving Time | ZQ Removals',
@@ -2909,7 +2909,6 @@ export function renderHead(page, content) {
   }
 
   if (page.layout !== 'redirect') {
-    tags.push('<link rel="preconnect" href="https://api.web3forms.com" crossorigin />');
     tags.push('<link rel="dns-prefetch" href="https://www.googletagmanager.com" />');
     tags.push('<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />');
     tags.push('<link rel="preload" href="/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin />');
@@ -3790,7 +3789,10 @@ function minifyCss(css) {
 async function purgeStylesheet(css, htmlDocuments, siteScript) {
   const content = [
     ...htmlDocuments.map((raw) => ({ raw, extension: 'html' })),
-    { raw: siteScript, extension: 'js' },
+    // Page-context classes are static body attributes, not JS-created state. Keeping every
+    // route name from shared selectors retains suburb/service CSS on the homepage.
+    // Actual route classes remain discoverable in each bundle's complete HTML documents.
+    { raw: siteScript.replace(/\bpage-[a-z0-9-]+\b/g, ''), extension: 'js' },
   ];
   const [result] = await new PurgeCSS().purge({
     content,
@@ -6790,84 +6792,6 @@ function escapeAttribute(value = '') {
   return escapeHtml(value).replaceAll('"', '&quot;');
 }
 
-function renderTrackingHeadScripts() {
-  const gaId = getBuildEnvValue('VITE_GA_MEASUREMENT_ID') || getBuildEnvValue('GA_MEASUREMENT_ID');
-  const gtmId = getBuildEnvValue('VITE_GTM_ID') || getBuildEnvValue('GTM_ID');
-  const metaPixelId = getBuildEnvValue('VITE_META_PIXEL_ID') || getBuildEnvValue('META_PIXEL_ID');
-
-  const config = {
-    gaMeasurementId: gaId,
-    gtmId,
-    metaPixelId,
-  };
-
-  let html = `
-<script>
-window.__analyticsConfig = ${JSON.stringify(config)};
-</script>`;
-
-  if (gaId) {
-    html += `
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-window.gtag = gtag;
-window.__loadGtag = function(){
-  if (window.__gtagLoaded) return;
-  window.__gtagLoaded = true;
-  var script = document.createElement('script');
-  script.async = true;
-  script.src = 'https://www.googletagmanager.com/gtag/js?id=${gaId}';
-  document.head.appendChild(script);
-  gtag('js', new Date());
-  gtag('config', '${gaId}');
-};
-if ('requestIdleCallback' in window) {
-  requestIdleCallback(window.__loadGtag, { timeout: 3500 });
-} else {
-  window.addEventListener('load', function(){ setTimeout(window.__loadGtag, 1200); }, { once: true });
-}
-</script>`;
-  }
-
-  if (gtmId) {
-    html += `
-<script>
-window.dataLayer = window.dataLayer || [];
-window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-</script>
-<script async src="https://www.googletagmanager.com/gtm.js?id=${gtmId}"></script>`;
-  }
-
-  if (metaPixelId) {
-    html += `
-<script>
-!function(f,b,e,v,n,t,s){
-if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)
-}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','${metaPixelId}');
-fbq('track','PageView');
-</script>`;
-  }
-
-  return html;
-}
-
-function renderTrackingBodyTop() {
-  const gtmId = getBuildEnvValue('VITE_GTM_ID');
-  if (!gtmId) return "";
-  return `
-<noscript>
-<iframe src="https://www.googletagmanager.com/ns.html?id=${gtmId}"
-height="0" width="0" style="display:none;visibility:hidden"></iframe>
-</noscript>`;
-}
-
 export function renderBodyTop(page, content) {
   return renderVisibleBreadcrumbs(page, content);
 }
@@ -6956,6 +6880,7 @@ async function pathExists(target) {
 async function copyStaticAssets() {
   const fileAssets = [
     'analytics.mjs',
+    'consent-manager.mjs',
     'brand-logo.png',
     'brand-logo-64.webp',
     'brand-logo-256.webp',

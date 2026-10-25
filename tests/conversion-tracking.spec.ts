@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import axe from 'axe-core';
 
 test.beforeEach(async ({ page }) => {
   // No analytics hits, CAPTCHA requests or real enquiries leave the test browser.
@@ -27,6 +28,10 @@ async function events(page: any) {
   return page.evaluate(() => JSON.parse(sessionStorage.getItem('qa_events') || '[]'));
 }
 
+async function acceptAll(page: any) {
+  await page.getByRole('button', { name: 'Accept all' }).click();
+}
+
 async function fillForm(page: any, formIndex = 0) {
   await page.locator('form[data-quote-form="quote"]').nth(formIndex).evaluate((form: HTMLFormElement) => {
     for (const field of Array.from(form.elements) as HTMLInputElement[]) {
@@ -51,13 +56,14 @@ for (const [path, formIndex] of [['/', 0], ['/contact-us/', 0], ['/removalists-s
   // to /thank-you/ (which stays open) instead of racing the redirect.
   test(`accepted quote fires one private event on the thank-you page: ${path} form ${formIndex}`, async ({ page }) => {
     let requests = 0;
-    await page.route('https://api.web3forms.com/submit', async route => {
+    await page.route('**/api/quote/', async route => {
       requests++;
       await new Promise(resolve => setTimeout(resolve, 100));
-      // Provider references need not be UUIDs; the Ads transaction contract is UUIDv4.
-      await route.fulfill({ json: { success: true, lead_id: 'provider-reference-12345' } });
+      // Echo the accepted server receipt for the exact request.
+      await route.fulfill({ json: { success: true, submission_status: 'accepted', submission_id: route.request().postDataJSON().submission_id } });
     });
     await page.goto(path);
+    await acceptAll(page);
     await fillForm(page, formIndex);
     await page.locator('form[data-quote-form="quote"]').nth(formIndex).evaluate((form: HTMLFormElement) => {
       form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
@@ -83,16 +89,20 @@ for (const [path, formIndex] of [['/', 0], ['/contact-us/', 0], ['/removalists-s
     expect(JSON.stringify(recorded)).not.toMatch(/qa@example|0400000000|QA fixture/);
     await page.reload();
     expect(await events(page)).toEqual(recorded);
+    await page.goto("/contact-us/");
+    await page.goto("/thank-you/");
+    expect(await events(page)).toEqual(recorded);
   });
 }
 
-for (const scenario of ['invalid', 'network', 'server', 'rejected', 'empty', 'malformed', 'missing-success', 'truthy-success']) {
+for (const scenario of ['invalid', 'network', 'server', 'rejected', 'empty', 'malformed', 'missing-success', 'truthy-success', 'timeout', 'spam', 'invalid-id', 'missing-id']) {
   test(`no conversion for ${scenario}`, async ({ page }) => {
     let requests = 0;
-    await page.route('https://api.web3forms.com/submit', async route => {
+    await page.route('**/api/quote/', async route => {
       requests++;
-      if (scenario === 'network') return route.abort();
-      return route.fulfill({ status: scenario === 'server' ? 500 : 200,
+      if (scenario === 'network' || scenario === 'timeout') return route.abort(scenario === 'timeout' ? 'timedout' : 'failed');
+      if (scenario === 'invalid-id' || scenario === 'missing-id') return route.fulfill({json:{success:true,submission_status:'accepted',...(scenario === 'invalid-id' ? {submission_id:'invalid'} : {})}});
+      return route.fulfill({ status: scenario === 'server' ? 500 : scenario === 'spam' ? 403 : 200,
         contentType: 'application/json', body: scenario === 'empty' ? '' : scenario === 'malformed' ? '{oops' :
           JSON.stringify(scenario === 'missing-success' ? {} : { success: scenario === 'truthy-success' ? 'true' : scenario === 'server' }) });
     });
@@ -128,13 +138,20 @@ test('a stale or malformed hand-off never establishes a lead', async ({ page }) 
 
 test('one GTM loader, consent defaults, delegated contacts and history navigation', async ({ page }) => {
   await page.goto('/contact-us/');
-  expect(await page.locator('script[src*="googletagmanager.com/gtm.js"]').count()).toBe(1);
+  expect(await page.locator('script[src*="googletagmanager.com/gtm.js"]').count()).toBe(0);
   expect(await page.locator('script[src*="gtag/js?id=AW-"]').count()).toBe(0);
   expect(await events(page)).toHaveLength(0);
   const consent = await page.evaluate(() => Array.from(window.dataLayer![0] as any));
   expect(consent).toEqual(['consent', 'default', {
     ad_storage: 'denied', analytics_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
   }]);
+  await page.locator('a[href="tel:+61433819989"]').first().evaluate((anchor: HTMLAnchorElement) => {
+    anchor.addEventListener('click', event => event.preventDefault());
+    anchor.click();
+  });
+  expect(await events(page)).toHaveLength(0);
+  await acceptAll(page);
+  expect(await page.locator('script[src*="googletagmanager.com/gtm.js"]').count()).toBe(1);
   await page.locator('a[href="tel:+61433819989"]').first().evaluate((anchor: HTMLAnchorElement) => {
     anchor.addEventListener('click', event => event.preventDefault());
     anchor.click();
@@ -156,13 +173,54 @@ test('one GTM loader, consent defaults, delegated contacts and history navigatio
   expect(JSON.stringify(recorded)).not.toContain('private@example.com');
 });
 
-test('queued consent choices are preserved', async ({ page }) => {
-  await page.addInitScript(() => {
-    window.dataLayer!.push(['consent', 'update', { analytics_storage: 'granted', ad_storage: 'denied' }]);
-  });
+test('consent choices persist, support partial grants and can be revoked', async ({ page }) => {
   await page.goto('/contact-us/');
-  const entries = await page.evaluate(() => window.dataLayer!.filter(entry => entry[0] === 'consent').map(entry => Array.from(entry)));
-  expect(entries).toEqual([['consent', 'update', { analytics_storage: 'granted', ad_storage: 'denied' }]]);
+  await page.getByRole('button', { name: 'Set preferences' }).click();
+  await page.locator('[data-consent-analytics]').check();
+  await page.getByRole('button', { name: 'Save preferences' }).click();
+  let updates = await page.evaluate(() => window.dataLayer!.filter(entry => entry[0] === 'consent').map(entry => Array.from(entry)));
+  expect(updates.at(-1)).toEqual(['consent', 'update', {
+    ad_storage: 'denied', analytics_storage: 'granted', ad_user_data: 'denied', ad_personalization: 'denied',
+  }]);
+  expect(await page.locator('script[src*="googletagmanager.com/gtm.js"]').count()).toBe(1);
+  await page.reload();
+  await expect(page.locator('[data-consent-banner]')).toBeHidden();
+  expect(await page.evaluate(() => (window as any).__zqConsentChoice?.analytics)).toBe(true);
+  await expect(page.getByRole('button', { name: 'Privacy choices' })).toBeVisible();
+  await page.getByRole('button', { name: 'Privacy choices' }).click();
+  await page.locator('[data-consent-analytics]').uncheck();
+  await page.getByRole('button', { name: 'Save preferences' }).click();
+  updates = await page.evaluate(() => window.dataLayer!.filter(entry => entry[0] === 'consent').map(entry => Array.from(entry)));
+  expect(updates.at(-1)).toEqual(['consent', 'update', {
+    ad_storage: 'denied', analytics_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+  }]);
+  expect(await page.evaluate(() => sessionStorage.getItem('zq_attribution_v7'))).toBeNull();
+});
+
+test('reject optional keeps all tag loaders blocked and stores the choice', async ({ page }) => {
+  await page.goto('/contact-us/');
+  await page.getByRole('button', { name: 'Reject optional' }).click();
+  expect(await page.locator('script[src*="googletagmanager.com/gtm.js"]').count()).toBe(0);
+  expect(await page.locator('script[src*="connect.facebook.net"]').count()).toBe(0);
+  await page.reload();
+  await expect(page.locator('[data-consent-banner]')).toBeHidden();
+  expect(await page.evaluate(() => (window as any).__zqConsentChoice?.advertising)).toBe(false);
+});
+
+test('consent choices are keyboard reachable and pass serious/critical axe checks', async ({ page }) => {
+  await page.goto('/contact-us/');
+  await expect(page.getByRole('region', { name: 'Privacy preferences' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Accept all' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Accept all' })).toBeFocused();
+  await page.keyboard.press('Tab');
+  await expect(page.getByRole('button', { name: 'Reject optional' })).toBeFocused();
+  await page.addScriptTag({ content: axe.source });
+  const violations = await page.evaluate(async () => {
+    const container = document.querySelector('[data-consent-banner]');
+    const results = await (window as any).axe.run(container, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'] } });
+    return results.violations.filter((item: any) => ['critical', 'serious'].includes(item.impact));
+  });
+  expect(violations).toEqual([]);
 });
 
 test('direct thank-you visits never establish a lead', async ({ page }) => {
@@ -171,4 +229,55 @@ test('direct thank-you visits never establish a lead', async ({ page }) => {
   expect(await events(page)).toEqual([]);
   await page.reload();
   expect(await events(page)).toEqual([]);
+});
+
+test('ambiguous response retry across reload keeps one logical receipt', async ({ page }) => {
+  const ids: string[] = [];
+  await page.route('**/api/quote/', async route => {
+    ids.push(route.request().postDataJSON().submission_id);
+    if (ids.length === 1) return route.abort('timedout');
+    return route.fulfill({ json: { success: true, submission_status: 'accepted', submission_id: ids[0] } });
+  });
+  await page.goto('/contact-us/');
+  await acceptAll(page);
+  await fillForm(page);
+  await page.locator('form[data-quote-form="quote"]').first().evaluate((form: HTMLFormElement) => form.dispatchEvent(new Event('submit', { bubbles:true, cancelable:true })));
+  await expect(page.locator('[data-form-feedback]').first()).toContainText('Could not send');
+  expect(await events(page)).toHaveLength(0);
+  await page.reload();
+  await fillForm(page);
+  await page.locator('form[data-quote-form="quote"]').first().evaluate((form: HTMLFormElement) => form.dispatchEvent(new Event('submit', { bubbles:true, cancelable:true })));
+  await page.waitForURL('**/thank-you/');
+  expect(ids).toHaveLength(2);
+  expect(ids[1]).toBe(ids[0]);
+  await expect.poll(async () => (await events(page)).filter((entry: any) => entry.event === 'zq_quote_submitted').length).toBe(1);
+});
+
+test('explicit server-confirmed rejection allows a corrected request with a new ID',async({page})=>{
+  const ids:string[]=[];
+  await page.route('**/api/quote/',async route=>{
+    ids.push(route.request().postDataJSON().submission_id);
+    return ids.length===1?route.fulfill({status:502,json:{success:false,status:'rejected'}}):route.fulfill({json:{success:true,submission_status:'accepted',submission_id:ids[1]}});
+  });
+  await page.goto('/contact-us/');await acceptAll(page);await fillForm(page);
+  const submit=()=>page.locator('form[data-quote-form="quote"]').first().evaluate((f:HTMLFormElement)=>f.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true})));
+  await submit();await expect(page.locator('[data-form-feedback]').first()).toContainText('was rejected');
+  expect(await events(page)).toHaveLength(0);await submit();await page.waitForURL('**/thank-you/');
+  expect(ids[1]).not.toBe(ids[0]);
+  await expect.poll(async()=>(await events(page)).filter((e:any)=>e.event==='zq_quote_submitted').length).toBe(1);
+});
+
+test('CMP late-choice hook captures grants and clears revoked attribution',async({page})=>{
+  await page.goto('/?gclid=fixture-click&gbraid=fixture-gbraid&wbraid=fixture-wbraid&utm_campaign=fixture');
+  expect(await page.evaluate(()=>sessionStorage.getItem('zq_attribution_v7'))).toBeNull();
+  await page.getByRole('button', { name: 'Accept all' }).click();
+  const attribution=await page.evaluate(()=>JSON.parse(sessionStorage.getItem('zq_attribution_v7')||'{}'));
+  expect(attribution.gbraid).toBe('fixture-gbraid');expect(attribution.wbraid).toBe('fixture-wbraid');
+  await page.getByRole('button', { name: 'Privacy choices' }).click();
+  await page.locator('[data-consent-analytics]').uncheck();
+  await page.locator('[data-consent-advertising]').uncheck();
+  await page.getByRole('button', { name: 'Save preferences' }).click();
+  expect(await page.evaluate(()=>sessionStorage.getItem('zq_attribution_v7'))).toBeNull();
+  await expect(page.locator('input[name="gclid"]').first()).toHaveValue('');
+  expect(await events(page)).toHaveLength(0);
 });

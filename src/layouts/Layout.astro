@@ -40,25 +40,27 @@ const trackingConfigStr = JSON.stringify(
 <!doctype html>
 <html lang="en-AU" data-theme="zqtheme">
   <head>
-    <!-- Fail closed until an existing CMP supplies a consent update. Never replace queued decisions. -->
+    <!-- Consent defaults are established before any optional tracking code. -->
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
-      if (!window.dataLayer.some(function(entry) { return entry && entry[0] === 'consent'; })) {
-        window.dataLayer.push((function() { return arguments; })('consent', 'default', {
-          ad_storage: 'denied', analytics_storage: 'denied',
-          ad_user_data: 'denied', ad_personalization: 'denied'
-        }));
-      }
+      var saved;
+      try {
+        var match = document.cookie.match(/(?:^|; )zq_consent_v1=([^;]+)/);
+        if (match) {
+          var value = JSON.parse(decodeURIComponent(match[1]));
+          if (value && value.version === 1 && Number.isFinite(value.updatedAt) &&
+              Date.now() - value.updatedAt >= 0 && Date.now() - value.updatedAt < 15552000000 &&
+              typeof value.analytics === 'boolean' && typeof value.advertising === 'boolean') saved = value;
+        }
+      } catch (_) {}
+      window.__zqConsentChoice = saved;
+      window.dataLayer.push((function() { return arguments; })('consent', 'default', {
+        ad_storage: saved && saved.advertising ? 'granted' : 'denied',
+        analytics_storage: saved && saved.analytics ? 'granted' : 'denied',
+        ad_user_data: saved && saved.advertising ? 'granted' : 'denied',
+        ad_personalization: saved && saved.advertising ? 'granted' : 'denied'
+      }));
     </script>
-    <!-- Google Tag Manager -->
-    <script is:inline>
-      (function(w,d,s,l,i){if(w.__zqGtmLoaded)return;w.__zqGtmLoaded=true;w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-WJGKPXFL');
-    </script>
-    <!-- End Google Tag Manager -->
 
     {layout === 'bare' && (
       <>
@@ -82,8 +84,6 @@ const trackingConfigStr = JSON.stringify(
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         window.gtag = gtag;
-        gtag('js', new Date());
-        gtag('config', '${gaId}');
         window.__loadGtag = function(){
           if (window.__gtagLoaded) return;
           var existing = Array.from(document.scripts).some(function(script) {
@@ -99,43 +99,15 @@ const trackingConfigStr = JSON.stringify(
           script.async = true;
           script.src = 'https://www.googletagmanager.com/gtag/js?id=${gaId}';
           document.head.appendChild(script);
+          gtag('js', new Date());
+          gtag('config', '${gaId}');
         };
-        // GTM processes the queued config and loads its destination. Keep a fallback
-        // for blocked or unavailable containers without injecting a second GA loader.
-        if (${Boolean(gtmId)}) {
-          setTimeout(window.__loadGtag, 3500);
-        } else {
-          window.__loadGtag();
-        }
       `} />
     )}
 
-    {metaPixelId && (
-      <script is:inline set:html={`
-        !function(f,b,e,v,n,t,s){
-        if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)
-        }(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init','${metaPixelId}');
-        fbq('track','PageView');
-      `} />
-    )}
   </head>
 
   <body class:list={pageBodyClasses}>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-WJGKPXFL"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden"
-    /></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
     {bodyTopHtml && <Fragment set:html={bodyTopHtml} />}
 
     {layout === 'standard' && (
@@ -143,6 +115,24 @@ const trackingConfigStr = JSON.stringify(
     )}
 
     <slot />
+
+    <section class="zq-consent" data-consent-banner aria-label="Privacy preferences" hidden>
+      <div class="zq-consent__content">
+        <h2>Privacy preferences</h2>
+        <p>We use optional analytics and advertising storage only with your permission. You can change your choice at any time. <a href="/privacy/">Read our privacy policy.</a></p>
+        <div class="zq-consent__preferences" data-consent-preferences hidden>
+          <label><input type="checkbox" data-consent-analytics /> Analytics</label>
+          <label><input type="checkbox" data-consent-advertising /> Advertising</label>
+        </div>
+        <div class="zq-consent__actions">
+          <button type="button" data-consent-accept>Accept all</button>
+          <button type="button" data-consent-reject>Reject optional</button>
+          <button type="button" data-consent-customize aria-expanded="false">Set preferences</button>
+          <button type="button" data-consent-save hidden>Save preferences</button>
+        </div>
+      </div>
+    </section>
+    <button class="zq-consent-manage" type="button" data-consent-manage hidden>Privacy choices</button>
 
     {layout === 'standard' && (
       <div class="sticky-mobile-cta" id="sticky-cta" role="region" aria-label="Quick contact actions">
@@ -156,6 +146,7 @@ const trackingConfigStr = JSON.stringify(
     )}
 
     {(layout === 'standard' || layout === 'bare') && (
+      <script type="module" src="/consent-manager.mjs"></script>
       <script type="module" src="/site.js"></script>
       <script type="module" src="/chat-widget.mjs"></script>
     )}
