@@ -11907,6 +11907,10 @@ body .site-header .nav-panel .nav-link-desc { color: #536571; }
 
 body.page-home .zqh .zqh-hero { position: relative; padding: 145px 0 70px; min-height: 900px; background: #071421; overflow: hidden; }
 body.page-home .zqh .zqh-hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg,rgba(7,20,33,.98) 0%,rgba(7,20,33,.86) 31%,rgba(7,20,33,.32) 65%,rgba(7,20,33,.18) 100%),url('/media/premium-template-hero.webp') center/cover; pointer-events: none; }
+/* Phones get a 960px render of the same photo (about 50KB instead of 205KB); the preload in build-site.mjs is split with the same breakpoint. */
+@media (max-width: 760px) {
+  body.page-home .zqh .zqh-hero::before { background: linear-gradient(90deg,rgba(7,20,33,.98) 0%,rgba(7,20,33,.86) 31%,rgba(7,20,33,.32) 65%,rgba(7,20,33,.18) 100%),url('/media/premium-template-hero-mobile.webp') center/cover; }
+}
 body.page-home .zqh .zqh-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg,rgba(7,20,33,.86),transparent 27%); pointer-events: none; }
 body.page-home .zqh .zqh-hero-grid { position: relative; z-index: 1; grid-template-columns: minmax(0,1.08fr) minmax(360px,.72fr); gap: 32px; min-height: 665px; }
 body.page-home .zqh .zqh-hero-copy { max-width: 700px; }

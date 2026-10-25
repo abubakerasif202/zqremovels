@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -241,6 +241,21 @@ test('homepage decorative hero image is prioritized for mobile LCP', () => {
   assert.match(heroPreload, /fetchpriority="high"/i);
   assert.match(heroPreload, /type="image\/webp"/i);
   assert.doesNotMatch(heroPreload, /loading="lazy"/i);
+});
+
+test('phones get a lighter hero image and the homepage skips the footer-only font preload', () => {
+  const homepage = readDist('index.html');
+  const mobilePreload = homepage.match(/<link[^>]+rel="preload"[^>]+href="\/media\/premium-template-hero-mobile\.webp"[^>]*>/i)?.[0] || '';
+  const desktopPreload = homepage.match(/<link[^>]+rel="preload"[^>]+href="\/media\/premium-template-hero\.webp"[^>]*>/i)?.[0] || '';
+  const stylesheet = readFileSync(path.join(root, 'premium-site.css'), 'utf8');
+
+  assert.match(mobilePreload, /media="\(max-width: 760px\)"/i);
+  assert.match(mobilePreload, /fetchpriority="high"/i);
+  assert.match(desktopPreload, /media="\(min-width: 761px\)"/i);
+  assert.match(stylesheet, /@media \(max-width: 760px\)\s*\{\s*body\.page-home \.zqh \.zqh-hero::before[^}]*premium-template-hero-mobile\.webp/);
+  assert.ok(statSync(path.join(distDir, 'media', 'premium-template-hero-mobile.webp')).size < 80 * 1024, 'mobile hero must stay under 80KB');
+  assert.doesNotMatch(homepage, /<link[^>]+rel="preload"[^>]+fraunces-latin\.woff2/i);
+  assert.match(readDist('office-removals-adelaide/index.html'), /<link[^>]+rel="preload"[^>]+fraunces-latin\.woff2/i);
 });
 
 function readDist(relativePath) {
