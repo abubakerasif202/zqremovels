@@ -198,7 +198,7 @@ const verifiedPricingMetadata = new Map([
   }],
   ['office-removals-adelaide/index.html', {
     title: 'Office Removalists Adelaide | Business Moves | ZQ Removals',
-    description: 'Office removalists in Adelaide for offices, clinics and studios. Plan lifts, IT equipment and restart order, then request a quote or call 0433 819 989.',
+    description: 'Office removalists in Adelaide for offices, clinics and studios. Lift and dock checks, IT equipment care, restart planning. Crew rates from $75/30 min.',
   }],
   ['cheap-removalists-adelaide/index.html', {
     title: 'Cheap Removalists Adelaide | Cut Moving Time | ZQ Removals',
