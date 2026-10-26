@@ -19,7 +19,7 @@ const decode = (value) => value
 
 const getMain = (html) => html.match(/<main[\s\S]*?<\/main>/)?.[0] || '';
 const getVisibleText = (html) => decode(getMain(html)
-  .replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, ' ')
+  .replace(/<script[\s\S]*?<\/script\s*>|<style[\s\S]*?<\/style\s*>/gi, ' ')
   .replace(/<[^>]+>/g, ' ')
   .replace(/\s+/g, ' '));
 
