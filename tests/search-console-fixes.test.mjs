@@ -983,8 +983,8 @@ test('homepage targets Adelaide removalists and keeps above-fold conversion cont
   assert.match(hero, /Your Adelaide removalists for local and interstate moves/i);
   assert.match(hero, /href="#quote-form"[^>]*>Get a Free Quote/i);
   assert.match(hero, /href="tel:\+61433819989"/);
-  assert.match(hero, /5\.0[\s\S]*from 85[\s\S]*Google reviews/i);
-  assert.match(hero, /aria-label="5\.0 from 85 Google reviews - Read ZQ Removals verified reviews"/i);
+  assert.match(hero, new RegExp(String.raw`${googleReviews.rating.toFixed(1)}[\s\S]*from ${googleReviews.reviewCount}[\s\S]*Google reviews`, 'i'));
+  assert.ok(hero.includes(`aria-label="${googleReviews.rating.toFixed(1)} from ${googleReviews.reviewCount} Google reviews - Read ZQ Removals verified reviews"`));
   assert.match(hero, /href="https:\/\/share\.google\/toaQ1pTUMpigxRuQM"/i);
   assert.doesNotMatch(hero, /guaranteed|fully insured/i);
   for (const href of [
