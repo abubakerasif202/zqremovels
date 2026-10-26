@@ -1,0 +1,49 @@
+name: Update Google reviews
+
+# Refreshes the Google rating and review count from the Places API and opens a pull request when they change.
+# Needs the repository secret GOOGLE_PLACES_API_KEY. Without it the script skips and the run stays green.
+
+on:
+  schedule:
+    - cron: '0 20 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Refresh review data
+        env:
+          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+        run: node scripts/update-google-reviews.mjs
+
+      - name: Open a pull request if the data changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- site-src/data/google-reviews.json; then
+            echo "No change in review data."
+            exit 0
+          fi
+          branch="chore/google-reviews-$(date -u +%Y%m%d)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add site-src/data/google-reviews.json
+          git commit -m "chore(reviews): refresh Google rating and review count"
+          git push origin "$branch"
+          gh pr create --base main --head "$branch" \
+            --title "chore(reviews): refresh Google rating and review count" \
+            --body "Automated refresh from the Google Places API. Review the numbers in site-src/data/google-reviews.json, then merge to publish."
