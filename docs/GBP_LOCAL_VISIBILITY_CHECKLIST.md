@@ -37,3 +37,11 @@ Starting point (from the public listing, to re-verify in the account): about 85 
 - [ ] In Business Profile Performance, record calls, direction requests and website clicks weekly.
 - [ ] Tag GBP website and booking links with UTM parameters so GA4 separates them.
 - [ ] Confirm the apex-to-www behaviour in the Vercel domain settings (see the release report).
+
+## 6. Live review count (Google Places API)
+- The site reads its rating and review count from `site-src/data/google-reviews.json` (place ID `ChIJocgGurytsGoRvmRYf8Vyz0s`, public listing "ZQ Removals Adelaide", Andrews Farm). Verified through the Places API on 27 Oct 2026: rating 5.0, 94 reviews.
+- `scripts/update-google-reviews.mjs` refreshes that file. Run it locally with `GOOGLE_PLACES_API_KEY` set or `--key-file <path>` (use `--dry-run` first). It refuses a drop of more than 10% and skips quietly without a key.
+- `.github/workflows/update-google-reviews.yml` runs weekly and opens a pull request when the numbers change. To switch it on, add the key as the repository secret `GOOGLE_PLACES_API_KEY` (Settings, Secrets and variables, Actions). PRs opened with the default token do not start the other workflows, so run the checks or merge deliberately.
+- Restrict the key in Google Cloud: API restriction to "Places API (New)" only, and keep it out of the repo (`*.env` is git-ignored). The key file used on 27 Oct had its value printed into a Claude Code session; rotate it after setting up the secret.
+- Check the Google Maps Platform terms for showing Places data (attribution and caching limits). The weekly refresh keeps stored values well inside typical cache windows.
+- The public listing shows a street address. The site deliberately publishes only the locality (Andrews Farm SA 5114); keep it that way unless the owner wants the street address public. The listing name is "ZQ Removals Adelaide" while the site uses "ZQ Removals"; confirm which is intended and keep Business Profile, site and schema consistent.

@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+
 const googleProfileUrl = 'https://share.google/toaQ1pTUMpigxRuQM';
 
 export const businessIdentity = {
@@ -38,13 +40,31 @@ export const businessIdentity = {
   defaultLogoPath: '/brand-logo.webp',
 };
 
+// Rating and review count come from google-reviews.json, which scripts/update-google-reviews.mjs refreshes from the
+// Google Places API. The fallback below is used only if that file is missing or invalid.
+const googleReviewsFallback = { rating: 5.0, reviewCount: 94 };
+
+function readGoogleReviewsData() {
+  try {
+    const data = JSON.parse(readFileSync(new URL('./google-reviews.json', import.meta.url), 'utf8'));
+    const rating = Number(data.rating);
+    const reviewCount = Number(data.reviewCount);
+    if (rating >= 1 && rating <= 5 && Number.isInteger(reviewCount) && reviewCount > 0) {
+      return { rating, reviewCount, fetchedAt: String(data.fetchedAt || ''), source: String(data.source || '') };
+    }
+  } catch {
+    // Fall through to the fallback values.
+  }
+  return { ...googleReviewsFallback, fetchedAt: '', source: 'fallback' };
+}
+
+const googleReviewsData = readGoogleReviewsData();
+
 export const googleReviews = {
-  rating: 5.0,
-  reviewCount: 93,
+  rating: googleReviewsData.rating,
+  reviewCount: googleReviewsData.reviewCount,
   profileUrl: googleProfileUrl,
-  // Owner-reported. Update regularly, or connect this to an approved Google API before presenting it as live data.
-  // The rating is carried over from the 2026-10-02 owner screenshot and was not re-confirmed on 2026-10-27.
-  lastVerifiedSource: 'owner-reported review count of 93 on 2026-10-27',
+  lastVerifiedSource: `${googleReviewsData.source} ${googleReviewsData.fetchedAt}`.trim(),
 };
 
 export const googleReviewCards = [
