@@ -175,14 +175,12 @@ test('office links from suburb pages do not grow beyond the current baseline', (
     const html = readFileSync(file, 'utf8');
     if (isIndexable(html) && hasLink(html, '/office-removals-adelaide/')) linking.push(entry);
   }
-  // Baseline measured when this test was written. The shared "Related services" block in
-  // scripts/build-site.mjs is what adds these links; this guard stops it spreading further.
+  // Retain the broad ceiling as a guard alongside the intent-specific assertion below.
   assert.ok(linking.length <= 40, `office page is linked from ${linking.length} suburb pages`);
 });
 
-// The requested target is fewer than 10 suburb pages. It currently fails because the shared
-// generator block links the office page from every suburb page, so it is tracked as a todo.
-test('office page appears in fewer than 10 suburb pages', { todo: 'shared Related services block in scripts/build-site.mjs links the office page from every suburb page' }, () => {
+// Only suburb profiles with a commercial moving angle should feed the office service.
+test('office page appears in fewer than 10 suburb pages', () => {
   let count = 0;
   for (const entry of readdirSync(distDir)) {
     if (!entry.startsWith('removalists-') || HUB_OUTPUTS.has(entry)) continue;

@@ -550,6 +550,7 @@ export function getSuburbLinkProfile(slug) {
     suburb: suburb.suburb,
     region: suburb.region,
     clusterKey,
+    hasOffice: Boolean(suburb.intents?.hasOffice),
     peers: getSuburbPeerLinks(slug, clusterKey, template.nearby, 4),
     support: getClusterSupportProfile(clusterKey),
   };
@@ -862,7 +863,7 @@ const suburbData = [
   ['ferryden-park', 'Ferryden Park', 'Ferryden Park', 'west-north', 'mixed-access housing'],
   ['angle-park', 'Angle Park', 'Angle Park', 'west-north', 'corridor and industrial links'],
   ['adelaide-parklands', 'Adelaide Parklands', 'Adelaide Parklands', 'CBD fringe', 'parklands and city access'],
-  ['medindie', 'Medindie', 'Medindie', 'north-adelaide', 'premium homes and estate planning'],
+  ['medindie', 'Medindie', 'Medindie', 'north-adelaide', 'larger homes and downsizing moves'],
   ['walkerville', 'Walkerville', 'Walkerville', 'north-adelaide', 'house and villa moves'],
   ['north-park', 'North Park', 'North Park', 'inner north', 'compact residential streets'],
   ['clearview', 'Clearview', 'Clearview', 'northern', 'family-home access'],
@@ -2613,6 +2614,10 @@ function getSuburbCtaTheme(clusterKey) {
   return actions[normalizeClusterKey(clusterKey)] || 'Get suburb-specific quote';
 }
 
+function sentenceCase(text = '') {
+  return text ? `${text.charAt(0).toUpperCase()}${text.slice(1)}` : text;
+}
+
 function buildSuburbTraits(logisticsLabel, clusterKey) {
   const haystack = `${normalizeClusterKey(clusterKey)} ${logisticsLabel}`.toLowerCase();
   const traits = [];
@@ -2635,7 +2640,7 @@ function buildSuburbTraits(logisticsLabel, clusterKey) {
 function buildSuburbHighlights({ suburb, logisticsLabel, clusterKey, nearby }) {
   const traits = buildSuburbTraits(logisticsLabel, clusterKey);
   const highlights = [
-    `${toTitle(logisticsLabel)} scoped before quoting`,
+    `${sentenceCase(logisticsLabel)} scoped before quoting`,
     `${nearby.slice(0, 2).map((item) => item.suburb).join(' and ')} links for route comparison`,
   ];
 
@@ -2683,7 +2688,7 @@ function buildSuburbSummaryCards({ suburb, logisticsLabel, supportProfile, trait
         points: [
           'Local and Adelaide-wide routes scoped from one brief',
           'Inventory, access, and timing reviewed before scheduling',
-          'Premium handling without a long sales loop',
+          'One brief covers the whole move',
         ],
       },
       {
@@ -2710,11 +2715,11 @@ function buildSuburbSummaryCards({ suburb, logisticsLabel, supportProfile, trait
   return [
     {
       title: `Local service summary for ${suburb}`,
-      copy: `${suburb} jobs can flow into house removals, apartment work, packing, or handoff. The job is scoped around ${logisticsLabel} and the property type.`,
+      copy: `${suburb} jobs can flow into house removals, apartment work, packing, or handoff. The job is scoped around the property type and ${logisticsLabel}.`,
       points: [
         'Local and Adelaide-wide routes scoped from one brief',
         'Inventory, access, and timing reviewed before scheduling',
-        'Premium handling without forcing a long sales loop',
+        'One brief covers the whole move',
       ],
     },
     {
@@ -2739,16 +2744,15 @@ function buildSuburbSummaryCards({ suburb, logisticsLabel, supportProfile, trait
 }
 
 function buildSuburbLogisticsCards({ suburb, logisticsLabel, clusterKey, nearby }) {
-  const clusterLabel = formatClusterLabel(clusterKey);
   const traits = buildSuburbTraits(logisticsLabel, clusterKey);
 
   return [
     {
-      title: `${clusterLabel} access checks`,
-      copy: `${suburb} sits in a ${clusterLabel.toLowerCase()} pattern where route timing, street position, carry path, and parking pressure can change the labour plan quickly.`,
+      title: `Access checks in ${suburb}`,
+      copy: `In ${suburb}, route timing, street position, carry path and parking can change how many people and how much time a move needs.`,
       points: [
         `Nearby route comparisons include ${nearby.slice(0, 2).map((item) => item.suburb).join(' and ')}`,
-        `${toTitle(logisticsLabel)} should be mentioned before the quote is approved`,
+        `Mention ${logisticsLabel} when you request the quote`,
         'Short local distance does not remove access-driven delays',
       ],
     },
@@ -4688,15 +4692,10 @@ function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel, inte
   const nearby = getSuburbPeerLinks(slug, normalizedClusterKey, template.nearby, 5);
   const seoOverride = suburbSeoOverrides[slug] || {};
 
-  // Phase 12: Title Variation System
-  const titleVariants = ['quote', 'local', 'experts', 'fast'];
-  const charCodeSum = suburb.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
-  const variant = titleVariants[charCodeSum % titleVariants.length];
-
-  const title = buildTitle(seoOverride.title || `${suburb} Removalists`, variant);
+  const title = buildTitle(seoOverride.title || `${suburb} Removalists`);
   const description = buildDescription(
     seoOverride.description
-      || `${suburb} removalists for ${logisticsLabel}. Plan access, inventory, timing, and a moving quote for your ${region} Adelaide move.`,
+      || `${suburb} removalists for ${logisticsLabel}. Share inventory, parking and access at both properties for a moving quote.`,
   );
   const support = getClusterSupportProfile(normalizedClusterKey);
   const pageImage = getGeneratedPageImage({
@@ -4770,8 +4769,9 @@ function makeGuidePage({ slug, title, topic, basePath = 'adelaide-moving-guides'
   const canonical = buildCanonical(`/${basePath}/${slug}/`);
   const intentProfile = seoV5GuideProfiles[slug] || zqGuideIntentProfiles[slug];
   const seoTitle = buildTitle(title, 'brand');
-  let descriptionText = `Expert Adelaide moving guide on ${topic}. Practical advice, planning tips, and local insights for a more organized relocation.`;
-  if (intentProfile) {
+  const topicContent = getGuideTopicContent(slug);
+  let descriptionText = topicContent?.description || `Expert Adelaide moving guide on ${topic}. Practical advice, planning tips, and local insights for a more organized relocation.`;
+  if (intentProfile && !topicContent?.description) {
     const mainSentence = `Adelaide guide for ${intentProfile.searchIntent}.`;
     const secondSentenceLong = `Use our checklist to plan access, timing, packing, and quote details before booking.`;
     const secondSentenceShort = `Plan access, timing, packing, and quotes before booking.`;
@@ -4988,7 +4988,7 @@ function getInterstateRouteProfile({ slug, destination, routeName, distance, hig
     seoTitle: `${routeName} ${configured.titleSuffix || (isRemovalistsRoute ? 'Removalists From Adelaide' : 'Removals')}`,
     description:
       configured.description ||
-      `${routeName} ${routeType} from Adelaide with route-specific planning, inventory review, packing notes, access checks, and destination handover timing.`,
+      `${routeName} ${routeType} with inventory review, packing notes, pickup access checks and destination handover planning before quoting.`,
     intro: baseIntro,
     destinationPlanning:
       configured.destinationPlanning ||
@@ -5397,7 +5397,7 @@ function buildSuburbLocalServiceCards({ slug, suburb, intents }) {
   return localCards;
 }
 
-function buildSuburbServiceCards({ suburb, region, supportProfile }) {
+function buildSuburbServiceCards({ suburb, supportProfile, intents = {} }) {
   const generalLinks = uniqueLinkItems([
     ...(supportProfile.services || []),
     { href: '/house-removals-adelaide/', label: 'house removals Adelaide' },
@@ -5405,14 +5405,22 @@ function buildSuburbServiceCards({ suburb, region, supportProfile }) {
     { href: '/office-removals-adelaide/', label: 'office removals Adelaide' },
     { href: '/packing-services-adelaide/', label: 'packing services Adelaide' },
     { href: '/interstate-removals-adelaide/', label: 'interstate removals Adelaide' },
-  ]);
+  ]).filter((item) => intents.hasOffice || normalizeInternalHref(item.href) !== '/office-removals-adelaide/');
+
+  const serviceDescriptions = {
+    '/house-removals-adelaide/': 'Plan the room inventory, garage items and unloading order for a full-home move.',
+    '/furniture-removalists-adelaide/': 'Share dimensions, fragile finishes and the access path for bulky furniture.',
+    '/office-removals-adelaide/': 'Coordinate workstations, equipment, building access and the order your business needs to restart.',
+    '/packing-services-adelaide/': 'Decide which rooms need packing help and identify delicate items before moving day.',
+    '/interstate-removals-adelaide/': 'Plan pickup, packing and delivery access at both ends of a longer route.',
+  };
 
   return generalLinks
     .slice(0, 5)
     .map((item, index) => ({
       eyebrow: index === 0 ? 'Related service' : 'Moving service',
       title: toTitle(item.label),
-      copy: `${item.label} stays relevant for ${suburb} because the move brief can still shift toward ${region.toLowerCase()} household work, packing, furniture handling, or a broader Adelaide route.`,
+      copy: serviceDescriptions[normalizeInternalHref(item.href)] || `Review service options and access requirements for your move from ${suburb}.`,
       href: item.href,
       cta: item.label,
     }));
@@ -5698,6 +5706,9 @@ const SUBURB_INBOUND_COPY = {
   ],
   'magill': [['kensington-gardens', 'Kensington Gardens adjoins Magill and covers family-home moves with garage and outdoor inventory.']],
   'linden-park': [['toorak-gardens', 'Toorak Gardens, to the north-west of Linden Park, covers premium homes and careful handling.']],
+  'walkerville': [['medindie', 'Medindie adjoins Walkerville to the west and covers larger-home moves, with long carries and outbuildings to list.']],
+  'prospect': [['medindie', 'Medindie is a neighbouring northern suburb, with larger homes where the carry path and outbuildings shape the quote.']],
+  'adelaide-cbd': [['medindie', 'Medindie lies north of the CBD, past North Adelaide and the Parklands, and covers larger-home moves.']],
 };
 
 function buildNeighbourItems(entries = []) {
@@ -5786,6 +5797,11 @@ const priorityCommercialProfiles = {
         'A 1-hour call-out/travel charge applies where applicable. It is one hour of the selected crew rate, which is $150 for 2 men and a truck or $178 for 3 men and a truck. Because it depends on where the job starts and finishes, confirm whether it applies when you ask for a quote so there is no surprise on the day.',
       ] },
       { type: 'html', module: 'pricing-callout-examples', eyebrow: 'Putting it together', heading: 'Hypothetical examples including call-out', intro: 'Time charge plus call-out/travel, with the assumptions shown.', html: rateCalloutExamplesHtml },
+      { type: 'text', module: 'pricing-compare-quotes', eyebrow: 'Removalist cost and quotes', heading: 'How to compare removal quotes in Adelaide', intro: 'A fair comparison starts with the same brief for every company.', paragraphs: [
+        'When you ask for removal quotes, give each company the same inventory, the same access notes for both addresses and the same moving date. Then compare the crew size, the hourly or half-hourly rate, how the call-out or travel charge is treated and what is excluded.',
+        'ZQ Removals publishes its rates so the first two are easy to check: $75 per 30 minutes for 2 men and a truck, and $89 per 30 minutes for 3 men and a truck. Ask any other removalist how a part-increment is counted and whether travel is charged, because those two terms change the total as much as the headline rate does.',
+        'If you are working to a budget, the quickest saving is less time on site: boxes packed and labelled, furniture dismantled in advance and a short, clear carry from the truck to the door. The cheap removalists page covers those steps.',
+      ] },
       { type: 'text', module: 'move-planning', eyebrow: 'What changes the total', heading: 'What changes the time on site', intro: 'The rate is fixed. The time on site is the variable.', paragraphs: [
         'These are time-based rates, not a fixed total for every move. Volume, stairs, lifts, parking, carry distance and packing change the time, and a prepared inventory with clear access shortens the job.',
         'The moving cost guide explains each factor in detail and what to tell the removalist, so you can brief every company the same way.',
@@ -5796,6 +5812,8 @@ const priorityCommercialProfiles = {
       { question: 'How is time billed?', answer: 'Time is charged per 30 minutes at the rate of the crew you select: $75 for 2 men and a truck or $89 for 3 men and a truck. Confirm how a part-increment is counted when you request a quote.' },
       { question: 'Is the call-out or travel charge always added?', answer: 'It applies where applicable. It is one hour of the selected crew rate ($150 for 2 men and a truck, $178 for 3 men and a truck). Confirm with ZQ Removals whether it applies to your pickup and delivery addresses when you request a quote.' },
       { question: 'Can I get a fixed total from these rates?', answer: 'The published rates describe time-based charging. Request an estimate based on your inventory and access, then confirm the charging basis and inclusions with ZQ Removals.' },
+      { question: 'How much does a removalist cost in Adelaide?', answer: 'The cost is time-based. ZQ Removals charges $75 per 30 minutes for 2 men and a truck and $89 per 30 minutes for 3 men and a truck, plus a 1-hour call-out/travel charge where applicable. The total depends on how long your move takes.' },
+      { question: 'How do I compare removal quotes?', answer: 'Give each company the same inventory, access notes and date, then compare the crew size, rate, call-out or travel treatment, how part-increments are counted and what is excluded.' },
       { question: 'Do stairs or long carries change the cost?', answer: 'They can, because they add time on site. Include stairs, lift access and the distance from the truck to the door in your enquiry.' },
     ],
     links: [
@@ -5880,7 +5898,7 @@ function renderSuburbContent({ slug, suburb, region, intro, logisticsLabel, near
     cta: item.label,
   }));
   const localServiceCards = buildSuburbLocalServiceCards({ slug, suburb, intents });
-  const serviceCards = buildSuburbServiceCards({ suburb, region, supportProfile });
+  const serviceCards = buildSuburbServiceCards({ suburb, supportProfile, intents });
   const interstateCards = buildSuburbInterstateCards(suburb);
   const guideCards = [
     { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
@@ -5930,15 +5948,15 @@ ${renderAeoAnswerBlock({
   question: `What should I look for in ${suburb} removalists?`,
   answer: `Look for removalists in ${suburb} who review the ${logisticsLabel} constraints, property access, and inventory before quoting. Stairs, lifts and tight entries can affect the moving time and total cost.`,
   links: [
-    { href: '/moving-quotes-adelaide/', label: 'Moving quotes Adelaide' },
-    { href: '/fixed-price-removalists-adelaide/', label: 'Moving removalists' },
+    { href: '/removalists-adelaide-prices/', label: 'Crew rates and charges' },
+    { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'What affects moving time' },
     { href: '/contact-us/#quote-form', label: 'Request a quote' },
   ],
 })}
 ${renderTextSection({
   module: 'local-intro',
   eyebrow: 'Local suburb brief',
-  heading: `${cta} for ${suburb} without losing the route detail`,
+  heading: `Planning your move in ${suburb}`,
   intro: `Tell us what needs moving and how we can reach both properties.`,
   paragraphs: introParagraphs.slice(0, 1),
 })}
@@ -5964,7 +5982,7 @@ ${renderTextSection({
       intro: `${suburb} needs its own move plan because parking, apartments, houses, and timing pressure change staffing.`,
   paragraphs: [
     `Parking in ${suburb} should be treated as an access variable. Driveways, kerbside stopping, loading zones, shared frontage, visitor bays, and longer carries can all change timing, so those notes belong in the quote request.`,
-    `Apartment and townhouse moves usually need service lifts, stairs, corridor, and loading-area notes, while house moves depend more on volume, garage stock, outdoor items, and room order. Traffic can shift with school periods, shopping strips, commute windows, and coastal or corridor demand.`,
+    `Apartment and townhouse moves usually need service lifts, stairs, corridor, and loading-area notes, while house moves depend more on volume, garage stock, outdoor items, and room order. Traffic can shift with school periods, shopping strips and commute windows.`,
   ],
 })}
 ${renderHyperlocalAuthoritySection({ slug, suburb })}
@@ -6051,7 +6069,7 @@ function renderGuideContent({ slug, title, topic, canonical, image }) {
   const visibleTitle = cleanVisibleTitle(title);
   const support = getGuideSupportProfile(slug);
   const profile = guideLinkProfiles[slug] || guideLinkProfiles['moving-checklist-adelaide'];
-  const intentProfile = seoV5GuideProfiles[slug] || null;
+  const intentProfile = getSeoV5IntentProfile(slug);
   const topicContent = getGuideTopicContent(slug);
   const extras = {
     'storage planning': 'Include storage unit access, staging order, and whether the load needs a short-term stop before final delivery.',
@@ -6181,7 +6199,7 @@ ${renderFaqSectionBlock({
   id: 'guide-faq',
   module: 'guide-faq',
   eyebrow: 'Guide FAQ',
-  heading: `Questions people ask about ${topic} in Adelaide`,
+  heading: 'Questions about planning your move',
   intro: '',
   items: faqItems,
 })}
