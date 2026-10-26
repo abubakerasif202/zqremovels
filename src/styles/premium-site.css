@@ -12079,3 +12079,12 @@ body .footer-shell.footer-shell .footer-brand-panel .btn.btn-primary { backgroun
   .zq-consent { inset-inline: 10px; bottom: max(10px, env(safe-area-inset-bottom)); padding: 16px; }
   .zq-consent__actions button { flex: 1 1 42%; }
 }
+
+/* Readable long-form copy in generated text sections (guides, hubs, services):
+   separate consecutive paragraphs and cap line length on wide screens. */
+section[data-generated-module] > .container > p {
+  max-width: 72ch;
+}
+section[data-generated-module] > .container > p + p {
+  margin-top: 1em;
+}

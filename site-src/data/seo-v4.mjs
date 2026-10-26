@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import nodePath from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { zqGuideIntentProfiles, zqGuidePages } from './zq-blog-guides.mjs';
+import { getGuideTopicContent } from './guide-topic-content.mjs';
 import { zqGuideLinkProfiles, zqServiceLinkProfiles } from './zq-internal-links.mjs';
 import {
   zqServiceAeoProfiles,
@@ -170,8 +171,8 @@ const localBusinessSchema = {
 };
 
 const interstateRouteData = [
-  ['adelaide-to-brisbane-removals', 'Brisbane', 'Adelaide to Brisbane', 'approx. 2,000km via Newell Hwy', 'A1'],
-  ['adelaide-to-canberra-removals', 'Canberra', 'Adelaide to Canberra', 'approx. 1,160km via Sturt Hwy', 'M23'],
+  ['adelaide-to-brisbane-removals', 'Brisbane', 'Adelaide to Brisbane', 'approx. 2,000km via Sturt Hwy and Newell Hwy', 'A20 / A39'],
+  ['adelaide-to-canberra-removals', 'Canberra', 'Adelaide to Canberra', 'approx. 1,160km via Sturt Hwy and Hume Hwy', 'A20 / M31'],
   ['adelaide-to-perth-removals', 'Perth', 'Adelaide to Perth', 'approx. 2,700km via Eyre Hwy', 'A1'],
   ['adelaide-to-sydney-removalists', 'Sydney NSW', 'Adelaide to Sydney', 'approx. 1,375km via Sturt Hwy and Hume Hwy', 'A20 / M31'],
   ['adelaide-to-melbourne-removalists', 'Melbourne VIC', 'Adelaide to Melbourne', 'approx. 730km via Western Hwy', 'A8'],
@@ -1846,7 +1847,7 @@ const commercialPages = [
     hero: 'Budget removalists should still protect the furniture, communicate clearly, and quote from a proper move brief rather than a vague low headline rate.',
     sections: [
       'Budget-conscious Adelaide moves work best when unnecessary uncertainty is removed. That means listing the main furniture, explaining access, noting stairs or lifts, and flagging anything heavy or fragile before the quote is approved.',
-      'This page focuses on practical ways to keep an hourly move efficient. The cheap removalists page remains the primary page for current ZQ rates and transactional lower-cost intent.',
+      'Most savings on an hourly move come from preparation: packed and labelled boxes, dismantled furniture, a clear path to the truck and parking arranged close to the door. Current ZQ rates are listed on the cheap removalists page.',
     ],
     faq: [
       { question: 'Are budget removalists lower quality?', answer: 'They should not be. A budget-friendly move should come from efficient scoping, not poor handling or unclear inclusions.' },
@@ -2662,14 +2663,14 @@ function buildSuburbIntroParagraphs({ suburb, intro, logisticsLabel, nearby, clu
     return [
       'Glenelg moves often need coastal access planning because beachside parking, apartment entries, and weekend traffic can slow the day.',
       `Quote requests should mention parking position, stairs or lifts, carry distance, and any timing pressure so the hourly estimate reflects the real workload in ${suburb}.`,
-      `Keep ${suburb} linked to the Adelaide hub, nearby routes like ${routeNote}, and the most useful services for ${clusterLabel} moves, including ${supportServices}.`,
+      `Moves often connect ${suburb} with nearby suburbs such as ${routeNote}. Related services include ${supportServices}.`,
     ];
   }
 
   return [
     `${intro} ${suburb} quotes work best when the route, access, and inventory are reviewed together rather than treated as a generic metro move.`,
     `For ${suburb}, that usually means clarifying ${logisticsLabel}, the property type, and any parking or carry-distance issues before the crew and likely time are estimated.`,
-    `This page keeps ${suburb} linked to nearby routes like ${routeNote} and to ${clusterLabel} service patterns that help the booking brief stay accurate.`,
+    `Moves often connect ${suburb} with nearby suburbs such as ${routeNote}. Related services include ${supportServices}.`,
   ];
 }
 
@@ -2678,7 +2679,7 @@ function buildSuburbSummaryCards({ suburb, logisticsLabel, supportProfile, trait
     return [
       {
         title: `Local service summary for ${suburb}`,
-        copy: `${suburb} jobs are scoped around ${logisticsLabel}, not a generic suburb template.`,
+        copy: `${suburb} jobs are scoped around ${logisticsLabel}.`,
         points: [
           'Local and Adelaide-wide routes scoped from one brief',
           'Inventory, access, and timing reviewed before scheduling',
@@ -2700,7 +2701,7 @@ function buildSuburbSummaryCards({ suburb, logisticsLabel, supportProfile, trait
         points: [
           'Apartment access stays tied to loading and timing',
           'Packing and furniture handling can be scoped together',
-          'Broader Adelaide links stay visible for comparison',
+          'Moves across Adelaide quoted in the same enquiry',
         ],
       },
     ];
@@ -2727,11 +2728,11 @@ function buildSuburbSummaryCards({ suburb, logisticsLabel, supportProfile, trait
     },
     {
       title: 'Best-fit service paths',
-      copy: `The related services for ${suburb} follow the local access pattern. That is why ${supportProfile.services.slice(0, 2).map((item) => item.label).join(' and ')} sit close to this brief.`,
+      copy: `Common services for ${suburb} moves include ${supportProfile.services.slice(0, 2).map((item) => item.label).join(' and ')}.`,
       points: [
         traits.includes('apartment') ? 'Apartment access stays tied to loading, lifts, and timing' : 'Residential access stays tied to property layout and carry path',
         traits.includes('storage') ? 'Storage staging can be added without breaking the route plan' : 'Packing and furniture handling can be scoped in the same job',
-        traits.includes('office') ? 'Mixed-use loads can still be handled under one operational brief' : 'Broader Adelaide links stay visible for comparison and quote support',
+        traits.includes('office') ? 'Mixed home and business items can be moved in one job' : 'Moves across Adelaide quoted in the same enquiry',
       ],
     },
   ];
@@ -2788,8 +2789,8 @@ function buildSuburbMoveTypeCards({ suburb, logisticsLabel, clusterKey }) {
     },
     {
       title: 'Broader Adelaide handoff',
-      copy: `${suburb} visitors should still be able to move naturally into Adelaide-wide service pages and quote paths once the local angle is clear.`,
-      points: ['Useful when suburb research turns into a service-led enquiry'],
+      copy: `Moves from ${suburb} to other parts of Adelaide, or interstate, can be quoted in the same enquiry.`,
+      points: ['Useful when the destination is outside the local area'],
     },
   ];
 
@@ -3410,22 +3411,20 @@ function renderSemrushQuoteSupport(page) {
 function renderGuideTocSection({ title, intentProfile = null }) {
   const visibleTitle = cleanVisibleTitle(title);
   const items = [
-    ['#guide-purpose', 'Why this planning topic matters'],
-    ['#guide-practical-planning', 'Practical checklist points'],
-    ['#guide-service-paths', 'Best-fit service pages'],
-    ['#guide-suburb-context', 'Adelaide suburb context'],
+    ['#guide-purpose', 'Overview'],
+    ['#guide-practical-planning', 'Practical checklist'],
+    ['#guide-service-paths', 'Related services'],
+    ['#guide-suburb-context', 'Local area notes'],
     ['#guide-faq', 'Common questions'],
-    ['#guide-quote-next-step', 'Quote next step'],
+    ['#guide-quote-next-step', 'Get a quote'],
   ];
 
   return `<section class="section section-soft" data-generated-module="guide-toc" data-seo-v5-toc="true">
   <div class="container">
     ${renderSectionHeading(
       'Guide contents',
-      `Plan your next step from ${visibleTitle}`,
-      intentProfile?.searchIntent
-        ? `Use this guide for ${intentProfile.searchIntent}, then move into the service, suburb, or quote path that matches the actual move.`
-        : 'Use this table of contents to move from planning question to moving brief.',
+      `In this guide`,
+      '',
     )}
     <nav aria-label="Guide contents">
       <ul class="trust-chips">
@@ -5001,7 +5000,7 @@ function getInterstateRouteProfile({ slug, destination, routeName, distance, hig
       'Business or mixed-inventory moves where desks, documents, monitors, stock, or storage stops must be separated from household items.',
     ],
     routePlanning: [
-      `The ${distance} route via ${highway} should be planned around realistic pickup, transit, and delivery windows.`,
+      `The ${routeLabel(distance, highway)} should be planned around realistic pickup, transit, and delivery windows.`,
       'Availability depends on crew schedule, route grouping, inventory volume, access conditions, and preferred dates.',
       'The quote should include pickup and delivery property types, parking notes, stairs, lifts, heavy items, fragile items, and packing scope.',
     ],
@@ -5085,7 +5084,7 @@ function buildInterstatePricingCards({ destination, distance, highway }) {
     },
     {
       title: 'Packing and handover notes',
-      copy: `For the ${distance} journey via ${highway}, wrapping, carton quality, labelling, and handover notes need to be discussed before the booking is confirmed.`,
+      copy: `For an ${routeLabel(distance, highway)}, wrapping, carton quality, labelling, and handover notes need to be discussed before the booking is confirmed.`,
       points: [
         'Furniture blankets and wrapping scope discussed',
         'Fragile and priority items labelled',
@@ -5095,22 +5094,29 @@ function buildInterstatePricingCards({ destination, distance, highway }) {
   ];
 }
 
+function routeLabel(distance = '', highway = '') {
+  const label = String(distance).replace(/^approx\.\s*/i, '').trim();
+  const prefix = /^approx\./i.test(String(distance)) ? 'approximately ' : '';
+  const [km, via] = label.split(/\s+via\s+/i);
+  return `${prefix}${km} drive${via ? ` via ${via}` : ''}${highway ? ` (${highway})` : ''}`;
+}
+
 function buildInterstateWindowCards({ destination, distance }) {
   return [
     {
-      title: 'Direct Pickup Window',
-      copy: 'We provide a specific window for your Adelaide pickup so you can finalize your house clean and key handovers with confidence.',
-      points: ['Morning or afternoon windows', 'Pre-arrival crew notifications', 'Organized loading sequence'],
+      title: 'Pickup timing',
+      copy: 'Agree the Adelaide pickup date and start time early so cleaning, key return and final meter readings can be planned around it.',
+      points: ['Pickup date confirmed in the quote', 'Access notes for the Adelaide address', 'Load order agreed before move day'],
     },
     {
-      title: 'Predictable Delivery',
-      copy: `Unlike depot-based services, our direct transit to ${destination} means you get a reliable delivery window tailored to the ${distance} route.`,
-      points: ['No depot storage delays', 'One crew from start to finish', 'Direct communication with the driver'],
+      title: 'Delivery window',
+      copy: `Ask for the expected delivery window to ${destination} when you request a quote, and confirm how and when you will be contacted before arrival.`,
+      points: ['Expected transit time confirmed in writing', 'Contact details for move day', 'Destination access notes supplied early'],
     },
     {
-      title: 'Travel Coordination',
-      copy: 'We help you plan your own travel to the destination so you arrive ready to meet the truck and begin your new setup.',
-      points: ['Key handover timing aligned', 'Settlement gap planning', 'Emergency contact protocols'],
+      title: 'Your own travel',
+      copy: 'Plan your own travel so someone is at the destination to receive the delivery and confirm where each room’s items should go.',
+      points: ['Key handover timing at the new address', 'Short-term accommodation if dates do not align', 'A contact person at the destination'],
     },
   ];
 }
@@ -5137,7 +5143,7 @@ function renderInterstateContent({ slug, destination, routeName, distance, highw
   const guideCards = support.guides.map((item, index) => ({
     eyebrow: index === 0 ? 'Interstate planning' : 'Route guide',
     title: toTitle(item.label),
-    copy: `Use this guide to prepare for your Adelaide to ${destination} relocation via the ${highway}.`,
+    copy: `Use this guide to prepare for your Adelaide to ${destination} relocation.`,
     href: item.href,
     cta: item.label,
   }));
@@ -5155,8 +5161,8 @@ ${renderPageHero({
   title: `${profile.seoTitle} with route-specific planning`,
   lead: profile.intro,
   supporting: [
-    `The ${distance} route via ${highway} should be scoped around inventory depth, access at both ends, and realistic delivery timing.`,
-    'This is an Adelaide-origin interstate removals page, not a claim of a destination office.',
+    `The ${routeLabel(distance, highway)} should be scoped around inventory volume, access at both ends, and realistic delivery timing.`,
+    `Pickup is from Adelaide, and access at the ${destination} delivery address is reviewed before the booking is confirmed.`,
   ],
   points: [
     'Interstate removals from Adelaide to the destination',
@@ -5208,7 +5214,7 @@ ${renderValueCardSection({
   module: 'interstate-pricing',
   eyebrow: 'Pricing factors',
   heading: `What affects your ${routeName} move quote`,
-  intro: `Interstate pricing depends on a transparent cubic-metre model combined with the specific access detail of your ${destination} route.`,
+  intro: `Interstate pricing depends on inventory volume, access at both ends and the delivery schedule for your ${destination} route.`,
   cards: pricingCards,
 })}
 ${renderValueCardSection({
@@ -6027,13 +6033,13 @@ ${renderFaqSectionBlock({
   module: 'suburb-faq',
   eyebrow: 'Local FAQ',
   heading: `Questions people ask before booking ${suburb} removalists`,
-  intro: `These answers stay aligned with the visible access and route themes on this page.`,
+  intro: '',
   items: faqItems.slice(0, 5),
 })}
 ${renderQuoteStrip({
   eyebrow: 'Ready to move',
   heading: `Send the ${suburb} route and we will scope it properly`,
-  copy: `Include the origin, destination, property type, and any access notes so the quote reflects the real move rather than a thin suburb estimate.`,
+  copy: `Include the origin, destination, property type and any access notes so the quote reflects your actual move.`,
   primaryCta: { href: '/contact-us/#quote-form', label: 'Get My Moving Quote' },
   secondaryCta: regionalHub,
   pageType: 'suburb',
@@ -6046,6 +6052,7 @@ function renderGuideContent({ slug, title, topic, canonical, image }) {
   const support = getGuideSupportProfile(slug);
   const profile = guideLinkProfiles[slug] || guideLinkProfiles['moving-checklist-adelaide'];
   const intentProfile = seoV5GuideProfiles[slug] || null;
+  const topicContent = getGuideTopicContent(slug);
   const extras = {
     'storage planning': 'Include storage unit access, staging order, and whether the load needs a short-term stop before final delivery.',
     'booking timing': 'Weekdays can be easier to book, while weekend demand usually needs a longer lead time.',
@@ -6066,40 +6073,39 @@ function renderGuideContent({ slug, title, topic, canonical, image }) {
   const serviceCards = serviceLinks.map((item, index) => ({
     eyebrow: index === 0 ? 'Service hub' : 'Moving service',
     title: toTitle(item.label),
-    copy: `Use this service hub when your ${topic} research is ready to turn into a specific move brief.`,
+    copy: `Service details, crew options and what to include when you request a quote.`,
     href: item.href,
     cta: item.label,
   }));
   const suburbCards = suburbLinks.map((item, index) => ({
     eyebrow: index === 0 ? 'Local route' : 'Suburb planning',
     title: toTitle(item.label),
-    copy: `This suburb page provides route-specific context for ${topic} within a local Adelaide corridor.`,
+    copy: `Local parking, access and property notes for moves in this part of Adelaide.`,
     href: item.href,
     cta: item.label,
   }));
   const guideCards = guideLinks.map((item, index) => ({
     eyebrow: index === 0 ? 'Next step' : 'Related planning',
     title: toTitle(item.label),
-    copy: `Review this related resource to sharpen another part of your move plan before you book.`,
+    copy: `Another practical guide for planning your move.`,
     href: item.href,
     cta: item.label,
   }));
-  const adviceCards = buildGuideAdviceCards(topic, slug);
-  const faqItems = buildGuideFaqItems({ title: visibleTitle, topic, slug });
+  const adviceCards = topicContent?.cards || buildGuideAdviceCards(topic, slug);
+  const faqItems = topicContent?.faq || buildGuideFaqItems({ title: visibleTitle, topic, slug });
 
   return `<main id="main-content" data-generated-page="guide-v5" data-seo-v5-intent-profile="${escapeAttribute(intentProfile?.primaryKeyword || topic)}">
 ${renderPageHero({
   eyebrow: 'Adelaide moving guide',
   title: visibleTitle,
-    lead: `This guide covers ${topic} for Adelaide customers who need a more useful brief before the quote is reviewed.`,
+    lead: topicContent?.lead || `Practical ${topic} advice for Adelaide moves, covering access, inventory, timing and what to include in a quote request.`,
   supporting: [
-    intentProfile?.uniqueAngle || extras[topic] || 'Use this page to tighten the move brief before requesting a quote.',
-    'Use the notes to choose the service, suburb, or quote path that matches the actual move.',
+    intentProfile?.uniqueAngle || extras[topic] || 'Use these notes to prepare before requesting a quote.',
   ],
   points: [
-    'Practical Adelaide planning notes without filler',
-    'Natural links into service pages, suburbs, and quote paths',
-    'Written to support real pre-booking questions',
+    'Practical steps for Adelaide homes and apartments',
+    'What to check before booking',
+    'What details to include in your quote request',
   ],
   primaryCta: { href: '/contact-us/#quote-form', label: 'Get My Moving Quote' },
   secondaryCta: { href: '/adelaide-moving-guides/', label: 'Back to moving guides' },
@@ -6114,32 +6120,31 @@ ${renderPageHero({
 ${renderGuideTocSection({ title: visibleTitle, intentProfile })}
 ${renderAeoAnswerBlock({
   module: 'guide-aeo-answer',
-  question: `How should you use this ${topic} guide?`,
-  answer: `Use this ${topic} guide to answer the planning question first, then turn the route, access, inventory, timing, and packing notes into an Adelaide moving enquiry.`,
+  question: topicContent ? `${visibleTitle}: the short answer` : `What matters most for ${topic}?`,
+  answer: topicContent?.lead || `Access, inventory, timing and packing scope have the biggest effect on how a move is planned and priced. Note them before requesting a quote.`,
   links: [
     { href: '/contact-us/#quote-form', label: 'Request a quote' },
     { href: '/moving-quotes-adelaide/', label: 'Moving quotes Adelaide' },
     { href: '/fixed-price-removalists-adelaide/', label: 'Moving removalists Adelaide' },
   ],
   })}
-${topic ? `<p>For a price-aware move, compare the brief with <a href="/affordable-removalists-adelaide/">cheap removalists in Adelaide</a> before you send the final quote request.</p>` : ''}
 ${renderTextSection({
   id: 'guide-purpose',
   module: 'guide-purpose',
-  eyebrow: 'Guide purpose',
-  heading: `Why ${topic} matters before the moving date is locked`,
-  intro: `The best guide pages improve the move brief before the visitor reaches the contact form.`,
-  paragraphs: [
-    `People usually arrive on a guide like ${title} because one part of the move still feels uncertain. That could be pricing, access, packing, timing, or whether the suburb page alone is enough to shape the quote.`,
-    `A stronger answer does not stop at advice. It should push the visitor toward the most relevant Adelaide service page, local route page, or high-intent money page once the question is clear enough to act on.`,
+  eyebrow: 'Overview',
+  heading: topicContent?.heading || `Planning ${topic} in Adelaide`,
+  intro: topicContent?.intro || '',
+  paragraphs: topicContent?.paragraphs || [
+    `Most of the time on a move is decided before the truck arrives: how far items are carried, whether stairs or lifts are involved, how well everything is packed, and whether the date clashes with a busy period.`,
+    `Use the checklist below to work through ${topic}, then include those details in your quote request so the crew size and time can be planned accurately.`,
   ],
 })}
 ${renderValueCardSection({
   id: 'guide-practical-planning',
   module: 'guide-deep-advice',
   eyebrow: 'Practical planning',
-  heading: `How to apply this ${topic} advice before requesting a quote`,
-  intro: `Check these details before requesting your Adelaide moving quote.`,
+  heading: topicContent ? 'Practical checklist' : `What to check for ${topic}`,
+  intro: `Work through these points before moving day.`,
   cards: adviceCards,
   soft: true,
 })}
@@ -6148,18 +6153,18 @@ ${['cost guide', 'accurate moving quotes', 'affordable moving costs removals'].i
 ${renderRouteCardSection({
   id: 'guide-service-paths',
   module: 'guide-services',
-  eyebrow: 'Service Paths',
-  heading: `Recommended service hubs for ${topic}`,
-  intro: `Once you have reviewed the planning points for ${topic}, these service pages help you finalize the brief.`,
+  eyebrow: 'Related services',
+  heading: 'Services that fit this kind of move',
+  intro: 'Service pages with rates, inclusions and what to send for a quote.',
   cards: serviceCards,
 })}
 
 ${renderRouteCardSection({
   id: 'guide-suburb-context',
   module: 'guide-suburbs',
-  eyebrow: 'Local Context',
-  heading: `Applying ${topic} to your specific Adelaide route`,
-  intro: `Local access conditions can change how ${topic} is managed. Compare these suburb-specific entry points.`,
+  eyebrow: 'Local moves',
+  heading: 'Local area notes',
+  intro: 'Parking, access and property types differ across Adelaide. These pages cover local conditions.',
   cards: suburbCards,
   soft: true,
 })}
@@ -6168,8 +6173,8 @@ ${renderRouteCardSection({
   id: 'guide-related-resources',
   module: 'guide-related',
   eyebrow: 'Keep planning',
-  heading: 'Related guides that move the brief forward',
-  intro: 'These pages help when the route still needs one more step of planning before the enquiry is sent.',
+  heading: 'Related moving guides',
+  intro: 'More planning advice for Adelaide moves.',
   cards: guideCards,
 })}
 ${renderFaqSectionBlock({
@@ -6177,7 +6182,7 @@ ${renderFaqSectionBlock({
   module: 'guide-faq',
   eyebrow: 'Guide FAQ',
   heading: `Questions people ask about ${topic} in Adelaide`,
-  intro: `These answers connect the planning topic back to an Adelaide moving enquiry.`,
+  intro: '',
   items: faqItems,
 })}
 
@@ -6186,8 +6191,8 @@ ${renderGuideAuthorBox()}
 ${renderQuoteStrip({
   id: 'guide-quote-next-step',
   eyebrow: 'Plan confirmed',
-  heading: `Request your quote based on your ${topic} brief`,
-  copy: `Ready to book? Send your move details and we will provide a clear, moving quote.`,
+  heading: 'Ready to plan your move?',
+  copy: 'Send your addresses, moving date, main furniture and access notes for a quote.',
   primaryCta: { href: '/contact-us/#quote-form', label: 'Get My Moving Quote' },
   secondaryCta: { href: '/adelaide-moving-guides/', label: 'All Guides' },
   pageType: 'guide',
@@ -6539,7 +6544,7 @@ function renderCommercialContent(page, canonical, image) {
   const guideCards = guideLinks.map((item, index) => ({
     eyebrow: index === 0 ? 'Planning guide' : 'Planning guide',
     title: toTitle(item.label),
-    copy: `Use this guide when the enquiry still needs more planning detail before the service can be priced cleanly.`,
+    copy: `Practical planning advice before you book.`,
     href: item.href,
     cta: item.label,
   }));
@@ -6644,15 +6649,15 @@ ${renderRouteCardSection({
 ${renderRouteCardSection({
   module: 'commercial-guides',
   eyebrow: 'Planning guides',
-  heading: 'Guides that support conversion for this service',
-  intro: 'Guide links should answer the next planning question instead of repeating the same pitch.',
+  heading: 'Planning guides for this kind of move',
+  intro: 'Practical advice on access, packing, timing and costs.',
   cards: guideCards,
 })}
 ${renderRouteCardSection({
   module: 'commercial-siblings',
-  eyebrow: 'Related money pages',
-  heading: 'Other high-intent pages that fit nearby search patterns',
-  intro: 'These related pages help when the visitor is comparing urgency, access type, or route structure.',
+  eyebrow: 'Related services',
+  heading: 'Other moving services',
+  intro: 'Compare related options if your move involves different timing, access or inventory.',
   cards: siblingCards,
   soft: true,
 })}
@@ -6660,13 +6665,13 @@ ${renderFaqSectionBlock({
   module: 'commercial-faq',
   eyebrow: 'Questions',
   heading: `Questions people ask about ${visibleTitleLower}`,
-  intro: 'The answers stay aligned with the visible content and the actual service angle of this page.',
+  intro: '',
   items: page.faq,
 })}
 ${renderQuoteStrip({
   eyebrow: 'Ready to book',
   heading: `Send the details for ${visibleTitleLower}`,
-  copy: 'Include the addresses, property type, preferred timing, and access notes so the service can be scoped without filler or guesswork.',
+  copy: 'Include the addresses, property type, preferred timing and access notes so the quote reflects your actual move.',
   primaryCta: { href: '/contact-us/#quote-form', label: 'Get My Moving Quote' },
   secondaryCta: { href: '/removalists-adelaide/', label: 'Review Adelaide removals' },
   pageType: 'money',
