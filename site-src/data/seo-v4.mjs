@@ -5703,6 +5703,9 @@ const SUBURB_INBOUND_COPY = {
   ],
   'magill': [['kensington-gardens', 'Kensington Gardens adjoins Magill and covers family-home moves with garage and outdoor inventory.']],
   'linden-park': [['toorak-gardens', 'Toorak Gardens, to the north-west of Linden Park, covers premium homes and careful handling.']],
+  'walkerville': [['medindie', 'Medindie adjoins Walkerville to the west and covers larger-home moves, with long carries and outbuildings to list.']],
+  'prospect': [['medindie', 'Medindie is a neighbouring northern suburb, with larger homes where the carry path and outbuildings shape the quote.']],
+  'adelaide-cbd': [['medindie', 'Medindie lies north of the CBD, past North Adelaide and the Parklands, and covers larger-home moves.']],
 };
 
 function buildNeighbourItems(entries = []) {
@@ -5791,6 +5794,11 @@ const priorityCommercialProfiles = {
         'A 1-hour call-out/travel charge applies where applicable. It is one hour of the selected crew rate, which is $150 for 2 men and a truck or $178 for 3 men and a truck. Because it depends on where the job starts and finishes, confirm whether it applies when you ask for a quote so there is no surprise on the day.',
       ] },
       { type: 'html', module: 'pricing-callout-examples', eyebrow: 'Putting it together', heading: 'Hypothetical examples including call-out', intro: 'Time charge plus call-out/travel, with the assumptions shown.', html: rateCalloutExamplesHtml },
+      { type: 'text', module: 'pricing-compare-quotes', eyebrow: 'Removalist cost and quotes', heading: 'How to compare removal quotes in Adelaide', intro: 'A fair comparison starts with the same brief for every company.', paragraphs: [
+        'When you ask for removal quotes, give each company the same inventory, the same access notes for both addresses and the same moving date. Then compare the crew size, the hourly or half-hourly rate, how the call-out or travel charge is treated and what is excluded.',
+        'ZQ Removals publishes its rates so the first two are easy to check: $75 per 30 minutes for 2 men and a truck, and $89 per 30 minutes for 3 men and a truck. Ask any other removalist how a part-increment is counted and whether travel is charged, because those two terms change the total as much as the headline rate does.',
+        'If you are working to a budget, the quickest saving is less time on site: boxes packed and labelled, furniture dismantled in advance and a short, clear carry from the truck to the door. The cheap removalists page covers those steps.',
+      ] },
       { type: 'text', module: 'move-planning', eyebrow: 'What changes the total', heading: 'What changes the time on site', intro: 'The rate is fixed. The time on site is the variable.', paragraphs: [
         'These are time-based rates, not a fixed total for every move. Volume, stairs, lifts, parking, carry distance and packing change the time, and a prepared inventory with clear access shortens the job.',
         'The moving cost guide explains each factor in detail and what to tell the removalist, so you can brief every company the same way.',
@@ -5801,6 +5809,8 @@ const priorityCommercialProfiles = {
       { question: 'How is time billed?', answer: 'Time is charged per 30 minutes at the rate of the crew you select: $75 for 2 men and a truck or $89 for 3 men and a truck. Confirm how a part-increment is counted when you request a quote.' },
       { question: 'Is the call-out or travel charge always added?', answer: 'It applies where applicable. It is one hour of the selected crew rate ($150 for 2 men and a truck, $178 for 3 men and a truck). Confirm with ZQ Removals whether it applies to your pickup and delivery addresses when you request a quote.' },
       { question: 'Can I get a fixed total from these rates?', answer: 'The published rates describe time-based charging. Request an estimate based on your inventory and access, then confirm the charging basis and inclusions with ZQ Removals.' },
+      { question: 'How much does a removalist cost in Adelaide?', answer: 'The cost is time-based. ZQ Removals charges $75 per 30 minutes for 2 men and a truck and $89 per 30 minutes for 3 men and a truck, plus a 1-hour call-out/travel charge where applicable. The total depends on how long your move takes.' },
+      { question: 'How do I compare removal quotes?', answer: 'Give each company the same inventory, access notes and date, then compare the crew size, rate, call-out or travel treatment, how part-increments are counted and what is excluded.' },
       { question: 'Do stairs or long carries change the cost?', answer: 'They can, because they add time on site. Include stairs, lift access and the distance from the truck to the door in your enquiry.' },
     ],
     links: [
