@@ -243,7 +243,7 @@ test('homepage decorative hero image is prioritized for mobile LCP', () => {
   assert.doesNotMatch(heroPreload, /loading="lazy"/i);
 });
 
-test('phones get a lighter hero image and the homepage skips the footer-only font preload', () => {
+test('phones get a lighter hero image and the homepage skips the footer-only font preload and no page preloads Fraunces', () => {
   const homepage = readDist('index.html');
   const mobilePreload = homepage.match(/<link[^>]+rel="preload"[^>]+href="\/media\/premium-template-hero-mobile\.webp"[^>]*>/i)?.[0] || '';
   const desktopPreload = homepage.match(/<link[^>]+rel="preload"[^>]+href="\/media\/premium-template-hero\.webp"[^>]*>/i)?.[0] || '';
@@ -255,7 +255,11 @@ test('phones get a lighter hero image and the homepage skips the footer-only fon
   assert.match(stylesheet, /@media \(max-width: 760px\)\s*\{\s*body\.page-home \.zqh \.zqh-hero::before[^}]*premium-template-hero-mobile\.webp/);
   assert.ok(statSync(path.join(distDir, 'media', 'premium-template-hero-mobile.webp')).size < 80 * 1024, 'mobile hero must stay under 80KB');
   assert.doesNotMatch(homepage, /<link[^>]+rel="preload"[^>]+fraunces-latin\.woff2/i);
-  assert.match(readDist('office-removals-adelaide/index.html'), /<link[^>]+rel="preload"[^>]+fraunces-latin\.woff2/i);
+  // Measured: preloading Fraunces delayed first paint/LCP by 325-520 ms with no CLS benefit, so no page preloads it.
+  const office = readDist('office-removals-adelaide/index.html');
+  assert.doesNotMatch(office, /<link[^>]+rel="preload"[^>]+fraunces-latin\.woff2/i);
+  assert.match(office, /<link[^>]+rel="preload"[^>]+inter-latin\.woff2/i);
+  assert.match(readDist('premium-site.min.css'), /font-family:"?Fraunces"?;[^}]*font-display:swap/i);
 });
 
 function readDist(relativePath) {
