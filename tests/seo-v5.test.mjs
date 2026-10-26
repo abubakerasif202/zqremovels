@@ -4,6 +4,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
 import { getGeneratedPages, isVerifiedRedirectSource, mergePagesByOutput } from '../site-src/data/seo-v4.mjs';
+import { businessIdentity } from '../site-src/data/business.mjs';
 
 const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
@@ -127,7 +128,8 @@ test('seo v5 json-ld parses and only publishes supported business facts', () => 
           assert.ok(visibleFaq, `FAQ schema without visible FAQ in ${relativePath}`);
         }
         if (types.includes('MovingCompany')) {
-          assert.equal(node.name, 'ZQ Removals', `business name mismatch in ${relativePath}`);
+          assert.equal(node.name, businessIdentity.listingName, `business name mismatch in ${relativePath}`);
+          assert.equal(node.alternateName, businessIdentity.name, `business alternateName mismatch in ${relativePath}`);
           assert.equal(node.url, `${canonicalHost}/`, `business URL mismatch in ${relativePath}`);
           assert.ok(node.telephone, `business telephone missing in ${relativePath}`);
           assert.deepEqual(node.sameAs || [], [

@@ -131,3 +131,17 @@ test('the CLI exits 0 and changes nothing on a local run with --on-vercel --soft
   assert.ok(!result.stdout.includes(SECRET) && !result.stderr.includes(SECRET));
   assert.equal(readFileSync(DATA_FILE, 'utf8'), before);
 });
+
+test('the MovingCompany entity uses the Google listing name with the short brand as alternateName', async () => {
+  const { businessIdentity } = await import('../site-src/data/business.mjs');
+  assert.equal(businessIdentity.listingName, 'ZQ Removals Adelaide');
+  assert.equal(businessIdentity.name, 'ZQ Removals');
+  const html = readFileSync(new URL('../site-dist/index.html', import.meta.url), 'utf8');
+  const nodes = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+    .map((match) => JSON.parse(match[1]))
+    .flatMap((json) => (Array.isArray(json['@graph']) ? json['@graph'] : [json]));
+  const company = nodes.filter((node) => node['@type'] === 'MovingCompany');
+  assert.equal(company.length, 1);
+  assert.equal(company[0].name, 'ZQ Removals Adelaide');
+  assert.equal(company[0].alternateName, 'ZQ Removals');
+});
