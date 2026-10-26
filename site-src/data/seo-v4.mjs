@@ -6293,7 +6293,7 @@ function getCommercialAeoProfile(page) {
   };
 
   return profiles[page.slug] || {
-    question: `What should you confirm before booking ${cleanVisibleTitle(page.title)}?`,
+    question: 'What should you confirm before booking?',
     answer: 'Confirm the route, access, inventory, timing, packing needs, and any heavy or fragile items before accepting a removalist quote. A clearer brief makes the move easier to scope and safer to schedule.',
   };
 }
@@ -6607,12 +6607,12 @@ ${renderSemrushQuoteSupport(page)}
 ${renderValueCardSection({
   module: 'commercial-intent-profile',
   eyebrow: 'Compare the right scope',
-  heading: `Plan a ${intentProfile.primaryKeyword} quote around the real job`,
+  heading: 'Compare quotes on the same scope',
   intro: 'Use the route, access, inventory, timing, and packing details to compare quotes on the same scope.',
   cards: [
     {
       title: 'What to compare',
-      copy: `${intentProfile.uniqueAngle}.`,
+      copy: `${intentProfile.uniqueAngle.replace(/\.+$/, '')}.`,
     },
     {
       title: 'Prepare the quote brief',
@@ -6628,8 +6628,8 @@ ${renderValueCardSection({
 ${renderTextSection({
   module: 'commercial-intro',
   eyebrow: 'Move fit',
-  heading: `Plan ${visibleTitleLower}`,
-  intro: 'Check access, inventory and timing before requesting a quote.',
+  heading: 'What to check before you request a quote',
+  intro: 'Access, inventory and timing shape the crew and the time needed.',
   paragraphs: page.sections,
 })}
 ${Array.isArray(page.processSteps) && page.processSteps.length > 0 ? renderTimelineSection({
