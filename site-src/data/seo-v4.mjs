@@ -550,6 +550,7 @@ export function getSuburbLinkProfile(slug) {
     suburb: suburb.suburb,
     region: suburb.region,
     clusterKey,
+    hasOffice: Boolean(suburb.intents?.hasOffice),
     peers: getSuburbPeerLinks(slug, clusterKey, template.nearby, 4),
     support: getClusterSupportProfile(clusterKey),
   };
@@ -4688,15 +4689,10 @@ function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel, inte
   const nearby = getSuburbPeerLinks(slug, normalizedClusterKey, template.nearby, 5);
   const seoOverride = suburbSeoOverrides[slug] || {};
 
-  // Phase 12: Title Variation System
-  const titleVariants = ['quote', 'local', 'experts', 'fast'];
-  const charCodeSum = suburb.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
-  const variant = titleVariants[charCodeSum % titleVariants.length];
-
-  const title = buildTitle(seoOverride.title || `${suburb} Removalists`, variant);
+  const title = buildTitle(seoOverride.title || `${suburb} Removalists`);
   const description = buildDescription(
     seoOverride.description
-      || `${suburb} removalists for ${logisticsLabel}. Plan access, inventory, timing, and a moving quote for your ${region} Adelaide move.`,
+      || `${suburb} removalists for ${logisticsLabel}. Share inventory, parking and access at both properties for a moving quote.`,
   );
   const support = getClusterSupportProfile(normalizedClusterKey);
   const pageImage = getGeneratedPageImage({
@@ -4770,8 +4766,9 @@ function makeGuidePage({ slug, title, topic, basePath = 'adelaide-moving-guides'
   const canonical = buildCanonical(`/${basePath}/${slug}/`);
   const intentProfile = seoV5GuideProfiles[slug] || zqGuideIntentProfiles[slug];
   const seoTitle = buildTitle(title, 'brand');
-  let descriptionText = `Expert Adelaide moving guide on ${topic}. Practical advice, planning tips, and local insights for a more organized relocation.`;
-  if (intentProfile) {
+  const topicContent = getGuideTopicContent(slug);
+  let descriptionText = topicContent?.description || `Expert Adelaide moving guide on ${topic}. Practical advice, planning tips, and local insights for a more organized relocation.`;
+  if (intentProfile && !topicContent?.description) {
     const mainSentence = `Adelaide guide for ${intentProfile.searchIntent}.`;
     const secondSentenceLong = `Use our checklist to plan access, timing, packing, and quote details before booking.`;
     const secondSentenceShort = `Plan access, timing, packing, and quotes before booking.`;
@@ -4988,7 +4985,7 @@ function getInterstateRouteProfile({ slug, destination, routeName, distance, hig
     seoTitle: `${routeName} ${configured.titleSuffix || (isRemovalistsRoute ? 'Removalists From Adelaide' : 'Removals')}`,
     description:
       configured.description ||
-      `${routeName} ${routeType} from Adelaide with route-specific planning, inventory review, packing notes, access checks, and destination handover timing.`,
+      `${routeName} ${routeType} with inventory review, packing notes, pickup access checks and destination handover planning before quoting.`,
     intro: baseIntro,
     destinationPlanning:
       configured.destinationPlanning ||
@@ -5397,7 +5394,7 @@ function buildSuburbLocalServiceCards({ slug, suburb, intents }) {
   return localCards;
 }
 
-function buildSuburbServiceCards({ suburb, region, supportProfile }) {
+function buildSuburbServiceCards({ suburb, supportProfile, intents = {} }) {
   const generalLinks = uniqueLinkItems([
     ...(supportProfile.services || []),
     { href: '/house-removals-adelaide/', label: 'house removals Adelaide' },
@@ -5405,14 +5402,22 @@ function buildSuburbServiceCards({ suburb, region, supportProfile }) {
     { href: '/office-removals-adelaide/', label: 'office removals Adelaide' },
     { href: '/packing-services-adelaide/', label: 'packing services Adelaide' },
     { href: '/interstate-removals-adelaide/', label: 'interstate removals Adelaide' },
-  ]);
+  ]).filter((item) => intents.hasOffice || normalizeInternalHref(item.href) !== '/office-removals-adelaide/');
+
+  const serviceDescriptions = {
+    '/house-removals-adelaide/': 'Plan the room inventory, garage items and unloading order for a full-home move.',
+    '/furniture-removalists-adelaide/': 'Share dimensions, fragile finishes and the access path for bulky furniture.',
+    '/office-removals-adelaide/': 'Coordinate workstations, equipment, building access and the order your business needs to restart.',
+    '/packing-services-adelaide/': 'Decide which rooms need packing help and identify delicate items before moving day.',
+    '/interstate-removals-adelaide/': 'Plan pickup, packing and delivery access at both ends of a longer route.',
+  };
 
   return generalLinks
     .slice(0, 5)
     .map((item, index) => ({
       eyebrow: index === 0 ? 'Related service' : 'Moving service',
       title: toTitle(item.label),
-      copy: `${item.label} stays relevant for ${suburb} because the move brief can still shift toward ${region.toLowerCase()} household work, packing, furniture handling, or a broader Adelaide route.`,
+      copy: serviceDescriptions[normalizeInternalHref(item.href)] || `Review service options and access requirements for your move from ${suburb}.`,
       href: item.href,
       cta: item.label,
     }));
@@ -5880,7 +5885,7 @@ function renderSuburbContent({ slug, suburb, region, intro, logisticsLabel, near
     cta: item.label,
   }));
   const localServiceCards = buildSuburbLocalServiceCards({ slug, suburb, intents });
-  const serviceCards = buildSuburbServiceCards({ suburb, region, supportProfile });
+  const serviceCards = buildSuburbServiceCards({ suburb, supportProfile, intents });
   const interstateCards = buildSuburbInterstateCards(suburb);
   const guideCards = [
     { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
@@ -5930,15 +5935,15 @@ ${renderAeoAnswerBlock({
   question: `What should I look for in ${suburb} removalists?`,
   answer: `Look for removalists in ${suburb} who review the ${logisticsLabel} constraints, property access, and inventory before quoting. Stairs, lifts and tight entries can affect the moving time and total cost.`,
   links: [
-    { href: '/moving-quotes-adelaide/', label: 'Moving quotes Adelaide' },
-    { href: '/fixed-price-removalists-adelaide/', label: 'Moving removalists' },
+    { href: '/removalists-adelaide-prices/', label: 'Crew rates and charges' },
+    { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'What affects moving time' },
     { href: '/contact-us/#quote-form', label: 'Request a quote' },
   ],
 })}
 ${renderTextSection({
   module: 'local-intro',
   eyebrow: 'Local suburb brief',
-  heading: `${cta} for ${suburb} without losing the route detail`,
+  heading: `Planning your move in ${suburb}`,
   intro: `Tell us what needs moving and how we can reach both properties.`,
   paragraphs: introParagraphs.slice(0, 1),
 })}
@@ -6051,7 +6056,7 @@ function renderGuideContent({ slug, title, topic, canonical, image }) {
   const visibleTitle = cleanVisibleTitle(title);
   const support = getGuideSupportProfile(slug);
   const profile = guideLinkProfiles[slug] || guideLinkProfiles['moving-checklist-adelaide'];
-  const intentProfile = seoV5GuideProfiles[slug] || null;
+  const intentProfile = getSeoV5IntentProfile(slug);
   const topicContent = getGuideTopicContent(slug);
   const extras = {
     'storage planning': 'Include storage unit access, staging order, and whether the load needs a short-term stop before final delivery.',
@@ -6181,7 +6186,7 @@ ${renderFaqSectionBlock({
   id: 'guide-faq',
   module: 'guide-faq',
   eyebrow: 'Guide FAQ',
-  heading: `Questions people ask about ${topic} in Adelaide`,
+  heading: 'Questions about planning your move',
   intro: '',
   items: faqItems,
 })}

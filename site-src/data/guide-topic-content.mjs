@@ -6,6 +6,7 @@
 
 export const guideTopicContent = {
   'apartment-moving-tips-adelaide': {
+    description: 'Plan an Adelaide apartment move: book the service lift, check loading access, measure furniture and confirm building rules before moving day.',
     lead: 'Apartment moves are decided by the building as much as by the furniture: lift bookings, loading zones, corridor width and strata rules set the pace of the day.',
     heading: 'What makes an apartment move different',
     intro: 'Most delays in apartment moves come from access, not distance.',
@@ -61,6 +62,7 @@ export const guideTopicContent = {
   },
 
   'best-time-to-book-removalists-adelaide': {
+    description: 'When should you book Adelaide removalists? Plan around moving dates, lift reservations, settlement timing and crew availability before confirming.',
     lead: 'Removalist availability is uneven across the month and the year. Knowing when demand peaks helps you choose a booking date and lead time that work.',
     heading: 'When removalists get busy',
     intro: 'Demand follows leases, settlements and school calendars more than the weather.',
@@ -116,6 +118,7 @@ export const guideTopicContent = {
   },
 
   'how-to-prepare-furniture-for-moving': {
+    description: 'Prepare furniture for moving: measure doorways, empty drawers, label dismantled parts and plan wrapping. Get access and handling notes ready for a quote.',
     lead: 'Most furniture damage happens at corners, doorways and in the truck when items shift. Preparing furniture properly before the crew arrives prevents most of it.',
     heading: 'Preparing furniture before move day',
     intro: 'Empty it, dismantle what comes apart easily, and keep the hardware together.',
@@ -171,6 +174,7 @@ export const guideTopicContent = {
   },
 
   'moving-house-checklist-adelaide': {
+    description: 'Adelaide moving house checklist: organise your booking, utilities, packing, keys and access, then confirm the inventory and essentials for moving day.',
     lead: 'A moving house checklist works best when it is spread over several weeks, so that bookings, packing and address changes are done before the final days.',
     heading: 'A week-by-week moving checklist',
     intro: 'Work back from your moving date and tick off each stage.',
@@ -226,6 +230,7 @@ export const guideTopicContent = {
   },
 
   'how-to-choose-removalists-adelaide': {
+    description: 'Compare Adelaide removalists by written quote scope, crew rates, applicable charges, insurance documents and access planning before you book.',
     lead: 'Choosing a removalist is mostly about how clearly the quote is scoped and what is included, not just the headline hourly rate.',
     heading: 'What to compare between removalists',
     intro: 'Compare like for like: crew size, inclusions, minimums and how extra time is charged.',

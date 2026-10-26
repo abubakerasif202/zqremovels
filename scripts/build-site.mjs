@@ -4552,6 +4552,16 @@ function renderSeoV5IntentProfile(page) {
 </section>`;
 }
 
+function isRelatedServiceRelevant(page, href) {
+  if (normalizeInternalHref(href) !== '/office-removals-adelaide/') return true;
+  const slug = getSuburbSlugFromPage(page);
+  if (!slug || ['adelaide', 'adelaide-prices', 'northern-adelaide', 'southern-adelaide'].includes(slug)) return true;
+  // Generic link blocks must follow the same commercial intent as suburb cards.
+  // Unknown locations, including the Queens Park interstate enquiry page, do not
+  // acquire office targeting just because their output begins with removalists-.
+  return Boolean(getSuburbLinkProfile(slug)?.hasOffice);
+}
+
 function renderSeoV5InternalLinkHub(page) {
   const output = page.output || '';
   const coreMoneyOutputs = new Set([
@@ -4577,7 +4587,7 @@ function renderSeoV5InternalLinkHub(page) {
     ['/packing-services-adelaide/', 'Packing services', 'Fragile-item and room-by-room preparation before move day.'],
     ['/office-removals-adelaide/', 'Office removals', 'Commercial moves with downtime, dock, lift, and restart planning.'],
     ['/interstate-removals-adelaide/', 'Interstate removals', 'Long-distance routes from Adelaide with packing and handover detail.'],
-  ];
+  ].filter(([href]) => isRelatedServiceRelevant(page, href));
   const suburbs = [
     ['/removalists-adelaide-cbd/', 'Adelaide CBD', 'city access and lift windows'],
     ['/removalists-glenelg/', 'Glenelg', 'coastal parking and apartment access'],
@@ -5864,6 +5874,7 @@ function renderRelatedLinksSection(page) {
 
   const sectionId = `${page.output.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}-related-links`;
   const cards = profile.links
+    .filter(({ url }) => isRelatedServiceRelevant(page, url))
     .map(
       ({ eyebrow, title, copy, url, cta }) => `<article class="route-card reveal-on-scroll">
   <small>${escapeHtml(eyebrow)}</small>
