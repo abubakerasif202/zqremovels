@@ -3710,7 +3710,8 @@ function normalizeMovingCompanyNode(node, page) {
   const result = {
     ...rest,
     '@id': `${businessIdentity.siteUrl}/#movingcompany`,
-    name: businessIdentity.name,
+    name: businessIdentity.listingName,
+    alternateName: businessIdentity.name,
     url: `${businessIdentity.siteUrl}/`,
     telephone: businessIdentity.phone.display,
     email: businessIdentity.email,

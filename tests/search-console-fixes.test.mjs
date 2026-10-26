@@ -691,7 +691,9 @@ test('json-ld is valid, host-consistent, and uses only supported business facts'
       for (const node of flattenJsonLdNodes(jsonLd)) {
         const types = Array.isArray(node['@type']) ? node['@type'] : [node['@type']].filter(Boolean);
         if (types.includes('MovingCompany')) {
-          assert.equal(node.name, 'ZQ Removals', `MovingCompany name mismatch in ${relativePath}`);
+          // The entity carries the Google Business Profile name; the short brand is its alternate name.
+          assert.equal(node.name, businessIdentity.listingName, `MovingCompany name mismatch in ${relativePath}`);
+          assert.equal(node.alternateName, businessIdentity.name, `MovingCompany alternateName mismatch in ${relativePath}`);
           assert.equal(node.url, 'https://zqremovalsadelaide.com.au/', `MovingCompany URL mismatch in ${relativePath}`);
           assert.equal(normalizeTelephone(node.telephone), '0433819989', `MovingCompany telephone mismatch in ${relativePath}`);
           assert.deepEqual(
