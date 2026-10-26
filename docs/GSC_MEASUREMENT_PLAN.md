@@ -1,6 +1,8 @@
 # Search Console measurement plan (14-day and 30-day)
 
-Baseline: the 25 Oct 2026 export in `sc-domain_zqremovalsadelaide_com_au_20261025_182506/` (range 2026-07-25 to 2026-10-22, 41 clicks, 7,729 impressions, average position 37.2). The export folder is untracked on purpose; keep a copy outside the repo if it must be retained.
+Baseline: the 25 Oct 2026 export in `sc-domain_zqremovalsadelaide_com_au_20261025_182506/` (nominal range 2026-07-25 to 2026-10-22, 90 days). The export folder is untracked on purpose; keep a copy outside the repo if it must be retained.
+
+**Matched windows matter.** Search Console only has data from 2026-08-30, so the baseline holds 54 days of data, not 90: 41 clicks, 7,729 impressions, average position 37.2, which is 0.76 clicks/day and 143 impressions/day. Do not compare these raw totals with a 14-day or 30-day window. Use either the per-day rates, or the matched baseline taken from `daily.csv` (the last 14 days of the baseline, 9 to 22 Oct, are 11 clicks and 3,304 impressions). `scripts/gsc-compare-exports.mjs` prints both, and warns when the two windows differ in length. Page and query tables cannot be windowed (the export has no daily page data), so read those as per-day rates and treat positions as indicative.
 
 ## Repeatable process
 
@@ -16,21 +18,24 @@ Baseline: the 25 Oct 2026 export in `sc-domain_zqremovalsadelaide_com_au_2026102
    - Day 14 after the 27 Oct 2026 deploys: roughly 10 Nov 2026.
    - Day 30: roughly 26 Nov 2026.
 
-Targets (directional, not guarantees):
+Targets (directional, per day so that the window length does not matter; not guarantees):
 
-| Measure | Baseline | Day 14 | Day 30 |
+| Measure | Baseline (54 data days) | Day 14 | Day 30 |
 | --- | --- | --- | --- |
-| Non-branded clicks | 7 (from `queries.csv`) | >= 10 | >= 15 |
+| Non-branded clicks per day | 0.13 (7 clicks in `queries.csv`) | >= 0.26 (about 4 per 14 days) | >= 0.4 (about 12 per 30 days) |
+| Impressions per day | 143 (last 14 days: 236) | >= 236 | >= 300 |
 | Medindie page average position | 11.9 | <= 11 | <= 9 |
 | Hyde Park / Unley Park average position | 17.0 / 16.0 | <= 15 | <= 12 |
 | `removalists adelaide prices` query position | 21.9 | <= 20 | <= 16 |
 | Quote-form submissions (GA4 key event) | not measured here | record | record |
 
+The click targets are small because the baseline is small (7 non-branded clicks in 54 days). One or two extra clicks is noise, so read the position and impression columns first.
+
 ## Where each number comes from
 
 | Measure | Source | Status |
 | --- | --- | --- |
-| Clicks, impressions, positions, indexing state (79 URLs indexed) | 25 Oct 2026 Search Console export | Historical baseline, verified from files |
+| Clicks, impressions, positions, indexing state (79 URLs indexed), daily series (54 data days) | 25 Oct 2026 Search Console export | Historical baseline, verified from files |
 | Cannibalisation, striking-distance pages, queries per page | Computed from that export | Historical, derived |
 | Build, tests, SEO validation, Playwright, readability, local Lighthouse | Run in this repo | Directly verified (locally and in CI) |
 | Live page copy, canonical host, `www` -> apex 308 | `curl` against production | Directly verified at time of deploy |
