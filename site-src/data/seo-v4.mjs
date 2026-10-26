@@ -863,7 +863,7 @@ const suburbData = [
   ['ferryden-park', 'Ferryden Park', 'Ferryden Park', 'west-north', 'mixed-access housing'],
   ['angle-park', 'Angle Park', 'Angle Park', 'west-north', 'corridor and industrial links'],
   ['adelaide-parklands', 'Adelaide Parklands', 'Adelaide Parklands', 'CBD fringe', 'parklands and city access'],
-  ['medindie', 'Medindie', 'Medindie', 'north-adelaide', 'premium homes and estate planning'],
+  ['medindie', 'Medindie', 'Medindie', 'north-adelaide', 'larger homes and downsizing moves'],
   ['walkerville', 'Walkerville', 'Walkerville', 'north-adelaide', 'house and villa moves'],
   ['north-park', 'North Park', 'North Park', 'inner north', 'compact residential streets'],
   ['clearview', 'Clearview', 'Clearview', 'northern', 'family-home access'],
@@ -2614,6 +2614,10 @@ function getSuburbCtaTheme(clusterKey) {
   return actions[normalizeClusterKey(clusterKey)] || 'Get suburb-specific quote';
 }
 
+function sentenceCase(text = '') {
+  return text ? `${text.charAt(0).toUpperCase()}${text.slice(1)}` : text;
+}
+
 function buildSuburbTraits(logisticsLabel, clusterKey) {
   const haystack = `${normalizeClusterKey(clusterKey)} ${logisticsLabel}`.toLowerCase();
   const traits = [];
@@ -2636,7 +2640,7 @@ function buildSuburbTraits(logisticsLabel, clusterKey) {
 function buildSuburbHighlights({ suburb, logisticsLabel, clusterKey, nearby }) {
   const traits = buildSuburbTraits(logisticsLabel, clusterKey);
   const highlights = [
-    `${toTitle(logisticsLabel)} scoped before quoting`,
+    `${sentenceCase(logisticsLabel)} scoped before quoting`,
     `${nearby.slice(0, 2).map((item) => item.suburb).join(' and ')} links for route comparison`,
   ];
 
@@ -2684,7 +2688,7 @@ function buildSuburbSummaryCards({ suburb, logisticsLabel, supportProfile, trait
         points: [
           'Local and Adelaide-wide routes scoped from one brief',
           'Inventory, access, and timing reviewed before scheduling',
-          'Premium handling without a long sales loop',
+          'One brief covers the whole move',
         ],
       },
       {
@@ -2711,11 +2715,11 @@ function buildSuburbSummaryCards({ suburb, logisticsLabel, supportProfile, trait
   return [
     {
       title: `Local service summary for ${suburb}`,
-      copy: `${suburb} jobs can flow into house removals, apartment work, packing, or handoff. The job is scoped around ${logisticsLabel} and the property type.`,
+      copy: `${suburb} jobs can flow into house removals, apartment work, packing, or handoff. The job is scoped around the property type and ${logisticsLabel}.`,
       points: [
         'Local and Adelaide-wide routes scoped from one brief',
         'Inventory, access, and timing reviewed before scheduling',
-        'Premium handling without forcing a long sales loop',
+        'One brief covers the whole move',
       ],
     },
     {
@@ -2740,16 +2744,15 @@ function buildSuburbSummaryCards({ suburb, logisticsLabel, supportProfile, trait
 }
 
 function buildSuburbLogisticsCards({ suburb, logisticsLabel, clusterKey, nearby }) {
-  const clusterLabel = formatClusterLabel(clusterKey);
   const traits = buildSuburbTraits(logisticsLabel, clusterKey);
 
   return [
     {
-      title: `${clusterLabel} access checks`,
-      copy: `${suburb} sits in a ${clusterLabel.toLowerCase()} pattern where route timing, street position, carry path, and parking pressure can change the labour plan quickly.`,
+      title: `Access checks in ${suburb}`,
+      copy: `In ${suburb}, route timing, street position, carry path and parking can change how many people and how much time a move needs.`,
       points: [
         `Nearby route comparisons include ${nearby.slice(0, 2).map((item) => item.suburb).join(' and ')}`,
-        `${toTitle(logisticsLabel)} should be mentioned before the quote is approved`,
+        `Mention ${logisticsLabel} when you request the quote`,
         'Short local distance does not remove access-driven delays',
       ],
     },
@@ -5979,7 +5982,7 @@ ${renderTextSection({
       intro: `${suburb} needs its own move plan because parking, apartments, houses, and timing pressure change staffing.`,
   paragraphs: [
     `Parking in ${suburb} should be treated as an access variable. Driveways, kerbside stopping, loading zones, shared frontage, visitor bays, and longer carries can all change timing, so those notes belong in the quote request.`,
-    `Apartment and townhouse moves usually need service lifts, stairs, corridor, and loading-area notes, while house moves depend more on volume, garage stock, outdoor items, and room order. Traffic can shift with school periods, shopping strips, commute windows, and coastal or corridor demand.`,
+    `Apartment and townhouse moves usually need service lifts, stairs, corridor, and loading-area notes, while house moves depend more on volume, garage stock, outdoor items, and room order. Traffic can shift with school periods, shopping strips and commute windows.`,
   ],
 })}
 ${renderHyperlocalAuthoritySection({ slug, suburb })}

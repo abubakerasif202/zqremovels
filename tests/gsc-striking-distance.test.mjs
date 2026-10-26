@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -48,4 +48,32 @@ test('prices page FAQ schema includes the new questions exactly once', () => {
   const names = faqBlocks[0].mainEntity.map((item) => item.name);
   assert.equal(names.filter((name) => name === 'How much does a removalist cost in Adelaide?').length, 1);
   assert.equal(names.filter((name) => name === 'How do I compare removal quotes?').length, 1);
+});
+
+// Phrases produced by the shared suburb generator that read as template output rather than moving advice.
+const BANNED_TEMPLATE_PHRASES = [
+  /sits in an? [a-z -]+ pattern/i,
+  /coastal or corridor demand/i,
+  /should be mentioned before the quote is approved/i,
+  /Premium Homes And Estate Planning/,
+  /long sales loop/i,
+  /estate planning/i,
+];
+
+test('no suburb page carries awkward shared-template phrasing', () => {
+  const slugs = readdirSync(distDir).filter((name) => name.startsWith('removalists-') && existsSync(path.join(distDir, name, 'index.html')));
+  assert.ok(slugs.length > 40, 'expected the generated suburb pages to be present');
+
+  for (const slug of slugs) {
+    const main = getMain(readPage(slug));
+    for (const phrase of BANNED_TEMPLATE_PHRASES) {
+      assert.doesNotMatch(main, phrase, `${slug} contains template phrase ${phrase}`);
+    }
+  }
+});
+
+test('Medindie logistics copy names the suburb instead of a cluster label', () => {
+  const main = getMain(readPage('removalists-medindie'));
+  assert.match(main, /Access checks in Medindie/);
+  assert.match(main, /The job is scoped around the property type and larger homes and downsizing moves\./);
 });
