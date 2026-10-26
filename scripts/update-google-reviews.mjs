@@ -8,6 +8,10 @@ import { fileURLToPath } from 'node:url';
 //   GOOGLE_PLACES_API_KEY=... node scripts/update-google-reviews.mjs [--dry-run]
 //   node scripts/update-google-reviews.mjs --key-file "places api.env" [--dry-run]
 //
+// Flags used by the npm "prebuild" step on Vercel:
+//   --on-vercel  do nothing unless running inside a Vercel build (VERCEL=1), so local and CI builds never call the API
+//   --soft       never fail the build: API errors and refused updates are logged and the committed data is used
+//
 // The key is read from the environment (or a local, git-ignored key file) and is never printed or written.
 // Without a key the script exits 0 without changes, so scheduled runs stay green until the secret is configured.
 
@@ -56,6 +60,9 @@ async function readKey(argv, env) {
 
 export async function run({ argv = process.argv.slice(2), env = process.env, fetchImpl = fetch, now = () => new Date() } = {}) {
   const dryRun = argv.includes('--dry-run');
+  if (argv.includes('--on-vercel') && env.VERCEL !== '1') {
+    return { status: 'skipped', message: 'Not a Vercel build; leaving google-reviews.json unchanged.' };
+  }
   const apiKey = await readKey(argv, env);
   if (!apiKey) {
     return { status: 'skipped', message: 'No Places API key configured; leaving google-reviews.json unchanged.' };
@@ -74,12 +81,13 @@ export async function run({ argv = process.argv.slice(2), env = process.env, fet
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const soft = process.argv.includes('--soft');
   try {
     const result = await run();
     console.log(`${result.status}: ${result.message}`);
-    if (result.status === 'refused') process.exitCode = 1;
+    if (result.status === 'refused' && !soft) process.exitCode = 1;
   } catch (error) {
     console.error(`update-google-reviews failed: ${error.message}`);
-    process.exitCode = 1;
+    if (!soft) process.exitCode = 1;
   }
 }

@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { googleReviews } from '../site-src/data/business.mjs';
@@ -92,4 +93,41 @@ test('no committed file contains a Google API key', () => {
   for (const file of [DATA_FILE, new URL('../scripts/update-google-reviews.mjs', import.meta.url), new URL('../site-src/data/business.mjs', import.meta.url)]) {
     assert.doesNotMatch(readFileSync(file, 'utf8'), /AIza[0-9A-Za-z_-]{30,}/, `${file} must not contain an API key`);
   }
+});
+
+test('--on-vercel skips outside a Vercel build even when a key is present', async () => {
+  let requests = 0;
+  const result = await run({
+    argv: ['--on-vercel', '--dry-run'],
+    env: { GOOGLE_PLACES_API_KEY: SECRET },
+    fetchImpl: async () => { requests += 1; },
+  });
+  assert.equal(result.status, 'skipped');
+  assert.equal(requests, 0);
+});
+
+test('--on-vercel refreshes inside a Vercel build', async () => {
+  const current = JSON.parse(readFileSync(DATA_FILE, 'utf8'));
+  const result = await run({
+    argv: ['--on-vercel', '--dry-run'],
+    env: { VERCEL: '1', GOOGLE_PLACES_API_KEY: SECRET },
+    fetchImpl: okFetch({ rating: 5, userRatingCount: current.reviewCount + 2 }),
+  });
+  assert.equal(result.status, 'would-update');
+});
+
+test('the npm prebuild step is wired to the soft Vercel-only mode', () => {
+  const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
+  assert.equal(pkg.scripts.prebuild, 'node scripts/update-google-reviews.mjs --on-vercel --soft');
+});
+
+test('the CLI exits 0 and changes nothing on a local run with --on-vercel --soft', () => {
+  const before = readFileSync(DATA_FILE, 'utf8');
+  const env = { ...process.env, GOOGLE_PLACES_API_KEY: SECRET };
+  delete env.VERCEL;
+  const result = spawnSync(process.execPath, ['scripts/update-google-reviews.mjs', '--on-vercel', '--soft'], { env, encoding: 'utf8' });
+  assert.equal(result.status, 0);
+  assert.match(result.stdout, /skipped/);
+  assert.ok(!result.stdout.includes(SECRET) && !result.stderr.includes(SECRET));
+  assert.equal(readFileSync(DATA_FILE, 'utf8'), before);
 });
