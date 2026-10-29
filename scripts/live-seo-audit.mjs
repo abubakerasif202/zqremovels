@@ -41,6 +41,18 @@ async function sitemapUrls() {
 
 const attr = (tag, name) => (tag.match(new RegExp(`${name}\\s*=\\s*"([^"]*)"`, 'i')) || [])[1];
 
+// Visible text of an HTML fragment: keep only characters outside <...> (no regex sanitising).
+function textOf(fragment) {
+  let depth = 0;
+  let out = '';
+  for (const ch of fragment) {
+    if (ch === '<') depth += 1;
+    else if (ch === '>') depth = Math.max(0, depth - 1);
+    else if (depth === 0) out += ch;
+  }
+  return out.trim();
+}
+
 function analyse(html) {
   const metas = [...html.matchAll(/<meta\b[^>]*>/gi)].map((m) => m[0]);
   const links = [...html.matchAll(/<link\b[^>]*>/gi)].map((m) => m[0]);
@@ -48,7 +60,7 @@ function analyse(html) {
   const robots = metas.filter((m) => /name="robots"/i.test(m)).map((m) => attr(m, 'content'));
   const description = metas.filter((m) => /name="description"/i.test(m)).map((m) => attr(m, 'content'));
   const title = (html.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [])[1]?.trim();
-  const h1 = [...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/gi)].map((m) => m[1].replace(/<[^>]*>/g, '').replace(/[<>]/g, '').trim());
+  const h1 = [...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/gi)].map((m) => textOf(m[1]));
   const levels = [...html.matchAll(/<h([1-6])\b/gi)].map((m) => Number(m[1]));
   const skips = levels.filter((l, i) => i > 0 && l - levels[i - 1] > 1).length;
   const ld = [];
