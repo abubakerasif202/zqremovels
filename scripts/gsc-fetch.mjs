@@ -62,7 +62,8 @@ console.log(`Fetched Search Console data for ${site} from ${startDate} to ${endD
 console.log(`Saved outputs to ${outDir}`);
 
 async function loadClient() {
-  const client = JSON.parse(await readFile(path.join(root, 'secrets', 'gsc-oauth-client.json'), 'utf8'));
+  const clientPath = process.env.GSC_OAUTH_CLIENT_PATH || 'C:\\Users\\abuba\\gsc-private\\credentials.json';
+  const client = JSON.parse(await readFile(clientPath, 'utf8'));
   return client.installed || client.web || client;
 }
 
