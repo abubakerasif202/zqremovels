@@ -1,0 +1,2361 @@
+{
+ "generatedAt": "2026-10-29T13:59:19.735Z",
+ "origin": "https://zqremovalsadelaide.com.au",
+ "sitemapUrls": 79,
+ "childReport": [
+  {
+   "child": "https://zqremovalsadelaide.com.au/sitemap-pages.xml",
+   "status": 200,
+   "entries": 5
+  },
+  {
+   "child": "https://zqremovalsadelaide.com.au/sitemap-services.xml",
+   "status": 200,
+   "entries": 15
+  },
+  {
+   "child": "https://zqremovalsadelaide.com.au/sitemap-suburbs.xml",
+   "status": 200,
+   "entries": 48
+  },
+  {
+   "child": "https://zqremovalsadelaide.com.au/sitemap-guides.xml",
+   "status": 200,
+   "entries": 11
+  },
+  {
+   "child": "https://zqremovalsadelaide.com.au/sitemap-images.xml",
+   "status": 200,
+   "entries": 79
+  }
+ ],
+ "probes": {
+  "/": {
+   "status": 200,
+   "xRobots": null
+  },
+  "/robots.txt": {
+   "status": 200,
+   "xRobots": null
+  },
+  "/llms.txt": {
+   "status": 200,
+   "xRobots": null
+  },
+  "/sitemap.xml": {
+   "status": 200,
+   "xRobots": null
+  },
+  "/thank-you/": {
+   "status": 200,
+   "xRobots": null
+  },
+  "/404.html": {
+   "status": 200,
+   "xRobots": null
+  }
+ },
+ "botAccess": {
+  "Googlebot": 200,
+  "Bingbot": 200,
+  "OAI-SearchBot": 200,
+  "GPTBot": 200,
+  "PerplexityBot": 200,
+  "ChatGPT-User": 200,
+  "ClaudeBot": 200
+ },
+ "variants": {
+  "http://zqremovalsadelaide.com.au/": {
+   "status": 308,
+   "location": "https://zqremovalsadelaide.com.au/"
+  },
+  "https://www.zqremovalsadelaide.com.au/": {
+   "status": 307,
+   "location": "https://zqremovalsadelaide.com.au/"
+  },
+  "https://zqremovals.au/": {
+   "status": 301,
+   "location": "https://zqremovalsadelaide.com.au/"
+  },
+  "https://zqremovalsadelaide.com.au/house-removals-adelaide": {
+   "status": 308,
+   "location": "/house-removals-adelaide/"
+  },
+  "https://zqremovalsadelaide.com.au/index.html": {
+   "status": 308,
+   "location": "https://zqremovalsadelaide.com.au/"
+  }
+ },
+ "robotsTxt": "User-agent: *\nAllow: /\nSitemap: https://zqremovalsadelaide.com.au/sitemap.xml\nSitemap: https://zqremovalsadelaide.com.au/ai-sitemap.xml\n# AI crawler references:\n# https://zqremovalsadelaide.com.au/llms.txt\n# https://zqremovalsadelaide.com.au/llms-full.txt\n",
+ "issueCounts": {},
+ "issues": [],
+ "pages": [
+  {
+   "url": "https://zqremovalsadelaide.com.au/about/",
+   "status": 200,
+   "xRobots": null,
+   "title": "About ZQ Removals | Adelaide's Premium Relocation Experts",
+   "description": [
+    "About ZQ Removals: operational history, zero-damage focus, fleet capabilities, and how local and interstate quotes are scoped."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/about/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "About ZQ Removals"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "AboutPage",
+    "BreadcrumbList"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/contact-us/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Get a Moving Quote Adelaide | ZQ Removals",
+   "description": [
+    "Request a ZQ Removals quote for Adelaide house moves, furniture removals, office relocations, packing services, and interstate moves."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/contact-us/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Request a moving quote for Adelaide or interstate moves."
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ContactPage",
+    "BreadcrumbList",
+    "FAQPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Adelaide Removalists | Home &amp; Interstate Moves | ZQ Removals",
+   "description": [
+    "Adelaide removalists for houses, apartments, furniture and interstate moves. Published crew rates from $75 per 30 min. Call 0433 819 989 or request a quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Adelaide moves,planned properly."
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "WebPage",
+    "FAQPage",
+    "WebSite",
+    "Service",
+    "Service",
+    "Service",
+    "Service",
+    "Service"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/insurance-and-coverage/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Insurance &amp; Coverage | ZQ Removals",
+   "description": [
+    "Questions to ask about current insurance documentation, public liability and transit cover before booking an Adelaide move."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/insurance-and-coverage/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Insurance & Coverage"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "WebPage",
+    "MovingCompany",
+    "BreadcrumbList"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/adelaide-movers-and-packers/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Adelaide Movers and Packers | ZQ Removals",
+   "description": [
+    "Need movers and packers in Adelaide? ZQ Removals offers careful furniture protection, boxing, and moving support. Get a moving quote today."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/adelaide-movers-and-packers/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Adelaide Movers and Packers for Careful Moving Support"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "WebPage",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/adelaide-to-brisbane-removals/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Adelaide to Brisbane Removalists | Interstate Movers",
+   "description": [
+    "Adelaide to Brisbane removalists with route-based planning, packing support, and Brisbane delivery access reviewed before quoting."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/adelaide-to-brisbane-removals/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Adelaide to Brisbane Removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/adelaide-to-canberra-removals/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Adelaide to Canberra Removals | Direct Interstate Moving",
+   "description": [
+    "Adelaide to Canberra removals with inventory review, packing notes, pickup access checks and destination handover planning before quoting."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/adelaide-to-canberra-removals/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Adelaide to Canberra Removals with route-specific planning"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/adelaide-to-perth-removals/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Adelaide to Perth Removals | Direct Interstate Moving",
+   "description": [
+    "Adelaide to Perth removals with inventory review, packing notes, pickup access checks and destination handover planning before quoting."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/adelaide-to-perth-removals/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Adelaide to Perth Removals with route-specific planning"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/furniture-removalists-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Furniture Removalists Adelaide | Careful Movers | ZQ Removals",
+   "description": [
+    "Furniture removalists Adelaide for sofas, beds, antiques and fragile pieces. Careful handling, local suburb coverage and free moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/furniture-removalists-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Furniture Removalists Adelaide for Careful Furniture Moves"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "WebPage",
+    "BreadcrumbList",
+    "Service",
+    "FAQPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Interstate Removalists Adelaide | Long-Distance Movers",
+   "description": [
+    "Interstate removalists Adelaide for planned long-distance moves with route, access and inventory review before your tailored moving quote is prepared."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Interstate Removalists Adelaide With Clear Route Quotes"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "WebPage",
+    "BreadcrumbList",
+    "Service",
+    "FAQPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Office Removalists Adelaide | Business Moves | ZQ Removals",
+   "description": [
+    "Office removalists in Adelaide for offices, clinics and studios. Lift and dock checks, IT equipment care, restart planning. Crew rates from $75/30 min."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/office-removals-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Office Removalists Adelaide: Office, Clinic &amp; Studio Moves"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "WebPage",
+    "BreadcrumbList",
+    "Service",
+    "FAQPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Packing Services Adelaide | Professional Packing Help",
+   "description": [
+    "Professional packing services Adelaide for local and interstate moves. Fragile-item protection, full-home packing, and premium materials included."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/packing-services-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Packing Services Adelaide for Fragile and Full-Home Packing"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "WebPage",
+    "BreadcrumbList",
+    "Service",
+    "FAQPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/house-removals-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "House Removalists Adelaide | Local Home Moves | ZQ Removals",
+   "description": [
+    "House removalists Adelaide for family homes, apartments and townhouse moves. Careful local movers, clear moving quote and furniture protection."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/house-removals-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "House Removals Adelaide for Professional Home Moves"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "WebPage",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/adelaide-to-sydney-removalists/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Adelaide to Sydney Removalists | ZQ Removals",
+   "description": [
+    "Adelaide to Sydney removalists with pickup access, packing, route timing, and Sydney delivery notes reviewed before quoting."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/adelaide-to-sydney-removalists/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Adelaide to Sydney Removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/adelaide-to-melbourne-removalists/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Adelaide to Melbourne Removalists | ZQ Removals",
+   "description": [
+    "Adelaide to Melbourne removalists for interstate moves starting in Adelaide, with access, packing, timing, and Melbourne delivery notes scoped before booking."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/adelaide-to-melbourne-removalists/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Adelaide to Melbourne Removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/cheap-removalists-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Cheap Removalists Adelaide | Cut Moving Time | ZQ Removals",
+   "description": [
+    "Cheap or budget removalists in Adelaide? Cut moving time with prepared boxes, clear access and an inventory, and compare ZQ published rates before you book."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/cheap-removalists-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Cheap removalists Adelaide: cut your moving time"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/same-day-removalists-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Same Day Removalists Adelaide | Check Availability",
+   "description": [
+    "Need same-day removalists in Adelaide? Check current crew availability for urgent home, apartment and furniture moves after access and inventory review."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/same-day-removalists-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Same Day Removalists Adelaide"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Apartment Removalists Adelaide | Unit Movers | ZQ Removals",
+   "description": [
+    "Apartment removalists Adelaide for units, towers and townhouses. Plan stairs, lift bookings, loading access and inventory before requesting a quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Apartment Removalists Adelaide"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/moving-company-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Moving Company Adelaide | Local Movers | ZQ Removals",
+   "description": [
+    "Moving company Adelaide for house, apartment, office, furniture, and packing support with careful planning before quote approval."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/moving-company-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Choosing a moving company in Adelaide"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/services/piano-movers-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Piano Movers Adelaide | Piano Removalists | ZQ Removals",
+   "description": [
+    "Piano movers Adelaide for upright and digital pianos. Send dimensions and access photos for a handling assessment and quote, or call 0433 819 989."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/services/piano-movers-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Piano Movers Adelaide"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Removalists Adelaide | Local Moving Services | ZQ Removals",
+   "description": [
+    "Local moving services across Adelaide: what a move includes, access planning by corridor and how to send an enquiry to ZQ Removals for a quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Removalists Adelaide: Local Moving Services and How to Plan Them"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "WebPage",
+    "BreadcrumbList",
+    "Service",
+    "FAQPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-adelaide-cbd/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Removalists Adelaide CBD | Apartment &amp; Office Movers",
+   "description": [
+    "Removalists Adelaide CBD for apartment, office and furniture moves. Plan lift bookings, loading zones, parking and access before requesting a clear quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-adelaide-cbd/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Adelaide CBD removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-andrews-farm/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Andrews Farm Removalists | ZQ Removals",
+   "description": [
+    "Andrews Farm removalists for new-build and estate moves with driveway access, nearby north-side routes, and moving quote planning."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-andrews-farm/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Andrews Farm removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-elizabeth/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Elizabeth Removalists | ZQ Removals",
+   "description": [
+    "Elizabeth removalists for family-home access and staging. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-elizabeth/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Elizabeth removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-gawler/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Gawler Removalists | ZQ Removals",
+   "description": [
+    "Gawler removalists for townhouse and family-home staging. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-gawler/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Gawler removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-glenelg/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Removalists Glenelg | Professional Adelaide Movers",
+   "description": [
+    "Glenelg removalists for coastal apartments and homes near Jetty Road and Anzac Highway, with parking, loading and furniture access planned early."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-glenelg/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Glenelg removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-marion/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Marion Removalists | ZQ Removals",
+   "description": [
+    "Marion removalists for family homes and townhouse access. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-marion/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Marion removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-mawson-lakes/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Removalists Mawson Lakes | Adelaide Moving Service",
+   "description": [
+    "Mawson Lakes removalists for apartments, family homes and business moves near Main North Road and Salisbury Highway. Request a transparent quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-mawson-lakes/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Mawson Lakes removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Northern Adelaide Removalists | ZQ Removals",
+   "description": [
+    "Northern Adelaide removalists for Salisbury, Elizabeth, Andrews Farm, Blakeview, and Gawler moves with moving quote for homes, packing, and offices."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Northern Adelaide removalists for family homes and estates."
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "WebPage",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-norwood/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Removalists Norwood | Local Adelaide Movers",
+   "description": [
+    "Norwood removalists for homes, apartments and townhouses near The Parade. Plan parking, loading, furniture access and Adelaide CBD connections."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-norwood/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Norwood removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-salisbury/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Salisbury Removalists | ZQ Removals",
+   "description": [
+    "Salisbury removalists for family homes and storage items. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-salisbury/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Salisbury removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Removalists Southern Adelaide | Homes and Business Moves",
+   "description": [
+    "Southern Adelaide removalists for family homes, coastal suburbs, business moves, and interstate routes across Marion, Hallett Cove, Reynella, and Noarlunga."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Southern Adelaide removalists for coastal, family, and interstate moves."
+   ],
+   "headingSkips": 0,
+   "types": [
+    "WebPage",
+    "BreadcrumbList",
+    "MovingCompany",
+    "Service",
+    "FAQPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-adelaide-hills/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Removalists Adelaide Hills | Access-Planned Movers",
+   "description": [
+    "Experienced Adelaide Hills removalists with thorough access planning for sloped driveways, tight turns and carrying distances. Call ZQ Removals."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-adelaide-hills/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Removalists Adelaide Hills with Access Planning"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "WebPage",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-burnside/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Burnside Removalists | ZQ Removals",
+   "description": [
+    "Burnside removalists for heritage and premium home moves. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-burnside/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Burnside removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-prospect/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Prospect Removalists | ZQ Removals",
+   "description": [
+    "Prospect removalists for character homes and apartment access. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-prospect/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Prospect removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-unley/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Removalists Unley | Villa &amp; Townhouse Movers | ZQ Removals",
+   "description": [
+    "Unley removalists for character homes, apartments and townhouses near Unley Road. Parking, access and furniture handling planned first. Moving in Unley Park?"
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-unley/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Unley removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-goodwood/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Goodwood Removalists | ZQ Removals",
+   "description": [
+    "Goodwood removalists for rail corridor and shared access. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-goodwood/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Goodwood removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-kensington-gardens/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Removalists Kensington Gardens | Adelaide Movers",
+   "description": [
+    "Kensington Gardens removalists for family homes. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-kensington-gardens/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Kensington Gardens removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-stepney/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Stepney Removalists | ZQ Removals",
+   "description": [
+    "Stepney removalists for mixed-use and compact streets. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-stepney/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Stepney removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-st-peters/",
+   "status": 200,
+   "xRobots": null,
+   "title": "St Peters Removalists | ZQ Removals",
+   "description": [
+    "St Peters removalists for heritage and larger home inventory. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-st-peters/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "St Peters removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-magill/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Magill Removalists | ZQ Removals",
+   "description": [
+    "Magill removalists for family-home and university-adjacent moves. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-magill/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Magill removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-campbelltown/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Campbelltown Removalists | ZQ Removals",
+   "description": [
+    "Campbelltown removalists for home and unit relocations. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-campbelltown/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Campbelltown removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-modbury/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Modbury Removalists | ZQ Removals",
+   "description": [
+    "Modbury removalists for family homes and shopping precinct access. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-modbury/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Modbury removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-munno-para/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Munno Para Removalists | ZQ Removals",
+   "description": [
+    "Munno Para removalists for estate homes and new-build relocations. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-munno-para/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Munno Para removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-pennington/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Pennington Removalists | ZQ Removals",
+   "description": [
+    "Pennington removalists for mixed residential and industrial access. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-pennington/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Pennington removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-port-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Port Adelaide Removalists | ZQ Removals",
+   "description": [
+    "Port Adelaide removalists for heritage and dockside access. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-port-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Port Adelaide removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-west-lakes/",
+   "status": 200,
+   "xRobots": null,
+   "title": "West Lakes Removalists | ZQ Removals",
+   "description": [
+    "West Lakes removalists for waterfront homes and unit access. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-west-lakes/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "West Lakes removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-henley-beach/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Henley Beach Removalists | ZQ Removals",
+   "description": [
+    "Henley Beach removalists for beachside apartments and homes. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-henley-beach/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Henley Beach removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-grange/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Grange Removalists | ZQ Removals",
+   "description": [
+    "Grange removalists for premium coastal homes and parking. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-grange/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Grange removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-semaphore/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Semaphore Removalists | ZQ Removals",
+   "description": [
+    "Semaphore removalists for beachfront apartments and tight access. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-semaphore/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Semaphore removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-brighton/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Brighton SA Removalists | Local Movers | ZQ Removals",
+   "description": [
+    "Brighton SA removalists for family homes and apartments. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-brighton/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Brighton removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-woodcroft/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Woodcroft Removalists | ZQ Removals",
+   "description": [
+    "Woodcroft removalists for family homes and storage. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-woodcroft/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Woodcroft removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-medindie/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Medindie Removalists | Premium Home Movers Adelaide",
+   "description": [
+    "Medindie removalists for larger homes. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply. Send access details."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-medindie/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Medindie removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-walkerville/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Walkerville Removalists | ZQ Removals",
+   "description": [
+    "Walkerville removalists for house and villa moves. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-walkerville/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Walkerville removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-mitcham/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Mitcham Removalists | ZQ Removals",
+   "description": [
+    "Mitcham removalists for premium home and driveway planning. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-mitcham/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Mitcham removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-west-beach/",
+   "status": 200,
+   "xRobots": null,
+   "title": "West Beach Removalists | ZQ Removals",
+   "description": [
+    "West Beach removalists for coastal homes and airport-side access. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-west-beach/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "West Beach removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-henley-beach-south/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Henley Beach South Removalists | ZQ Removals",
+   "description": [
+    "Henley Beach South removalists for beachfront apartment moves. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-henley-beach-south/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Henley Beach South removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-linden-park/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Linden Park Removalists | ZQ Removals",
+   "description": [
+    "Linden Park removalists for premium homes and driveways. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-linden-park/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Linden Park removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-toorak-gardens/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Toorak Gardens Removalists | Local Movers | ZQ Removals",
+   "description": [
+    "Toorak Gardens removalists for premium homes. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-toorak-gardens/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Toorak Gardens removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-hyde-park/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Hyde Park Removalists | $75/30 min Local Movers | ZQ Removals",
+   "description": [
+    "Local removalists for Hyde Park houses, units and furniture. 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. Call-out/travel may apply."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-hyde-park/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Hyde Park removalists: local home and furniture moves"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-malvern/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Removalists Malvern, Adelaide, SA 5061 | ZQ Removals",
+   "description": [
+    "Malvern, Adelaide, SA 5061 removalists for villas and townhouses. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-malvern/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Removalists in Malvern, Adelaide, SA 5061"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-unley-park/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Unley Park Removalists | Homes &amp; Townhouses | ZQ Removals",
+   "description": [
+    "Unley Park removalists for homes, townhouses and furniture. Share parking, stairs and fragile items for a quote. 2 men + truck from $75 per 30 min."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-unley-park/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Unley Park removalists: home, townhouse and furniture moves"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-allenby-gardens/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Allenby Gardens Removalists | ZQ Removals",
+   "description": [
+    "Allenby Gardens removalists for family homes and units. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-allenby-gardens/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Allenby Gardens removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-golden-grove/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Golden Grove Removalists | ZQ Removals",
+   "description": [
+    "Golden Grove removalists for family estate and wide access. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-golden-grove/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Golden Grove removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-tea-tree-gully/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Tea Tree Gully Removalists | ZQ Removals",
+   "description": [
+    "Tea Tree Gully removalists for hillside and sloped driveway moves. Share inventory, parking and access at both properties for a moving quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-tea-tree-gully/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Tea Tree Gully removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-mount-barker/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Removalists Mount Barker | Adelaide Hills Movers",
+   "description": [
+    "Mount Barker removalists for Adelaide Hills homes and metro-to-Hills moves, with freeway routing, property access and larger inventories planned."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-mount-barker/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Mount Barker removalists"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-queens-park/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Queens Park NSW to Adelaide Moves | ZQ Removals",
+   "description": [
+    "Planning a move from Queens Park NSW to Adelaide? Discuss inventory, pickup access and Adelaide delivery details with ZQ Removals before booking."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-queens-park/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Moving from Queens Park NSW to Adelaide"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "WebPage",
+    "MovingCompany",
+    "BreadcrumbList"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Removalists Adelaide Prices &amp; Hourly Rates | ZQ Removals",
+   "description": [
+    "Adelaide removalist prices: 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. See 30-minute billing, call-out/travel and hypothetical examples."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Removalists Adelaide prices: published hourly rates"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "ImageObject",
+    "Service",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Adelaide Moving Guides | ZQ Removals",
+   "description": [
+    "Adelaide moving costs, suburb pricing, packing checklists, apartment moves, and interstate or office planning from ZQ Removals."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/adelaide-moving-guides/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Adelaide moving guides"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "WebPage",
+    "BreadcrumbList",
+    "MovingCompany",
+    "FAQPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/office-relocation-checklist-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Office Relocation Checklist Adelaide | ZQ Removals Guide",
+   "description": [
+    "Use this office relocation checklist for Adelaide businesses to prepare inventory, access, downtime, staff communication, and move-day sequencing."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/adelaide-moving-guides/office-relocation-checklist-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Office relocation checklist for Adelaide businesses."
+   ],
+   "headingSkips": 0,
+   "types": [
+    "WebPage",
+    "Article",
+    "BreadcrumbList",
+    "MovingCompany",
+    "FAQPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/prepare-house-move-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Prepare for a House Move in Adelaide | ZQ Removals",
+   "description": [
+    "Use this Adelaide house-move guide to prepare inventory, packing, access, fragile items, and move-day instructions before the booking is confirmed."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/adelaide-moving-guides/prepare-house-move-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "How to prepare for a house move in Adelaide."
+   ],
+   "headingSkips": 0,
+   "types": [
+    "WebPage",
+    "Article",
+    "BlogPosting",
+    "BreadcrumbList",
+    "MovingCompany",
+    "FAQPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "What Affects Removalist Costs in Adelaide? | ZQ Removals",
+   "description": [
+    "Inventory, stairs, lifts, parking, carry distance and packing all change how long a move takes. A practical guide to Adelaide removalist cost factors."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "How much do removalists cost in Adelaide?"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "Article",
+    "MovingCompany",
+    "WebPage",
+    "BreadcrumbList",
+    "FAQPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/best-time-to-move-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Best Time to Move Adelaide | ZQ Removals Guide",
+   "description": [
+    "A practical Adelaide guide for choosing weekdays, weekends, month-end windows, and access-friendly move times for your upcoming relocation."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/adelaide-moving-guides/best-time-to-move-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Best time to move in Adelaide."
+   ],
+   "headingSkips": 0,
+   "types": [
+    "WebPage",
+    "Article",
+    "BlogPosting",
+    "BreadcrumbList",
+    "MovingCompany",
+    "FAQPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/door-2-door-movers-alternative-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Door 2 Door Movers Adelaide Alternative | Compare ZQ",
+   "description": [
+    "Comparing Door 2 Door Movers in Adelaide? Review ZQ Removals for local planning, furniture care, transparent rates and direct quote support."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/door-2-door-movers-alternative-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Door 2 Door Movers alternative"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "MovingCompany",
+    "BreadcrumbList",
+    "FAQPage",
+    "WebPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/apartment-moving-tips-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Apartment Moving Tips Adelaide Access Guide | ZQ Removals",
+   "description": [
+    "Plan an Adelaide apartment move: book the service lift, check loading access, measure furniture and confirm building rules before moving day."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/adelaide-moving-guides/apartment-moving-tips-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Apartment Moving Tips Adelaide Access Guide"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "BreadcrumbList",
+    "ImageObject",
+    "Article",
+    "BlogPosting",
+    "MovingCompany",
+    "WebPage",
+    "FAQPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/moving-house-checklist-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Moving house checklist Adelaide | ZQ Removals",
+   "description": [
+    "Adelaide moving house checklist: organise your booking, utilities, packing, keys and access, then confirm the inventory and essentials for moving day."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/adelaide-moving-guides/moving-house-checklist-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Moving house checklist Adelaide"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "BreadcrumbList",
+    "ImageObject",
+    "Article",
+    "BlogPosting",
+    "MovingCompany",
+    "WebPage",
+    "FAQPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/how-to-choose-removalists-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "How to Choose Removalists Adelaide | ZQ Removals",
+   "description": [
+    "Compare Adelaide removalists by written quote scope, crew rates, applicable charges, insurance documents and access planning before you book."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/adelaide-moving-guides/how-to-choose-removalists-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "How to Choose Removalists Adelaide"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "BreadcrumbList",
+    "ImageObject",
+    "Article",
+    "BlogPosting",
+    "MovingCompany",
+    "WebPage",
+    "FAQPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/best-time-to-book-removalists-adelaide/",
+   "status": 200,
+   "xRobots": null,
+   "title": "Best Time to Book Removalists Adelaide | ZQ Removals",
+   "description": [
+    "When should you book Adelaide removalists? Plan around moving dates, lift reservations, settlement timing and crew availability before confirming."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/adelaide-moving-guides/best-time-to-book-removalists-adelaide/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "Best Time to Book Removalists Adelaide"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "BreadcrumbList",
+    "ImageObject",
+    "Article",
+    "BlogPosting",
+    "MovingCompany",
+    "WebPage",
+    "FAQPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  },
+  {
+   "url": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/how-to-prepare-furniture-for-moving/",
+   "status": 200,
+   "xRobots": null,
+   "title": "How to Prepare Furniture for Moving | ZQ Removals",
+   "description": [
+    "Prepare furniture for moving: measure doorways, empty drawers, label dismantled parts and plan wrapping. Get access and handling notes ready for a quote."
+   ],
+   "canonicals": [
+    "https://zqremovalsadelaide.com.au/adelaide-moving-guides/how-to-prepare-furniture-for-moving/"
+   ],
+   "robots": [
+    "index,follow,max-image-preview:large"
+   ],
+   "h1": [
+    "How to Prepare Furniture for Moving"
+   ],
+   "headingSkips": 0,
+   "types": [
+    "BreadcrumbList",
+    "ImageObject",
+    "Article",
+    "BlogPosting",
+    "MovingCompany",
+    "WebPage",
+    "FAQPage"
+   ],
+   "ldErrors": [],
+   "imgsNoAlt": 0
+  }
+ ]
+}
