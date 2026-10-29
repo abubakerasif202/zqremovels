@@ -13,7 +13,7 @@ if (process.env.GSC_WRITE_SCOPE !== '1') {
 }
 
 const tokens = JSON.parse(await readFile(tokenPath, 'utf8'));
-const client = JSON.parse(await readFile(`${root}/secrets/gsc-oauth-client.json`, 'utf8'));
+const client = JSON.parse(await readFile(process.env.GSC_OAUTH_CLIENT_PATH || 'C:\\Users\\abuba\\gsc-private\\credentials.json', 'utf8'));
 const config = client.installed || client.web || client;
 const oauth2Client = new google.auth.OAuth2(config.client_id, config.client_secret, config.redirect_uris?.[0] || 'http://127.0.0.1:8085/oauth2callback');
 oauth2Client.setCredentials(tokens);
