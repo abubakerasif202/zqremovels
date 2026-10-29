@@ -48,7 +48,7 @@ function analyse(html) {
   const robots = metas.filter((m) => /name="robots"/i.test(m)).map((m) => attr(m, 'content'));
   const description = metas.filter((m) => /name="description"/i.test(m)).map((m) => attr(m, 'content'));
   const title = (html.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [])[1]?.trim();
-  const h1 = [...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/gi)].map((m) => m[1].replace(/<[^>]+>/g, '').trim());
+  const h1 = [...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/gi)].map((m) => m[1].replace(/<[^>]*>/g, '').replace(/[<>]/g, '').trim());
   const levels = [...html.matchAll(/<h([1-6])\b/gi)].map((m) => Number(m[1]));
   const skips = levels.filter((l, i) => i > 0 && l - levels[i - 1] > 1).length;
   const ld = [];
