@@ -127,26 +127,16 @@ test('frontend quote flow emits a GA submission event hook', () => {
   assert.match(clientScript, /gtag\("event"/);
 });
 
-test('contact page keeps the quote layout while exposing Web3Forms-compatible contact fields', () => {
+test('contact page exposes the shared simple quote form fields', () => {
   const contactPage = readDist(path.join('contact-us', 'index.html'));
 
-  assert.match(contactPage, /name="move_date"/);
-  assert.match(contactPage, /name="pickup_suburb"/);
-  assert.match(contactPage, /name="dropoff_suburb"/);
-  assert.match(contactPage, /name="move_scope"/);
-  assert.match(contactPage, /name="property_type"/);
-  assert.match(contactPage, /name="move_size"/);
-  assert.match(contactPage, /name="pickup_access"/);
-  assert.match(contactPage, /name="dropoff_access"/);
-  assert.match(contactPage, /name="packing_required"/);
-  assert.match(contactPage, /name="name"/);
-  assert.match(contactPage, /name="email"/);
-  assert.match(contactPage, /name="phone"/);
-  assert.match(contactPage, /name="message"/);
-  assert.match(contactPage, /action="https:\/\/api\.web3forms\.com\/submit"/);
-  assert.match(contactPage, /name="access_key" value="80c3ff0c-7ae6-4aa7-bb66-567612739824"/);
-  assert.doesNotMatch(contactPage, /name="full_name"/);
-  assert.doesNotMatch(contactPage, /name="move_details"/);
+  for (const field of ['full_name', 'phone', 'pickup_suburb', 'dropoff_suburb', 'move_date', 'additional_details']) {
+    assert.match(contactPage, new RegExp(`name="${field}"`));
+  }
+  assert.match(contactPage, /name="form_type" value="simple_quote"/);
+  assert.doesNotMatch(contactPage, /action="https:\/\/api\.web3forms\.com\/submit"/);
+  assert.doesNotMatch(contactPage, /name="access_key"/);
+  assert.doesNotMatch(contactPage, /name="move_scope"|name="email"/);
 });
 
 test('about page is built and surfaced from shared navigation', () => {

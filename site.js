@@ -599,6 +599,13 @@ function buildQuoteSubmissionPayload(payload) {
     move_details: moveDetails,
     message: moveDetails,
     attached_inventory: getTrimmedPayloadValue(payload, "attached_inventory"),
+    form_type: getTrimmedPayloadValue(payload, "form_type"),
+    page_type: getTrimmedPayloadValue(payload, "page_type"),
+    page_title: getTrimmedPayloadValue(payload, "page_title"),
+    service_context: getTrimmedPayloadValue(payload, "service_context"),
+    location_context: getTrimmedPayloadValue(payload, "location_context"),
+    form_location: getTrimmedPayloadValue(payload, "form_location"),
+    additional_details: getTrimmedPayloadValue(payload, "additional_details"),
   };
 }
 

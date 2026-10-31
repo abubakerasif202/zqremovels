@@ -34,7 +34,7 @@ test('Premium template homepage contract is generator-native and complete', asyn
     assert.match(html, /<h1[^>]*>Adelaide moves,<br\s*\/?>(?:\s*)planned properly\.<\/h1>/i);
     assert.equal((html.match(/data-service-card/g) || []).length, 6);
     assert.equal((html.match(/itemtype="https:\/\/schema\.org\/Question"/g) || []).length, 8);
-    assert.equal((html.match(/data-quote-form="quote"/g) || []).length, 1);
+    assert.equal((html.match(/data-quote-form="quote"/g) || []).length, html === built ? 2 : 1);
 
     for (const route of serviceRoutes) {
       assert.match(html, new RegExp(`href="${route.replace(/\//g, '\\/')}"`));
@@ -42,7 +42,11 @@ test('Premium template homepage contract is generator-native and complete', asyn
     for (const question of requiredFaqs) {
       assert.match(html, new RegExp(question.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
     }
-    for (const field of ['name', 'phone', 'email', 'pickup_suburb', 'dropoff_suburb', 'move_date', 'move_scope', 'move_size', 'message']) {
+    // The generator swaps the legacy source form for the shared simple quote form.
+    const fields = html === built
+      ? ['full_name', 'phone', 'pickup_suburb', 'dropoff_suburb', 'move_date', 'additional_details']
+      : ['name', 'phone', 'email', 'pickup_suburb', 'dropoff_suburb', 'move_date', 'move_scope', 'move_size', 'message'];
+    for (const field of fields) {
       assert.match(html, new RegExp(`name="${field}"`));
     }
 

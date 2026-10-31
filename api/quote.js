@@ -6,6 +6,7 @@
 const { requestWeb3Forms } = require("../lib/server/web3forms.js");
 
 const { createReceiptStore, UUID } = require("../lib/server/quote-receipts.js");
+const { isIP, isIPv4 } = require("node:net");
 
 const QUOTE_REQUIRED_FIELDS = [
   "pickup_suburb",
@@ -88,6 +89,36 @@ function checkRateLimitMemory(ip) {
   }
   record.count += 1;
   return record.count > 5;
+}
+
+function normalizeIp(value) {
+  if (typeof value !== "string") return "";
+  let candidate = value.trim();
+  if (candidate.startsWith("[") && candidate.endsWith("]")) {
+    candidate = candidate.slice(1, -1);
+  }
+  if (isIP(candidate) === 0 || candidate.includes("%")) return "";
+
+  const mappedIpv4 = candidate.match(/^::ffff:(\d{1,3}(?:\.\d{1,3}){3})$/i)?.[1];
+  if (mappedIpv4 && isIPv4(mappedIpv4)) return mappedIpv4;
+  if (isIPv4(candidate)) return candidate;
+
+  try {
+    return new URL(`http://[${candidate}]/`).hostname.slice(1, -1).toLowerCase();
+  } catch {
+    return "";
+  }
+}
+
+function firstValidIp(value) {
+  const values = Array.isArray(value) ? value : [value];
+  for (const headerValue of values) {
+    if (typeof headerValue !== "string") continue;
+    const first = headerValue.split(",", 1)[0];
+    const normalized = normalizeIp(first);
+    if (normalized) return normalized;
+  }
+  return "";
 }
 
 async function checkRateLimitKV(ip, kvUrl, kvToken) {
@@ -271,12 +302,69 @@ function hasAnyField(payload, fields) {
 }
 
 function extractEdgeGeoContext(req) {
+  const ip = firstValidIp(req.headers?.["x-vercel-forwarded-for"])
+    || firstValidIp(req.headers?.["x-forwarded-for"])
+    || normalizeIp(req.socket?.remoteAddress)
+    || "unknown";
   return {
-    ip: req.headers["x-forwarded-for"] || req.socket.remoteAddress || "unknown",
+    ip,
     city: req.headers["x-vercel-ip-city"] ? decodeURIComponent(req.headers["x-vercel-ip-city"]) : "Unknown",
     region: req.headers["x-vercel-ip-country-region"] || "Unknown",
     country: req.headers["x-vercel-ip-country"] || "Unknown",
     timezone: req.headers["x-vercel-ip-timezone"] || "Unknown",
+  };
+}
+
+const SIMPLE_QUOTE_FORM_TYPE = "simple_quote";
+const SIMPLE_QUOTE_LIMITS = { full_name: 100, phone: 30, place: 120, details: 2000, context: 200 };
+const MIN_PHONE_DIGITS = 8;
+
+function clip(value, max) {
+  return String(value ?? "").trim().slice(0, max);
+}
+
+// The one public quote form: four required fields, everything else is optional metadata.
+function normaliseSimpleQuote(payload, trackingMeta) {
+  const fullName = clip(getFirstTrimmedString(payload, ["full_name", "name"]), SIMPLE_QUOTE_LIMITS.full_name);
+  const phone = clip(payload.phone, SIMPLE_QUOTE_LIMITS.phone);
+  const pickup = clip(payload.pickup_suburb, SIMPLE_QUOTE_LIMITS.place);
+  const dropoff = clip(getFirstTrimmedString(payload, ["dropoff_suburb", "delivery_suburb"]), SIMPLE_QUOTE_LIMITS.place);
+
+  const required = { full_name: fullName, phone, pickup_suburb: pickup, dropoff_suburb: dropoff };
+  for (const [field, value] of Object.entries(required)) {
+    if (!value) return { error: { status: 400, message: `Missing field: ${field}` } };
+  }
+  if (phone.replace(/\D/g, "").length < MIN_PHONE_DIGITS || !/^[\d\s+()\-.]+$/.test(phone)) {
+    return { error: { status: 400, message: "Invalid phone number" } };
+  }
+  const email = clip(payload.email, 200);
+  if (email && !EMAIL_REGEX.test(email)) {
+    return { error: { status: 400, message: "Invalid email" } };
+  }
+
+  const details = clip(getFirstTrimmedString(payload, ["additional_details", "move_details", "message"]), SIMPLE_QUOTE_LIMITS.details);
+  return {
+    upstreamPayload: {
+      subject: `Quote request - ${fullName} - ${pickup} to ${dropoff}`,
+      from_name: "ZQ Removals Website",
+      botcheck: "",
+      form_type: SIMPLE_QUOTE_FORM_TYPE,
+      full_name: fullName,
+      phone,
+      ...(email ? { email } : {}),
+      pickup_suburb: pickup,
+      dropoff_suburb: dropoff,
+      move_date: clip(getFirstTrimmedString(payload, ["move_date", "preferred_move_date"]), 40),
+      additional_details: details,
+      attached_inventory: clip(payload.attached_inventory, SIMPLE_QUOTE_LIMITS.details),
+      page_type: clip(payload.page_type, 40),
+      page_title: clip(payload.page_title, SIMPLE_QUOTE_LIMITS.context),
+      service_context: clip(payload.service_context, SIMPLE_QUOTE_LIMITS.context),
+      location_context: clip(payload.location_context, SIMPLE_QUOTE_LIMITS.context),
+      form_location: clip(payload.form_location, 80),
+      source_page: clip(payload.source_page, 500),
+      ...trackingMeta,
+    },
   };
 }
 
@@ -319,6 +407,10 @@ function normaliseSubmission(payload, geoContext) {
     fbclid: clientAttribution.fbclid || "",
     landing_page: clientAttribution.landing_page || "",
   };
+
+  if (getTrimmedString(payload, "form_type") === SIMPLE_QUOTE_FORM_TYPE) {
+    return normaliseSimpleQuote(payload, trackingMeta);
+  }
 
   if (isSimpleContactSubmission) {
     for (const field of CONTACT_REQUIRED_FIELDS) {
@@ -602,7 +694,7 @@ module.exports = async function handler(req, res) {
         return sendJson(res, 500, {
           success: false,
           message: "Quote service unavailable",
-          details: "Missing Web3Forms access key environment variable.",
+          details: "Please try again later or call us to request a quote.",
         });
       }
       return sendHtml(
@@ -610,7 +702,7 @@ module.exports = async function handler(req, res) {
         500,
         "Quote service unavailable",
         "The quote service is temporarily unavailable.",
-        "Missing Web3Forms access key environment variable.",
+        "Please try again later or call us to request a quote.",
       );
     }
 

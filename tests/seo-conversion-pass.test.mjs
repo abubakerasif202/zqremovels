@@ -112,16 +112,15 @@ test('quote forms use protected receipt endpoint and preserve non-JS provider fa
   const clientScript = readFileSync(path.join(root, 'site.js'), 'utf8');
 
   for (const formMarkup of [homepage, contactPage]) {
-    for (const fieldName of ['name', 'phone', 'email', 'message']) {
+    for (const fieldName of ['full_name', 'phone', 'pickup_suburb', 'dropoff_suburb']) {
       assert.match(formMarkup, new RegExp(`name="${fieldName}"`));
     }
 
-    assert.doesNotMatch(formMarkup, /name="full_name"/);
     assert.doesNotMatch(formMarkup, /name="move_details"/);
   }
 
-  assert.match(contactPage, /Get My Moving Quote/i);
-  assert.match(contactPage, /Get your moving quote in minutes/i);
+  assert.match(contactPage, /Get My Free Quote/i);
+  assert.match(contactPage, /Get your free moving quote/i);
   assert.match(contactPage, /What happens after you enquire/i);
   assert.match(clientScript, /const attribution = getStoredAttribution\(\);/);
   assert.match(clientScript, /JSON\.stringify\(buildQuoteSubmissionPayload\(payload\)\)/);
@@ -135,10 +134,8 @@ test('quote forms use protected receipt endpoint and preserve non-JS provider fa
   assert.match(clientScript, /subject: getTrimmedPayloadValue\(payload, "subject"\)/);
   assert.match(clientScript, /source_page: window\.location\.href/);
   assert.match(clientScript, /utm_source: attribution\.utm_source/);
-  assert.match(contactPage, /action="https:\/\/api\.web3forms\.com\/submit"/);
-  assert.match(contactPage, /method="POST"/);
-  assert.match(contactPage, /name="access_key" value="80c3ff0c-7ae6-4aa7-bb66-567612739824"/);
-  assert.match(contactPage, /name="redirect" value="https:\/\/zqremovalsadelaide\.com\.au\/thank-you\/"/);
+  assert.doesNotMatch(contactPage, /action="https:\/\/api\.web3forms\.com\/submit"/);
+  assert.match(contactPage, /action="\/api\/quote\/" method="post"/);
   assert.doesNotMatch(clientScript, /d928b483-d5f0-40d7-9eb1-44a56130ba63/);
 });
 

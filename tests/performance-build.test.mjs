@@ -54,9 +54,9 @@ test('purged bundles retain critical shared and route-specific selectors', async
   }
 
   assert.match(homeCss, /\.zqh-hero/);
-  assert.match(homeCss, /\.zqh-form/);
+  assert.match(homeCss, /\.sqf\b/);
   assert.match(contactCss, /\.contact-hero-grid/);
-  assert.match(contactCss, /\.quote-form-premium/);
+  assert.match(contactCss, /\.sqf\b/);
   assert.match(generalCss, /\.page-hero/);
   assert.match(generalCss, /\.service-card/);
 });
