@@ -30,27 +30,6 @@ test('source uses the approved ZQ Removals business email', () => {
   assert.match(businessSource, /email:\s*'admin@zqremovals\.au'/);
 });
 
-test('every generated quote form exposes both required crew packages', () => {
-  const quotePages = walkFiles(distRoot).filter((file) => file.endsWith('.html'));
-  let formCount = 0;
-
-  for (const file of quotePages) {
-    const html = readFileSync(file, 'utf8');
-    const forms = html.match(/<form\b[^>]*data-quote-form="quote"[^>]*>[\s\S]*?<\/form>/gi) || [];
-    for (const form of forms) {
-      formCount += 1;
-      assert.match(form, /name="crew_package"[^>]*required[^>]*value="2 Men \+ Truck — \$75 \/ 30 min"/i);
-      assert.match(form, /name="crew_package"[^>]*required[^>]*value="3 Men \+ Truck — \$89 \/ 30 min"/i);
-      assert.doesNotMatch(form, /name="crew_package"[^>]*checked/i, 'package must not be preselected');
-    }
-  }
-
-  // Route consolidation folded the price-farm pages (and their duplicate quote
-  // forms) into /removalists-adelaide-prices/. The core conversion surfaces
-  // (homepage, contact, campaign landing) still carry the validated form.
-  assert.ok(formCount >= 3, `expected at least three generated quote forms, found ${formCount}`);
-});
-
 test('generated business schema and public footer use the approved email', () => {
   const homepage = readFileSync(path.join(distRoot, 'index.html'), 'utf8');
   assert.match(homepage, /"email"\s*:\s*"admin@zqremovals\.au"/i);

@@ -1016,11 +1016,8 @@ test('homepage conversion audit requirements stay visible, accessible, and schem
   ]) {
     assert.match(main, new RegExp(`>${heading.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}<\/h2>`, 'i'));
   }
-  for (const field of ['name', 'phone', 'email', 'move_date', 'pickup_suburb', 'dropoff_suburb', 'move_scope', 'move_size', 'message']) {
+  for (const field of ['full_name', 'phone', 'move_date', 'pickup_suburb', 'dropoff_suburb', 'additional_details']) {
     assert.match(main, new RegExp(`name="${field}"`, 'i'));
-  }
-  for (const size of ['Studio or one bedroom', 'Two bedrooms', 'Three bedrooms', 'Four or more bedrooms', 'Office or commercial']) {
-    assert.match(main, new RegExp(size, 'i'));
   }
   assert.match(main, /href="https:\/\/share\.google\/toaQ1pTUMpigxRuQM"[^>]*target="_blank"[^>]*rel="noopener noreferrer"/i);
   for (const reviewText of [
@@ -1033,7 +1030,7 @@ test('homepage conversion audit requirements stay visible, accessible, and schem
   ]) {
     assert.match(main, new RegExp(reviewText, 'i'));
   }
-  assert.match(main, /Request my quote/i);
+  assert.match(main, /Get My Free Quote/i);
   assert.equal((main.match(/itemtype="https:\/\/schema\.org\/Question"/g) || []).length, 8);
   assert.match(homepage, /"@type": "FAQPage"/);
   assert.match(main, /alt="Two removalists carrying a sofa onto a removal truck outside an Adelaide home"/i);

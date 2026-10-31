@@ -9,7 +9,8 @@ let ipCounter = 0;
 
 function setup(t, fetchImpl, overrides = {}) {
   const keys = ['WEB3FORMS_ACCESS_KEY', 'TURNSTILE_SECRET_KEY', 'CF_TURNSTILE_SECRET',
-    'RECAPTCHA_SECRET_KEY', 'KV_REST_API_URL', 'KV_REST_API_TOKEN', 'TELEMETRY_LOG_ENDPOINT'];
+    'RECAPTCHA_SECRET_KEY', 'KV_REST_API_URL', 'KV_REST_API_TOKEN', 'TELEMETRY_LOG_ENDPOINT',
+    'VERCEL_ENV', 'NODE_ENV'];
   const original = Object.fromEntries(keys.map(key => [key, process.env[key]]));
   const originalFetch = global.fetch;
   for (const key of keys) delete process.env[key];
@@ -24,9 +25,10 @@ function setup(t, fetchImpl, overrides = {}) {
   });
 }
 
-async function submit(payload = {}, ip = `security-test-${++ipCounter}`) {
+async function submit(payload = {}, ip = `security-test-${++ipCounter}`, headers = {}) {
+  if (ip.startsWith('security-test-')) ip = `198.51.100.${((++ipCounter - 1) % 254) + 1}`;
   const req = {
-    method: 'POST', headers: { accept: 'application/json', 'content-type': 'application/json' },
+    method: 'POST', headers: { accept: 'application/json', 'content-type': 'application/json', ...headers },
     socket: { remoteAddress: ip },
     async *[Symbol.asyncIterator]() {
       yield JSON.stringify({ name: 'Fictional Test', email: 'fictional@example.com',
@@ -60,6 +62,22 @@ test('public configured CAPTCHA rejects missing and failed challenges', async t 
   assert.equal(calls, 1);
 });
 
+test('production without CAPTCHA secrets still delivers, protected by honeypot and rate limit', async t => {
+  let deliveries = 0;
+  setup(t, async () => { deliveries++; return { ok: true, json: async () => ({ success: true }) }; },
+    { VERCEL_ENV: 'production' });
+  assert.equal((await submit()).statusCode, 200);
+  assert.equal(deliveries, 1);
+  assert.equal((await submit({ botcheck: 'bot' })).statusCode, 400);
+  assert.equal(deliveries, 1);
+});
+
+test('development without CAPTCHA secrets preserves local quote workflow', async t => {
+  setup(t, async () => ({ ok: true, json: async () => ({ success: true }) }),
+    { VERCEL_ENV: 'development' });
+  assert.equal((await submit()).statusCode, 200);
+});
+
 test('public CAPTCHA must succeed before verified delivery', async t => {
   const calls = [];
   setup(t, async url => {
@@ -85,8 +103,8 @@ test('public memory rate limit still permits five and blocks sixth request', asy
     deliveries++;
     return { ok: true, json: async () => ({ success: true }) };
   });
-  for (let index = 0; index < 5; index++) assert.equal((await submit({}, 'rate-fixture')).statusCode, 200);
-  assert.equal((await submit({}, 'rate-fixture')).statusCode, 429);
+  for (let index = 0; index < 5; index++) assert.equal((await submit({}, '198.51.100.200')).statusCode, 200);
+  assert.equal((await submit({}, '198.51.100.200')).statusCode, 429);
   assert.equal(deliveries, 5);
 });
 
@@ -132,7 +150,7 @@ test('shared transport fixes destination, secret, timeout and disallows redirect
 async function submitRaw(raw, accept = 'application/json') {
   const req = {
     method: 'POST', headers: { accept, 'content-type': 'application/json' },
-    socket: { remoteAddress: `raw-test-${++ipCounter}` },
+    socket: { remoteAddress: `198.51.100.${((++ipCounter - 1) % 254) + 1}` },
     async *[Symbol.asyncIterator]() { yield raw; },
   };
   const res = {
@@ -172,8 +190,8 @@ test('datastore failure retains memory abuse protection', async t => {
     deliveries++;
     return { ok: true, json: async () => ({ success: true }) };
   }, { KV_REST_API_URL: 'https://fixture.example', KV_REST_API_TOKEN: 'fictional' });
-  for (let n = 0; n < 5; n++) assert.equal((await submit({}, 'kv-outage-fixture')).statusCode, 200);
-  assert.equal((await submit({}, 'kv-outage-fixture')).statusCode, 429);
+  for (let n = 0; n < 5; n++) assert.equal((await submit({}, '198.51.100.201')).statusCode, 200);
+  assert.equal((await submit({}, '198.51.100.201')).statusCode, 429);
   assert.equal(deliveries, 5);
 });
 
@@ -192,6 +210,60 @@ test('distributed quote rate limit uses validated atomic count', async t => {
     return { ok: true, json: async () => ({ result: 6 }) };
   }, { KV_REST_API_URL: 'https://fixture.example', KV_REST_API_TOKEN: 'fictional' });
   assert.equal((await submit()).statusCode, 429);
+});
+
+test('Vercel client-IP header is preferred, validated and canonicalized for rate limits', async t => {
+  const keys = [];
+  setup(t, async (url, options) => {
+    if (url === 'https://fixture.example/') {
+      keys.push(JSON.parse(options.body)[3]);
+      return { ok: true, json: async () => ({ result: 1 }) };
+    }
+    return { ok: true, json: async () => ({ success: true }) };
+  }, { KV_REST_API_URL: 'https://fixture.example', KV_REST_API_TOKEN: 'fictional' });
+  const headers = { 'x-vercel-forwarded-for': '2001:0db8:0:0:0:0:0:1', 'x-forwarded-for': '192.0.2.99' };
+  assert.equal((await submit({}, '127.0.0.1', headers)).statusCode, 200);
+  assert.match(keys[0], /^rate_limit:2001:db8::1:\d+$/);
+});
+
+test('invalid proxy IP values fall back to a validated socket address', async t => {
+  let key;
+  setup(t, async (url, options) => {
+    if (url === 'https://fixture.example/') {
+      key = JSON.parse(options.body)[3];
+      return { ok: true, json: async () => ({ result: 1 }) };
+    }
+    return { ok: true, json: async () => ({ success: true }) };
+  }, { KV_REST_API_URL: 'https://fixture.example', KV_REST_API_TOKEN: 'fictional' });
+  assert.equal((await submit({}, '198.51.100.8', {
+    'x-vercel-forwarded-for': 'not-an-ip', 'x-forwarded-for': '999.999.999.999, 192.0.2.1',
+  })).statusCode, 200);
+  assert.match(key, /^rate_limit:198\.51\.100\.8:\d+$/);
+});
+
+test('malformed forwarded headers do not become rate-limit keys', async t => {
+  let key;
+  setup(t, async (url, options) => {
+    if (url === 'https://fixture.example/') {
+      key = JSON.parse(options.body)[3];
+      return { ok: true, json: async () => ({ result: 1 }) };
+    }
+    return { ok: true, json: async () => ({ success: true }) };
+  }, { KV_REST_API_URL: 'https://fixture.example', KV_REST_API_TOKEN: 'fictional' });
+  assert.equal((await submit({}, 'not-an-ip', {
+    'x-vercel-forwarded-for': 'unknown', 'x-forwarded-for': 'forged-value',
+  })).statusCode, 200);
+  assert.match(key, /^rate_limit:unknown:\d+$/);
+  assert.doesNotMatch(key, /forged-value|not-an-ip/);
+});
+
+test('missing provider configuration returns only generic client-facing details', async t => {
+  setup(t, async () => assert.fail('No provider call expected'));
+  delete process.env.WEB3FORMS_ACCESS_KEY;
+  const json = await submit();
+  assert.equal(json.statusCode, 500);
+  assert.equal(JSON.stringify(json.body).includes('WEB3FORMS_ACCESS_KEY'), false);
+  assert.equal(JSON.stringify(json.body).includes('environment variable'), false);
 });
 
 test('durable server receipt replays acceptance without a second provider delivery', async t => {

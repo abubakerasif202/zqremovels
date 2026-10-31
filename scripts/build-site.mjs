@@ -8,6 +8,7 @@ import browserslist from 'browserslist';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 import { PurgeCSS } from 'purgecss';
 import { createSitemapLastmodResolver } from './sitemap-lastmod.mjs';
+import { classifyPage, renderSimpleQuoteForm } from './simple-quote-form.mjs';
 import {
   buildCanonical,
   buildDescription,
@@ -306,7 +307,7 @@ const purgeSafelist = {
     'is-visible',
     'reveal-on-scroll',
   ],
-  deep: [/^has-/, /^is-/, /^quote-form-/, /^sticky-mobile-cta$/],
+  deep: [/^has-/, /^is-/, /^quote-form-/, /^sticky-mobile-cta$/, /^sqf/],
 };
 const SUBURB_PAGE_WORD_MIN = 600;
 const SUBURB_PAGE_WORD_MAX = 900;
@@ -4258,8 +4259,8 @@ export function transformContent(content, page) {
 
   next = injectSeoV5GuideToc(next, page);
   next = injectSeoV5GuideFaq(next, page);
-  next = injectLeadMachineHiddenFields(next);
-  next = injectQuotePackageChoices(next);
+  next = replaceLegacyQuoteForms(next, page);
+  next = injectHomeHeroQuoteForm(next, page);
 
   const skipSupplemental = page.generatedKind === 'suburb';
   const proofSection = skipSupplemental ? '' : renderLocalProofSection(page);
@@ -4270,7 +4271,7 @@ export function transformContent(content, page) {
   const serviceMoneyUpgrade = renderServiceMoneyUpgrade(page);
   const guideHubExpansion = renderGuideHubExpansion(page);
   const commercialServiceCta = renderCommercialServiceCta(page);
-  const leadMachineCta = renderLeadMachineCta(page);
+  const leadMachineCta = /<form\b[^>]*\bid="quote-form"/i.test(next) ? '' : renderQuoteFormSection(page);
   const seoV5IntentProfile = renderSeoV5IntentProfile(page);
   const seoV5LinkHub = renderSeoV5InternalLinkHub(page);
   const strictSeoCompletion = renderStrictSeoCompletionSection(page, next);
@@ -4423,75 +4424,66 @@ function injectSeoV5GuideFaq(content, page) {
     : `${content}\n${faq}`;
 }
 
-function injectLeadMachineHiddenFields(content) {
-  const hiddenFields = [
-    { name: 'access_key', value: '80c3ff0c-7ae6-4aa7-bb66-567612739824' },
-    { name: 'subject', value: 'Quote request - ZQ Removals' },
-    { name: 'from_name', value: 'ZQ Removals Website' },
-    { name: 'redirect', value: 'https://zqremovalsadelaide.com.au/thank-you/' },
-    { name: 'utm_source', value: '', attr: 'data-attribution-field="utm_source"' },
-    { name: 'utm_medium', value: '', attr: 'data-attribution-field="utm_medium"' },
-    { name: 'utm_campaign', value: '', attr: 'data-attribution-field="utm_campaign"' },
-    { name: 'utm_content', value: '', attr: 'data-attribution-field="utm_content"' },
-    { name: 'utm_term', value: '', attr: 'data-attribution-field="utm_term"' },
-    { name: 'gclid', value: '', attr: 'data-attribution-field="gclid"' },
-    { name: 'fbclid', value: '', attr: 'data-attribution-field="fbclid"' },
-    { name: 'landing_page', value: '', attr: 'data-attribution-field="landing_page"' },
-    { name: 'captured_at', value: '', attr: 'data-attribution-field="captured_at"' },
-  ];
 
-  return content.replace(/<form\b([^>]*data-quote-form="quote"[^>]*)>/gi, (match) => {
-    let next = match;
+const LEGACY_QUOTE_FORM_OPEN = /data-quote-form="quote"|\bid="quote-form"|data-netlify/i;
+const NO_QUOTE_FORM_OUTPUTS = new Set([
+  'about/index.html',
+  'blog/index.html',
+  'contact/index.html',
+  'insurance-and-coverage/index.html',
+  'adelaide-moving-guides/index.html',
+]);
 
-    if (/\baction="/i.test(next)) {
-      next = next.replace(/\saction="[^"]*"/i, ' action="https://api.web3forms.com/submit"');
-    } else {
-      next = next.replace(/>$/, ' action="https://api.web3forms.com/submit">');
-    }
-
-    if (!/\bmethod="/i.test(next)) {
-      next = next.replace(/>$/, ' method="POST">');
-    }
-
-    const existingFields = new Set(
-      [...match.matchAll(/name="([^"]+)"/gi)].map((fieldMatch) => fieldMatch[1]),
-    );
-    const hiddenFieldMarkup = hiddenFields
-      .filter(({ name }) => !existingFields.has(name))
-      .map(({ name, value, attr }) => `<input type="hidden" name="${name}" value="${escapeHtml(value)}"${attr ? ` ${attr}` : ''} />`)
-      .join('');
-    return hiddenFieldMarkup ? `${next}\n${hiddenFieldMarkup}` : next;
+// Every legacy quote form (Web3Forms action, Netlify attributes, multi-step briefs) becomes the one simple form.
+function replaceLegacyQuoteForms(content, page) {
+  let index = 0;
+  return content.replace(/<form\b[^>]*>[\s\S]*?<\/form>/gi, (match) => {
+    const open = match.match(/^<form\b[^>]*>/i)[0];
+    if (!LEGACY_QUOTE_FORM_OPEN.test(open)) return match;
+    index += 1;
+    const isContact = page.output === 'contact-us/index.html';
+    return renderSimpleQuoteForm({
+      id: index === 1 ? 'quote-form' : `quote-form-${index}`,
+      formLocation: isContact ? 'contact' : page.output === 'index.html' ? 'bottom' : 'page',
+      page,
+      heading: isContact ? 'Get your free moving quote' : undefined,
+      intro: page.output === 'index.html'
+        ? 'Tell us where you are moving from and to. Urgent requests are reviewed against crew, vehicle and route availability.'
+        : undefined,
+    });
   });
 }
 
-function renderLeadMachineCta(page) {
+function injectHomeHeroQuoteForm(content, page) {
+  if (page.output !== 'index.html' || content.includes('id="quote-form-hero"')) return content;
+  const heroForm = renderSimpleQuoteForm({
+    id: 'quote-form-hero',
+    formLocation: 'hero',
+    page,
+    heading: 'Get your free quote',
+    intro: 'Four details and we will call you back.',
+    compact: true,
+    headingTag: 'h2',
+  });
+  return content.replace(/(<div class="zqh-actions">[\s\S]*?<\/div>)/, `${heroForm}\n        $1`);
+}
+
+function isQuoteFormEligible(page) {
   const output = page.output || '';
-  if (
-    output === 'index.html' ||
-    output === 'contact-us/index.html' ||
-    output === 'thank-you.html' ||
-    output === 'thank-you/index.html' ||
-    output === '404.html' ||
-    output.startsWith('premium-moving-concepts/')
-  ) {
-    return '';
-  }
+  if (page.layout !== 'standard' || /noindex/i.test(page.robots || '')) return false;
+  if (NO_QUOTE_FORM_OUTPUTS.has(output) || output.startsWith('premium-moving-concepts/')) return false;
+  return !/^(thank-you|404|privacy|terms)/.test(output);
+}
 
-  const isEligible =
-    output === 'index.html' ||
-    output.startsWith('removalists-') ||
-    output.startsWith('adelaide-moving-guides/') ||
-    output.startsWith('guides/') ||
-    output.includes('removals') ||
-    output.includes('removalists') ||
-    output.startsWith('services/');
-
-  if (!isEligible) {
-    return '';
-  }
-
+function renderQuoteFormSection(page) {
+  if (!isQuoteFormEligible(page)) return '';
+  const type = classifyPage(page.output);
+  const heading = {
+    interstate: 'Get your free interstate removals quote',
+    suburb: 'Get your free local removals quote',
+  }[type] || 'Get your free moving quote';
   return `
-<section class="section lead-machine-cta" data-lead-machine-cta="v7">
+<section class="section lead-machine-cta" id="quote" data-lead-machine-cta="v7" data-simple-quote-section>
   <div class="container">
     <div class="lead-machine-cta-shell reveal-on-scroll">
       <div>
@@ -4503,6 +4495,9 @@ function renderLeadMachineCta(page) {
         <a class="button button-primary" href="/contact-us/#quote-form">Get a moving quote</a>
         <a class="button button-secondary" href="tel:+61433819989">Call ZQ Removals now</a>
       </div>
+    </div>
+    <div class="sqf-shell">
+      ${renderSimpleQuoteForm({ page, formLocation: 'bottom', heading })}
     </div>
   </div>
 </section>`;
@@ -4982,30 +4977,6 @@ function renderCommercialServiceCta(page) {
 
 function renderStarIcons(label = '5 out of 5 stars') {
   return `<span class="google-review-stars" role="img" aria-label="${escapeAttribute(label)}">${Array.from({ length: 5 }, () => '<span aria-hidden="true">&#9733;</span>').join('')}</span>`;
-}
-
-function injectQuotePackageChoices(content) {
-  const packageMarkup = `
-<fieldset class="quote-package-group">
-  <legend>Crew and truck package</legend>
-  <p class="field-note">Choose the package you want included in your quote request.</p>
-  <div class="quote-package-options">
-    <label class="quote-package-option">
-      <input name="crew_package" required type="radio" value="2 Men + Truck — $75 / 30 min" />
-      <span><strong>2 Men + Truck</strong><small>$75 / 30 min</small></span>
-    </label>
-    <label class="quote-package-option">
-      <input name="crew_package" required type="radio" value="3 Men + Truck — $89 / 30 min" />
-      <span><strong>3 Men + Truck</strong><small>$89 / 30 min</small></span>
-    </label>
-  </div>
-  <small class="field-error" data-error-for="crew_package"></small>
-</fieldset>`;
-
-  return content.replace(
-    /(<form\b[^>]*data-quote-form="quote"[^>]*>)/gi,
-    (formTag) => `${formTag}${packageMarkup}`,
-  );
 }
 
 function renderGoogleReviewBadge({ compact = false } = {}) {
