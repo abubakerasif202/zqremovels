@@ -523,7 +523,7 @@ test('search console not-found validation aliases have static noindex fallback p
     [path.join('guides', 'removalist-cost-adelaide', 'index.html'), 'https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/', '0; url=/adelaide-moving-guides/removalists-cost-adelaide/'],
   ]) {
     const html = readDist(output);
-    assert.match(html, /<meta name="robots" content="noindex,nofollow" \/>/);
+    assert.match(html, /<meta name="robots" content="noindex,follow" \/>/);
     assert.match(html, new RegExp(`<link rel="canonical" href="${canonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}" \\/>`));
     assert.match(html, new RegExp(`<meta http-equiv="refresh" content="${refresh.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}" \\/>`));
     assert.doesNotMatch(sitemap, new RegExp(output.replace(/\\/g, '/').replace(/index\\.html$/, '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));

@@ -3732,7 +3732,7 @@ function makeRedirectPage({ output, canonical, title, description, destinationPa
     title,
     description,
     canonical,
-    robots: 'noindex,nofollow',
+    robots: 'noindex,follow',
     ogTitle: title,
     ogDescription: description,
     ogUrl: canonical,

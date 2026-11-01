@@ -73,7 +73,7 @@ test('generated HTML never links to the retired apartment-removals URL', () => {
   });
   const offenders = walk(distDir).filter((file) => {
     const html = readFileSync(file, 'utf8');
-    if (/<meta name="robots" content="noindex,nofollow"/i.test(html)) return false;
+    if (/<meta name="robots" content="noindex,follow"/i.test(html)) return false;
     return html.includes(`href="${OLD}"`) || html.includes(`href="${HOST}${OLD}"`);
   });
   assert.deepEqual(offenders, []);
