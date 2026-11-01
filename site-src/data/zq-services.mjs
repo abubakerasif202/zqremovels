@@ -393,6 +393,8 @@ export const zqServicePages = [
       'Upright pianos are the most common request. A grand piano has a different shape and usually needs a different handling plan, and digital pianos and keyboards are lighter but still need protecting. Say which you have, and send the make and model if you know it, so the team can confirm whether and how the move can be done.',
       'Access matters as much as the piano. Measure the front door and any internal doorways, count the steps and turns, note stairs or landings, and check for gravel, grass, ramps or uneven paths. Clear the route and decide where the piano will sit at the destination before the day.',
       'In your enquiry, include both addresses, the piano type and dimensions, photos of the piano and of the access path, whether there are stairs at either end, and whether the piano is part of a larger move. If the piano needs tuning after the move, arrange that with your own piano technician.',
+      'On the day the lid and fallboard stay closed, the instrument is padded, and it is strapped to a solid board before it is carried. The crew keeps an upright piano upright through doorways, landings and stairs, and they walk it rather than roll it across gravel, grass or uneven paths. A grand piano is a different shape, so the team confirms the carry plan from the photos before the day.',
+      'Piano moves use the same published crew rates as other local work. 2 men and a truck is $75 per 30 minutes. 3 men and a truck is $89 per 30 minutes. A 1-hour call-out/travel charge applies where applicable. There is no separate piano price. The total follows the time spent on the carry, the stairs and the placement.',
     ],
     processSteps: [
       {
@@ -436,6 +438,11 @@ export const zqServicePages = [
         question: 'Will my piano need tuning after the move?',
         answer:
           'Ask your piano technician whether tuning or other care is needed after relocation. Include any handling instructions from the manufacturer or technician in your enquiry.',
+      },
+      {
+        question: 'What do piano movers in Adelaide charge?',
+        answer:
+          'Piano moves use the same published crew rates as other local work: 2 men and a truck $75 per 30 minutes, or 3 men and a truck $89 per 30 minutes. A 1-hour call-out/travel charge applies where applicable. There is no separate piano price. Send the instrument type, dimensions and access photos so the team can confirm the crew and the likely time.',
       },
     ],
   },
@@ -769,7 +776,7 @@ export const zqServiceFactorCards = {
     },
     {
       title: 'Time-based pricing',
-      copy: 'Piano moves are charged on the published crew rates, so the time spent on stairs, turns and carries is what changes the total.',
+      copy: '2 men and a truck is $75 per 30 minutes. 3 men and a truck is $89 per 30 minutes. A 1-hour call-out/travel charge applies where applicable. There is no separate piano price.',
     },
   ],
 };
