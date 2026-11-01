@@ -383,7 +383,7 @@ function extractMain(html) {
 }
 
 function uniqueRootLinks(html) {
-  return [...new Set([...html.matchAll(/href="(\/[^"]*)"/g)]
+  return [...new Set([...html.matchAll(/<a\b[^>]*\bhref="(\/[^"]*)"/gi)]
     .map((match) => match[1])
     .filter((href) => !href.startsWith('//') && !href.startsWith('/api/'))
     .map((href) => href.split('?')[0]))];

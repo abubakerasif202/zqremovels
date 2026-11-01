@@ -168,8 +168,8 @@ const quoteForms = Array.from(
 const quoteDateFields = Array.from(
   document.querySelectorAll('input[type="date"][name*="date"]'),
 );
-const QUOTE_API_ENDPOINT = "/api/quote/";
-const DEFAULT_QUOTE_ERROR_MESSAGE = "Could not send the request or confirm its status. Retry to check, or call ZQ Removals before starting another request.";
+const QUOTE_API_ENDPOINT = "https://api.web3forms.com/submit";
+const DEFAULT_QUOTE_ERROR_MESSAGE = "Could not send the request or confirm its status. Call ZQ Removals to confirm before sending again.";
 const SOCIAL_PROFILES = {
   facebook: "",
   instagram: "",
@@ -201,13 +201,7 @@ function setQuoteDateMinimum() {
     return;
   }
 
-  const today = new Date();
-  today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
-  const minDate = today.toISOString().slice(0, 10);
-
-  quoteDateFields.forEach((field) => {
-    field.min = minDate;
-  });
+  quoteDateFields.forEach((field) => field.removeAttribute("min"));
 }
 
 function getTrimmedPayloadValue(payload, field) {
@@ -426,9 +420,6 @@ function setupQuoteFormStepAccessibility() {
   });
 }
 
-const MIN_PHONE_NUMBER_LENGTH = 8;
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 function isSupportedFormField(field) {
   return (
     field instanceof HTMLInputElement ||
@@ -448,33 +439,6 @@ function validateQuoteForm(form) {
     }
     payload[field.name] = field.value.trim();
   });
-
-  fields.forEach((field) => {
-    if (!isSupportedFormField(field) || !field.required) {
-      return;
-    }
-
-    if (payload[field.name]) {
-      return;
-    }
-
-    const labelText = field
-      .closest("label")
-      ?.querySelector("span")
-      ?.textContent?.trim();
-    errors[field.name] = labelText ? `Enter ${labelText.toLowerCase()}.` : "Complete this field.";
-  });
-
-  if (payload.email && !EMAIL_REGEX.test(payload.email)) {
-    errors.email = "Enter a valid email address.";
-  }
-
-  if (
-    payload.phone &&
-    payload.phone.replace(/[^\d+]/g, "").length < MIN_PHONE_NUMBER_LENGTH
-  ) {
-    errors.phone = "Enter a valid phone number.";
-  }
 
   return { payload, errors };
 }
@@ -599,6 +563,13 @@ function buildQuoteSubmissionPayload(payload) {
     move_details: moveDetails,
     message: moveDetails,
     attached_inventory: getTrimmedPayloadValue(payload, "attached_inventory"),
+    form_type: getTrimmedPayloadValue(payload, "form_type"),
+    page_type: getTrimmedPayloadValue(payload, "page_type"),
+    page_title: getTrimmedPayloadValue(payload, "page_title"),
+    service_context: getTrimmedPayloadValue(payload, "service_context"),
+    location_context: getTrimmedPayloadValue(payload, "location_context"),
+    form_location: getTrimmedPayloadValue(payload, "form_location"),
+    additional_details: getTrimmedPayloadValue(payload, "additional_details"),
   };
 }
 
@@ -766,7 +737,7 @@ function getQuoteRequestId(form) {
 }
 
 async function submitQuoteForm(form, payload) {
-  // Keep the same logical ID across retries, including ambiguous network outcomes.
+  // Keep one analytics event ID for this form submission.
   if (!form.dataset) form.dataset = {};
   payload.submission_id = getQuoteRequestId(form);
   let response;
@@ -777,7 +748,14 @@ async function submitQuoteForm(form, payload) {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify(buildQuoteSubmissionPayload(payload)),
+      body: JSON.stringify((() => {
+        const submission = { ...payload, ...buildQuoteSubmissionPayload(payload), access_key: payload.access_key };
+        delete submission.redirect;
+        delete submission.botcheck;
+        delete submission['cf-turnstile-response'];
+        delete submission['g-recaptcha-response'];
+        return submission;
+      })()),
       signal: AbortSignal.timeout(50000),
     });
   } catch (error) {
@@ -796,23 +774,14 @@ async function submitQuoteForm(form, payload) {
     result = { success: false, message: DEFAULT_QUOTE_ERROR_MESSAGE, body: responseText };
   }
 
-  if (!response.ok || result?.success !== true || result.submission_status !== "accepted" ||
-      result.submission_id !== payload.submission_id ||
-      !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(result.submission_id)) {
-    if (result?.status === "rejected") {
-      delete form.dataset.submissionId;
-      try { window.sessionStorage.removeItem(quoteRequestStorageKey(form)); } catch {}
-    }
+  if (!response.ok || result?.success !== true) {
     const error = new Error(DEFAULT_QUOTE_ERROR_MESSAGE);
-    error.payload = { success: false, message: result?.status === "pending"
-      ? "Your request may have been received. Please call ZQ Removals to confirm before sending again."
-      : result?.status === "rejected"
-        ? "Could not send the request: it was rejected. Review your details and try again."
-        : result?.status === "conflict"
-          ? "This request is already associated with different details. Please call ZQ Removals to confirm before starting another request."
-          : DEFAULT_QUOTE_ERROR_MESSAGE };
+    error.payload = { success: false, message: DEFAULT_QUOTE_ERROR_MESSAGE };
     throw error;
   }
+
+  // The ID identifies the analytics event; delivery is confirmed by Web3Forms.
+  result.submission_id = payload.submission_id;
 
   return result;
 }
@@ -903,7 +872,7 @@ function setupQuoteForms() {
         const result = await submitQuoteForm(form, payload);
         form.dataset.quoteAccepted = "true";
         try { window.sessionStorage.removeItem(quoteRequestStorageKey(form)); } catch {}
-        // Only the server's durably stored, provider-accepted receipt qualifies.
+        // Track only after Web3Forms confirms success.
         try {
           const leadId = result.submission_id;
           const formName = form.getAttribute("data-form-name") ||
@@ -1717,7 +1686,7 @@ function setupInventoryCalculator() {
     const attachBtn = document.querySelector(".calc-attach-btn");
     if (attachBtn) {
       const origHtml = attachBtn.innerHTML;
-      attachBtn.innerHTML = `<span>&#10003; Attached to Quote Form!</span>`;
+      attachBtn.innerHTML = `<span><svg class="zq-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/media/icons/zq-icons.svg#zq-i-check" /></svg> Attached to Quote Form!</span>`;
       setTimeout(() => {
         attachBtn.innerHTML = origHtml;
       }, 2500);
@@ -1912,7 +1881,7 @@ function setupInterstateMatrix() {
           <div class="route-actions-row">
             <button type="button" onclick="window.bookInterstateRoute?.('${r.dest}')" class="zq-v2-button zq-v2-button-primary">
               <span>Request Quote for ${r.dest}</span>
-              <svg aria-hidden="true"><use href="#zq-i-arrow" /></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/media/icons/zq-icons.svg#zq-i-arrow" /></svg>
             </button>
             <a href="/interstate-removals-adelaide/" class="zq-v2-button zq-v2-button-ghost">View All Routes</a>
           </div>
@@ -1920,7 +1889,7 @@ function setupInterstateMatrix() {
         <div class="route-features-col">
           <h4>What we plan with you</h4>
           <ul class="route-features-list">
-            ${r.features.map((f) => `<li><svg aria-hidden="true"><use href="#zq-i-check" /></svg> <span>${f}</span></li>`).join("")}
+            ${r.features.map((f) => `<li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/media/icons/zq-icons.svg#zq-i-check" /></svg> <span>${f}</span></li>`).join("")}
           </ul>
         </div>
       </div>

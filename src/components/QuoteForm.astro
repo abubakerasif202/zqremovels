@@ -9,20 +9,12 @@
   method="POST"
   novalidate
 >
-  <!-- Anti-spam botcheck -->
-  <p hidden>
-    <label>
-      Leave this field empty
-      <input autocomplete="off" name="botcheck" tabindex="-1" type="text" />
-    </label>
-  </p>
-
   <!-- Lead Machine / Web3Forms Hidden Fields -->
   <input type="hidden" name="access_key" value="80c3ff0c-7ae6-4aa7-bb66-567612739824" />
   <input type="hidden" name="subject" value="Quote request - ZQ Removals" />
   <input type="hidden" name="from_name" value="ZQ Removals Website" />
   <input type="hidden" name="redirect" value="https://zqremovalsadelaide.com.au/thank-you/" />
-  
+
   <!-- Attribution Hidden Fields -->
   <input type="hidden" name="utm_source" value="" data-attribution-field="utm_source" />
   <input type="hidden" name="utm_medium" value="" data-attribution-field="utm_medium" />
@@ -48,11 +40,11 @@
       <p class="field-note" id="quote-package-help">Choose the package you want included in your quote request.</p>
       <div class="quote-package-options" aria-describedby="quote-package-help">
         <label class="quote-package-option">
-          <input name="crew_package" required type="radio" value="2 Men + Truck — $75 / 30 min" />
+          <input name="crew_package" type="radio" value="2 Men + Truck — $75 / 30 min" />
           <span><strong>2 Men + Truck</strong><small>$75 / 30 min</small></span>
         </label>
         <label class="quote-package-option">
-          <input name="crew_package" required type="radio" value="3 Men + Truck — $89 / 30 min" />
+          <input name="crew_package" type="radio" value="3 Men + Truck — $89 / 30 min" />
           <span><strong>3 Men + Truck</strong><small>$89 / 30 min</small></span>
         </label>
       </div>
@@ -64,7 +56,7 @@
       <div class="field-grid">
         <label>
           <span>Primary Service</span>
-          <select aria-describedby="contact-error-move_scope" name="move_scope" required>
+          <select aria-describedby="contact-error-move_scope" name="move_scope">
             <option selected value="">Select move scope</option>
             <option value="house-removal">House Move</option>
             <option value="apartment-removal">Apartment or Unit</option>
@@ -77,7 +69,7 @@
         </label>
         <label>
           <span>Property Style</span>
-          <select aria-describedby="contact-error-property_type" name="property_type" required>
+          <select aria-describedby="contact-error-property_type" name="property_type">
             <option selected value="">Select property type</option>
             <option value="apartment">Apartment / High-Rise</option>
             <option value="house">House / Townhouse</option>
@@ -89,7 +81,7 @@
         </label>
         <label>
           <span>Move Volume</span>
-          <select aria-describedby="contact-error-move_size" name="move_size" required>
+          <select aria-describedby="contact-error-move_size" name="move_size">
             <option selected value="">Select move size</option>
             <option value="studio-1-bedroom">Studio / 1 Bedroom</option>
             <option value="2-bedroom">2 Bedrooms</option>
@@ -102,7 +94,7 @@
         </label>
         <label>
           <span>Packing Support</span>
-          <select aria-describedby="contact-error-packing_required" name="packing_required" required>
+          <select aria-describedby="contact-error-packing_required" name="packing_required">
             <option selected value="">Select packing preference</option>
             <option value="no-packing-needed">No Packing Required</option>
             <option value="partial-packing">Partial Packing</option>
@@ -119,17 +111,17 @@
       <div class="field-grid">
         <label>
           <span>Pickup Suburb</span>
-          <input autocomplete="address-level2" aria-describedby="contact-error-pickup_suburb" name="pickup_suburb" placeholder="e.g. Adelaide CBD" required type="text" />
+          <input autocomplete="address-level2" aria-describedby="contact-error-pickup_suburb" name="pickup_suburb" placeholder="e.g. Adelaide CBD" type="text" />
           <small class="field-error" data-error-for="pickup_suburb" id="contact-error-pickup_suburb"></small>
         </label>
         <label>
           <span>Delivery Suburb</span>
-          <input autocomplete="address-level2" aria-describedby="contact-error-dropoff_suburb" name="dropoff_suburb" placeholder="e.g. Melbourne VIC" required type="text" />
+          <input autocomplete="address-level2" aria-describedby="contact-error-dropoff_suburb" name="dropoff_suburb" placeholder="e.g. Melbourne VIC" type="text" />
           <small class="field-error" data-error-for="dropoff_suburb" id="contact-error-dropoff_suburb"></small>
         </label>
         <label>
           <span>Pickup Access</span>
-          <select aria-describedby="contact-error-pickup_access" name="pickup_access" required>
+          <select aria-describedby="contact-error-pickup_access" name="pickup_access">
             <option selected value="">Select access type</option>
             <option value="ground-level">Ground Level</option>
             <option value="stairs">Stairs Involved</option>
@@ -141,7 +133,7 @@
         </label>
         <label>
           <span>Delivery Access</span>
-          <select aria-describedby="contact-error-dropoff_access" name="dropoff_access" required>
+          <select aria-describedby="contact-error-dropoff_access" name="dropoff_access">
             <option selected value="">Select access type</option>
             <option value="ground-level">Ground Level</option>
             <option value="stairs">Stairs Involved</option>
@@ -164,17 +156,17 @@
         </label>
         <label>
           <span>Full Name</span>
-          <input autocomplete="name" aria-describedby="contact-error-name" name="name" placeholder="Full name" required type="text" />
+          <input autocomplete="name" aria-describedby="contact-error-name" name="name" placeholder="Full name" type="text" />
           <small class="field-error" data-error-for="name" id="contact-error-name"></small>
         </label>
         <label>
           <span>Phone Number</span>
-          <input autocomplete="tel" aria-describedby="contact-error-phone" inputmode="tel" name="phone" placeholder="Phone number" required type="tel" />
+          <input autocomplete="tel" aria-describedby="contact-error-phone" inputmode="tel" name="phone" placeholder="Phone number" type="tel" />
           <small class="field-error" data-error-for="phone" id="contact-error-phone"></small>
         </label>
         <label>
           <span>Email Address</span>
-          <input autocomplete="email" aria-describedby="contact-error-email" name="email" placeholder="Email address" required type="email" />
+          <input autocomplete="email" aria-describedby="contact-error-email" name="email" placeholder="Email address" type="email" />
           <small class="field-error" data-error-for="email" id="contact-error-email"></small>
         </label>
       </div>
@@ -187,7 +179,7 @@
       aria-describedby="contact-error-message"
       name="message"
       placeholder="Detail any fragile pieces, oversized items, stair flights, or specific timing requirements."
-      required
+
       rows="5"
     ></textarea>
     <small class="field-error" data-error-for="message" id="contact-error-message"></small>

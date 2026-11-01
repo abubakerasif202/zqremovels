@@ -39,7 +39,7 @@ export function renderAgencyCreditHtml() {
       <span class="agency-credit-label">${agencyCredit.label}</span>
       <a class="agency-credit-link" href="${agencyCredit.url}" target="_blank" rel="noopener noreferrer" aria-label="Visit ${agencyCredit.name}">
         ${mark}
-        <span class="agency-credit-arrow" aria-hidden="true">&#8599;</span>
+        <span class="agency-credit-arrow" aria-hidden="true"><svg class="zq-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/media/icons/zq-icons.svg#zq-i-external" /></svg></span>
       </a>
     </div>`;
 }

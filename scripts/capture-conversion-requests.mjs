@@ -1,6 +1,6 @@
 // Read-only diagnostic: shows exactly what one accepted quote sends to Google, using the live GTM container.
 //
-// Nothing real is created or measured: POST /api/quote/ is mocked, and every Google Ads / Analytics
+// Nothing real is created or measured: POST https://api.web3forms.com/submit is mocked, and every Google Ads / Analytics
 // measurement request is ABORTED in the test browser and only recorded (with timestamps and parameters).
 //
 // Usage:
@@ -25,8 +25,9 @@ await ctx.addInitScript(() => {
 });
 await ctx.route('**/*', async (route) => {
   const req = route.request(); const u = req.url();
-  if (/\/api\/quote\/$/.test(new URL(u).pathname) && req.method() === 'POST') { const b = JSON.parse(req.postData() || '{}'); return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, status: 'accepted', submission_status: 'accepted', submission_id: b.submission_id }) }); }
+  if (u === 'https://api.web3forms.com/submit' && req.method() === 'POST') { const b = JSON.parse(req.postData() || '{}'); return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, status: 'accepted', submission_status: 'accepted', submission_id: b.submission_id }) }); }
   if (MEAS.test(u)) { hits.push({ t: Date.now() - t0, method: req.method(), type: req.resourceType(), url: u }); return route.abort(); }
+  if (new URL(u).origin === ORIGIN && new URL(u).pathname.startsWith('/api/')) return route.abort();
   return route.continue();
 });
 const page = await ctx.newPage();
@@ -34,9 +35,7 @@ await page.goto(ORIGIN + '/contact-us/', { waitUntil: 'load' }); await page.wait
 const mark = Date.now() - t0;
 if (mode === 'form') {
   const form = page.locator('form[data-quote-form]').first();
-  await form.locator('input[name="crew_package"]').first().check({ force: true });
-  for (const n of ['move_scope', 'property_type', 'move_size', 'packing_required', 'pickup_access', 'dropoff_access']) { const s = form.locator(`select[name="${n}"]`); const v = await s.locator('option').evaluateAll(o => o.map(x => x.value).filter(Boolean)); await s.selectOption(v[0]); }
-  for (const [k, v] of Object.entries({ pickup_suburb: 'Test Suburb', dropoff_suburb: 'Test Suburb Two', name: 'Synthetic Test', phone: '0400000000', email: 'synthetic@example.invalid', message: 'Synthetic QA fixture.' })) await form.locator(`[name="${k}"]`).fill(v);
+  for (const [k, v] of Object.entries({ pickup_suburb: 'Test Suburb', dropoff_suburb: 'Test Suburb Two', full_name: 'Synthetic Test', phone: '0400000000', additional_details: 'Synthetic QA fixture.' })) await form.locator(`[name="${k}"]`).fill(v);
   await form.locator('button[type="submit"]').click();
   await page.waitForURL(/thank-you/, { timeout: 8000 }).catch(() => { });
   await page.waitForTimeout(4000);

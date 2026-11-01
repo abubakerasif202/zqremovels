@@ -111,7 +111,8 @@ async function runMissingKeySmoke() {
     const body = JSON.parse(res.body);
     assert.equal(body.success, false);
     assert.equal(body.message, 'Quote service unavailable');
-    assert.match(body.details, /Missing Web3Forms access key/);
+    assert.equal(body.details, 'Please try again later or call us to request a quote.');
+    assert.equal(JSON.stringify(body).includes('WEB3FORMS_ACCESS_KEY'), false);
   } finally {
     if (originalFetch === undefined) {
       delete global.fetch;
