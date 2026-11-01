@@ -327,7 +327,7 @@ test('live-audit commercial snippets and guide publication schema stay fixed', (
   assert.match(pricing, /\$75 per 30 minutes/i);
   assert.match(pricing, /\$89 per 30 minutes/i);
   assert.match(pricing, /1-hour call-out(?: or travel|\/travel) charge applies where applicable/i);
-  assert.match(office, /<title>Office Removalists Adelaide \| Business Moves \| ZQ Removals<\/title>/i);
+  assert.match(office, /<title>Office removalists Adelaide \| \$75 and \$89 \| ZQ Removals<\/title>/i);
   assert.match(piano, /<title>Piano Movers Adelaide \| Piano Removalists \| ZQ Removals<\/title>/i);
   assert.match(guide, /"datePublished": "2026-05-23"/);
   assert.match(guide, /"dateModified": "2026-08-29"/);
@@ -344,11 +344,11 @@ test('homepage pricing cluster links to Adelaide prices page for crawl discovery
 
 test('priority suburb and interstate pages use the requested high-intent metadata', () => {
   const expectations = [
-    ['removalists-hyde-park/index.html', /Hyde Park Removalists \| \$75\/30 min Local Movers \| ZQ Removals/i, /Local removalists for Hyde Park houses, units and furniture/i],
+    ['removalists-hyde-park/index.html', /Hyde Park Removalists \| \$75 and \$89 \| ZQ Removals/i, /Hyde Park removalists for character homes and street parking/i],
     ['removalists-malvern/index.html', /Removalists Malvern, Adelaide, SA 5061 \| ZQ Removals/i, /Malvern, Adelaide, SA 5061 removalists for villas and townhouses/i],
     ['removalists-unley/index.html', /Removalists Unley \| Villa &(?:amp;)? Townhouse Movers \| ZQ Removals/i, /Unley removalists for character homes, apartments and townhouses/i],
-    ['removalists-unley-park/index.html', /Unley Park Removalists \| Homes &(?:amp;)? Townhouses \| ZQ Removals/i, /Unley Park removalists for homes, townhouses and furniture/i],
-    ['removalists-medindie/index.html', /Medindie Removalists \| Premium Home Movers Adelaide/i, /Medindie removalists for larger homes/i],
+    ['removalists-unley-park/index.html', /Unley Park Removalists \| \$75 and \$89 \| ZQ Removals/i, /Unley Park removalists for homes and townhouses/i],
+    ['removalists-medindie/index.html', /Medindie Removalists \| \$75 and \$89 \| ZQ Removals/i, /Medindie removalists for larger homes/i],
     ['adelaide-to-sydney-removalists/index.html', /Adelaide to Sydney Removalists/i, /Adelaide to Sydney removalists/i],
     ['adelaide-to-brisbane-removals/index.html', /Adelaide to Brisbane Removalists \| Interstate Movers/i, /Adelaide to Brisbane removalists/i],
     ['adelaide-to-melbourne-removalists/index.html', /Adelaide to Melbourne Removalists/i, /Adelaide to Melbourne removalists/i],
@@ -1046,7 +1046,7 @@ test('v6 service pages carry CTR titles, related services, suburb links, FAQ and
   const cases = [
     ['furniture-removalists-adelaide/index.html', /Furniture Removalists Adelaide \| Careful Movers/i],
     ['house-removals-adelaide/index.html', /House Removalists Adelaide \| Local Home Moves/i],
-    ['office-removals-adelaide/index.html', /Office Removalists Adelaide \| Business Moves \| ZQ Removals/i],
+    ['office-removals-adelaide/index.html', /Office removalists Adelaide \| \$75 and \$89 \| ZQ Removals/i],
     ['apartment-removalists-adelaide/index.html', /Apartment Removalists Adelaide/i],
   ];
 
