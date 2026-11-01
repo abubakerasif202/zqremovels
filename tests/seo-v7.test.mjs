@@ -126,7 +126,7 @@ test('priority interstate removals aliases redirect to removalists without sitem
 
     assert.match(canonicalHtml, new RegExp(`<link rel="canonical" href="${escapeRegex(canonicalUrl)}"`), canonicalSlug);
     assert.doesNotMatch(canonicalHtml, new RegExp(escapeRegex(aliasUrl)), `${canonicalSlug} leaks alias URL`);
-    assert.match(aliasHtml, /<meta name="robots" content="noindex,nofollow"/i, `${aliasSlug} must be noindex redirect`);
+    assert.match(aliasHtml, /<meta name="robots" content="noindex,follow"/i, `${aliasSlug} must be noindex redirect`);
     assert.match(aliasHtml, new RegExp(`<link rel="canonical" href="${escapeRegex(canonicalUrl)}"`), `${aliasSlug} canonical`);
     assert.match(aliasHtml, new RegExp(`<meta http-equiv="refresh" content="0; url=/${canonicalSlug}/"`), `${aliasSlug} refresh`);
     assert.doesNotMatch(sitemap, new RegExp(escapeRegex(aliasUrl)), `${aliasSlug} must not be in sitemap`);
@@ -179,7 +179,7 @@ test('office removals page includes b2b planning terms without unsupported crede
 test('priority pages use AEO answer formatting and FAQ schema only follows visible FAQ', () => {
   for (const output of [
     'removalists-adelaide-prices/index.html',
-    'adelaide-moving-guides/removalists-cost-adelaide/index.html',
+    'removalists-adelaide-prices/index.html',
     'adelaide-to-sydney-removalists/index.html',
     'office-removals-adelaide/index.html',
   ]) {

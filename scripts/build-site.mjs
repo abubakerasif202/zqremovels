@@ -121,7 +121,7 @@ const consolidatedHrefMap = new Map(
 // than sending a guide link to a service hub (the 301 in vercel.json still uses
 // the audit's real target).
 const SURVIVING_GUIDE_BY_THEME = (path) => {
-  if (/cost|price|quote|budget|cheap|movers-cost/.test(path)) return '/adelaide-moving-guides/removalists-cost-adelaide/';
+  if (/cost|price|quote|budget|cheap|movers-cost/.test(path)) return '/adelaide-moving-guides/moving-house-checklist-adelaide/';
   if (/office/.test(path)) return '/adelaide-moving-guides/office-relocation-checklist-adelaide/';
   if (/furniture|packing|fragile|heavy|protection/.test(path)) return '/adelaide-moving-guides/how-to-prepare-furniture-for-moving/';
   if (/checklist|prepar|timeline|booking|timing|settlement|end-of-lease|downsizing/.test(path)) return '/adelaide-moving-guides/moving-house-checklist-adelaide/';
@@ -169,16 +169,16 @@ const verifiedPricingMetadata = new Map([
     description: 'Somerton Park West removalists for beachside streets and apartments. Plan access, inventory and timing with a clear moving quote.',
   }],
   ['removalists-hyde-park/index.html', {
-    title: 'Hyde Park Removalists | $75/30 min Local Movers | ZQ Removals',
-    description: 'Local removalists for Hyde Park houses, units and furniture. 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. Call-out/travel may apply.',
+    title: 'Removalists Hyde Park | Homes & Furniture | ZQ Removals',
+    description: 'Removalists Hyde Park for houses, units and furniture on compact inner-south streets. Crews from $75 per 30 minutes. Send access notes and request a quote.',
   }],
   ['removalists-adelaide-cbd/index.html', {
     title: 'Removalists Adelaide CBD | Apartment & Office Movers',
     description: 'Removalists Adelaide CBD for apartment, office and furniture moves. Plan lift bookings, loading zones, parking and access before requesting a clear quote.',
   }],
   ['removalists-unley-park/index.html', {
-    title: 'Unley Park Removalists | Homes & Townhouses | ZQ Removals',
-    description: 'Unley Park removalists for homes, townhouses and furniture. Share parking, stairs and fragile items for a quote. 2 men + truck from $75 per 30 min.',
+    title: 'Removalists Unley Park | Homes & Townhouses | ZQ Removals',
+    description: 'Removalists Unley Park for houses, townhouses and furniture on tighter streets. Crews from $75 per 30 minutes. Share stairs and parking, then request a quote.',
   }],
   ['same-day-removalists-adelaide/index.html', {
     title: 'Same Day Removalists Adelaide | Check Availability',
@@ -198,7 +198,7 @@ const verifiedPricingMetadata = new Map([
   }],
   ['office-removals-adelaide/index.html', {
     title: 'Office Removalists Adelaide | Business Moves | ZQ Removals',
-    description: 'Office removalists in Adelaide for offices, clinics and studios. Lift and dock checks, IT equipment care, restart planning. Crew rates from $75/30 min.',
+    description: 'Office removalists Adelaide for clinics, studios and offices. Weekend moves, lift and dock checks and IT care from $75/30 min. Request your quote today.',
   }],
   ['cheap-removalists-adelaide/index.html', {
     title: 'Cheap Removalists Adelaide | Cut Moving Time | ZQ Removals',
@@ -1378,7 +1378,7 @@ const suburbV4Registry = {
 const seoGuideLibrary = {
   cost: {
     title: 'Removalists cost guide',
-    url: '/adelaide-moving-guides/removalists-cost-adelaide/',
+    url: '/removalists-adelaide-prices/',
     cta: 'Read the pricing guide',
   },
   house: {
@@ -6149,7 +6149,7 @@ function getRelatedLinksProfile(page) {
           eyebrow: 'Planning guide',
           title: 'Removalist cost Adelaide',
           copy: 'Use the pricing guide when the household brief needs better cost framing before the quote is requested.',
-          url: '/adelaide-moving-guides/removalists-cost-adelaide/',
+          url: '/removalists-adelaide-prices/',
           cta: 'Open the cost guide',
         },
       ],
@@ -6483,7 +6483,7 @@ function getRelatedLinksProfile(page) {
             eyebrow: 'Pricing',
             title: 'Removalist cost Adelaide',
             copy: 'Use the pricing guide when the next step is understanding labour, access, and timing pressure before comparing quotes.',
-            url: '/adelaide-moving-guides/removalists-cost-adelaide/',
+            url: '/removalists-adelaide-prices/',
             cta: 'Read the cost guide',
           },
           {

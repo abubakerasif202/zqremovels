@@ -955,8 +955,8 @@ const suburbSeoOverrides = {
     description: 'Glenelg removalists for coastal apartments and homes near Jetty Road and Anzac Highway, with parking, loading and furniture access planned early.',
   },
   'hyde-park': {
-    title: 'Hyde Park Removalists | $75/30 min Local Movers | ZQ Removals',
-    description: 'Local removalists for Hyde Park houses, units and furniture. 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. Call-out/travel may apply.',
+    title: 'Removalists Hyde Park | Homes & Furniture | ZQ Removals',
+    description: 'Removalists Hyde Park for houses, units and furniture on compact inner-south streets. Crews from $75 per 30 minutes. Send access notes and request a quote.',
   },
   'malvern': {
     title: 'Removalists Malvern, Adelaide, SA 5061 | ZQ Removals',
@@ -967,8 +967,8 @@ const suburbSeoOverrides = {
     description: 'Brighton SA removalists for family homes and apartments. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply.',
   },
   'medindie': {
-    title: 'Medindie Removalists | Premium Home Movers Adelaide',
-    description: 'Medindie removalists for larger homes. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply. Send access details.',
+    title: 'Removalists Medindie | Larger Home Moves | ZQ Removals',
+    description: 'Removalists Medindie for larger homes north of the Parklands. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply.',
   },
   'colonel-light-gardens': {
     title: 'Colonel Light Gardens Removalists | ZQ Removals',
@@ -976,7 +976,7 @@ const suburbSeoOverrides = {
   },
   'unley': {
     title: 'Removalists Unley | Villa & Townhouse Movers | ZQ Removals',
-    description: 'Unley removalists for character homes, apartments and townhouses near Unley Road. Parking, access and furniture handling planned first. Moving in Unley Park? See our Unley Park page.',
+    description: 'Unley removalists for character homes, apartments and townhouses near Unley Road. Parking, access and furniture handling planned first. Request a moving quote.',
   },
   'mawson-lakes': {
     title: 'Removalists Mawson Lakes | Adelaide Moving Service',
@@ -987,12 +987,12 @@ const suburbSeoOverrides = {
     description: 'Mount Barker removalists for Adelaide Hills homes and metro-to-Hills moves, with freeway routing, property access and larger inventories planned.',
   },
   'unley-park': {
-    title: 'Unley Park Removalists | Homes & Townhouses | ZQ Removals',
-    description: 'Unley Park removalists for homes, townhouses and furniture. Share parking, stairs and fragile items for a quote. 2 men + truck from $75 per 30 min.',
+    title: 'Removalists Unley Park | Homes & Townhouses | ZQ Removals',
+    description: 'Removalists Unley Park for houses, townhouses and furniture on tighter streets. Crews from $75 per 30 minutes. Share stairs and parking, then request a quote.',
   },
   'toorak-gardens': {
-    title: 'Toorak Gardens Removalists | Local Movers | ZQ Removals',
-    description: 'Toorak Gardens removalists for premium homes. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply.',
+    title: 'Removalists Toorak Gardens | Careful Handling | ZQ Removals',
+    description: 'Removalists Toorak Gardens for careful furniture handling. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply.',
   },
   'victor-harbor-road': {
     title: 'Victor Harbor Road Removalists | ZQ Removals',
@@ -2158,7 +2158,7 @@ const guideLinkProfiles = {
     ],
     guides: [
       { href: '/adelaide-moving-guides/moving-checklist-adelaide/', label: 'general move checklist' },
-      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'apartment move costs' },
+      { href: '/removalists-adelaide-prices/', label: 'apartment move costs' },
     ],
     commercial: [
       { href: '/apartment-removalists-adelaide/', label: 'apartment removalists' },
@@ -2226,7 +2226,7 @@ const guideLinkProfiles = {
     ],
     guides: [
       { href: '/adelaide-moving-guides/moving-checklist-adelaide/', label: 'moving checklist' },
-      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'cost guide' },
+      { href: '/removalists-adelaide-prices/', label: 'cost guide' },
     ],
     commercial: [
       { href: '/same-day-removalists-adelaide/', label: 'same-day removalists' },
@@ -2243,7 +2243,7 @@ const guideLinkProfiles = {
       { href: '/removalists-noarlunga/', label: 'southern suburb planning' },
     ],
     guides: [
-      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
+      { href: '/removalists-adelaide-prices/', label: 'removalist cost guide' },
       { href: '/adelaide-moving-guides/moving-house-checklist-adelaide/', label: 'moving checklist' },
     ],
     commercial: [
@@ -2264,7 +2264,7 @@ const commercialLinkProfiles = {
       { href: '/removalists-marion/', label: 'Marion move planning' },
     ],
     guides: [
-      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
+      { href: '/removalists-adelaide-prices/', label: 'removalist cost guide' },
       { href: '/adelaide-moving-guides/moving-checklist-adelaide/', label: 'moving checklist' },
     ],
     siblings: [
@@ -2285,8 +2285,8 @@ const commercialLinkProfiles = {
       { href: '/removalists-marion/', label: 'Marion local moving quotes' },
     ],
     guides: [
-      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
-      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'accurate quote guide' },
+      { href: '/removalists-adelaide-prices/', label: 'removalist cost guide' },
+      { href: '/removalists-adelaide-prices/', label: 'accurate quote guide' },
       { href: '/adelaide-moving-guides/cheap-vs-fixed-price-removalists-adelaide/', label: 'affordable moving costs guide' },
     ],
     siblings: [
@@ -2308,8 +2308,8 @@ const commercialLinkProfiles = {
       { href: '/removalists-salisbury/', label: 'Salisbury northern quote factors' },
     ],
     guides: [
-      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'full cost guide' },
-      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'accurate quote guide' },
+      { href: '/removalists-adelaide-prices/', label: 'full cost guide' },
+      { href: '/removalists-adelaide-prices/', label: 'accurate quote guide' },
       { href: '/adelaide-moving-guides/cheap-vs-fixed-price-removalists-adelaide/', label: 'hourly vs moving guide' },
     ],
     siblings: [
@@ -2332,7 +2332,7 @@ const commercialLinkProfiles = {
     ],
     guides: [
       { href: '/adelaide-moving-guides/how-to-get-accurate-removalist-quotes-adelaide/', label: 'accurate removalist quotes' },
-      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
+      { href: '/removalists-adelaide-prices/', label: 'removalist cost guide' },
       { href: '/adelaide-moving-guides/moving-checklist-adelaide/', label: 'moving checklist' },
     ],
     siblings: [
@@ -2486,7 +2486,7 @@ const commercialLinkProfiles = {
       { href: '/removalists-salisbury/', label: 'Salisbury route planning' },
     ],
     guides: [
-      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
+      { href: '/removalists-adelaide-prices/', label: 'removalist cost guide' },
       { href: '/adelaide-moving-guides/booking-timing-guide-adelaide/', label: 'booking timing guide' },
       { href: '/adelaide-moving-guides/fixed-price-vs-hourly-removalists-adelaide/', label: 'moving cost planning guide' },
     ],
@@ -2506,7 +2506,7 @@ const commercialLinkProfiles = {
       { href: '/removalists-marion/', label: 'south-west value moves' },
     ],
     guides: [
-      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
+      { href: '/removalists-adelaide-prices/', label: 'removalist cost guide' },
       { href: '/adelaide-moving-guides/suburb-move-preparation-adelaide/', label: 'suburb move prep' },
     ],
     siblings: [
@@ -2527,7 +2527,7 @@ const commercialLinkProfiles = {
       { href: '/removalists-marion/', label: 'Marion value-focused moves' },
     ],
     guides: [
-      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'Adelaide cost guide' },
+      { href: '/removalists-adelaide-prices/', label: 'Adelaide cost guide' },
       { href: '/adelaide-moving-guides/cheap-vs-fixed-price-removalists-adelaide/', label: 'affordable moving costs guide' },
       { href: '/adelaide-moving-guides/how-to-get-accurate-removalist-quotes-adelaide/', label: 'accurate quote guide' },
     ],
@@ -2864,6 +2864,24 @@ function buildSuburbMoveTypeCards({ suburb, logisticsLabel, clusterKey }) {
 }
 
 function buildSuburbFaqItems({ slug, suburb, logisticsLabel, nearby, clusterKey }) {
+  const uniqueSuburbFaqs = {
+    medindie: [
+      { question: 'What should a Medindie quote include for a larger home?', answer: 'List each living area, bedroom, garage and outbuilding separately, plus artwork, mirrors and any large dining table. A Medindie house can hold more than the street front suggests.' },
+      { question: 'How do long carries inside a Medindie house change the time?', answer: 'Walk the path from the furthest room to where the truck can stand and note every step, turn and doorway. A long carry adds time even when the next suburb is close.' },
+      { question: 'Should outdoor furniture and a downsize be in the Medindie brief?', answer: 'Yes. Say which items are going, which are staying and whether any are headed for storage, so sorting is not left to moving day. Include outdoor furniture and shed contents in the same list.' },
+      { question: 'Which page should I use if the other address is Walkerville or the CBD?', answer: 'Use the Walkerville or Adelaide CBD page for that address, and this page for the Medindie end. Send access notes for both properties with the quote request.' },
+      { question: 'When should I book a Medindie move?', answer: 'Send the brief once the date and both addresses are known. Larger homes with long carries and outbuildings need the inventory agreed before the day is held, and bookings depend on crew availability.' },
+    ],
+    'toorak-gardens': [
+      { question: 'What should I send for fragile furniture in Toorak Gardens?', answer: 'Send photos and approximate dimensions for mirrors, artwork, glass-top tables, display cabinets and timber furniture so wrapping time can be allowed before moving day.' },
+      { question: 'How should I describe access at a Toorak Gardens address?', answer: 'Say whether the truck can use a driveway or must stop on the street, and whether the entry has steps or a gate. Note any piece that must be turned or tilted to clear a doorway.' },
+      { question: 'What extra details matter for a Toorak Gardens unit?', answer: 'Ask the building about lift bookings and loading rules, then pass those answers on. Say which items should be boxed and which should travel unpacked.' },
+      { question: 'Can packing be added before a Toorak Gardens move?', answer: 'Packing help can be discussed before booking. List the rooms and fragile pieces you want packed so the time allowed matches the work.' },
+      { question: 'Does a short move from Toorak Gardens still need access notes?', answer: 'Yes. A move to Norwood, Linden Park or Kensington Gardens is mostly handling time. Driveway position, steps and fragile pieces change the crew and the time more than the distance.' },
+    ],
+  };
+  if (uniqueSuburbFaqs[slug]) return uniqueSuburbFaqs[slug];
+
   const exactMatchFaq = {
     'hyde-park': {
       question: 'What should Hyde Park removalists quote for first?',
@@ -3534,7 +3552,7 @@ export function getGeneratedPages() {
     destinationPath: '/removalists-semaphore/',
   }));
 
-  const canonicalCostGuidePath = '/adelaide-moving-guides/removalists-cost-adelaide/';
+  const canonicalCostGuidePath = '/removalists-adelaide-prices/';
   pages.push(makeRedirectPage({
     output: 'adelaide-moving-guides/removalist-cost-adelaide/index.html',
     canonical: buildCanonical(canonicalCostGuidePath),
@@ -3732,7 +3750,7 @@ function makeRedirectPage({ output, canonical, title, description, destinationPa
     title,
     description,
     canonical,
-    robots: 'noindex,nofollow',
+    robots: 'noindex,follow',
     ogTitle: title,
     ogDescription: description,
     ogUrl: canonical,
@@ -4200,7 +4218,7 @@ ${renderPageHero({
     <div class="inline-link-group">
       <a href="/fixed-price-removalists-adelaide/">Moving removalists Adelaide</a>
       <a href="/removalists-adelaide/">Adelaide removalists</a>
-      <a href="/adelaide-moving-guides/removalists-cost-adelaide/">Removalist cost guide</a>
+      <a href="/removalists-adelaide-prices/">Removalist cost guide</a>
       <a href="/contact-us/#quote-form">Request a quote</a>
     </div>
   </div>
@@ -5461,7 +5479,7 @@ const priorityQuoteFaq = { question: 'What details should I send for a moving qu
 // own copy, nearby links and FAQs instead of a name-swapped template.
 const prioritySuburbProfiles = {
   'hyde-park': {
-    h1: 'Hyde Park removalists: local home and furniture moves',
+    h1: 'Removalists Hyde Park for houses and furniture',
     lead: 'Looking for local removalists in Hyde Park? ZQ Removals moves houses, units and furniture in Hyde Park and the surrounding inner-south suburbs. Send both addresses and what needs moving, and we will discuss the crew size and likely moving time. Published rates start at $75 per 30 minutes for 2 men and a truck.',
     points: ['House, unit and furniture moves in Hyde Park', 'Published crew rates, call-out/travel disclosed', 'Access and parking reviewed before booking'],
     sections: [
@@ -5524,7 +5542,7 @@ const prioritySuburbProfiles = {
     ],
   },
   'unley-park': {
-    h1: 'Unley Park removalists: home, townhouse and furniture moves',
+    h1: 'Removalists Unley Park for homes and townhouses',
     lead: 'Moving in Unley Park? ZQ Removals handles house, townhouse and furniture moves in Unley Park and nearby inner-south suburbs. Send both addresses, the inventory and any access limits, and we will discuss the crew and moving time. Published rates start at $75 per 30 minutes for 2 men and a truck.',
     points: ['Houses, townhouses and furniture', 'Packing help can be discussed before booking', 'Published crew rates, call-out/travel disclosed'],
     sections: [
@@ -5580,21 +5598,23 @@ const suburbMoveBriefs = {
   'medindie': {
     eyebrow: 'Larger homes',
     heading: 'Planning the carry path in a Medindie home',
-    intro: 'Premium and larger homes need a clear walk-through before the quote, not after.',
+    intro: 'Larger homes north of the Parklands need a room-by-room list before the crew size is discussed.',
     paragraphs: [
-      'Medindie sits just north of North Adelaide and the Parklands, and moves here are often larger-home moves with several living areas, a garage and outdoor furniture. List each room and any outbuilding separately, because a household that looks modest from the street can hold a lot.',
-      'Walk the route from the furthest room to the spot where the truck can stand, and note every step, turn and doorway on the way. A long carry through a big house adds time. Mention pieces such as artwork, mirrors or a large dining table that need wrapping or dismantling.',
-      'If you are sorting a big household as part of a downsize, say which items are going, which are staying and whether any are headed for storage, so the sorting is not left to moving day. Polished floors, stair rails and door frames along the route are worth a mention so protection can be planned.',
+      'Medindie sits just north of North Adelaide and the Parklands. A typical enquiry is a larger home with more than one living area, several bedrooms, a garage and outdoor furniture. List every room and any outbuilding on its own line, because the street front often hides a dining setting, spare beds and a shed of tools.',
+      'Before you ask for a quote, walk from the furthest room to the place a truck can stand. Count the steps, the turns and the doorways on that path. A long carry through the house adds handling time even when the delivery suburb is only a short drive past the Parklands.',
+      'Call out artwork, mirrors and a large dining table if they need wrapping or taking apart. Mention polished floors, stair rails and door frames along the carry so floor and corner protection can be planned rather than improvised. Photos of the tightest doorway help confirm whether a piece must be tilted.',
+      'If the household is being sorted as a downsize, say which pieces are travelling, which are staying and whether any go to storage. Include outdoor furniture in the same list. When the other address is in Walkerville, Prospect or the Adelaide CBD, use that suburb page for the far end and send access notes for both properties together. A 2-man crew can suit a shorter list, while a 3-man crew can suit heavy pieces and a long walk to the truck, so ask which one fits the inventory you send.',
     ],
   },
   'toorak-gardens': {
     eyebrow: 'Careful handling',
     heading: 'Protecting fragile and valuable pieces in Toorak Gardens',
-    intro: 'In premium moves the contents often decide the plan more than the distance does.',
+    intro: 'On these eastern-suburb moves the furniture often decides the plan more than the distance does.',
     paragraphs: [
-      'Take photos of valuable or delicate pieces such as mirrors, artwork, glass-top tables, display cabinets and timber furniture, and send approximate dimensions with them. That lets wrapping and handling time be allowed for in the estimate rather than discovered on the day.',
-      'Eastern-suburb access varies from a wide driveway to a narrow street with little room to stop. Tell us where a truck can stand, whether the entry has steps or a gate, and whether any piece must be turned or tilted to clear a doorway.',
-      'For an apartment or unit, ask the building about lift bookings and loading rules early and pass the answers on. Say which items you want boxed and which should travel unpacked; packing help can be discussed before booking.',
+      'Toorak Gardens enquiries are usually premium homes where mirrors, artwork, glass-top tables, display cabinets and timber furniture need a handling plan of their own. Photograph those pieces and send approximate dimensions so wrapping time is discussed before moving day, not discovered at the door.',
+      'Access on this side of the eastern suburbs swings from a wide driveway to a street with little room to stop. Say where the truck can stand, whether the entry has steps or a gate, and which piece has to be turned or tilted to clear a doorway. A short suburb-to-suburb drive still runs long if every item is carried from the kerb.',
+      'For a unit, ask the building about lift bookings and loading rules and pass the answers on with the brief. Say which items you want boxed and which should travel unpacked. Packing help can be added when it is agreed before the booking, and it needs its own time allowance.',
+      'Norwood sits to the north, Linden Park to the south-east, with Burnside and Kensington Gardens nearby. If the move runs between Toorak Gardens and one of those suburbs, use the matching page for the other address and keep the fragile-item notes on this page. The crew size follows the pieces and the carry, so ask whether a 2-man or 3-man crew fits the list you send. Group the fragile pieces in one room and mark them so they can be wrapped together.',
     ],
   },
   'brighton': {
@@ -5620,21 +5640,23 @@ const suburbMoveBriefs = {
   'hyde-park': {
     eyebrow: 'Loading order',
     heading: 'Getting the load order right at a compact Hyde Park address',
-    intro: 'Where streets are compact, what leaves the house first makes a real difference.',
+    intro: 'Hyde Park streets are compact, so the order items leave the house changes the day.',
     paragraphs: [
-      'Keep one doorway and the path to the truck clear before the crew arrives, and ask whoever is at home to stay out of the hallway. Label each box with its destination room so unloading follows the same order as loading.',
-      'Large furniture usually goes first and boxes fill the gaps, so tell us early about any piece that cannot be moved in one go. Set aside keys, documents, medication and valuables to carry yourself rather than putting them on the truck.',
-      'If premium furniture or artwork is involved, group it in one room and mark it clearly. The crew can then wrap and load those pieces together instead of finding them throughout the house.',
+      'Hyde Park is in the inner south, in the City of Unley, between Unley, Unley Park and Malvern, with King William Road running through it. Many moves here are between character villas, bungalows and smaller homes a few streets apart, so loading and unloading take longer than the drive.',
+      'Keep one doorway and the path to the truck clear before the crew arrives. Large furniture usually goes on first and boxes fill the gaps, so say early if a sofa, wardrobe or dining table cannot travel in one piece. Label each box with the room it belongs in so the unload follows the same order.',
+      'Older Hyde Park houses often have long central hallways, narrow front doors, return verandas and polished timber. Measure the front door, the hallway and any turn into a bedroom, and compare those widths with the largest piece. A sofa that entered through a back door may need to leave the same way. Mention timber floors, leadlight and fireplaces on the carry path, and list a piano or heavy timber furniture separately because they change the crew size.',
+      'If the truck cannot stop at the door, especially on or near King William Road, note the walk to the nearest legal stopping place and any clearway times posted on the street. On side streets, check driveway width, overhanging trees and parked cars. Photos of the entry, stairs and tight turns let the time allowed match the address. For a move that leaves South Australia, ask about interstate removals when you request the quote.',
     ],
   },
   'unley-park': {
     eyebrow: 'Final week',
     heading: 'The final week before an Unley Park move',
-    intro: 'Most delays on the day trace back to something that could have been settled a week earlier.',
+    intro: 'Unley Park delays usually trace back to a driveway, a stair or a fragile piece that was not in the brief.',
     paragraphs: [
-      'A week out, confirm any body-corporate or building approvals, confirm lift bookings if there is a lift, and tell neighbours that a truck will be on the street. Re-measure the largest piece of furniture against the narrowest doorway on its route.',
-      'Two or three days before, finish packing everything that will not be used again, take heavy contents out of drawers and wardrobes, and put mirrors and artwork where the crew can find them. Disconnect appliances and empty the fridge and freezer.',
-      'On the morning, leave the driveway clear, keep pets away from open doors and be ready to walk the crew through the rooms. A short walk-through tells them what is going and what is staying, which saves time that would otherwise be charged by the half hour.',
+      'Unley Park is a separate inner-south suburb from Unley, with tighter residential streets, houses and townhouses rather than the Unley Road strip. A week out, confirm any body-corporate approval, book a lift if the property has one, and tell neighbours a truck will need the street. Measure the largest piece against the narrowest doorway on its route out.',
+      'Townhouses here often share an entrance or a stair. Write down how many flights there are, whether the stair turns, and how far the truck will sit from the door if the driveway is short or the street is narrow with parked cars. Those notes change the crew and the time more than the distance to Hyde Park or Malvern.',
+      'Two or three days before, finish the boxes you are packing yourself, empty heavy drawers and wardrobes, and put mirrors, artwork and glass-top tables where the crew can find them. Disconnect appliances and empty the fridge. If you want packing help for fragile pieces, ask before the booking so the time is allowed.',
+      'On the morning, leave the driveway clear, keep pets away from open doors and walk the crew through what is going and what is staying. That walk-through saves half-hour increments that would otherwise be spent searching. If one address is in Unley rather than Unley Park, use the Unley page for that end and keep this page for the Unley Park property. Published crew rates start at $75 per 30 minutes for 2 men and a truck, and the time on site still depends on the stairs, the carry and the pieces you listed.',
     ],
   },
   'queens-park': {
@@ -5650,6 +5672,12 @@ const suburbMoveBriefs = {
 };
 
 const suburbHeroOverrides = {
+  medindie: {
+    title: 'Removalists Medindie',
+  },
+  'toorak-gardens': {
+    title: 'Removalists Toorak Gardens',
+  },
   malvern: {
     title: 'Removalists in Malvern, Adelaide, SA 5061',
     lead: 'ZQ Removals moves villas, townhouses and furniture in Malvern, Adelaide, SA 5061, and the surrounding inner-south suburbs. Send both addresses and the inventory, and we will discuss the crew and moving time. Published rates start at $75 per 30 minutes for 2 men and a truck.',
@@ -5707,6 +5735,7 @@ const SUBURB_INBOUND_COPY = {
   ],
   'magill': [['kensington-gardens', 'Kensington Gardens adjoins Magill and covers family-home moves with garage and outdoor inventory.']],
   'linden-park': [['toorak-gardens', 'Toorak Gardens, to the north-west of Linden Park, covers premium homes and careful handling.']],
+  'unley': [['unley-park', 'If the address is in Unley Park rather than along Unley Road, use the Unley Park page for that side of the move.']],
   'walkerville': [['medindie', 'Medindie adjoins Walkerville to the west and covers larger-home moves, with long carries and outbuildings to list.']],
   'prospect': [['medindie', 'Medindie is a neighbouring northern suburb, with larger homes where the carry path and outbuildings shape the quote.']],
   'adelaide-cbd': [['medindie', 'Medindie lies north of the CBD, past North Adelaide and the Parklands, and covers larger-home moves.']],
@@ -5739,6 +5768,25 @@ ${renderRouteCardSection({ module: 'related-services', eyebrow: 'Plan your move'
 ${renderPriorityPlanningFaq(slug)}${renderQuoteStrip({ eyebrow: 'Talk to ZQ Removals', heading: `Request your ${suburb} moving quote`, copy: 'Send your addresses, date, inventory and access notes, or call to discuss the move.', primaryCta:{href:'/contact-us/#quote-form',label:'Request a quote'},secondaryCta:{href:'tel:+61433819989',label:'Call 0433 819 989'},pageType:'suburb' })}
 </main>`;
 }
+
+const costFactorsTableHtml = `<div class="table-wrap" tabindex="0" role="region" aria-label="Removalist cost factors" style="margin-top: 1.5rem;">
+  <table class="rate-table">
+    <caption>Cost factors and what to tell the removalist</caption>
+    <thead>
+      <tr><th scope="col">Factor</th><th scope="col">Why it changes the time</th><th scope="col">What to include in your enquiry</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">Inventory</th><td>More furniture, boxes and garage or outdoor items mean more loading and unloading.</td><td>A room-by-room list, approximate box count and any large items or whitegoods.</td></tr>
+      <tr><th scope="row">Stairs</th><td>Carrying up or down flights is slower than a level carry, especially for heavy items.</td><td>The number of flights or steps at each address, and which heavy items are upstairs.</td></tr>
+      <tr><th scope="row">Lifts and building rules</th><td>Shared lifts, booking windows and loading-zone rules can add waiting or limit when the crew can work.</td><td>Lift reservations, permitted moving times and building manager requirements.</td></tr>
+      <tr><th scope="row">Parking</th><td>The further the truck is from the door, the longer each trip takes. Restricted streets can slow set-up.</td><td>Where the truck can park, any permits or clearway times, and driveway or street width.</td></tr>
+      <tr><th scope="row">Carry distance</th><td>Long paths from the truck to the door multiply the time for every item.</td><td>An estimate of the distance from the parking spot to the entrance, and any gates or uneven ground.</td></tr>
+      <tr><th scope="row">Packing and dismantling</th><td>Unpacked rooms and furniture that must come apart take extra time on the day.</td><td>Which boxes are packed, what needs dismantling, and whether you want packing help.</td></tr>
+      <tr><th scope="row">Stops and travel</th><td>Extra pickups, storage collections and longer routes add driving and handling time.</td><td>All pickup and delivery addresses, in order, and any storage stop.</td></tr>
+    </tbody>
+  </table>
+</div>
+<p>Choose the crew after the inventory and access are reviewed. A 3-man crew has a higher rate than a 2-man crew, and it does not automatically mean a lower total. Pack and label boxes you will pack yourself, agree any dismantling beforehand, book lifts early, and send photos of tight entries so the time can be discussed before moving day.</p>`;
 
 const rateTableHtml = `<style>.table-wrap table.rate-table{min-width:0}.table-wrap table.rate-table th,.table-wrap table.rate-table td{padding:.65rem .5rem;font-size:.92rem}.table-wrap table.rate-table caption{text-align:left;padding:.5rem}</style><div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable comparison table" style="margin-top: 1.5rem;">
   <table class="rate-table">
@@ -5789,6 +5837,7 @@ const priorityCommercialProfiles = {
     lead: 'ZQ Removals publishes its crew rates: 2 men and a truck at $75 per 30 minutes, and 3 men and a truck at $89 per 30 minutes. A 1-hour call-out/travel charge applies where applicable.',
     blocks: [
       { type: 'html', module: 'pricing-rates', eyebrow: 'Current rates', heading: 'Adelaide removalist rates', intro: 'Rates are quoted per 30 minutes.', html: rateTableHtml },
+      { type: 'html', module: 'pricing-cost-factors', eyebrow: 'What changes the time', heading: 'What affects the time your move takes?', intro: 'A short drive does not always mean a short move. Loading, carrying and unloading can take longer than the journey, and each factor below adds or saves minutes on site.', html: costFactorsTableHtml },
       { type: 'text', module: 'pricing-billing', eyebrow: 'How billing works', heading: 'Rates are charged in 30-minute increments', intro: 'Choose a crew, then time on site is counted in half-hours.', paragraphs: [
         'The selected crew package is charged per 30 minutes: $75 for 2 men and a truck, or $89 for 3 men and a truck. Two half-hours make the hourly equivalent shown in the table.',
         'How a part-increment at the end of a job is counted is confirmed in your quote, so ask before booking. A 3-man crew has a higher rate, but it can finish sooner on larger inventories, so ask which crew suits your move.',
@@ -5805,7 +5854,7 @@ const priorityCommercialProfiles = {
       ] },
       { type: 'text', module: 'move-planning', eyebrow: 'What changes the total', heading: 'What changes the time on site', intro: 'The rate is fixed. The time on site is the variable.', paragraphs: [
         'These are time-based rates, not a fixed total for every move. Volume, stairs, lifts, parking, carry distance and packing change the time, and a prepared inventory with clear access shortens the job.',
-        'The moving cost guide explains each factor in detail and what to tell the removalist, so you can brief every company the same way.',
+        'The cost-factor table on this page lists what to tell the removalist, so you can brief every company the same way.',
       ] },
     ],
     faqs: [
@@ -5818,7 +5867,7 @@ const priorityCommercialProfiles = {
       { question: 'Do stairs or long carries change the cost?', answer: 'They can, because they add time on site. Include stairs, lift access and the distance from the truck to the door in your enquiry.' },
     ],
     links: [
-      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'Moving cost guide: what drives moving time' },
+      { href: '/adelaide-moving-guides/moving-house-checklist-adelaide/', label: 'Moving house checklist' },
       { href: '/cheap-removalists-adelaide/', label: 'Cheap and budget moves: how to cut moving time' },
       { href: '/removalists-adelaide/', label: 'Removalists Adelaide' },
       { href: '/office-removals-adelaide/', label: 'Office removalists Adelaide' },
@@ -5847,7 +5896,7 @@ const priorityCommercialProfiles = {
     ],
     links: [
       { href: '/removalists-adelaide-prices/', label: 'Removalists Adelaide prices and rates' },
-      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'Moving cost guide' },
+      { href: '/removalists-adelaide-prices/', label: 'Moving cost guide' },
       { href: '/packing-services-adelaide/', label: 'Packing services Adelaide' },
       { href: '/removalists-adelaide/', label: 'Removalists Adelaide' },
     ],
@@ -5865,7 +5914,7 @@ const priorityCommercialProfiles = {
     links: [
       { href: '/removalists-adelaide/', label: 'Explore Adelaide moving services' },
       { href: '/removalists-adelaide-prices/', label: 'Published rates and charges' },
-      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'How moving time affects cost' },
+      { href: '/removalists-adelaide-prices/', label: 'How moving time affects cost' },
     ],
   },
 };
@@ -5902,7 +5951,7 @@ function renderSuburbContent({ slug, suburb, region, intro, logisticsLabel, near
   const serviceCards = buildSuburbServiceCards({ suburb, supportProfile, intents });
   const interstateCards = buildSuburbInterstateCards(suburb);
   const guideCards = [
-    { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
+    { href: '/removalists-adelaide-prices/', label: 'removalist cost guide' },
     ...supportProfile.guides,
   ]
     .filter((item, index, items) => items.findIndex((candidate) => candidate.href === item.href) === index)
@@ -5950,7 +5999,7 @@ ${renderAeoAnswerBlock({
   answer: `Look for removalists in ${suburb} who review the ${logisticsLabel} constraints, property access, and inventory before quoting. Stairs, lifts and tight entries can affect the moving time and total cost.`,
   links: [
     { href: '/removalists-adelaide-prices/', label: 'Crew rates and charges' },
-    { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'What affects moving time' },
+    { href: '/adelaide-moving-guides/moving-house-checklist-adelaide/', label: 'What to prepare before moving day' },
     { href: '/contact-us/#quote-form', label: 'Request a quote' },
   ],
 })}
@@ -6535,6 +6584,52 @@ function buildGuideFaqItems({ title, topic, slug = '' }) {
   ];
 }
 
+function renderPianoDetailSections() {
+  // TODO: no piano-specific rate or surcharge is published in the repo. The page uses the general crew rates only.
+  return [
+    renderTextSection({
+      module: 'piano-upright-grand',
+      eyebrow: 'Instrument type',
+      heading: 'Uprights and grands need different handling',
+      intro: 'Say which piano you have before the crew size is discussed.',
+      paragraphs: [
+        'An upright piano is tall and compact. It can be difficult to turn on a stair landing or through a narrow hallway, even though the body itself is a single cabinet. A grand piano has a long, curved body and usually needs a different handling plan, including how it is tipped, wrapped and placed in the truck.',
+        'Digital pianos and keyboards are lighter, but the keys, stand and pedals still need protecting. Send the type, and the make and model if you know it, plus a photo of the whole instrument. The team confirms whether and how the move can be done before you book.',
+      ],
+    }),
+    renderTextSection({
+      module: 'piano-access',
+      eyebrow: 'Stairs and access',
+      heading: 'Stairs, doorways and the path to the truck',
+      intro: 'The access path often decides the time, not the suburb distance.',
+      paragraphs: [
+        'Measure the front door and every internal doorway the piano must pass. Count the steps and the turns, and note landings that may be too tight to rotate an upright. Include gravel, grass, ramps, uneven paths and any long carry from the door to where the truck can legally stop.',
+        'Do the same check at the delivery address, and decide where the piano will stand before the day. If the piano is part of a larger household move, say so, because the crew and the loading order change when other furniture is travelling too.',
+      ],
+    }),
+    renderTextSection({
+      module: 'piano-protection',
+      eyebrow: 'Protection and cover',
+      heading: 'Protection, and what to ask about cover',
+      intro: 'Blankets and padding are planned from the photos. Cover is confirmed separately.',
+      paragraphs: [
+        'Tell the team about polished timber, loose veneer, a split soundboard or any handling note from your piano technician. Protection is agreed after the instrument and the access photos have been reviewed, not assumed from the piano type alone.',
+        'Do not assume a particular piano or type of loss is covered. Ask ZQ Removals for the current cover details before you accept a quote. The coverage page lists the questions to ask, including what a building manager may require.',
+      ],
+    }),
+    renderTextSection({
+      module: 'piano-pricing',
+      eyebrow: 'Pricing',
+      heading: 'How piano moving is charged',
+      intro: 'Piano moves use the same published crew rates as other local work.',
+      paragraphs: [
+        'ZQ Removals charges $75 per 30 minutes for 2 men and a truck, and $89 per 30 minutes for 3 men and a truck. A 1-hour call-out/travel charge applies where applicable. Stairs, tight turns and the time spent protecting the instrument change how long the crew is on site.',
+        'No separate piano rate is published. Ask which crew size fits the instrument and the access, and confirm whether the call-out applies to your two addresses, before you book.',
+      ],
+    }),
+  ].join('\n') + '<p class="field-note"><a href="/insurance-and-coverage/">Questions to ask about cover</a> · <a href="/removalists-adelaide-prices/">Published crew rates</a></p>';
+}
+
 function renderCommercialContent(page, canonical, image) {
   if (['moving-company-adelaide', 'removalists-adelaide-prices', 'cheap-removalists-adelaide'].includes(page.slug)) return renderPriorityCommercial(page, image);
   const profile = commercialLinkProfiles[page.slug] || commercialLinkProfiles['cheap-removalists-adelaide'];
@@ -6633,6 +6728,7 @@ ${renderTextSection({
   intro: 'Access, inventory and timing shape the crew and the time needed.',
   paragraphs: page.sections,
 })}
+${page.slug === 'services/piano-movers-adelaide' ? renderPianoDetailSections() : ''}
 ${Array.isArray(page.processSteps) && page.processSteps.length > 0 ? renderTimelineSection({
   module: 'commercial-process',
   eyebrow: 'How the review works',
@@ -6795,7 +6891,7 @@ function getClusterSupportProfile(clusterKey) {
         { href: '/adelaide-moving-guides/apartment-moving-tips-adelaide/', label: 'apartment moving tips' },
         { href: '/adelaide-moving-guides/apartment-lift-bookings-adelaide/', label: 'apartment lift booking guide' },
         { href: '/adelaide-moving-guides/office-access-planning-adelaide-cbd/', label: 'CBD office access guide' },
-        { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'Adelaide removalist cost guide' },
+        { href: '/removalists-adelaide-prices/', label: 'Adelaide removalist cost guide' },
       ],
     };
   }
@@ -6815,7 +6911,7 @@ function getClusterSupportProfile(clusterKey) {
       ],
       guides: [
         { href: '/adelaide-moving-guides/coastal-moving-access-adelaide/', label: 'coastal moving access guide' },
-        { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
+        { href: '/removalists-adelaide-prices/', label: 'removalist cost guide' },
         { href: '/adelaide-moving-guides/storage-planning-adelaide/', label: 'storage planning guide' },
       ],
     };
@@ -6835,7 +6931,7 @@ function getClusterSupportProfile(clusterKey) {
         { href: '/furniture-removalists-adelaide/', label: 'furniture removalists southern suburbs' },
       ],
       guides: [
-        { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'Adelaide removalist costs' },
+        { href: '/removalists-adelaide-prices/', label: 'Adelaide removalist costs' },
         { href: '/adelaide-moving-guides/suburb-move-preparation-adelaide/', label: 'suburb move preparation' },
         { href: '/adelaide-moving-guides/prepare-house-move-adelaide/', label: 'house move preparation guide' },
       ],
@@ -6856,7 +6952,7 @@ function getClusterSupportProfile(clusterKey) {
         { href: '/interstate-removals-adelaide/', label: 'interstate departures north' },
       ],
       guides: [
-        { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
+        { href: '/removalists-adelaide-prices/', label: 'removalist cost guide' },
         { href: '/adelaide-moving-guides/suburb-move-preparation-adelaide/', label: 'suburb move preparation' },
         { href: '/adelaide-moving-guides/packing-checklist-adelaide/', label: 'packing checklist guide' },
       ],
@@ -6879,7 +6975,7 @@ function getClusterSupportProfile(clusterKey) {
       guides: [
         { href: '/adelaide-moving-guides/office-relocation-preparation-adelaide/', label: 'office relocation preparation' },
         { href: '/adelaide-moving-guides/apartment-moving-tips-adelaide/', label: 'apartment moving tips' },
-        { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'Adelaide removalist cost guide' },
+        { href: '/removalists-adelaide-prices/', label: 'Adelaide removalist cost guide' },
       ],
     };
   }
@@ -6896,7 +6992,7 @@ function getClusterSupportProfile(clusterKey) {
     ],
     guides: [
       { href: '/adelaide-moving-guides/moving-checklist-adelaide/', label: 'moving checklist guide' },
-      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'removalist cost guide' },
+      { href: '/removalists-adelaide-prices/', label: 'removalist cost guide' },
       { href: '/adelaide-moving-guides/how-long-moves-take-adelaide/', label: 'move timing guide' },
     ],
   };
@@ -6932,7 +7028,7 @@ function getInterstateSupportProfile(routeSlug) {
     guides: [
       { href: '/adelaide-moving-guides/interstate-moving-checklist-adelaide/', label: 'interstate moving checklist' },
       { href: '/adelaide-moving-guides/how-long-moves-take-adelaide/', label: 'interstate timing guide' },
-      { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'interstate cost factors' },
+      { href: '/removalists-adelaide-prices/', label: 'interstate cost factors' },
     ],
     siblings: allRoutes.filter(r => !r.href.includes(routeSlug)),
   };

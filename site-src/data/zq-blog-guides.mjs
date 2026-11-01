@@ -1,12 +1,5 @@
 export const zqGuidePages = [
   {
-    slug: 'how-much-do-removalists-cost-adelaide',
-    title: 'How Much Do Removalists Cost Adelaide',
-    topic: 'removalist cost planning',
-    type: 'article',
-    basePath: 'adelaide-moving-guides',
-  },
-  {
     slug: 'best-time-to-book-removalists-adelaide',
     title: 'Best Time to Book Removalists Adelaide',
     topic: 'booking timing',
@@ -30,13 +23,6 @@ export const zqGuidePages = [
 ];
 
 export const zqGuideIntentProfiles = {
-  'how-much-do-removalists-cost-adelaide': {
-    title: 'How Much Do Removalists Cost Adelaide',
-    topic: 'removalist cost planning',
-    primaryKeyword: 'how much do removalists cost Adelaide',
-    searchIntent: 'pricing research before requesting a moving estimate',
-    uniqueAngle: 'explains quote factors without publishing fake universal prices or invented discounts',
-  },
   'best-time-to-book-removalists-adelaide': {
     title: 'Best Time to Book Removalists Adelaide',
     topic: 'booking timing',
@@ -61,8 +47,8 @@ export const zqGuideIntentProfiles = {
 };
 
 export const zqGuideRoutes = zqGuidePages.map(({ slug, basePath }) => ({
-  slug: slug === 'how-much-do-removalists-cost-adelaide' ? 'removalists-cost-adelaide' : slug,
-  output: `${basePath}/${slug === 'how-much-do-removalists-cost-adelaide' ? 'removalists-cost-adelaide' : slug}/index.html`,
-  path: `/${basePath}/${slug === 'how-much-do-removalists-cost-adelaide' ? 'removalists-cost-adelaide' : slug}/`,
+  slug,
+  output: `${basePath}/${slug}/index.html`,
+  path: `/${basePath}/${slug}/`,
   pageType: 'blog',
 }));

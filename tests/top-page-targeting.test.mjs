@@ -37,7 +37,7 @@ const HUB_OUTPUTS = new Set([
 
 test('homepage keeps Adelaide positioning, search intent and visible published rates', () => {
   const html = readRoute('/');
-  assert.match(h1(html), /Adelaide moves, planned properly/i);
+  assert.match(h1(html), /Removalists Adelaide, planned properly/i);
   const lead = strip(html.match(/<p class="zqh-lead">([\s\S]*?)<\/p>/i)?.[1] ?? '');
   assert.match(lead, /Adelaide removalists/i);
   const pricing = strip(html.match(/<p class="zqh-pricing-note">([\s\S]*?)<\/p>/i)?.[1] ?? '');
@@ -87,24 +87,18 @@ test('hub links only point at pages that exist and are not redirects', () => {
   assert.deepEqual(dead, [], `hub links to missing or redirecting pages: ${dead.join(', ')}`);
 });
 
-test('prices page and cost guide target distinct intents and link together', () => {
+test('prices page is the single cost target and carries the former guide factors', () => {
   const prices = readRoute('/removalists-adelaide-prices/');
-  const guide = readRoute('/adelaide-moving-guides/removalists-cost-adelaide/');
-
-  assert.notEqual(title(prices), title(guide));
-  assert.notEqual(description(prices), description(guide));
-  assert.ok(hasLink(guide, '/removalists-adelaide-prices/'), 'cost guide must link to the prices page');
-  assert.ok(hasLink(prices, '/adelaide-moving-guides/removalists-cost-adelaide/'), 'prices page should point to the cost guide');
+  assert.equal(existsSync(path.join(distDir, 'adelaide-moving-guides/removalists-cost-adelaide/index.html')), false);
 
   const priceText = strip(main(prices));
   assert.match(priceText, /30-minute increments/i);
   assert.match(priceText, /call-out\/travel/i);
   assert.match(priceText, /\$75 per 30 minutes/);
   assert.match(priceText, /\$89 per 30 minutes/);
-
-  const guideText = strip(main(guide));
+  assert.match(priceText, /What affects the time your move takes\?/i);
   for (const factor of [/stairs/i, /lifts/i, /parking/i, /carry distance/i, /packing/i, /inventory/i]) {
-    assert.match(guideText, factor);
+    assert.match(priceText, factor);
   }
 });
 
@@ -114,7 +108,7 @@ test('every worked example is labelled hypothetical and uses only approved arith
   const money = (text) => [...text.matchAll(/\$(\d[\d,]*)/g)].map((match) => Number(match[1].replace(/,/g, '')));
   const approvedAmounts = new Set([75, 89, 150, 178]);
 
-  for (const route of ['/removalists-adelaide-prices/', '/adelaide-moving-guides/removalists-cost-adelaide/']) {
+  for (const route of ['/removalists-adelaide-prices/']) {
     const html = main(readRoute(route));
 
     // Worked-example tables carry their assumptions in data attributes; recompute each total.
@@ -223,7 +217,7 @@ test('canonical and robots stay unchanged on the retargeted pages', () => {
     ['/removalists-adelaide/', 'index,follow'],
     ['/office-removals-adelaide/', 'index,follow'],
     ['/removalists-adelaide-prices/', 'index,follow'],
-    ['/adelaide-moving-guides/removalists-cost-adelaide/', 'index,follow'],
+    ['/removalists-toorak-gardens/', 'index,follow'],
     ['/removalists-northern-adelaide/', 'index,follow'],
     ['/services/piano-movers-adelaide/', 'index,follow'],
   ]) {

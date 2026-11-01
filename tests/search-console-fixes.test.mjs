@@ -131,9 +131,9 @@ test('generated sitemap and canonicals stay on the apex host', () => {
   assert.match(robots, /Sitemap: https:\/\/zqremovalsadelaide\.com\.au\/sitemap\.xml/);
   assert.match(llms, /Website: https:\/\/zqremovalsadelaide\.com\.au/);
   assert.match(llms, /Priority money pages:/);
-  assert.match(llms, /\[Removalists Adelaide \| Local Moving Services \| ZQ Removals\]\(https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide\/\)/);
+  assert.match(llms, /\[Adelaide Service Areas \| Local Moving Hub \| ZQ Removals\]\(https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide\/\)/);
   assert.match(llms, /Best pages by task:/);
-  assert.match(llms, /\[Quote request: Removalists Adelaide \| Local Moving Services \| ZQ Removals\]\(https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide\/\)/);
+  assert.match(llms, /\[Quote request: Adelaide Service Areas \| Local Moving Hub \| ZQ Removals\]\(https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide\/\)/);
   assert.match(llms, /\[Packing help: Packing Services Adelaide \| Professional Packing Help\]\(https:\/\/zqremovalsadelaide\.com\.au\/packing-services-adelaide\/\)/);
   assert.match(llms, /Best entry pages:/);
   assert.match(ai, /Entity: ZQ Removals/);
@@ -194,7 +194,7 @@ test('visible breadcrumbs are rendered on key page types and align with JSON-LD'
     ['index.html', ['aria-label="Breadcrumb"', 'li aria-current="page">Home']],
     [path.join('removalists-adelaide', 'index.html'), ['aria-label="Breadcrumb"', '/">Home</a>', 'Removalists Adelaide']],
     [path.join('removalists-salisbury', 'index.html'), ['aria-label="Breadcrumb"', '/">Home</a>', 'Salisbury']],
-    [path.join('adelaide-moving-guides', 'removalists-cost-adelaide', 'index.html'), ['aria-label="Breadcrumb"', 'Adelaide Moving Guides', 'How Much Do Removalists Cost in Adelaide?']],
+    [path.join('removalists-adelaide-prices', 'index.html'), ['aria-label="Breadcrumb"', 'What affects the time your move takes?']],
     [path.join('adelaide-to-sydney-removals', 'index.html'), ['aria-label="Breadcrumb"', 'Interstate Removals', 'Adelaide to Sydney Removals']],
     [path.join('adelaide-moving-guides', 'moving-house-checklist-adelaide', 'index.html'), ['aria-label="Breadcrumb"', 'Adelaide Moving Guides', 'Moving house checklist Adelaide']],
   ];
@@ -279,7 +279,7 @@ test('key titles and descriptions stay within safe SEO length guardrails', () =>
   const keyPages = [
     ['index.html', 60, 160],
     ['removalists-adelaide/index.html', 60, 160],
-    ['adelaide-moving-guides/removalists-cost-adelaide/index.html', 60, 160],
+    ['removalists-toorak-gardens/index.html', 60, 160],
     ['removalists-salisbury/index.html', 60, 160],
     ['removalists-glenelg/index.html', 60, 160],
     ['removalists-adelaide-cbd/index.html', 60, 160],
@@ -344,11 +344,11 @@ test('homepage pricing cluster links to Adelaide prices page for crawl discovery
 
 test('priority suburb and interstate pages use the requested high-intent metadata', () => {
   const expectations = [
-    ['removalists-hyde-park/index.html', /Hyde Park Removalists \| \$75\/30 min Local Movers \| ZQ Removals/i, /Local removalists for Hyde Park houses, units and furniture/i],
+    ['removalists-hyde-park/index.html', /Removalists Hyde Park \| Homes &(?:amp;)? Furniture \| ZQ Removals/i, /Removalists Hyde Park for houses, units and furniture/i],
     ['removalists-malvern/index.html', /Removalists Malvern, Adelaide, SA 5061 \| ZQ Removals/i, /Malvern, Adelaide, SA 5061 removalists for villas and townhouses/i],
     ['removalists-unley/index.html', /Removalists Unley \| Villa &(?:amp;)? Townhouse Movers \| ZQ Removals/i, /Unley removalists for character homes, apartments and townhouses/i],
-    ['removalists-unley-park/index.html', /Unley Park Removalists \| Homes &(?:amp;)? Townhouses \| ZQ Removals/i, /Unley Park removalists for homes, townhouses and furniture/i],
-    ['removalists-medindie/index.html', /Medindie Removalists \| Premium Home Movers Adelaide/i, /Medindie removalists for larger homes/i],
+    ['removalists-unley-park/index.html', /Removalists Unley Park \| Homes &(?:amp;)? Townhouses \| ZQ Removals/i, /Removalists Unley Park for houses, townhouses and furniture/i],
+    ['removalists-medindie/index.html', /Removalists Medindie \| Larger Home Moves \| ZQ Removals/i, /Removalists Medindie for larger homes/i],
     ['adelaide-to-sydney-removalists/index.html', /Adelaide to Sydney Removalists/i, /Adelaide to Sydney removalists/i],
     ['adelaide-to-brisbane-removals/index.html', /Adelaide to Brisbane Removalists \| Interstate Movers/i, /Adelaide to Brisbane removalists/i],
     ['adelaide-to-melbourne-removalists/index.html', /Adelaide to Melbourne Removalists/i, /Adelaide to Melbourne removalists/i],
@@ -420,8 +420,8 @@ test('vercel redirects cover legacy html aliases for crawlable pages and route f
     ['/packing-services-adelaide.html', '/packing-services-adelaide/'],
     ['/furniture-removalists-adelaide.html', '/furniture-removalists-adelaide/'],
     ['/removalists-adelaide.html', '/removalists-adelaide/'],
-    ['/adelaide-moving-guides/removalist-cost-adelaide.html', '/adelaide-moving-guides/removalists-cost-adelaide/'],
-    ['/guides/removalist-cost-adelaide.html', '/adelaide-moving-guides/removalists-cost-adelaide/'],
+    ['/adelaide-moving-guides/removalist-cost-adelaide.html', '/removalists-adelaide-prices/'],
+    ['/guides/removalist-cost-adelaide.html', '/removalists-adelaide-prices/'],
   ]) {
     assert.equal(redirects.get(source), destination);
   }
@@ -475,12 +475,12 @@ test('search console not-found validation URLs have direct legacy redirects', ()
     ['/terms.html', '/terms-and-conditions/'],
     ['/terms/index.html', '/terms-and-conditions/'],
     ['/terms-and-conditions.html', '/terms-and-conditions/'],
-    ['/adelaide-moving-guides/removalist-cost-adelaide', '/adelaide-moving-guides/removalists-cost-adelaide/'],
-    ['/adelaide-moving-guides/removalist-cost-adelaide/', '/adelaide-moving-guides/removalists-cost-adelaide/'],
-    ['/adelaide-moving-guides/removalist-cost-adelaide/index.html', '/adelaide-moving-guides/removalists-cost-adelaide/'],
-    ['/guides/removalist-cost-adelaide', '/adelaide-moving-guides/removalists-cost-adelaide/'],
-    ['/guides/removalist-cost-adelaide/', '/adelaide-moving-guides/removalists-cost-adelaide/'],
-    ['/guides/removalist-cost-adelaide/index.html', '/adelaide-moving-guides/removalists-cost-adelaide/'],
+    ['/adelaide-moving-guides/removalist-cost-adelaide', '/removalists-adelaide-prices/'],
+    ['/adelaide-moving-guides/removalist-cost-adelaide/', '/removalists-adelaide-prices/'],
+    ['/adelaide-moving-guides/removalist-cost-adelaide/index.html', '/removalists-adelaide-prices/'],
+    ['/guides/removalist-cost-adelaide', '/removalists-adelaide-prices/'],
+    ['/guides/removalist-cost-adelaide/', '/removalists-adelaide-prices/'],
+    ['/guides/removalist-cost-adelaide/index.html', '/removalists-adelaide-prices/'],
   ]) {
     assert.equal(redirects.get(source), destination, `${source} should redirect directly`);
   }
@@ -519,11 +519,11 @@ test('search console not-found validation aliases have static noindex fallback p
     [path.join('privacy', 'index.html'), 'https://zqremovalsadelaide.com.au/privacy-policy/', '0; url=/privacy-policy/'],
     ['terms.html', 'https://zqremovalsadelaide.com.au/terms-and-conditions/', '0; url=/terms-and-conditions/'],
     [path.join('terms', 'index.html'), 'https://zqremovalsadelaide.com.au/terms-and-conditions/', '0; url=/terms-and-conditions/'],
-    [path.join('adelaide-moving-guides', 'removalist-cost-adelaide', 'index.html'), 'https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/', '0; url=/adelaide-moving-guides/removalists-cost-adelaide/'],
-    [path.join('guides', 'removalist-cost-adelaide', 'index.html'), 'https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/', '0; url=/adelaide-moving-guides/removalists-cost-adelaide/'],
+    [path.join('adelaide-moving-guides', 'removalist-cost-adelaide', 'index.html'), 'https://zqremovalsadelaide.com.au/removalists-adelaide-prices/', '0; url=/removalists-adelaide-prices/'],
+    [path.join('guides', 'removalist-cost-adelaide', 'index.html'), 'https://zqremovalsadelaide.com.au/removalists-adelaide-prices/', '0; url=/removalists-adelaide-prices/'],
   ]) {
     const html = readDist(output);
-    assert.match(html, /<meta name="robots" content="noindex,nofollow" \/>/);
+    assert.match(html, /<meta name="robots" content="noindex,follow" \/>/);
     assert.match(html, new RegExp(`<link rel="canonical" href="${canonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}" \\/>`));
     assert.match(html, new RegExp(`<meta http-equiv="refresh" content="${refresh.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}" \\/>`));
     assert.doesNotMatch(sitemap, new RegExp(output.replace(/\\/g, '/').replace(/index\\.html$/, '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
@@ -981,7 +981,7 @@ test('homepage targets Adelaide removalists and keeps above-fold conversion cont
 
   assert.match(homepage, /<title>Adelaide Removalists \| Home &amp; Interstate Moves \| ZQ Removals<\/title>/);
   assert.match(homepage, /<meta name="description" content="Adelaide removalists for houses, apartments, furniture and interstate moves\. Published crew rates from \$75 per 30 min\. Call 0433 819 989 or request a quote\."/i);
-  assert.match(hero, /<h1[^>]*>Adelaide moves,<br\s*\/?>(?:\s*)planned properly\.<\/h1>/);
+  assert.match(hero, /<h1[^>]*>Removalists Adelaide,<br\s*\/?>(?:\s*)planned properly\.<\/h1>/);
   assert.match(hero, /Your Adelaide removalists for local and interstate moves/i);
   assert.match(hero, /href="#quote-form"[^>]*>Get a Free Quote/i);
   assert.match(hero, /href="tel:\+61433819989"/);
@@ -1114,7 +1114,7 @@ test('removalists Adelaide hub has focused intent, schema, CTA and supporting in
   const firstSection = main.match(/<section\b[\s\S]*?<\/section>/i)?.[0] || '';
 
   assert.equal((main.match(/<h1\b/gi) || []).length, 1);
-  assert.match(html, /<title>Removalists Adelaide \| Local Moving Services \| ZQ Removals<\/title>/i);
+  assert.match(html, /<title>Adelaide Service Areas \| Local Moving Hub \| ZQ Removals<\/title>/i);
   assert.match(html, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide\/"/i);
   assert.match(html, /"@type":"BreadcrumbList"|"@type": "BreadcrumbList"/i);
   assert.match(html, /"@type":"Service"|"@type": "Service"/i);
@@ -1318,7 +1318,7 @@ function normalizeGoogleProfileTokens(value) {
 
 test('piano migration snippet remains a complete assessment-based description', () => {
   const piano = pages.find((page) => page.output === 'services/piano-movers-adelaide/index.html');
-  assert.equal(piano.description, 'Piano movers Adelaide for upright and digital pianos. Send dimensions and access photos for a handling assessment and quote, or call 0433 819 989.');
+  assert.equal(piano.description, 'Piano movers Adelaide for uprights and grands. Send stairs, door widths and photos for a handling plan. Crews from $75 per 30 min. Request a quote.');
   assert.equal(piano.ogDescription, piano.description);
   assert.equal(piano.twitterDescription, piano.description);
 });

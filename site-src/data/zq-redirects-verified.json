@@ -156,12 +156,12 @@
   },
   {
     "source": "/adelaide-moving-guides/how-much-do-movers-cost-adelaide/",
-    "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
+    "destination": "/removalists-adelaide-prices/",
     "permanent": true
   },
   {
     "source": "/adelaide-moving-guides/removalists-cost-marion/",
-    "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
+    "destination": "/removalists-adelaide-prices/",
     "permanent": true
   },
   {
@@ -251,7 +251,7 @@
   },
   {
     "source": "/adelaide-moving-guides/moving-cost-adelaide-2026/",
-    "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
+    "destination": "/removalists-adelaide-prices/",
     "permanent": true
   },
   {
@@ -726,7 +726,7 @@
   },
   {
     "source": "/adelaide-moving-guides/pricing-breakdown-adelaide/",
-    "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
+    "destination": "/removalists-adelaide-prices/",
     "permanent": true
   },
   {
@@ -1116,7 +1116,7 @@
   },
   {
     "source": "/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/",
-    "destination": "/adelaide-moving-guides/removalists-cost-adelaide/",
+    "destination": "/removalists-adelaide-prices/",
     "permanent": true
   },
   {
@@ -1127,6 +1127,11 @@
   {
     "source": "/apartment-removals-adelaide/",
     "destination": "/apartment-removalists-adelaide/",
+    "permanent": true
+  },
+  {
+    "source": "/adelaide-moving-guides/removalists-cost-adelaide/",
+    "destination": "/removalists-adelaide-prices/",
     "permanent": true
   }
 ]

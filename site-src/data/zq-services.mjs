@@ -383,16 +383,16 @@ export const zqServicePages = [
     slug: 'services/piano-movers-adelaide',
     title: 'Piano Movers Adelaide | Piano Removalists | ZQ Removals',
     description:
-      'Piano movers Adelaide for upright and digital pianos. Send dimensions and access photos for a handling assessment and quote, or call 0433 819 989.',
+      'Piano movers Adelaide for uprights and grands. Send stairs, door widths and photos for a handling plan. Crews from $75 per 30 min. Request a quote.',
     canonical: '/services/piano-movers-adelaide/',
     type: 'service',
     hero:
-      'Before booking a piano move, confirm the instrument dimensions and the complete access path at both properties.',
+      'Before booking a piano move, confirm whether it is an upright or a grand, then measure the doors, stairs and the path to the truck at both properties.',
     sections: [
       'Pianos are heavy, awkward and sensitive to knocks, so the plan starts with the instrument and the route it has to travel. Tell us the piano type, its approximate size and both addresses before booking.',
-      'Upright pianos are the most common request. A grand piano has a different shape and usually needs a different handling plan, and digital pianos and keyboards are lighter but still need protecting. Say which you have, and send the make and model if you know it, so the team can confirm whether and how the move can be done.',
+      'An upright is tall and compact and can be hard to turn on a landing. A grand has a long, curved body and usually needs a different handling plan. Digital pianos and keyboards are lighter but still need protecting. Send the make and model if you know it.',
       'Access matters as much as the piano. Measure the front door and any internal doorways, count the steps and turns, note stairs or landings, and check for gravel, grass, ramps or uneven paths. Clear the route and decide where the piano will sit at the destination before the day.',
-      'In your enquiry, include both addresses, the piano type and dimensions, photos of the piano and of the access path, whether there are stairs at either end, and whether the piano is part of a larger move. If the piano needs tuning after the move, arrange that with your own piano technician.',
+      'Piano moves use the published crew rates. There is no separate piano tariff in the published rates. Ask about current cover before booking, and arrange any tuning afterwards with your own piano technician.',
     ],
     processSteps: [
       {
@@ -436,6 +436,16 @@ export const zqServicePages = [
         question: 'Will my piano need tuning after the move?',
         answer:
           'Ask your piano technician whether tuning or other care is needed after relocation. Include any handling instructions from the manufacturer or technician in your enquiry.',
+      },
+      {
+        question: 'How much does piano moving cost in Adelaide?',
+        answer:
+          'Piano moves use the published crew rates: $75 per 30 minutes for 2 men and a truck, or $89 per 30 minutes for 3 men and a truck. A 1-hour call-out/travel charge applies where applicable. Stairs, turns and protection time change how long the job takes. No separate piano rate is published.',
+      },
+      {
+        question: 'Is a piano automatically covered during the move?',
+        answer:
+          'Do not assume a particular piano or type of loss is covered. Ask ZQ Removals for the current cover details before you accept a quote, and read the coverage page for the questions to ask.',
       },
     ],
   },
@@ -569,9 +579,9 @@ export const zqServiceHighlights = {
     'Confirm interstate costs and timing before moving day',
   ],
   'services/piano-movers-adelaide': [
-    'Instrument and access reviewed before booking',
-    'Useful for upright pianos, digital pianos, and organs',
-    'Built for manual access path and stair count review before quoting',
+    'Uprights and grands reviewed before booking',
+    'Stairs, doorways and the path to the truck checked first',
+    'Charged on the published crew rates, with cover confirmed before booking',
   ],
 };
 

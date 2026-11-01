@@ -45,7 +45,7 @@ test('homepage targets Adelaide removalists with the premium template conversion
 
   assert.match(
     homepage,
-    /<h1[^>]*>Adelaide moves,<br\s*\/?>(?:\s*)planned properly\.<\/h1>/i,
+    /<h1[^>]*>Removalists Adelaide,<br\s*\/?>(?:\s*)planned properly\.<\/h1>/i,
   );
   assert.match(
     homepage,
@@ -242,7 +242,7 @@ test('interstate hub and surviving route pages keep the interstate conversion pa
 
 test('guide hub feeds the surviving guide cluster into service intent pages', () => {
   const guideHub = readDist(path.join('adelaide-moving-guides', 'index.html'));
-  for (const slug of ['removalists-cost-adelaide', 'how-to-choose-removalists-adelaide', 'moving-house-checklist-adelaide', 'office-relocation-checklist-adelaide']) {
+  for (const slug of ['how-to-choose-removalists-adelaide', 'moving-house-checklist-adelaide', 'office-relocation-checklist-adelaide']) {
     assert.ok(linksTo(guideHub, `/adelaide-moving-guides/${slug}/`), slug);
   }
   for (const svc of ['/packing-services-adelaide/', '/furniture-removalists-adelaide/', '/office-removals-adelaide/', '/interstate-removals-adelaide/']) {

@@ -96,18 +96,6 @@ test('requested guide pages are useful, schema-backed, in the guide sitemap, and
     const description = textMatch(html, /<meta name="description" content="([^"]+)"/i);
 
     assert.match(guideSitemap, new RegExp(`${escapeRegex(canonicalHost)}${escapeRegex(routePath)}`), `${output} missing from guide sitemap`);
-    if (output === 'adelaide-moving-guides/removalists-cost-adelaide/index.html') {
-      assert.ok(schema.has('Article') || schema.has('BlogPosting'));
-      assert.ok(schema.has('BreadcrumbList'));
-      assert.match(main, /\$75 per 30 minutes/);
-      assert.match(main, /\$89 per 30 minutes/);
-      assert.match(main, /1-hour call-out\/travel charge applies where applicable/);
-      assert.match(main, /What affects the time your move takes\?/);
-      assert.ok(links.includes('/removalists-adelaide-prices/'));
-      assert.ok(links.includes('/contact-us/#quote-form'));
-      assertResolvedLinks(links, output);
-      continue;
-    }
     assert.ok(schema.has('Article'), `${output} missing Article schema`);
     assert.ok(schema.has('FAQPage'), `${output} missing FAQPage schema`);
     assert.ok(schema.has('BreadcrumbList'), `${output} missing BreadcrumbList schema`);
