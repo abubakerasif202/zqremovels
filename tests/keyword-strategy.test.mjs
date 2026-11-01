@@ -51,7 +51,7 @@ test('suburb quick answers link to distinct pricing, education and quote destina
   const block = page.contentHtml.match(/data-generated-module="suburb-aeo-answer"([\s\S]*?)<\/section>/)?.[1];
   assert.ok(block);
   const links = [...block.matchAll(/href="([^"]+)"/g)].map((match) => match[1]);
-  assert.deepEqual(links, ['/removalists-adelaide-prices/', '/adelaide-moving-guides/removalists-cost-adelaide/', '/contact-us/#quote-form']);
+  assert.deepEqual(links, ['/removalists-adelaide-prices/', '/adelaide-moving-guides/moving-house-checklist-adelaide/', '/contact-us/#quote-form']);
 });
 
 test('residential suburb cards avoid office targeting while commercial profiles retain it', () => {

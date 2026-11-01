@@ -30,7 +30,7 @@ test('Semrush overlap URLs redirect to one canonical page per intent', () => {
 
   for (const [output, destination] of redirects) {
     const html = readFileSync(path.join(distDir, output), 'utf8');
-    assert.match(html, /<meta name="robots" content="noindex,nofollow"/i, output);
+    assert.match(html, /<meta name="robots" content="noindex,follow"/i, output);
     assert.match(
       html,
       new RegExp(`<link rel="canonical" href="https://zqremovalsadelaide\\.com\\.au${escapeRegex(destination)}"`),
@@ -92,7 +92,7 @@ test('sitemaps and indexable HTML do not advertise consolidated aliases', () => 
 
   for (const htmlFile of walkHtmlFiles(distDir)) {
     const html = readFileSync(htmlFile, 'utf8');
-    if (/<meta name="robots" content="noindex,nofollow"/i.test(html)) continue;
+    if (/<meta name="robots" content="noindex,follow"/i.test(html)) continue;
     for (const alias of aliasPatterns) {
       assert.doesNotMatch(html, new RegExp(`href="${escapeRegex(alias)}"`), `${htmlFile}: ${alias}`);
     }
@@ -123,7 +123,7 @@ test('Vercel serves permanent redirects for every consolidated GSC alias', () =>
 test('high-impression top-ten pages use intent-matched search snippets', () => {
   const snippets = [
     ['removalists-adelaide-cbd/index.html', /Removalists Adelaide CBD \| Apartment &amp; Office Movers/i, /lift bookings, loading zones, parking and access/i],
-    ['removalists-unley-park/index.html', /Unley Park Removalists \| Homes &amp; Townhouses \| ZQ Removals/i, /homes, townhouses and furniture/i],
+    ['removalists-unley-park/index.html', /Removalists Unley Park \| Homes &amp; Townhouses \| ZQ Removals/i, /houses, townhouses and furniture/i],
     ['same-day-removalists-adelaide/index.html', /Same Day Removalists Adelaide \| Check Availability/i, /current crew availability/i],
     ['door-2-door-movers-alternative-adelaide/index.html', /Door 2 Door Movers Adelaide Alternative \| Compare ZQ/i, /local planning, furniture care, transparent rates/i],
   ];

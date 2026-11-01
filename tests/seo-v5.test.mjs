@@ -16,12 +16,11 @@ const pages = mergePagesByOutput(
 const canonicalHost = 'https://zqremovalsadelaide.com.au';
 // Surviving guide cluster after GSC route consolidation.
 const requiredV5GuideSlugs = [
-  'removalists-cost-adelaide',
+  'how-to-prepare-furniture-for-moving',
   'how-to-choose-removalists-adelaide',
   'moving-house-checklist-adelaide',
   'office-relocation-checklist-adelaide',
   'best-time-to-move-adelaide',
-  'how-to-prepare-furniture-for-moving',
   'apartment-moving-tips-adelaide',
   'prepare-house-move-adelaide',
 ];

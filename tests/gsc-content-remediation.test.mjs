@@ -4,7 +4,7 @@ import test from 'node:test';
 import { readVercelConfig } from './helpers/vercel-config.mjs';
 
 const read = (file) => readFileSync(new URL(`../${file}`, import.meta.url), 'utf8');
-const survivor = '/adelaide-moving-guides/removalists-cost-adelaide/';
+const survivor = '/removalists-adelaide-prices/';
 const alias = '/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/';
 
 test('historical house and singular budget aliases map to live equivalent pages', () => {
@@ -31,7 +31,11 @@ test('duplicate educational cost guide and legacy aliases redirect directly to t
       assert.equal(rule?.statusCode, 301, source);
     }
   }
-  assert.equal(redirects.some((rule) => !rule.has && rule.source === survivor), false);
+  assert.equal(redirects.some((rule) => !rule.has && rule.source === '/adelaide-moving-guides/removalists-cost-adelaide/'), true);
+  assert.equal(
+    redirects.find((rule) => !rule.has && rule.source === '/adelaide-moving-guides/removalists-cost-adelaide/')?.destination,
+    survivor,
+  );
   const verified = JSON.parse(read('site-src/data/zq-redirects-verified.json'));
   assert.deepEqual(verified.find((rule) => rule.source === alias), { source: alias, destination: survivor, permanent: true });
 });

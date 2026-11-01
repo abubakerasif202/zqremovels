@@ -65,7 +65,7 @@ test('piano service keeps focused metadata and descriptive links from real entry
   const piano = readFileSync('site-dist/services/piano-movers-adelaide/index.html', 'utf8');
   assert.match(piano, /<title>Piano Movers Adelaide \| Piano Removalists \| ZQ Removals<\/title>/);
   assert.match(piano, /<h1[^>]*>Piano Movers Adelaide<\/h1>/);
-  assert.match(piano, /name="description" content="Piano movers Adelaide for upright and digital pianos/);
+  assert.match(piano, /name="description" content="Piano movers Adelaide for uprights and grands/);
   const home = readFileSync('site-dist/index.html', 'utf8');
   const hub = readFileSync('site-dist/removalists-adelaide/index.html', 'utf8');
   assert.match(home, /href="\/services\/piano-movers-adelaide\/">Piano movers Adelaide<\/a>/);

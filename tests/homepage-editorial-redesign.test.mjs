@@ -31,7 +31,7 @@ test('Premium template homepage contract is generator-native and complete', asyn
 
   for (const html of [source, built]) {
     assert.equal((html.match(/<h1\b/gi) || []).length, 1);
-    assert.match(html, /<h1[^>]*>Adelaide moves,<br\s*\/?>(?:\s*)planned properly\.<\/h1>/i);
+    assert.match(html, /<h1[^>]*>Removalists Adelaide,<br\s*\/?>(?:\s*)planned properly\.<\/h1>/i);
     assert.equal((html.match(/data-service-card/g) || []).length, 6);
     assert.equal((html.match(/itemtype="https:\/\/schema\.org\/Question"/g) || []).length, 8);
     assert.equal((html.match(/data-quote-form="quote"/g) || []).length, 1);

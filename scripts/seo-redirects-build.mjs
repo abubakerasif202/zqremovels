@@ -79,14 +79,16 @@ async function loadManifestRoutes() {
 
 const manifestRoutes = await loadManifestRoutes();
 
-// Reviewed 2026-09-28: retain the established educational guide and consolidate
-// the duplicate question-form URL. This decision survives audit-file regeneration.
+// Reviewed 2026-11-01 from Search Console: the cost guide competed with the
+// prices page. Both the guide and its question-form alias go straight to prices.
 const reviewedCostAlias = '/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/';
 const retainedCostGuide = '/adelaide-moving-guides/removalists-cost-adelaide/';
+const pricesTarget = '/removalists-adelaide-prices/';
 // Migration recovery: the legacy /guides/ furniture-preparation alias was a live 404.
 const furniturePreparationAlias = '/guides/how-to-prepare-furniture-for-moving/';
 const verified = [
-  { source: reviewedCostAlias, destination: retainedCostGuide, permanent: true },
+  { source: reviewedCostAlias, destination: pricesTarget, permanent: true },
+  { source: retainedCostGuide, destination: pricesTarget, permanent: true },
   { source: furniturePreparationAlias, destination: '/adelaide-moving-guides/how-to-prepare-furniture-for-moving/', permanent: true },
 ];
 const deferred = [];
@@ -113,6 +115,9 @@ for (const r of allRedirects) {
 for (const o of JSON.parse(rd('data/migration/redirect-overrides.json'))) {
   const hit = verified.find((r) => r.source === o.source);
   if (hit) hit.destination = o.destination;
+}
+for (const rule of verified) {
+  if (rule.destination === retainedCostGuide) rule.destination = pricesTarget;
 }
 
 // Integrity checks on the verified set.
