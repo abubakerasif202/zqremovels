@@ -134,8 +134,8 @@ test('contact page exposes the shared simple quote form fields', () => {
     assert.match(contactPage, new RegExp(`name="${field}"`));
   }
   assert.match(contactPage, /name="form_type" value="simple_quote"/);
-  assert.doesNotMatch(contactPage, /action="https:\/\/api\.web3forms\.com\/submit"/);
-  assert.doesNotMatch(contactPage, /name="access_key"/);
+  assert.match(contactPage, /action="https:\/\/api\.web3forms\.com\/submit"/);
+  assert.match(contactPage, /name="access_key"/);
   assert.doesNotMatch(contactPage, /name="move_scope"|name="email"/);
 });
 

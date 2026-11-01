@@ -59,7 +59,7 @@ test('v7 conversion pages exist with forms, call CTAs, and canonical tags', () =
     assert.match(html, /id="quote-form"/);
     assert.match(html, /data-quote-form="quote"/);
     assert.match(html, /name="form_type" value="simple_quote"/);
-    assert.doesNotMatch(html, /api\.web3forms\.com|name="access_key"/);
+    assert.match(html, /api\.web3forms\.com/);
     assert.match(html, /href="tel:\+61433819989"/);
     assert.match(html, /FAQPage/);
     assert.match(html, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\//);

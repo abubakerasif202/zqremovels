@@ -106,7 +106,7 @@ test('generated html keeps internal hrefs root-absolute', () => {
   }
 });
 
-test('quote forms use protected receipt endpoint and preserve non-JS provider fallback', () => {
+test('quote forms submit directly to Web3Forms with a non-JS fallback', () => {
   const homepage = readDist('index.html');
   const contactPage = readDist(path.join('contact-us', 'index.html'));
   const clientScript = readFileSync(path.join(root, 'site.js'), 'utf8');
@@ -123,19 +123,19 @@ test('quote forms use protected receipt endpoint and preserve non-JS provider fa
   assert.match(contactPage, /Get your free moving quote/i);
   assert.match(contactPage, /What happens after you enquire/i);
   assert.match(clientScript, /const attribution = getStoredAttribution\(\);/);
-  assert.match(clientScript, /JSON\.stringify\(buildQuoteSubmissionPayload\(payload\)\)/);
+  assert.match(clientScript, /\.\.\.buildQuoteSubmissionPayload\(payload\)/);
   assert.match(clientScript, /function updateFormStepAccessibility\(form, activeStepIndex\)/);
   assert.match(clientScript, /fieldset\.setAttribute\("aria-hidden", "true"\)/);
   assert.match(clientScript, /el\.setAttribute\("tabindex", "-1"\)/);
-  assert.match(clientScript, /\b(?:const|var) QUOTE_API_ENDPOINT = "\/api\/quote\/";/);
+  assert.match(clientScript, /\b(?:const|var) QUOTE_API_ENDPOINT = "https:\/\/api\.web3forms\.com\/submit";/);
   assert.match(clientScript, /fetch\(QUOTE_API_ENDPOINT,/);
   assert.match(clientScript, /"Content-Type": "application\/json"/);
   assert.match(clientScript, /submission_id: payload\.submission_id/);
   assert.match(clientScript, /subject: getTrimmedPayloadValue\(payload, "subject"\)/);
   assert.match(clientScript, /source_page: window\.location\.href/);
   assert.match(clientScript, /utm_source: attribution\.utm_source/);
-  assert.doesNotMatch(contactPage, /action="https:\/\/api\.web3forms\.com\/submit"/);
-  assert.match(contactPage, /action="\/api\/quote\/" method="post"/);
+  assert.match(contactPage, /action="https:\/\/api\.web3forms\.com\/submit"/);
+  assert.doesNotMatch(contactPage, /action="\/api\/quote\/"/);
   assert.doesNotMatch(clientScript, /d928b483-d5f0-40d7-9eb1-44a56130ba63/);
 });
 

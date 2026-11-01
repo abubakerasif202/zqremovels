@@ -46,27 +46,27 @@ test('the homepage has a hero form and a bottom form', () => {
   assert.match(home, /<form id="quote-form"/);
 });
 
-test('simple form: four required fields, no selects, no email, no legacy transport', () => {
+test('simple form: direct Web3Forms without custom validation or spam controls', () => {
   for (const { rel, html } of pages) {
     for (const form of quoteForms(html)) {
       const required = [...form.matchAll(/<input\b[^>]*\brequired\b[^>]*>/g)]
         .map((match) => match[0].match(/name="([^"]+)"/)[1]).sort();
-      assert.deepEqual(required, ['dropoff_suburb', 'full_name', 'phone', 'pickup_suburb'], rel);
+      assert.deepEqual(required, [], rel);
       assert.doesNotMatch(form, /<select|name="email"|crew_package|type="radio"|data-multi-step/i, rel);
-      assert.doesNotMatch(form, /api\.web3forms\.com|name="access_key"|data-netlify/i, rel);
-      assert.match(form, /action="\/api\/quote\/" method="post"/, rel);
+      assert.match(form, /name="access_key" value="[^"]+"/, rel);
+      assert.match(form, /action="https:\/\/api\.web3forms\.com\/submit" method="post"/, rel);
       assert.match(form, /Get My Free Quote/, rel);
       assert.match(form, /name="form_type" value="simple_quote"/, rel);
-      assert.match(form, /name="botcheck"/, rel);
+      assert.doesNotMatch(form, /name="botcheck"|turnstile|recaptcha/i, rel);
       assert.match(form, /<input[^>]*type="date"[^>]*>/, rel);
       assert.match(form, /<textarea[^>]*name="additional_details"/, rel);
     }
   }
 });
 
-test('no page ships a second quote handler or a client-side provider key', () => {
+test('no page sends quotes to the legacy API', () => {
   for (const { rel, html } of pages) {
-    assert.doesNotMatch(html, /80c3ff0c-7ae6-4aa7-bb66-567612739824|action="https:\/\/api\.web3forms/, rel);
+    assert.doesNotMatch(html, /action="\/api\/quote\//, rel);
   }
 });
 

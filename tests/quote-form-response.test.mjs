@@ -104,7 +104,7 @@ async function runSubmitWithResponse(response) {
 test('quote form accepts successful JSON Web3Forms responses', async () => {
   const result = await runSubmitWithResponse(
     createWeb3FormsResponse({
-      body: JSON.stringify({ success: true, submission_status: 'accepted', submission_id: '3f2b8c1e-9d4a-4b6f-8a1c-2e5d7f903b14', message: 'Submitted' }),
+      body: JSON.stringify({ success: true, message: 'Submitted' }),
     }),
   );
 
@@ -112,7 +112,7 @@ test('quote form accepts successful JSON Web3Forms responses', async () => {
   assert.equal(result.message, 'Submitted');
 });
 
-for (const body of ['', 'OK', '{broken', '{}', 'null', '{"success":true}', '{"success":true,"submission_status":"accepted","submission_id":"invalid"}', '{"success":"true"}', '{"success":false}']) {
+for (const body of ['', 'OK', '{broken', '{}', 'null', '{"success":"true"}', '{"success":false}']) {
   test(`quote form rejects unconfirmed HTTP 200 response: ${body}`, async () => {
     await assert.rejects(runSubmitWithResponse(createWeb3FormsResponse({ body })));
   });
@@ -159,13 +159,17 @@ test('revoked consent cannot reuse stale hidden advertising attribution', async 
   assert.equal(sent.utm_campaign, '');
 });
 
-test('quote transport forwards configured CAPTCHA response fields without adding them to analytics',async()=>{
+test('quote transport sends directly to Web3Forms without custom spam fields or redirect',async()=>{
   let sent;
   const submit=loadQuoteSubmitter(async(_url,options)=>{
+    assert.equal(_url, 'https://api.web3forms.com/submit');
     sent=JSON.parse(options.body);
     return createWeb3FormsResponse({body:JSON.stringify({success:true,submission_status:'accepted',submission_id:'3f2b8c1e-9d4a-4b6f-8a1c-2e5d7f903b14'})});
   });
-  await submit({}, {'cf-turnstile-response':'fixture-turnstile','g-recaptcha-response':'fixture-recaptcha'});
-  assert.equal(sent['cf-turnstile-response'],'fixture-turnstile');
-  assert.equal(sent['g-recaptcha-response'],'fixture-recaptcha');
+  await submit({}, {access_key:'test-key', botcheck:'filled', redirect:'https://example.com', 'cf-turnstile-response':'fixture-turnstile','g-recaptcha-response':'fixture-recaptcha'});
+  assert.equal(sent.access_key, 'test-key');
+  assert.equal(sent.redirect, undefined);
+  assert.equal(sent.botcheck, undefined);
+  assert.equal(sent['cf-turnstile-response'],undefined);
+  assert.equal(sent['g-recaptcha-response'],undefined);
 });

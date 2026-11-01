@@ -1,6 +1,6 @@
 // Side-effect-free Google Ads conversion check against the live site (or a local build).
 //
-// Nothing real is created: POST /api/quote/ is mocked (no enquiry, no email) and every Google Ads /
+// Nothing real is created: POST https://api.web3forms.com/submit is mocked (no enquiry, no email) and every Google Ads /
 // Analytics measurement request is ABORTED in the test browser and only recorded. Only the
 // gtm.js / gtag.js script loaders are fetched.
 //
@@ -35,18 +35,11 @@ const localCsp = () => JSON.parse(readFileSync("vercel.json", "utf8")).headers
 
 async function fillAndSubmit(page, double = false) {
   const form = page.locator("form[data-quote-form]").first();
-  await form.locator('input[name="crew_package"]').first().check({ force: true });
-  for (const name of ["move_scope", "property_type", "move_size", "packing_required", "pickup_access", "dropoff_access"]) {
-    const select = form.locator(`select[name="${name}"]`);
-    const values = await select.locator("option").evaluateAll((options) => options.map((o) => o.value).filter(Boolean));
-    await select.selectOption(values[0]);
-  }
-  await form.locator('[name="pickup_suburb"]').fill("Test Suburb");
-  await form.locator('[name="dropoff_suburb"]').fill("Test Suburb Two");
-  await form.locator('[name="name"]').fill("Synthetic Test");
-  await form.locator('[name="phone"]').fill("0400000000");
-  await form.locator('[name="email"]').fill("synthetic@example.invalid");
-  await form.locator('[name="message"]').fill("Synthetic audit fixture - not a real enquiry.");
+  for (const [name, value] of Object.entries({
+    full_name: "Synthetic Test", phone: "0400000000",
+    pickup_suburb: "Test Suburb", dropoff_suburb: "Test Suburb Two",
+    additional_details: "Synthetic audit fixture - not a real enquiry.",
+  })) await form.locator(`[name="${name}"]`).fill(value);
   const submit = form.locator('button[type="submit"]');
   if (double) await submit.dblclick({ force: true }).catch(() => {});
   else await submit.click();
@@ -93,7 +86,7 @@ async function run(label, { api = "ok", consent = true, action = "submit", landi
   await context.route("**/*", async (route) => {
     const request = route.request();
     const url = request.url();
-    if (/\/api\/quote\/$/.test(new URL(url).pathname) && request.method() === "POST") {
+    if (url === "https://api.web3forms.com/submit" && request.method() === "POST") {
       quotePosts += 1;
       const body = JSON.parse(request.postData() || "{}");
       sentIds.push(body.submission_id);
@@ -159,7 +152,7 @@ async function run(label, { api = "ok", consent = true, action = "submit", landi
     await pushFromUserEvent(`window.dataLayer.push({ event: "zq_quote_submitted", form_name: "quote_form" });`);
     await page.waitForTimeout(3000);
   } else if (action === "open") {
-    await page.locator("form[data-quote-form] [name=name]").first().fill("x");
+    await page.locator("form[data-quote-form] [name=full_name]").first().fill("x");
     await page.waitForTimeout(2000);
   } else if (action === "invalid") {
     await page.locator("form[data-quote-form] button[type=submit]").first().click();
@@ -195,7 +188,7 @@ async function run(label, { api = "ok", consent = true, action = "submit", landi
 const marker = (extra = {}) => ({ formName: "contact-us_quote_1", leadId: UUID, at: 0, ...extra });
 const results = [
   await run("form opened only", { action: "open" }),
-  await run("validation failed", { action: "invalid" }),
+  await run("empty form follows provider response", { action: "invalid", api: "rejected" }),
   await run("consent + accepted", { expectEvents: 1 }),
   await run("consent + accepted from ad landing (gclid)", { landing: "?gclid=TESTSYNTHGCLID&utm_source=google", expectEvents: 1 }),
   await run("consent + accepted, double submit", { action: "double", expectEvents: 1 }),
