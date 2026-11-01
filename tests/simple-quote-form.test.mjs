@@ -46,13 +46,16 @@ test('the homepage has a hero form and a bottom form', () => {
   assert.match(home, /<form id="quote-form"/);
 });
 
-test('simple form: direct Web3Forms without custom validation or spam controls', () => {
+test('simple form: direct Web3Forms requires customer details and package selection', () => {
   for (const { rel, html } of pages) {
     for (const form of quoteForms(html)) {
       const required = [...form.matchAll(/<input\b[^>]*\brequired\b[^>]*>/g)]
         .map((match) => match[0].match(/name="([^"]+)"/)[1]).sort();
-      assert.deepEqual(required, [], rel);
-      assert.doesNotMatch(form, /<select|name="email"|crew_package|type="radio"|data-multi-step/i, rel);
+      assert.deepEqual(required, ['email'], rel);
+      assert.match(form, /<select[^>]*name="crew_package"[^>]*required/, rel);
+      assert.match(form, /<option value="" selected disabled>/, rel);
+      assert.match(form, /name="email" type="email" required/, rel);
+      assert.doesNotMatch(form, /novalidate/, rel);
       assert.match(form, /name="access_key" value="[^"]+"/, rel);
       assert.match(form, /action="https:\/\/api\.web3forms\.com\/submit" method="post"/, rel);
       assert.match(form, /Get My Free Quote/, rel);
@@ -130,9 +133,10 @@ function withProvider(t, onDeliver) {
 const valid = {
   form_type: 'simple_quote', full_name: 'TEST LEAD - Please ignore', phone: '0400 000 000',
   pickup_suburb: 'Norwood', dropoff_suburb: 'Glenelg',
+  email: 'customer@example.com', crew_package: '2 Men + Truck — $75 / 30 min',
 };
 
-test('server accepts the four-field lead, forwards context, and requires no email', async (t) => {
+test('server forwards required email, package and context', async (t) => {
   const delivered = [];
   withProvider(t, (body) => delivered.push(body));
   const res = await submit({ ...valid, page_type: 'suburb', location_context: 'Norwood', additional_details: 'Third floor' }, '203.0.113.10');
@@ -142,20 +146,22 @@ test('server accepts the four-field lead, forwards context, and requires no emai
   assert.match(delivered[0].subject, /TEST LEAD.*Norwood to Glenelg/);
   assert.equal(delivered[0].additional_details, 'Third floor');
   assert.equal(delivered[0].location_context, 'Norwood');
-  assert.equal(delivered[0].email, undefined);
+  assert.equal(delivered[0].email, valid.email);
+  assert.equal(delivered[0].crew_package, valid.crew_package);
 });
 
 test('server rejects each missing required field and malformed phone/email without delivering', async (t) => {
   const delivered = [];
   withProvider(t, (body) => delivered.push(body));
   let ip = 20;
-  for (const field of ['full_name', 'phone', 'pickup_suburb', 'dropoff_suburb']) {
+  for (const field of ['full_name', 'phone', 'email', 'crew_package', 'pickup_suburb', 'dropoff_suburb']) {
     const res = await submit({ ...valid, [field]: '  ' }, `203.0.113.${ip++}`);
     assert.equal(res.statusCode, 400, field);
   }
   assert.equal((await submit({ ...valid, phone: 'abc' }, `203.0.113.${ip++}`)).statusCode, 400);
   assert.equal((await submit({ ...valid, phone: '12345' }, `203.0.113.${ip++}`)).statusCode, 400);
   assert.equal((await submit({ ...valid, email: 'not-an-email' }, `203.0.113.${ip++}`)).statusCode, 400);
+  assert.equal((await submit({ ...valid, crew_package: 'unknown' }, `203.0.113.${ip++}`)).statusCode, 400);
   assert.equal(delivered.length, 0);
 });
 

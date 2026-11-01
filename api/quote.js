@@ -323,23 +323,28 @@ function clip(value, max) {
   return String(value ?? "").trim().slice(0, max);
 }
 
-// The one public quote form: four required fields, everything else is optional metadata.
+// Simple quotes require contact details, a route and a package.
 function normaliseSimpleQuote(payload, trackingMeta) {
   const fullName = clip(getFirstTrimmedString(payload, ["full_name", "name"]), SIMPLE_QUOTE_LIMITS.full_name);
   const phone = clip(payload.phone, SIMPLE_QUOTE_LIMITS.phone);
   const pickup = clip(payload.pickup_suburb, SIMPLE_QUOTE_LIMITS.place);
   const dropoff = clip(getFirstTrimmedString(payload, ["dropoff_suburb", "delivery_suburb"]), SIMPLE_QUOTE_LIMITS.place);
 
-  const required = { full_name: fullName, phone, pickup_suburb: pickup, dropoff_suburb: dropoff };
+  const email = clip(payload.email, 200);
+  const crewPackage = clip(payload.crew_package, 100);
+  const required = { full_name: fullName, phone, email, crew_package: crewPackage, pickup_suburb: pickup, dropoff_suburb: dropoff };
   for (const [field, value] of Object.entries(required)) {
     if (!value) return { error: { status: 400, message: `Missing field: ${field}` } };
   }
   if (phone.replace(/\D/g, "").length < MIN_PHONE_DIGITS || !/^[\d\s+()\-.]+$/.test(phone)) {
     return { error: { status: 400, message: "Invalid phone number" } };
   }
-  const email = clip(payload.email, 200);
-  if (email && !EMAIL_REGEX.test(email)) {
+  if (!EMAIL_REGEX.test(email)) {
     return { error: { status: 400, message: "Invalid email" } };
+  }
+
+  if (!["2 Men + Truck — $75 / 30 min", "3 Men + Truck — $89 / 30 min"].includes(crewPackage)) {
+    return { error: { status: 400, message: "Invalid moving package" } };
   }
 
   const details = clip(getFirstTrimmedString(payload, ["additional_details", "move_details", "message"]), SIMPLE_QUOTE_LIMITS.details);
@@ -351,7 +356,8 @@ function normaliseSimpleQuote(payload, trackingMeta) {
       form_type: SIMPLE_QUOTE_FORM_TYPE,
       full_name: fullName,
       phone,
-      ...(email ? { email } : {}),
+      email,
+      crew_package: crewPackage,
       pickup_suburb: pickup,
       dropoff_suburb: dropoff,
       move_date: clip(getFirstTrimmedString(payload, ["move_date", "preferred_move_date"]), 40),

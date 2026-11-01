@@ -1686,7 +1686,7 @@ function setupInventoryCalculator() {
     const attachBtn = document.querySelector(".calc-attach-btn");
     if (attachBtn) {
       const origHtml = attachBtn.innerHTML;
-      attachBtn.innerHTML = `<span>&#10003; Attached to Quote Form!</span>`;
+      attachBtn.innerHTML = `<span><svg class="zq-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/media/icons/zq-icons.svg#zq-i-check" /></svg> Attached to Quote Form!</span>`;
       setTimeout(() => {
         attachBtn.innerHTML = origHtml;
       }, 2500);
@@ -1881,7 +1881,7 @@ function setupInterstateMatrix() {
           <div class="route-actions-row">
             <button type="button" onclick="window.bookInterstateRoute?.('${r.dest}')" class="zq-v2-button zq-v2-button-primary">
               <span>Request Quote for ${r.dest}</span>
-              <svg aria-hidden="true"><use href="#zq-i-arrow" /></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/media/icons/zq-icons.svg#zq-i-arrow" /></svg>
             </button>
             <a href="/interstate-removals-adelaide/" class="zq-v2-button zq-v2-button-ghost">View All Routes</a>
           </div>
@@ -1889,7 +1889,7 @@ function setupInterstateMatrix() {
         <div class="route-features-col">
           <h4>What we plan with you</h4>
           <ul class="route-features-list">
-            ${r.features.map((f) => `<li><svg aria-hidden="true"><use href="#zq-i-check" /></svg> <span>${f}</span></li>`).join("")}
+            ${r.features.map((f) => `<li><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/media/icons/zq-icons.svg#zq-i-check" /></svg> <span>${f}</span></li>`).join("")}
           </ul>
         </div>
       </div>

@@ -3,6 +3,7 @@
 (function initZqReceptionist() {
   if (typeof document === "undefined" || document.getElementById("zq-chat-launcher")) return;
   const css = `
+  .zq-chat-launcher .zq-icon,.zq-chat-window .zq-icon{width:20px;height:20px;flex:none;vertical-align:middle}
   .zq-chat-launcher{position:fixed;bottom:var(--zq-chat-launcher-bottom,24px);right:20px;z-index:9998;display:flex;align-items:center;gap:9px;border:2px solid #fff;border-radius:999px;padding:13px 19px;background:#14324f;color:#fff;box-shadow:0 8px 30px #08192955;cursor:pointer;font:700 14px/1.2 system-ui,-apple-system,sans-serif}
   .zq-chat-launcher:hover,.zq-chat-launcher:focus-visible{background:#20577d;outline:3px solid #ffcb57;outline-offset:2px}
   .zq-chat-window{position:fixed;right:20px;bottom:calc(var(--zq-chat-launcher-bottom,24px) + 67px);z-index:10030;width:min(390px,calc(100vw - 24px));height:min(580px,calc(100dvh - var(--zq-chat-launcher-bottom,24px) - 96px));display:flex;flex-direction:column;overflow:hidden;border:1px solid #b4c9d4;border-radius:18px;background:#fff;color:#152839;box-shadow:0 16px 55px #071b2d66;font:400 14px/1.55 system-ui,-apple-system,sans-serif}
@@ -90,7 +91,7 @@
   launcher.type = "button";
   launcher.setAttribute("aria-controls", "zq-chat-window");
   launcher.setAttribute("aria-expanded", "false");
-  launcher.innerHTML = '<span aria-hidden="true">✦</span><span>Ask ZQ AI</span>';
+  launcher.innerHTML = '<svg class="zq-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/media/icons/zq-icons.svg#zq-i-message" /></svg><span>Ask ZQ AI</span>';
 
   const panel = document.createElement("section");
   panel.id = "zq-chat-window";
@@ -102,13 +103,13 @@
     <div class="zq-chat-head">
       <div><strong>ZQ AI Receptionist</strong><small>Moving questions &amp; estimated prices</small></div>
       <div class="zq-chat-actions">
-        <button type="button" class="zq-chat-iconbtn" data-chat-reset aria-label="Start a new conversation" title="New conversation">↻</button>
-        <button type="button" class="zq-chat-iconbtn" data-chat-close aria-label="Close chat">×</button>
+        <button type="button" class="zq-chat-iconbtn" data-chat-reset aria-label="Start a new conversation" title="New conversation"><svg class="zq-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/media/icons/zq-icons.svg#zq-i-reset" /></svg></button>
+        <button type="button" class="zq-chat-iconbtn" data-chat-close aria-label="Close chat"><svg class="zq-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/media/icons/zq-icons.svg#zq-i-close" /></svg></button>
       </div>
     </div>
     <div class="zq-chat-messages" role="log" aria-live="polite" aria-relevant="additions text" aria-label="Conversation"></div>
     <div class="zq-chat-enquiry" data-chat-enquiry hidden>
-      <div class="zq-chat-enquiry-bar"><button type="button" data-chat-enquiry-top-back>← Back to chat</button></div>
+      <div class="zq-chat-enquiry-bar"><button type="button" data-chat-enquiry-top-back><svg class="zq-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/media/icons/zq-icons.svg#zq-i-back" /></svg> Back to chat</button></div>
       <h3>Send a moving enquiry</h3>
       <p>Enter your moving details. You'll review everything and give explicit consent before we send your enquiry to ZQ Removals. This does not confirm a booking.</p>
       <form data-chat-enquiry-form>

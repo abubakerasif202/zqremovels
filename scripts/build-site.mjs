@@ -4976,7 +4976,7 @@ function renderCommercialServiceCta(page) {
 }
 
 function renderStarIcons(label = '5 out of 5 stars') {
-  return `<span class="google-review-stars" role="img" aria-label="${escapeAttribute(label)}">${Array.from({ length: 5 }, () => '<span aria-hidden="true">&#9733;</span>').join('')}</span>`;
+  return `<span class="google-review-stars" role="img" aria-label="${escapeAttribute(label)}">${Array.from({ length: 5 }, () => '<span aria-hidden="true"><svg class="zq-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/media/icons/zq-icons.svg#zq-i-star" /></svg></span>').join('')}</span>`;
 }
 
 function renderGoogleReviewBadge({ compact = false } = {}) {
@@ -4986,7 +4986,7 @@ function renderGoogleReviewBadge({ compact = false } = {}) {
 
   return `<a class="${classes}" href="${escapeAttribute(googleReviews.profileUrl)}" target="_blank" rel="noopener noreferrer">
   ${renderStarIcons()}
-  <span><strong>${ratingText} &#9733;</strong> from ${countText} <span>Google reviews</span></span>
+  <span><strong>${ratingText} <svg class="zq-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/media/icons/zq-icons.svg#zq-i-star" /></svg></strong> from ${countText} <span>Google reviews</span></span>
 </a>`;
 }
 
@@ -5011,7 +5011,7 @@ function renderGoogleReviewsSection() {
       : `<div class="google-review-cta">
       <a class="zq-v2-button zq-v2-button-dark" href="${escapeAttribute(googleReviews.profileUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Read all ${googleReviews.reviewCount} ZQ Removals reviews on Google">
         Read all ${googleReviews.reviewCount} reviews on Google
-        <svg aria-hidden="true"><use href="#zq-i-arrow" /></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/media/icons/zq-icons.svg#zq-i-arrow" /></svg>
       </a>
     </div>`;
 

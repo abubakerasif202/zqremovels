@@ -28,7 +28,7 @@ function field({ name, label, type = 'text', required = false, autocomplete, pla
   const errorId = `${id}-error-${name}`;
   return `<label class="sqf-field ${required ? 'sqf-req' : 'sqf-opt'}" for="${id}-${name}">
       <span class="sqf-label">${escape(label)}</span>
-      <input id="${id}-${name}" name="${name}" type="${type}"${autocomplete ? ` autocomplete="${autocomplete}"` : ''}${inputmode ? ` inputmode="${inputmode}"` : ''}${placeholder ? ` placeholder="${escape(placeholder)}"` : ''} aria-describedby="${errorId}" />
+      <input id="${id}-${name}" name="${name}" type="${type}"${name === 'email' ? ' required' : ''}${autocomplete ? ` autocomplete="${autocomplete}"` : ''}${inputmode ? ` inputmode="${inputmode}"` : ''}${placeholder ? ` placeholder="${escape(placeholder)}"` : ''} aria-describedby="${errorId}" />
       <small class="field-error" data-error-for="${name}" id="${errorId}"></small>
     </label>`;
 }
@@ -75,7 +75,7 @@ export function renderSimpleQuoteForm({
     .map((name) => `<input type="hidden" name="${name}" value="" data-attribution-field="${name}" />`)
     .join('');
 
-  return `<form id="${id}" class="sqf${compact ? ' sqf-compact' : ''}" action="https://api.web3forms.com/submit" method="post" data-quote-form="quote" data-form-name="quote_form" data-sqf novalidate aria-labelledby="${headingId}">
+  return `<form id="${id}" class="sqf${compact ? ' sqf-compact' : ''}" action="https://api.web3forms.com/submit" method="post" data-quote-form="quote" data-form-name="quote_form" data-sqf aria-labelledby="${headingId}">
     <div class="sqf-head">
       <${headingTag} class="sqf-title" id="${headingId}">${escape(heading)}</${headingTag}>
       <p class="sqf-intro">${escape(intro)}</p>
@@ -84,6 +84,15 @@ export function renderSimpleQuoteForm({
     <div class="sqf-grid">
       ${field({ id, name: 'full_name', label: 'Full name', required: true, autocomplete: 'name', maxlength: 100 })}
       ${field({ id, name: 'phone', label: 'Phone number', type: 'tel', required: true, autocomplete: 'tel', inputmode: 'tel', maxlength: 30 })}
+      ${field({ id, name: 'email', label: 'Email address', type: 'email', required: true, autocomplete: 'email', maxlength: 200 })}
+      <label class="sqf-field sqf-req" for="${id}-crew_package">
+        <span class="sqf-label">Moving package</span>
+        <select id="${id}-crew_package" name="crew_package" required>
+          <option value="" selected disabled>Select a package</option>
+          <option value="2 Men + Truck — $75 / 30 min">2 Men + Truck — $75 / 30 min</option>
+          <option value="3 Men + Truck — $89 / 30 min">3 Men + Truck — $89 / 30 min</option>
+        </select>
+      </label>
       ${field({ id, name: 'pickup_suburb', label: 'Moving from', required: true, autocomplete: 'address-level2', placeholder: 'Suburb or address', maxlength: 120 })}
       ${field({ id, name: 'dropoff_suburb', label: 'Moving to', required: true, placeholder: 'Suburb or address', maxlength: 120 })}
       ${field({ id, name: 'move_date', label: 'Moving date', type: 'date' })}
