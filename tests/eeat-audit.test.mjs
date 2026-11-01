@@ -130,13 +130,15 @@ test('frontend quote flow emits a GA submission event hook', () => {
 test('contact page exposes the shared simple quote form fields', () => {
   const contactPage = readDist(path.join('contact-us', 'index.html'));
 
-  for (const field of ['full_name', 'phone', 'pickup_suburb', 'dropoff_suburb', 'move_date', 'additional_details']) {
+  for (const field of ['full_name', 'phone', 'email', 'crew_package', 'pickup_suburb', 'dropoff_suburb', 'move_date', 'additional_details']) {
     assert.match(contactPage, new RegExp(`name="${field}"`));
   }
   assert.match(contactPage, /name="form_type" value="simple_quote"/);
   assert.match(contactPage, /action="https:\/\/api\.web3forms\.com\/submit"/);
   assert.match(contactPage, /name="access_key"/);
-  assert.doesNotMatch(contactPage, /name="move_scope"|name="email"/);
+  assert.match(contactPage, /name="email" type="email" required/);
+  assert.match(contactPage, /<select[^>]*name="crew_package"[^>]*required/);
+  assert.doesNotMatch(contactPage, /name="move_scope"/);
 });
 
 test('about page is built and surfaced from shared navigation', () => {
