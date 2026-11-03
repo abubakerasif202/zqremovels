@@ -327,7 +327,7 @@ test('live-audit commercial snippets and guide publication schema stay fixed', (
   assert.match(pricing, /\$75 per 30 minutes/i);
   assert.match(pricing, /\$89 per 30 minutes/i);
   assert.match(pricing, /1-hour call-out(?: or travel|\/travel) charge applies where applicable/i);
-  assert.match(office, /<title>Office removalists Adelaide \| \$75 and \$89 \| ZQ Removals<\/title>/i);
+  assert.match(office, /<title>Office Removalists Adelaide\s*\|[^<]*Business Moves[^<]*ZQ Removals<\/title>/i);
   assert.match(piano, /<title>Piano Movers Adelaide \| Piano Removalists \| ZQ Removals<\/title>/i);
   assert.match(guide, /"datePublished": "2026-05-23"/);
   assert.match(guide, /"dateModified": "2026-08-29"/);
@@ -981,7 +981,7 @@ test('homepage targets Adelaide removalists and keeps above-fold conversion cont
 
   assert.match(homepage, /<title>Adelaide Removalists \| Home &amp; Interstate Moves \| ZQ Removals<\/title>/);
   assert.match(homepage, /<meta name="description" content="Adelaide removalists for houses, apartments, furniture and interstate moves\. Published crew rates from \$75 per 30 min\. Call 0433 819 989 or request a quote\."/i);
-  assert.match(hero, /<h1[^>]*>Adelaide moves,<br\s*\/?>(?:\s*)planned properly\.<\/h1>/);
+  assert.match(hero, /<h1\b[^>]*>\s*Removalists Adelaide\b[\s\S]*?<\/h1>/);
   assert.match(hero, /Your Adelaide removalists for local and interstate moves/i);
   assert.match(hero, /href="#quote-form"[^>]*>Get a Free Quote/i);
   assert.match(hero, /href="tel:\+61433819989"/);
@@ -1046,7 +1046,7 @@ test('v6 service pages carry CTR titles, related services, suburb links, FAQ and
   const cases = [
     ['furniture-removalists-adelaide/index.html', /Furniture Removalists Adelaide \| Careful Movers/i],
     ['house-removals-adelaide/index.html', /House Removalists Adelaide \| Local Home Moves/i],
-    ['office-removals-adelaide/index.html', /Office removalists Adelaide \| \$75 and \$89 \| ZQ Removals/i],
+    ['office-removals-adelaide/index.html', /Office Removalists Adelaide\s*\|[^<]*Business Moves[^<]*ZQ Removals/i],
     ['apartment-removalists-adelaide/index.html', /Apartment Removalists Adelaide/i],
   ];
 

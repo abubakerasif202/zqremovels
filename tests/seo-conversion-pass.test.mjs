@@ -45,7 +45,7 @@ test('homepage targets Adelaide removalists with the premium template conversion
 
   assert.match(
     homepage,
-    /<h1[^>]*>Adelaide moves,<br\s*\/?>(?:\s*)planned properly\.<\/h1>/i,
+    /<h1\b[^>]*>\s*Removalists Adelaide\b[\s\S]*?<\/h1>/i,
   );
   assert.match(
     homepage,

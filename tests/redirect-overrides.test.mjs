@@ -31,3 +31,17 @@ test('override destinations are single-hop, indexable, self-canonical pages', ()
     assert.doesNotMatch(html, /<meta[^>]+name="robots"[^>]+noindex/i, `${destination} must be indexable`);
   }
 });
+
+test('Kings Park redirects permanently to the nearby Unley Park canonical', () => {
+  const source = '/removalists-kings-park/';
+  const destination = '/removalists-unley-park/';
+  const rules = vercel.redirects.filter((rule) => rule.source === source);
+  assert.equal(rules.length, 1);
+  assert.equal(rules[0].destination, HOST + destination);
+  assert.equal(rules[0].permanent, true);
+  assert.equal(verified.find((entry) => entry.source === source)?.destination, destination);
+  assert.ok(!redirectSources.has(destination));
+  const html = readFileSync(`site-dist${destination}index.html`, 'utf8');
+  assert.match(html, new RegExp(`<link[^>]+rel="canonical"[^>]+href="${HOST}${destination}"`));
+  assert.doesNotMatch(html, /<meta[^>]+name="robots"[^>]+noindex/i);
+});
