@@ -1044,7 +1044,7 @@ test('homepage conversion audit requirements stay visible, accessible, and schem
 
 test('v6 service pages carry CTR titles, related services, suburb links, FAQ and CTA', () => {
   const cases = [
-    ['furniture-removalists-adelaide/index.html', /Furniture Removalists Adelaide \| Careful Movers/i],
+    ['furniture-removalists-adelaide/index.html', /Furniture Removalists Adelaide \| Careful Moves/i],
     ['house-removals-adelaide/index.html', /House Removalists Adelaide \| Local Home Moves/i],
     ['office-removals-adelaide/index.html', /Office Removalists Adelaide\s*\|[^<]*Business Moves[^<]*ZQ Removals/i],
     ['apartment-removalists-adelaide/index.html', /Apartment Removalists Adelaide/i],
