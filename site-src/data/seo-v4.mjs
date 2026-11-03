@@ -955,8 +955,8 @@ const suburbSeoOverrides = {
     description: 'Glenelg removalists for coastal apartments and homes near Jetty Road and Anzac Highway, with parking, loading and furniture access planned early.',
   },
   'hyde-park': {
-    title: 'Hyde Park Removalists | $75/30 min Local Movers | ZQ Removals',
-    description: 'Local removalists for Hyde Park houses, units and furniture. 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. Call-out/travel may apply.',
+    title: 'Hyde Park Removalists | $75 and $89 | ZQ Removals',
+    description: 'Hyde Park removalists for character homes and street parking. 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. Call-out may apply.',
   },
   'malvern': {
     title: 'Removalists Malvern, Adelaide, SA 5061 | ZQ Removals',
@@ -967,7 +967,7 @@ const suburbSeoOverrides = {
     description: 'Brighton SA removalists for family homes and apartments. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply.',
   },
   'medindie': {
-    title: 'Medindie Removalists | Premium Home Movers Adelaide',
+    title: 'Medindie Removalists | $75 and $89 | ZQ Removals',
     description: 'Medindie removalists for larger homes. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply. Send access details.',
   },
   'colonel-light-gardens': {
@@ -976,7 +976,7 @@ const suburbSeoOverrides = {
   },
   'unley': {
     title: 'Removalists Unley | Villa & Townhouse Movers | ZQ Removals',
-    description: 'Unley removalists for character homes, apartments and townhouses near Unley Road. Parking, access and furniture handling planned first. Moving in Unley Park? See our Unley Park page.',
+    description: 'Unley removalists for character homes, apartments and townhouses near Unley Road. Parking, access and furniture handling are planned before the quote.',
   },
   'mawson-lakes': {
     title: 'Removalists Mawson Lakes | Adelaide Moving Service',
@@ -987,11 +987,11 @@ const suburbSeoOverrides = {
     description: 'Mount Barker removalists for Adelaide Hills homes and metro-to-Hills moves, with freeway routing, property access and larger inventories planned.',
   },
   'unley-park': {
-    title: 'Unley Park Removalists | Homes & Townhouses | ZQ Removals',
-    description: 'Unley Park removalists for homes, townhouses and furniture. Share parking, stairs and fragile items for a quote. 2 men + truck from $75 per 30 min.',
+    title: 'Unley Park Removalists | $75 and $89 | ZQ Removals',
+    description: 'Unley Park removalists for homes and townhouses. 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. Share parking and stairs for a quote.',
   },
   'toorak-gardens': {
-    title: 'Toorak Gardens Removalists | Local Movers | ZQ Removals',
+    title: 'Toorak Gardens Removalists | $75 and $89 | ZQ Removals',
     description: 'Toorak Gardens removalists for premium homes. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply.',
   },
   'victor-harbor-road': {
@@ -3732,7 +3732,7 @@ function makeRedirectPage({ output, canonical, title, description, destinationPa
     title,
     description,
     canonical,
-    robots: 'noindex,nofollow',
+    robots: 'noindex,follow',
     ogTitle: title,
     ogDescription: description,
     ogUrl: canonical,
@@ -5731,12 +5731,12 @@ function renderPriorityPlanningFaq(slug) {
 function renderPrioritySuburb({ slug, suburb, image }) {
   const profile = prioritySuburbProfiles[slug];
   return `<main id="main-content" data-generated-page="suburb-v5">
-${renderPageHero({ eyebrow: 'Local Adelaide moves', title: profile.h1, lead: profile.lead, supporting: [], points: profile.points, primaryCta: { href: '/contact-us/#quote-form', label: 'Request a moving quote' }, secondaryCta: { href: 'tel:+61433819989', label: 'Call 0433 819 989' }, image, breadcrumbs: [{ href: '/', label: 'Home' }, { href: '/removalists-adelaide/', label: 'Adelaide removals' }, { label: suburb }], pageType: 'suburb' })}
+${renderPageHero({ eyebrow: 'Local Adelaide moves', title: profile.h1, lead: profile.lead, supporting: [], points: profile.points, primaryCta: { href: '/contact-us/?move_scope=house-removal&property_type=house#quote-form', label: 'Request a moving quote' }, secondaryCta: { href: 'tel:+61433819989', label: 'Call 0433 819 989' }, image, breadcrumbs: [{ href: '/', label: 'Home' }, { href: '/removalists-adelaide/', label: 'Adelaide removals' }, { label: suburb }], pageType: 'suburb' })}
 ${profile.sections.map((section) => renderTextSection(section)).join('\n')}
 ${renderSuburbMoveBrief(slug)}
 ${renderTextSection({ module: 'pricing', eyebrow: 'Published local rates', heading: `What does a ${suburb} move cost?`, intro: '2 men + truck: $75 per 30 minutes. 3 men + truck: $89 per 30 minutes.', paragraphs: ['A 1-hour call-out/travel charge applies where applicable. Total cost depends on moving time, the volume of items, access, travel and packing requirements. See the Adelaide removalist prices page for the full rate breakdown, then confirm the applicable charges with ZQ Removals before booking.'] })}
 ${renderRouteCardSection({ module: 'related-services', eyebrow: 'Plan your move', heading: 'Nearby suburbs and related moving services', intro: 'Choose the page that matches your move.', cards: [...profile.nearby.map((card) => ({ eyebrow: 'Nearby suburb', ...card })), { eyebrow: 'Moving service', title: 'Furniture moving', copy: 'Discuss large items, dimensions and access before booking.', href: '/furniture-removalists-adelaide/', cta: 'Furniture moving advice' }, { eyebrow: 'Rates', title: 'Rates and charges', copy: 'Check the published crew rates and what affects total moving time.', href: '/removalists-adelaide-prices/', cta: 'View moving rates' }] })}
-${renderPriorityPlanningFaq(slug)}${renderQuoteStrip({ eyebrow: 'Talk to ZQ Removals', heading: `Request your ${suburb} moving quote`, copy: 'Send your addresses, date, inventory and access notes, or call to discuss the move.', primaryCta:{href:'/contact-us/#quote-form',label:'Request a quote'},secondaryCta:{href:'tel:+61433819989',label:'Call 0433 819 989'},pageType:'suburb' })}
+${renderPriorityPlanningFaq(slug)}${renderQuoteStrip({ eyebrow: 'Talk to ZQ Removals', heading: `Request your ${suburb} moving quote`, copy: 'Send your addresses, date, inventory and access notes, or call to discuss the move.', primaryCta:{href:'/contact-us/?move_scope=house-removal&property_type=house#quote-form',label:'Request a quote'},secondaryCta:{href:'tel:+61433819989',label:'Call 0433 819 989'},pageType:'suburb' })}
 </main>`;
 }
 
@@ -5886,6 +5886,9 @@ function renderPriorityCommercial(page, image) {
 
 function renderSuburbContent({ slug, suburb, region, intro, logisticsLabel, nearby, clusterKey, intents, image, faqItems }) {
   if (['hyde-park', 'unley-park'].includes(slug)) return renderPrioritySuburb({ slug, suburb, image });
+  const quoteHref = ['medindie', 'toorak-gardens'].includes(slug)
+    ? '/contact-us/?move_scope=house-removal&property_type=house#quote-form'
+    : '/contact-us/#quote-form';
   const cta = getSuburbCtaTheme(clusterKey);
   const supportProfile = getClusterSupportProfile(clusterKey);
   const startHere = getSuburbStartHere(slug);
@@ -5934,7 +5937,7 @@ ${renderPageHero({
     `People comparing ${suburb} moves often want access notes, route context, and a moving quote before they book.`,
   ],
   points: buildSuburbHighlights({ suburb, logisticsLabel, clusterKey, nearby }),
-  primaryCta: { href: '/contact-us/#quote-form', label: cta },
+  primaryCta: { href: quoteHref, label: cta },
   secondaryCta: { href: '/removalists-adelaide/', label: 'View Adelaide coverage' },
   image,
   breadcrumbs: [
@@ -6059,7 +6062,7 @@ ${renderQuoteStrip({
   eyebrow: 'Ready to move',
   heading: `Send the ${suburb} route and we will scope it properly`,
   copy: `Include the origin, destination, property type and any access notes so the quote reflects your actual move.`,
-  primaryCta: { href: '/contact-us/#quote-form', label: 'Get My Moving Quote' },
+  primaryCta: { href: quoteHref, label: 'Get My Moving Quote' },
   secondaryCta: regionalHub,
   pageType: 'suburb',
 })}

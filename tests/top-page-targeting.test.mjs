@@ -37,7 +37,7 @@ const HUB_OUTPUTS = new Set([
 
 test('homepage keeps Adelaide positioning, search intent and visible published rates', () => {
   const html = readRoute('/');
-  assert.match(h1(html), /Adelaide moves, planned properly/i);
+  assert.match(h1(html), /Removalists Adelaide/i);
   const lead = strip(html.match(/<p class="zqh-lead">([\s\S]*?)<\/p>/i)?.[1] ?? '');
   assert.match(lead, /Adelaide removalists/i);
   const pricing = strip(html.match(/<p class="zqh-pricing-note">([\s\S]*?)<\/p>/i)?.[1] ?? '');
