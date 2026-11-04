@@ -4,7 +4,7 @@ These items need an account, a measurement window, or a business fact that is no
 
 ## Release
 
-1. Review and merge `fix/seo-repair-2026-11-05`.
+1. Review and merge https://github.com/abubakerasif202/zqremovels/pull/91 (`fix/seo-repair-2026-11-05`). The preview deployment is READY and is behind the Vercel login page.
 2. Confirm the Vercel production deployment finished.
 3. Re-check these live URLs after deploy:
    - `/removalists-glenelg/` contains "City of Holdfast Bay" and does not contain "should be treated as an access variable".

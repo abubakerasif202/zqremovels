@@ -83,4 +83,8 @@ Browser screenshots were not captured. The checks above read the generated HTML 
 
 ## Deployment
 
-Not deployed. The work is on branch `fix/seo-repair-2026-11-05`. Production still serves the previous revision until this branch is merged and Vercel finishes a production deployment.
+Branch `fix/seo-repair-2026-11-05` is pushed. Pull request: https://github.com/abubakerasif202/zqremovels/pull/91
+
+Vercel preview deployment `dpl_Hq4MU4LEHexbBZM9ckS4JZXFN73Y` is READY at `https://zq-luykkrmia-abubakerasif202s-projects.vercel.app`. Requests for the preview returned the Vercel login page, so the preview HTML was not read from here.
+
+Production at `https://zqremovalsadelaide.com.au` still serves the previous revision until the pull request is merged.
