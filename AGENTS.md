@@ -43,9 +43,9 @@ For UI changes, check narrow phones (320–375px), tablets, and desktop, includi
 
 ## Security, Lead Capture & Tracking
 
-Never expose secrets or commit environment files (for example `password.env`). Do not print credential values. Preserve request validation, abuse controls, and the CSP in `vercel.json`. Before adding a script origin, `eval`-style code, or a new connect target, confirm the CSP change is intended and tested.
+Never expose secrets or commit environment files (for example `password.env`). Do not print credential values. Preserve the CSP in `vercel.json`. Before adding a script origin, `eval`-style code, or a new connect target, confirm the CSP change is intended and tested.
 
-Keep quote, chat, and lead handlers server-authoritative. Preserve the conversion and consent flow (GTM/GA/Ads tags, thank-you redirect timing, and consent handling); verify tracking changes with `tests/conversion-tracking.spec.ts` and `scripts/verify-ads-conversion.mjs` rather than assumption.
+Public quote forms submit JSON directly to `https://api.web3forms.com/submit` using the Web3Forms access key, subject, and attribution fields. Keep the thank-you redirect in the no-JavaScript form fallback; for JavaScript submissions, redirect only after Web3Forms returns an HTTP-success response with `success: true`. Do not intercept quote-form submission with `/api/quote`, add custom CAPTCHA or honeypot checks, or add rate limits, replay/duplicate-request suppression, or submit-button locking. Keep native browser required-field validation and consent handling. Emit `zq_quote_submitted` with `form_name=quote_form`, `submission_status=accepted`, and a UUIDv4 `submission_id` only after Web3Forms confirms success and optional tracking consent allows it. Do not infer success from a thank-you page visit. This rule applies only to public quote forms; AI chat and AI lead endpoints remain server-authoritative and must retain request validation and abuse controls. Verify this behavior with mocked Web3Forms delivery in `tests/conversion-tracking.spec.ts` and `scripts/verify-ads-conversion.mjs`.
 
 ## SEO Policy
 

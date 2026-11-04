@@ -1,6 +1,6 @@
 // Side-effect-free Google Ads conversion check against the live site (or a local build).
 //
-// Nothing real is created: POST /api/quote/ is mocked (no enquiry, no email) and every Google Ads /
+// Nothing real is created: POST to Web3Forms is mocked (no enquiry, no email) and every Google Ads /
 // Analytics measurement request is ABORTED in the test browser and only recorded. Only the
 // gtm.js / gtag.js script loaders are fetched.
 //
@@ -52,25 +52,16 @@ async function fillAndSubmit(page, double = false) {
   else await submit.click();
 }
 
-const UUID = "3f2b8c1e-9d4a-4b6f-8a1c-2e5d7f903b14";
-// Runs in the browser; `marker.at` is an offset from now in ms.
-function seedMarker(marker) {
-  if (sessionStorage.getItem("qa_seeded")) return;
-  sessionStorage.setItem("qa_seeded", "1");
-  sessionStorage.setItem("zq_pending_accepted_quote", typeof marker === "string" ? marker : JSON.stringify({ ...marker, at: Date.now() + marker.at }));
-}
-
 const UUID_V4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const consentCookie = () => encodeURIComponent(JSON.stringify({ version: 1, updatedAt: Date.now(), analytics: true, advertising: true }));
 
-async function run(label, { api = "ok", consent = true, action = "submit", landing = "", path = "/contact-us/", marker, expectEvents = 0 } = {}) {
+async function run(label, { api = "ok", consent = true, action = "submit", landing = "", path = "/contact-us/", expectEvents = 0 } = {}) {
   const browser = await chromium.launch();
   const context = await browser.newContext();
   const conversions = [];
   const csp = [];
   let quotePosts = 0;
   const events = [];
-  const sentIds = [];
   let gtmPatched = false;
   if (consent) await context.addCookies([{ name: "zq_consent_v1", value: consentCookie(), url: ORIGIN }]);
   await context.exposeFunction("__zqCsp", (entry) => csp.push(entry));
@@ -93,14 +84,12 @@ async function run(label, { api = "ok", consent = true, action = "submit", landi
   await context.route("**/*", async (route) => {
     const request = route.request();
     const url = request.url();
-    if (/\/api\/quote\/$/.test(new URL(url).pathname) && request.method() === "POST") {
+    if (url === "https://api.web3forms.com/submit" && request.method() === "POST") {
       quotePosts += 1;
-      const body = JSON.parse(request.postData() || "{}");
-      sentIds.push(body.submission_id);
       if (api === "abort") return route.abort();
-      if (api === "rejected") return route.fulfill({ status: 422, contentType: "application/json", body: JSON.stringify({ success: false, status: "rejected" }) });
+      if (api === "rejected") return route.fulfill({ status: 422, contentType: "application/json", body: JSON.stringify({ success: false, message: "Synthetic rejection" }) });
       if (api === "error") return route.fulfill({ status: 500, contentType: "application/json", body: JSON.stringify({ success: false }) });
-      return route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ success: true, status: "accepted", submission_status: "accepted", submission_id: body.submission_id }) });
+      return route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ success: true, body: { message: "Synthetic accepted fixture" } }) });
     }
     if (/googletagmanager\.com\/gtm\.js/.test(url) && SIMULATE_GTM_FIX) {
       const response = await route.fetch();
@@ -128,7 +117,6 @@ async function run(label, { api = "ok", consent = true, action = "submit", landi
     }
     return route.continue();
   });
-  if (marker) await context.addInitScript(seedMarker, marker);
   const page = await context.newPage();
   await page.goto(`${ORIGIN}${path}${landing}`, { waitUntil: "load" });
   await page.waitForTimeout(2500);
@@ -177,28 +165,26 @@ async function run(label, { api = "ok", consent = true, action = "submit", landi
   }
   const endedOn = new URL(page.url()).pathname;
   await browser.close();
-  // The legacy-bridge scenario injects a bare push (no submission_id) as its stimulus; that is the
-  // test input, not a site event, so only pushes carrying a submission_id count as site events.
-  const accepted = events.filter((e) => e.event === "zq_quote_submitted" && e.submission_id);
+  const accepted = events.filter((e) => e.event === "zq_quote_submitted" && UUID_V4.test(e.submission_id || ""));
   const problems = [];
   if (accepted.length !== expectEvents) problems.push(`expected ${expectEvents} zq_quote_submitted, saw ${accepted.length}`);
   for (const e of accepted) {
     if (e.form_name !== "quote_form" || e.submission_status !== "accepted") problems.push("accepted event has wrong form_name/submission_status");
     if (!UUID_V4.test(e.submission_id || "")) problems.push("submission_id is not a UUIDv4");
-    if (sentIds.length && !sentIds.includes(e.submission_id)) problems.push("submission_id does not match the request");
   }
+  if (new Set(accepted.map((e) => e.submission_id)).size !== accepted.length) problems.push("accepted submissions reused a conversion ID");
+  if (action === "double" && quotePosts !== 2) problems.push(`expected both direct submissions to reach Web3Forms, saw ${quotePosts}`);
   if (/Synthetic Test|0400000000|synthetic@example/i.test(JSON.stringify(events))) problems.push("personal details leaked into the dataLayer");
   if (csp.length) problems.push(`CSP violations: ${[...new Set(csp)].join("; ")}`);
   return { label, quotePosts, endedOn, siteEvents: { zq_quote_submitted: accepted.length, generate_lead: events.length - accepted.length }, googleConversionRequests: conversions.length, conversions, cspViolations: [...new Set(csp)], problems, ...(SIMULATE_GTM_FIX ? { gtmPatched } : {}) };
 }
 
-const marker = (extra = {}) => ({ formName: "contact-us_quote_1", leadId: UUID, at: 0, ...extra });
 const results = [
   await run("form opened only", { action: "open" }),
   await run("validation failed", { action: "invalid" }),
   await run("consent + accepted", { expectEvents: 1 }),
   await run("consent + accepted from ad landing (gclid)", { landing: "?gclid=TESTSYNTHGCLID&utm_source=google", expectEvents: 1 }),
-  await run("consent + accepted, double submit", { action: "double", expectEvents: 1 }),
+  await run("consent + accepted, double submit is not suppressed", { action: "double", expectEvents: 2 }),
   await run("consent + accepted, then back + reload", { action: "replay", expectEvents: 1 }),
   await run("consent + AI chat accepted, no navigation", { action: "chat", expectEvents: 1 }),
   await run("consent + accepted, then legacy-bridge bare push", { action: "bridge", expectEvents: 1 }),
@@ -206,15 +192,7 @@ const results = [
   await run("consent + HTTP 422 rejected", { api: "rejected" }),
   await run("consent + HTTP 500", { api: "error" }),
   await run("consent + network failure", { api: "abort" }),
-  await run("direct thank-you visit + reload, no marker", { path: "/thank-you/", action: "idle" }),
-  await run("thank-you with expired marker + reload", { path: "/thank-you/", action: "idle", marker: marker({ at: -11 * 60 * 1000 }) }),
-  await run("thank-you with future-dated marker", { path: "/thank-you/", action: "idle", marker: marker({ at: 60 * 60 * 1000 }) }),
-  await run("thank-you with malformed marker", { path: "/thank-you/", action: "idle", marker: "{oops" }),
-  await run("thank-you with non-UUIDv4 id", { path: "/thank-you/", action: "idle", marker: marker({ leadId: "not-a-uuid" }) }),
-  await run("thank-you with bad form name", { path: "/thank-you/", action: "idle", marker: marker({ formName: "<img src=x>" }) }),
-  // Inherent limit: sessionStorage can be forged by the visitor, so this yields one event.
-  await run("thank-you with hand-forged valid marker + reload (inherent limit: one event)", { path: "/thank-you/", action: "idle", marker: marker(), expectEvents: 1 }),
-  await run("thank-you with valid marker but NO consent", { consent: false, path: "/thank-you/", action: "idle", marker: marker(), expectEvents: 0 }),
+  await run("direct thank-you visit + reload never creates a lead", { path: "/thank-you/", action: "idle" }),
 ];
 console.log(JSON.stringify({ mode: { local: LOCAL, simulateGtmFix: SIMULATE_GTM_FIX }, results }, null, 2));
 

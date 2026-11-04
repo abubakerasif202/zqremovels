@@ -1,6 +1,6 @@
 // Read-only diagnostic: shows exactly what one accepted quote sends to Google, using the live GTM container.
 //
-// Nothing real is created or measured: POST /api/quote/ is mocked, and every Google Ads / Analytics
+// Nothing real is created or measured: the Web3Forms POST is mocked, and every Google Ads / Analytics
 // measurement request is ABORTED in the test browser and only recorded (with timestamps and parameters).
 //
 // Usage:
@@ -25,7 +25,7 @@ await ctx.addInitScript(() => {
 });
 await ctx.route('**/*', async (route) => {
   const req = route.request(); const u = req.url();
-  if (/\/api\/quote\/$/.test(new URL(u).pathname) && req.method() === 'POST') { const b = JSON.parse(req.postData() || '{}'); return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, status: 'accepted', submission_status: 'accepted', submission_id: b.submission_id }) }); }
+  if (u === 'https://api.web3forms.com/submit' && req.method() === 'POST') return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, body: { message: 'Synthetic accepted fixture' } }) });
   if (MEAS.test(u)) { hits.push({ t: Date.now() - t0, method: req.method(), type: req.resourceType(), url: u }); return route.abort(); }
   return route.continue();
 });
