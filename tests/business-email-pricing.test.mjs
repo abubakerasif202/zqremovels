@@ -61,7 +61,10 @@ test('generated business schema and public footer use the approved email', () =>
 test('quote submission paths preserve the selected crew package', () => {
   const client = readFileSync(path.join(root, 'site.js'), 'utf8');
   const api = readFileSync(path.join(root, 'api', 'quote.js'), 'utf8');
-  assert.match(client, /crew_package:\s*getFirstNonEmptyPayloadValue\(payload, \["crew_package"\]\)/);
+  // Public forms post every field, including crew_package, straight to Web3Forms.
+  assert.match(client, /const payload = Object\.fromEntries\(formData\.entries\(\)\)/);
+  assert.match(client, /https:\/\/api\.web3forms\.com\/submit/);
+  assert.doesNotMatch(client, /delete payload\.crew_package/);
   assert.match(api, /crew_package:\s*getTrimmedString\(payload, "crew_package"\)/);
 });
 

@@ -18,6 +18,7 @@ import {
   businessIdentifiers,
   businessUrl,
 } from './business.mjs';
+import { zqSuburbGeoData } from './zq-suburbs.mjs';
 
 export { businessIdentifiers };
 
@@ -2660,21 +2661,52 @@ function buildSuburbHighlights({ suburb, logisticsLabel, clusterKey, nearby }) {
   return highlights.slice(0, 4);
 }
 
-function buildSuburbIntroParagraphs({ suburb, intro, logisticsLabel, nearby, clusterKey, supportProfile }) {
-  const clusterLabel = formatClusterLabel(clusterKey).toLowerCase();
+function suburbPlaceLead(slug, suburb) {
+  const geo = zqSuburbGeoData[slug];
+  if (!geo?.council || !Array.isArray(geo.landmarks) || geo.landmarks.length === 0) return '';
+  return `${suburb} is in the ${geo.council}. Local references include ${geo.landmarks.slice(0, 2).join(' and ')}. `;
+}
+
+function buildSuburbLocalInsightParagraphs({ slug, suburb, logisticsLabel, nearby }) {
+  const geo = zqSuburbGeoData[slug];
+  const peers = nearby.slice(0, 3).map((item) => item.suburb).filter(Boolean);
+  const peerText = peers.length >= 2
+    ? `${peers.slice(0, -1).join(', ')} and ${peers.at(-1)}`
+    : (peers[0] || 'other Adelaide suburbs');
+  const places = geo?.landmarks?.slice(0, 3).join(', ');
+
+  const liftNote = /lift|tower|apartment/.test(String(logisticsLabel).toLowerCase())
+    ? ' For an apartment, include the service lift booking and the loading point.'
+    : '';
+
+  if (geo?.council && places) {
+    return [
+      `In ${suburb} (${geo.council}), name the property type and where the truck can stop. Places such as ${places} only locate the address. ${sentenceCase(logisticsLabel)} is what changes the crew and the time.${liftNote}`,
+      `A move in ${suburb} is a different job from one in ${peerText}. Send stairs, lifts, parking limits and the furniture list for both addresses so the quote can use the published hourly rates for this route.`,
+    ];
+  }
+
+  return [
+    `${suburb} jobs are scoped around ${logisticsLabel}. Tell us the property type, where the truck can stand, and any stairs or long carry.`,
+    `Pages for ${peerText} are route comparisons. The quote still depends on both addresses, the inventory and the access at each end.`,
+  ];
+}
+
+function buildSuburbIntroParagraphs({ slug, suburb, intro, logisticsLabel, nearby, clusterKey, supportProfile }) {
   const supportServices = supportProfile.services.slice(0, 2).map((item) => item.label).join(' and ');
   const routeNote = nearby.slice(0, 2).map((item) => item.suburb).join(' and ');
+  const placeLead = suburbPlaceLead(slug, suburb);
 
   if (suburb === 'Glenelg') {
     return [
-      'Glenelg moves often need coastal access planning because beachside parking, apartment entries, and weekend traffic can slow the day.',
+      `${placeLead}Glenelg moves often need coastal access planning because beachside parking, apartment entries, and weekend traffic can slow the day.`,
       `Quote requests should mention parking position, stairs or lifts, carry distance, and any timing pressure so the hourly estimate reflects the real workload in ${suburb}.`,
       `Moves often connect ${suburb} with nearby suburbs such as ${routeNote}. Related services include ${supportServices}.`,
     ];
   }
 
   return [
-    `${intro} ${suburb} quotes work best when the route, access, and inventory are reviewed together rather than treated as a generic metro move.`,
+    `${placeLead}${intro} ${suburb} quotes work best when the route, access, and inventory are reviewed together rather than treated as a generic metro move.`,
     `For ${suburb}, that usually means clarifying ${logisticsLabel}, the property type, and any parking or carry-distance issues before the crew and likely time are estimated.`,
     `Moves often connect ${suburb} with nearby suburbs such as ${routeNote}. Related services include ${supportServices}.`,
   ];
@@ -5893,7 +5925,8 @@ function renderSuburbContent({ slug, suburb, region, intro, logisticsLabel, near
   const supportProfile = getClusterSupportProfile(clusterKey);
   const startHere = getSuburbStartHere(slug);
   const complexityCards = buildSuburbComplexityCards({ suburb, logisticsLabel, clusterKey });
-  const introParagraphs = buildSuburbIntroParagraphs({ suburb, intro, logisticsLabel, nearby, clusterKey, supportProfile });
+  const introParagraphs = buildSuburbIntroParagraphs({ slug, suburb, intro, logisticsLabel, nearby, clusterKey, supportProfile });
+  const localInsights = buildSuburbLocalInsightParagraphs({ slug, suburb, logisticsLabel, nearby });
   const nearbyCards = nearby.map((item, index) => ({
     eyebrow: index === 0 ? 'Nearby suburb' : 'Compare the route',
     title: item.suburb,
@@ -5982,12 +6015,9 @@ ${renderValueCardSection({
 ${renderTextSection({
   module: 'local-insights',
   eyebrow: 'Local insights',
-  heading: `Parking, property type, and traffic notes for ${suburb}`,
-      intro: `${suburb} needs its own move plan because parking, apartments, houses, and timing pressure change staffing.`,
-  paragraphs: [
-    `Parking in ${suburb} should be treated as an access variable. Driveways, kerbside stopping, loading zones, shared frontage, visitor bays, and longer carries can all change timing, so those notes belong in the quote request.`,
-    `Apartment and townhouse moves usually need service lifts, stairs, corridor, and loading-area notes, while house moves depend more on volume, garage stock, outdoor items, and room order. Traffic can shift with school periods, shopping strips and commute windows.`,
-  ],
+  heading: `Access and property notes for ${suburb}`,
+  intro: `${suburb} needs address-level notes because ${logisticsLabel} changes the crew and the time.`,
+  paragraphs: localInsights,
 })}
 ${renderHyperlocalAuthoritySection({ slug, suburb })}
 ${renderValueCardSection({
@@ -6309,14 +6339,13 @@ function renderHyperlocalAuthoritySection({ slug, suburb }) {
   }
 
   const links = [
-    { href: '/removalists-adelaide/', label: 'Local Adelaide removalists' },
+    { href: '/removalists-adelaide/', label: 'Adelaide removalists hub' },
     { href: '/house-removals-adelaide/', label: 'House removals Adelaide' },
     { href: '/furniture-removalists-adelaide/', label: 'Furniture removalists Adelaide' },
-    { href: '/office-removals-adelaide/', label: 'Office removals Adelaide' },
-    { href: '/moving-quotes-adelaide/', label: 'Moving quotes Adelaide' },
-    { href: '/fixed-price-removalists-adelaide/', label: 'Moving removalists Adelaide' },
-    { href: '/affordable-removalists-adelaide/', label: 'Affordable removalists Adelaide' },
-    { href: '/adelaide-moving-guides/suburb-move-preparation-adelaide/', label: 'Suburb move preparation guide' },
+    { href: '/packing-services-adelaide/', label: 'Packing services Adelaide' },
+    { href: '/removalists-adelaide-prices/', label: 'Published crew rates' },
+    { href: '/adelaide-moving-guides/prepare-house-move-adelaide/', label: 'House move preparation guide' },
+    { href: '/contact-us/#quote-form', label: 'Request a moving quote' },
   ];
 
   return `${renderAeoAnswerBlock({
