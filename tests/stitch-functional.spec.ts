@@ -6,7 +6,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('submit artwork survives initial pageshow, rejected submission and history restoration', async ({ page }) => {
-  await page.route('**/api/quote/', route => route.fulfill({ json: { success: false } }));
+  await page.route('https://api.web3forms.com/submit', route => route.fulfill({ json: { success: false, message: 'Fixture rejected' } }));
   await page.goto('/');
   await expect(page.locator('form[data-quote-form="quote"]')).toHaveCount(1);
   const form = page.locator('#quote-form');
@@ -24,7 +24,7 @@ test('submit artwork survives initial pageshow, rejected submission and history 
     }
     element.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
   });
-  await expect(form.locator('[data-form-feedback]')).toContainText('Could not send');
+  await expect(form.locator('[data-form-feedback]')).toContainText('Fixture rejected');
   expect(await button.innerHTML()).toBe(markup);
   await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })));
   expect(await button.innerHTML()).toBe(markup);
@@ -33,9 +33,9 @@ test('submit artwork survives initial pageshow, rejected submission and history 
 
 test('calculator updates and preserves attached inventory in the actual quote endpoint payload', async ({ page }) => {
   let payload: Record<string, unknown> | undefined;
-  await page.route('**/api/quote/', async route => {
+  await page.route('https://api.web3forms.com/submit', async route => {
     payload = route.request().postDataJSON();
-    await route.fulfill({ json: { success: false } });
+    await route.fulfill({ json: { success: false, message: 'Fixture rejected' } });
   });
   await page.goto('/');
   await page.locator('.calc-preset-pill').filter({ hasText: /reset all/i }).click();
@@ -64,7 +64,7 @@ test('calculator updates and preserves attached inventory in the actual quote en
     }
     element.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
   });
-  await expect(form.locator('[data-form-feedback]')).toContainText('Could not send');
+  await expect(form.locator('[data-form-feedback]')).toContainText('Fixture rejected');
   expect(payload?.attached_inventory).toBe(inventory);
   expect(payload?.message).toContain('Selected items:');
   await expect(form.locator('[name="attached_inventory"]')).toHaveValue(inventory);

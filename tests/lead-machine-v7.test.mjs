@@ -51,7 +51,7 @@ test('v7 conversion pages exist with forms, call CTAs, and canonical tags', () =
   const thankYou = readDist(path.join('thank-you', 'index.html'));
   const facebook = readDist(path.join('adelaide-removalists-facebook-offer', 'index.html'));
 
-  assert.match(thankYou, /data-conversion-success="quote_form_success"/);
+  assert.doesNotMatch(thankYou, /data-conversion-success="quote_form_success"/);
   assert.match(thankYou, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/thank-you\/"/);
   assert.match(thankYou, /noindex,follow/);
 
