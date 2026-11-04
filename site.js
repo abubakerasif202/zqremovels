@@ -168,8 +168,6 @@ const quoteForms = Array.from(
 const quoteDateFields = Array.from(
   document.querySelectorAll('input[type="date"][name*="date"]'),
 );
-const QUOTE_API_ENDPOINT = "/api/quote/";
-const DEFAULT_QUOTE_ERROR_MESSAGE = "Could not send the request or confirm its status. Retry to check, or call ZQ Removals before starting another request.";
 const SOCIAL_PROFILES = {
   facebook: "",
   instagram: "",
@@ -208,21 +206,6 @@ function setQuoteDateMinimum() {
   quoteDateFields.forEach((field) => {
     field.min = minDate;
   });
-}
-
-function getTrimmedPayloadValue(payload, field) {
-  return String(payload[field] ?? "").trim();
-}
-
-function getFirstNonEmptyPayloadValue(payload, fields, fallback = "") {
-  for (const field of fields) {
-    const value = getTrimmedPayloadValue(payload, field);
-    if (value) {
-      return value;
-    }
-  }
-
-  return fallback;
 }
 
 function setupHeaderDetails() {
@@ -426,93 +409,6 @@ function setupQuoteFormStepAccessibility() {
   });
 }
 
-const MIN_PHONE_NUMBER_LENGTH = 8;
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-function isSupportedFormField(field) {
-  return (
-    field instanceof HTMLInputElement ||
-    field instanceof HTMLSelectElement ||
-    field instanceof HTMLTextAreaElement
-  );
-}
-
-function validateQuoteForm(form) {
-  const payload = {};
-  const errors = {};
-  const fields = Array.from(form.elements).filter((field) => field.name);
-
-  fields.forEach((field) => {
-    if (!isSupportedFormField(field)) {
-      return;
-    }
-    payload[field.name] = field.value.trim();
-  });
-
-  fields.forEach((field) => {
-    if (!isSupportedFormField(field) || !field.required) {
-      return;
-    }
-
-    if (payload[field.name]) {
-      return;
-    }
-
-    const labelText = field
-      .closest("label")
-      ?.querySelector("span")
-      ?.textContent?.trim();
-    errors[field.name] = labelText ? `Enter ${labelText.toLowerCase()}.` : "Complete this field.";
-  });
-
-  if (payload.email && !EMAIL_REGEX.test(payload.email)) {
-    errors.email = "Enter a valid email address.";
-  }
-
-  if (
-    payload.phone &&
-    payload.phone.replace(/[^\d+]/g, "").length < MIN_PHONE_NUMBER_LENGTH
-  ) {
-    errors.phone = "Enter a valid phone number.";
-  }
-
-  return { payload, errors };
-}
-
-function applyQuoteFormErrors(form, errors) {
-  const errorNodes = Array.from(form.querySelectorAll("[data-error-for]"));
-  errorNodes.forEach((node) => {
-    const fieldName = node.getAttribute("data-error-for") ?? "";
-    node.textContent = errors[fieldName] ?? "";
-  });
-
-  const fields = Array.from(form.elements).filter((field) => isSupportedFormField(field));
-  fields.forEach((field) => {
-    if (errors[field.name]) {
-      field.setAttribute("aria-invalid", "true");
-      return;
-    }
-
-    field.removeAttribute("aria-invalid");
-  });
-}
-
-function setQuoteFormFeedback(form, message, state = "") {
-  const feedbackNode = form.querySelector("[data-form-feedback]");
-  if (!feedbackNode) {
-    return;
-  }
-  feedbackNode.textContent = message;
-  feedbackNode.classList.remove("is-success", "is-error");
-  if (state === "success") {
-    feedbackNode.classList.add("is-success");
-    playEntrance(feedbackNode);
-  }
-  if (state === "error") {
-    feedbackNode.classList.add("is-error");
-  }
-}
-
 function isServiceContextPage() {
   return document.body.classList.contains("page-service-local")
     || document.body.classList.contains("page-service-furniture")
@@ -549,57 +445,6 @@ function inferClickLocation(anchor) {
     return "footer";
   }
   return explicitLocation || document.body.className || window.location.pathname;
-}
-
-function buildQuoteSubmissionPayload(payload) {
-  const attribution = captureAttributionLite();
-  const attributionPayload = attributionStorageAllowed() ? payload : {};
-  const fullName = getFirstNonEmptyPayloadValue(payload, ["full_name", "name"]);
-  const moveDetails = getFirstNonEmptyPayloadValue(payload, [
-    "move_details",
-    "message",
-    "access_notes",
-    "inventory_special_items",
-  ]);
-
-  return {
-    submission_id: payload.submission_id,
-    "cf-turnstile-response": getTrimmedPayloadValue(payload, "cf-turnstile-response"),
-    "g-recaptcha-response": getTrimmedPayloadValue(payload, "g-recaptcha-response"),
-    subject: getTrimmedPayloadValue(payload, "subject") || "Quote request - ZQ Removals",
-    from_name: fullName || getTrimmedPayloadValue(payload, "from_name") || "ZQ Removals Website",
-    botcheck: getFirstNonEmptyPayloadValue(payload, ["botcheck"]),
-    redirect: getTrimmedPayloadValue(payload, "redirect") || "https://zqremovalsadelaide.com.au/thank-you/",
-    source_page: window.location.href,
-    utm_source: attribution.utm_source || getTrimmedPayloadValue(attributionPayload, "utm_source"),
-    utm_medium: attribution.utm_medium || getTrimmedPayloadValue(attributionPayload, "utm_medium"),
-    utm_campaign: attribution.utm_campaign || getTrimmedPayloadValue(attributionPayload, "utm_campaign"),
-    utm_content: attribution.utm_content || getTrimmedPayloadValue(attributionPayload, "utm_content"),
-    utm_term: attribution.utm_term || getTrimmedPayloadValue(attributionPayload, "utm_term"),
-    gclid: attribution.gclid || getTrimmedPayloadValue(attributionPayload, "gclid"),
-    gbraid: attribution.gbraid || "",
-    wbraid: attribution.wbraid || "",
-    fbclid: attribution.fbclid || getTrimmedPayloadValue(attributionPayload, "fbclid"),
-    landing_page: attribution.landing_page || getTrimmedPayloadValue(attributionPayload, "landing_page"),
-    captured_at: attribution.captured_at || getTrimmedPayloadValue(attributionPayload, "captured_at"),
-    move_date: getFirstNonEmptyPayloadValue(payload, ["move_date", "preferred_move_date"]),
-    crew_package: getFirstNonEmptyPayloadValue(payload, ["crew_package"]),
-    pickup_suburb: getFirstNonEmptyPayloadValue(payload, ["pickup_suburb"]),
-    dropoff_suburb: getFirstNonEmptyPayloadValue(payload, ["dropoff_suburb", "delivery_suburb"]),
-    move_scope: getFirstNonEmptyPayloadValue(payload, ["move_scope", "move_type"], "not-sure"),
-    property_type: getFirstNonEmptyPayloadValue(payload, ["property_type"], "not-sure"),
-    move_size: getFirstNonEmptyPayloadValue(payload, ["move_size"], "not-sure"),
-    pickup_access: getFirstNonEmptyPayloadValue(payload, ["pickup_access"], "not-sure"),
-    dropoff_access: getFirstNonEmptyPayloadValue(payload, ["dropoff_access"], "not-sure"),
-    packing_required: getFirstNonEmptyPayloadValue(payload, ["packing_required"], "not-sure"),
-    full_name: fullName,
-    name: fullName,
-    phone: getFirstNonEmptyPayloadValue(payload, ["phone"]),
-    email: getFirstNonEmptyPayloadValue(payload, ["email"]),
-    move_details: moveDetails,
-    message: moveDetails,
-    attached_inventory: getTrimmedPayloadValue(payload, "attached_inventory"),
-  };
 }
 
 function syncQuoteFormHiddenFields() {
@@ -729,131 +574,6 @@ function setupFooterSocialLinks() {
   section.hidden = false;
 }
 
-function setQuoteFormSubmitting(form, isSubmitting) {
-  const submitButton = form.querySelector('button[type="submit"]');
-  if (!submitButton) {
-    return;
-  }
-
-  rememberSubmitButtonContents(submitButton);
-  if (!submitButton.dataset.defaultLabel) {
-    submitButton.dataset.defaultLabel =
-      submitButton.textContent?.trim() ?? "Get My Moving Quote";
-  }
-
-  submitButton.disabled = isSubmitting;
-  submitButton.dataset.submitting = isSubmitting ? "true" : "false";
-  if (isSubmitting) submitButton.textContent = "Sending quote...";
-  else restoreSubmitButtonContents(submitButton);
-}
-
-function quoteRequestStorageKey(form) {
-  return `zq_quote_request:${window.location.pathname}:${form.id || quoteForms.indexOf(form)}`;
-}
-
-function getQuoteRequestId(form) {
-  if (form.dataset.submissionId) return form.dataset.submissionId;
-  try {
-    const saved = JSON.parse(window.sessionStorage.getItem(quoteRequestStorageKey(form)) || "null");
-    if (typeof saved?.id === "string" && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(saved.id) &&
-        Date.now() - saved.at >= 0 && Date.now() - saved.at < 7 * 86400000) {
-      return form.dataset.submissionId = saved.id;
-    }
-  } catch {}
-  const id = form.dataset.submissionId = window.crypto.randomUUID();
-  try { window.sessionStorage.setItem(quoteRequestStorageKey(form), JSON.stringify({ id, at: Date.now() })); } catch {}
-  return id;
-}
-
-async function submitQuoteForm(form, payload) {
-  // Keep the same logical ID across retries, including ambiguous network outcomes.
-  if (!form.dataset) form.dataset = {};
-  payload.submission_id = getQuoteRequestId(form);
-  let response;
-  try {
-    response = await fetch(QUOTE_API_ENDPOINT, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(buildQuoteSubmissionPayload(payload)),
-      signal: AbortSignal.timeout(50000),
-    });
-  } catch (error) {
-    const requestError = new Error(DEFAULT_QUOTE_ERROR_MESSAGE);
-    requestError.cause = error;
-    throw requestError;
-  }
-
-  const responseText = await response.text().catch(() => "");
-  const trimmedResponseText = responseText.trim();
-  let result;
-
-  try {
-    result = JSON.parse(trimmedResponseText);
-  } catch {
-    result = { success: false, message: DEFAULT_QUOTE_ERROR_MESSAGE, body: responseText };
-  }
-
-  if (!response.ok || result?.success !== true || result.submission_status !== "accepted" ||
-      result.submission_id !== payload.submission_id ||
-      !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(result.submission_id)) {
-    if (result?.status === "rejected") {
-      delete form.dataset.submissionId;
-      try { window.sessionStorage.removeItem(quoteRequestStorageKey(form)); } catch {}
-    }
-    const error = new Error(DEFAULT_QUOTE_ERROR_MESSAGE);
-    error.payload = { success: false, message: result?.status === "pending"
-      ? "Your request may have been received. Please call ZQ Removals to confirm before sending again."
-      : result?.status === "rejected"
-        ? "Could not send the request: it was rejected. Review your details and try again."
-        : result?.status === "conflict"
-          ? "This request is already associated with different details. Please call ZQ Removals to confirm before starting another request."
-          : DEFAULT_QUOTE_ERROR_MESSAGE };
-    throw error;
-  }
-
-  return result;
-}
-
-// The Ads conversion request leaves 0.45-1s after the accepted event, after GTM's eventCallback,
-// so redirecting from the form cancels it. Hand the accepted receipt to /thank-you/, which stays open.
-const PENDING_ACCEPTED_QUOTE_KEY = "zq_pending_accepted_quote";
-const PENDING_ACCEPTED_QUOTE_MAX_AGE_MS = 10 * 60 * 1000;
-
-function handOffAcceptedQuote(formName, leadId) {
-  try {
-    window.sessionStorage.setItem(PENDING_ACCEPTED_QUOTE_KEY, JSON.stringify({ formName, leadId, at: Date.now() }));
-    return window.sessionStorage.getItem(PENDING_ACCEPTED_QUOTE_KEY) !== null;
-  } catch {
-    return false;
-  }
-}
-
-function trackHandedOffAcceptedQuote() {
-  if (window.location.pathname !== "/thank-you/") return;
-  let pending;
-  try {
-    const raw = window.sessionStorage.getItem(PENDING_ACCEPTED_QUOTE_KEY);
-    // Consume before tracking so a reload or back/forward visit cannot replay it.
-    window.sessionStorage.removeItem(PENDING_ACCEPTED_QUOTE_KEY);
-    pending = raw ? JSON.parse(raw) : null;
-  } catch {
-    return;
-  }
-  if (
-    typeof pending?.leadId !== "string" ||
-    typeof pending.formName !== "string" ||
-    !/^[a-z0-9_-]{1,80}$/i.test(pending.formName) ||
-    !(Date.now() - pending.at >= 0 && Date.now() - pending.at <= PENDING_ACCEPTED_QUOTE_MAX_AGE_MS)
-  ) {
-    return;
-  }
-  // trackFormSuccess re-validates the UUIDv4 and dedupes by id.
-  withAnalytics((analytics) => analytics.trackFormSuccess(pending.formName, pending.leadId));
-}
-
 function setupQuoteForms() {
   if (quoteForms.length === 0) {
     return;
@@ -862,8 +582,6 @@ function setupQuoteForms() {
   syncQuoteFormHiddenFields();
 
   quoteForms.forEach((form) => {
-    if (form.dataset.quoteBound) return;
-    form.dataset.quoteBound = "true";
     if ("IntersectionObserver" in window) {
       const viewObserver = new IntersectionObserver(entries => {
         if (entries.some(entry => entry.isIntersecting)) {
@@ -873,86 +591,84 @@ function setupQuoteForms() {
       });
       viewObserver.observe(form);
     }
-    setQuoteFormSubmitting(form, false);
 
     form.addEventListener("submit", async (event) => {
+      // The browser dispatches submit only after its native required/type validation passes.
       event.preventDefault();
+      setQuoteFormFeedback(form, "Sending your quote request…");
 
-      const submitButton = form.querySelector('button[type="submit"]');
-      if (form.dataset.quoteAccepted === "true" || submitButton?.dataset.submitting === "true") {
-        return;
-      }
+      const formData = new FormData(form);
+      const payload = Object.fromEntries(formData.entries());
+      // Web3Forms recommends omitting the HTML redirect field for JSON requests. Keep it in the
+      // markup for the no-JavaScript POST fallback; this path redirects only after provider success.
+      delete payload.redirect;
 
-      const { payload, errors } = validateQuoteForm(form);
-      applyQuoteFormErrors(form, errors);
-
-      if (Object.keys(errors).length > 0) {
-        trackQuoteDiagnostic("zq_quote_validation_error", "invalid_fields");
-        setQuoteFormFeedback(form, "Check the highlighted fields and try again.", "error");
-        const firstErrorField = Array.from(form.elements).find(
-          (field) => isSupportedFormField(field) && errors[field.name],
-        );
-        firstErrorField?.focus();
-        return;
-      }
-
-      setQuoteFormFeedback(form, "");
-      setQuoteFormSubmitting(form, true);
-
+      let result;
       try {
-        const result = await submitQuoteForm(form, payload);
-        form.dataset.quoteAccepted = "true";
-        try { window.sessionStorage.removeItem(quoteRequestStorageKey(form)); } catch {}
-        // Only the server's durably stored, provider-accepted receipt qualifies.
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(payload),
+          signal: AbortSignal.timeout(50000),
+        });
         try {
-          const leadId = result.submission_id;
-          const formName = form.getAttribute("data-form-name") ||
-            `${window.location.pathname === "/" ? "home" : window.location.pathname.split("/").filter(Boolean).join("_")}_quote_${quoteForms.indexOf(form) + 1}`;
-          if (!handOffAcceptedQuote(formName, leadId)) {
-            // No sessionStorage: queue before navigation. Analytics failure must not turn an accepted enquiry into a retry.
-            const analytics = await loadAnalyticsModule();
-            await new Promise((resolve) => {
-              const timeout = window.setTimeout(resolve, 1600);
-              const queued = analytics.trackFormSuccess(formName, leadId, () => {
-                window.clearTimeout(timeout);
-                resolve();
-              });
-              if (!queued) { window.clearTimeout(timeout); resolve(); }
-            });
-          }
-        } catch { /* Enquiry accepted; tracking may be blocked by the browser. */ }
-        applyQuoteFormErrors(form, {});
-        form.reset();
-        setQuoteDateMinimum();
-        setQuoteFormFeedback(
-          form,
-          "Quote request sent successfully. We will review it and get back to you soon.",
-          "success",
-        );
-        setQuoteFormSubmitting(form, false);
-        window.location.assign("/thank-you/");
+          result = await response.json();
+        } catch {
+          throw new Error("The quote service returned an unreadable response.");
+        }
+        if (!response.ok || result?.success !== true) {
+          const error = new Error("Web3Forms did not confirm this request.");
+          error.providerMessage = typeof result?.message === "string"
+            ? result.message
+            : typeof result?.body?.message === "string" ? result.body.message : "";
+          throw error;
+        }
       } catch (error) {
-        trackQuoteDiagnostic("zq_quote_submission_error", "unconfirmed_response");
+        trackQuoteDiagnostic("zq_quote_submission_error", "web3forms_rejected_or_unavailable");
         setQuoteFormFeedback(
           form,
-          error?.payload?.message ||
-            error?.payload?.error ||
-            error?.payload?.details ||
-            error.message ||
-            DEFAULT_QUOTE_ERROR_MESSAGE,
+          error?.providerMessage || (error instanceof Error && error.message !== "Failed to fetch"
+            ? error.message
+            : "Could not send your quote request. Please try again or call ZQ Removals."),
           "error",
         );
-        setQuoteFormSubmitting(form, false);
+        return;
       }
+
+      const submissionId = window.crypto.randomUUID();
+      const sourceForm = form.getAttribute("data-form-name") || form.id || "quote_form";
+      try {
+        const analytics = await loadAnalyticsModule();
+        await new Promise((resolve) => {
+          let resumed = false;
+          const resume = () => {
+            if (resumed) return;
+            resumed = true;
+            window.clearTimeout(timeout);
+            resolve();
+          };
+          const timeout = window.setTimeout(resume, 1600);
+          if (!analytics.trackFormSuccess(sourceForm, submissionId, resume)) resume();
+        });
+      } catch {
+        // A provider-confirmed submission must still reach its confirmation page if analytics is blocked.
+      }
+
+      window.location.assign("/thank-you/");
     });
   });
 
   window.addEventListener("pageshow", () => {
     syncQuoteFormHiddenFields();
-    quoteForms.forEach((form) => {
-      setQuoteFormSubmitting(form, false);
-    });
   });
+}
+
+function setQuoteFormFeedback(form, message, state = "") {
+  const feedback = form.querySelector("[data-form-feedback]");
+  if (!feedback) return;
+  feedback.textContent = message;
+  feedback.classList.remove("is-success", "is-error");
+  if (state) feedback.classList.add(`is-${state}`);
 }
 
 function ensureHiddenField(form, name, value) {
@@ -1976,7 +1692,6 @@ setupFormState();
 setupQuoteFormStepAccessibility();
 syncQuoteFormHiddenFields();
 setupQuoteForms();
-trackHandedOffAcceptedQuote();
 setupLocalFormPreview();
 setupHeaderState();
 setupStickyCta();

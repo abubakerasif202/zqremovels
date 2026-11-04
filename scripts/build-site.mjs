@@ -4440,6 +4440,9 @@ function injectLeadMachineHiddenFields(content) {
     { name: 'captured_at', value: '', attr: 'data-attribution-field="captured_at"' },
   ];
 
+  content = content.replace(/<p\b[^>]*>\s*<label>\s*(?:Leave this field empty|Do not fill this out if you're human)\s*<input[^>]*name="botcheck"[^>]*>\s*<\/label>\s*<\/p>/gi, '');
+  content = content.replace(/<label>\s*Do not fill this out if you're human:\s*<input[^>]*name="botcheck"[^>]*>\s*<\/label>/gi, '');
+
   return content.replace(/<form\b([^>]*data-quote-form="quote"[^>]*)>/gi, (match) => {
     let next = match;
 
@@ -4452,6 +4455,7 @@ function injectLeadMachineHiddenFields(content) {
     if (!/\bmethod="/i.test(next)) {
       next = next.replace(/>$/, ' method="POST">');
     }
+    next = next.replace(/\snovalidate(?=[\s>])/gi, '');
 
     const existingFields = new Set(
       [...match.matchAll(/name="([^"]+)"/gi)].map((fieldMatch) => fieldMatch[1]),
