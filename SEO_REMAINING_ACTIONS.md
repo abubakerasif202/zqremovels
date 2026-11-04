@@ -4,19 +4,21 @@ These items need an account, a measurement window, or a business fact that is no
 
 ## Release
 
-1. Review and merge https://github.com/abubakerasif202/zqremovels/pull/91 (`fix/seo-repair-2026-11-05`). The preview deployment is READY and is behind the Vercel login page.
-2. Confirm the Vercel production deployment finished.
-3. Re-check these live URLs after deploy:
-   - `/removalists-glenelg/` contains "City of Holdfast Bay" and does not contain "should be treated as an access variable".
-   - `/services/piano-movers-adelaide/` description mentions upright, grand, and digital pianos.
-   - `/sitemap.xml` still lists 79 indexable page URLs on `https://zqremovalsadelaide.com.au`.
-4. In Search Console, inspect a sample of updated suburb URLs after Google recrawls them. Do not request indexing for redirect aliases.
+Completed on 5 November 2026:
+
+- Pull request 91 is merged. Production commit `8b1d2b2d69adb62ec489db906502b4614efbf213`.
+- Vercel production deployment `dpl_4YnMyMcg25xLojVVWDRwwTxqVkwW` is Ready at `https://zq-rsjkxjiwy-abubakerasif202s-projects.vercel.app` and aliased to `https://zqremovalsadelaide.com.au`.
+- Live Glenelg contains "City of Holdfast Bay" and the old shared parking sentence is gone.
+- The live piano description names upright, grand, and digital pianos.
+- The live sitemap index lists five apex child sitemaps: pages 5, services 15, suburbs 48, guides 11, images 79.
 
 ## Search Console
 
-The API was not queried in this session. Use the existing `scripts/gsc-live-audit.mjs` flow when a current token is available.
+The API was not queried in this session. Use the existing `scripts/gsc-live-audit.mjs` flow when a current token is available. Older coverage counts stay historical.
 
-Watch, without treating an old export as a live error:
+After Google recrawls the updated suburb URLs, inspect a sample in Search Console. Leave redirect aliases out of indexing requests.
+
+Watch these items against the next export:
 
 - Sitemap index status. A previous "General HTTP error" was traced to a transient 308 and later cleared on resubmit. Confirm the five child sitemaps stay on Success.
 - `/adelaide-moving-guides/removalists-cost-adelaide/` and `/removalists-adelaide-prices/` for the query "removalists adelaide prices". Keep the prices page on published crew rates and the guide on what changes the time.
@@ -34,7 +36,7 @@ Watch, without treating an old export as a live error:
 
 - Google Business Profile: confirm the name, phone `0433 819 989`, service area, and categories match the site. The site already links the profile from business data. Review requests belong in the GBP account.
 - Bing Webmaster Tools: verify the apex property and submit `https://zqremovalsadelaide.com.au/sitemap.xml` if that is still outstanding.
-- Field Core Web Vitals: read the Search Console experience report or a CrUX export. Local tests already cover hero preload, image dimensions on the homepage, and the decision not to preload Fraunces. A new Lighthouse run was not completed in this session.
+- Field Core Web Vitals: read the Search Console experience report or a CrUX export. Lighthouse CI on `ae2a543` passed before the merge. That is a synthetic lab run. Field data still needs the Search Console or CrUX report.
 - Analytics: confirm production still has `VITE_GA_MEASUREMENT_ID` set at build time. Quote success remains `zq_quote_submitted` with `form_name=quote_form`, `submission_status=accepted`, and a UUIDv4 `submission_id`, only after Web3Forms returns success and consent allows it. A button click is not a lead.
 
 ## Intentionally unchanged

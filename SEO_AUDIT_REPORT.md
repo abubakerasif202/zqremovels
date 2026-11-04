@@ -7,7 +7,7 @@ Audit of the generator source, the rebuilt `site-dist/` output, and live HTTP ch
 - Source of truth: `site-src/pages.json`, `site-src/data/seo-v4.mjs`, `site-src/data/zq-services.mjs`, `site-src/data/zq-suburbs.mjs`, `scripts/build-site.mjs`, `vercel.json`.
 - Local output: `npm run build`, then `npm run seo:validate`.
 - Metadata pass over the merged page registry: 96 static routes, 88 generated routes, 124 merged routes, 79 indexable routes.
-- Live checks on 5 November 2026 used single-hop HTTP requests. They describe the site that was already deployed, before this branch is released.
+- Live checks on 5 November 2026 used single-hop HTTP requests. The same hops were read again from `https://zqremovalsadelaide.com.au` after pull request 91 merged. Search Console was not queried.
 
 ## Inventory summary
 
@@ -73,9 +73,15 @@ Root cause: `renderHyperlocalAuthoritySection()` listed keyword aliases instead 
 - The repeated FAQ questions "Do you service {suburb}?" and "Can you move furniture in {suburb}?" remain because they answer the query and existing regressions require them. They are suburb-specific in the answer, and they are thinner than the old shared parking section.
 - Metadata length, canonical host, sitemap membership, and broken-internal-link checks already passed in the generator.
 
+## Production release
+
+Pull request 91 merged at 2026-11-04T18:56:22Z. Production commit `8b1d2b2d69adb62ec489db906502b4614efbf213`. Vercel deployment `dpl_4YnMyMcg25xLojVVWDRwwTxqVkwW` is Ready and aliased to `https://zqremovalsadelaide.com.au`. Deployment URL: `https://zq-rsjkxjiwy-abubakerasif202s-projects.vercel.app`.
+
+After that deployment, the apex homepage, Glenelg, Salisbury, the piano page, the contact quote form, `robots.txt`, and the sitemap were read from production. Canonicals use the apex host. Glenelg names the City of Holdfast Bay. The piano description names upright, grand, and digital pianos. The suburb sitemap lists 48 URLs. HTTP, `www`, Kings Park, and the furniture alias under `/services/` still redirect in one hop. `/thank-you/` remains `noindex`.
+
 ## What this audit did not measure
 
-- A fresh Google Search Console coverage export. Earlier figures of about 79 indexed sitemap URLs, 28 redirects, and 2 noindex URLs were not re-read from the API in this session.
-- Field Core Web Vitals. Synthetic Lighthouse was not run. Existing tests confirm the homepage hero is preloaded and the Fraunces font is not preloaded.
-- A full visual pass in a desktop browser. Rendered HTML was checked by the generator tests.
+- A fresh Google Search Console coverage export. Earlier figures of about 79 indexed sitemap URLs, 28 redirects, and 2 noindex URLs were not re-read from the API in this session. No ranking change is claimed.
+- Field Core Web Vitals from Search Console or CrUX. Lighthouse CI on commit `ae2a543` passed, including the repository test suite and Playwright, before the merge.
+- A full visual pass in a desktop browser. Rendered HTML was checked by the generator tests and by the production fetches above.
 - Live quote delivery to Web3Forms. Form contracts were covered by existing tests, and no live lead was sent.

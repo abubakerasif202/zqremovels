@@ -86,10 +86,47 @@ Browser screenshots were not captured. The checks above read the generated HTML 
 | New indexable pages | 0 |
 | Pages removed | 0 |
 
+## Review notes
+
+GitHub Advanced Security CodeQL rule `js/double-escaping` on `decodeEntities` in `tests/suburb-distinct-insights.test.mjs` was a real finding. Ampersands are now decoded last, and the CodeQL check on `ae2a543` passed.
+
+Required checks on that commit passed: CodeQL, Analyze (javascript-typescript), Analyze (python), claude-review, Lighthouse CI (run 41891057090, about 5m45s), and the Vercel preview. CodeRabbit skipped because of its quota. ECC review comments treated test files as CI paths and were left as informational false positives. The pull request merged cleanly.
+
 ## Deployment
 
-Branch `fix/seo-repair-2026-11-05` is pushed. Pull request: https://github.com/abubakerasif202/zqremovels/pull/91
+Pull request https://github.com/abubakerasif202/zqremovels/pull/91 is merged.
 
-Vercel preview deployment `dpl_Hq4MU4LEHexbBZM9ckS4JZXFN73Y` is READY at `https://zq-luykkrmia-abubakerasif202s-projects.vercel.app`. Requests for the preview returned the Vercel login page, so the preview HTML was not read from here.
+| Item | Value |
+| --- | --- |
+| Merge time | 2026-11-04T18:56:22Z |
+| Production commit | `8b1d2b2d69adb62ec489db906502b4614efbf213` |
+| Deployment | `dpl_4YnMyMcg25xLojVVWDRwwTxqVkwW` |
+| Deployment URL | https://zq-rsjkxjiwy-abubakerasif202s-projects.vercel.app |
+| Inspector | https://vercel.com/abubakerasif202s-projects/zq/4YnMyMcg25xLojVVWDRwwTxqVkwW |
+| State | Ready, target production |
+| Production alias | https://zqremovalsadelaide.com.au |
 
-Production at `https://zqremovalsadelaide.com.au` still serves the previous revision until the pull request is merged.
+GitHub reports Vercel "Deployment has completed" on that merge commit. The deployment aliases include the apex host, `www`, and `zqremovals.au`.
+
+The earlier preview `dpl_Hq4MU4LEHexbBZM9ckS4JZXFN73Y` returned the Vercel login page, so it was not used as proof. The checks below were read from the public apex after this production deployment was Ready.
+
+## Production smoke — 5 November 2026
+
+| Check | Result |
+| --- | --- |
+| Homepage `https://zqremovalsadelaide.com.au/` | 200. Canonical `https://zqremovalsadelaide.com.au/`. Robots `index,follow,max-image-preview:large`. Quote form and Web3Forms endpoint present. MovingCompany `@id`, `url`, and telephone `0433 819 989` use the apex host. |
+| `http://zqremovalsadelaide.com.au/` | 308 to `https://zqremovalsadelaide.com.au/` |
+| `https://www.zqremovalsadelaide.com.au/` | 308 to `https://zqremovalsadelaide.com.au/` |
+| `https://zqremovals.au/` and `https://www.zqremovals.au/` | 301 to `https://zqremovalsadelaide.com.au/` |
+| `/removalists-kings-park/` | 308 to `https://zqremovalsadelaide.com.au/removalists-unley-park/` |
+| `/services/furniture-removals-adelaide/` | 308 to `https://zqremovalsadelaide.com.au/furniture-removalists-adelaide/` |
+| `/robots.txt` | 200. `Allow: /`. Sitemap lines use the apex. |
+| `/sitemap.xml` | 200. Five child sitemaps, all on the apex. |
+| Child sitemaps | pages 5, services 15, guides 11, suburbs 48, images 79. No `www` host and no Kings Park URL. |
+| `/removalists-glenelg/` | 200. Canonical is the apex suburb URL. H1 "Glenelg removalists". Body contains "City of Holdfast Bay". The shared parking sentence is absent. |
+| `/removalists-salisbury/` | 200. Apex canonical. The shared parking sentence is absent. |
+| `/services/piano-movers-adelaide/` | 200. Description: "Piano movers Adelaide for upright, grand and digital pianos. Send dimensions and access photos so handling can be confirmed before you book." |
+| `/contact-us/` | 200. Apex canonical. `data-quote-form="quote"` and `https://api.web3forms.com/submit` are present. |
+| `/thank-you/` | 200. Robots `noindex,follow`. |
+
+No live quote was submitted. Conversion behaviour stays covered by `tests/conversion-tracking.spec.ts` (32 passed at 390px and 1366px) and by the Lighthouse CI job, which runs the test suite and Playwright before Lighthouse.
