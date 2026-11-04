@@ -1428,7 +1428,7 @@ const seoV5GuideProfiles = {
   },
   'fixed-price-vs-hourly-removalists-adelaide': {
     title: 'Planning Adelaide moving costs Removalists Adelaide',
-    topic: 'hourly pricing versus hourly removalists',
+    topic: 'fixed quote versus hourly removalists',
     primaryKeyword: 'moving cost planning removalists Adelaide',
     searchIntent: 'quote model comparison',
     uniqueAngle: 'compares pricing risk when traffic, lifts, stairs, parking, or extra inventory change the day',
@@ -1996,7 +1996,7 @@ const seoV5CommercialIntentProfiles = {
   },
   'affordable-removalists-adelaide': {
     primaryKeyword: 'affordable removalists Adelaide',
-    secondaryKeywords: ['best value Adelaide movers', 'affordable movers Adelaide', 'moving movers Adelaide'],
+    secondaryKeywords: ['best value Adelaide movers', 'affordable movers Adelaide', 'budget removalists Adelaide'],
     searchIntent: 'best-value comparison with scope clarity',
     uniqueAngle: 'keeps price control tied to careful handling and clear written inclusions',
     conversionCTA: 'Compare a value-focused moving quote',
@@ -2017,7 +2017,7 @@ const seoV5CommercialIntentProfiles = {
   },
   'fixed-price-removalists-adelaide': {
     primaryKeyword: 'hourly pricing removalists Adelaide',
-    secondaryKeywords: ['moving movers Adelaide', 'upfront moving quote Adelaide', 'applicable charges disclosed moving'],
+    secondaryKeywords: ['transparent removalist rates Adelaide', 'upfront moving quote Adelaide', 'hourly removalist rates Adelaide'],
     searchIntent: 'quote-first certainty and manual moving review',
     uniqueAngle: 'positions hourly pricing as manual scope review when traffic, stairs, lifts, parking, and item handling could change hourly cost',
     conversionCTA: 'Request a manual moving review',
@@ -2681,14 +2681,14 @@ function buildSuburbLocalInsightParagraphs({ slug, suburb, logisticsLabel, nearb
 
   if (geo?.council && places) {
     return [
-      `In ${suburb} (${geo.council}), name the property type and where the truck can stop. Places such as ${places} only locate the address. ${sentenceCase(logisticsLabel)} is what changes the crew and the time.${liftNote}`,
-      `A move in ${suburb} is a different job from one in ${peerText}. Send stairs, lifts, parking limits and the furniture list for both addresses so the quote can use the published hourly rates for this route.`,
+      `For moves in ${suburb} (${geo.council}), specify the property type and where our truck can safely load or park. Key access considerations across ${places} and surrounding streets include ${logisticsLabel.toLowerCase()}, which directly determine the crew size and moving time.${liftNote}`,
+      `A move in ${suburb} involves different access logistics from neighbouring routes like ${peerText}. Send stairs, lifts, parking limits and your furniture list for both addresses so we can provide an accurate quote based on our published hourly rates.`,
     ];
   }
 
   return [
-    `${suburb} jobs are scoped around ${logisticsLabel}. Tell us the property type, where the truck can stand, and any stairs or long carry.`,
-    `Pages for ${peerText} are route comparisons. The quote still depends on both addresses, the inventory and the access at each end.`,
+    `${suburb} moves are scoped around ${logisticsLabel}. Tell us the property type, where the truck can stand, and any stairs or long carry.`,
+    `Pages for ${peerText} provide route comparisons. The quote depends on both addresses, the inventory and the access at each end.`,
   ];
 }
 
@@ -6537,10 +6537,30 @@ function buildGuideAdviceCards(topic, slug = '') {
   ];
 }
 
+function formatUniqueAngle(angle) {
+  if (!angle) return '';
+  const text = angle.trim().replace(/\.+$/, '');
+  const match = text.match(/^([a-z]+)(.*)$/i);
+  if (!match) return text;
+  const word = match[1].toLowerCase();
+  const rest = match[2];
+  let participle = word;
+  if (word.endsWith('ies')) {
+    participle = word.slice(0, -3) + 'ying';
+  } else if (word === 'focuses') {
+    participle = 'focusing';
+  } else if (word.endsWith('es')) {
+    participle = word.slice(0, -2) + 'ing';
+  } else if (word.endsWith('s')) {
+    participle = word.slice(0, -1) + 'ing';
+  }
+  return `${participle}${rest}`;
+}
+
 function buildGuideFaqItems({ title, topic, slug = '' }) {
   const intentProfile = seoV5GuideProfiles[slug];
   const firstAnswer = intentProfile
-    ? `It supports ${intentProfile.searchIntent} by clarifying ${intentProfile.uniqueAngle}. Include access, inventory, property type, parking, stairs, lifts, and any packing or timing requirements in the quote brief.`
+    ? `This guide supports ${intentProfile.searchIntent} by ${formatUniqueAngle(intentProfile.uniqueAngle)}. Include access, inventory, property type, parking, stairs, lifts, and any packing or timing requirements in the quote brief.`
     : `It helps you provide the details that change labour and timing: access, inventory, property type, parking, stairs, lifts, and whether packing or storage is part of the move.`;
 
   return [

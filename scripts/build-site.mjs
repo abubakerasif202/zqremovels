@@ -278,6 +278,8 @@ function applyVerifiedPricingLanguageToVisibleHtml(html) {
     }
     if (inRawElement) return token;
     return token
+      .replace(/fixed[- ]price vs (hourly|hourly-rate|hourly removalists)/gi, 'Fixed quote vs hourly rate')
+      .replace(/hourly vs fixed[- ]price/gi, 'Hourly vs fixed quote')
       .replace(/fixed-price/gi, (match) => match[0] === 'F' ? 'Hourly-rate' : 'hourly-rate')
       .replace(/fixed pricing/gi, (match) => match[0] === 'F' ? 'Hourly pricing' : 'hourly pricing')
       .replace(/fixed price/gi, (match) => match[0] === 'F' ? 'Hourly rate' : 'hourly rate')
@@ -4601,10 +4603,10 @@ function renderSeoV5InternalLinkHub(page) {
     ['/removalists-mawson-lakes/', 'Mawson Lakes', 'apartments, units, and northern corridors'],
   ];
   const guides = [
-    ['/adelaide-moving-guides/moving-cost-adelaide-2026/', 'Moving cost Adelaide 2026'],
-    ['/adelaide-moving-guides/removalist-quote-checklist-adelaide/', 'Removalist quote checklist'],
-    ['/adelaide-moving-guides/how-to-choose-removalists-adelaide/', 'How to choose removalists'],
-    ['/adelaide-moving-guides/fixed-price-vs-hourly-removalists-adelaide/', 'Fixed price vs hourly'],
+    ['/adelaide-moving-guides/removalists-cost-adelaide/', 'Moving cost guide: what drives moving time'],
+    ['/adelaide-moving-guides/moving-house-checklist-adelaide/', 'Moving house checklist Adelaide'],
+    ['/adelaide-moving-guides/how-to-choose-removalists-adelaide/', 'How to choose removalists Adelaide'],
+    ['/adelaide-moving-guides/how-to-prepare-furniture-for-moving/', 'How to prepare furniture for moving'],
   ];
 
   const list = (items, formatter) => items
