@@ -103,19 +103,26 @@ try {
 
   for (const route of routes) {
     const reportPath = path.join(reportDir, `${slugFor(route)}.json`);
-    const result = spawnSync(
-      process.execPath,
-      [
-        lighthouseCli,
-        `${baseUrl}${route}`,
-        '--chrome-flags=--headless --no-sandbox',
-        '--only-categories=performance,accessibility,seo',
-        '--output=json',
-        `--output-path=${reportPath}`,
-        '--quiet',
-      ],
-      { cwd: projectRoot, stdio: 'inherit', env: process.env },
-    );
+    let result;
+    for (let attempt = 1; attempt <= 2; attempt += 1) {
+      result = spawnSync(
+        process.execPath,
+        [
+          lighthouseCli,
+          `${baseUrl}${route}`,
+          '--chrome-flags=--headless=new --no-sandbox --disable-dev-shm-usage --disable-gpu',
+          '--only-categories=performance,accessibility,seo',
+          '--output=json',
+          `--output-path=${reportPath}`,
+          '--quiet',
+        ],
+        { cwd: projectRoot, stdio: 'inherit', env: process.env },
+      );
+      if (result.status === 0) break;
+      if (attempt === 1) {
+        console.warn(`Lighthouse could not finish ${route} (exit ${result.status}). Retrying once.`);
+      }
+    }
 
     if (result.status !== 0) {
       throw new Error(`Lighthouse failed for ${route} with exit code ${result.status}`);
