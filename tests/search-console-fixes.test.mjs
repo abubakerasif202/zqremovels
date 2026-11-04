@@ -1318,7 +1318,7 @@ function normalizeGoogleProfileTokens(value) {
 
 test('piano migration snippet remains a complete assessment-based description', () => {
   const piano = pages.find((page) => page.output === 'services/piano-movers-adelaide/index.html');
-  assert.equal(piano.description, 'Piano movers Adelaide for upright and digital pianos. Send dimensions and access photos for a handling assessment and quote, or call 0433 819 989.');
+  assert.equal(piano.description, 'Piano movers Adelaide for upright, grand and digital pianos. Send dimensions and access photos so handling can be confirmed before you book.');
   assert.equal(piano.ogDescription, piano.description);
   assert.equal(piano.twitterDescription, piano.description);
 });

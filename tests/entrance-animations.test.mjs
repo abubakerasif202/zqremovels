@@ -64,8 +64,9 @@ test('production retains the selected Animate.css class and keyframe only', () =
 
 test('quote feedback animates success without changing feedback or error behavior', () => {
   const f = fixture();
-  const feedback = script.slice(script.indexOf('function setQuoteFormFeedback('), script.indexOf('function isServiceContextPage('));
-  vm.runInContext(feedback, f.context);
+  const start = script.indexOf('function setQuoteFormFeedback(');
+  const next = script.indexOf('\nfunction ', start + 1);
+  vm.runInContext(script.slice(start, next), f.context);
   const form = { querySelector: () => f.node };
   f.context.setQuoteFormFeedback(form, 'Request sent', 'success');
   assert.equal(f.node.textContent, 'Request sent');

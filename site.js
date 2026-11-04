@@ -618,9 +618,14 @@ function setupQuoteForms() {
         }
         if (!response.ok || result?.success !== true) {
           const error = new Error("Web3Forms did not confirm this request.");
-          error.providerMessage = typeof result?.message === "string"
+          const providerMessage = typeof result?.message === "string"
             ? result.message
             : typeof result?.body?.message === "string" ? result.body.message : "";
+          // Only an explicit rejection or HTTP failure has a provider explanation.
+          // A 200 without success:true is unconfirmed, so keep the confirmation message.
+          if ((response.ok === false || result?.success === false) && providerMessage.trim()) {
+            error.providerMessage = providerMessage;
+          }
           throw error;
         }
       } catch (error) {
@@ -667,8 +672,13 @@ function setQuoteFormFeedback(form, message, state = "") {
   const feedback = form.querySelector("[data-form-feedback]");
   if (!feedback) return;
   feedback.textContent = message;
-  feedback.classList.remove("is-success", "is-error");
-  if (state) feedback.classList.add(`is-${state}`);
+  feedback.classList.remove("is-success", "is-error", "zq-entrance", "animate__animated", "animate__fadeIn");
+  if (state === "success") {
+    feedback.classList.add("is-success");
+    playEntrance(feedback);
+    return;
+  }
+  if (state === "error") feedback.classList.add("is-error");
 }
 
 function ensureHiddenField(form, name, value) {

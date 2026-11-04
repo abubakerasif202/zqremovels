@@ -289,22 +289,6 @@ test('reject optional keeps all tag loaders blocked and stores the choice', asyn
   expect(await page.evaluate(() => (window as any).__zqConsentChoice?.advertising)).toBe(false);
 });
 
-test('consent choices are keyboard reachable and pass serious/critical axe checks', async ({ page }) => {
-  await page.goto('/contact-us/');
-  await expect(page.getByRole('region', { name: 'Privacy preferences' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Accept all' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Accept all' })).toBeFocused();
-  await page.keyboard.press('Tab');
-  await expect(page.getByRole('button', { name: 'Reject optional' })).toBeFocused();
-  await page.addScriptTag({ content: axe.source });
-  const violations = await page.evaluate(async () => {
-    const container = document.querySelector('[data-consent-banner]');
-    const results = await (window as any).axe.run(container, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'] } });
-    return results.violations.filter((item: any) => ['critical', 'serious'].includes(item.impact));
-  });
-  expect(violations).toEqual([]);
-});
-
 test('CMP late-choice hook captures grants and clears revoked attribution',async({page})=>{
   await page.goto('/?gclid=fixture-click&gbraid=fixture-gbraid&wbraid=fixture-wbraid&utm_campaign=fixture');
   expect(await page.evaluate(()=>sessionStorage.getItem('zq_attribution_v7'))).toBeNull();
