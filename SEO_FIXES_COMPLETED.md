@@ -59,11 +59,16 @@ The title remains `Piano Movers Adelaide | Piano Removalists | ZQ Removals`.
 | `node --test tests/eeat-audit.test.mjs` | Passed in the focused run |
 | `node --test tests/business-email-pricing.test.mjs` | Passed after the assertion below |
 | `git diff --check` | Passed |
-| `npm test` | Did not finish. Quote API smoke passed. The runner then stopped in `tests/entrance-animations.test.mjs` because `setQuoteFormFeedback` in the already committed `site.js` does not add `animate__fadeIn`. That file was not part of this SEO edit. |
+| `npm test` | Passed, including the quote API smoke test and every `tests/*.test.mjs` file |
+| Playwright `tests/conversion-tracking.spec.ts` at 390px and 1366px | 32 passed |
+
+`setQuoteFormFeedback` again plays the existing fade-in entrance on a success state and clears it for an error. Reduced motion still skips the animation through `playEntrance`. Web3Forms still posts JSON directly, and a response is treated as accepted only when HTTP succeeds and `success` is boolean `true`. An explicit rejection can show the provider message. A 200 response without that boolean keeps the confirmation-failure message and does not redirect or emit `zq_quote_submitted`.
+
+`tests/suburb-distinct-insights.test.mjs` decodes `&amp;` last. GitHub Advanced Security flagged the previous order as double-unescaping because `&amp;lt;` would become `<`. Decoding ampersands last leaves that value as the literal `&lt;`.
 
 `tests/business-email-pricing.test.mjs` expected the old payload mapper `crew_package: getFirstNonEmptyPayloadValue(...)`. Public forms now post every field, including `crew_package`, to Web3Forms. The test matches that current path and still checks that the field is not deleted. The server quote handler still maps `crew_package`.
 
-A parallel run of several test files that each rebuild the site hit `Timed out waiting for the site build lock` in `tests/search-console-fixes.test.mjs`. The same file passed when run alone after the build lock was free.
+A duplicate Playwright title in `tests/conversion-tracking.spec.ts` blocked collection. The later copy of the consent keyboard and axe test was removed. The earlier test remains.
 
 Browser screenshots were not captured. The checks above read the generated HTML for titles, canonicals, H1s, internal links, schema, and the new suburb copy.
 

@@ -5,12 +5,13 @@ const { getGeneratedPages } = await import(new URL('../site-src/data/seo-v4.mjs'
 const { zqSuburbGeoData } = await import(new URL('../site-src/data/zq-suburbs.mjs', import.meta.url).href);
 
 function decodeEntities(value) {
+  // Decode ampersands last so a value such as "&amp;lt;" stays "&lt;" instead of becoming "<".
   return String(value)
-    .replaceAll('&amp;', '&')
     .replaceAll('&#39;', "'")
     .replaceAll('&quot;', '"')
     .replaceAll('&lt;', '<')
-    .replaceAll('&gt;', '>');
+    .replaceAll('&gt;', '>')
+    .replaceAll('&amp;', '&');
 }
 
 function moduleText(html, moduleName) {
