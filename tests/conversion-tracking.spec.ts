@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Route } from '@playwright/test';
 import axe from 'axe-core';
 
 const WEB3FORMS = 'https://api.web3forms.com/submit';
@@ -55,7 +55,7 @@ async function fillForm(page: any) {
 }
 
 async function mockWeb3Forms(page: any, response: { status?: number; body: string }) {
-  await page.route(WEB3FORMS, route => route.fulfill({
+  await page.route(WEB3FORMS, (route: Route) => route.fulfill({
     status: response.status ?? 200,
     contentType: 'application/json',
     body: response.body,
