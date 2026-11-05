@@ -1,0 +1,90 @@
+name: zq-invoiceplane
+
+services:
+  db:
+    image: mariadb:11.4
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: "${DB_NAME:?Set DB_NAME in .env}"
+      MARIADB_USER: "${DB_USER:?Set DB_USER in .env}"
+      MARIADB_PASSWORD: "${DB_PASSWORD:?Set DB_PASSWORD in .env}"
+      MARIADB_ROOT_PASSWORD: "${DB_ROOT_PASSWORD:?Set DB_ROOT_PASSWORD in .env}"
+    volumes:
+      - database:/var/lib/mysql
+    networks:
+      - database_net
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 30s
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    security_opt:
+      - no-new-privileges:true
+
+  app:
+    build:
+      context: ./upstream
+      dockerfile: resources/docker/Containerfile
+    image: zq-invoiceplane:v1.7.2
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      IP_URL: "https://${INVOICE_DOMAIN:?Set INVOICE_DOMAIN in .env}"
+      DB_HOSTNAME: db
+      DB_USERNAME: "${DB_USER:?Set DB_USER in .env}"
+      DB_PASSWORD: "${DB_PASSWORD:?Set DB_PASSWORD in .env}"
+      DB_DATABASE: "${DB_NAME:?Set DB_NAME in .env}"
+      ENCRYPTION_KEY: "${ENCRYPTION_KEY:?Set ENCRYPTION_KEY in .env}"
+      DEFAULT_ADMIN_EMAIL: "${ADMIN_EMAIL:?Set ADMIN_EMAIL in .env}"
+      DEFAULT_ADMIN_PASSWORD: "${ADMIN_PASSWORD:?Set ADMIN_PASSWORD in .env}"
+      DEFAULT_ADMIN_NAME: "ZQ Removals"
+      DEFAULT_LANGUAGE: english
+      CI_ENV: production
+      ENABLE_DEBUG: "false"
+      SESS_REGENERATE_DESTROY: "true"
+      ENABLE_INVOICE_DELETION: "false"
+      DISABLE_READ_ONLY: "false"
+      LEGACY_CALCULATION: "false"
+    volumes:
+      - uploads:/var/www/html/uploads
+      - storage:/var/www/html/storage
+    networks:
+      - database_net
+      - web_net
+    security_opt:
+      - no-new-privileges:true
+
+  caddy:
+    image: caddy:2.10
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      INVOICE_DOMAIN: "${INVOICE_DOMAIN:?Set INVOICE_DOMAIN in .env}"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - web_net
+    security_opt:
+      - no-new-privileges:true
+
+networks:
+  database_net:
+    internal: true
+  web_net:
+
+volumes:
+  database:
+  uploads:
+  storage:
+  caddy_data:
+  caddy_config:
