@@ -160,14 +160,42 @@ for (const width of [320, 375, 390, 768, 1366, 1920]) {
     await form.locator('button[type="submit"]').click();
     await expect.poll(() => payload?.published_rate).toBe('Route-specific quote required');
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-    await expect(page.locator('.hero-truck-art').first()).toHaveCSS('animation-name', 'none');
-    const art = await page.locator('.hero-truck-art').first().boundingBox();
-    expect(art!.width).toBeGreaterThan(100);
-    expect(art!.height).toBeGreaterThan(45);
-    await page.locator('#hero-estimator').screenshot({ path: `artifacts/truck-selection/${width}.png` });
+    const section = page.locator('#truck-selection');
+    const photo = section.locator('.truck-photo').first();
+    const art = await photo.boundingBox();
+    expect(art!.width).toBeGreaterThan(240);
+    expect(art!.height).toBeGreaterThan(200);
+    await expect(section.locator('img').first()).toHaveJSProperty('naturalWidth', 1760);
+    await expect(section.locator('.hero-truck-surface').first()).toHaveCSS('transition-duration', '0s');
+    await section.screenshot({ path: `artifacts/truck-selection/premium-${width}.png` });
+    if (width >= 768) {
+      const cards = await section.locator('.hero-truck-surface').evaluateAll(nodes => nodes.map(node => node.getBoundingClientRect().toJSON()));
+      expect(cards[0].y).toBe(cards[1].y);
+      expect(cards[0].height).toBe(cards[1].height);
+    }
     await page.emulateMedia({ reducedMotion: 'no-preference' });
     await large.hover();
-    await expect(page.locator('.hero-truck-card').last().locator('.truck-wheel').first()).toHaveCSS('animation-name', 'truck-wheel');
-    await expect(page.locator('.hero-truck-card').last().locator('.truck-light')).not.toHaveCSS('filter', 'none');
+    await expect(section.locator('.truck-photo img').last()).toHaveCSS('transition-duration', '0.65s');
   });
 }
+
+test('truck cards reveal with a stagger and remain visible without scripting', async ({ page, browser, baseURL }) => {
+  await page.setViewportSize({ width: 1366, height: 900 });
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/');
+  const cards = page.locator('#truck-selection .hero-truck-card');
+  await cards.evaluateAll(nodes => nodes.forEach(node => node.addEventListener('animationstart', () => {
+    node.setAttribute('data-observed-delay', getComputedStyle(node).animationDelay);
+  })));
+  await cards.first().scrollIntoViewIfNeeded();
+  await expect(cards.first()).toHaveAttribute('data-observed-delay', '0s');
+  await expect(cards.last()).toHaveAttribute('data-observed-delay', '0.14s');
+  const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 320, height: 900 } });
+  const fallback = await context.newPage();
+  await fallback.goto(baseURL + '/');
+  await expect(fallback.locator('#truck-selection .hero-truck-card')).toHaveCount(2);
+  await fallback.locator('#truck-selection').scrollIntoViewIfNeeded();
+  await expect(fallback.getByRole('radio', { name: 'Small Truck', exact: true })).toBeVisible();
+  expect(await fallback.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await context.close();
+});
