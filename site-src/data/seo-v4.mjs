@@ -5705,9 +5705,27 @@ const suburbHeroOverrides = {
   },
 };
 
+// Suburbs with measured search impressions but no review proof on the page (GSC export 2026-11-06).
+// Uses the build-time Google review tokens, so the figures always match site-src/data/google-reviews.json.
+const SUBURB_REVIEW_PROOF_SLUGS = new Set(['hyde-park', 'unley-park', 'malvern']);
+
+function renderSuburbReviewProof(slug) {
+  if (!SUBURB_REVIEW_PROOF_SLUGS.has(slug)) return '';
+  return renderTextSection({
+    module: 'suburb-review-proof',
+    eyebrow: 'Customer feedback',
+    heading: 'What customers say about ZQ Removals',
+    intro: 'Ratings cover all ZQ Removals jobs, not only this suburb.',
+    paragraphs: [
+      'ZQ Removals is rated {{google.rating}} from {{google.reviewCount}} Google reviews. You can read them on the ZQ Removals Google Business Profile before you request a quote.',
+    ],
+  });
+}
+
 function renderSuburbMoveBrief(slug) {
   const brief = suburbMoveBriefs[slug];
-  return brief ? renderTextSection({ module: 'suburb-move-brief', ...brief }) : '';
+  const moveBrief = brief ? renderTextSection({ module: 'suburb-move-brief', ...brief }) : '';
+  return `${moveBrief}${renderSuburbReviewProof(slug)}`;
 }
 
 // Curated nearby pages for the priority suburbs that use the shared suburb template. Pairs are adjacent suburbs or

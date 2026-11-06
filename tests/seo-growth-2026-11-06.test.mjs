@@ -82,6 +82,17 @@ test('nearby-suburb cards never label a redirected suburb (Myrtle Bank) while po
   assert.doesNotMatch(cards, /Myrtle Bank/);
 });
 
+test('Hyde Park, Unley Park and Malvern show review proof from the verified Google review data, labelled as business-wide', () => {
+  const data = JSON.parse(readFileSync(path.join(root, 'site-src', 'data', 'google-reviews.json'), 'utf8'));
+  for (const slug of ['hyde-park', 'unley-park', 'malvern']) {
+    const html = readDist(path.join(`removalists-${slug}`, 'index.html'));
+    const section = html.match(/data-generated-module="suburb-review-proof"[\s\S]*?<\/section>/)?.[0] || '';
+    assert.ok(section.includes(`from ${data.reviewCount} Google reviews`), slug);
+    assert.match(section, /not only this suburb/, slug);
+    assert.doesNotMatch(section, /&lt;|\{\{/, slug);
+  }
+});
+
 test('Pennington is linked from the Semaphore page so it has more than the three prior inbound links', () => {
   const html = readDist(path.join('removalists-semaphore', 'index.html'));
   assert.match(html, /href="\/removalists-pennington\/"/);
