@@ -794,6 +794,18 @@ function getGuideSupportProfile(guideSlug) {
   };
 }
 
+// Order-preserving, case-insensitive de-duplication for schema.org areaServed lists
+// (the suburb name and its region label are identical on many suburb pages).
+function uniqueAreas(...areas) {
+  const seen = new Set();
+  return areas.filter((area) => {
+    const key = String(area || '').trim().toLowerCase();
+    if (!key || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
 // Distinct, practical guidance for each interstate quote factor (replaces a repeated generic sentence).
 const ROUTE_QUOTE_FACTOR_GUIDANCE = {
   'Inventory volume and truck space': 'List the main furniture, appliances and the number of boxes. Volume drives how much truck space the load needs.',
@@ -4582,7 +4594,7 @@ function makeServiceSuburbPage({ service, slug, suburb, region, clusterKey, logi
         id: canonical,
         name: `${template.primaryKeyword} ${suburb}`,
         serviceType: `${template.primaryKeyword} support for ${suburb} moves`,
-        areaServed: [suburb, region, ...seoConfig.serviceAreas],
+        areaServed: uniqueAreas(suburb, region, ...seoConfig.serviceAreas),
         description,
       })),
       JSON.stringify(buildBreadcrumbSchema([
@@ -4783,7 +4795,7 @@ function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel, inte
         id: canonical,
         name: `Removalists ${suburb}`,
         serviceType: `Local removals in ${suburb}`,
-        areaServed: [suburb, region, ...seoConfig.serviceAreas],
+        areaServed: uniqueAreas(suburb, region, ...seoConfig.serviceAreas),
         description,
       })),
       JSON.stringify(buildBreadcrumbSchema([
@@ -5680,6 +5692,18 @@ const suburbMoveBriefs = {
       'On the morning, leave the driveway clear, keep pets away from open doors and be ready to walk the crew through the rooms. A short walk-through tells them what is going and what is staying, which saves time that would otherwise be charged by the half hour.',
     ],
   },
+  // Pennington facts: ABS 2021 Census QuickStats (SAL41136) and Wikipedia "Pennington, South Australia"
+  // (council, bordering suburbs, light industrial pocket). See docs/seo/pennington-sources.md.
+  'pennington': {
+    eyebrow: 'Pennington housing and access',
+    heading: 'What the Census says about moving in Pennington',
+    intro: 'Pennington is in the City of Charles Sturt and borders Ottoway, Rosewater, Athol Park, Cheltenham, St Clair and Woodville North.',
+    paragraphs: [
+      'Most Pennington streets are residential, with a light industrial pocket to the south. Tell us which street each address is on and where a truck can stop, because loading distance changes the time more than the suburb does.',
+      'At the 2021 Census, 70.2% of occupied dwellings in Pennington were separate houses, 28.0% were semi-detached, row, terrace or townhouse dwellings and 0.9% were flats or apartments. Those figures describe the suburb as a whole, not your street, so list the details of your own two addresses in the quote brief: driveway width, side access, front steps, and any garage or shed contents.',
+      'The same census recorded 38.8% of occupied dwellings as rented. If you are leaving a rental, confirm the key-return and cleaning deadline before choosing a start time. Source: ABS 2021 Census QuickStats, Pennington.',
+    ],
+  },
   'queens-park': {
     eyebrow: 'Sydney pickup',
     heading: 'Preparing the Queens Park pickup',
@@ -5766,7 +5790,7 @@ const SUBURB_INBOUND_COPY = {
     ['toorak-gardens', 'Toorak Gardens is a neighbouring eastern-suburbs page for premium homes and careful handling.'],
     ['kensington-gardens', 'Kensington Gardens is a neighbouring eastern-suburbs page for family-home moves.'],
   ],
-  'semaphore': [['pennington', 'Pennington is in the same City of Port Adelaide Enfield area and covers mixed residential and industrial access.']],
+  'semaphore': [['pennington', 'Pennington, in the City of Charles Sturt, is another western-suburbs page, covering mostly residential streets with a light industrial pocket to the south.']],
   'magill': [['kensington-gardens', 'Kensington Gardens adjoins Magill and covers family-home moves with garage and outdoor inventory.']],
   'linden-park': [['toorak-gardens', 'Toorak Gardens, to the north-west of Linden Park, covers premium homes and careful handling.']],
   'walkerville': [['medindie', 'Medindie adjoins Walkerville to the west and covers larger-home moves, with long carries and outbuildings to list.']],
