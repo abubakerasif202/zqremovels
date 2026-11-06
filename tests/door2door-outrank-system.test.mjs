@@ -59,13 +59,15 @@ function stripApprovedQuotePackagePricing(html) {
     .replace(/<form\b[^>]*data-quote-form="quote"[^>]*>[\s\S]*?<\/form>/gi, '')
     .replace(/\$75\s*(?:per|\/)\s*30 min(?:utes)?/gi, '')
     .replace(/\$89\s*(?:per|\/)\s*30 min(?:utes)?/gi, '')
+    // Owner-approved small-truck rate and card hourly equivalents.
+    .replace(/\$(?:130|150) per hour/gi, '')
     // Published rates restated as arithmetic on the prices page: hourly equivalents and example-duration totals.
     .replace(/\$(?:150|178)\/hour/gi, '')
     .replace(/<td>\$(?:300|356|450|534|600|712)<\/td>/g, '')
     // Hypothetical worked examples that include the call-out/travel charge carry their assumptions as data attributes.
     .replace(/<tr\b[^>]*data-half-hours[\s\S]*?<\/tr>/g, '')
     // Approved rates and the call-out amounts derived from them (one hour of the selected crew rate).
-    .replace(/\$(?:75|89|150|178)(?!\d)/g, '');
+    .replace(/\$(?:65|75|89|130|150|178)(?!\d)/g, '');
 }
 
 function extractRootLinks(html) {

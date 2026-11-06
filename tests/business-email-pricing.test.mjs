@@ -30,7 +30,7 @@ test('source uses the approved ZQ Removals business email', () => {
   assert.match(businessSource, /email:\s*'admin@zqremovals\.au'/);
 });
 
-test('every generated quote form exposes both required crew packages', () => {
+test('quote forms retain crew choices without duplicating homepage truck selection', () => {
   const quotePages = walkFiles(distRoot).filter((file) => file.endsWith('.html'));
   let formCount = 0;
 
@@ -39,6 +39,14 @@ test('every generated quote form exposes both required crew packages', () => {
     const forms = html.match(/<form\b[^>]*data-quote-form="quote"[^>]*>[\s\S]*?<\/form>/gi) || [];
     for (const form of forms) {
       formCount += 1;
+      if (form.includes('id="quoteTruckPackage"')) {
+        assert.equal((form.match(/name="crew_package"/g) || []).length, 1);
+        assert.match(form, /data-package="small">Small truck — \$65/);
+        assert.match(form, /data-package="large2">Large truck — 2 movers — \$75/);
+        assert.match(form, /data-package="large3">Large truck — 3 movers — \$89/);
+        assert.doesNotMatch(form, /quote-package-group|<option[^>]*selected/);
+        continue;
+      }
       assert.match(form, /name="crew_package"[^>]*required[^>]*value="2 Men \+ Truck — \$75 \/ 30 min"/i);
       assert.match(form, /name="crew_package"[^>]*required[^>]*value="3 Men \+ Truck — \$89 \/ 30 min"/i);
       assert.doesNotMatch(form, /name="crew_package"[^>]*checked/i, 'package must not be preselected');

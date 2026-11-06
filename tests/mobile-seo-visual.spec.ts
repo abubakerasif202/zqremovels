@@ -148,8 +148,9 @@ for (const route of routes) {
       await expect(page.locator('h1')).toHaveCount(1);
       await expect(page.locator('[data-service-card]')).toHaveCount(6);
       await expect(page.locator('.zqh-faq-list details')).toHaveCount(8);
-      await expect(page.locator('form[data-quote-form="quote"] .quote-package-group legend')).toHaveCount(1);
-      for (const packageText of await page.locator('form[data-quote-form="quote"] .quote-package-group :is(legend,.field-note)').all()) {
+      await expect(page.locator('#quoteTruckPackage')).toBeVisible();
+      await expect(page.locator('#quoteTruckPackage option')).toHaveCount(4);
+      for (const packageText of await page.locator('label:has(#quoteTruckPackage) > :is(span,small)').all()) {
         await expectReadableText(packageText);
       }
 

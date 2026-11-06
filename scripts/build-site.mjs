@@ -5014,8 +5014,10 @@ function injectQuotePackageChoices(content) {
 </fieldset>`;
 
   return content.replace(
-    /(<form\b[^>]*data-quote-form="quote"[^>]*>)/gi,
-    (formTag) => `${formTag}${packageMarkup}`,
+    /<form\b[^>]*data-quote-form="quote"[^>]*>[\s\S]*?<\/form>/gi,
+    (form) => /name="crew_package"/.test(form)
+      ? form
+      : form.replace(/<form\b[^>]*>/i, (formTag) => `${formTag}${packageMarkup}`),
   );
 }
 
