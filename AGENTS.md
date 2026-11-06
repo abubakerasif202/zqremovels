@@ -88,3 +88,11 @@ Before claiming SEO work is complete, verify:
 ## Agent Workflow
 
 Inspect source before editing: start with `scripts/build-site.mjs`, `site-src/pages.json`, `vercel.json`, `tests/`, and the affected `site-src/content/**`. Trace the cause, make the smallest reliable generator-level fix, check related paths, and validate. Prefer generator-level fixes over page-by-page output hacks. Add or update regression tests with every SEO behavior change. Do not assume Search Console issues are fully repo-fixable while domain host behavior is controlled by Vercel project settings. Use the installed `codebase-memory` skill for structural exploration, with source inspection when graph coverage is unavailable, and consult Context7 for library-specific questions.
+
+## Cursor Cloud specific instructions
+
+- Node.js 22.x is already the expected runtime. Install from the lockfile with `npm ci`. There is no separate lint or typecheck script.
+- `npm run build` writes gitignored `site-dist/`. Its prebuild step leaves `google-reviews.json` unchanged unless `VERCEL=1`.
+- Preview the built site with `node scripts/serve-site.mjs`. It listens only on `127.0.0.1` and `PORT` (default `3000`). It serves static files and does not mount the Vercel handlers in `api/`.
+- `npm test` and `npm run test:quote-api` cover quote handling without `WEB3FORMS_ACCESS_KEY`, Redis, or other production secrets. Do not submit the on-page quote form to the live Web3Forms endpoint from this environment; on the local preview that form posts to `/api/quote/`, which the static server does not implement.
+- Before Playwright specs, install Chromium with `npx playwright install chromium`. The system Chrome binary is not a substitute for Playwright's browser cache.
