@@ -118,3 +118,35 @@ test('Pennington is linked from the Semaphore page so it has more than the three
   const html = readDist(path.join('removalists-semaphore', 'index.html'));
   assert.match(html, /href="\/removalists-pennington\/"/);
 });
+
+test('Pennington page carries verified, sourced local facts and no wrong council claim anywhere', () => {
+  const html = readDist(path.join('removalists-pennington', 'index.html'));
+  const text = visibleText(html).replace(/\s+/g, ' ');
+  assert.match(text, /City of Charles Sturt/);
+  assert.match(text, /70\.2% of occupied dwellings/);
+  assert.match(text, /ABS 2021 Census QuickStats/);
+  for (const file of htmlFiles()) {
+    const page = visibleText(readFileSync(file, 'utf8')).replace(/\s+/g, ' ');
+    assert.doesNotMatch(page, /Pennington[^.]{0,80}Port Adelaide Enfield|Port Adelaide Enfield[^.]{0,80}Pennington/, path.relative(dist, file));
+  }
+});
+
+test('suburb Service schema lists each area once, header and footer link the piano page, and every page has a social image', () => {
+  for (const slug of ['unley-park', 'hyde-park', 'malvern', 'pennington']) {
+    const html = readDist(path.join(`removalists-${slug}`, 'index.html'));
+    for (const block of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+      const json = JSON.parse(block[1]);
+      if (Array.isArray(json.areaServed)) {
+        const lower = json.areaServed.map((a) => String(a).toLowerCase());
+        assert.equal(new Set(lower).size, lower.length, `${slug}: duplicate areaServed ${lower.join(',')}`);
+      }
+    }
+  }
+  const about = readDist(path.join('about', 'index.html'));
+  assert.ok((about.match(/href="\/services\/piano-movers-adelaide\/"/g) || []).length >= 2, 'header and footer link the piano page');
+  for (const file of htmlFiles()) {
+    const html = readFileSync(file, 'utf8');
+    assert.match(html, /property="og:image" content="https?:\/\/[^"]+"/, path.relative(dist, file));
+    assert.match(html, /name="twitter:image" content="https?:\/\/[^"]+"/, path.relative(dist, file));
+  }
+});

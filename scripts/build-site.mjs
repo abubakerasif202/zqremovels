@@ -2863,14 +2863,17 @@ body.page-home .zq-v2-quote-panel{overflow:hidden;border:1px solid var(--zq-v2-b
 `);
 
 export function renderHead(page, content) {
+  // A page without its own social image (for example the Astro consultation page) falls back to the default image.
   const ogImage =
-    usesDefaultSocialImage(page.ogImage)
+    !page.ogImage || usesDefaultSocialImage(page.ogImage)
       ? defaultSocialImage
       : page.ogImage;
   const twitterImage =
-    usesDefaultSocialImage(page.twitterImage)
+    !page.twitterImage && !page.ogImage
       ? defaultSocialImage
-      : page.twitterImage || ogImage;
+      : usesDefaultSocialImage(page.twitterImage)
+        ? defaultSocialImage
+        : page.twitterImage || ogImage;
   const imageAlt = page.ogImageAlt || page.ogTitle || page.title;
   const robots = page.layout !== 'redirect' && isLegacyGuideOutput(page.output)
     ? 'noindex,follow'
