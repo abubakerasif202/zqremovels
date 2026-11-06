@@ -61,22 +61,48 @@
           <div class="hero-size-grid" id="heroSizeButtons" role="group" aria-labelledby="hero-size-label">
             <button type="button" onclick="window.setHeroSize?.(0)" data-size="0" class="hero-size-btn">
               <strong>1–2 Bed Unit</strong>
-              <small>~12–18 m³ • 4.5T Truck</small>
+              <small>Small truck recommended</small>
             </button>
             <button type="button" onclick="window.setHeroSize?.(1)" data-size="1" class="hero-size-btn is-active">
               <strong>3 Bed House</strong>
-              <small>~25–32 m³ • 8T Truck</small>
+              <small>Large truck recommended</small>
             </button>
             <button type="button" onclick="window.setHeroSize?.(2)" data-size="2" class="hero-size-btn">
               <strong>4+ Bed Family</strong>
-              <small>~40–55 m³ • 12T Truck</small>
+              <small>Large truck recommended</small>
             </button>
             <button type="button" onclick="window.setHeroSize?.(3)" data-size="3" class="hero-size-btn">
               <strong>Few Heavy Items</strong>
-              <small>~5–10 m³ • Express Crew</small>
+              <small>Small truck recommended</small>
             </button>
           </div>
         </div>
+
+        <fieldset class="hero-trucks">
+          <legend class="hero-label">Choose your truck</legend>
+          <div class="hero-truck-grid">
+            <label class="hero-truck-card">
+              <input type="radio" name="hero_truck" value="small" aria-label="Small truck" />
+              <span class="hero-truck-surface">
+                <span class="hero-truck-check" aria-hidden="true">✓</span>
+                <svg class="hero-truck-art" viewBox="0 0 240 110" aria-hidden="true"><g class="truck-body"><rect x="35" y="26" width="113" height="60" rx="5" fill="#ecf1e8"/><path d="M148 45h28l27 26v15h-55z" fill="#b8f229"/><path d="M158 51h15l18 19h-33z" fill="#153449"/><path d="M43 37h93M43 42h93" stroke="#c5d0cc"/><text x="64" y="66" fill="#102c3d" font-size="23" font-weight="800">ZQ</text><path class="truck-light" d="M198 75h7v8h-7z" fill="#fff3b0"/></g><g class="truck-wheel" style="transform-origin:67px 87px"><circle cx="67" cy="87" r="14" fill="#06101b"/><circle cx="67" cy="87" r="7" fill="#91a5af"/><path d="M67 81v12M61 87h12" stroke="#dae2e5"/></g><g class="truck-wheel" style="transform-origin:179px 87px"><circle cx="179" cy="87" r="14" fill="#06101b"/><circle cx="179" cy="87" r="7" fill="#91a5af"/><path d="M179 81v12M173 87h12" stroke="#dae2e5"/></g></svg>
+                <strong>Small truck</strong><span class="hero-truck-rate">$65 <small>/ 30 min</small></span><span>$130 per hour</span>
+                <span class="hero-truck-description">Perfect for apartments &amp; smaller moves</span><small>Crew confirmed with your quote</small>
+              </span>
+            </label>
+            <label class="hero-truck-card">
+              <input type="radio" name="hero_truck" value="large" aria-label="Large truck" checked />
+              <span class="hero-truck-surface">
+                <span class="hero-truck-check" aria-hidden="true">✓</span>
+                <svg class="hero-truck-art" viewBox="0 0 240 110" aria-hidden="true"><g class="truck-body"><rect x="12" y="12" width="147" height="74" rx="4" fill="#ecf1e8"/><path d="M159 37h30l29 30v19h-59z" fill="#b8f229"/><path d="M169 44h17l19 22h-36z" fill="#153449"/><path d="M21 24h129M21 29h129" stroke="#c5d0cc"/><text x="56" y="62" fill="#102c3d" font-size="29" font-weight="800">ZQ</text><path class="truck-light" d="M211 73h8v9h-8z" fill="#fff3b0"/></g><g class="truck-wheel" style="transform-origin:48px 87px"><circle cx="48" cy="87" r="14" fill="#06101b"/><circle cx="48" cy="87" r="7" fill="#91a5af"/><path d="M48 81v12M42 87h12" stroke="#dae2e5"/></g><g class="truck-wheel" style="transform-origin:83px 87px"><circle cx="83" cy="87" r="14" fill="#06101b"/><circle cx="83" cy="87" r="7" fill="#91a5af"/><path d="M83 81v12M77 87h12" stroke="#dae2e5"/></g><g class="truck-wheel" style="transform-origin:190px 87px"><circle cx="190" cy="87" r="14" fill="#06101b"/><circle cx="190" cy="87" r="7" fill="#91a5af"/><path d="M190 81v12M184 87h12" stroke="#dae2e5"/></g></svg>
+                <strong>Large truck</strong><span class="hero-truck-rate"><small>From</small> $75 <small>/ 30 min</small></span><span>From $150 per hour</span>
+                <span class="hero-truck-description">Built for bigger moves</span><small>Choose 2 or 3 movers below</small>
+              </span>
+            </label>
+          </div>
+          <label class="hero-field hero-crew"><span>Large-truck crew</span><select id="heroCrew"><option value="large2">2 movers — $75 / 30 min ($150/hr)</option><option value="large3">3 movers — $89 / 30 min ($178/hr)</option></select></label>
+          <p class="zqh-note" id="heroTruckRecommendation">Large truck recommended. You can choose either truck.</p>
+        </fieldset>
 
         <div class="hero-inputs-grid">
           <label class="hero-field">
@@ -89,11 +115,11 @@
           </label>
         </div>
 
-        <div class="hero-est-box">
+        <div class="hero-est-box" aria-live="polite" aria-atomic="true">
           <div class="hero-est-copy">
-            <span class="hero-est-label" id="heroEstLabel">Estimated Crew &amp; Published Rate</span>
-            <div class="hero-est-price" id="heroEstPrice">$75 per 30 min <small>(2 Men + 8T Truck)</small></div>
-            <div class="hero-est-sub" id="heroEstSub">Typical total: Calculated based on duration &amp; transit cover</div>
+            <span class="hero-est-label" id="heroEstLabel">Selected truck rate</span>
+            <div class="hero-est-price" id="heroEstPrice">$75 / 30 min ($150/hr)</div>
+            <div class="hero-est-sub" id="heroEstSub">Large truck · 2 movers. Duration and final quote confirmed after review.</div>
           </div>
           <button type="button" onclick="window.transferHeroToQuote?.()" class="zq-v2-button zq-v2-button-primary hero-transfer-btn">
             <span>Request this quote</span>
@@ -487,6 +513,7 @@
             <label class="zqh-field-full"><span>Move type</span><select name="move_scope" required><option value="">Select an option</option><option>House move</option><option>Apartment move</option><option>Office move</option><option>Interstate move</option><option>Furniture or selected items</option><option>Packing or other support</option></select></label>
             <label class="zqh-field-full"><span>Property size</span><select name="move_size" required><option value="">Select an option</option><option>Studio or one bedroom</option><option>Two bedrooms</option><option>Three bedrooms</option><option>Four or more bedrooms</option><option>Office or commercial</option><option>Furniture or selected items</option></select></label>
             <label class="zqh-field-full"><span>Message</span><textarea name="message" rows="3" placeholder="Access, stairs, heavy items or anything else we should know"></textarea></label>
+            <label class="zqh-field-full"><span>Truck &amp; crew preference</span><select name="crew_package" id="quoteTruckPackage"><option value="">Please recommend a truck</option><option data-package="small">Small truck — $65 / 30 min ($130/hr); crew confirmed with quote</option><option data-package="large2">Large truck — 2 movers — $75 / 30 min ($150/hr)</option><option data-package="large3">Large truck — 3 movers — $89 / 30 min ($178/hr)</option></select><small>Published local/office rates, not a total quote. Interstate pricing is route-specific. A one-hour call-out/travel charge applies where applicable.</small></label>
           </div>
           <div class="zqh-form-footer">
             <button class="zq-v2-button zq-v2-button-primary" type="submit">Request my quote <svg aria-hidden="true"><use href="#zq-i-arrow" /></svg></button>

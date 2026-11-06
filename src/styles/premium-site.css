@@ -11949,6 +11949,39 @@ body.page-home .zqh .zqh-hero .hero-est-copy { gap: 4px; }
 body.page-home .zqh .zqh-hero .hero-est-price { color: #f6f8f2; font-size: 17px; }
 body.page-home .zqh .zqh-hero :is(.hero-est-label,.hero-est-sub,.hero-est-price small,.zqh-note) { color: #aebec8; font-size: 11px; }
 body.page-home .zqh .zqh-hero .hero-transfer-btn { width: 100%; }
+/* Truck choice stays native-radio accessible; artwork is decorative and motion is bounded. */
+.zqh .hero-trucks { min-width: 0; margin: 0; padding: 0; border: 0; }
+.zqh .hero-trucks legend { margin-bottom: 10px; }
+.zqh .hero-truck-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.zqh .hero-truck-card { position: relative; min-width: 0; cursor: pointer; }
+.zqh .hero-truck-card input { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.zqh .hero-truck-surface { position: relative; display: flex; flex-direction: column; height: 100%; gap: 5px; padding: 14px 12px; border: 1px solid #607784; border-radius: 10px; background: #0a1b29; color: #d8e2e8; font-size: 11px; line-height: 1.45; transition: transform .25s, border-color .25s, box-shadow .25s; }
+.zqh .hero-truck-surface strong { color: #f6f8f2; font-size: 16px; }
+.zqh .hero-truck-surface small { font-size: 10px; color: #b2c3cc; }
+.zqh .hero-truck-rate { color: #b8f229; font-size: clamp(21px,2vw,25px); font-weight: 750; line-height: 1.15; }
+.zqh .hero-truck-rate small { color: #e4eced; font-weight: 500; white-space: nowrap; }
+.zqh .hero-truck-description { flex: 1; margin-top: 4px; }
+body.page-home .zqh .zqh-hero .hero-truck-art { width: 100%; height: auto; margin: 6px 0 2px; overflow: visible; animation: truck-arrive .85s cubic-bezier(.2,.7,.2,1) both; }
+.zqh .truck-wheel { animation: truck-wheel .85s ease-out; }
+.zqh .truck-body { animation: truck-suspension .4s ease-in-out 2; }
+.zqh .truck-light { transition: filter .25s; }
+.zqh .hero-truck-card:hover .truck-light { filter: drop-shadow(3px 0 5px #fff3b0); }
+.zqh .hero-truck-card:hover .truck-wheel { animation: truck-wheel 1.2s linear 2; }
+.zqh .hero-truck-card:hover .truck-body { animation: truck-suspension .5s ease-in-out 2; }
+.zqh .hero-truck-card input:checked + .hero-truck-surface { border-color: #b8f229; transform: translateY(-3px); box-shadow: 0 12px 24px #0006, 0 0 0 1px #b8f229, 0 0 18px #b8f22918; }
+.zqh .hero-truck-card input:focus-visible + .hero-truck-surface { outline: 3px solid #fff; outline-offset: 4px; }
+.zqh .hero-truck-card:active .hero-truck-surface { transform: translateY(0) scale(.98); }
+.zqh .hero-truck-check { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #b8f229; color: #071421; font-weight: 800; opacity: 0; transform: scale(.4); transition: opacity .2s, transform .3s; }
+.zqh .hero-truck-card input:checked + .hero-truck-surface .hero-truck-check { opacity: 1; transform: scale(1); }
+.zqh .hero-crew { display: grid; gap: 6px; margin: 14px 0 10px; }
+.zqh .hero-crew[hidden] { display: none; }
+body.page-home .zqh .zqh-hero .hero-crew select { width: 100%; min-width: 0; min-height: 44px; padding: 8px; border: 1px solid #607784; border-radius: 7px; background: #06131f; color: #f6f8f2; font: inherit; font-size: 12px; }
+.zqh .hero-crew select:focus-visible { outline: 3px solid #b8f229; outline-offset: 2px; }
+@keyframes truck-arrive { from { opacity: 0; transform: translateX(-22px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes truck-wheel { to { transform: rotate(360deg); } }
+@keyframes truck-suspension { 50% { transform: translateY(-1.5px); } }
+@media (max-width: 374px) { .zqh .hero-truck-grid { grid-template-columns: minmax(0,1fr); } .zqh .hero-truck-art { max-width: 190px; align-self: center; } }
+@media (prefers-reduced-motion: reduce) { .zqh .hero-truck-card *, .zqh .hero-truck-card:hover * { animation: none !important; transition: none !important; } .zqh .hero-truck-card input:checked + .hero-truck-surface { transform: none; } }
 body.page-home .zqh .zqh-hero .zqh-note { margin: 0; text-align: center; }
 
 body.page-home .zqh .zqh-trust { padding: 26px 0 36px; background: #071421; }

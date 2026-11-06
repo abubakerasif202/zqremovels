@@ -100,3 +100,74 @@ test('quick estimator changes rates and transfers the chosen move into the quote
   await expect(page.locator('#quote-form [name="move_scope"]')).toHaveValue('Interstate move');
   await expect(page.locator('#quote-form [name="move_size"]')).toHaveValue('Four or more bedrooms');
 });
+
+for (const width of [320, 375, 390, 768, 1366, 1920]) {
+  test(`truck packages preserve choices and enquiry rates at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    let payload: Record<string, unknown> | undefined;
+    await page.route('https://api.web3forms.com/submit', async route => {
+      payload = route.request().postDataJSON();
+      await route.fulfill({ json: { success: false, message: 'Fixture rejected' } });
+    });
+    await page.goto('/');
+    await page.getByRole('button', { name: 'Reject optional' }).click();
+    await expect(page.locator('#hero-estimator')).not.toContainText(/Typical total|m³|\d+T Truck/);
+    const small = page.getByRole('radio', { name: /Small truck/i });
+    const large = page.getByRole('radio', { name: /Large truck/i });
+    for (const [size, rate] of [[0, '$65'], [1, '$75'], [2, '$89'], [3, '$65']] as const) {
+      await page.locator(`.hero-size-btn[data-size="${size}"]`).click();
+      await expect(page.locator('#heroEstPrice')).toContainText(rate);
+    }
+    await small.click();
+    await expect(page.locator('#heroEstPrice')).toHaveText('$65 / 30 min ($130/hr)');
+    await page.locator('.hero-size-btn[data-size="2"]').click();
+    await expect(small).toBeChecked();
+    await small.focus();
+    await page.keyboard.press('ArrowRight');
+    await expect(large).toBeChecked();
+    await expect(page.locator('#heroEstPrice')).toHaveText('$75 / 30 min ($150/hr)');
+    await page.locator('#heroCrew').selectOption('large3');
+    await expect(page.locator('#heroEstPrice')).toHaveText('$89 / 30 min ($178/hr)');
+    await page.locator('#scope-office').click();
+    await expect(page.locator('#heroEstPrice')).toHaveText('$89 / 30 min ($178/hr)');
+    await page.locator('#scope-interstate').click();
+    await expect(page.locator('#heroEstPrice')).toHaveText('Route-specific quote required');
+    await page.locator('#scope-local').click();
+    await expect(page.locator('#heroEstPrice')).toHaveText('$89 / 30 min ($178/hr)');
+    await page.locator('.hero-transfer-btn').click();
+    const form = page.locator('#quote-form');
+    await expect(form.locator('[name="crew_package"]')).toHaveValue(/Large truck.*3 movers/);
+    await form.locator('[name="crew_package"]').selectOption({ label: 'Small truck — $65 / 30 min ($130/hr); crew confirmed with quote' });
+    await expect(small).toBeChecked();
+    await expect(form.locator('[name="published_rate"]')).toHaveValue('$65 / 30 min ($130/hr)');
+    await form.locator('[name="name"]').fill('QA fixture');
+    await form.locator('[name="email"]').fill('qa@example.com');
+    await form.locator('[name="phone"]').fill('0400000000');
+    await form.locator('button[type="submit"]').click();
+    await expect(form.locator('[data-form-feedback]')).toContainText('Fixture rejected');
+    expect(payload?.crew_package).toContain('Small truck');
+    expect(payload?.published_rate).toBe('$65 / 30 min ($130/hr)');
+    expect(payload?.crew_request).toBe('Confirmed with quote');
+    for (const [key, rate] of [['large2', '$75 / 30 min ($150/hr)'], ['large3', '$89 / 30 min ($178/hr)']]) {
+      const label = await form.locator(`option[data-package="${key}"]`).innerText();
+      await form.locator('[name="crew_package"]').selectOption({ label });
+      await form.locator('button[type="submit"]').click();
+      await expect.poll(() => payload?.published_rate).toBe(rate);
+      expect(payload?.crew_request).toBe(key === 'large2' ? '2 movers' : '3 movers');
+    }
+    await form.locator('[name="move_scope"]').selectOption('Interstate move');
+    await form.locator('button[type="submit"]').click();
+    await expect.poll(() => payload?.published_rate).toBe('Route-specific quote required');
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await expect(page.locator('.hero-truck-art').first()).toHaveCSS('animation-name', 'none');
+    const art = await page.locator('.hero-truck-art').first().boundingBox();
+    expect(art!.width).toBeGreaterThan(100);
+    expect(art!.height).toBeGreaterThan(45);
+    await page.locator('#hero-estimator').screenshot({ path: `artifacts/truck-selection/${width}.png` });
+    await page.emulateMedia({ reducedMotion: 'no-preference' });
+    await large.hover();
+    await expect(page.locator('.hero-truck-card').last().locator('.truck-wheel').first()).toHaveCSS('animation-name', 'truck-wheel');
+    await expect(page.locator('.hero-truck-card').last().locator('.truck-light')).not.toHaveCSS('filter', 'none');
+  });
+}

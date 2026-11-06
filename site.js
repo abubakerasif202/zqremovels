@@ -1008,43 +1008,76 @@ function setupHeroEstimator() {
 
   let currentScope = "local";
   let currentSizeIndex = 1;
+  let selectedPackage = "large2";
+  let manualTruck = false;
+  let preferredLargePackage = "large2";
+  const truckInputs = form.querySelectorAll('[name="hero_truck"]');
+  const crewSelect = document.getElementById("heroCrew");
+  const quotePackage = document.getElementById("quoteTruckPackage");
+  const quoteForm = quotePackage?.form;
+  const PACKAGES = {
+    small: { truck: "Small truck", crew: "Confirmed with quote", rate: "$65 / 30 min ($130/hr)" },
+    large2: { truck: "Large truck", crew: "2 movers", rate: "$75 / 30 min ($150/hr)" },
+    large3: { truck: "Large truck", crew: "3 movers", rate: "$89 / 30 min ($178/hr)" },
+  };
 
   const SIZES = [
-    { label: "Two bedrooms", name: "1–2 Bed Unit", truck: "4.5T Truck + 2 Men", rate: "$75 / 30 min ($150/hr)", sub: "Typical total: $375 – $525 inc. GST" },
-    { label: "Three bedrooms", name: "3 Bed House", truck: "8T Truck + 2 Men", rate: "$75 / 30 min ($150/hr)", sub: "Typical total: $600 – $825 inc. GST" },
-    { label: "Four or more bedrooms", name: "4+ Bed Family", truck: "12T Truck + 3 Men", rate: "$89 / 30 min ($178/hr)", sub: "Typical total: $979 – $1,335 inc. GST" },
-    { label: "Furniture or selected items", name: "Few Heavy Items", truck: "Agile Pantech + 2 Men", rate: "$75 / 30 min ($150/hr)", sub: "2-hour minimum booking applies" },
+    { label: "Two bedrooms", recommended: "small" },
+    { label: "Three bedrooms", recommended: "large2" },
+    { label: "Four or more bedrooms", recommended: "large3" },
+    { label: "Furniture or selected items", recommended: "small" },
   ];
+
+  const syncQuotePackage = () => {
+    if (!quoteForm) return;
+    const key = quotePackage.selectedOptions[0]?.dataset.package;
+    const pack = PACKAGES[key];
+    const interstate = quoteForm.elements.move_scope.value === "Interstate move";
+    ensureHiddenField(quoteForm, "truck_preference", pack?.truck || "Please recommend");
+    ensureHiddenField(quoteForm, "crew_request", pack?.crew || "Please recommend");
+    ensureHiddenField(quoteForm, "published_rate", pack ? (interstate ? "Route-specific quote required" : pack.rate) : "Quote required");
+  };
 
   const updateEstimates = () => {
     if (!priceDisplay) return;
-
-    if (currentScope === "local") {
-      const s = SIZES[currentSizeIndex] || SIZES[1];
-      if (labelDisplay) labelDisplay.textContent = "Estimated Crew & Published Rate";
-      priceDisplay.innerHTML = `${s.rate} <small>(${s.truck})</small>`;
-      if (subDisplay) subDisplay.textContent = s.sub;
-    } else if (currentScope === "interstate") {
-      if (labelDisplay) labelDisplay.textContent = "Interstate Corridor Transit";
-      if (currentSizeIndex === 0) {
-        priceDisplay.innerHTML = "Adelaide shared-load enquiry <small>(Part Load)</small>";
-        if (subDisplay) subDisplay.textContent = "Timing confirmed with your quote";
-      } else if (currentSizeIndex === 1) {
-        priceDisplay.innerHTML = "Dedicated 35 m³ Pantech <small>(Full Home)</small>";
-        if (subDisplay) subDisplay.textContent = "Route and load reviewed before confirmation";
-      } else if (currentSizeIndex === 2) {
-        priceDisplay.innerHTML = "Full 50 m³ Linehaul <small>(Family Home)</small>";
-        if (subDisplay) subDisplay.textContent = "Route and load reviewed before confirmation";
-      } else {
-        priceDisplay.innerHTML = "Selected Furniture Linehaul <small>(Quote Required)</small>";
-        if (subDisplay) subDisplay.textContent = "Timing confirmed with your quote";
-      }
-    } else if (currentScope === "office") {
-      if (labelDisplay) labelDisplay.textContent = "Commercial Relocation Service";
-      priceDisplay.innerHTML = "$89 / 30 min <small>(Commercial Crew + Tail-Lift)</small>";
-      if (subDisplay) subDisplay.textContent = "Staged workstation move • Rolling crates available";
+    const pack = PACKAGES[selectedPackage];
+    const interstate = currentScope === "interstate";
+    if (labelDisplay) labelDisplay.textContent = interstate ? "Interstate truck preference" : "Selected truck rate";
+    priceDisplay.textContent = interstate ? "Route-specific quote required" : pack.rate;
+    if (subDisplay) subDisplay.textContent = `${pack.truck} · ${pack.crew}. ${interstate ? "Route and load reviewed before confirmation." : "Duration and final quote confirmed after review."}`;
+    truckInputs.forEach(input => { input.checked = input.value === (selectedPackage === "small" ? "small" : "large"); });
+    if (crewSelect) {
+      crewSelect.closest("label").hidden = selectedPackage === "small";
+      if (selectedPackage !== "small") crewSelect.value = selectedPackage;
     }
+    const recommendation = document.getElementById("heroTruckRecommendation");
+    if (recommendation) recommendation.textContent = `${PACKAGES[SIZES[currentSizeIndex].recommended].truck} recommended. You can choose either truck.`;
   };
+
+  truckInputs.forEach(input => input.addEventListener("change", () => {
+    selectedPackage = input.value === "small" ? "small" : preferredLargePackage;
+    manualTruck = true;
+    updateEstimates();
+  }));
+  truckInputs.forEach(input => input.addEventListener("click", () => { manualTruck = true; }));
+  crewSelect?.addEventListener("change", () => {
+    selectedPackage = crewSelect.value;
+    preferredLargePackage = selectedPackage;
+    manualTruck = true;
+    updateEstimates();
+  });
+  quotePackage?.addEventListener("change", () => {
+    const key = quotePackage.selectedOptions[0]?.dataset.package;
+    if (PACKAGES[key]) {
+      selectedPackage = key;
+      if (key !== "small") preferredLargePackage = key;
+      manualTruck = true;
+      updateEstimates();
+    }
+    syncQuotePackage();
+  });
+  quoteForm?.elements.move_scope.addEventListener("change", syncQuotePackage);
+  quoteForm?.addEventListener("submit", syncQuotePackage, true);
 
   window.setHeroScope = (scope, btn) => {
     currentScope = scope;
@@ -1075,9 +1108,12 @@ function setupHeroEstimator() {
 
   window.setHeroSize = (size, btn) => {
     currentSizeIndex = typeof size === "number" ? size : Number.parseInt(size, 10) || 0;
+    if (!SIZES[currentSizeIndex]) currentSizeIndex = 1;
+    if (!manualTruck) selectedPackage = SIZES[currentSizeIndex].recommended;
     sizeBtns.forEach((b) => b.classList.remove("is-active"));
     const activeBtn = btn || sizeBtns[currentSizeIndex];
     if (activeBtn) activeBtn.classList.add("is-active");
+    sizeBtns.forEach(b => b.setAttribute("aria-pressed", String(b === activeBtn)));
     updateEstimates();
   };
 
@@ -1114,7 +1150,11 @@ function setupHeroEstimator() {
       sizeSelect.value = s.label;
     }
 
-    targetForm.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (quotePackage) {
+      quotePackage.value = Array.from(quotePackage.options).find(option => option.dataset.package === selectedPackage)?.value || "";
+      syncQuotePackage();
+    }
+    targetForm.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start" });
     const nameInput = targetForm.querySelector('input[name="name"]');
     if (nameInput) {
       setTimeout(() => nameInput.focus(), 400);
@@ -1122,6 +1162,7 @@ function setupHeroEstimator() {
   };
 
   updateEstimates();
+  sizeBtns.forEach((button, index) => button.setAttribute("aria-pressed", String(index === currentSizeIndex)));
 }
 
 const CALC_CATEGORIES = [
