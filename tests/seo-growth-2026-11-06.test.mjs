@@ -125,6 +125,8 @@ test('Pennington page carries verified, sourced local facts and no wrong council
   assert.match(text, /City of Charles Sturt/);
   assert.match(text, /70\.2% of occupied dwellings/);
   assert.match(text, /ABS 2021 Census QuickStats/);
+  assert.match(text, /describe the suburb as a whole, not your street/);
+  assert.doesNotMatch(text, /lift bookings are uncommon/);
   for (const file of htmlFiles()) {
     const page = visibleText(readFileSync(file, 'utf8')).replace(/\s+/g, ' ');
     assert.doesNotMatch(page, /Pennington[^.]{0,80}Port Adelaide Enfield|Port Adelaide Enfield[^.]{0,80}Pennington/, path.relative(dist, file));

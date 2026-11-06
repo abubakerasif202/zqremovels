@@ -5700,8 +5700,8 @@ const suburbMoveBriefs = {
     intro: 'Pennington is in the City of Charles Sturt and borders Ottoway, Rosewater, Athol Park, Cheltenham, St Clair and Woodville North.',
     paragraphs: [
       'Most Pennington streets are residential, with a light industrial pocket to the south. Tell us which street each address is on and where a truck can stop, because loading distance changes the time more than the suburb does.',
-      'At the 2021 Census, 70.2% of occupied dwellings in Pennington were separate houses and 28.0% were semi-detached, row, terrace or townhouse dwellings. Only 0.9% were flats or apartments, so lift bookings are uncommon here. Driveway width, side access, front steps and garages or sheds are the details worth listing in your quote brief.',
-      'The same census recorded 38.8% of occupied dwellings as rented. If you are leaving a rental, confirm the key-return and cleaning deadline before choosing a start time, because that deadline sets how long the load can run. Source: ABS 2021 Census QuickStats, Pennington.',
+      'At the 2021 Census, 70.2% of occupied dwellings in Pennington were separate houses, 28.0% were semi-detached, row, terrace or townhouse dwellings and 0.9% were flats or apartments. Those figures describe the suburb as a whole, not your street, so list the details of your own two addresses in the quote brief: driveway width, side access, front steps, and any garage or shed contents.',
+      'The same census recorded 38.8% of occupied dwellings as rented. If you are leaving a rental, confirm the key-return and cleaning deadline before choosing a start time. Source: ABS 2021 Census QuickStats, Pennington.',
     ],
   },
   'queens-park': {
