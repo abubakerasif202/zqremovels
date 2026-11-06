@@ -4,6 +4,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
 import { readVercelConfig } from './helpers/vercel-config.mjs';
+import { withArticle } from '../site-src/data/indefinite-article.mjs';
 
 const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
@@ -159,7 +160,7 @@ test('priority suburb pages include local, transparent-rate, nearby, service, qu
     assert.ok(links.filter((href) => href.startsWith('/removalists-') && !href.includes(slug)).length >= 5, slug);
     assert.ok(links.filter((href) => servicePages.map((item) => `/${item}/`).includes(href)).length >= 3, slug);
     assert.match(main, /href="\/contact-us\/#quote-form"/, slug);
-    assert.match(main, new RegExp(`What affects the price of ${/^[aeio]/i.test(suburb) ? 'an' : 'a'} ${suburb} move\\?`, 'i'), slug);
+    assert.match(main, new RegExp(`What affects the price of ${withArticle(suburb)} move\\?`, 'i'), slug);
   }
 });
 

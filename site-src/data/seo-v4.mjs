@@ -3,6 +3,7 @@ import nodePath from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { zqGuideIntentProfiles, zqGuidePages } from './zq-blog-guides.mjs';
 import { getGuideTopicContent } from './guide-topic-content.mjs';
+import { withArticle } from './indefinite-article.mjs';
 import { zqGuideLinkProfiles, zqServiceLinkProfiles } from './zq-internal-links.mjs';
 import {
   zqServiceAeoProfiles,
@@ -801,13 +802,6 @@ const ROUTE_QUOTE_FACTOR_GUIDANCE = {
   'Preferred date and route availability': 'Give your preferred pick-up window and any flexibility, so the schedule can be confirmed before you commit.',
   'Heavy, fragile, office, storage, or multi-stop items': 'Point out pianos, safes, fragile pieces, office equipment, storage needs or extra stops so they are planned for.',
 };
-
-// Returns the suburb name prefixed with the correct indefinite article ("a Glenelg", "an Adelaide CBD").
-// Names starting with "U" (Unley, Uraidla) are pronounced with a leading "y" sound, so they take "a".
-function withArticle(name) {
-  const text = String(name || '').trim();
-  return `${/^[aeio]/i.test(text) ? 'an' : 'a'} ${text}`;
-}
 
 function normalizeClusterKey(clusterKey) {
   const aliases = {

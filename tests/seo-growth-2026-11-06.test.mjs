@@ -3,6 +3,8 @@ import { readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
+import { withArticle } from '../site-src/data/indefinite-article.mjs';
+import { visibleText } from './helpers/html-text.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'site-dist');
@@ -19,12 +21,31 @@ function* htmlFiles(dir = dist) {
   }
 }
 
-function visibleText(html) {
-  return html
-    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
-    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
-    .replace(/<[^>]+>/g, ' ');
-}
+test('indefinite article follows pronunciation for supported place names', () => {
+  const cases = [
+    ['Glenelg', 'a Glenelg'],
+    ['Adelaide CBD', 'an Adelaide CBD'],
+    ['Unley', 'an Unley'],
+    ['Unley Park', 'an Unley Park'],
+    ['Urrbrae', 'an Urrbrae'],
+    ['Uraidla', 'a Uraidla'],
+    ['Elizabeth', 'an Elizabeth'],
+    ['Ottoway', 'an Ottoway'],
+    ['Henley Beach', 'a Henley Beach'],
+    ['Hyde Park', 'a Hyde Park'],
+    ['One Tree Hill', 'a One Tree Hill'],
+    ['Eudunda', 'a Eudunda'],
+  ];
+  for (const [name, expected] of cases) {
+    assert.equal(withArticle(name), expected, name);
+  }
+});
+
+test('visibleText ignores script and style content, including malformed end tags', () => {
+  const html = '<p>keep</p><script>drop()</script ><STYLE>.x{}</STYLE\n><!-- hidden --><a href="a>b">link</a> 1 < 2';
+  const text = visibleText(html).replace(/\s+/g, ' ').trim();
+  assert.equal(text, 'keep link 1 < 2');
+});
 
 test('generated pages contain no singular verb after a plural logistics label or wrong indefinite article', () => {
   const bad = [];
@@ -34,7 +55,7 @@ test('generated pages contain no singular verb after a plural logistics label or
     if (/\bchanges the crew\b/i.test(text)) bad.push(`${rel}: "changes the crew"`);
     if (/\bconstraints, property access\b/i.test(text) && /review the .{0,80} constraints/i.test(text)) bad.push(`${rel}: "review the ... constraints"`);
     // "a" before a capitalised vowel-initial place name (e.g. "a Adelaide CBD move").
-    const article = text.match(/\ba (Adelaide|Allenby|Andrews|Aldgate|Athelstone|Elizabeth|Edwardstown|Ingle|Ottoway|Oaklands)\b/);
+    const article = text.match(/\ba (Adelaide|Allenby|Andrews|Aldgate|Athelstone|Elizabeth|Edwardstown|Ingle|Ottoway|Oaklands|Unley|Urrbrae)\b/);
     if (article) bad.push(`${rel}: "a ${article[1]}"`);
   }
   assert.deepEqual(bad, []);
