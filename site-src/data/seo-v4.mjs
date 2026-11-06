@@ -3,6 +3,7 @@ import nodePath from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { zqGuideIntentProfiles, zqGuidePages } from './zq-blog-guides.mjs';
 import { getGuideTopicContent } from './guide-topic-content.mjs';
+import { withArticle } from './indefinite-article.mjs';
 import { zqGuideLinkProfiles, zqServiceLinkProfiles } from './zq-internal-links.mjs';
 import {
   zqServiceAeoProfiles,
@@ -792,6 +793,15 @@ function getGuideSupportProfile(guideSlug) {
     hubs: [{ href: '/removalists-adelaide/', label: 'Adelaide removals hub' }],
   };
 }
+
+// Distinct, practical guidance for each interstate quote factor (replaces a repeated generic sentence).
+const ROUTE_QUOTE_FACTOR_GUIDANCE = {
+  'Inventory volume and truck space': 'List the main furniture, appliances and the number of boxes. Volume drives how much truck space the load needs.',
+  'Access at both addresses': 'Mention stairs, lifts, steep driveways, narrow streets and where a truck can park at pick-up and delivery.',
+  'Packing and protection scope': 'Say whether you will pack yourself or want packing help, and flag items that need wrapping or extra protection.',
+  'Preferred date and route availability': 'Give your preferred pick-up window and any flexibility, so the schedule can be confirmed before you commit.',
+  'Heavy, fragile, office, storage, or multi-stop items': 'Point out pianos, safes, fragile pieces, office equipment, storage needs or extra stops so they are planned for.',
+};
 
 function normalizeClusterKey(clusterKey) {
   const aliases = {
@@ -2938,8 +2948,8 @@ function buildSuburbFaqItems({ slug, suburb, logisticsLabel, nearby, clusterKey 
       answer: `Send the pickup suburb, delivery suburb, move date, property type, item list, and access notes through the quote form, or call ZQ Removals for urgent ${suburb} bookings.`,
     },
     {
-      question: `What affects the price of a ${suburb} move?`,
-      answer: `The price of a ${suburb} move is affected by inventory, truck size, number of movers, stairs, lifts, parking, carry distance, packing, heavy items, timing, and whether the route includes storage or multiple stops.`,
+      question: `What affects the price of ${withArticle(suburb)} move?`,
+      answer: `The price of ${withArticle(suburb)} move is affected by inventory, truck size, number of movers, stairs, lifts, parking, carry distance, packing, heavy items, timing, and whether the route includes storage or multiple stops.`,
     },
     {
       question: `Which nearby suburbs are most relevant when comparing ${suburb} routes?`,
@@ -3505,7 +3515,7 @@ export function getGeneratedPages() {
     description: 'Planning a move from Queens Park NSW to Adelaide? Discuss inventory, pickup access and Adelaide delivery details with ZQ Removals before booking.',
     canonical: buildCanonical('/removalists-queens-park/'), robots: seoConfig.robots,
     ogImage: seoConfig.defaultOgImage, twitterImage: seoConfig.defaultOgImage,
-    contentHtml: `<main id="main-content"><section class="hero-shell"><div class="container"><span class="eyebrow">Sydney to Adelaide enquiries</span><h1>Moving from Queens Park NSW to Adelaide</h1><p class="lead">Queens Park is in Sydney, NSW. This page is for an interstate move connecting Queens Park with Adelaide.</p><p>Send your pickup and delivery addresses, moving date, furniture and box list, and any packing requirements. Include stairs, parking restrictions and the distance from the loading point at both ends. Confirm route suitability, timing and charges with ZQ Removals before booking.</p><p><a href="/sydney-to-adelaide-removalists/">Sydney to Adelaide moving information</a> | <a href="/interstate-removals-adelaide/">Interstate moving enquiries</a></p><div class="cta-cluster"><a class="button button-primary" href="/contact-us/#quote-form">Request an interstate quote</a><a class="button button-secondary" href="tel:+61433819989">Call 0433 819 989</a></div></div></section>${renderSuburbMoveBrief('queens-park')}</main>`,
+    contentHtml: `<main id="main-content"><section class="hero-shell"><div class="container"><span class="eyebrow">Sydney to Adelaide enquiries</span><h1>Moving from Queens Park NSW to Adelaide</h1><p class="lead">Queens Park is in Sydney, NSW. This page is for an interstate move connecting Queens Park with Adelaide.</p><p>Send your pickup and delivery addresses, moving date, furniture and box list, and any packing requirements. Include stairs, parking restrictions and the distance from the loading point at both ends. Confirm route suitability, timing and charges with ZQ Removals before booking.</p><p><a href="/interstate-removals-adelaide/">Interstate removals to and from Adelaide</a></p><div class="cta-cluster"><a class="button button-primary" href="/contact-us/#quote-form">Request an interstate quote</a><a class="button button-secondary" href="tel:+61433819989">Call 0433 819 989</a></div></div></section>${renderSuburbMoveBrief('queens-park')}</main>`,
     jsonLd: [JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebPage', url: buildCanonical('/removalists-queens-park/'), name: 'Queens Park NSW to Adelaide Moves', description: 'Interstate move enquiries from Queens Park NSW to Adelaide.' })],
   });
 
@@ -5307,9 +5317,10 @@ ${renderValueCardSection({
   eyebrow: 'Quote factors',
   heading: `Quote factors for ${routeName}`,
   intro: 'These are the details to send before asking for a moving route review.',
-  cards: profile.quoteFactors.map((copy) => ({
-    title: copy,
-    copy: `${copy} should be described clearly so the Adelaide-to-destination route can be scoped without assumptions.`,
+  cards: profile.quoteFactors.map((factor) => ({
+    title: factor,
+    copy: ROUTE_QUOTE_FACTOR_GUIDANCE[factor]
+      || 'Share this detail when you request a quote so the route can be scoped from the start.',
   })),
 })}
 ${renderRouteCardSection({
@@ -5464,7 +5475,7 @@ function buildSuburbInterstateCards(suburb) {
     {
       eyebrow: 'Interstate route',
       title: 'Adelaide to Sydney removalists',
-      copy: `Use this route page when a ${suburb} move also needs Sydney delivery timing, packing, and destination access planning.`,
+      copy: `Use this route page when ${withArticle(suburb)} move also needs Sydney delivery timing, packing, and destination access planning.`,
       href: '/adelaide-to-sydney-removalists/',
       cta: 'Adelaide to Sydney removalists',
     },
@@ -5688,9 +5699,27 @@ const suburbHeroOverrides = {
   },
 };
 
+// Suburbs with measured search impressions but no review proof on the page (GSC export 2026-11-06).
+// Uses the build-time Google review tokens, so the figures always match site-src/data/google-reviews.json.
+const SUBURB_REVIEW_PROOF_SLUGS = new Set(['hyde-park', 'unley-park', 'malvern']);
+
+function renderSuburbReviewProof(slug) {
+  if (!SUBURB_REVIEW_PROOF_SLUGS.has(slug)) return '';
+  return renderTextSection({
+    module: 'suburb-review-proof',
+    eyebrow: 'Customer feedback',
+    heading: 'What customers say about ZQ Removals',
+    intro: 'Ratings cover all ZQ Removals jobs, not only this suburb.',
+    paragraphs: [
+      'ZQ Removals is rated {{google.rating}} from {{google.reviewCount}} Google reviews. You can read them on the ZQ Removals Google Business Profile before you request a quote.',
+    ],
+  });
+}
+
 function renderSuburbMoveBrief(slug) {
   const brief = suburbMoveBriefs[slug];
-  return brief ? renderTextSection({ module: 'suburb-move-brief', ...brief }) : '';
+  const moveBrief = brief ? renderTextSection({ module: 'suburb-move-brief', ...brief }) : '';
+  return `${moveBrief}${renderSuburbReviewProof(slug)}`;
 }
 
 // Curated nearby pages for the priority suburbs that use the shared suburb template. Pairs are adjacent suburbs or
@@ -5737,6 +5766,7 @@ const SUBURB_INBOUND_COPY = {
     ['toorak-gardens', 'Toorak Gardens is a neighbouring eastern-suburbs page for premium homes and careful handling.'],
     ['kensington-gardens', 'Kensington Gardens is a neighbouring eastern-suburbs page for family-home moves.'],
   ],
+  'semaphore': [['pennington', 'Pennington is in the same City of Port Adelaide Enfield area and covers mixed residential and industrial access.']],
   'magill': [['kensington-gardens', 'Kensington Gardens adjoins Magill and covers family-home moves with garage and outdoor inventory.']],
   'linden-park': [['toorak-gardens', 'Toorak Gardens, to the north-west of Linden Park, covers premium homes and careful handling.']],
   'walkerville': [['medindie', 'Medindie adjoins Walkerville to the west and covers larger-home moves, with long carries and outbuildings to list.']],
@@ -5766,7 +5796,7 @@ function renderPrioritySuburb({ slug, suburb, image }) {
 ${renderPageHero({ eyebrow: 'Local Adelaide moves', title: profile.h1, lead: profile.lead, supporting: [], points: profile.points, primaryCta: { href: '/contact-us/?move_scope=house-removal&property_type=house#quote-form', label: 'Request a moving quote' }, secondaryCta: { href: 'tel:+61433819989', label: 'Call 0433 819 989' }, image, breadcrumbs: [{ href: '/', label: 'Home' }, { href: '/removalists-adelaide/', label: 'Adelaide removals' }, { label: suburb }], pageType: 'suburb' })}
 ${profile.sections.map((section) => renderTextSection(section)).join('\n')}
 ${renderSuburbMoveBrief(slug)}
-${renderTextSection({ module: 'pricing', eyebrow: 'Published local rates', heading: `What does a ${suburb} move cost?`, intro: '2 men + truck: $75 per 30 minutes. 3 men + truck: $89 per 30 minutes.', paragraphs: ['A 1-hour call-out/travel charge applies where applicable. Total cost depends on moving time, the volume of items, access, travel and packing requirements. See the Adelaide removalist prices page for the full rate breakdown, then confirm the applicable charges with ZQ Removals before booking.'] })}
+${renderTextSection({ module: 'pricing', eyebrow: 'Published local rates', heading: `What does ${withArticle(suburb)} move cost?`, intro: '2 men + truck: $75 per 30 minutes. 3 men + truck: $89 per 30 minutes.', paragraphs: ['A 1-hour call-out/travel charge applies where applicable. Total cost depends on moving time, the volume of items, access, travel and packing requirements. See the Adelaide removalist prices page for the full rate breakdown, then confirm the applicable charges with ZQ Removals before booking.'] })}
 ${renderRouteCardSection({ module: 'related-services', eyebrow: 'Plan your move', heading: 'Nearby suburbs and related moving services', intro: 'Choose the page that matches your move.', cards: [...profile.nearby.map((card) => ({ eyebrow: 'Nearby suburb', ...card })), { eyebrow: 'Moving service', title: 'Furniture moving', copy: 'Discuss large items, dimensions and access before booking.', href: '/furniture-removalists-adelaide/', cta: 'Furniture moving advice' }, { eyebrow: 'Rates', title: 'Rates and charges', copy: 'Check the published crew rates and what affects total moving time.', href: '/removalists-adelaide-prices/', cta: 'View moving rates' }] })}
 ${renderPriorityPlanningFaq(slug)}${renderQuoteStrip({ eyebrow: 'Talk to ZQ Removals', heading: `Request your ${suburb} moving quote`, copy: 'Send your addresses, date, inventory and access notes, or call to discuss the move.', primaryCta:{href:'/contact-us/?move_scope=house-removal&property_type=house#quote-form',label:'Request a quote'},secondaryCta:{href:'tel:+61433819989',label:'Call 0433 819 989'},pageType:'suburb' })}
 </main>`;
@@ -5983,7 +6013,7 @@ ${renderPageHero({
 ${renderAeoAnswerBlock({
   module: 'suburb-aeo-answer',
   question: `What should I look for in ${suburb} removalists?`,
-  answer: `Look for removalists in ${suburb} who review the ${logisticsLabel} constraints, property access, and inventory before quoting. Stairs, lifts and tight entries can affect the moving time and total cost.`,
+  answer: `Look for removalists in ${suburb} who check ${logisticsLabel}, property access, and inventory before quoting. Stairs, lifts and tight entries can affect the moving time and total cost.`,
   links: [
     { href: '/removalists-adelaide-prices/', label: 'Crew rates and charges' },
     { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'What affects moving time' },
@@ -6016,7 +6046,7 @@ ${renderTextSection({
   module: 'local-insights',
   eyebrow: 'Local insights',
   heading: `Access and property notes for ${suburb}`,
-  intro: `${suburb} needs address-level notes because ${logisticsLabel} changes the crew and the time.`,
+  intro: `${suburb} needs address-level notes because the crew size and the time needed depend on ${logisticsLabel}.`,
   paragraphs: localInsights,
 })}
 ${renderHyperlocalAuthoritySection({ slug, suburb })}
@@ -6798,7 +6828,10 @@ function getSuburbPeerLinks(slug, clusterKey, templateNearby = [], limit = 4) {
   }
 
   const inboundItems = buildNeighbourItems(SUBURB_INBOUND_COPY[slug] || []);
+  // Skip suburbs whose page is folded into another URL by a verified redirect, so no card
+  // carries a suburb label while pointing at a different page.
   const peerItems = [...new Set(slugs)]
+    .filter((peerSlug) => !VERIFIED_REDIRECT_SOURCE_PATHS.has(`/removalists-${peerSlug}/`))
     .map((peerSlug, index) => {
       const suburb = suburbDataBySlug.get(peerSlug);
       return {
@@ -6821,7 +6854,7 @@ function getSuburbLinkLabel(suburb, index) {
     `see ${suburb} suburb details`,
     `removalists near ${suburb}`,
     `${suburb} local logistics`,
-    `planning a ${suburb} relocation`,
+    `planning ${withArticle(suburb)} relocation`,
     `${suburb} house move quotes`,
   ];
   return variants[index % variants.length];

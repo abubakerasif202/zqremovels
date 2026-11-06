@@ -1,0 +1,914 @@
+{
+  "generated": "2026-11-06",
+  "branch": "feat/seo-growth-2026-11-06",
+  "method": {
+    "psi": "Public PageSpeed Insights v5 API, no API key, 10s spacing, up to 3 attempts per URL/strategy (initial + 2 retries). Production host https://zqremovalsadelaide.com.au",
+    "local": "site-dist served with http-server on :3100 (no compression, 1h cache); Lighthouse 13.5.0 CLI, headless Chrome, default simulated throttling (mobile = Slow 4G/4x CPU; desktop preset). Single run per URL, so +/-5 points of noise."
+  },
+  "psi_production": {
+    "status": "unavailable",
+    "reason": "All 12 requests (6 routes x mobile/desktop) returned HTTP 429 on every attempt (3 attempts each); keyless PSI quota is exhausted/zero for this client. No lab or field (CrUX) data obtained from PSI. Re-run with a PSI/Google API key.",
+    "results": [
+      {
+        "route": "/",
+        "strategy": "mobile",
+        "status": "unavailable",
+        "error": "HTTP 429"
+      },
+      {
+        "route": "/",
+        "strategy": "desktop",
+        "status": "unavailable",
+        "error": "HTTP 429"
+      },
+      {
+        "route": "/removalists-adelaide/",
+        "strategy": "mobile",
+        "status": "unavailable",
+        "error": "HTTP 429"
+      },
+      {
+        "route": "/removalists-adelaide/",
+        "strategy": "desktop",
+        "status": "unavailable",
+        "error": "HTTP 429"
+      },
+      {
+        "route": "/office-removals-adelaide/",
+        "strategy": "mobile",
+        "status": "unavailable",
+        "error": "HTTP 429"
+      },
+      {
+        "route": "/office-removals-adelaide/",
+        "strategy": "desktop",
+        "status": "unavailable",
+        "error": "HTTP 429"
+      },
+      {
+        "route": "/services/piano-movers-adelaide/",
+        "strategy": "mobile",
+        "status": "unavailable",
+        "error": "HTTP 429"
+      },
+      {
+        "route": "/services/piano-movers-adelaide/",
+        "strategy": "desktop",
+        "status": "unavailable",
+        "error": "HTTP 429"
+      },
+      {
+        "route": "/removalists-adelaide-prices/",
+        "strategy": "mobile",
+        "status": "unavailable",
+        "error": "HTTP 429"
+      },
+      {
+        "route": "/removalists-adelaide-prices/",
+        "strategy": "desktop",
+        "status": "unavailable",
+        "error": "HTTP 429"
+      },
+      {
+        "route": "/removalists-hyde-park/",
+        "strategy": "mobile",
+        "status": "unavailable",
+        "error": "HTTP 429"
+      },
+      {
+        "route": "/removalists-hyde-park/",
+        "strategy": "desktop",
+        "status": "unavailable",
+        "error": "HTTP 429"
+      }
+    ]
+  },
+  "field_data": {
+    "status": "unavailable",
+    "note": "No loadingExperience/originLoadingExperience data was returned because PSI never answered. Lab numbers below must not be read as field/CrUX."
+  },
+  "local_lab": [
+    {
+      "route": "/",
+      "strategy": "mobile",
+      "status": "ok",
+      "scores": {
+        "performance": 84,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "LCP": "3.6 s",
+      "CLS": "0",
+      "TBT": "0 ms",
+      "FCP": "2.6 s",
+      "SI": "4.1 s",
+      "lcpElement": null,
+      "top": [
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "display": "Est savings of 48 KiB",
+          "savingsMs": 150,
+          "savingsBytes": 49375
+        },
+        {
+          "id": "first-contentful-paint",
+          "title": "First Contentful Paint",
+          "display": "2.6 s",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "largest-contentful-paint",
+          "title": "Largest Contentful Paint",
+          "display": "3.6 s",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "speed-index",
+          "title": "Speed Index",
+          "display": "4.1 s",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "mainthread-work-breakdown",
+          "title": "Minimize main-thread work",
+          "display": "2.8 s",
+          "savingsMs": null,
+          "savingsBytes": null
+        }
+      ],
+      "notPerf": [],
+      "detail": {
+        "lcpElement": "<h1 id=\"home-hero-title\">",
+        "breakdownMs": {
+          "Time to first byte": 10,
+          "Element render delay": 2186
+        },
+        "renderBlocking": "Est savings of 540 ms",
+        "unusedCssBytes": 49375,
+        "unusedJsBytes": null
+      }
+    },
+    {
+      "route": "/",
+      "strategy": "desktop",
+      "status": "ok",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "LCP": "0.9 s",
+      "CLS": "0",
+      "TBT": "0 ms",
+      "FCP": "0.5 s",
+      "SI": "0.5 s",
+      "lcpElement": null,
+      "top": [
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "display": "Est savings of 65 KiB",
+          "savingsMs": 80,
+          "savingsBytes": 67050
+        },
+        {
+          "id": "cache-insight",
+          "title": "Use efficient cache lifetimes",
+          "display": "Est savings of 401 KiB",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "document-latency-insight",
+          "title": "Document request latency",
+          "display": "Est savings of 49 KiB",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "forced-reflow-insight",
+          "title": "Forced reflow",
+          "display": null,
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "title": "Network dependency tree",
+          "display": null,
+          "savingsMs": null,
+          "savingsBytes": null
+        }
+      ],
+      "notPerf": [],
+      "detail": {
+        "lcpElement": "<h1 id=\"home-hero-title\">",
+        "breakdownMs": {
+          "Time to first byte": 7,
+          "Element render delay": 450
+        },
+        "renderBlocking": "Est savings of 100 ms",
+        "unusedCssBytes": 67050,
+        "unusedJsBytes": null
+      }
+    },
+    {
+      "route": "/removalists-adelaide/",
+      "strategy": "mobile",
+      "status": "ok",
+      "scores": {
+        "performance": 78,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "LCP": "4.1 s",
+      "CLS": "0",
+      "TBT": "0 ms",
+      "FCP": "3.2 s",
+      "SI": "4.3 s",
+      "lcpElement": null,
+      "top": [
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "display": "Est savings of 68 KiB",
+          "savingsMs": 300,
+          "savingsBytes": 69667
+        },
+        {
+          "id": "first-contentful-paint",
+          "title": "First Contentful Paint",
+          "display": "3.2 s",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "largest-contentful-paint",
+          "title": "Largest Contentful Paint",
+          "display": "4.1 s",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "speed-index",
+          "title": "Speed Index",
+          "display": "4.3 s",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "interactive",
+          "title": "Time to Interactive",
+          "display": "4.2 s",
+          "savingsMs": null,
+          "savingsBytes": null
+        }
+      ],
+      "notPerf": [],
+      "detail": {
+        "lcpElement": "<p class=\"lede\">",
+        "breakdownMs": {
+          "Time to first byte": 7,
+          "Element render delay": 2173
+        },
+        "renderBlocking": "Est savings of 1,310 ms",
+        "unusedCssBytes": 69667,
+        "unusedJsBytes": 22918
+      }
+    },
+    {
+      "route": "/removalists-adelaide/",
+      "strategy": "desktop",
+      "status": "ok",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "LCP": "0.9 s",
+      "CLS": "0",
+      "TBT": "0 ms",
+      "FCP": "0.7 s",
+      "SI": "0.7 s",
+      "lcpElement": null,
+      "top": [
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "display": "Est savings of 83 KiB",
+          "savingsMs": 80,
+          "savingsBytes": 84643
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "display": "Est savings of 22 KiB",
+          "savingsMs": null,
+          "savingsBytes": 22918
+        },
+        {
+          "id": "cache-insight",
+          "title": "Use efficient cache lifetimes",
+          "display": "Est savings of 377 KiB",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "document-latency-insight",
+          "title": "Document request latency",
+          "display": "Est savings of 53 KiB",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "forced-reflow-insight",
+          "title": "Forced reflow",
+          "display": null,
+          "savingsMs": null,
+          "savingsBytes": null
+        }
+      ],
+      "notPerf": [],
+      "detail": {
+        "lcpElement": "<img alt=\"ZQ Removals local move crew loading a suburban Adelaide property\" height=\"720\" loading=\"lazy\" src=\"http://127.0.0.1:3100/media/responsive/local-move-h",
+        "breakdownMs": {
+          "Time to first byte": 6,
+          "Resource load delay": 242,
+          "Resource load duration": 24,
+          "Element render delay": 129
+        },
+        "renderBlocking": "Est savings of 250 ms",
+        "unusedCssBytes": 84643,
+        "unusedJsBytes": 22918
+      }
+    },
+    {
+      "route": "/office-removals-adelaide/",
+      "strategy": "mobile",
+      "status": "ok",
+      "scores": {
+        "performance": 77,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "LCP": "3.9 s",
+      "CLS": "0",
+      "TBT": "260 ms",
+      "FCP": "2.6 s",
+      "SI": "4.2 s",
+      "lcpElement": null,
+      "top": [
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "display": "Est savings of 107 KiB",
+          "savingsMs": 600,
+          "savingsBytes": 109090
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "display": "Est savings of 23 KiB",
+          "savingsMs": 150,
+          "savingsBytes": 23085
+        },
+        {
+          "id": "first-contentful-paint",
+          "title": "First Contentful Paint",
+          "display": "2.6 s",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "largest-contentful-paint",
+          "title": "Largest Contentful Paint",
+          "display": "3.9 s",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "speed-index",
+          "title": "Speed Index",
+          "display": "4.2 s",
+          "savingsMs": null,
+          "savingsBytes": null
+        }
+      ],
+      "notPerf": [],
+      "detail": {
+        "lcpElement": "<p class=\"lede\">",
+        "breakdownMs": {
+          "Time to first byte": 9,
+          "Element render delay": 2179
+        },
+        "renderBlocking": "Est savings of 680 ms",
+        "unusedCssBytes": 109090,
+        "unusedJsBytes": 23085
+      }
+    },
+    {
+      "route": "/office-removals-adelaide/",
+      "strategy": "desktop",
+      "status": "ok",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "LCP": "0.8 s",
+      "CLS": "0.019",
+      "TBT": "0 ms",
+      "FCP": "0.6 s",
+      "SI": "0.6 s",
+      "lcpElement": null,
+      "top": [
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "display": "Est savings of 118 KiB",
+          "savingsMs": 160,
+          "savingsBytes": 121149
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "display": "Est savings of 23 KiB",
+          "savingsMs": 40,
+          "savingsBytes": 23085
+        },
+        {
+          "id": "cache-insight",
+          "title": "Use efficient cache lifetimes",
+          "display": "Est savings of 336 KiB",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "document-latency-insight",
+          "title": "Document request latency",
+          "display": "Est savings of 43 KiB",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "forced-reflow-insight",
+          "title": "Forced reflow",
+          "display": null,
+          "savingsMs": null,
+          "savingsBytes": null
+        }
+      ],
+      "notPerf": [],
+      "detail": {
+        "lcpElement": "<img alt=\"ZQ Removals office relocation crew managing desks, monitors, and labelled …\" fetchpriority=\"high\" height=\"720\" loading=\"eager\" src=\"http://127.0.0.1:3",
+        "breakdownMs": {
+          "Time to first byte": 5,
+          "Resource load delay": 8,
+          "Resource load duration": 46,
+          "Element render delay": 358
+        },
+        "renderBlocking": "Est savings of 160 ms",
+        "unusedCssBytes": 121149,
+        "unusedJsBytes": 23085
+      }
+    },
+    {
+      "route": "/services/piano-movers-adelaide/",
+      "strategy": "mobile",
+      "status": "ok",
+      "scores": {
+        "performance": 83,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "LCP": "3.8 s",
+      "CLS": "0",
+      "TBT": "0 ms",
+      "FCP": "2.7 s",
+      "SI": "4.2 s",
+      "lcpElement": null,
+      "top": [
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "display": "Est savings of 107 KiB",
+          "savingsMs": 600,
+          "savingsBytes": 109187
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "display": "Est savings of 23 KiB",
+          "savingsMs": 150,
+          "savingsBytes": 23085
+        },
+        {
+          "id": "first-contentful-paint",
+          "title": "First Contentful Paint",
+          "display": "2.7 s",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "largest-contentful-paint",
+          "title": "Largest Contentful Paint",
+          "display": "3.8 s",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "speed-index",
+          "title": "Speed Index",
+          "display": "4.2 s",
+          "savingsMs": null,
+          "savingsBytes": null
+        }
+      ],
+      "notPerf": [],
+      "detail": {
+        "lcpElement": "<p class=\"field-note page-hero-support-note\">",
+        "breakdownMs": {
+          "Time to first byte": 5,
+          "Element render delay": 2209
+        },
+        "renderBlocking": "Est savings of 1,050 ms",
+        "unusedCssBytes": 109187,
+        "unusedJsBytes": 23085
+      }
+    },
+    {
+      "route": "/services/piano-movers-adelaide/",
+      "strategy": "desktop",
+      "status": "ok",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "LCP": "0.7 s",
+      "CLS": "0",
+      "TBT": "0 ms",
+      "FCP": "0.6 s",
+      "SI": "0.6 s",
+      "lcpElement": null,
+      "top": [
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "display": "Est savings of 118 KiB",
+          "savingsMs": 120,
+          "savingsBytes": 121184
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "display": "Est savings of 23 KiB",
+          "savingsMs": null,
+          "savingsBytes": 23085
+        },
+        {
+          "id": "cache-insight",
+          "title": "Use efficient cache lifetimes",
+          "display": "Est savings of 307 KiB",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "document-latency-insight",
+          "title": "Document request latency",
+          "display": "Est savings of 38 KiB",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "forced-reflow-insight",
+          "title": "Forced reflow",
+          "display": null,
+          "savingsMs": null,
+          "savingsBytes": null
+        }
+      ],
+      "notPerf": [],
+      "detail": {
+        "lcpElement": "<img alt=\"ZQ Removals Piano Movers Adelaide | Piano Removalists | ZQ Removals planni…\" decoding=\"async\" fetchpriority=\"high\" height=\"406\" loading=\"eager\" src=\"/",
+        "breakdownMs": {
+          "Time to first byte": 4,
+          "Resource load delay": 7,
+          "Resource load duration": 42,
+          "Element render delay": 365
+        },
+        "renderBlocking": "Est savings of 160 ms",
+        "unusedCssBytes": 121184,
+        "unusedJsBytes": 23085
+      }
+    },
+    {
+      "route": "/removalists-adelaide-prices/",
+      "strategy": "mobile",
+      "status": "ok",
+      "scores": {
+        "performance": 83,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "LCP": "3.8 s",
+      "CLS": "0",
+      "TBT": "0 ms",
+      "FCP": "2.7 s",
+      "SI": "4.2 s",
+      "lcpElement": null,
+      "top": [
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "display": "Est savings of 106 KiB",
+          "savingsMs": 600,
+          "savingsBytes": 108875
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "display": "Est savings of 22 KiB",
+          "savingsMs": 150,
+          "savingsBytes": 22995
+        },
+        {
+          "id": "first-contentful-paint",
+          "title": "First Contentful Paint",
+          "display": "2.7 s",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "largest-contentful-paint",
+          "title": "Largest Contentful Paint",
+          "display": "3.8 s",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "speed-index",
+          "title": "Speed Index",
+          "display": "4.2 s",
+          "savingsMs": null,
+          "savingsBytes": null
+        }
+      ],
+      "notPerf": [],
+      "detail": {
+        "lcpElement": "<p class=\"lede\">",
+        "breakdownMs": {
+          "Time to first byte": 4,
+          "Element render delay": 2234
+        },
+        "renderBlocking": "Est savings of 1,050 ms",
+        "unusedCssBytes": 108875,
+        "unusedJsBytes": 22995
+      }
+    },
+    {
+      "route": "/removalists-adelaide-prices/",
+      "strategy": "desktop",
+      "status": "ok",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "LCP": "0.8 s",
+      "CLS": "0",
+      "TBT": "0 ms",
+      "FCP": "0.6 s",
+      "SI": "0.6 s",
+      "lcpElement": null,
+      "top": [
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "display": "Est savings of 118 KiB",
+          "savingsMs": 120,
+          "savingsBytes": 120998
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "display": "Est savings of 22 KiB",
+          "savingsMs": 40,
+          "savingsBytes": 22995
+        },
+        {
+          "id": "cache-insight",
+          "title": "Use efficient cache lifetimes",
+          "display": "Est savings of 307 KiB",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "document-latency-insight",
+          "title": "Document request latency",
+          "display": "Est savings of 37 KiB",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "forced-reflow-insight",
+          "title": "Forced reflow",
+          "display": null,
+          "savingsMs": null,
+          "savingsBytes": null
+        }
+      ],
+      "notPerf": [],
+      "detail": {
+        "lcpElement": "<img alt=\"ZQ Removals Removalists Adelaide Prices &amp; Hourly Rates | ZQ Removals plann…\" decoding=\"async\" fetchpriority=\"high\" height=\"406\" loading=\"eager\" sr",
+        "breakdownMs": {
+          "Time to first byte": 6,
+          "Resource load delay": 17,
+          "Resource load duration": 50,
+          "Element render delay": 335
+        },
+        "renderBlocking": "Est savings of 160 ms",
+        "unusedCssBytes": 120998,
+        "unusedJsBytes": 22995
+      }
+    },
+    {
+      "route": "/removalists-hyde-park/",
+      "strategy": "mobile",
+      "status": "ok",
+      "scores": {
+        "performance": 82,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "LCP": "3.8 s",
+      "CLS": "0",
+      "TBT": "120 ms",
+      "FCP": "2.6 s",
+      "SI": "4.1 s",
+      "lcpElement": null,
+      "top": [
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "display": "Est savings of 87 KiB",
+          "savingsMs": 450,
+          "savingsBytes": 88946
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "display": "Est savings of 23 KiB",
+          "savingsMs": 300,
+          "savingsBytes": 23085
+        },
+        {
+          "id": "first-contentful-paint",
+          "title": "First Contentful Paint",
+          "display": "2.6 s",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "largest-contentful-paint",
+          "title": "Largest Contentful Paint",
+          "display": "3.8 s",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "speed-index",
+          "title": "Speed Index",
+          "display": "4.1 s",
+          "savingsMs": null,
+          "savingsBytes": null
+        }
+      ],
+      "notPerf": [],
+      "detail": {
+        "lcpElement": "<p class=\"lede\">",
+        "breakdownMs": {
+          "Time to first byte": 4,
+          "Element render delay": 2213
+        },
+        "renderBlocking": "Est savings of 860 ms",
+        "unusedCssBytes": 88946,
+        "unusedJsBytes": 23085
+      }
+    },
+    {
+      "route": "/removalists-hyde-park/",
+      "strategy": "desktop",
+      "status": "ok",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "LCP": "0.8 s",
+      "CLS": "0",
+      "TBT": "0 ms",
+      "FCP": "0.6 s",
+      "SI": "0.6 s",
+      "lcpElement": null,
+      "top": [
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS",
+          "display": "Est savings of 102 KiB",
+          "savingsMs": 120,
+          "savingsBytes": 103996
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "display": "Est savings of 23 KiB",
+          "savingsMs": 40,
+          "savingsBytes": 23085
+        },
+        {
+          "id": "cache-insight",
+          "title": "Use efficient cache lifetimes",
+          "display": "Est savings of 309 KiB",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "document-latency-insight",
+          "title": "Document request latency",
+          "display": "Est savings of 31 KiB",
+          "savingsMs": null,
+          "savingsBytes": null
+        },
+        {
+          "id": "forced-reflow-insight",
+          "title": "Forced reflow",
+          "display": null,
+          "savingsMs": null,
+          "savingsBytes": null
+        }
+      ],
+      "notPerf": [],
+      "detail": {
+        "lcpElement": "<img alt=\"ZQ Removals Hyde Park removalists planning image for inner south access an…\" decoding=\"async\" fetchpriority=\"high\" height=\"900\" loading=\"eager\" src=\"h",
+        "breakdownMs": {
+          "Time to first byte": 6,
+          "Resource load delay": 10,
+          "Resource load duration": 53,
+          "Element render delay": 394
+        },
+        "renderBlocking": "Est savings of 150 ms",
+        "unusedCssBytes": 103996,
+        "unusedJsBytes": 23085
+      }
+    }
+  ],
+  "local_lab_brotli_check": {
+    "note": "Re-run with http-server -b -g (compressed) on mobile",
+    "results": [
+      {
+        "route": "/",
+        "performance": 82,
+        "LCP": "3.6 s",
+        "FCP": "2.6 s",
+        "TBT": "180 ms",
+        "CLS": "0"
+      },
+      {
+        "route": "/removalists-adelaide-prices/",
+        "performance": 82,
+        "LCP": "3.8 s",
+        "FCP": "2.7 s",
+        "TBT": "0 ms",
+        "CLS": "0"
+      }
+    ]
+  },
+  "production_headers_check": {
+    "/premium-site.min.css": {
+      "contentEncoding": "br",
+      "brotliTransferBytes": 34830,
+      "rawBytes": 200208,
+      "cacheControl": "public, max-age=31536000, immutable"
+    },
+    "/": {
+      "cacheControl": "public, must-revalidate, max-age=0"
+    }
+  }
+}
