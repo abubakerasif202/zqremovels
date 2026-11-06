@@ -12088,3 +12088,10 @@ section[data-generated-module] > .container > p {
 section[data-generated-module] > .container > p + p {
   margin-top: 1em;
 }
+
+/* Defer rendering work for below-the-fold sections until they near the viewport (cuts style/layout cost on long pages).
+   :has(form) keeps sections with the quote form always rendered so anchor jumps and form focus are unaffected. */
+main > section.section:not(:has(form)) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
