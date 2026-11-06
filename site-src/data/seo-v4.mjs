@@ -5754,6 +5754,7 @@ const SUBURB_INBOUND_COPY = {
     ['toorak-gardens', 'Toorak Gardens is a neighbouring eastern-suburbs page for premium homes and careful handling.'],
     ['kensington-gardens', 'Kensington Gardens is a neighbouring eastern-suburbs page for family-home moves.'],
   ],
+  'semaphore': [['pennington', 'Pennington is in the same City of Port Adelaide Enfield area and covers mixed residential and industrial access.']],
   'magill': [['kensington-gardens', 'Kensington Gardens adjoins Magill and covers family-home moves with garage and outdoor inventory.']],
   'linden-park': [['toorak-gardens', 'Toorak Gardens, to the north-west of Linden Park, covers premium homes and careful handling.']],
   'walkerville': [['medindie', 'Medindie adjoins Walkerville to the west and covers larger-home moves, with long carries and outbuildings to list.']],

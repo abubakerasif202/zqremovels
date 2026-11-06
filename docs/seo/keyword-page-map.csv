@@ -1,0 +1,11 @@
+# Keyword to page map (2026-11-06)
+Source: GSC export 20261106_224211 (web/page_queries.csv, 30 Aug-3 Nov 2026). Positions are per-query averages; they are not universal rankings.
+
+page,primary_target_query,evidence_impressions,evidence_avg_position,current_title_already_targets_query,action_taken
+/services/piano-movers-adelaide/,piano movers adelaide,136,73.1,yes,none - visibility gap is authority/content competition, not title mismatch; monitor
+/office-removals-adelaide/,office removalists adelaide,150,6.0,yes,none - position is strong; 0 clicks suggests CTR/SERP-feature issue to check manually in Google
+/removalists-adelaide-prices/,removalists adelaide prices,139,23.2,yes,none - title and description already carry published rates
+/removalists-malvern/,removalists malvern,104,29.5,yes,none
+/removalists-hyde-park/,hyde park removalists,142,11.4,yes,none - striking distance; needs authority and inbound links
+/removalists-unley-park/,unley park removalist,102,13.9,yes,none - striking distance
+/removalists-pennington/,removalists pennington,n/a,n/a,yes,added inbound link from /removalists-semaphore/

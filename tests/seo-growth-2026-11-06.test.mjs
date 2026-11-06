@@ -81,3 +81,8 @@ test('nearby-suburb cards never label a redirected suburb (Myrtle Bank) while po
   assert.ok(cards.length > 0);
   assert.doesNotMatch(cards, /Myrtle Bank/);
 });
+
+test('Pennington is linked from the Semaphore page so it has more than the three prior inbound links', () => {
+  const html = readDist(path.join('removalists-semaphore', 'index.html'));
+  assert.match(html, /href="\/removalists-pennington\/"/);
+});
