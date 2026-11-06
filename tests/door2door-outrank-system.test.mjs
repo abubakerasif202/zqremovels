@@ -159,7 +159,7 @@ test('priority suburb pages include local, transparent-rate, nearby, service, qu
     assert.ok(links.filter((href) => href.startsWith('/removalists-') && !href.includes(slug)).length >= 5, slug);
     assert.ok(links.filter((href) => servicePages.map((item) => `/${item}/`).includes(href)).length >= 3, slug);
     assert.match(main, /href="\/contact-us\/#quote-form"/, slug);
-    assert.match(main, new RegExp(`What affects the price of a ${suburb} move\\?`, 'i'), slug);
+    assert.match(main, new RegExp(`What affects the price of ${/^[aeio]/i.test(suburb) ? 'an' : 'a'} ${suburb} move\\?`, 'i'), slug);
   }
 });
 

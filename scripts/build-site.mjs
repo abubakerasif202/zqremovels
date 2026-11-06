@@ -3407,6 +3407,8 @@ function buildFallbackBreadcrumbItems(page) {
 
   if (page.output.startsWith('adelaide-moving-guides/')) {
     items.push({ name: 'Adelaide Moving Guides', url: `${preferredSiteOrigin}/adelaide-moving-guides/` });
+  } else if (page.output === 'removalists-queens-park/index.html') {
+    items.push({ name: 'Interstate Removals', url: `${preferredSiteOrigin}/interstate-removals-adelaide/` });
   } else if (page.output.startsWith('removalists-') || page.output.startsWith('services/') || page.output.includes('removals') || page.output.includes('removalists')) {
     items.push({ name: 'Removalists Adelaide', url: `${preferredSiteOrigin}/removalists-adelaide/` });
   }
@@ -6865,6 +6867,13 @@ function buildVisibleBreadcrumbItems(page) {
   if (output.startsWith('adelaide-moving-guides/')) {
     items.push({ label: 'Adelaide Moving Guides', href: '/adelaide-moving-guides/' });
     items.push({ label: cleanHtmlText(page.title || 'Guide') });
+    return items;
+  }
+
+  // Queens Park NSW is an inbound interstate (Sydney to Adelaide) page, not an Adelaide suburb.
+  if (output === 'removalists-queens-park/index.html') {
+    items.push({ label: 'Interstate Removals', href: '/interstate-removals-adelaide/' });
+    items.push({ label: cleanHtmlText(page.title || 'Queens Park NSW to Adelaide') });
     return items;
   }
 
