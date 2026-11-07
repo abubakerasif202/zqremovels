@@ -5979,6 +5979,13 @@ function getRelatedLinksProfile(page) {
           cta: 'View Stepney moves',
         },
         {
+          eyebrow: 'Movers and packers',
+          title: 'Movers in Adelaide who also pack',
+          copy: 'Combine packing and moving in one booking when you want one team handling preparation, loading, and delivery.',
+          url: '/adelaide-movers-and-packers/',
+          cta: 'View movers and packers',
+        },
+        {
           eyebrow: 'Guide hub',
           title: 'Adelaide moving guides',
           copy: 'Use the guide hub when the move is still being shaped by pricing, access, packing, or timing questions.',
