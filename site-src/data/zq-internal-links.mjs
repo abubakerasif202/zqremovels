@@ -15,7 +15,7 @@ export const zqServiceLinkProfiles = {
     ],
     guides: [
       { href: '/adelaide-moving-guides/furniture-protection-guide-adelaide/', label: 'prepare furniture for moving' },
-      { href: '/adelaide-moving-guides/moving-heavy-furniture-adelaide/', label: 'heavy furniture planning' },
+      { href: '/adelaide-moving-guides/how-to-prepare-furniture-for-moving/', label: 'heavy furniture planning' },
       { href: '/adelaide-moving-guides/packing-fragile-items-adelaide/', label: 'fragile packing guide' },
     ],
     siblings: [
@@ -162,7 +162,7 @@ export const zqServiceLinkProfiles = {
       { href: '/removalists-salisbury/', label: 'Salisbury larger-item moves' },
     ],
     guides: [
-      { href: '/adelaide-moving-guides/moving-heavy-furniture-adelaide/', label: 'moving heavy furniture' },
+      { href: '/adelaide-moving-guides/how-to-prepare-furniture-for-moving/', label: 'moving heavy furniture' },
       { href: '/adelaide-moving-guides/furniture-protection-guide-adelaide/', label: 'furniture protection guide' },
       { href: '/adelaide-moving-guides/packing-fragile-items-adelaide/', label: 'fragile packing guide' },
     ],
@@ -270,7 +270,7 @@ export const zqGuideLinkProfiles = {
       { href: '/removalists-west-lakes/', label: 'West Lakes furniture routes' },
     ],
     guides: [
-      { href: '/adelaide-moving-guides/moving-heavy-furniture-adelaide/', label: 'moving heavy furniture' },
+      { href: '/adelaide-moving-guides/how-to-prepare-furniture-for-moving/', label: 'moving heavy furniture' },
       { href: '/adelaide-moving-guides/furniture-protection-guide-adelaide/', label: 'furniture protection guide' },
       { href: '/adelaide-moving-guides/how-much-do-movers-cost-adelaide/', label: 'cost factors' },
     ],

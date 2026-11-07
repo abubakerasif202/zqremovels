@@ -3045,11 +3045,11 @@ function buildHomepageServiceJsonLd(page) {
   }
 
   const services = [
-    ['Local removals Adelaide', '/services/local-removals-adelaide/', 'Local removals'],
-    ['House removals Adelaide', '/services/house-removals-adelaide/', 'House removals'],
-    ['Office removals Adelaide', '/services/office-removals-adelaide/', 'Office removals'],
-    ['Furniture removals Adelaide', '/services/furniture-removals-adelaide/', 'Furniture removals'],
-    ['Interstate removals Adelaide', '/services/interstate-removals-adelaide/', 'Interstate removals'],
+    ['Local removals Adelaide', '/removalists-adelaide/', 'Local removals'],
+    ['House removals Adelaide', '/house-removals-adelaide/', 'House removals'],
+    ['Office removals Adelaide', '/office-removals-adelaide/', 'Office removals'],
+    ['Furniture removals Adelaide', '/furniture-removalists-adelaide/', 'Furniture removals'],
+    ['Interstate removals Adelaide', '/interstate-removals-adelaide/', 'Interstate removals'],
   ];
 
   return JSON.stringify(

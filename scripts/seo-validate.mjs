@@ -356,7 +356,7 @@ function validateGeneratedSuburbModules(pagesList, htmlMap, failuresList) {
     if (page.generatedKind !== 'suburb') continue;
 
     const html = htmlMap.get(normalizeOutput(page.output)) || '';
-    const requiredModules = ['removalists-hyde-park/index.html', 'removalists-unley-park/index.html'].includes(normalizeOutput(page.output))
+    const requiredModules = ['removalists-hyde-park/index.html', 'removalists-unley-park/index.html', 'removalists-toorak-gardens/index.html'].includes(normalizeOutput(page.output))
       ? ['hero-title', 'local-intro', 'logistics-access', 'related-services', 'suburb-faq', 'bottom-cta']
       : expectedModules;
     for (const moduleName of requiredModules) {
