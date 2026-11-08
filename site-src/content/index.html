@@ -78,31 +78,10 @@
           </div>
         </div>
 
-        <fieldset class="hero-trucks">
-          <legend class="hero-label">Choose your truck</legend>
-          <div class="hero-truck-grid">
-            <label class="hero-truck-card">
-              <input type="radio" name="hero_truck" value="small" aria-label="Small truck" />
-              <span class="hero-truck-surface">
-                <span class="hero-truck-check" aria-hidden="true">✓</span>
-                <svg class="hero-truck-art" viewBox="0 0 240 110" aria-hidden="true"><g class="truck-body"><rect x="35" y="26" width="113" height="60" rx="5" fill="#ecf1e8"/><path d="M148 45h28l27 26v15h-55z" fill="#b8f229"/><path d="M158 51h15l18 19h-33z" fill="#153449"/><path d="M43 37h93M43 42h93" stroke="#c5d0cc"/><text x="64" y="66" fill="#102c3d" font-size="23" font-weight="800">ZQ</text><path class="truck-light" d="M198 75h7v8h-7z" fill="#fff3b0"/></g><g class="truck-wheel" style="transform-origin:67px 87px"><circle cx="67" cy="87" r="14" fill="#06101b"/><circle cx="67" cy="87" r="7" fill="#91a5af"/><path d="M67 81v12M61 87h12" stroke="#dae2e5"/></g><g class="truck-wheel" style="transform-origin:179px 87px"><circle cx="179" cy="87" r="14" fill="#06101b"/><circle cx="179" cy="87" r="7" fill="#91a5af"/><path d="M179 81v12M173 87h12" stroke="#dae2e5"/></g></svg>
-                <strong>Small truck</strong><span class="hero-truck-rate">$65 <small>/ 30 min</small></span><span>$130 per hour</span>
-                <span class="hero-truck-description">Perfect for apartments &amp; smaller moves</span><small>Crew confirmed with your quote</small>
-              </span>
-            </label>
-            <label class="hero-truck-card">
-              <input type="radio" name="hero_truck" value="large" aria-label="Large truck" checked />
-              <span class="hero-truck-surface">
-                <span class="hero-truck-check" aria-hidden="true">✓</span>
-                <svg class="hero-truck-art" viewBox="0 0 240 110" aria-hidden="true"><g class="truck-body"><rect x="12" y="12" width="147" height="74" rx="4" fill="#ecf1e8"/><path d="M159 37h30l29 30v19h-59z" fill="#b8f229"/><path d="M169 44h17l19 22h-36z" fill="#153449"/><path d="M21 24h129M21 29h129" stroke="#c5d0cc"/><text x="56" y="62" fill="#102c3d" font-size="29" font-weight="800">ZQ</text><path class="truck-light" d="M211 73h8v9h-8z" fill="#fff3b0"/></g><g class="truck-wheel" style="transform-origin:48px 87px"><circle cx="48" cy="87" r="14" fill="#06101b"/><circle cx="48" cy="87" r="7" fill="#91a5af"/><path d="M48 81v12M42 87h12" stroke="#dae2e5"/></g><g class="truck-wheel" style="transform-origin:83px 87px"><circle cx="83" cy="87" r="14" fill="#06101b"/><circle cx="83" cy="87" r="7" fill="#91a5af"/><path d="M83 81v12M77 87h12" stroke="#dae2e5"/></g><g class="truck-wheel" style="transform-origin:190px 87px"><circle cx="190" cy="87" r="14" fill="#06101b"/><circle cx="190" cy="87" r="7" fill="#91a5af"/><path d="M190 81v12M184 87h12" stroke="#dae2e5"/></g></svg>
-                <strong>Large truck</strong><span class="hero-truck-rate"><small>From</small> $75 <small>/ 30 min</small></span><span>From $150 per hour</span>
-                <span class="hero-truck-description">Built for bigger moves</span><small>Choose 2 or 3 movers below</small>
-              </span>
-            </label>
-          </div>
-          <label class="hero-field hero-crew"><span>Large-truck crew</span><select id="heroCrew"><option value="large2">2 movers — $75 / 30 min ($150/hr)</option><option value="large3">3 movers — $89 / 30 min ($178/hr)</option></select></label>
+        <div class="hero-truck-summary">
+          <a href="#truck-selection">Choose your truck <span aria-hidden="true">↗</span></a>
           <p class="zqh-note" id="heroTruckRecommendation">Large truck recommended. You can choose either truck.</p>
-        </fieldset>
+        </div>
 
         <div class="hero-inputs-grid">
           <label class="hero-field">
@@ -128,6 +107,57 @@
         </div>
         <p class="zqh-note">Crew rates are published. A one-hour call-out/travel charge applies where applicable.</p>
       </div>
+    </div>
+  </section>
+
+  <section id="truck-selection" class="truck-selection" aria-labelledby="truck-selection-title">
+    <div class="container">
+      <div class="truck-section-heading"><div><p class="zqh-eyebrow">The right truck for your move</p><h2 id="truck-selection-title">A smaller move.<br />Or a bigger beginning.</h2></div><p>Choose the truck that suits your move. Your suburbs, property size and crew preference stay with your quote.</p></div>
+      <fieldset class="hero-trucks">
+        <legend class="sr-only">Choose your truck</legend>
+        <div class="hero-truck-grid">
+            <label class="hero-truck-card truck-card-small">
+              <input type="radio" name="hero_truck" value="small" aria-label="Small Truck" />
+              <span class="hero-truck-surface">
+                <span class="truck-photo">
+                  <img src="/media/truck-selection/approved-artwork.webp" width="1760" height="880" alt="Illustration of a small ZQ moving truck and movers outside apartments" loading="lazy" decoding="async" />
+                  <span class="truck-photo-headline">Apartment or small move? We've got the right truck.</span>
+                  <span class="hero-truck-check" aria-hidden="true">✓</span>
+                </span>
+                <span class="truck-card-content">
+                  <strong class="truck-card-title">Small Truck</strong>
+                  <span class="truck-card-crew">Crew confirmed with your quote</span>
+                  <span class="truck-price-panel"><span class="truck-price-main"><b>$65</b> <span>/ 30 MIN</span></span><span class="truck-hourly">$130 / HR</span></span>
+                  <span class="hero-truck-description">Perfect for apartments, smaller moves and selected furniture.</span>
+                  <span class="truck-card-cta">SELECT SMALL TRUCK <span aria-hidden="true">→</span></span>
+                </span>
+              </span>
+            </label>
+            <label class="hero-truck-card truck-card-large">
+              <input type="radio" name="hero_truck" value="large" aria-label="Large Truck" checked />
+              <span class="hero-truck-surface">
+                <span class="truck-photo">
+                  <img src="/media/truck-selection/approved-artwork.webp" width="1760" height="880" alt="Illustration of a large ZQ moving truck and movers unloading furniture outside a home" loading="lazy" decoding="async" />
+                  <span class="truck-photo-headline">Big house? We've got a bigger truck.</span>
+                  <span class="hero-truck-check" aria-hidden="true">✓</span>
+                </span>
+                <span class="truck-card-content">
+                  <strong class="truck-card-title">Large Truck</strong>
+                  <span class="truck-card-crew">2 movers · 3 movers available below</span>
+                  <span class="truck-price-panel"><span class="truck-price-main"><small>From</small> <b>$75</b> <span>/ 30 MIN</span></span><span class="truck-hourly">From $150 / HR</span></span>
+                  <span class="hero-truck-description">Ideal for larger houses, family relocations and heavy furniture.</span>
+                  <span class="truck-card-cta">SELECT LARGE TRUCK <span aria-hidden="true">→</span></span>
+                </span>
+              </span>
+            </label>
+        </div>
+        <div class="truck-selection-footer">
+          <label class="hero-field hero-crew"><span>Large-truck crew</span><select id="heroCrew"><option value="large2">2 movers — $75 / 30 min ($150/hr)</option><option value="large3">3 movers — $89 / 30 min ($178/hr)</option></select></label>
+          <a class="truck-continue" href="#hero-estimator">Continue your move brief <span aria-hidden="true">↑</span></a>
+        </div>
+      </fieldset>
+      <p class="truck-disclosure">A one-hour call-out/travel charge applies where applicable. Interstate moves require a route-specific quote.</p>
+      <p class="truck-art-disclosure">Illustrative artwork supplied and approved for ZQ. Not photographs of the actual fleet or crew.</p>
     </div>
   </section>
 

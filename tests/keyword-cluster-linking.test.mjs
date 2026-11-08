@@ -12,7 +12,7 @@ function readPage(route) {
 
 function hasLink(html, href, anchorPattern) {
   const re = new RegExp(`<a\\b[^>]*href="${href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"[^>]*>([\\s\\S]*?)</a>`, 'g');
-  return [...html.matchAll(re)].some((m) => anchorPattern.test(m[1]));
+  return [...html.matchAll(re)].some((m) => anchorPattern.test(m[1].replace(/<[^>]+>/g, '')));
 }
 
 const sampledPages = ['/', '/house-removals-adelaide/', '/removalists-glenelg/', '/removalists-adelaide/'];

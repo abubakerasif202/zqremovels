@@ -4803,7 +4803,7 @@ function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel, inte
         { name: 'Removalists Adelaide', url: `${SITE_URL}/removalists-adelaide/` },
         { name: `Removalists ${suburb}`, url: canonical },
       ], canonical)),
-      JSON.stringify(buildFAQSchema(['hyde-park', 'unley-park'].includes(slug) ? getPrioritySuburbFaqItems(slug) : faqItems.slice(0, 5), canonical)),
+      JSON.stringify(buildFAQSchema(['hyde-park', 'unley-park', 'toorak-gardens'].includes(slug) ? getPrioritySuburbFaqItems(slug) : faqItems.slice(0, 5), canonical)),
     ],
     contentHtml: renderSuburbContent({
       slug,
@@ -5616,6 +5616,68 @@ const prioritySuburbProfiles = {
       { question: 'Can you help pack fragile items before an Unley Park move?', answer: 'Packing help can be discussed before booking. List mirrors, artwork, glassware and delicate furniture in the brief so the time allowed matches the work.' },
     ],
   },
+  // Toorak Gardens facts: postcode 5065, City of Burnside, bounded by Kensington Road (north), Portrush Road (east)
+  // and Greenhill Road (south) per Wikipedia "Toorak Gardens, South Australia". No distances or council rules are claimed.
+  'toorak-gardens': {
+    h1: 'Toorak Gardens removalists: careful moves for eastern-suburbs homes',
+    lead: 'Moving in Toorak Gardens, SA 5065? ZQ Removals handles house, unit and furniture moves in Toorak Gardens and the nearby eastern suburbs. Send both addresses, the inventory and any fragile or valuable pieces, and we will discuss the crew and moving time. Published rates start at $75 per 30 minutes for 2 men and a truck.',
+    points: ['Houses, units and furniture in Toorak Gardens 5065', 'Wrapping and fragile items planned before the day', 'Published crew rates, call-out/travel disclosed'],
+    sections: [
+      {
+        module: 'local-intro',
+        eyebrow: 'Toorak Gardens, Adelaide, SA 5065',
+        heading: 'Where Toorak Gardens sits, and why it matters for your move',
+        intro: 'Toorak Gardens is a small suburb in the City of Burnside, not to be confused with Toorak in Melbourne.',
+        paragraphs: [
+          'Toorak Gardens is bounded by Kensington Road to the north, Portrush Road to the east and Greenhill Road to the south. Those three main roads carry heavy traffic, so ask which road each address is closest to and whether the truck will turn off onto a quieter side street to load.',
+          'Give South Australian addresses with the 5065 postcode when you request a quote so the right suburb is booked.',
+        ],
+      },
+      {
+        module: 'logistics-access',
+        eyebrow: 'Streets and driveways',
+        heading: 'Side streets, gates and driveways inside the main roads',
+        intro: 'The access at the door usually matters more than the route on the map.',
+        paragraphs: [
+          'Away from the boundary roads, the streets are residential. Check whether the driveway is wide enough for a truck, whether there is a gate or an automatic door to open, and whether parked cars narrow the street at the time of the move.',
+          'If a property sits close to Kensington Road, Portrush Road or Greenhill Road, look at the posted parking and clearway signs for the day and time of the move. Tell us how far the nearest legal place to stop is from the front door.',
+        ],
+      },
+      {
+        module: 'local-insights',
+        eyebrow: 'Houses, units and townhouses',
+        heading: 'Planning for the mix of homes in Toorak Gardens',
+        intro: 'A larger house, a unit and a townhouse each raise different questions.',
+        paragraphs: [
+          'For a larger house, list each living area, the garage and any garden shed separately, then walk the route from the furthest room to the truck and note every step and doorway. A long carry adds handling time, and a household can hold more than it looks from the street.',
+          'For a unit or townhouse, ask the building or body corporate about lift bookings, loading areas and permitted move-in times, and pass the answers on. Count internal stairs and say whether the entrance is shared with neighbours.',
+        ],
+      },
+      {
+        module: 'local-route',
+        eyebrow: 'Short moves in the east',
+        heading: 'Moving to or from Toorak Gardens',
+        intro: 'Many moves here start or finish in a neighbouring eastern suburb.',
+        paragraphs: [
+          'Toorak Gardens is close to Norwood and to other City of Burnside suburbs, so many jobs are short drives with most of the time spent loading and unloading. Send the access notes for both addresses and the day each property must be vacated or can be entered.',
+          'If the move continues interstate or into storage first, say so in the brief so the stops are planned together.',
+        ],
+      },
+    ],
+    nearby: [
+      { title: 'Removalists Norwood', copy: 'Moving between Toorak Gardens and Norwood? Include access notes for terraces and parking around The Parade.', href: '/removalists-norwood/', cta: 'View Norwood removalists' },
+      { title: 'Removalists Burnside', copy: 'Another City of Burnside page covering heritage and larger-home moves.', href: '/removalists-burnside/', cta: 'View Burnside removalists' },
+      { title: 'Removalists Kensington Gardens', copy: 'Family-home moves with garages and outdoor inventory in nearby Kensington Gardens.', href: '/removalists-kensington-gardens/', cta: 'View Kensington Gardens removalists' },
+      { title: 'Removalists Linden Park', copy: 'Planning a move that starts or ends in Linden Park? Check the local access notes.', href: '/removalists-linden-park/', cta: 'View Linden Park removalists' },
+      { eyebrow: 'Moving service', title: 'Packing help', copy: 'Mirrors, artwork and glassware can be packed before the move.', href: '/packing-services-adelaide/', cta: 'Packing services' },
+    ],
+    faqs: [
+      { question: 'Is this page for Toorak Gardens in Adelaide or Toorak in Melbourne?', answer: 'This page covers Toorak Gardens, SA 5065, in the City of Burnside. Toorak in Melbourne is a different suburb, so give South Australian addresses with postcodes when you request a quote.' },
+      { question: 'Do you offer local removalists for Toorak Gardens?', answer: 'Yes. ZQ Removals is based in Andrews Farm and moves homes, units and furniture across metropolitan Adelaide, including Toorak Gardens. A 1-hour call-out/travel charge applies where applicable, so confirm it when you ask for a quote.' },
+      { question: 'Can you move mirrors, artwork and glass furniture?', answer: 'Yes, when they are disclosed before booking. Send photos and approximate dimensions so wrapping and handling time can be allowed for, and ask about packing help for fragile items.' },
+      { question: 'What should I check about parking near the main roads?', answer: 'If an address is close to Kensington Road, Portrush Road or Greenhill Road, check the posted parking and clearway signs for the day and time of the move, and tell us the distance from the nearest legal stop to the door.' },
+    ],
+  },
 };
 
 // Per-suburb planning sections for the priority suburb landing pages. Every paragraph is general move-planning
@@ -5971,7 +6033,7 @@ function renderPriorityCommercial(page, image) {
 }
 
 function renderSuburbContent({ slug, suburb, region, intro, logisticsLabel, nearby, clusterKey, intents, image, faqItems }) {
-  if (['hyde-park', 'unley-park'].includes(slug)) return renderPrioritySuburb({ slug, suburb, image });
+  if (['hyde-park', 'unley-park', 'toorak-gardens'].includes(slug)) return renderPrioritySuburb({ slug, suburb, image });
   const quoteHref = ['medindie', 'toorak-gardens'].includes(slug)
     ? '/contact-us/?move_scope=house-removal&property_type=house#quote-form'
     : '/contact-us/#quote-form';
@@ -6066,14 +6128,6 @@ ${renderValueCardSection({
   intro: `Access notes, parking, and the order of operations matter more than the suburb name alone.`,
   cards: buildSuburbLogisticsCards({ suburb, logisticsLabel, clusterKey, nearby }).slice(0, 1),
 })}
-${renderTextSection({
-  module: 'local-insights',
-  eyebrow: 'Local insights',
-  heading: `Access and property notes for ${suburb}`,
-  intro: `${suburb} needs address-level notes because the crew size and the time needed depend on ${logisticsLabel}.`,
-  paragraphs: localInsights,
-})}
-${renderHyperlocalAuthoritySection({ slug, suburb })}
 ${renderValueCardSection({
   module: 'move-types',
   eyebrow: 'Move types',
@@ -6082,6 +6136,14 @@ ${renderValueCardSection({
   cards: buildSuburbMoveTypeCards({ suburb, logisticsLabel, clusterKey }).slice(0, 1),
   soft: true,
 })}
+${renderTextSection({
+  module: 'local-insights',
+  eyebrow: 'Local insights',
+  heading: `Access and property notes for ${suburb}`,
+  intro: `${suburb} needs address-level notes because the crew size and the time needed depend on ${logisticsLabel}.`,
+  paragraphs: localInsights,
+})}
+${renderHyperlocalAuthoritySection({ slug, suburb })}
 ${renderRouteCardSection({
   module: 'nearby-suburbs',
   eyebrow: 'Nearby suburbs',

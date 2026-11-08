@@ -766,7 +766,7 @@ function setupEntranceAnimations() {
   if (preference.matches) return;
   const nodes = document.querySelectorAll(
     ".page-home .zqh-service-card, .page-home .zq-v2-service-card, .page-home .zq-v2-trust-cards > article, " +
-    ".testimonial-card, .google-review-card, .rate-table"
+    ".testimonial-card, .google-review-card, .rate-table, #truck-selection .hero-truck-card"
   );
   // Unsupported browsers retain the fully visible, static experience.
   if (!("IntersectionObserver" in window) || !nodes.length) return;
@@ -1011,7 +1011,7 @@ function setupHeroEstimator() {
   let selectedPackage = "large2";
   let manualTruck = false;
   let preferredLargePackage = "large2";
-  const truckInputs = form.querySelectorAll('[name="hero_truck"]');
+  const truckInputs = document.querySelectorAll('#truck-selection [name="hero_truck"]');
   const crewSelect = document.getElementById("heroCrew");
   const quotePackage = document.getElementById("quoteTruckPackage");
   const quoteForm = quotePackage?.form;

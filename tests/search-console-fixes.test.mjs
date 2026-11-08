@@ -886,6 +886,16 @@ test('priority Adelaide suburb pages are substantial and keep service, nearby, F
     const main = extractMain(html);
     const links = extractRootLinks(main);
 
+    if (slug === 'toorak-gardens') {
+      assert.match(main, /Where Toorak Gardens sits/);
+      assert.match(main, /\$75 per 30 minutes/);
+      assert.match(main, /\$89 per 30 minutes/);
+      assert.match(main, /1-hour call-out\/travel charge applies where applicable/);
+      assert.ok(links.includes('/removalists-adelaide/'));
+      assert.ok(links.includes('/removalists-norwood/'));
+      assert.ok((main.match(/class="faq-item/g) || []).length >= 5, 'toorak-gardens missing FAQ depth');
+      continue;
+    }
     if (['hyde-park', 'unley-park'].includes(slug)) {
       assert.match(main, /house or furniture|Home and townhouse moves/i);
       assert.match(main, /Parking and loading around Hyde Park|Streets, driveways and stairs in Unley Park/i);

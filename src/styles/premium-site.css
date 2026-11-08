@@ -11949,39 +11949,6 @@ body.page-home .zqh .zqh-hero .hero-est-copy { gap: 4px; }
 body.page-home .zqh .zqh-hero .hero-est-price { color: #f6f8f2; font-size: 17px; }
 body.page-home .zqh .zqh-hero :is(.hero-est-label,.hero-est-sub,.hero-est-price small,.zqh-note) { color: #aebec8; font-size: 11px; }
 body.page-home .zqh .zqh-hero .hero-transfer-btn { width: 100%; }
-/* Truck choice stays native-radio accessible; artwork is decorative and motion is bounded. */
-.zqh .hero-trucks { min-width: 0; margin: 0; padding: 0; border: 0; }
-.zqh .hero-trucks legend { margin-bottom: 10px; }
-.zqh .hero-truck-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
-.zqh .hero-truck-card { position: relative; min-width: 0; cursor: pointer; }
-.zqh .hero-truck-card input { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
-.zqh .hero-truck-surface { position: relative; display: flex; flex-direction: column; height: 100%; gap: 5px; padding: 14px 12px; border: 1px solid #607784; border-radius: 10px; background: #0a1b29; color: #d8e2e8; font-size: 11px; line-height: 1.45; transition: transform .25s, border-color .25s, box-shadow .25s; }
-.zqh .hero-truck-surface strong { color: #f6f8f2; font-size: 16px; }
-.zqh .hero-truck-surface small { font-size: 10px; color: #b2c3cc; }
-.zqh .hero-truck-rate { color: #b8f229; font-size: clamp(21px,2vw,25px); font-weight: 750; line-height: 1.15; }
-.zqh .hero-truck-rate small { color: #e4eced; font-weight: 500; white-space: nowrap; }
-.zqh .hero-truck-description { flex: 1; margin-top: 4px; }
-body.page-home .zqh .zqh-hero .hero-truck-art { width: 100%; height: auto; margin: 6px 0 2px; overflow: visible; animation: truck-arrive .85s cubic-bezier(.2,.7,.2,1) both; }
-.zqh .truck-wheel { animation: truck-wheel .85s ease-out; }
-.zqh .truck-body { animation: truck-suspension .4s ease-in-out 2; }
-.zqh .truck-light { transition: filter .25s; }
-.zqh .hero-truck-card:hover .truck-light { filter: drop-shadow(3px 0 5px #fff3b0); }
-.zqh .hero-truck-card:hover .truck-wheel { animation: truck-wheel 1.2s linear 2; }
-.zqh .hero-truck-card:hover .truck-body { animation: truck-suspension .5s ease-in-out 2; }
-.zqh .hero-truck-card input:checked + .hero-truck-surface { border-color: #b8f229; transform: translateY(-3px); box-shadow: 0 12px 24px #0006, 0 0 0 1px #b8f229, 0 0 18px #b8f22918; }
-.zqh .hero-truck-card input:focus-visible + .hero-truck-surface { outline: 3px solid #fff; outline-offset: 4px; }
-.zqh .hero-truck-card:active .hero-truck-surface { transform: translateY(0) scale(.98); }
-.zqh .hero-truck-check { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #b8f229; color: #071421; font-weight: 800; opacity: 0; transform: scale(.4); transition: opacity .2s, transform .3s; }
-.zqh .hero-truck-card input:checked + .hero-truck-surface .hero-truck-check { opacity: 1; transform: scale(1); }
-.zqh .hero-crew { display: grid; gap: 6px; margin: 14px 0 10px; }
-.zqh .hero-crew[hidden] { display: none; }
-body.page-home .zqh .zqh-hero .hero-crew select { width: 100%; min-width: 0; min-height: 44px; padding: 8px; border: 1px solid #607784; border-radius: 7px; background: #06131f; color: #f6f8f2; font: inherit; font-size: 12px; }
-.zqh .hero-crew select:focus-visible { outline: 3px solid #b8f229; outline-offset: 2px; }
-@keyframes truck-arrive { from { opacity: 0; transform: translateX(-22px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes truck-wheel { to { transform: rotate(360deg); } }
-@keyframes truck-suspension { 50% { transform: translateY(-1.5px); } }
-@media (max-width: 374px) { .zqh .hero-truck-grid { grid-template-columns: minmax(0,1fr); } .zqh .hero-truck-art { max-width: 190px; align-self: center; } }
-@media (prefers-reduced-motion: reduce) { .zqh .hero-truck-card *, .zqh .hero-truck-card:hover * { animation: none !important; transition: none !important; } .zqh .hero-truck-card input:checked + .hero-truck-surface { transform: none; } }
 body.page-home .zqh .zqh-hero .zqh-note { margin: 0; text-align: center; }
 
 body.page-home .zqh .zqh-trust { padding: 26px 0 36px; background: #071421; }
@@ -12120,4 +12087,94 @@ section[data-generated-module] > .container > p {
 }
 section[data-generated-module] > .container > p + p {
   margin-top: 1em;
+}
+
+/* Full-size truck selection: native radios, editorial imagery and live HTML rates. */
+body.page-home .zqh .zqh-hero { min-height: auto; padding-bottom: 56px; }
+body.page-home .zqh .zqh-hero-grid { min-height: 560px; grid-template-columns: minmax(0,1fr) minmax(380px,.85fr); gap: 64px; }
+body.page-home .zqh .zqh-hero h1 { font-size: clamp(46px,4.3vw,64px); line-height: 1.04; letter-spacing: -.05em; }
+body.page-home .zqh .zqh-hero .zqh-estimate-card { max-width: 490px; gap: 16px; }
+.zqh .hero-truck-summary { display: grid; gap: 7px; padding: 12px 0; border-block: 1px solid #38505f; }
+.zqh .hero-truck-summary a { color: #b7f51c; font-weight: 750; display: flex; justify-content: space-between; min-height: 30px; align-items: center; }
+body.page-home .zqh .zqh-hero .hero-truck-summary .zqh-note { text-align: left; font-size: 12px; }
+.zqh .truck-selection { padding: 72px 0 48px; background: #071522; color: #fff; scroll-margin-top: 120px; }
+.zqh .truck-section-heading { display: flex; justify-content: space-between; align-items: end; gap: 36px; margin-bottom: 36px; }
+.zqh .truck-section-heading .zqh-eyebrow { color: #b7f51c; }
+.zqh .truck-section-heading h2 { margin: 10px 0 0; color: #fff; font-size: clamp(34px,4vw,54px); line-height: 1.08; letter-spacing: -.035em; }
+.zqh .truck-section-heading > p { max-width: 380px; margin: 0; color: #c5d1d8; font-size: 16px; line-height: 1.65; }
+.zqh .hero-trucks { border: 0; min-width: 0; margin: 0; padding: 0; }
+.zqh .hero-truck-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 30px; }
+.zqh .hero-truck-card { position: relative; display: block; min-width: 0; cursor: pointer; }
+.zqh .hero-truck-card input { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.zqh .hero-truck-surface { display: flex; flex-direction: column; height: 100%; overflow: hidden; border: 2px solid #67746e; border-radius: 22px; background: #f8f7f2; color: #091927; box-shadow: 0 18px 38px #0003; transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease; }
+.zqh .truck-photo { display: block; position: relative; aspect-ratio: 1.4; overflow: hidden; isolation: isolate; background: #163046; }
+.zqh .truck-photo img { position: absolute; width: 200%; max-width: none; height: auto; top: 50%; left: 0; transform: translateY(-50%); transition: transform .65s cubic-bezier(.2,.65,.3,1); }
+.zqh .truck-card-large .truck-photo img { left: -100%; }
+.zqh .truck-photo::after { content: ''; position: absolute; inset: 40% 0 0; z-index: 0; background: linear-gradient(transparent,#071522ed); }
+.zqh .truck-photo-headline { position: absolute; z-index: 1; inset: auto 26px 24px; color: #fff; font-size: clamp(22px,2.2vw,30px); font-weight: 800; line-height: 1.18; text-wrap: balance; text-shadow: 0 2px 12px #0008; }
+.zqh .hero-truck-check { position: absolute; z-index: 1; top: 18px; right: 18px; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: #b7f51c; color: #071522; font-size: 23px; font-weight: 850; opacity: 0; transform: scale(.5); transition: opacity .2s, transform .3s; }
+.zqh .truck-card-content { display: flex; flex: 1; flex-direction: column; padding: 28px; gap: 12px; }
+.zqh .truck-card-title { color: #091927; font-size: clamp(30px,3vw,42px); letter-spacing: -.04em; line-height: 1.1; }
+.zqh .truck-card-crew { min-height: 22px; font-size: 13px; font-weight: 650; color: #425346; }
+.zqh .truck-price-panel { display: grid; gap: 10px; background: #b7f51c; border-radius: 12px; padding: 16px 20px; color: #091927; }
+.zqh .truck-price-main { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; line-height: 1; }
+.zqh .truck-price-main b { font-size: clamp(54px,5.4vw,76px); letter-spacing: -.065em; font-weight: 850; }
+.zqh .truck-price-main small { font-size: 14px; font-weight: 700; }
+.zqh .truck-price-main > span { font-size: 16px; font-weight: 800; white-space: nowrap; }
+.zqh .truck-hourly { padding-top: 9px; border-top: 1px solid #09192740; font-size: 14px; font-weight: 750; }
+.zqh .hero-truck-description { flex: 1; min-height: 52px; font-size: 16px; line-height: 1.6; margin: 2px 0 6px; }
+.zqh .truck-card-cta { display: flex; justify-content: space-between; align-items: center; min-height: 58px; gap: 10px; padding: 16px 20px; border-radius: 10px; background: #071522; color: #fff; font-size: 14px; font-weight: 800; letter-spacing: .035em; }
+.zqh .truck-card-cta > span { font-size: 22px; transition: transform .25s; }
+.zqh .hero-truck-card input:checked + .hero-truck-surface { border-color: #b7f51c; box-shadow: 0 20px 45px #0005,0 0 0 2px #b7f51c45; }
+.zqh .hero-truck-card input:checked + .hero-truck-surface .hero-truck-check { opacity: 1; transform: scale(1); }
+.zqh .hero-truck-card input:focus-visible + .hero-truck-surface { outline: 3px solid #fff; outline-offset: 6px; }
+.zqh .hero-truck-card:active .hero-truck-surface { transform: translateY(1px); }
+.zqh .truck-selection-footer { display: flex; justify-content: space-between; gap: 24px; align-items: center; margin-top: 26px; }
+.zqh .hero-crew { display: grid; gap: 8px; margin: 0; max-width: 100%; color: #fff; font-size: 14px; }
+.zqh .hero-crew[hidden] { display: none; }
+.zqh .hero-crew select { width: 100%; min-width: 0; min-height: 48px; padding: 12px 36px 12px 14px; border: 1px solid #70838e; border-radius: 8px; background: #0d2638; color: #fff; font: inherit; }
+.zqh .truck-continue { color: #b7f51c; font-weight: 750; min-height: 48px; display: inline-flex; align-items: center; gap: 20px; }
+.zqh .truck-disclosure { color: #ced9df; font-size: 13px; margin: 24px 0 8px; }
+.zqh .truck-art-disclosure { color: #a6b8c1; font-size: 12px; margin: 0; }
+.zqh .truck-selection :is(a,select):focus-visible { outline: 3px solid #b7f51c; outline-offset: 4px; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .zqh .hero-truck-card:hover .hero-truck-surface { transform: translateY(-6px); box-shadow: 0 28px 55px #0006; }
+  .zqh .hero-truck-card:hover .truck-photo img { transform: translateY(-50%) scale(1.035); }
+  .zqh .hero-truck-card:hover .truck-card-cta > span { transform: translateX(4px); }
+}
+@media (max-width: 960px) {
+  body.page-home .zqh .zqh-hero-grid { grid-template-columns: minmax(0,1fr); gap: 36px; }
+  .zqh .truck-card-content { padding: 22px; }
+  .zqh .truck-section-heading { align-items: start; }
+}
+@media (max-width: 700px) {
+  .zqh .truck-selection { padding: 48px 0 36px; }
+  .zqh .truck-section-heading { display: grid; gap: 18px; margin-bottom: 26px; }
+  .zqh .hero-truck-grid { grid-template-columns: minmax(0,1fr); gap: 28px; }
+  .zqh .truck-photo { aspect-ratio: 1.25; }
+  .zqh .truck-photo-headline { inset: auto 20px 22px; font-size: 25px; }
+  .zqh .truck-card-content { padding: 22px; }
+  .zqh .truck-selection-footer { flex-direction: column; align-items: stretch; gap: 12px; }
+  .zqh .truck-price-main b { font-size: 64px; }
+  body.page-home .zqh .zqh-hero h1 { font-size: clamp(42px,10.5vw,62px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .zqh .hero-truck-card *, .zqh .hero-truck-card:hover * { animation: none !important; transition: none !important; }
+}
+/* Keep card entrances genuinely staggered despite the shared fast entrance rule. */
+body #truck-selection .hero-truck-card.zq-entrance.animate__animated { animation-delay: 0ms; animation-fill-mode: backwards; }
+body #truck-selection .hero-truck-card:nth-child(2).zq-entrance.animate__animated { animation-delay: 140ms; }
+body.page-home .zqh .truck-selection .hero-crew > span { color: #fff; }
+body.page-home .zqh .truck-selection .hero-crew select { background: #0d2638; color: #fff; border-color: #70838e; }
+.zqh .truck-price-main { position: relative; padding-top: 12px; }
+.zqh .truck-price-main small { position: absolute; top: -3px; left: 0; }
+@media (max-width: 374px) {
+  .zqh .truck-price-main b { font-size: 56px; }
+  .zqh .truck-price-main > span { font-size: 14px; }
+  .zqh .truck-card-cta { padding-inline: 14px; font-size: 12px; letter-spacing: .01em; }
+  .zqh .truck-card-cta > span { font-size: 18px; }
+}
+
+@media (min-width: 621px) {
+  body.page-home .zqh .zqh-hero .hero-inputs-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
