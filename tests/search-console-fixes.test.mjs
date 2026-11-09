@@ -323,7 +323,7 @@ test('live-audit commercial snippets and guide publication schema stay fixed', (
   const piano = readDist('services/piano-movers-adelaide/index.html');
   const guide = readDist('adelaide-moving-guides/moving-house-checklist-adelaide/index.html');
 
-  assert.match(pricing, /<title>Removalists Adelaide Prices &amp; Hourly Rates \| ZQ Removals<\/title>/i);
+  assert.match(pricing, /<title>Removalists Adelaide Prices \| Truck Rates \| ZQ Removals<\/title>/i);
   assert.match(pricing, /\$75 per 30 minutes/i);
   assert.match(pricing, /\$89 per 30 minutes/i);
   assert.match(pricing, /1-hour call-out(?: or travel|\/travel) charge applies where applicable/i);
