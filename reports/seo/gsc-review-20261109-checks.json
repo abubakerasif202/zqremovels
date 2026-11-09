@@ -1,0 +1,108 @@
+{
+  "runtime": "Node 22.23.1",
+  "baseline": {
+    "build": "PASS",
+    "focusedSeo": {
+      "pass": 72,
+      "fail": 0
+    }
+  },
+  "final": {
+    "build": "PASS",
+    "focusedSeo": {
+      "pass": 91,
+      "fail": 0,
+      "skipped": 0
+    },
+    "npmTest": {
+      "pass": 525,
+      "fail": 0,
+      "skipped": 0
+    },
+    "seo": {
+      "status": "PASS",
+      "uniqueSitemapPages": 79
+    },
+    "typescript": "PASS",
+    "changedModuleSyntax": "PASS",
+    "mockedConversion": {
+      "pass": 16,
+      "fail": 0
+    },
+    "diffCheck": "PASS",
+    "responsiveUi": {
+      "pass": 28,
+      "fail": 0,
+      "widths": [
+        320,
+        375,
+        768,
+        1366
+      ],
+      "routes": 7,
+      "screenshots": 28
+    },
+    "independentContentReview": "PASS: no blockers, final7 regressions independently rerun"
+  },
+  "existingFailures": [
+    {
+      "command": "node scripts/gsc-remediation-audit.mjs",
+      "status": "FAIL_PRE_EXISTING",
+      "proof": {
+        "route": "adelaide-moving-guides/how-to-choose-removalists-adelaide/index.html",
+        "baseline": {
+          "matched": "guide support",
+          "context": "ts guide help me get a better quote? \n         \n            This guide supports comparison research before selecting a removalist by focusing on access review, inven",
+          "hash": "f9b7d8a4d1ba076233ffd02042dff4f9b0b05f5cc169bbc1cc5c98e188116243"
+        },
+        "candidate": {
+          "matched": "guide support",
+          "context": "ts guide help me get a better quote? \n         \n            This guide supports comparison research before selecting a removalist by focusing on access review, inven",
+          "hash": "f9b7d8a4d1ba076233ffd02042dff4f9b0b05f5cc169bbc1cc5c98e188116243"
+        },
+        "contentIdentical": true
+      }
+    }
+  ],
+  "dependencyAudit": {
+    "status": "FAIL_PRE_EXISTING",
+    "transitive": [
+      {
+        "package": "follow-redirects",
+        "severity": "high",
+        "advisory": "GHSA-mrwp-f3q8-3g9p"
+      },
+      {
+        "package": "qs",
+        "severity": "moderate",
+        "advisory": "GHSA-6pq8-jhm2-2vcw"
+      }
+    ],
+    "upgradesApplied": false
+  },
+  "differential": {
+    "changedAuthoredRoutes": [
+      "/removalists-pennington/",
+      "/removalists-port-adelaide/",
+      "/same-day-removalists-adelaide/",
+      "/removalists-adelaide-prices/",
+      "/services/piano-movers-adelaide/",
+      "/office-removals-adelaide/",
+      "/adelaide-moving-guides/"
+    ],
+    "generatedOutputsRemoved": 0,
+    "canonicalOrRobotsChanges": 0,
+    "rawHtmlHashComparison": "All 122 HTML hashes changed; semantic generated-content and static-source comparison isolates seven authored routes. Exact cause of raw hash differences unproven; not presented as byte-identical output."
+  },
+  "notRun": [
+    "Lighthouse lab performance: no performance change requested or measured regression",
+    "GSC live inspection: supplied saved Google state retained",
+    "production deployment/live implementation smoke: not authorized"
+  ],
+  "nativeReview": {
+    "risk": "medium",
+    "reviewDue": false,
+    "reason": "under_budget",
+    "note": "Assessment to be repeated on final committed slice."
+  }
+}
