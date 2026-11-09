@@ -57,3 +57,5 @@ Metadata before/after: `reports/seo/gsc-review-20261109-metadata.json`. Authorit
 Detailed check evidence: reports/seo/gsc-review-20261109-checks.json.
 
 Risk: none. Changes are route-specific data/copy and regression assertions, not shared parsing/rendering behavior, credentials, delivery configuration, stored data or forms.
+
+Implementation/evidence commit: a995a183457ce3fdfb251df8384fcafe4b3e912d. Native committed-slice assessment: medium, review_due=false (under_budget); no native approval claimed. Generated JSON/screenshot evidence is separate from291 authored changed lines.

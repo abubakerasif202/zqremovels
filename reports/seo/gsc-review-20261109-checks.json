@@ -103,6 +103,8 @@
     "risk": "medium",
     "reviewDue": false,
     "reason": "under_budget",
-    "note": "Assessment to be repeated on final committed slice."
+    "base": "1a2ab02",
+    "implementationCommit": "a995a183457ce3fdfb251df8384fcafe4b3e912d",
+    "note": "Committed slice assessed; no native review started or approval claimed."
   }
 }

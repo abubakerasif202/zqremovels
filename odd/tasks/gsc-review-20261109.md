@@ -10,9 +10,9 @@ S4. "Preserve Web3Forms, consent, GTM and accepted quote submission tracking; mo
 S5. "A scoped commit on the dedicated branch with passing relevant checks and a reviewable diff. Prepare a draft PR if the existing authenticated workflow supports it; this brief ends before a production merge/deployment." Check: diff review, commit, truthful handoff, pending Google/ownership/field data noted.
 
 ## Tasks
-- T1 [S1] delegated public HTTP audit; complete; no source writes, isolated evidence report.
-- T2 [S2-S3] inline content/metadata improvements after read-only map; complete; seven targeted RED-to-GREEN regressions, final functional checks pending.
-- T3 [S4-S5] inline regression checks and handoff; long checks delegated; verification complete; commit/PR handoff pending.
+- T1 [S1] delegated public HTTP audit; complete; commit a995a183457ce3fdfb251df8384fcafe4b3e912d; isolated public HTTP evidence report.
+- T2 [S2-S3] inline content/metadata improvements after read-only map; complete; commit a995a183457ce3fdfb251df8384fcafe4b3e912d; seven targeted RED-to-GREEN regressions and final functional checks passed.
+- T3 [S4-S5] inline regression checks and handoff; long checks delegated; complete; commit a995a183457ce3fdfb251df8384fcafe4b3e912d; all change-specific checks passed; documented pre-existing warnings and unrun checks; draft PR handoff.
 
 ## Log
 L1. Original implementation brief (verbatim):
@@ -95,3 +95,5 @@ L4. Route-specific content improves packages, Pennington/Port Adelaide guidance,
 
 L5. Final Node22 checks: build PASS, focused91/91 PASS, npm test525/525 PASS, SEO bad-pages0 (79 sitemap pages), TypeScript/syntax PASS, mocked conversion16/16 PASS. UI28/28 PASS across320/375/768/1366 with screenshots and keyboard/reduced-motion checks. Remediation editorial regex flags unchanged how-to-choose wording; baseline/candidate content hashes equal. Physical-device/WCAG-full/lab/production checks NOT RUN.
 L6. Source diff reviewed independently twice, no blockers. Native staged-candidate assess: medium, review_due=false, under_budget; no native review/consent started. Only7 authored routes differ semantically; all122 raw HTML hashes differ with cause unproven. Remote main fetched at035ed6b has same source tree as baseline1a2ab02, so feature PR will not include unrelated prior-branch changes.
+
+L7. Implementation/evidence commit a995a183457ce3fdfb251df8384fcafe4b3e912d. Authored source/test/task/report narrative diff267 additions +24 deletions =291 lines; generated JSON and28 screenshots excluded. Native committed-slice assess: medium, review_due=false, under_budget; informational only, no approval claimed. No additional review lifecycle started.
