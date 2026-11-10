@@ -20,6 +20,7 @@ import {
   buildTwitterTags,
   businessIdentifiers,
   getGeneratedPages,
+  getLiveSuburbDirectory,
   getRouteCoverageReport,
   getSeoV5IntentProfile,
   getSuburbLinkProfile,
@@ -4284,9 +4285,11 @@ export function transformContent(content, page) {
   const serviceReviewStrip = renderServicePageReviewStrip(page);
 
   const localGeoSection = renderLocalGeoSection(page);
+  const suburbDirectory = renderSuburbDirectorySection(page);
 
   const supplementalSections = [
     localGeoSection,
+    suburbDirectory,
     commercialServiceCta,
     guideHubExpansion,
     serviceMoneyUpgrade,
@@ -6741,6 +6744,41 @@ ${points.map((point) => `    <li>${escapeHtml(point)}</li>`).join('\n')}
     </div>
     <div class="value-grid">
 ${cards}
+    </div>
+  </div>
+</section>`;
+}
+
+// The Adelaide hub links every live suburb page once, grouped by region, so no suburb page
+// depends on a single nearby-suburb card for its only internal link.
+function renderSuburbDirectorySection(page) {
+  if (page.output !== 'removalists-adelaide/index.html') {
+    return '';
+  }
+
+  const groups = getLiveSuburbDirectory();
+  if (groups.length === 0) {
+    return '';
+  }
+
+  const groupMarkup = groups
+    .map(({ key, label, suburbs }) => `      <div class="suburb-directory-group">
+        <h3 id="suburb-directory-${escapeAttribute(key)}">${escapeHtml(label)}</h3>
+        <ul aria-labelledby="suburb-directory-${escapeAttribute(key)}">
+${suburbs.map(({ suburb, href }) => `          <li><a href="${escapeAttribute(href)}">${escapeHtml(suburb)}</a></li>`).join('\n')}
+        </ul>
+      </div>`)
+    .join('\n');
+
+  return `<section class="section section-soft suburb-directory" data-generated-module="suburb-directory" aria-labelledby="suburb-directory-title">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow">Removalists by suburb</span>
+      <h2 id="suburb-directory-title">Adelaide suburbs with their own moving page</h2>
+      <p class="lede">Each suburb page covers the access, parking and move types that usually shape a quote there. Moving somewhere that is not listed? <a href="/contact-us/#quote-form">Send both addresses for a quote</a>.</p>
+    </div>
+    <div class="suburb-directory-grid">
+${groupMarkup}
     </div>
   </div>
 </section>`;
