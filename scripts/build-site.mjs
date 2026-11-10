@@ -1956,6 +1956,7 @@ const seoSupportProfiles = {
     supportLinks: [
       { url: '/interstate-removals-adelaide/', label: 'Return to the interstate removals hub' },
       { url: '/packing-services-adelaide/', label: 'Add interstate packing support' },
+      { url: '/removalists-queens-park/', label: 'Moving from Queens Park NSW to Adelaide' },
     ],
   },
   'removalists-adelaide-cbd/index.html': {
@@ -6775,7 +6776,7 @@ ${suburbs.map(({ suburb, href }) => `          <li><a href="${escapeAttribute(hr
     <div class="section-heading">
       <span class="eyebrow">Removalists by suburb</span>
       <h2 id="suburb-directory-title">Adelaide suburbs with their own moving page</h2>
-      <p class="lede">Each suburb page covers the access, parking and move types that usually shape a quote there. Moving somewhere that is not listed? <a href="/contact-us/#quote-form">Send both addresses for a quote</a>.</p>
+      <p class="lede">Each suburb page covers the access, parking and move types that usually shape a quote there. Moving somewhere that is not listed? <a href="/contact-us/#quote-form">Send both addresses for a quote</a>. Moving in from interstate? See the notes for <a href="/removalists-queens-park/">moves from Queens Park NSW to Adelaide</a>.</p>
     </div>
     <div class="suburb-directory-grid">
 ${groupMarkup}

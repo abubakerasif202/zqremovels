@@ -59,3 +59,10 @@ test(`every live suburb page has at least ${MIN_INBOUND} inbound internal links 
   const weak = [...counts].filter(([, sources]) => sources.size < MIN_INBOUND).map(([href, s]) => `${href} (${s.size})`);
   assert.deepEqual(weak, [], `suburb pages below ${MIN_INBOUND} inbound links`);
 });
+
+test('Queens Park route page keeps at least three inbound links from related pages', () => {
+  const routes = ['/removalists-adelaide/', '/interstate-removals-adelaide/', '/adelaide-to-sydney-removalists/'];
+  for (const route of routes) {
+    assert.ok(mainOf(readRoute(route)).includes('href="/removalists-queens-park/"'), `${route} links Queens Park`);
+  }
+});
