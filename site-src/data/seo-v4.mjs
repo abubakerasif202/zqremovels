@@ -569,6 +569,41 @@ export function getSuburbDataset() {
   }));
 }
 
+// Broad Adelaide regions used to group live suburb pages. Each registry cluster key belongs to
+// exactly one group, so the Adelaide hub directory and the nearby-suburb fallback share one map.
+const SUBURB_DIRECTORY_GROUPS = [
+  { key: 'city', label: 'Adelaide city', clusters: ['CBD', 'CBD fringe'] },
+  {
+    key: 'north',
+    label: 'Northern suburbs',
+    clusters: ['northern', 'northern fringe', 'north-eastern', 'inner north', 'north-adelaide', 'west-north'],
+  },
+  { key: 'east', label: 'Eastern suburbs and hills', clusters: ['eastern', 'inner east', 'eastern hills', 'hills'] },
+  { key: 'south', label: 'Inner south and southern suburbs', clusters: ['inner south', 'southern', 'southern coastal', 'south-west'] },
+  { key: 'west', label: 'Western suburbs and coast', clusters: ['western', 'inner west', 'coastal'] },
+];
+
+function isLiveSuburbSlug(slug) {
+  return !VERIFIED_REDIRECT_SOURCE_PATHS.has(`/removalists-${slug}/`);
+}
+
+function getSuburbDirectoryGroupKey(clusterKey) {
+  const normalized = normalizeClusterKey(clusterKey);
+  return SUBURB_DIRECTORY_GROUPS.find((group) => group.clusters.includes(normalized))?.key;
+}
+
+// Live suburb pages (registry suburbs not folded away by a verified redirect) grouped by region.
+export function getLiveSuburbDirectory() {
+  return SUBURB_DIRECTORY_GROUPS.map(({ key, label, clusters }) => ({
+    key,
+    label,
+    suburbs: suburbData
+      .filter(([slug, , , clusterKey]) => clusters.includes(normalizeClusterKey(clusterKey)) && isLiveSuburbSlug(slug))
+      .map(([slug, suburb]) => ({ slug, suburb, href: `/removalists-${slug}/` }))
+      .sort((a, b) => a.suburb.localeCompare(b.suburb)),
+  })).filter((group) => group.suburbs.length > 0);
+}
+
 function clampText(value, limit) {
   const text = String(value).trim().replace(/\s+/g, ' ');
   if (text.length <= limit) return text;
@@ -6891,12 +6926,68 @@ function renderLinkListItems(items = []) {
     .join('');
 }
 
+const MIN_SUBURB_RING_MEMBERS = 5;
+
+// Suburbs in a cluster with fewer than MIN_SUBURB_RING_MEMBERS live pages are never reached by
+// the cluster ring of other suburbs. Give each of them three inbound links from live suburbs in
+// the same region group so no live suburb page depends on the hub alone.
+let smallClusterInboundCache = null;
+function getSmallClusterInboundSources(targetSlug) {
+  if (!smallClusterInboundCache) {
+    smallClusterInboundCache = new Map();
+    const live = suburbData
+      .map(([memberSlug, , , memberClusterKey]) => ({ slug: memberSlug, clusterKey: normalizeClusterKey(memberClusterKey) }))
+      .filter((item) => isLiveSuburbSlug(item.slug));
+    const liveByCluster = new Map();
+    for (const item of live) {
+      liveByCluster.set(item.clusterKey, (liveByCluster.get(item.clusterKey) || 0) + 1);
+    }
+    const byGroup = new Map();
+    for (const item of live) {
+      const groupKey = getSuburbDirectoryGroupKey(item.clusterKey);
+      if (!byGroup.has(groupKey)) byGroup.set(groupKey, []);
+      byGroup.get(groupKey).push(item);
+    }
+    for (const members of byGroup.values()) {
+      members.sort((x, y) => x.slug.localeCompare(y.slug));
+      const small = members.filter((item) => (liveByCluster.get(item.clusterKey) || 0) < MIN_SUBURB_RING_MEMBERS);
+      const large = members.filter((item) => (liveByCluster.get(item.clusterKey) || 0) >= MIN_SUBURB_RING_MEMBERS);
+      small.forEach((target, index) => {
+        const sources = [];
+        for (let step = 0; step < Math.min(3, large.length); step += 1) {
+          sources.push(large[(index * 3 + step) % large.length].slug);
+        }
+        for (const sourceSlug of sources) {
+          if (!smallClusterInboundCache.has(sourceSlug)) smallClusterInboundCache.set(sourceSlug, []);
+          smallClusterInboundCache.get(sourceSlug).push(target.slug);
+        }
+      });
+    }
+  }
+  return smallClusterInboundCache.get(targetSlug) || [];
+}
+
 function getSuburbPeerLinks(slug, clusterKey, templateNearby = [], limit = 4) {
   if (SUBURB_LINK_COPY[slug]) {
     return buildNeighbourItems(SUBURB_LINK_COPY[slug]).slice(0, limit);
   }
   const normalizedClusterKey = normalizeClusterKey(clusterKey);
-  const members = suburbsByClusterKey.get(normalizedClusterKey) || [];
+  // Walk the ring of suburbs that still have a live page. Counting suburbs folded away by a
+  // verified redirect used the ring slots on pages that are then dropped, which left some
+  // live suburb pages with a single inbound link.
+  const members = (suburbsByClusterKey.get(normalizedClusterKey) || [])
+    .filter((item) => item.slug === slug || isLiveSuburbSlug(item.slug));
+  // A cluster with only a few live pages cannot give each of them enough neighbours, so widen the
+  // ring to the other live suburbs in the same region group.
+  if (members.length < MIN_SUBURB_RING_MEMBERS) {
+    const groupKey = getSuburbDirectoryGroupKey(normalizedClusterKey);
+    const known = new Set(members.map((item) => item.slug));
+    for (const [memberSlug, suburb, region, memberClusterKey, logisticsLabel] of suburbData) {
+      if (!known.has(memberSlug) && isLiveSuburbSlug(memberSlug) && getSuburbDirectoryGroupKey(memberClusterKey) === groupKey) {
+        members.push({ slug: memberSlug, suburb, region, clusterKey: normalizeClusterKey(memberClusterKey), logisticsLabel });
+      }
+    }
+  }
   const currentIndex = members.findIndex((item) => item.slug === slug);
   const slugs = [];
 
@@ -6937,6 +7028,16 @@ function getSuburbPeerLinks(slug, clusterKey, templateNearby = [], limit = 4) {
     });
   // Keep every existing peer link and add the curated inbound links on top, so no other page loses its inbound link.
   const keptPeers = peerItems.slice(0, limit);
+  for (const extraSlug of getSmallClusterInboundSources(slug)) {
+    if (!peerItems.some((item) => item.href === `/removalists-${extraSlug}/`)) {
+      const suburb = suburbDataBySlug.get(extraSlug);
+      keptPeers.push({
+        href: `/removalists-${extraSlug}/`,
+        label: `${suburb?.suburb || toTitle(extraSlug)} removals`,
+        suburb: suburb?.suburb || toTitle(extraSlug),
+      });
+    }
+  }
   const keptHrefs = new Set(keptPeers.map((item) => item.href));
   return [...keptPeers, ...inboundItems.filter((item) => !keptHrefs.has(item.href))];
 }

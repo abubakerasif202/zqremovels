@@ -18,6 +18,9 @@ export default defineConfig({
     baseURL: 'http://127.0.0.1:3000',
   },
   projects: [
+    { name: 'Mobile Chrome (320px)', use: { viewport: { width: 320, height: 740 } } },
+    { name: 'Mobile Chrome (360px)', use: { viewport: { width: 360, height: 800 } } },
+    { name: 'Desktop Chrome (1440px)', use: { viewport: { width: 1440, height: 900 } } },
     {
       name: 'Mobile Chrome (375px)',
       use: {

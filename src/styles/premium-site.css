@@ -5880,6 +5880,12 @@ main :where(h1, h2, h3) { text-wrap: balance; }
 .service-area-map { min-height: 28rem; display: grid; place-items: center; padding: 1rem; border: 1px solid var(--zq-border-gold); border-radius: var(--radius-lg, 1rem); background: #152821; color: var(--zq-text-muted); text-align: center; }
 .service-area-map iframe, .service-area-map canvas { max-width: 100%; }
 .service-area-cta { margin-top: var(--space-5); }
+.suburb-directory-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: var(--space-5, 1.5rem); margin-top: var(--space-5, 1.5rem); }
+.suburb-directory-group h3 { margin: 0 0 .5rem; font-family: Fraunces, Georgia, serif; font-size: 1.15rem; }
+.suburb-directory-group ul { margin: 0; padding: 0; list-style: none; display: grid; gap: .1rem; }
+.suburb-directory-group a { display: inline-block; min-height: 2.75rem; padding: .6rem 0; color: var(--zq-text); text-decoration: underline; text-decoration-color: var(--zq-border-gold); text-underline-offset: .2em; }
+.suburb-directory-group a:hover { color: var(--zq-gold-light); text-decoration-color: currentColor; }
+.suburb-directory-group a:focus-visible { outline: 3px solid var(--zq-gold); outline-offset: 3px; }
 @media (max-width: 767px) {
   .service-area-locator-grid { grid-template-columns: 1fr; }
   .service-area-list { max-height: none; }
@@ -12055,6 +12061,7 @@ body .footer-shell.footer-shell .footer-brand-panel .btn.btn-primary { backgroun
   bottom: max(16px, env(safe-area-inset-bottom)); margin-inline: auto; max-width: 760px;
   color: #fff; background: #071525; border: 1px solid #526276; border-radius: 14px;
   box-shadow: 0 16px 48px rgb(0 0 0 / 38%); padding: 20px;
+  max-height: calc(100dvh - 32px); overflow-y: auto; overscroll-behavior: contain;
 }
 .zq-consent h2 { margin: 0 0 6px; color: #fff; font-size: 1.15rem; }
 .zq-consent p { margin: 0; max-width: 68ch; color: #e1e8ef; line-height: 1.5; }
