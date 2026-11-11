@@ -31,7 +31,7 @@ import {
   seoConfig,
   zqServiceSitemapOutputs,
 } from '../site-src/data/seo-v4.mjs';
-import { buildPostalAddressSchema, businessIdentity, googleReviewCards, googleReviews } from '../site-src/data/business.mjs';
+import { buildPostalAddressSchema, businessIdentity, googleReviewCards, googleReviews, movingRates } from '../site-src/data/business.mjs';
 import { zqSuburbGeoData } from '../site-src/data/zq-suburbs.mjs';
 import { getGoogleMapsBrowserConfig } from '../site-src/data/maps.mjs';
 
@@ -2820,6 +2820,7 @@ export async function runLegacyGenerator() {
     await writeFile(path.join(distRoot, 'llms.txt'), `${renderLLMsTxt(pages)}\n`, 'utf8');
     await writeFile(path.join(distRoot, 'llms-full.txt'), `${renderLLMsFullTxt(pages)}\n`, 'utf8');
     await writeFile(path.join(distRoot, 'ai.txt'), `${renderAiTxt()}\n`, 'utf8');
+    await writeFile(path.join(distRoot, 'pricing.md'), `${renderPricingMarkdown()}\n`, 'utf8');
     await writeFile(
       path.join(distRoot, 'robots.txt'),
       `User-agent: *\nAllow: /\nSitemap: ${preferredSiteOrigin}/sitemap.xml\nSitemap: ${preferredSiteOrigin}/ai-sitemap.xml\n# AI crawler references:\n# ${preferredSiteOrigin}/llms.txt\n# ${preferredSiteOrigin}/llms-full.txt\n`,
@@ -6973,7 +6974,6 @@ async function copyStaticAssets() {
     'favicon.png',
     'apple-touch-icon.png',
     'manifest.json',
-    'pricing.md',
     'robots.txt',
     'zq-removals-social-share.png',
     'zq-removals-social-share.webp',
@@ -7221,6 +7221,41 @@ function renderLLMsFullTxt() {
     'Contact details:',
     `- Phone: ${seoConfig.phone}`,
     `- Website: ${seoConfig.siteUrl}`,
+  ].join('\n');
+}
+
+// pricing.md is the pricing reference linked from llms.txt. It is generated from the shared business data so
+// the rates and ABN cannot drift from the rest of the site (a hand-maintained copy previously published a
+// superseded pricing model and an invalid ABN).
+function renderPricingMarkdown() {
+  return [
+    `# Pricing — ${seoConfig.businessName}`,
+    '',
+    `${seoConfig.businessName} publishes its Adelaide crew rates. The final cost depends on how long the move takes, so each quote is reviewed against the move brief before booking.`,
+    '',
+    '## Published rates',
+    `- **2 men and a truck:** ${movingRates.twoMenAndTruck}`,
+    `- **3 men and a truck:** ${movingRates.threeMenAndTruck}`,
+    `- **Call-out/travel:** ${movingRates.travelCharge}`,
+    '',
+    `Full rate table and inclusions: ${seoConfig.siteUrl}/removalists-adelaide-prices/`,
+    '',
+    '## What changes the time a move takes',
+    '- **Property type and volume:** inventory size, bulky or fragile items, and the crew size needed.',
+    '- **Access:** stairs, lifts and lift bookings, parking position, and carry distance to the truck.',
+    '- **Route:** local Adelaide moves versus interstate routes, and any storage or extra stops.',
+    '- **Packing and handling:** packing support and protection needs are scoped in the move brief.',
+    '- **Timing:** requested dates and windows are checked against crew availability.',
+    '',
+    '## How to get a quote',
+    `- **Quote form:** ${seoConfig.siteUrl}/contact-us/#quote-form`,
+    `- **Phone:** ${seoConfig.phone}`,
+    `- **Email:** ${businessIdentity.email}`,
+    '',
+    '## Quote clarity',
+    '- **Written scope:** the quote reflects the inventory, access, route, packing and timing details supplied.',
+    '- **Scope changes:** if the brief changes, the quote may need to be reviewed before the move is confirmed.',
+    `- **ABN:** ${businessIdentifiers.abnFormatted}`,
   ].join('\n');
 }
 
