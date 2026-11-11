@@ -3502,6 +3502,7 @@ function sanitizeTrustClaimText(value = '') {
     .replace(/\{\{\s*google\.rating\s*\}\}/gi, Number(googleReviews.rating).toFixed(1))
     .replace(/\{\{\s*google\.reviewCount\s*\}\}/gi, String(googleReviews.reviewCount))
     .replace(/\{\{\s*google\.profileUrl\s*\}\}/gi, googleReviews.profileUrl)
+    .replace(/\{\{\s*google\.reviewUrl\s*\}\}/gi, googleReviews.reviewUrl)
     .replace(/ABN and insurance details can be added here once confirmed by the business owner\./gi, confirmedTrustCredentialText)
     .replace(/Yes\. ZQ Removals is fully insured\. Your furniture is covered from the moment our team begins loading to the moment everything is placed in your new home\./gi, confirmedTrustCredentialText)
     .replace(/Yes\. All ZQ Removals interstate jobs are fully insured\. Ask for details when requesting your quote\./gi, confirmedTrustCredentialText)

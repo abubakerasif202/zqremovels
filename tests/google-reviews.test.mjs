@@ -145,3 +145,16 @@ test('the MovingCompany entity uses the Google listing name with the short brand
   assert.equal(company[0].name, 'ZQ Removals Adelaide');
   assert.equal(company[0].alternateName, 'ZQ Removals');
 });
+
+test('footer links to the Google write-a-review URL on every built page', () => {
+  assert.equal(googleReviews.reviewUrl, 'https://g.page/r/Cb5kWH_Fcs9LEBM/review');
+  for (const page of ['index.html', 'contact-us/index.html', 'removalists-adelaide/index.html']) {
+    const html = readFileSync(`site-dist/${page}`, 'utf8');
+    assert.match(
+      html,
+      /<a href="https:\/\/g\.page\/r\/Cb5kWH_Fcs9LEBM\/review"[^>]*rel="noopener noreferrer"[^>]*>Review us on Google<\/a>/,
+      `${page} footer review link`,
+    );
+    assert.doesNotMatch(html, /\{\{\s*google\./, `${page} has no unresolved google template vars`);
+  }
+});
