@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 
 const googleProfileUrl = 'https://share.google/toaQ1pTUMpigxRuQM';
+const googleReviewUrl = 'https://g.page/r/Cb5kWH_Fcs9LEBM/review';
 
 export const businessIdentity = {
   name: 'ZQ Removals',
@@ -66,6 +67,7 @@ export const googleReviews = {
   rating: googleReviewsData.rating,
   reviewCount: googleReviewsData.reviewCount,
   profileUrl: googleProfileUrl,
+  reviewUrl: googleReviewUrl,
   lastVerifiedSource: `${googleReviewsData.source} ${googleReviewsData.fetchedAt}`.trim(),
 };
 
