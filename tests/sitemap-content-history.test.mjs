@@ -20,3 +20,13 @@ test('unknown dates and missing history are omitted instead of using today', () 
   assert.equal(resolveContentLastmod({ pages: { [url]: { hash: meaningfulContentHash(html) } } }, url, html), undefined);
   assert.throws(() => meaningfulContentHash('<header>No main</header>'), /without main/);
 });
+
+test('content fingerprint ignores comments and scripts even when nested markers are spliced together', () => {
+  const base = '<html><head><title>T</title></head><body><main><p>Same</p>MARK</main></body></html>';
+  const plain = meaningfulContentHash(base.replace('MARK', ''));
+  assert.equal(meaningfulContentHash(base.replace('MARK', '<!--x-->')), plain);
+  assert.equal(meaningfulContentHash(base.replace('MARK', '<!<!---->--><script>alert(1)</script>')), meaningfulContentHash(base.replace('MARK', '<!<!---->-->')));
+  assert.equal(meaningfulContentHash(base.replace('MARK', '<SCRIPT>1</SCRIPT><style>a{}</style>')), plain);
+  assert.notEqual(meaningfulContentHash(base.replace('Same', 'Changed')), plain);
+  assert.match(plain, /^c1:[0-9a-f]{14}-[0-9a-f]+$/);
+});

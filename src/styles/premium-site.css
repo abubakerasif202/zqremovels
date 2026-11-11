@@ -12083,8 +12083,14 @@ body .footer-shell.footer-shell .footer-brand-panel .btn.btn-primary { backgroun
   .zq-consent-manage { right: 12px; bottom: calc(max(var(--zq-chat-launcher-bottom, 24px), 16px + env(safe-area-inset-bottom)) + 60px); }
 }
 @media (max-width: 520px) {
-  .zq-consent { inset-inline: 10px; bottom: max(10px, env(safe-area-inset-bottom)); padding: 16px; }
-  .zq-consent__actions button { flex: 1 1 42%; }
+  /* Compact bar: on a 320px screen the full-size banner covered nearly half of the first view and
+     hid the quote call to action. Targets are still 44px tall. */
+  .zq-consent { inset-inline: 10px; bottom: max(10px, env(safe-area-inset-bottom)); padding: 12px 14px; }
+  .zq-consent h2 { margin-bottom: 4px; font-size: 1rem; }
+  .zq-consent p { font-size: .875rem; line-height: 1.4; }
+  .zq-consent__preferences { margin-top: 8px; gap: 4px 20px; }
+  .zq-consent__actions { gap: 8px; margin-top: 10px; }
+  .zq-consent__actions button { flex: 1 1 42%; padding: 6px 10px; font-size: .9rem; line-height: 1.2; }
 }
 
 /* Readable long-form copy in generated text sections (guides, hubs, services):
