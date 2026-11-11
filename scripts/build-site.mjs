@@ -7,7 +7,8 @@ import esbuild from 'esbuild';
 import browserslist from 'browserslist';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 import { PurgeCSS } from 'purgecss';
-import { createSitemapLastmodResolver } from './sitemap-lastmod.mjs';
+import { validateLastmod } from './sitemap-lastmod.mjs';
+import { resolveContentLastmod } from './sitemap-content-history.mjs';
 import {
   buildCanonical,
   buildDescription,
@@ -35,7 +36,6 @@ import { zqSuburbGeoData } from '../site-src/data/zq-suburbs.mjs';
 import { getGoogleMapsBrowserConfig } from '../site-src/data/maps.mjs';
 
 const projectRoot = process.cwd();
-const resolveSitemapLastmod = createSitemapLastmodResolver(projectRoot);
 const buildQueueKey = Symbol.for('zqremovals.build-site.queue');
 export const srcRoot = path.join(projectRoot, 'site-src');
 const distRoot = path.join(projectRoot, 'site-dist');
@@ -7251,6 +7251,7 @@ function renderAiTxt() {
 }
 
 async function renderSitemaps(pages, renderedHtmlByOutput = new Map()) {
+  const history = JSON.parse(await readFile(path.join(srcRoot, 'data', 'sitemap-content-history.json'), 'utf8'));
   const grouped = {
     'sitemap-pages.xml': [],
     'sitemap-services.xml': [],
@@ -7267,7 +7268,8 @@ async function renderSitemaps(pages, renderedHtmlByOutput = new Map()) {
     const canonicalLoc = String(page.canonical || '').trim();
     if (!canonicalLoc || seenCanonicalLocs.has(canonicalLoc)) continue;
     seenCanonicalLocs.add(canonicalLoc);
-    const lastmod = await getPageLastmod(page);
+    const html = renderedHtmlByOutput.get(page.output.replace(/\\/g, '/'));
+    const lastmod = html ? validateLastmod(resolveContentLastmod(history, canonicalLoc, html)) : undefined;
     const entry = `  <url>
     <loc>${escapeHtml(canonicalLoc)}</loc>
     ${lastmod ? `<lastmod>${lastmod}</lastmod>` : ''}
@@ -7350,29 +7352,6 @@ ${indexEntries.join('\n')}
 </sitemapindex>
 `;
   return files;
-}
-
-async function getPageLastmod(page) {
-  const sourcePaths = [];
-
-  if (page.contentFile) {
-    sourcePaths.push(path.join(srcRoot, page.contentFile));
-  }
-
-  if (Array.isArray(page.lastmodSources)) {
-    for (const source of page.lastmodSources) {
-      sourcePaths.push(path.isAbsolute(source) ? source : path.join(projectRoot, source));
-    }
-  }
-
-  if (sourcePaths.length === 0 && page.generatedKind) {
-    sourcePaths.push(
-      path.join(projectRoot, 'site-src', 'data', 'seo-v4.mjs'),
-      path.join(projectRoot, 'scripts', 'build-site.mjs'),
-    );
-  }
-
-  return resolveSitemapLastmod(page, sourcePaths);
 }
 
 async function buildImageSitemapEntry(page, html, lastmod) {

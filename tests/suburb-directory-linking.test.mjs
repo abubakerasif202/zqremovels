@@ -18,23 +18,26 @@ function mainOf(html) {
 test('Adelaide hub lists every live suburb page once, grouped by region', () => {
   const groups = getLiveSuburbDirectory();
   assert.ok(groups.length >= 4, 'at least four region groups');
+  const links = groups.flatMap(({ suburbs }) => suburbs.map(({ href }) => href));
+  assert.equal(links.length, 42, '42 live suburb pages');
+  assert.equal(new Set(links).size, links.length, 'directory URLs are unique');
   const hub = mainOf(readRoute('/removalists-adelaide/'));
   const directory = hub.match(/data-generated-module="suburb-directory"[\s\S]*?<\/section>/)?.[0];
   assert.ok(directory, 'hub renders the suburb directory');
   for (const { suburbs } of groups) {
     for (const { suburb, href } of suburbs) {
       assert.ok(existsSync(path.join(distDir, href.replace(/^\/|\/$/g, ''), 'index.html')), `${href} is built`);
-      assert.ok(directory.includes(`href="${href}">${suburb}</a>`), `directory links ${suburb}`);
+      assert.equal(directory.split(`href="${href}"`).length - 1, 1, `directory links ${suburb} exactly once`);
     }
   }
 });
 
 test('live suburb pages never link to a redirect-folded suburb URL from the directory', () => {
   const redirects = JSON.parse(readFileSync('site-src/data/zq-redirects-verified.json', 'utf8'));
-  const sources = new Set(JSON.stringify(redirects).match(/\/removalists-[a-z-]+\//g) ?? []);
+  const sources = new Set(redirects.map(({ source }) => source));
   const live = new Set(getLiveSuburbDirectory().flatMap(({ suburbs }) => suburbs.map(({ href }) => href)));
   for (const href of live) {
-    assert.ok(!sources.has(href) || existsSync(path.join(distDir, href.replace(/^\/|\/$/g, ''), 'index.html')), href);
+    assert.ok(!sources.has(href), `${href} must not be a redirect source`);
   }
 });
 

@@ -276,3 +276,19 @@ test('homepage content stays visible without JavaScript', async ({ browser, base
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
   await context.close();
 });
+
+
+test('cookie preferences stay inside a short phone viewport and all choices remain reachable', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 430 });
+  await page.goto('/');
+  await page.locator('[data-consent-customize]').click();
+  const banner = page.locator('[data-consent-banner]');
+  const bounds = await banner.boundingBox();
+  expect(bounds).not.toBeNull();
+  expect(bounds!.y).toBeGreaterThanOrEqual(0);
+  expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(430);
+  await page.locator('[data-consent-save]').scrollIntoViewIfNeeded();
+  await page.locator('[data-consent-save]').click();
+  await expect(banner).toBeHidden();
+  await expect(page.locator('[data-consent-manage]')).toBeVisible();
+});
