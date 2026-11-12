@@ -136,7 +136,7 @@ const localBusinessSchema = {
   image: DEFAULT_OG_IMAGE,
   logo: DEFAULT_LOGO,
   description: 'Adelaide removalists for house, apartment and office moves, with furniture and property access reviewed before booking.',
-  hasMap: seoConfig.socialProfiles[0],
+  hasMap: businessIdentity.mapsUrl,
   sameAs: seoConfig.socialProfiles,
   taxID: businessIdentity.abn.machine,
   identifier: {
