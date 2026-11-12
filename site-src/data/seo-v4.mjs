@@ -18,6 +18,7 @@ import {
   businessIdentity,
   businessIdentifiers,
   businessUrl,
+  movingRates,
 } from './business.mjs';
 import { zqSuburbGeoData } from './zq-suburbs.mjs';
 
@@ -3920,7 +3921,12 @@ const competitorAlternativeData = [
   {
     slug: 'no-limits-removalists-alternative-adelaide',
     competitorName: 'No Limits Removalists',
+    competitorShortName: 'No Limits',
     competitorUrl: 'https://nolimitsremovalists.com.au/',
+    competitorFitSummary: 'Broad service menu and multi-city options',
+    competitorFitHeading: 'The brief needs a broader published provider model.',
+    competitorFitReason: 'you specifically want its broader published storage, backloading, corporate, or multi-city service options',
+    competitorFitFaq: 'No Limits Removalists may be a better fit if you specifically want to compare its published storage, warehouse, corporate relocation, backloading, or multi-city service options.',
     title: 'No Limits Removalists Alternative Adelaide | ZQ Removals',
     description: 'Compare No Limits Removalists with ZQ Removals for Adelaide moves. Review local fit, moving quoting, packing, interstate, and access planning.',
     h1: 'No Limits Removalists alternative for Adelaide moves that need moving local planning',
@@ -3990,12 +3996,17 @@ const competitorAlternativeData = [
   {
     slug: 'door-2-door-movers-alternative-adelaide',
     competitorName: 'Door 2 Door Movers',
+    competitorShortName: 'Door 2 Door',
     competitorUrl: 'https://door2doormovers.com.au/',
+    competitorFitSummary: 'Published hourly rates for local moves',
+    competitorFitHeading: 'The brief is a simple local move on hourly rates.',
+    competitorFitReason: 'you want a second quote on published hourly rates for a simple local or single-item move',
+    competitorFitFaq: 'Door 2 Door Movers may be a better fit if you want to compare its published hourly rates for a straightforward local or single-item move, or need a service it lists such as piano or pool table removals.',
     title: 'Door 2 Door Movers Alternative Adelaide | ZQ Removals',
     description: 'Compare Door 2 Door Movers with ZQ Removals for Adelaide moves. Review local fit, moving quotes, furniture handling, and access planning.',
-    h1: 'Door 2 Door Movers alternative for Adelaide moves that need moving planning',
-    intro: 'Door 2 Door Movers is an Adelaide removalist known for local and furniture moves. ZQ Removals is the premium alternative when you want a moving move plan structured around detailed inventory, access, and route conditions.',
-    sourceNote: 'Public Door 2 Door Movers pages reviewed in May 2026 describe Adelaide local removals, office relocations, single-item or furniture transfers, hourly rate structures, and depot-to-depot charging models.',
+    h1: 'Door 2 Door Movers alternative for Adelaide moves that need detailed planning',
+    intro: 'Door 2 Door Movers is an Adelaide removalist known for local and furniture moves. ZQ Removals is the premium alternative when you want a move plan structured around detailed inventory, access, and route conditions.',
+    sourceNote: 'Public Door 2 Door Movers pages reviewed in November 2026 describe Adelaide house, furniture, office and piano removals, single-item furniture deliveries, packing, Adelaide to Melbourne interstate moves, and hourly rates.',
     sourceLinks: [
       { href: 'https://door2doormovers.com.au/', label: 'Door 2 Door Movers homepage' },
       { href: 'https://door2doormovers.com.au/services/', label: 'Door 2 Door Movers services' },
@@ -4024,35 +4035,35 @@ const competitorAlternativeData = [
         copy: 'Good for straightforward, single-item or short-distance relocations where detailed access planning is not required.',
       },
       {
-        title: 'Depot charging model',
-        copy: 'Worth comparing when your move matches their depot charging model and you are confident in the time required.',
+        title: 'Listed specialty items',
+        copy: 'Worth comparing if you need a service it lists publicly, such as piano or pool table removals.',
       },
     ],
     comparisonRows: [
       {
         factor: 'Primary fit',
         zq: 'South Australian local and interstate moves that require precise access planning and custom inventory scoping.',
-        competitor: 'Adelaide local and furniture moves focused on hourly rates and quick turnaround for standard layouts.',
+        competitor: 'Adelaide house, furniture and office moves on published hourly rates.',
       },
       {
         factor: 'Pricing model',
-        zq: 'All-inclusive moving quotes based on detailed inventory and route analysis up front.',
-        competitor: 'Hourly rates with depot-to-depot charging; confirm if travel limits or minimum hour policies apply.',
+        zq: `Published crew rates. ${movingRates.summary}`,
+        competitor: 'Publishes hourly rates on its website; confirm the current rate, minimum booking and any travel charges with them directly.',
       },
       {
         factor: 'Access and logistics',
         zq: 'Detailed planning for CBD lifts, beachside carries, northern homes, and southern corridors built into the quote.',
-        competitor: 'Standard local access assumptions; loading or carry challenges are usually managed on the day.',
+        competitor: 'Ask how stairs, lifts, parking and long carries are assessed before move day.',
       },
       {
         factor: 'Care and protection',
         zq: 'Dedicated blanket wrapping, custom load staging, and protective inventory tracking for fragile or antique items.',
-        competitor: 'Standard furniture transit protection; verify if high-care wrapping incurs additional hourly cost.',
+        competitor: 'Ask what furniture protection is included and whether extra wrapping changes the cost.',
       },
       {
         factor: 'Best next step',
         zq: 'Request a moving quote if you want applicable charges explained and the route fully scoped before move day.',
-        competitor: 'Request an hourly estimate if you have a small, simple layout and can manage potential timing variance.',
+        competitor: 'Request their quote as well and compare the written scope side by side.',
       },
     ],
   },
@@ -4240,11 +4251,11 @@ function buildCompetitorAlternativeFaqItems(data) {
     },
     {
       question: `When should I choose ZQ Removals instead of ${data.competitorName}?`,
-      answer: 'Choose ZQ when the brief is Adelaide-first, access-sensitive, or moving focused, especially for house, furniture, apartment, office, packing, or interstate moves starting from South Australia.',
+      answer: 'Choose ZQ when the brief is Adelaide-first or access-sensitive, especially for house, furniture, apartment, office, packing, or interstate moves starting from South Australia.',
     },
     {
       question: `When might ${data.competitorName} be the better fit?`,
-      answer: `${data.competitorName} may be a better fit if you specifically want to compare its published storage, warehouse, corporate relocation, backloading, or multi-city service options.`,
+      answer: data.competitorFitFaq,
     },
     {
       question: 'Should I get quotes from both companies?',
@@ -4264,8 +4275,8 @@ ${renderPageHero({
     'Use it when you are comparing quote certainty, Adelaide access planning, packing, storage, interstate routing, and who should review the move before you commit.',
   ],
   points: [
-    { title: 'Best ZQ fit', copy: 'Adelaide-first moving planning' },
-    { title: 'Best No Limits fit', copy: 'Broad service menu and multi-city options' },
+    { title: 'Best ZQ fit', copy: 'Adelaide-first move planning' },
+    { title: `Best ${data.competitorShortName} fit`, copy: data.competitorFitSummary },
     { title: 'Decision rule', copy: 'Compare written scope, not headline promises' },
   ],
   primaryCta: { href: '/contact-us/#quote-form', label: 'Request ZQ Quote' },
@@ -4274,7 +4285,7 @@ ${renderPageHero({
   breadcrumbs: [
     { href: '/', label: 'Home' },
     { href: '/adelaide-moving-guides/', label: 'Guides' },
-    { label: 'No Limits Alternative' },
+    { label: `${data.competitorShortName} Alternative` },
   ],
   pageType: 'guide',
 })}
@@ -4284,10 +4295,10 @@ ${renderPageHero({
     <div class="section-heading">
       <span class="eyebrow">TL;DR</span>
       <h2>ZQ Removals vs ${escapeHtml(data.competitorName)} in one sentence.</h2>
-      <p class="lede">ZQ Removals is the stronger fit for Adelaide customers who want a moving move plan built from local access and inventory detail; ${escapeHtml(data.competitorName)} is worth comparing when you specifically want its broader published storage, backloading, corporate, or multi-city service options.</p>
+      <p class="lede">ZQ Removals is the stronger fit for Adelaide customers who want a move plan built from local access and inventory detail; ${escapeHtml(data.competitorName)} is worth comparing when ${escapeHtml(data.competitorFitReason)}.</p>
     </div>
     <div class="inline-link-group">
-      <a href="/fixed-price-removalists-adelaide/">Moving removalists Adelaide</a>
+      <a href="/removalists-adelaide-prices/">Published crew rates</a>
       <a href="/removalists-adelaide/">Adelaide removalists</a>
       <a href="/adelaide-moving-guides/removalists-cost-adelaide/">Removalist cost guide</a>
       <a href="/contact-us/#quote-form">Request a quote</a>
@@ -4311,7 +4322,7 @@ ${renderPageHero({
 ${renderValueCardSection({
   module: 'zq-best-fit',
   eyebrow: 'Choose ZQ Removals when',
-  heading: 'The Adelaide brief needs moving local planning.',
+  heading: 'The Adelaide brief needs detailed local planning.',
   intro: 'ZQ is positioned for customers who want the quote to reflect the actual property, route, and inventory before the crew is booked.',
   cards: data.zqBestFor,
   soft: false,
@@ -4320,7 +4331,7 @@ ${renderValueCardSection({
 ${renderValueCardSection({
   module: 'competitor-best-fit',
   eyebrow: `Choose ${data.competitorName} when`,
-  heading: 'The brief needs a broader published provider model.',
+  heading: data.competitorFitHeading,
   intro: 'A fair comparison should also state where the competitor may be a better fit.',
   cards: data.competitorBestFor,
   soft: true,
@@ -4712,8 +4723,7 @@ ${renderAeoAnswerBlock({
   answer: `${template.primaryKeyword} in ${suburb} is shaped by the local ${logisticsLabel} constraints. ZQ Removals reviews these details alongside the inventory and route to provide a moving quote that avoids move-day surprises.`,
   links: [
     { href: '/removalists-adelaide/', label: 'Compare Adelaide removalists' },
-    { href: '/moving-quotes-adelaide/', label: 'Moving quotes Adelaide' },
-    { href: '/fixed-price-removalists-adelaide/', label: 'Moving removalists' },
+    { href: '/removalists-adelaide-prices/', label: 'Adelaide removalist prices' },
     { href: '/contact-us/#quote-form', label: 'Request a quote' },
   ],
 })}
@@ -5218,8 +5228,7 @@ function renderInterstateContent({ slug, destination, routeName, distance, highw
   const windowCards = buildInterstateWindowCards({ destination, distance });
   const requiredLinkCards = [
     { eyebrow: 'Service hub', title: 'Interstate removals Adelaide', copy: 'Use the service hub for the broader long-distance move process from Adelaide.', href: '/services/interstate-removals-adelaide/', cta: 'Open interstate service' },
-    { eyebrow: 'Quote path', title: 'Moving quotes Adelaide', copy: 'Send the route, access, inventory, timing, and packing notes for review.', href: '/moving-quotes-adelaide/', cta: 'Prepare moving quote' },
-    { eyebrow: 'Price model', title: 'Moving removalists Adelaide', copy: 'Review how moving quotes work when the scope is clear.', href: '/fixed-price-removalists-adelaide/', cta: 'Review moving' },
+    { eyebrow: 'Published rates', title: 'Adelaide removalist prices', copy: 'See the published crew rates and the details a quote needs before you send the route.', href: '/removalists-adelaide-prices/', cta: 'View published rates' },
     { eyebrow: 'Checklist', title: 'Interstate moving checklist Adelaide', copy: 'Use the checklist to prepare both addresses and the handover details.', href: '/adelaide-moving-guides/interstate-moving-checklist-adelaide/', cta: 'Open interstate checklist' },
     { eyebrow: 'Quote form', title: 'Get a moving quote', copy: 'Submit the move brief once the key route and access details are ready.', href: '/contact-us/#quote-form', cta: 'Request quote' },
   ];
@@ -5276,7 +5285,7 @@ ${renderAeoAnswerBlock({
   answer: `Yes. ZQ Removals can quote ${routeName} interstate removals from Adelaide after reviewing access, inventory, packing, timing, and destination handover details.`,
   links: [
     { href: '/services/interstate-removals-adelaide/', label: 'Interstate removals service' },
-    { href: '/moving-quotes-adelaide/', label: 'Moving quotes Adelaide' },
+    { href: '/removalists-adelaide-prices/', label: 'Adelaide removalist prices' },
     { href: '/contact-us/#quote-form', label: 'Request route quote' },
   ],
 })}
@@ -6336,8 +6345,10 @@ ${renderAeoAnswerBlock({
   answer: topicContent?.lead || `Access, inventory, timing and packing scope have the biggest effect on how a move is planned and priced. Note them before requesting a quote.`,
   links: [
     { href: '/contact-us/#quote-form', label: 'Request a quote' },
-    { href: '/moving-quotes-adelaide/', label: 'Moving quotes Adelaide' },
-    { href: '/fixed-price-removalists-adelaide/', label: 'Moving removalists Adelaide' },
+    { href: '/removalists-adelaide-prices/', label: 'Adelaide removalist prices' },
+    ...(slug === 'how-to-choose-removalists-adelaide'
+      ? [{ href: '/door-2-door-movers-alternative-adelaide/', label: 'ZQ Removals vs Door 2 Door Movers' }]
+      : []),
   ],
   })}
 ${renderTextSection({
@@ -6811,8 +6822,7 @@ ${renderAeoAnswerBlock({
   question: aeoProfile.question,
   answer: aeoProfile.answer,
   links: [
-    { href: '/moving-quotes-adelaide/', label: 'Moving quotes Adelaide' },
-    { href: '/fixed-price-removalists-adelaide/', label: 'Moving removalists Adelaide' },
+    { href: '/removalists-adelaide-prices/', label: 'Adelaide removalist prices' },
     { href: '/contact-us/#quote-form', label: 'Request a quote' },
   ],
 })}
