@@ -2,6 +2,9 @@ import { readFileSync } from 'node:fs';
 
 const googleProfileUrl = 'https://share.google/toaQ1pTUMpigxRuQM';
 const googleReviewUrl = 'https://g.page/r/Cb5kWH_Fcs9LEBM/review';
+// Google Maps listing for "ZQ Removals Adelaide" (owner-supplied share link maps.app.goo.gl/jFEKZGFdYLNTEPec6),
+// stored in its stable CID form so the URL carries no session or tracking parameters.
+const googleMapsUrl = 'https://www.google.com/maps?cid=5462711065594324158';
 
 export const businessIdentity = {
   name: 'ZQ Removals',
@@ -35,6 +38,7 @@ export const businessIdentity = {
     'Coastal suburbs',
     'Interstate Australia',
   ],
+  mapsUrl: googleMapsUrl,
   socialProfiles: [
     googleProfileUrl,
     'https://facebook.com/zqremovals',

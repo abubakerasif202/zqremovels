@@ -144,7 +144,6 @@ const preferredSiteOrigin = seoConfig.siteUrl;
 const legacySiteOrigin = seoConfig.siteUrl;
 const defaultSocialImage = seoConfig.defaultOgImage;
 const defaultLogoImage = seoConfig.defaultLogo;
-const googleBusinessProfileUrl = businessIdentity.socialProfiles[0];
 const companySameAsProfiles = businessIdentity.socialProfiles;
 const confirmedTrustCredentialText = `${businessIdentity.name} ABN ${businessIdentifiers.abnFormatted}. Ask about current cover details, building requirements, and move protection before booking.`;
 
@@ -3728,7 +3727,7 @@ function normalizeMovingCompanyNode(node, page) {
     email: businessIdentity.email,
     image: defaultSocialImage,
     logo: defaultLogoImage,
-    hasMap: googleBusinessProfileUrl,
+    hasMap: businessIdentity.mapsUrl,
     sameAs: Array.from(
       new Set([...companySameAsProfiles, googleReviews.profileUrl, ...sameAs].filter(Boolean)),
     ),

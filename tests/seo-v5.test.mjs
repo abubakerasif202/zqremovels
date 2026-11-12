@@ -136,6 +136,7 @@ test('seo v5 json-ld parses and only publishes supported business facts', () => 
             'https://share.google/toaQ1pTUMpigxRuQM',
             'https://facebook.com/zqremovals'
           ], `sameAs must use only verified project profiles in ${relativePath}`);
+          assert.equal(node.hasMap, businessIdentity.mapsUrl, `hasMap must be the Google Maps listing in ${relativePath}`);
         }
       }
     }
