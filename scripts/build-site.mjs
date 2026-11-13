@@ -2411,7 +2411,7 @@ const seoSupportProfiles = {
     ],
     supportLinks: [
       { url: '/packing-services-adelaide/', label: 'Add packing support for longer southern routes' },
-      { url: '/removalists-reynella/', label: 'Use Reynella for family-home and southern junction routes' },
+      { url: '/removalists-woodcroft/', label: 'Use Woodcroft for family-home and storage moves in the southern corridor' },
       { url: '/removalists-adelaide/', label: 'Return to the Adelaide removals hub' },
     ],
   },
@@ -6083,18 +6083,18 @@ function getRelatedLinksProfile(page) {
         'Choose the suburb page, service page, or guide that matches whether the route is coastal, family-home led, packing heavy, or interstate-ready.',
       links: [
         {
-          eyebrow: 'Coastal suburb',
-          title: 'Removalists Noarlunga',
-          copy: 'Use Noarlunga for coastal access, storage transitions, and southern corridor staging near beachside and mixed-use routes.',
-          url: '/removalists-noarlunga/',
-          cta: 'View Noarlunga',
+          eyebrow: 'Family-home suburb',
+          title: 'Removalists Woodcroft',
+          copy: 'Use Woodcroft for family-home loads and storage-linked moves around Woodcroft Town Centre in the southern corridor.',
+          url: '/removalists-woodcroft/',
+          cta: 'View Woodcroft',
         },
         {
-          eyebrow: 'Junction suburb',
-          title: 'Removalists Reynella',
-          copy: 'Use Reynella for fuller family-home loads, split-level access, and southern routes that may feed into interstate departures.',
-          url: '/removalists-reynella/',
-          cta: 'View Reynella',
+          eyebrow: 'South-west suburb',
+          title: 'Removalists Marion',
+          copy: 'Use Marion for south-west routes that mix household furniture with stock or appliances and need tighter staging.',
+          url: '/removalists-marion/',
+          cta: 'View Marion',
         },
         {
           eyebrow: 'Residential service',
