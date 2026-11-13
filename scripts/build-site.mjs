@@ -6611,13 +6611,6 @@ function getRelatedLinksProfile(page) {
             cta: 'View Glenelg',
           },
           {
-            eyebrow: 'Southern coastal suburb',
-            title: 'Removalists Noarlunga',
-            copy: 'Open Noarlunga for southern coastal access, storage-linked routes, and broader southbound staging.',
-            url: '/removalists-noarlunga/',
-            cta: 'View Noarlunga',
-          },
-          {
             eyebrow: 'South corridor hub',
             title: 'Southern Adelaide removals',
             copy: 'Use the southern hub when the beachside route is part of a broader southern-corridor move brief.',
