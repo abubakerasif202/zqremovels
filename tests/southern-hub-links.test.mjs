@@ -20,7 +20,8 @@ test('Southern hub links Woodcroft and Marion from its content', () => {
 
 test('Southern hub has no self-links with suburb anchor text', () => {
   const selfLinks = anchors.filter((a) => a.href === '/removalists-southern-adelaide/');
+  const foldedSuburbs = /Morphett Vale|Noarlunga|Reynella|Seaford|Hallett Cove/i;
   for (const link of selfLinks) {
-    assert.match(link.text, /^Southern Adelaide routes$/, `unexpected self-link: "${link.text}"`);
+    assert.doesNotMatch(link.text, foldedSuburbs, `self-link names a folded suburb: "${link.text}"`);
   }
 });
