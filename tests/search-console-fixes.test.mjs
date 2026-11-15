@@ -119,10 +119,10 @@ test('generated sitemap and canonicals stay on the apex host', () => {
   assert.doesNotMatch(sitemap, /https:\/\/www\.zqremovals\.au\//);
   assert.match(sitemap, /<sitemapindex/);
   assert.match(homepage, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/" \/>/);
-  assert.match(homepage, /<title>Adelaide Removalists \| Home &amp; Interstate Moves \| ZQ Removals<\/title>/);
+  assert.match(homepage, /<title>Adelaide Removalists &amp; Moving Company \| ZQ Removals<\/title>/);
   assert.match(
     homepage,
-    /<meta name="description" content="Adelaide removalists for houses, apartments, furniture and interstate moves\. Published crew rates from \$75 per 30 min\. Call 0433 819 989 or request a quote\." \/>/,
+    /<meta name="description" content="Adelaide removalists for home, furniture, office and interstate moves\. Compare crew rates and applicable travel charges, or request a quote\. Call 0433 819 989\." \/>/,
   );
   assert.match(
     interstateHub,
@@ -131,9 +131,9 @@ test('generated sitemap and canonicals stay on the apex host', () => {
   assert.match(robots, /Sitemap: https:\/\/zqremovalsadelaide\.com\.au\/sitemap\.xml/);
   assert.match(llms, /Website: https:\/\/zqremovalsadelaide\.com\.au/);
   assert.match(llms, /Priority money pages:/);
-  assert.match(llms, /\[Removalists Adelaide \| Local Moving Services \| ZQ Removals\]\(https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide\/\)/);
+  assert.match(llms, /\[Local Removalists Adelaide \| Suburbs & Access \| ZQ Removals\]\(https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide\/\)/);
   assert.match(llms, /Best pages by task:/);
-  assert.match(llms, /\[Quote request: Removalists Adelaide \| Local Moving Services \| ZQ Removals\]\(https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide\/\)/);
+  assert.match(llms, /\[Quote request: Local Removalists Adelaide \| Suburbs & Access \| ZQ Removals\]\(https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide\/\)/);
   assert.match(llms, /\[Packing help: Packing Services Adelaide \| Professional Packing Help\]\(https:\/\/zqremovalsadelaide\.com\.au\/packing-services-adelaide\/\)/);
   assert.match(llms, /Best entry pages:/);
   assert.match(ai, /Entity: ZQ Removals/);
@@ -989,10 +989,10 @@ test('homepage targets Adelaide removalists and keeps above-fold conversion cont
   const homepage = readDist('index.html');
   const hero = homepage.match(/<section class="zqh-hero[\s\S]*?<\/section>/i)?.[0] || '';
 
-  assert.match(homepage, /<title>Adelaide Removalists \| Home &amp; Interstate Moves \| ZQ Removals<\/title>/);
-  assert.match(homepage, /<meta name="description" content="Adelaide removalists for houses, apartments, furniture and interstate moves\. Published crew rates from \$75 per 30 min\. Call 0433 819 989 or request a quote\."/i);
+  assert.match(homepage, /<title>Adelaide Removalists &amp; Moving Company \| ZQ Removals<\/title>/);
+  assert.match(homepage, /<meta name="description" content="Adelaide removalists for home, furniture, office and interstate moves\. Compare crew rates and applicable travel charges, or request a quote\. Call 0433 819 989\."/i);
   assert.match(hero, /<h1\b[^>]*>\s*Removalists Adelaide\b[\s\S]*?<\/h1>/);
-  assert.match(hero, /Your Adelaide removalists for local and interstate moves/i);
+  assert.match(hero, /Your Adelaide removalists for home, furniture, office and interstate moves/i);
   assert.match(hero, /href="#quote-form"[^>]*>Get a Free Quote/i);
   assert.match(hero, /href="tel:\+61433819989"/);
   assert.match(hero, new RegExp(String.raw`${googleReviews.rating.toFixed(1)}[\s\S]*from ${googleReviews.reviewCount}[\s\S]*Google reviews`, 'i'));
@@ -1124,12 +1124,12 @@ test('removalists Adelaide hub has focused intent, schema, CTA and supporting in
   const firstSection = main.match(/<section\b[\s\S]*?<\/section>/i)?.[0] || '';
 
   assert.equal((main.match(/<h1\b/gi) || []).length, 1);
-  assert.match(html, /<title>Removalists Adelaide \| Local Moving Services \| ZQ Removals<\/title>/i);
+  assert.match(html, /<title>Local Removalists Adelaide \| Suburbs &amp; Access \| ZQ Removals<\/title>/i);
   assert.match(html, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide\/"/i);
   assert.match(html, /"@type":"BreadcrumbList"|"@type": "BreadcrumbList"/i);
   assert.match(html, /"@type":"Service"|"@type": "Service"/i);
   assert.doesNotMatch(html, /AggregateRating|aggregateRating|reviewCount|ratingValue/i);
-  assert.match(firstSection, /removalists in Adelaide/i);
+  assert.match(firstSection, /local movers in Adelaide/i);
   assert.match(firstSection, /house moves[\s\S]*apartment moves[\s\S]*furniture removals[\s\S]*office relocations[\s\S]*packing support[\s\S]*interstate/i);
   assert.match(firstSection, /inventory[\s\S]*stairs[\s\S]*lifts[\s\S]*parking[\s\S]*timing[\s\S]*fragile/i);
   assert.match(main, /How to choose removalists in Adelaide/i);

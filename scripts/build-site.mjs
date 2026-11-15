@@ -201,8 +201,8 @@ const verifiedPricingMetadata = new Map([
     description: 'Office removalists in Adelaide for offices, clinics and studios. Lift and dock checks, IT equipment care, restart planning. Crew rates from $75/30 min.',
   }],
   ['cheap-removalists-adelaide/index.html', {
-    title: 'Cheap Removalists Adelaide | Cut Moving Time | ZQ Removals',
-    description: 'Cheap or budget removalists in Adelaide? Cut moving time with prepared boxes, clear access and an inventory, and compare ZQ published rates before you book.',
+    title: 'Cheap & Affordable Removalists Adelaide | ZQ Removals',
+    description: 'Planning an affordable Adelaide move? Compare ZQ crew rates, applicable travel charges and practical ways to reduce moving time before requesting a budget quote.',
   }],
   ['budget-removalists-adelaide/index.html', {
     title: 'Budget Removalists Adelaide | Efficient Planning | ZQ Removals',
