@@ -1,10 +1,11 @@
 import { readFileSync, existsSync } from 'node:fs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { visibleText } from './helpers/html-text.mjs';
 
 const routes = ['/', '/removalists-adelaide/', '/cheap-removalists-adelaide/', '/removalists-adelaide-prices/'];
 const read = route => readFileSync(`site-dist/${route === '/' ? '' : route.slice(1)}index.html`, 'utf8');
-const text = html => html.replace(/<script\b[\s\S]*?<\/script>/gi, '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ');
+const text = html => visibleText(html).replace(/\s+/g, ' ');
 
 test('commercial entry pages retain distinct primary titles and customer intent', () => {
   const titles = routes.map(route => read(route).match(/<title>(.*?)<\/title>/)[1]);
