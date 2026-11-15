@@ -169,7 +169,7 @@ const verifiedPricingMetadata = new Map([
     description: 'Somerton Park West removalists for beachside streets and apartments. Plan access, inventory and timing with a clear moving quote.',
   }],
   ['removalists-hyde-park/index.html', {
-    title: 'Hyde Park Removalists | $75/30 min Local Movers | ZQ Removals',
+    title: 'Hyde Park Removalists | Local Home Movers | ZQ Removals',
     description: 'Local removalists for Hyde Park houses, units and furniture. 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. Call-out/travel may apply.',
   }],
   ['removalists-adelaide-cbd/index.html', {
@@ -177,7 +177,7 @@ const verifiedPricingMetadata = new Map([
     description: 'Removalists Adelaide CBD for apartment, office and furniture moves. Plan lift bookings, loading zones, parking and access before requesting a clear quote.',
   }],
   ['removalists-unley-park/index.html', {
-    title: 'Unley Park Removalists | Homes & Townhouses | ZQ Removals',
+    title: 'Unley Park Removalists | Local Home Moves | ZQ Removals',
     description: 'Unley Park removalists for homes, townhouses and furniture. Share parking, stairs and fragile items for a quote. 2 men + truck from $75 per 30 min.',
   }],
   ['same-day-removalists-adelaide/index.html', {

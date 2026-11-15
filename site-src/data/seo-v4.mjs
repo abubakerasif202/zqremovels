@@ -978,7 +978,7 @@ const suburbSeoOverrides = {
     description: 'Glenelg removalists for coastal apartments and homes near Jetty Road and Anzac Highway, with parking, loading and furniture access planned early.',
   },
   'hyde-park': {
-    title: 'Hyde Park Removalists | $75 and $89 | ZQ Removals',
+    title: 'Hyde Park Removalists | Local Home Movers | ZQ Removals',
     description: 'Hyde Park removalists for character homes and street parking. 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. Call-out may apply.',
   },
   'malvern': {
@@ -990,7 +990,7 @@ const suburbSeoOverrides = {
     description: 'Brighton SA removalists for family homes and apartments. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply.',
   },
   'medindie': {
-    title: 'Medindie Removalists | $75 and $89 | ZQ Removals',
+    title: 'Medindie Removalists | Local House Movers | ZQ Removals',
     description: 'Medindie removalists for larger homes. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply. Send access details.',
   },
   'colonel-light-gardens': {
@@ -1010,7 +1010,7 @@ const suburbSeoOverrides = {
     description: 'Mount Barker removalists for Adelaide Hills homes and metro-to-Hills moves, with freeway routing, property access and larger inventories planned.',
   },
   'unley-park': {
-    title: 'Unley Park Removalists | $75 and $89 | ZQ Removals',
+    title: 'Unley Park Removalists | Local Home Moves | ZQ Removals',
     description: 'Unley Park removalists for homes and townhouses. 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. Share parking and stairs for a quote.',
   },
   'toorak-gardens': {

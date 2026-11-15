@@ -344,11 +344,11 @@ test('homepage pricing cluster links to Adelaide prices page for crawl discovery
 
 test('priority suburb and interstate pages use the requested high-intent metadata', () => {
   const expectations = [
-    ['removalists-hyde-park/index.html', /Hyde Park Removalists \| \$75 and \$89 \| ZQ Removals/i, /Hyde Park removalists for character homes and street parking/i],
+    ['removalists-hyde-park/index.html', /Hyde Park Removalists \| Local Home Movers \| ZQ Removals/i, /Hyde Park removalists for character homes and street parking/i],
     ['removalists-malvern/index.html', /Removalists Malvern, Adelaide, SA 5061 \| ZQ Removals/i, /Malvern, Adelaide, SA 5061 removalists for villas and townhouses/i],
     ['removalists-unley/index.html', /Removalists Unley \| Villa &(?:amp;)? Townhouse Movers \| ZQ Removals/i, /Unley removalists for character homes, apartments and townhouses/i],
-    ['removalists-unley-park/index.html', /Unley Park Removalists \| \$75 and \$89 \| ZQ Removals/i, /Unley Park removalists for homes and townhouses/i],
-    ['removalists-medindie/index.html', /Medindie Removalists \| \$75 and \$89 \| ZQ Removals/i, /Medindie removalists for larger homes/i],
+    ['removalists-unley-park/index.html', /Unley Park Removalists \| Local Home Moves \| ZQ Removals/i, /Unley Park removalists for homes and townhouses/i],
+    ['removalists-medindie/index.html', /Medindie Removalists \| Local House Movers \| ZQ Removals/i, /Medindie removalists for larger homes/i],
     ['adelaide-to-sydney-removalists/index.html', /Adelaide to Sydney Removalists/i, /Adelaide to Sydney removalists/i],
     ['adelaide-to-brisbane-removals/index.html', /Adelaide to Brisbane Removalists \| Interstate Movers/i, /Adelaide to Brisbane removalists/i],
     ['adelaide-to-melbourne-removalists/index.html', /Adelaide to Melbourne Removalists/i, /Adelaide to Melbourne removalists/i],
