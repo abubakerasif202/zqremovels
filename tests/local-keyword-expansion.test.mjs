@@ -12,7 +12,7 @@ test('commercial entry pages retain distinct primary titles and customer intent'
   assert.match(titles[0], /Adelaide Removalists.*Moving Company/);
   assert.match(titles[1], /Local Removalists Adelaide/);
   assert.match(titles[2], /Cheap.*Affordable Removalists Adelaide/);
-  assert.match(titles[3], /Prices.*Hourly Rates/);
+  assert.match(titles[3], /Prices.*Truck Rates/);
   assert.match(text(read('/removalists-adelaide/')), /both suburbs and postcodes/);
   assert.match(text(read('/cheap-removalists-adelaide/')), /total cost, not just the advertised rate/);
 });

@@ -483,3 +483,7 @@ One primary customer intent per existing canonical page, inferred from its exist
 | /removalists-woodcroft/ | Woodcroft Removalists |
 | /same-day-removalists-adelaide/ | Same Day Removalists Adelaide |
 | /services/piano-movers-adelaide/ | Piano Movers Adelaide |
+
+## Release integration
+
+Latest `main` was merged before release. Its pricing-page title, `Removalists Adelaide Prices | Truck Rates | ZQ Removals`, and updated crew/truck explanations are preserved. The prices-page targeting assertion now follows that approved title while retaining distinct pricing intent. The Google Maps identity, review-writing link, content-history sitemap dates and Southern hub corrections from main are also preserved. Review snapshot is now owner-confirmed 5.0 from 100 reviews; the new homepage card links to the supplied Google profile. Earlier report metadata and checks above describe the initial isolated implementation; release checks are rerun against the integrated revision.
