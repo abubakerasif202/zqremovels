@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 
-const googleProfileUrl = 'https://share.google/toaQ1pTUMpigxRuQM';
+const googleProfileUrl = 'https://share.google/afUxDQxO7PBWGSsxP';
 const googleReviewUrl = 'https://g.page/r/Cb5kWH_Fcs9LEBM/review';
 // Google Maps listing for "ZQ Removals Adelaide" (owner-supplied share link maps.app.goo.gl/jFEKZGFdYLNTEPec6),
 // stored in its stable CID form so the URL carries no session or tracking parameters.
@@ -49,7 +49,7 @@ export const businessIdentity = {
 
 // Rating and review count come from google-reviews.json, which scripts/update-google-reviews.mjs refreshes from the
 // Google Places API. The fallback below is used only if that file is missing or invalid.
-const googleReviewsFallback = { rating: 5.0, reviewCount: 94 };
+const googleReviewsFallback = { rating: 5.0, reviewCount: 100 };
 
 function readGoogleReviewsData() {
   try {

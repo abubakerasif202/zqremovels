@@ -1014,7 +1014,7 @@ const suburbSeoOverrides = {
     description: 'Glenelg removalists for coastal apartments and homes near Jetty Road and Anzac Highway, with parking, loading and furniture access planned early.',
   },
   'hyde-park': {
-    title: 'Hyde Park Removalists | $75 and $89 | ZQ Removals',
+    title: 'Hyde Park Removalists | Local Home Movers | ZQ Removals',
     description: 'Hyde Park removalists for character homes and street parking. 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. Call-out may apply.',
   },
   'malvern': {
@@ -1026,7 +1026,7 @@ const suburbSeoOverrides = {
     description: 'Brighton SA removalists for family homes and apartments. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply.',
   },
   'medindie': {
-    title: 'Medindie Removalists | $75 and $89 | ZQ Removals',
+    title: 'Medindie Removalists | Local House Movers | ZQ Removals',
     description: 'Medindie removalists for larger homes. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply. Send access details.',
   },
   'colonel-light-gardens': {
@@ -1046,7 +1046,7 @@ const suburbSeoOverrides = {
     description: 'Mount Barker removalists for Adelaide Hills homes and metro-to-Hills moves, with freeway routing, property access and larger inventories planned.',
   },
   'unley-park': {
-    title: 'Unley Park Removalists | $75 and $89 | ZQ Removals',
+    title: 'Unley Park Removalists | Local Home Moves | ZQ Removals',
     description: 'Unley Park removalists for homes and townhouses. 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. Share parking and stairs for a quote.',
   },
   'toorak-gardens': {
@@ -1621,9 +1621,9 @@ const affordableRemovalistsFaqItems = [
 const commercialPages = [
   {
     slug: 'cheap-removalists-adelaide',
-    title: 'Cheap Removalists Adelaide | Transparent Rates | ZQ Removals',
+    title: 'Cheap & Affordable Removalists Adelaide | ZQ Removals',
     description:
-      'Cheap removalists Adelaide with transparent hourly rates, careful furniture handling and clearly disclosed applicable call-out or travel charges.',
+      'Planning an affordable Adelaide move? Compare ZQ crew rates, applicable travel charges and practical ways to reduce moving time before requesting a budget quote.',
     canonical: '/cheap-removalists-adelaide/',
     type: 'money',
     hero: 'Affordable pricing works best when access, inventory, and timing are scoped clearly before the truck is booked.',
@@ -6002,7 +6002,7 @@ const priorityCommercialProfiles = {
       { type: 'text', module: 'pricing-compare-quotes', eyebrow: 'Removalist cost and quotes', heading: 'How to compare removal quotes in Adelaide', intro: 'A fair comparison starts with the same brief for every company.', paragraphs: [
         'When you ask for removal quotes, give each company the same inventory, the same access notes for both addresses and the same moving date. Then compare the crew size, the hourly or half-hourly rate, how the call-out or travel charge is treated and what is excluded.',
         'ZQ Removals publishes its rates so the first two are easy to check: $75 per 30 minutes for 2 men and a truck, and $89 per 30 minutes for 3 men and a truck. Ask any other removalist how a part-increment is counted and whether travel is charged, because those two terms change the total as much as the headline rate does.',
-        'If you are working to a budget, the quickest saving is less time on site: boxes packed and labelled, furniture dismantled in advance and a short, clear carry from the truck to the door. The cheap removalists page covers those steps.',
+        'If you are working to a budget, the quickest saving is less time on site: boxes packed and labelled, furniture dismantled in advance and a short, clear carry from the truck to the door. The affordable moving guide linked below explains those preparation steps.',
       ] },
       { type: 'text', module: 'move-planning', eyebrow: 'What changes the total', heading: 'What changes the time on site', intro: 'The rate is fixed. The time on site is the variable.', paragraphs: [
         'These are time-based rates, not a fixed total for every move. Volume, stairs, lifts, parking, carry distance and packing change the time, and a prepared inventory with clear access shortens the job.',
@@ -6020,14 +6020,14 @@ const priorityCommercialProfiles = {
     ],
     links: [
       { href: '/adelaide-moving-guides/removalists-cost-adelaide/', label: 'Moving cost guide: what drives moving time' },
-      { href: '/cheap-removalists-adelaide/', label: 'Cheap and budget moves: how to cut moving time' },
+      { href: '/cheap-removalists-adelaide/', label: 'Affordable moving guide: prepare a budget move' },
       { href: '/removalists-adelaide/', label: 'Removalists Adelaide' },
       { href: '/office-removals-adelaide/', label: 'Office removalists Adelaide' },
     ],
   },
   'cheap-removalists-adelaide': {
-    h1: 'Cheap removalists Adelaide: cut your moving time',
-    lead: 'The cheapest move is usually the shortest one. Here is how to prepare so a crew charged by the half hour spends its time moving, not waiting, searching or carrying further than it has to.',
+    h1: 'Affordable removalists Adelaide: plan a budget move',
+    lead: 'Looking for cheap removalists in Adelaide? Start with the total cost, not just the advertised rate. These preparation steps can help our crew spend more time moving and less time waiting, while keeping your budget and handling needs in view.',
     blocks: [
       { type: 'text', module: 'move-planning', eyebrow: 'Practical ways to prepare', heading: 'Ways to keep a move short', intro: 'Each of these removes time from the job.', paragraphs: [
         'Pack and label boxes before the crew arrives, and keep essentials separate. Make a room-by-room furniture list and arrange any dismantling before moving day.',
@@ -6043,8 +6043,9 @@ const priorityCommercialProfiles = {
     ],
     faqs: [
       { question: 'How can I reduce the cost of a removalist in Adelaide?', answer: 'Reduce the time on site. Pack and label before the crew arrives, dismantle what you can, arrange legal loading access and keep the path from the truck to the door clear.' },
+      { question: 'Can packing services help with a budget move?', answer: 'Tell us which rooms or fragile items need packing and which boxes you will prepare yourself. Ask for packing work and materials to be identified in your quote so you can compare that scope with a move-only enquiry.' },
       { question: 'Does ZQ Removals publish its rates?', answer: 'Yes. 2 men and a truck is $75 per 30 minutes and 3 men and a truck is $89 per 30 minutes, with a 1-hour call-out/travel charge where applicable.' },
-      { question: 'Is the cheapest quote always the best value?', answer: 'Not necessarily. Compare the same inventory, access, crew size and charges, and ask what is excluded before you decide.' },
+      { question: 'How do I compare affordable movers near me?', answer: 'Give each mover the same pickup and delivery suburbs, inventory and access details. Compare crew size, estimated time, packing scope, travel or call-out charges and exclusions before choosing a quote.' },
     ],
     links: [
       { href: '/removalists-adelaide-prices/', label: 'Removalists Adelaide prices and rates' },

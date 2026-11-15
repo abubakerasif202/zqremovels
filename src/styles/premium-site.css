@@ -12191,3 +12191,95 @@ body.page-home .zqh .truck-selection .hero-crew select { background: #0d2638; co
 @media (min-width: 621px) {
   body.page-home .zqh .zqh-hero .hero-inputs-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
+
+/* Homepage review highlight: continuous, compositor-only glow with user controls. */
+body.page-home .zqh .zqh-review-highlight {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: 390px;
+  margin-top: 28px;
+  padding: 18px 20px 10px;
+  border: 2px solid #b8f229;
+  border-radius: 18px;
+  background: #071421;
+  color: #f6f8f2;
+}
+body.page-home .zqh .zqh-review-highlight::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  z-index: -1;
+  border-radius: inherit;
+  box-shadow: 0 0 24px 5px rgba(184, 242, 41, .38);
+  pointer-events: none;
+  animation: zqh-review-glow 5s ease-in-out infinite alternate;
+}
+@keyframes zqh-review-glow {
+  from { opacity: .25; }
+  to { opacity: .85; }
+}
+body.page-home .zqh .zqh-hero .zqh-review-highlight .google-review-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #f6f8f2;
+  text-decoration: none;
+}
+body.page-home .zqh .zqh-review-highlight .zqh-review-eyebrow {
+  color: #d8e2e8;
+  font-size: 13px;
+  font-weight: 600;
+}
+body.page-home .zqh .zqh-review-highlight .google-review-stars {
+  color: #ffdb70;
+  font-size: 24px;
+  letter-spacing: 4px;
+}
+body.page-home .zqh .zqh-review-highlight .zqh-review-score {
+  font-size: 15px;
+  line-height: 1.5;
+}
+body.page-home .zqh .zqh-hero .zqh-review-highlight .zqh-review-score strong {
+  color: #ffdb70;
+  font-size: 30px;
+  white-space: nowrap;
+}
+body.page-home .zqh .zqh-review-highlight .zqh-review-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #b8f229;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+body.page-home .zqh .zqh-review-highlight .zqh-review-link svg { width: 18px; height: 18px; }
+body.page-home .zqh .zqh-review-motion {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  width: fit-content;
+  margin-top: 4px;
+  color: #d8e2e8;
+  font-size: 12px;
+  cursor: pointer;
+}
+body.page-home .zqh .zqh-review-motion input { width: 18px; height: 18px; accent-color: #b8f229; }
+body.page-home .zqh .zqh-review-highlight:has(input:checked)::before,
+body.page-home .zqh .zqh-review-highlight:hover::before,
+body.page-home .zqh .zqh-review-highlight:focus-within::before { animation-play-state: paused; }
+body.page-home .zqh .zqh-review-highlight a:focus-visible,
+body.page-home .zqh .zqh-review-motion input:focus-visible { outline: 3px solid #ffdb70; outline-offset: 5px; }
+@media (prefers-reduced-motion: reduce) {
+  body.page-home .zqh .zqh-review-highlight::before { animation: none; opacity: .35; }
+  body.page-home .zqh .zqh-review-motion { display: none; }
+}

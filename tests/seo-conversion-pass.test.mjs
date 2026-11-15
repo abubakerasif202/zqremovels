@@ -48,7 +48,7 @@ test('homepage targets Adelaide removalists with the premium template conversion
   );
   assert.match(
     homepage,
-    /Your Adelaide removalists for local and interstate moves/i,
+    /Your Adelaide removalists for home, furniture, office and interstate moves/i,
   );
   assert.match(homepage, /href="tel:\+61433819989"/i);
   assert.equal((homepage.match(/data-service-card/g) || []).length, 6);
