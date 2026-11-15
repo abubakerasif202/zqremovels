@@ -1,0 +1,52 @@
+{
+  "baselineCommit": "1a2ab02",
+  "before": [
+    {
+      "output": "removalists-pennington/index.html",
+      "title": "Pennington Removalists | ZQ Removals",
+      "description": "Pennington removalists for mixed residential and industrial access. Share inventory, parking and access at both properties for a moving quote."
+    },
+    {
+      "output": "same-day-removalists-adelaide/index.html",
+      "title": "Same Day Removalists Adelaide | Urgent Movers | ZQ Removals",
+      "description": "Same day removalists Adelaide for urgent home and apartment moves. Fast response depends on schedule, access, and inventory review."
+    },
+    {
+      "output": "removalists-adelaide-prices/index.html",
+      "title": "Removalists Adelaide Prices & Hourly Rates | ZQ Removals",
+      "description": "Adelaide removalist prices: 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. See 30-minute billing, call-out/travel and hypothetical examples."
+    },
+    {
+      "output": "services/piano-movers-adelaide/index.html",
+      "title": "Piano Movers Adelaide | Piano Removalists | ZQ Removals",
+      "description": "Piano movers Adelaide for upright, grand and digital pianos. Send dimensions and access photos so handling can be confirmed before you book."
+    }
+  ],
+  "after": [
+    {
+      "output": "removalists-pennington/index.html",
+      "title": "Pennington Removalists | ZQ Removals",
+      "description": "Pennington removalists for mixed residential and industrial access. Share inventory, parking and access at both properties for a moving quote."
+    },
+    {
+      "output": "same-day-removalists-adelaide/index.html",
+      "title": "Same Day Removalists Adelaide | Urgent Movers | ZQ Removals",
+      "description": "Same day removalists Adelaide for urgent home and apartment moves. Fast response depends on schedule, access, and inventory review."
+    },
+    {
+      "output": "removalists-adelaide-prices/index.html",
+      "title": "Removalists Adelaide Prices | Truck Rates | ZQ Removals",
+      "description": "Compare Adelaide small truck $65/30 min and large truck $75 or $89/30 min packages. Confirm crew, call-out/travel and inclusions in your quote."
+    },
+    {
+      "output": "services/piano-movers-adelaide/index.html",
+      "title": "Piano Movers Adelaide | Piano Removalists | ZQ Removals",
+      "description": "Piano movers Adelaide for upright, grand and digital pianos. Send dimensions and access photos so handling can be confirmed before you book."
+    }
+  ],
+  "unchangedOffice": {
+    "title": "Office Removalists Adelaide | Business Moves | ZQ Removals",
+    "description": "Office removalists in Adelaide for offices, clinics and studios. Lift and dock checks, IT equipment care, restart planning. Crew rates from $75/30 min.",
+    "reason": "Existing final generator snippet already describes access and restart intent; body handoff clarification is more useful than an arbitrary snippet rewrite."
+  }
+}

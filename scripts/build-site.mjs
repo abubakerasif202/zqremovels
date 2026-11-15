@@ -7,7 +7,8 @@ import esbuild from 'esbuild';
 import browserslist from 'browserslist';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 import { PurgeCSS } from 'purgecss';
-import { createSitemapLastmodResolver } from './sitemap-lastmod.mjs';
+import { validateLastmod } from './sitemap-lastmod.mjs';
+import { resolveContentLastmod } from './sitemap-content-history.mjs';
 import {
   buildCanonical,
   buildDescription,
@@ -20,6 +21,7 @@ import {
   buildTwitterTags,
   businessIdentifiers,
   getGeneratedPages,
+  getLiveSuburbDirectory,
   getRouteCoverageReport,
   getSeoV5IntentProfile,
   getSuburbLinkProfile,
@@ -29,12 +31,11 @@ import {
   seoConfig,
   zqServiceSitemapOutputs,
 } from '../site-src/data/seo-v4.mjs';
-import { buildPostalAddressSchema, businessIdentity, googleReviewCards, googleReviews } from '../site-src/data/business.mjs';
+import { buildPostalAddressSchema, businessIdentity, googleReviewCards, googleReviews, movingRates } from '../site-src/data/business.mjs';
 import { zqSuburbGeoData } from '../site-src/data/zq-suburbs.mjs';
 import { getGoogleMapsBrowserConfig } from '../site-src/data/maps.mjs';
 
 const projectRoot = process.cwd();
-const resolveSitemapLastmod = createSitemapLastmodResolver(projectRoot);
 const buildQueueKey = Symbol.for('zqremovals.build-site.queue');
 export const srcRoot = path.join(projectRoot, 'site-src');
 const distRoot = path.join(projectRoot, 'site-dist');
@@ -143,7 +144,6 @@ const preferredSiteOrigin = seoConfig.siteUrl;
 const legacySiteOrigin = seoConfig.siteUrl;
 const defaultSocialImage = seoConfig.defaultOgImage;
 const defaultLogoImage = seoConfig.defaultLogo;
-const googleBusinessProfileUrl = businessIdentity.socialProfiles[0];
 const companySameAsProfiles = businessIdentity.socialProfiles;
 const confirmedTrustCredentialText = `${businessIdentity.name} ABN ${businessIdentifiers.abnFormatted}. Ask about current cover details, building requirements, and move protection before booking.`;
 
@@ -1955,6 +1955,7 @@ const seoSupportProfiles = {
     supportLinks: [
       { url: '/interstate-removals-adelaide/', label: 'Return to the interstate removals hub' },
       { url: '/packing-services-adelaide/', label: 'Add interstate packing support' },
+      { url: '/removalists-queens-park/', label: 'Moving from Queens Park NSW to Adelaide' },
     ],
   },
   'removalists-adelaide-cbd/index.html': {
@@ -2410,7 +2411,7 @@ const seoSupportProfiles = {
     ],
     supportLinks: [
       { url: '/packing-services-adelaide/', label: 'Add packing support for longer southern routes' },
-      { url: '/removalists-reynella/', label: 'Use Reynella for family-home and southern junction routes' },
+      { url: '/removalists-woodcroft/', label: 'Use Woodcroft for family-home and storage moves in the southern corridor' },
       { url: '/removalists-adelaide/', label: 'Return to the Adelaide removals hub' },
     ],
   },
@@ -2818,6 +2819,7 @@ export async function runLegacyGenerator() {
     await writeFile(path.join(distRoot, 'llms.txt'), `${renderLLMsTxt(pages)}\n`, 'utf8');
     await writeFile(path.join(distRoot, 'llms-full.txt'), `${renderLLMsFullTxt(pages)}\n`, 'utf8');
     await writeFile(path.join(distRoot, 'ai.txt'), `${renderAiTxt()}\n`, 'utf8');
+    await writeFile(path.join(distRoot, 'pricing.md'), `${renderPricingMarkdown()}\n`, 'utf8');
     await writeFile(
       path.join(distRoot, 'robots.txt'),
       `User-agent: *\nAllow: /\nSitemap: ${preferredSiteOrigin}/sitemap.xml\nSitemap: ${preferredSiteOrigin}/ai-sitemap.xml\n# AI crawler references:\n# ${preferredSiteOrigin}/llms.txt\n# ${preferredSiteOrigin}/llms-full.txt\n`,
@@ -3500,6 +3502,7 @@ function sanitizeTrustClaimText(value = '') {
     .replace(/\{\{\s*google\.rating\s*\}\}/gi, Number(googleReviews.rating).toFixed(1))
     .replace(/\{\{\s*google\.reviewCount\s*\}\}/gi, String(googleReviews.reviewCount))
     .replace(/\{\{\s*google\.profileUrl\s*\}\}/gi, googleReviews.profileUrl)
+    .replace(/\{\{\s*google\.reviewUrl\s*\}\}/gi, googleReviews.reviewUrl)
     .replace(/ABN and insurance details can be added here once confirmed by the business owner\./gi, confirmedTrustCredentialText)
     .replace(/Yes\. ZQ Removals is fully insured\. Your furniture is covered from the moment our team begins loading to the moment everything is placed in your new home\./gi, confirmedTrustCredentialText)
     .replace(/Yes\. All ZQ Removals interstate jobs are fully insured\. Ask for details when requesting your quote\./gi, confirmedTrustCredentialText)
@@ -3724,7 +3727,7 @@ function normalizeMovingCompanyNode(node, page) {
     email: businessIdentity.email,
     image: defaultSocialImage,
     logo: defaultLogoImage,
-    hasMap: googleBusinessProfileUrl,
+    hasMap: businessIdentity.mapsUrl,
     sameAs: Array.from(
       new Set([...companySameAsProfiles, googleReviews.profileUrl, ...sameAs].filter(Boolean)),
     ),
@@ -4284,9 +4287,11 @@ export function transformContent(content, page) {
   const serviceReviewStrip = renderServicePageReviewStrip(page);
 
   const localGeoSection = renderLocalGeoSection(page);
+  const suburbDirectory = renderSuburbDirectorySection(page);
 
   const supplementalSections = [
     localGeoSection,
+    suburbDirectory,
     commercialServiceCta,
     guideHubExpansion,
     serviceMoneyUpgrade,
@@ -6078,18 +6083,18 @@ function getRelatedLinksProfile(page) {
         'Choose the suburb page, service page, or guide that matches whether the route is coastal, family-home led, packing heavy, or interstate-ready.',
       links: [
         {
-          eyebrow: 'Coastal suburb',
-          title: 'Removalists Noarlunga',
-          copy: 'Use Noarlunga for coastal access, storage transitions, and southern corridor staging near beachside and mixed-use routes.',
-          url: '/removalists-noarlunga/',
-          cta: 'View Noarlunga',
+          eyebrow: 'Family-home suburb',
+          title: 'Removalists Woodcroft',
+          copy: 'Use Woodcroft for family-home loads and storage-linked moves around Woodcroft Town Centre in the southern corridor.',
+          url: '/removalists-woodcroft/',
+          cta: 'View Woodcroft',
         },
         {
-          eyebrow: 'Junction suburb',
-          title: 'Removalists Reynella',
-          copy: 'Use Reynella for fuller family-home loads, split-level access, and southern routes that may feed into interstate departures.',
-          url: '/removalists-reynella/',
-          cta: 'View Reynella',
+          eyebrow: 'South-west suburb',
+          title: 'Removalists Marion',
+          copy: 'Use Marion for south-west routes that mix household furniture with stock or appliances and need tighter staging.',
+          url: '/removalists-marion/',
+          cta: 'View Marion',
         },
         {
           eyebrow: 'Residential service',
@@ -6606,13 +6611,6 @@ function getRelatedLinksProfile(page) {
             cta: 'View Glenelg',
           },
           {
-            eyebrow: 'Southern coastal suburb',
-            title: 'Removalists Noarlunga',
-            copy: 'Open Noarlunga for southern coastal access, storage-linked routes, and broader southbound staging.',
-            url: '/removalists-noarlunga/',
-            cta: 'View Noarlunga',
-          },
-          {
             eyebrow: 'South corridor hub',
             title: 'Southern Adelaide removals',
             copy: 'Use the southern hub when the beachside route is part of a broader southern-corridor move brief.',
@@ -6741,6 +6739,41 @@ ${points.map((point) => `    <li>${escapeHtml(point)}</li>`).join('\n')}
     </div>
     <div class="value-grid">
 ${cards}
+    </div>
+  </div>
+</section>`;
+}
+
+// The Adelaide hub links every live suburb page once, grouped by region, so no suburb page
+// depends on a single nearby-suburb card for its only internal link.
+function renderSuburbDirectorySection(page) {
+  if (page.output !== 'removalists-adelaide/index.html') {
+    return '';
+  }
+
+  const groups = getLiveSuburbDirectory();
+  if (groups.length === 0) {
+    return '';
+  }
+
+  const groupMarkup = groups
+    .map(({ key, label, suburbs }) => `      <div class="suburb-directory-group">
+        <h3 id="suburb-directory-${escapeAttribute(key)}">${escapeHtml(label)}</h3>
+        <ul aria-labelledby="suburb-directory-${escapeAttribute(key)}">
+${suburbs.map(({ suburb, href }) => `          <li><a href="${escapeAttribute(href)}">${escapeHtml(suburb)}</a></li>`).join('\n')}
+        </ul>
+      </div>`)
+    .join('\n');
+
+  return `<section class="section section-soft suburb-directory" data-generated-module="suburb-directory" aria-labelledby="suburb-directory-title">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow">Removalists by suburb</span>
+      <h2 id="suburb-directory-title">Adelaide suburbs with their own moving page</h2>
+      <p class="lede">Each suburb page covers the access, parking and move types that usually shape a quote there. Moving somewhere that is not listed? <a href="/contact-us/#quote-form">Send both addresses for a quote</a>. Moving in from interstate? See the notes for <a href="/removalists-queens-park/">moves from Queens Park NSW to Adelaide</a>.</p>
+    </div>
+    <div class="suburb-directory-grid">
+${groupMarkup}
     </div>
   </div>
 </section>`;
@@ -6933,7 +6966,6 @@ async function copyStaticAssets() {
     'favicon.png',
     'apple-touch-icon.png',
     'manifest.json',
-    'pricing.md',
     'robots.txt',
     'zq-removals-social-share.png',
     'zq-removals-social-share.webp',
@@ -7184,6 +7216,41 @@ function renderLLMsFullTxt() {
   ].join('\n');
 }
 
+// pricing.md is the pricing reference linked from llms.txt. It is generated from the shared business data so
+// the rates and ABN cannot drift from the rest of the site (a hand-maintained copy previously published a
+// superseded pricing model and an invalid ABN).
+function renderPricingMarkdown() {
+  return [
+    `# Pricing — ${seoConfig.businessName}`,
+    '',
+    `${seoConfig.businessName} publishes its Adelaide crew rates. The final cost depends on how long the move takes, so each quote is reviewed against the move brief before booking.`,
+    '',
+    '## Published rates',
+    `- **2 men and a truck:** ${movingRates.twoMenAndTruck}`,
+    `- **3 men and a truck:** ${movingRates.threeMenAndTruck}`,
+    `- **Call-out/travel:** ${movingRates.travelCharge}`,
+    '',
+    `Full rate table and inclusions: ${seoConfig.siteUrl}/removalists-adelaide-prices/`,
+    '',
+    '## What changes the time a move takes',
+    '- **Property type and volume:** inventory size, bulky or fragile items, and the crew size needed.',
+    '- **Access:** stairs, lifts and lift bookings, parking position, and carry distance to the truck.',
+    '- **Route:** local Adelaide moves versus interstate routes, and any storage or extra stops.',
+    '- **Packing and handling:** packing support and protection needs are scoped in the move brief.',
+    '- **Timing:** requested dates and windows are checked against crew availability.',
+    '',
+    '## How to get a quote',
+    `- **Quote form:** ${seoConfig.siteUrl}/contact-us/#quote-form`,
+    `- **Phone:** ${seoConfig.phone}`,
+    `- **Email:** ${businessIdentity.email}`,
+    '',
+    '## Quote clarity',
+    '- **Written scope:** the quote reflects the inventory, access, route, packing and timing details supplied.',
+    '- **Scope changes:** if the brief changes, the quote may need to be reviewed before the move is confirmed.',
+    `- **ABN:** ${businessIdentifiers.abnFormatted}`,
+  ].join('\n');
+}
+
 function renderAiTxt() {
   return [
     `Entity: ${seoConfig.businessName}`,
@@ -7212,6 +7279,7 @@ function renderAiTxt() {
 }
 
 async function renderSitemaps(pages, renderedHtmlByOutput = new Map()) {
+  const history = JSON.parse(await readFile(path.join(srcRoot, 'data', 'sitemap-content-history.json'), 'utf8'));
   const grouped = {
     'sitemap-pages.xml': [],
     'sitemap-services.xml': [],
@@ -7228,7 +7296,8 @@ async function renderSitemaps(pages, renderedHtmlByOutput = new Map()) {
     const canonicalLoc = String(page.canonical || '').trim();
     if (!canonicalLoc || seenCanonicalLocs.has(canonicalLoc)) continue;
     seenCanonicalLocs.add(canonicalLoc);
-    const lastmod = await getPageLastmod(page);
+    const html = renderedHtmlByOutput.get(page.output.replace(/\\/g, '/'));
+    const lastmod = html ? validateLastmod(resolveContentLastmod(history, canonicalLoc, html)) : undefined;
     const entry = `  <url>
     <loc>${escapeHtml(canonicalLoc)}</loc>
     ${lastmod ? `<lastmod>${lastmod}</lastmod>` : ''}
@@ -7311,29 +7380,6 @@ ${indexEntries.join('\n')}
 </sitemapindex>
 `;
   return files;
-}
-
-async function getPageLastmod(page) {
-  const sourcePaths = [];
-
-  if (page.contentFile) {
-    sourcePaths.push(path.join(srcRoot, page.contentFile));
-  }
-
-  if (Array.isArray(page.lastmodSources)) {
-    for (const source of page.lastmodSources) {
-      sourcePaths.push(path.isAbsolute(source) ? source : path.join(projectRoot, source));
-    }
-  }
-
-  if (sourcePaths.length === 0 && page.generatedKind) {
-    sourcePaths.push(
-      path.join(projectRoot, 'site-src', 'data', 'seo-v4.mjs'),
-      path.join(projectRoot, 'scripts', 'build-site.mjs'),
-    );
-  }
-
-  return resolveSitemapLastmod(page, sourcePaths);
 }
 
 async function buildImageSitemapEntry(page, html, lastmod) {

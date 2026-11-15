@@ -4,7 +4,6 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
 import { readVercelConfig } from './helpers/vercel-config.mjs';
-import { createSitemapLastmodResolver } from '../scripts/sitemap-lastmod.mjs';
 
 const root = process.cwd();
 const distDir = path.join(root, 'site-dist');
@@ -320,32 +319,26 @@ test('surviving money pages stay substantial, image-backed, and cross-linked', (
 });
 
 
-test('generated-page lastmod follows committed source history and image sitemap uses real images', () => {
+test('generated-page lastmod follows the committed content history and image sitemap uses real images', () => {
   const suburbsSitemap = readDist('sitemap-suburbs.xml');
   const servicesSitemap = readDist('sitemap-services.xml');
   const imageSitemap = readDist('sitemap-images.xml');
-  const expectedLastmod = createSitemapLastmodResolver(root)({}, [
-    'site-src/data/seo-v4.mjs', 'site-src/data/zq-blog-guides.mjs',
-    'site-src/data/zq-internal-links.mjs', 'site-src/data/zq-seo-pages.mjs',
-    'site-src/data/zq-services.mjs', 'site-src/data/zq-suburbs.mjs',
-    'scripts/build-site.mjs',
-  ].map((source) => path.join(root, source)));
-
-  const semaphoreLastmod = suburbsSitemap.match(
-    /<loc>https:\/\/zqremovalsadelaide\.com\.au\/removalists-semaphore\/<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/,
-  );
-  const cheapLastmod = servicesSitemap.match(
-    /<loc>https:\/\/zqremovalsadelaide\.com\.au\/cheap-removalists-adelaide\/<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/,
+  // lastmod is driven by the persisted content fingerprint history, not by the
+  // commit date of shared source files (which is the HEAD commit on shallow CI
+  // checkouts and so changes on every push).
+  const history = JSON.parse(readFileSync(path.join(root, 'site-src/data/sitemap-content-history.json'), 'utf8')).pages;
+  const lastmodOf = (xml, loc) => xml.match(
+    new RegExp(`<loc>${loc.replaceAll('.', '\\.').replaceAll('/', '\\/')}</loc>\\s*<lastmod>([^<]+)</lastmod>`),
   );
 
-  if (expectedLastmod) {
-    assert.ok(semaphoreLastmod);
-    assert.ok(cheapLastmod);
-    assert.equal(semaphoreLastmod[1], expectedLastmod);
-    assert.equal(cheapLastmod[1], expectedLastmod);
-  } else {
-    assert.equal(semaphoreLastmod, null);
-    assert.equal(cheapLastmod, null);
+  for (const [xml, loc] of [
+    [suburbsSitemap, 'https://zqremovalsadelaide.com.au/removalists-semaphore/'],
+    [servicesSitemap, 'https://zqremovalsadelaide.com.au/cheap-removalists-adelaide/'],
+  ]) {
+    const found = lastmodOf(xml, loc);
+    assert.ok(found, `${loc} has a lastmod`);
+    assert.match(found[1], /^\d{4}-\d{2}-\d{2}$/);
+    assert.equal(found[1], history[loc]?.lastmod, `${loc} lastmod matches the committed content history`);
   }
   assert.match(imageSitemap, /<image:loc>https:\/\/zqremovalsadelaide\.com\.au\/media\/zq-local-premium\.webp<\/image:loc>/);
   assert.match(imageSitemap, /<image:loc>https:\/\/zqremovalsadelaide\.com\.au\/media\/zq-service-premium\.webp<\/image:loc>/);

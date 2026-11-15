@@ -276,3 +276,42 @@ test('homepage content stays visible without JavaScript', async ({ browser, base
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
   await context.close();
 });
+
+
+test('cookie preferences stay inside a short phone viewport and all choices remain reachable', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 430 });
+  await page.goto('/');
+  await page.locator('[data-consent-customize]').click();
+  const banner = page.locator('[data-consent-banner]');
+  const bounds = await banner.boundingBox();
+  expect(bounds).not.toBeNull();
+  expect(bounds!.y).toBeGreaterThanOrEqual(0);
+  expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(430);
+  await page.locator('[data-consent-save]').scrollIntoViewIfNeeded();
+  await page.locator('[data-consent-save]').click();
+  await expect(banner).toBeHidden();
+  await expect(page.locator('[data-consent-manage]')).toBeVisible();
+});
+
+test('first-visit consent bar stays compact on small screens and does not stack the chat launcher on the hero', async ({ page }) => {
+  await page.goto('/');
+  const banner = page.locator('[data-consent-banner]');
+  await expect(banner).toBeVisible();
+  const viewport = page.viewportSize()!;
+  const box = (await banner.boundingBox())!;
+  if (viewport.width <= 520) {
+    // The bar used to cover about 45% of a 320px first screen and hid the quote call to action.
+    expect(box.height / viewport.height).toBeLessThan(0.38);
+  }
+  // The launcher stays reachable while the bar is open, but must not sit on the bar or the hero heading.
+  const launcher = (await page.locator('#zq-chat-launcher').boundingBox())!;
+  const heading = (await page.locator('h1').first().boundingBox())!;
+  const hits = (a: typeof box, b: typeof box) => !(a.x + a.width <= b.x || b.x + b.width <= a.x || a.y + a.height <= b.y || b.y + b.height <= a.y);
+  expect(hits(launcher, box)).toBe(false);
+  expect(hits(launcher, heading)).toBe(false);
+  for (const button of await banner.locator('button:visible').all()) {
+    expect((await button.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+  }
+  await page.locator('[data-consent-reject]').first().click();
+  await expect(page.locator('#zq-chat-launcher')).toBeVisible();
+});

@@ -18,6 +18,7 @@ import {
   businessIdentity,
   businessIdentifiers,
   businessUrl,
+  movingRates,
 } from './business.mjs';
 import { zqSuburbGeoData } from './zq-suburbs.mjs';
 
@@ -135,7 +136,7 @@ const localBusinessSchema = {
   image: DEFAULT_OG_IMAGE,
   logo: DEFAULT_LOGO,
   description: 'Adelaide removalists for house, apartment and office moves, with furniture and property access reviewed before booking.',
-  hasMap: seoConfig.socialProfiles[0],
+  hasMap: businessIdentity.mapsUrl,
   sameAs: seoConfig.socialProfiles,
   taxID: businessIdentity.abn.machine,
   identifier: {
@@ -567,6 +568,41 @@ export function getSuburbDataset() {
     clusterKey,
     logisticsLabel,
   }));
+}
+
+// Broad Adelaide regions used to group live suburb pages. Each registry cluster key belongs to
+// exactly one group, so the Adelaide hub directory and the nearby-suburb fallback share one map.
+const SUBURB_DIRECTORY_GROUPS = [
+  { key: 'city', label: 'Adelaide city', clusters: ['CBD', 'CBD fringe'] },
+  {
+    key: 'north',
+    label: 'Northern suburbs',
+    clusters: ['northern', 'northern fringe', 'north-eastern', 'inner north', 'north-adelaide', 'west-north'],
+  },
+  { key: 'east', label: 'Eastern suburbs and hills', clusters: ['eastern', 'inner east', 'eastern hills', 'hills'] },
+  { key: 'south', label: 'Inner south and southern suburbs', clusters: ['inner south', 'southern', 'southern coastal', 'south-west'] },
+  { key: 'west', label: 'Western suburbs and coast', clusters: ['western', 'inner west', 'coastal'] },
+];
+
+function isLiveSuburbSlug(slug) {
+  return !VERIFIED_REDIRECT_SOURCE_PATHS.has(`/removalists-${slug}/`);
+}
+
+function getSuburbDirectoryGroupKey(clusterKey) {
+  const normalized = normalizeClusterKey(clusterKey);
+  return SUBURB_DIRECTORY_GROUPS.find((group) => group.clusters.includes(normalized))?.key;
+}
+
+// Live suburb pages (registry suburbs not folded away by a verified redirect) grouped by region.
+export function getLiveSuburbDirectory() {
+  return SUBURB_DIRECTORY_GROUPS.map(({ key, label, clusters }) => ({
+    key,
+    label,
+    suburbs: suburbData
+      .filter(([slug, , , clusterKey]) => clusters.includes(normalizeClusterKey(clusterKey)) && isLiveSuburbSlug(slug))
+      .map(([slug, suburb]) => ({ slug, suburb, href: `/removalists-${slug}/` }))
+      .sort((a, b) => a.suburb.localeCompare(b.suburb)),
+  })).filter((group) => group.suburbs.length > 0);
 }
 
 function clampText(value, limit) {
@@ -1649,7 +1685,7 @@ const commercialPages = [
     hero: 'Urgent moves need a fast but controlled response. Availability for same-day removals depends on our daily schedule and the specific requirements of your move brief.',
     sections: [
       'Same-day Adelaide removals are designed for high-urgency relocations, whether triggered by settlement changes or emergency property issues. We prioritise clear communication and fast scoping to see if we can help immediately.',
-      'Our ability to support same-day bookings depends on current crew locations and job complexity. We review your access and inventory details instantly to confirm if we can allocate a professional team to your route.',
+      'Our ability to support same-day bookings depends on current crew locations and job complexity. We review your access and inventory details before confirming whether a team is available for your route.',
     ],
     faq: [
       {
@@ -1953,8 +1989,8 @@ const commercialPages = [
   },
   {
     slug: 'removalists-adelaide-prices',
-    title: 'Removalists Adelaide Prices & Hourly Rates | ZQ Removals',
-    description: 'Adelaide removalist prices: 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. See 30-minute billing, call-out/travel and hypothetical examples.',
+    title: 'Removalists Adelaide Prices | Truck Rates | ZQ Removals',
+    description: 'Compare Adelaide small truck $65/30 min and large truck $75 or $89/30 min packages. Confirm crew, call-out/travel and inclusions in your quote.',
     canonical: '/removalists-adelaide-prices/',
     type: 'money',
     hero: 'Compare current Adelaide removalist rates before booking. We confirm the crew package, access, route and any applicable call-out or travel charge in writing.',
@@ -3885,7 +3921,12 @@ const competitorAlternativeData = [
   {
     slug: 'no-limits-removalists-alternative-adelaide',
     competitorName: 'No Limits Removalists',
+    competitorShortName: 'No Limits',
     competitorUrl: 'https://nolimitsremovalists.com.au/',
+    competitorFitSummary: 'Broad service menu and multi-city options',
+    competitorFitHeading: 'The brief needs a broader published provider model.',
+    competitorFitReason: 'you specifically want its broader published storage, backloading, corporate, or multi-city service options',
+    competitorFitFaq: 'No Limits Removalists may be a better fit if you specifically want to compare its published storage, warehouse, corporate relocation, backloading, or multi-city service options.',
     title: 'No Limits Removalists Alternative Adelaide | ZQ Removals',
     description: 'Compare No Limits Removalists with ZQ Removals for Adelaide moves. Review local fit, moving quoting, packing, interstate, and access planning.',
     h1: 'No Limits Removalists alternative for Adelaide moves that need moving local planning',
@@ -3955,12 +3996,17 @@ const competitorAlternativeData = [
   {
     slug: 'door-2-door-movers-alternative-adelaide',
     competitorName: 'Door 2 Door Movers',
+    competitorShortName: 'Door 2 Door',
     competitorUrl: 'https://door2doormovers.com.au/',
+    competitorFitSummary: 'Published hourly rates for local moves',
+    competitorFitHeading: 'The brief is a simple local move on hourly rates.',
+    competitorFitReason: 'you want a second quote on published hourly rates for a simple local or single-item move',
+    competitorFitFaq: 'Door 2 Door Movers may be a better fit if you want to compare its published hourly rates for a straightforward local or single-item move, or need a service it lists such as piano or pool table removals.',
     title: 'Door 2 Door Movers Alternative Adelaide | ZQ Removals',
     description: 'Compare Door 2 Door Movers with ZQ Removals for Adelaide moves. Review local fit, moving quotes, furniture handling, and access planning.',
-    h1: 'Door 2 Door Movers alternative for Adelaide moves that need moving planning',
-    intro: 'Door 2 Door Movers is an Adelaide removalist known for local and furniture moves. ZQ Removals is the premium alternative when you want a moving move plan structured around detailed inventory, access, and route conditions.',
-    sourceNote: 'Public Door 2 Door Movers pages reviewed in May 2026 describe Adelaide local removals, office relocations, single-item or furniture transfers, hourly rate structures, and depot-to-depot charging models.',
+    h1: 'Door 2 Door Movers alternative for Adelaide moves that need detailed planning',
+    intro: 'Door 2 Door Movers is an Adelaide removalist known for local and furniture moves. ZQ Removals is the premium alternative when you want a move plan structured around detailed inventory, access, and route conditions.',
+    sourceNote: 'Public Door 2 Door Movers pages reviewed in November 2026 describe Adelaide house, furniture, office and piano removals, single-item furniture deliveries, packing, Adelaide to Melbourne interstate moves, and hourly rates.',
     sourceLinks: [
       { href: 'https://door2doormovers.com.au/', label: 'Door 2 Door Movers homepage' },
       { href: 'https://door2doormovers.com.au/services/', label: 'Door 2 Door Movers services' },
@@ -3989,35 +4035,35 @@ const competitorAlternativeData = [
         copy: 'Good for straightforward, single-item or short-distance relocations where detailed access planning is not required.',
       },
       {
-        title: 'Depot charging model',
-        copy: 'Worth comparing when your move matches their depot charging model and you are confident in the time required.',
+        title: 'Listed specialty items',
+        copy: 'Worth comparing if you need a service it lists publicly, such as piano or pool table removals.',
       },
     ],
     comparisonRows: [
       {
         factor: 'Primary fit',
         zq: 'South Australian local and interstate moves that require precise access planning and custom inventory scoping.',
-        competitor: 'Adelaide local and furniture moves focused on hourly rates and quick turnaround for standard layouts.',
+        competitor: 'Adelaide house, furniture and office moves on published hourly rates.',
       },
       {
         factor: 'Pricing model',
-        zq: 'All-inclusive moving quotes based on detailed inventory and route analysis up front.',
-        competitor: 'Hourly rates with depot-to-depot charging; confirm if travel limits or minimum hour policies apply.',
+        zq: `Published crew rates. ${movingRates.summary}`,
+        competitor: 'Publishes hourly rates on its website; confirm the current rate, minimum booking and any travel charges with them directly.',
       },
       {
         factor: 'Access and logistics',
         zq: 'Detailed planning for CBD lifts, beachside carries, northern homes, and southern corridors built into the quote.',
-        competitor: 'Standard local access assumptions; loading or carry challenges are usually managed on the day.',
+        competitor: 'Ask how stairs, lifts, parking and long carries are assessed before move day.',
       },
       {
         factor: 'Care and protection',
         zq: 'Dedicated blanket wrapping, custom load staging, and protective inventory tracking for fragile or antique items.',
-        competitor: 'Standard furniture transit protection; verify if high-care wrapping incurs additional hourly cost.',
+        competitor: 'Ask what furniture protection is included and whether extra wrapping changes the cost.',
       },
       {
         factor: 'Best next step',
         zq: 'Request a moving quote if you want applicable charges explained and the route fully scoped before move day.',
-        competitor: 'Request an hourly estimate if you have a small, simple layout and can manage potential timing variance.',
+        competitor: 'Request their quote as well and compare the written scope side by side.',
       },
     ],
   },
@@ -4205,11 +4251,11 @@ function buildCompetitorAlternativeFaqItems(data) {
     },
     {
       question: `When should I choose ZQ Removals instead of ${data.competitorName}?`,
-      answer: 'Choose ZQ when the brief is Adelaide-first, access-sensitive, or moving focused, especially for house, furniture, apartment, office, packing, or interstate moves starting from South Australia.',
+      answer: 'Choose ZQ when the brief is Adelaide-first or access-sensitive, especially for house, furniture, apartment, office, packing, or interstate moves starting from South Australia.',
     },
     {
       question: `When might ${data.competitorName} be the better fit?`,
-      answer: `${data.competitorName} may be a better fit if you specifically want to compare its published storage, warehouse, corporate relocation, backloading, or multi-city service options.`,
+      answer: data.competitorFitFaq,
     },
     {
       question: 'Should I get quotes from both companies?',
@@ -4229,8 +4275,8 @@ ${renderPageHero({
     'Use it when you are comparing quote certainty, Adelaide access planning, packing, storage, interstate routing, and who should review the move before you commit.',
   ],
   points: [
-    { title: 'Best ZQ fit', copy: 'Adelaide-first moving planning' },
-    { title: 'Best No Limits fit', copy: 'Broad service menu and multi-city options' },
+    { title: 'Best ZQ fit', copy: 'Adelaide-first move planning' },
+    { title: `Best ${data.competitorShortName} fit`, copy: data.competitorFitSummary },
     { title: 'Decision rule', copy: 'Compare written scope, not headline promises' },
   ],
   primaryCta: { href: '/contact-us/#quote-form', label: 'Request ZQ Quote' },
@@ -4239,7 +4285,7 @@ ${renderPageHero({
   breadcrumbs: [
     { href: '/', label: 'Home' },
     { href: '/adelaide-moving-guides/', label: 'Guides' },
-    { label: 'No Limits Alternative' },
+    { label: `${data.competitorShortName} Alternative` },
   ],
   pageType: 'guide',
 })}
@@ -4249,10 +4295,10 @@ ${renderPageHero({
     <div class="section-heading">
       <span class="eyebrow">TL;DR</span>
       <h2>ZQ Removals vs ${escapeHtml(data.competitorName)} in one sentence.</h2>
-      <p class="lede">ZQ Removals is the stronger fit for Adelaide customers who want a moving move plan built from local access and inventory detail; ${escapeHtml(data.competitorName)} is worth comparing when you specifically want its broader published storage, backloading, corporate, or multi-city service options.</p>
+      <p class="lede">ZQ Removals is the stronger fit for Adelaide customers who want a move plan built from local access and inventory detail; ${escapeHtml(data.competitorName)} is worth comparing when ${escapeHtml(data.competitorFitReason)}.</p>
     </div>
     <div class="inline-link-group">
-      <a href="/fixed-price-removalists-adelaide/">Moving removalists Adelaide</a>
+      <a href="/removalists-adelaide-prices/">Published crew rates</a>
       <a href="/removalists-adelaide/">Adelaide removalists</a>
       <a href="/adelaide-moving-guides/removalists-cost-adelaide/">Removalist cost guide</a>
       <a href="/contact-us/#quote-form">Request a quote</a>
@@ -4276,7 +4322,7 @@ ${renderPageHero({
 ${renderValueCardSection({
   module: 'zq-best-fit',
   eyebrow: 'Choose ZQ Removals when',
-  heading: 'The Adelaide brief needs moving local planning.',
+  heading: 'The Adelaide brief needs detailed local planning.',
   intro: 'ZQ is positioned for customers who want the quote to reflect the actual property, route, and inventory before the crew is booked.',
   cards: data.zqBestFor,
   soft: false,
@@ -4285,7 +4331,7 @@ ${renderValueCardSection({
 ${renderValueCardSection({
   module: 'competitor-best-fit',
   eyebrow: `Choose ${data.competitorName} when`,
-  heading: 'The brief needs a broader published provider model.',
+  heading: data.competitorFitHeading,
   intro: 'A fair comparison should also state where the competitor may be a better fit.',
   cards: data.competitorBestFor,
   soft: true,
@@ -4677,8 +4723,7 @@ ${renderAeoAnswerBlock({
   answer: `${template.primaryKeyword} in ${suburb} is shaped by the local ${logisticsLabel} constraints. ZQ Removals reviews these details alongside the inventory and route to provide a moving quote that avoids move-day surprises.`,
   links: [
     { href: '/removalists-adelaide/', label: 'Compare Adelaide removalists' },
-    { href: '/moving-quotes-adelaide/', label: 'Moving quotes Adelaide' },
-    { href: '/fixed-price-removalists-adelaide/', label: 'Moving removalists' },
+    { href: '/removalists-adelaide-prices/', label: 'Adelaide removalist prices' },
     { href: '/contact-us/#quote-form', label: 'Request a quote' },
   ],
 })}
@@ -4962,8 +5007,8 @@ function makeCommercialPage(page) {
       description: 'Small removals Adelaide for apartments, study rooms, single heavy items, and small loads. Safe handling, access planning, and transparent hourly rates.',
     },
     'removalists-adelaide-prices': {
-      title: 'Removalists Adelaide Prices & Hourly Rates | ZQ Removals',
-      description: 'Adelaide removalist prices: 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. See 30-minute billing, call-out/travel and hypothetical examples.',
+      title: 'Removalists Adelaide Prices | Truck Rates | ZQ Removals',
+      description: 'Compare Adelaide small truck $65/30 min and large truck $75 or $89/30 min packages. Confirm crew, call-out/travel and inclusions in your quote.',
     },
     'office-removalists-adelaide': {
       title: 'Office Removalists Adelaide | B2B Commercial Relocations',
@@ -5183,8 +5228,7 @@ function renderInterstateContent({ slug, destination, routeName, distance, highw
   const windowCards = buildInterstateWindowCards({ destination, distance });
   const requiredLinkCards = [
     { eyebrow: 'Service hub', title: 'Interstate removals Adelaide', copy: 'Use the service hub for the broader long-distance move process from Adelaide.', href: '/services/interstate-removals-adelaide/', cta: 'Open interstate service' },
-    { eyebrow: 'Quote path', title: 'Moving quotes Adelaide', copy: 'Send the route, access, inventory, timing, and packing notes for review.', href: '/moving-quotes-adelaide/', cta: 'Prepare moving quote' },
-    { eyebrow: 'Price model', title: 'Moving removalists Adelaide', copy: 'Review how moving quotes work when the scope is clear.', href: '/fixed-price-removalists-adelaide/', cta: 'Review moving' },
+    { eyebrow: 'Published rates', title: 'Adelaide removalist prices', copy: 'See the published crew rates and the details a quote needs before you send the route.', href: '/removalists-adelaide-prices/', cta: 'View published rates' },
     { eyebrow: 'Checklist', title: 'Interstate moving checklist Adelaide', copy: 'Use the checklist to prepare both addresses and the handover details.', href: '/adelaide-moving-guides/interstate-moving-checklist-adelaide/', cta: 'Open interstate checklist' },
     { eyebrow: 'Quote form', title: 'Get a moving quote', copy: 'Submit the move brief once the key route and access details are ready.', href: '/contact-us/#quote-form', cta: 'Request quote' },
   ];
@@ -5241,7 +5285,7 @@ ${renderAeoAnswerBlock({
   answer: `Yes. ZQ Removals can quote ${routeName} interstate removals from Adelaide after reviewing access, inventory, packing, timing, and destination handover details.`,
   links: [
     { href: '/services/interstate-removals-adelaide/', label: 'Interstate removals service' },
-    { href: '/moving-quotes-adelaide/', label: 'Moving quotes Adelaide' },
+    { href: '/removalists-adelaide-prices/', label: 'Adelaide removalist prices' },
     { href: '/contact-us/#quote-form', label: 'Request route quote' },
   ],
 })}
@@ -5754,6 +5798,12 @@ const suburbMoveBriefs = {
       'On the morning, leave the driveway clear, keep pets away from open doors and be ready to walk the crew through the rooms. A short walk-through tells them what is going and what is staying, which saves time that would otherwise be charged by the half hour.',
     ],
   },
+  'port-adelaide': {
+    eyebrow: 'Two-address planning',
+    heading: 'Connecting a Port Adelaide move with Pennington',
+    intro: 'Plan loading access separately at each end of the route.',
+    paragraphs: ['For a Pennington pickup or delivery, use the Pennington page in the nearby-suburb links below to prepare your house, unit or apartment access notes. Send the legal loading location, carry distance, steps and furniture list for both properties; do not assume the same truck access at the two addresses.'],
+  },
   // Pennington facts: ABS 2021 Census QuickStats (SAL41136) and Wikipedia "Pennington, South Australia"
   // (council, bordering suburbs, light industrial pocket). See docs/seo/pennington-sources.md.
   'pennington': {
@@ -5763,6 +5813,7 @@ const suburbMoveBriefs = {
     paragraphs: [
       'Most Pennington streets are residential, with a light industrial pocket to the south. Tell us which street each address is on and where a truck can stop, because loading distance changes the time more than the suburb does.',
       'At the 2021 Census, 70.2% of occupied dwellings in Pennington were separate houses, 28.0% were semi-detached, row, terrace or townhouse dwellings and 0.9% were flats or apartments. Those figures describe the suburb as a whole, not your street, so list the details of your own two addresses in the quote brief: driveway width, side access, front steps, and any garage or shed contents.',
+      'For a Pennington quote, say whether each property is a house, unit or apartment. Send photos of the carry path at both addresses, note loading restrictions and the distance from legal parking to the entrance, and list stairs, landings and narrow turns. Include the furniture and box inventory, requested date and any lift or shared-driveway arrangements so the team can assess access before booking.',
       'The same census recorded 38.8% of occupied dwellings as rented. If you are leaving a rental, confirm the key-return and cleaning deadline before choosing a start time. Source: ABS 2021 Census QuickStats, Pennington.',
     ],
   },
@@ -5890,13 +5941,14 @@ ${renderPriorityPlanningFaq(slug)}${renderQuoteStrip({ eyebrow: 'Talk to ZQ Remo
 
 const rateTableHtml = `<style>.table-wrap table.rate-table{min-width:0}.table-wrap table.rate-table th,.table-wrap table.rate-table td{padding:.65rem .5rem;font-size:.92rem}.table-wrap table.rate-table caption{text-align:left;padding:.5rem}</style><div class="table-wrap" tabindex="0" role="region" aria-label="Scrollable comparison table" style="margin-top: 1.5rem;">
   <table class="rate-table">
-    <caption>Published crew rates</caption>
+    <caption>Published truck and crew rates</caption>
     <thead>
-      <tr><th scope="col">Crew</th><th scope="col">Rate</th><th scope="col">Equivalent</th></tr>
+      <tr><th scope="col">Truck and crew</th><th scope="col">Rate</th><th scope="col">Equivalent</th></tr>
     </thead>
     <tbody>
-      <tr><th scope="row">2 men and a truck</th><td>$75 / 30 min</td><td>$150/hour</td></tr>
-      <tr><th scope="row">3 men and a truck</th><td>$89 / 30 min</td><td>$178/hour</td></tr>
+      <tr><th scope="row">Small truck<br>Crew confirmed with your quote</th><td>$65 / 30 min</td><td>$130/hour</td></tr>
+      <tr><th scope="row">Large truck: 2 men and a truck</th><td>$75 / 30 min</td><td>$150/hour</td></tr>
+      <tr><th scope="row">Large truck: 3 men and a truck</th><td>$89 / 30 min</td><td>$178/hour</td></tr>
     </tbody>
   </table>
 </div>
@@ -5933,17 +5985,18 @@ const rateCalloutExamplesHtml = `<div class="table-wrap" tabindex="0" role="regi
 
 const priorityCommercialProfiles = {
   'removalists-adelaide-prices': {
-    h1: 'Removalists Adelaide prices: published hourly rates',
-    lead: 'ZQ Removals publishes its crew rates: 2 men and a truck at $75 per 30 minutes, and 3 men and a truck at $89 per 30 minutes. A 1-hour call-out/travel charge applies where applicable.',
+    h1: 'Removalists Adelaide prices: truck and crew rates',
+    lead: 'Compare the published small-truck rate of $65 per 30 minutes with large-truck packages: 2 movers at $75 or 3 movers at $89 per 30 minutes. The small-truck crew is confirmed with your quote. A 1-hour call-out/travel charge applies where applicable.',
     blocks: [
-      { type: 'html', module: 'pricing-rates', eyebrow: 'Current rates', heading: 'Adelaide removalist rates', intro: 'Rates are quoted per 30 minutes.', html: rateTableHtml },
-      { type: 'text', module: 'pricing-billing', eyebrow: 'How billing works', heading: 'Rates are charged in 30-minute increments', intro: 'Choose a crew, then time on site is counted in half-hours.', paragraphs: [
-        'The selected crew package is charged per 30 minutes: $75 for 2 men and a truck, or $89 for 3 men and a truck. Two half-hours make the hourly equivalent shown in the table.',
+      { type: 'html', module: 'pricing-rates', eyebrow: 'Current rates', heading: 'Adelaide removalist rates', intro: 'Rates are quoted per 30 minutes. Confirm the truck and crew package before booking.', html: rateTableHtml },
+      { type: 'text', module: 'pricing-billing', eyebrow: 'How billing works', heading: 'Rates are charged in 30-minute increments', intro: 'Confirm a truck and crew package, then time on site is counted in half-hours.', paragraphs: [
+        'The small truck is $65 per 30 minutes ($130/hour equivalent), with crew confirmed in your quote. Large-truck packages are $75 for 2 movers or $89 for 3 movers per 30 minutes. Two half-hours make the hourly equivalent shown in the table.',
         'How a part-increment at the end of a job is counted is confirmed in your quote, so ask before booking. A 3-man crew has a higher rate, but it can finish sooner on larger inventories, so ask which crew suits your move.',
       ] },
-      { type: 'html', module: 'pricing-examples', eyebrow: 'How the rates add up', heading: 'Hypothetical example durations at the published rates', intro: 'Use these to see how time translates into cost.', html: rateExamplesTableHtml },
+      { type: 'text', module: 'pricing-package-fit', eyebrow: 'Confirm the scope', heading: 'Which truck package fits your move?', paragraphs: ['Send your inventory, largest furniture dimensions and access notes at both addresses. A smaller load does not by itself confirm that the small truck or a particular crew is suitable; ask the team to confirm the package and inclusions.', 'The examples below illustrate the large-truck packages only. Confirm call-out/travel, part-increment treatment, packing or dismantling needs and any other applicable charges in your quote. Interstate moves require a route-specific quote; piano and office work need their own access and handling review.'] },
+      { type: 'html', module: 'pricing-examples', eyebrow: 'How the rates add up', heading: 'Hypothetical example durations at the published rates', intro: 'These examples use the large-truck crew rates, not the small-truck package.', html: rateExamplesTableHtml },
       { type: 'text', module: 'pricing-callout', eyebrow: 'Call-out and travel', heading: 'Call-out and travel charges', paragraphs: [
-        'A 1-hour call-out/travel charge applies where applicable. It is one hour of the selected crew rate, which is $150 for 2 men and a truck or $178 for 3 men and a truck. Because it depends on where the job starts and finishes, confirm whether it applies when you ask for a quote so there is no surprise on the day.',
+        'A 1-hour call-out/travel charge applies where applicable. For the large-truck packages it is one hour of the selected crew rate: $150 for 2 movers or $178 for 3 movers. Confirm the applicable call-out/travel amount for the small-truck package in your quote. Because it depends on where the job starts and finishes, confirm whether it applies when you ask for a quote so there is no surprise on the day.',
       ] },
       { type: 'html', module: 'pricing-callout-examples', eyebrow: 'Putting it together', heading: 'Hypothetical examples including call-out', intro: 'Time charge plus call-out/travel, with the assumptions shown.', html: rateCalloutExamplesHtml },
       { type: 'text', module: 'pricing-compare-quotes', eyebrow: 'Removalist cost and quotes', heading: 'How to compare removal quotes in Adelaide', intro: 'A fair comparison starts with the same brief for every company.', paragraphs: [
@@ -5957,9 +6010,9 @@ const priorityCommercialProfiles = {
       ] },
     ],
     faqs: [
-      { question: 'What is the hourly rate for removalists in Adelaide?', answer: 'ZQ Removals charges $75 per 30 minutes for 2 men and a truck (equivalent to $150/hour) and $89 per 30 minutes for 3 men and a truck (equivalent to $178/hour). A 1-hour call-out/travel charge applies where applicable.' },
-      { question: 'How is time billed?', answer: 'Time is charged per 30 minutes at the rate of the crew you select: $75 for 2 men and a truck or $89 for 3 men and a truck. Confirm how a part-increment is counted when you request a quote.' },
-      { question: 'Is the call-out or travel charge always added?', answer: 'It applies where applicable. It is one hour of the selected crew rate ($150 for 2 men and a truck, $178 for 3 men and a truck). Confirm with ZQ Removals whether it applies to your pickup and delivery addresses when you request a quote.' },
+      { question: 'What is the hourly rate for removalists in Adelaide?', answer: 'The small truck is $65 per 30 minutes ($130/hour equivalent), with crew confirmed in the quote. Large-truck packages are 2 movers at $75 per 30 minutes ($150/hour) or 3 movers at $89 per 30 minutes ($178/hour). A 1-hour call-out/travel charge applies where applicable.' },
+      { question: 'How is time billed?', answer: 'Time is charged per 30 minutes at the agreed package rate: small truck $65 with crew confirmed in the quote, or large truck $75 for 2 movers or $89 for 3 movers. Confirm how a part-increment is counted when you request a quote.' },
+      { question: 'Is the call-out or travel charge always added?', answer: 'It applies where applicable. For large-truck packages it is one hour of the selected crew rate ($150 for 2 movers, $178 for 3 movers). Confirm whether it applies to your addresses, and the applicable small-truck charge if choosing that package.' },
       { question: 'Can I get a fixed total from these rates?', answer: 'The published rates describe time-based charging. Request an estimate based on your inventory and access, then confirm the charging basis and inclusions with ZQ Removals.' },
       { question: 'How much does a removalist cost in Adelaide?', answer: 'The cost is time-based. ZQ Removals charges $75 per 30 minutes for 2 men and a truck and $89 per 30 minutes for 3 men and a truck, plus a 1-hour call-out/travel charge where applicable. The total depends on how long your move takes.' },
       { question: 'How do I compare removal quotes?', answer: 'Give each company the same inventory, access notes and date, then compare the crew size, rate, call-out or travel treatment, how part-increments are counted and what is excluded.' },
@@ -6293,8 +6346,10 @@ ${renderAeoAnswerBlock({
   answer: topicContent?.lead || `Access, inventory, timing and packing scope have the biggest effect on how a move is planned and priced. Note them before requesting a quote.`,
   links: [
     { href: '/contact-us/#quote-form', label: 'Request a quote' },
-    { href: '/moving-quotes-adelaide/', label: 'Moving quotes Adelaide' },
-    { href: '/fixed-price-removalists-adelaide/', label: 'Moving removalists Adelaide' },
+    { href: '/removalists-adelaide-prices/', label: 'Adelaide removalist prices' },
+    ...(slug === 'how-to-choose-removalists-adelaide'
+      ? [{ href: '/door-2-door-movers-alternative-adelaide/', label: 'ZQ Removals vs Door 2 Door Movers' }]
+      : []),
   ],
   })}
 ${renderTextSection({
@@ -6768,8 +6823,7 @@ ${renderAeoAnswerBlock({
   question: aeoProfile.question,
   answer: aeoProfile.answer,
   links: [
-    { href: '/moving-quotes-adelaide/', label: 'Moving quotes Adelaide' },
-    { href: '/fixed-price-removalists-adelaide/', label: 'Moving removalists Adelaide' },
+    { href: '/removalists-adelaide-prices/', label: 'Adelaide removalist prices' },
     { href: '/contact-us/#quote-form', label: 'Request a quote' },
   ],
 })}
@@ -6883,12 +6937,68 @@ function renderLinkListItems(items = []) {
     .join('');
 }
 
+const MIN_SUBURB_RING_MEMBERS = 5;
+
+// Suburbs in a cluster with fewer than MIN_SUBURB_RING_MEMBERS live pages are never reached by
+// the cluster ring of other suburbs. Give each of them three inbound links from live suburbs in
+// the same region group so no live suburb page depends on the hub alone.
+let smallClusterInboundCache = null;
+function getSmallClusterInboundSources(targetSlug) {
+  if (!smallClusterInboundCache) {
+    smallClusterInboundCache = new Map();
+    const live = suburbData
+      .map(([memberSlug, , , memberClusterKey]) => ({ slug: memberSlug, clusterKey: normalizeClusterKey(memberClusterKey) }))
+      .filter((item) => isLiveSuburbSlug(item.slug));
+    const liveByCluster = new Map();
+    for (const item of live) {
+      liveByCluster.set(item.clusterKey, (liveByCluster.get(item.clusterKey) || 0) + 1);
+    }
+    const byGroup = new Map();
+    for (const item of live) {
+      const groupKey = getSuburbDirectoryGroupKey(item.clusterKey);
+      if (!byGroup.has(groupKey)) byGroup.set(groupKey, []);
+      byGroup.get(groupKey).push(item);
+    }
+    for (const members of byGroup.values()) {
+      members.sort((x, y) => x.slug.localeCompare(y.slug));
+      const small = members.filter((item) => (liveByCluster.get(item.clusterKey) || 0) < MIN_SUBURB_RING_MEMBERS);
+      const large = members.filter((item) => (liveByCluster.get(item.clusterKey) || 0) >= MIN_SUBURB_RING_MEMBERS);
+      small.forEach((target, index) => {
+        const sources = [];
+        for (let step = 0; step < Math.min(3, large.length); step += 1) {
+          sources.push(large[(index * 3 + step) % large.length].slug);
+        }
+        for (const sourceSlug of sources) {
+          if (!smallClusterInboundCache.has(sourceSlug)) smallClusterInboundCache.set(sourceSlug, []);
+          smallClusterInboundCache.get(sourceSlug).push(target.slug);
+        }
+      });
+    }
+  }
+  return smallClusterInboundCache.get(targetSlug) || [];
+}
+
 function getSuburbPeerLinks(slug, clusterKey, templateNearby = [], limit = 4) {
   if (SUBURB_LINK_COPY[slug]) {
     return buildNeighbourItems(SUBURB_LINK_COPY[slug]).slice(0, limit);
   }
   const normalizedClusterKey = normalizeClusterKey(clusterKey);
-  const members = suburbsByClusterKey.get(normalizedClusterKey) || [];
+  // Walk the ring of suburbs that still have a live page. Counting suburbs folded away by a
+  // verified redirect used the ring slots on pages that are then dropped, which left some
+  // live suburb pages with a single inbound link.
+  const members = (suburbsByClusterKey.get(normalizedClusterKey) || [])
+    .filter((item) => item.slug === slug || isLiveSuburbSlug(item.slug));
+  // A cluster with only a few live pages cannot give each of them enough neighbours, so widen the
+  // ring to the other live suburbs in the same region group.
+  if (members.length < MIN_SUBURB_RING_MEMBERS) {
+    const groupKey = getSuburbDirectoryGroupKey(normalizedClusterKey);
+    const known = new Set(members.map((item) => item.slug));
+    for (const [memberSlug, suburb, region, memberClusterKey, logisticsLabel] of suburbData) {
+      if (!known.has(memberSlug) && isLiveSuburbSlug(memberSlug) && getSuburbDirectoryGroupKey(memberClusterKey) === groupKey) {
+        members.push({ slug: memberSlug, suburb, region, clusterKey: normalizeClusterKey(memberClusterKey), logisticsLabel });
+      }
+    }
+  }
   const currentIndex = members.findIndex((item) => item.slug === slug);
   const slugs = [];
 
@@ -6929,6 +7039,16 @@ function getSuburbPeerLinks(slug, clusterKey, templateNearby = [], limit = 4) {
     });
   // Keep every existing peer link and add the curated inbound links on top, so no other page loses its inbound link.
   const keptPeers = peerItems.slice(0, limit);
+  for (const extraSlug of getSmallClusterInboundSources(slug)) {
+    if (!peerItems.some((item) => item.href === `/removalists-${extraSlug}/`)) {
+      const suburb = suburbDataBySlug.get(extraSlug);
+      keptPeers.push({
+        href: `/removalists-${extraSlug}/`,
+        label: `${suburb?.suburb || toTitle(extraSlug)} removals`,
+        suburb: suburb?.suburb || toTitle(extraSlug),
+      });
+    }
+  }
   const keptHrefs = new Set(keptPeers.map((item) => item.href));
   return [...keptPeers, ...inboundItems.filter((item) => !keptHrefs.has(item.href))];
 }
