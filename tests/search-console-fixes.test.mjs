@@ -698,7 +698,7 @@ test('json-ld is valid, host-consistent, and uses only supported business facts'
           assert.equal(normalizeTelephone(node.telephone), '0433819989', `MovingCompany telephone mismatch in ${relativePath}`);
           assert.deepEqual(
             node.sameAs,
-            ['https://share.google/toaQ1pTUMpigxRuQM', 'https://facebook.com/zqremovals'],
+            ['https://share.google/afUxDQxO7PBWGSsxP', 'https://facebook.com/zqremovals'],
             `MovingCompany sameAs mismatch in ${relativePath}`,
           );
           assert.equal(node.taxID, expectedAbn, `MovingCompany ABN mismatch in ${relativePath}`);
@@ -997,7 +997,7 @@ test('homepage targets Adelaide removalists and keeps above-fold conversion cont
   assert.match(hero, /href="tel:\+61433819989"/);
   assert.match(hero, new RegExp(String.raw`${googleReviews.rating.toFixed(1)}[\s\S]*from ${googleReviews.reviewCount}[\s\S]*Google reviews`, 'i'));
   assert.ok(hero.includes(`aria-label="${googleReviews.rating.toFixed(1)} from ${googleReviews.reviewCount} Google reviews - Read ZQ Removals verified reviews"`));
-  assert.match(hero, /href="https:\/\/share\.google\/toaQ1pTUMpigxRuQM"/i);
+  assert.match(hero, /href="https:\/\/share\.google\/afUxDQxO7PBWGSsxP"/i);
   assert.doesNotMatch(hero, /guaranteed|fully insured/i);
   for (const href of [
     '/house-removals-adelaide/',
@@ -1032,7 +1032,7 @@ test('homepage conversion audit requirements stay visible, accessible, and schem
   for (const size of ['Studio or one bedroom', 'Two bedrooms', 'Three bedrooms', 'Four or more bedrooms', 'Office or commercial']) {
     assert.match(main, new RegExp(size, 'i'));
   }
-  assert.match(main, /href="https:\/\/share\.google\/toaQ1pTUMpigxRuQM"[^>]*target="_blank"[^>]*rel="noopener noreferrer"/i);
+  assert.match(main, /href="https:\/\/share\.google\/afUxDQxO7PBWGSsxP"[^>]*target="_blank"[^>]*rel="noopener noreferrer"/i);
   for (const reviewText of [
     'Rakib Rafi',
     'Great service. They helped move my house a long way from Adelaide, almost 450km away.',

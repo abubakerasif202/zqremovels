@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 
-const googleProfileUrl = 'https://share.google/toaQ1pTUMpigxRuQM';
+const googleProfileUrl = 'https://share.google/afUxDQxO7PBWGSsxP';
 
 export const businessIdentity = {
   name: 'ZQ Removals',
@@ -44,7 +44,7 @@ export const businessIdentity = {
 
 // Rating and review count come from google-reviews.json, which scripts/update-google-reviews.mjs refreshes from the
 // Google Places API. The fallback below is used only if that file is missing or invalid.
-const googleReviewsFallback = { rating: 5.0, reviewCount: 94 };
+const googleReviewsFallback = { rating: 5.0, reviewCount: 100 };
 
 function readGoogleReviewsData() {
   try {
