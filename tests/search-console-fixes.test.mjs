@@ -328,7 +328,7 @@ test('live-audit commercial snippets and guide publication schema stay fixed', (
   assert.match(pricing, /\$89 per 30 minutes/i);
   assert.match(pricing, /1-hour call-out(?: or travel|\/travel) charge applies where applicable/i);
   assert.match(office, /<title>Office Removalists Adelaide\s*\|[^<]*Business Moves[^<]*ZQ Removals<\/title>/i);
-  assert.match(piano, /<title>Piano Movers Adelaide \| Piano Removalists \| ZQ Removals<\/title>/i);
+  assert.match(piano, /<title>Piano Movers Adelaide \| Upright &amp; Grand Pianos \| ZQ<\/title>/i);
   assert.match(guide, /"datePublished": "2026-05-23"/);
   assert.match(guide, /"dateModified": "2026-08-29"/);
 });
