@@ -63,7 +63,7 @@ test('broken and chained legacy aliases point directly to existing equivalent co
 
 test('piano service keeps focused metadata and descriptive links from real entry points', () => {
   const piano = readFileSync('site-dist/services/piano-movers-adelaide/index.html', 'utf8');
-  assert.match(piano, /<title>Piano Movers Adelaide \| Piano Removalists \| ZQ Removals<\/title>/);
+  assert.match(piano, /<title>Piano Movers Adelaide \| Upright &amp; Grand Pianos \| ZQ<\/title>/);
   assert.match(piano, /<h1[^>]*>Piano Movers Adelaide<\/h1>/);
   assert.match(piano, /name="description" content="Piano movers Adelaide for upright, grand and digital pianos/);
   const home = readFileSync('site-dist/index.html', 'utf8');

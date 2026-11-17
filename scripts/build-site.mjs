@@ -180,6 +180,14 @@ const verifiedPricingMetadata = new Map([
     title: 'Unley Park Removalists | Local Home Moves | ZQ Removals',
     description: 'Unley Park removalists for homes, townhouses and furniture. Share parking, stairs and fragile items for a quote. 2 men + truck from $75 per 30 min.',
   }],
+  ['removalists-toorak-gardens/index.html', {
+    title: 'Toorak Gardens Removalists | From $75/30 min | ZQ',
+    description: 'Toorak Gardens removalists for premium homes. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply.',
+  }],
+  ['services/piano-movers-adelaide/index.html', {
+    title: 'Piano Movers Adelaide | Upright & Grand Pianos | ZQ',
+    description: 'Piano movers Adelaide for upright, grand and digital pianos. Send dimensions and access photos so handling can be confirmed before you book.',
+  }],
   ['same-day-removalists-adelaide/index.html', {
     title: 'Same Day Removalists Adelaide | Check Availability',
     description: 'Need same-day removalists in Adelaide? Check current crew availability for urgent home, apartment and furniture moves after access and inventory review.',
