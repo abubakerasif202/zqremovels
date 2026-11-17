@@ -169,7 +169,7 @@ const verifiedPricingMetadata = new Map([
     description: 'Somerton Park West removalists for beachside streets and apartments. Plan access, inventory and timing with a clear moving quote.',
   }],
   ['removalists-hyde-park/index.html', {
-    title: 'Hyde Park Removalists | $75/30 min Local Movers | ZQ Removals',
+    title: 'Hyde Park Removalists | From $75/30 min | ZQ Removals',
     description: 'Local removalists for Hyde Park houses, units and furniture. 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. Call-out/travel may apply.',
   }],
   ['removalists-adelaide-cbd/index.html', {
@@ -177,8 +177,24 @@ const verifiedPricingMetadata = new Map([
     description: 'Removalists Adelaide CBD for apartment, office and furniture moves. Plan lift bookings, loading zones, parking and access before requesting a clear quote.',
   }],
   ['removalists-unley-park/index.html', {
-    title: 'Unley Park Removalists | Homes & Townhouses | ZQ Removals',
+    title: 'Unley Park Removalists | Homes & Townhouses | $75/30 min',
     description: 'Unley Park removalists for homes, townhouses and furniture. Share parking, stairs and fragile items for a quote. 2 men + truck from $75 per 30 min.',
+  }],
+  ['removalists-medindie/index.html', {
+    title: 'Medindie Removalists | From $75/30 min | ZQ Removals',
+    description: 'Medindie removalists for larger homes. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply. Send access details.',
+  }],
+  ['removalists-toorak-gardens/index.html', {
+    title: 'Toorak Gardens Removalists | From $75/30 min | ZQ',
+    description: 'Toorak Gardens removalists for premium homes. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply.',
+  }],
+  ['removalists-adelaide-prices/index.html', {
+    title: 'Adelaide Removalist Prices | $75 & $89 per 30 min | ZQ',
+    description: 'Adelaide removalist prices: 2 men + truck $75 per 30 min, 3 men + truck $89 per 30 min. See 30-minute billing, call-out/travel and hypothetical examples.',
+  }],
+  ['services/piano-movers-adelaide/index.html', {
+    title: 'Piano Movers Adelaide | Upright & Grand Pianos | ZQ',
+    description: 'Piano movers Adelaide for upright, grand and digital pianos. Send dimensions and access photos so handling can be confirmed before you book.',
   }],
   ['same-day-removalists-adelaide/index.html', {
     title: 'Same Day Removalists Adelaide | Check Availability',
