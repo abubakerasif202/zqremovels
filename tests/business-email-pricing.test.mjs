@@ -27,7 +27,7 @@ test('source uses the approved ZQ Removals business email', () => {
   }
 
   const businessSource = readFileSync(path.join(root, 'site-src', 'data', 'business.mjs'), 'utf8');
-  assert.match(businessSource, /email:\s*'admin@zqremovals\.au'/);
+  assert.match(businessSource, /email:\s*'admin@zqremovalsadelaide\.com\.au'/);
 });
 
 test('quote forms retain crew choices without duplicating homepage truck selection', () => {
@@ -61,8 +61,8 @@ test('quote forms retain crew choices without duplicating homepage truck selecti
 
 test('generated business schema and public footer use the approved email', () => {
   const homepage = readFileSync(path.join(distRoot, 'index.html'), 'utf8');
-  assert.match(homepage, /"email"\s*:\s*"admin@zqremovals\.au"/i);
-  assert.match(homepage, /mailto:admin@zqremovals\.au/i);
+  assert.match(homepage, /"email"\s*:\s*"admin@zqremovalsadelaide\.com\.au"/i);
+  assert.match(homepage, /mailto:admin@zqremovalsadelaide\.com\.au/i);
   assert.doesNotMatch(homepage, /info@zqremovals\.au/i);
 });
 
