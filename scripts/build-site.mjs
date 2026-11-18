@@ -143,6 +143,8 @@ function rewriteConsolidatedHrefs(html = '') {
 const preferredSiteOrigin = seoConfig.siteUrl;
 const legacySiteOrigin = seoConfig.siteUrl;
 const defaultSocialImage = seoConfig.defaultOgImage;
+// Intrinsic pixel size of zq-removals-social-share.webp; update if that asset is replaced.
+const defaultSocialImageSize = { width: 1536, height: 1024 };
 const defaultLogoImage = seoConfig.defaultLogo;
 const companySameAsProfiles = businessIdentity.socialProfiles;
 const confirmedTrustCredentialText = `${businessIdentity.name} ABN ${businessIdentifiers.abnFormatted}. Ask about current cover details, building requirements, and move protection before booking.`;
@@ -2909,6 +2911,12 @@ export function renderHead(page, content) {
     `<meta property="og:title" content="${escapeAttribute(page.ogTitle || page.title)}" />`,
     `<meta property="og:description" content="${escapeAttribute(page.ogDescription || page.description)}" />`,
     `<meta property="og:image" content="${escapeAttribute(ogImage)}" />`,
+    ...(ogImage === defaultSocialImage
+      ? [
+          `<meta property="og:image:width" content="${defaultSocialImageSize.width}" />`,
+          `<meta property="og:image:height" content="${defaultSocialImageSize.height}" />`,
+        ]
+      : []),
     `<meta property="og:image:alt" content="${escapeAttribute(imageAlt)}" />`,
     `<meta name="twitter:card" content="${escapeAttribute(page.twitterCard || 'summary_large_image')}" />`,
     `<meta name="twitter:title" content="${escapeAttribute(page.twitterTitle || page.title)}" />`,
@@ -7088,10 +7096,12 @@ function renderLLMsTxt(pagesList) {
   return [
     `# ${seoConfig.businessName}`,
     '',
+    '> Adelaide moving company serving local, suburban, and interstate removals across South Australia.',
+    '',
     `Website: ${seoConfig.siteUrl}`,
     'Entity: Adelaide moving company serving local, suburban, and interstate removals across South Australia.',
     '',
-    'Primary services:',
+    '## Primary services',
     '- Local removals',
     '- House removals',
     '- Apartment removals',
@@ -7100,10 +7110,10 @@ function renderLLMsTxt(pagesList) {
     '- Interstate removals',
     '- Packing support',
     '',
-    'Priority money pages:',
+    '## Priority money pages',
     ...priorityMoneyPages.map((page, index) => `- ${index + 1}. [${page.title}](${page.canonical})`),
     '',
-    'Best pages by task:',
+    '## Best pages by task',
     ...Object.entries(taskPages)
       .filter(([, page]) => Boolean(page))
       .map(([task, page]) => {
@@ -7116,23 +7126,23 @@ function renderLLMsTxt(pagesList) {
         return `- [${labels[task] || task}: ${page.title}](${page.canonical})`;
       }),
     '',
-    'Best entry pages:',
+    '## Best entry pages',
     ...hubs.map((page) => `- [${page.title}](${page.canonical})`),
     ...services.map((page) => `- [${page.title}](${page.canonical})`),
     '',
-    'Helpful guides:',
+    '## Helpful guides',
     ...guides.map((page) => `- [${page.title}](${page.canonical})`),
     '',
-    'Key suburbs:',
+    '## Key suburbs',
     ...suburbs.map((page) => `- [${page.title}](${page.canonical})`),
     '',
-    'Contact:',
+    '## Contact',
     `- Phone: ${seoConfig.phone}`,
     `- Email: ${businessIdentity.email}`,
     `- Quote form: ${seoConfig.siteUrl}/contact-us/#quote-form`,
     `- Canonical host: ${seoConfig.siteUrl}`,
     '',
-    'References:',
+    '## References',
     '- Pricing: https://zqremovalsadelaide.com.au/pricing.md',
     '- Full crawler brief: https://zqremovalsadelaide.com.au/llms-full.txt',
   ].join('\n');

@@ -130,12 +130,15 @@ test('generated sitemap and canonicals stay on the apex host', () => {
   );
   assert.match(robots, /Sitemap: https:\/\/zqremovalsadelaide\.com\.au\/sitemap\.xml/);
   assert.match(llms, /Website: https:\/\/zqremovalsadelaide\.com\.au/);
-  assert.match(llms, /Priority money pages:/);
+  assert.match(llms, /^> Adelaide moving company/m, 'llms.txt needs a description blockquote');
+  assert.match(llms, /^## Priority money pages$/m);
+  assert.match(homepage, /<meta property="og:image:width" content="1536" \/>/);
+  assert.match(homepage, /<meta property="og:image:height" content="1024" \/>/);
   assert.match(llms, /\[Local Removalists Adelaide \| Suburbs & Access \| ZQ Removals\]\(https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide\/\)/);
-  assert.match(llms, /Best pages by task:/);
+  assert.match(llms, /^## Best pages by task$/m);
   assert.match(llms, /\[Quote request: Local Removalists Adelaide \| Suburbs & Access \| ZQ Removals\]\(https:\/\/zqremovalsadelaide\.com\.au\/removalists-adelaide\/\)/);
   assert.match(llms, /\[Packing help: Packing Services Adelaide \| Professional Packing Help\]\(https:\/\/zqremovalsadelaide\.com\.au\/packing-services-adelaide\/\)/);
-  assert.match(llms, /Best entry pages:/);
+  assert.match(llms, /^## Best entry pages$/m);
   assert.match(ai, /Entity: ZQ Removals/);
   assert.match(ai, /No www host variants\./);
   assert.equal((homepage.match(/<h1\b/gi) || []).length, 1, 'homepage must have exactly one h1');
