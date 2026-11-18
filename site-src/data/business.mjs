@@ -11,7 +11,7 @@ export const businessIdentity = {
   // The name shown on the Google Business Profile; used for the MovingCompany entity so schema matches the listing.
   listingName: 'ZQ Removals Adelaide',
   siteUrl: 'https://zqremovalsadelaide.com.au',
-  email: 'admin@zqremovals.au',
+  email: 'admin@zqremovalsadelaide.com.au',
   phone: {
     display: '0433 819 989',
     tel: '+61433819989',
