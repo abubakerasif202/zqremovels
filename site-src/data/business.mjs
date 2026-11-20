@@ -97,11 +97,32 @@ export const businessIdentifiers = {
 };
 
 export const movingRates = {
+  // Small truck confirmed as a real published package by the owner on 2026-11-21 (crew confirmed with the quote).
+  smallTruck: '$65 per 30 minutes',
+  priceRange: '$65-$89 per 30 minutes',
   twoMenAndTruck: '$75 per 30 minutes',
   threeMenAndTruck: '$89 per 30 minutes',
   travelCharge: 'A 1-hour call-out/travel charge applies where applicable.',
   summary: '2 men and a truck: $75 per 30 minutes. 3 men and a truck: $89 per 30 minutes. A 1-hour call-out/travel charge applies where applicable.',
 };
+
+// Opening hours match the Google Business Profile (owner-confirmed 2026-11-21): Monday to Sunday, 07:00-19:00.
+export const businessOpeningHours = {
+  days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+  opens: '07:00',
+  closes: '19:00',
+};
+
+export function buildOpeningHoursSpecification() {
+  return [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: [...businessOpeningHours.days],
+      opens: businessOpeningHours.opens,
+      closes: businessOpeningHours.closes,
+    },
+  ];
+}
 
 export function businessUrl(pathname = '/') {
   return new URL(pathname, businessIdentity.siteUrl).toString();

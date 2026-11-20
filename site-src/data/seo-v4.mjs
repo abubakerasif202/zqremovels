@@ -4848,7 +4848,7 @@ function makeSuburbPage({ slug, suburb, region, clusterKey, logisticsLabel, inte
         { name: 'Removalists Adelaide', url: `${SITE_URL}/removalists-adelaide/` },
         { name: `Removalists ${suburb}`, url: canonical },
       ], canonical)),
-      JSON.stringify(buildFAQSchema(['hyde-park', 'unley-park', 'toorak-gardens'].includes(slug) ? getPrioritySuburbFaqItems(slug) : faqItems.slice(0, 5), canonical)),
+      JSON.stringify(buildFAQSchema(hasPrioritySuburbProfile(slug) ? getPrioritySuburbFaqItems(slug) : faqItems.slice(0, 5), canonical)),
     ],
     contentHtml: renderSuburbContent({
       slug,
@@ -5559,6 +5559,278 @@ const priorityQuoteFaq = { question: 'What details should I send for a moving qu
 // Hyde Park and Unley Park are separate inner-south suburbs with their own landing pages, so each carries its
 // own copy, nearby links and FAQs instead of a name-swapped template.
 const prioritySuburbProfiles = {
+  // Andrews Farm is the ZQ Removals base (business.mjs: Andrews Farm, SA 5114). It sits in the City of Playford.
+  // Other facts below are general area knowledge only; no distances, travel times, council rules or statistics are claimed.
+  'andrews-farm': {
+    h1: 'Andrews Farm removalists: local house, unit and furniture moves',
+    lead: 'ZQ Removals is based in Andrews Farm, SA 5114, so moves that start or finish here begin close to the crew. Send both addresses and what needs moving, and we will discuss the crew size and likely moving time. Published rates start at $75 per 30 minutes for 2 men and a truck.',
+    points: ['Local base in Andrews Farm, SA 5114', 'House, unit and furniture moves', 'Published crew rates, call-out/travel disclosed'],
+    sections: [
+      {
+        module: 'local-intro',
+        eyebrow: 'Based in Andrews Farm',
+        heading: 'Moving house or furniture from Andrews Farm',
+        intro: 'A local base does not change what the crew needs to know before moving day.',
+        paragraphs: [
+          'Andrews Farm is where ZQ Removals is based, so a move that starts or ends here is a local job for the northern suburbs. The details still decide the time on site: how many rooms, how much furniture, and how far the truck is from the front door.',
+          'Send both addresses, your preferred date, a furniture and box list, and photos of larger pieces. If the other address is in a different suburb, say which one, so the access notes for both ends can be agreed before the move.',
+        ],
+      },
+      {
+        module: 'logistics-access',
+        eyebrow: 'Access matters',
+        heading: 'Driveways, garages and estate streets in Andrews Farm',
+        intro: 'Newer estate streets are usually easy to drive, but the loading plan still depends on the property.',
+        paragraphs: [
+          'Many homes in this part of Adelaide’s north are family houses with a garage and a driveway. Tell us whether the truck can reach the garage door or the front door, and whether parked cars or bins are likely to narrow the street on the day.',
+          'For a two-storey home or a townhouse, count the stairs and note any turns on the staircase. For a unit, check where visitors can park and how far it is from the entrance to the truck, because carry distance adds to moving time.',
+        ],
+      },
+      {
+        module: 'local-insights',
+        eyebrow: 'Family homes',
+        heading: 'Garage and outdoor items in an Andrews Farm move',
+        intro: 'The inventory that gets missed is usually outside the house.',
+        paragraphs: [
+          'Family home moves in the north often include more than the house contents: shelving and tool benches in the garage, a spare fridge or freezer, outdoor settings, bikes, trampolines and garden equipment. List these separately, because bulky and awkward items change the crew size and the loading order.',
+          'If a trampoline, swing set or large outdoor setting has to be dismantled, say so in the brief. Disassembly takes time before loading, and it is easier to allow for it in the quote than to discover it on the day.',
+          'Andrews Farm is in the City of Playford. If your address is near Stebonheath Park or the Andrews Farm Shopping Centre, tell us where the truck can stop, because shared streets and visitor parking near local shops and parks can limit where it can park.',
+        ],
+      },
+      {
+        module: 'local-route',
+        eyebrow: 'Moves from the north',
+        heading: 'Moving to or from Andrews Farm',
+        intro: 'Most moves from Andrews Farm stay in the northern suburbs, but some travel further.',
+        paragraphs: [
+          'Andrews Farm sits among Munno Para, Blakeview, Elizabeth, Salisbury and Gawler, and moves between these suburbs are mostly loading and unloading time. Use the nearby suburb pages below when the other address is in one of them.',
+          'If you are moving across to inner Adelaide, the coast or another state, tell us early. A 1-hour call-out/travel charge applies where applicable, so confirm whether it applies to your addresses when you ask for a quote.',
+        ],
+      },
+      {
+        module: 'trust',
+        eyebrow: 'Before you book',
+        heading: 'What you can check about ZQ Removals first',
+        intro: 'Ratings and business details are listed so you can verify them before you request a quote.',
+        paragraphs: [
+          'ZQ Removals is rated {{google.rating}} from {{google.reviewCount}} Google reviews across all jobs, not only Andrews Farm. You can read them on the ZQ Removals Google Business Profile before you request a quote.',
+          'ZQ Removals Adelaide trades under ABN 97 954 095 119. Ask about current cover details, building requirements and move protection before booking.',
+        ],
+      },
+    ],
+    nearby: [
+      { title: 'Removalists Munno Para', copy: 'Moving between Andrews Farm and Munno Para? Include the access details for both addresses.', href: '/removalists-munno-para/', cta: 'View Munno Para removalists' },
+      { title: 'Removalists Blakeview', copy: 'Estate homes in Blakeview have their own access notes.', href: '/removalists-blakeview/', cta: 'View Blakeview removalists' },
+      { title: 'Removalists Elizabeth', copy: 'Planning a move that starts or ends in Elizabeth? Check the local access notes.', href: '/removalists-elizabeth/', cta: 'View Elizabeth removalists' },
+      { title: 'Removalists Salisbury', copy: 'Family homes and storage items in Salisbury.', href: '/removalists-salisbury/', cta: 'View Salisbury removalists' },
+      { title: 'Removalists Gawler', copy: 'Gawler combines older character homes with newer estates.', href: '/removalists-gawler/', cta: 'View Gawler removalists' },
+      { eyebrow: 'Service area', title: 'Northern Adelaide removalists', copy: 'The northern suburbs hub covers the wider service area.', href: '/removalists-northern-adelaide/', cta: 'Northern Adelaide hub' },
+      { eyebrow: 'Moving service', title: 'Packing help', copy: 'Kitchen contents, glassware and fragile items can be packed before the move.', href: '/packing-services-adelaide/', cta: 'Packing services' },
+      { eyebrow: 'Moving service', title: 'Interstate removals', copy: 'Moving from Andrews Farm to another state? Check what to send first.', href: '/interstate-removals-adelaide/', cta: 'Interstate moving information' },
+    ],
+    faqs: [
+      { question: 'What affects the price of an Andrews Farm move?', answer: 'Andrews Farm moves are charged by time on site, so the total depends on the volume of items, access, stairs, carry distance and packing. ZQ Removals gives a transparent-rate quote using its published hourly rates: 2 men + truck $75 per 30 minutes and 3 men + truck $89 per 30 minutes. A 1-hour call-out/travel charge applies where applicable.' },
+      { question: 'Do you service Andrews Farm?', answer: 'Yes. Andrews Farm is where ZQ Removals is based, and the crew moves homes, units and furniture across Andrews Farm, the northern suburbs and metropolitan Adelaide.' },
+      { question: 'Can you move furniture in Andrews Farm?', answer: 'Yes. Single pieces and furniture-only moves can be quoted. Send the item list, dimensions and access notes for both addresses.' },
+      { question: 'Can you do a same-day or last-minute move from Andrews Farm?', answer: 'Availability for a same-day, urgent or last-minute move depends on the crew calendar. Call 0433 819 989 to check availability before you book.' },
+      { question: 'How do I get a quote for Andrews Farm?', answer: 'Send both addresses, your preferred date, a furniture and box list, stairs or lift access, parking restrictions and any packing requirements through the quote form, or call 0433 819 989 to discuss the move.' },
+      { question: 'Is ZQ Removals based in Andrews Farm?', answer: 'Yes. ZQ Removals is based in Andrews Farm, SA 5114, and moves homes, units and furniture across metropolitan Adelaide and interstate. A 1-hour call-out/travel charge applies where applicable, so confirm it when you ask for a quote.' },
+      { question: 'Do you move homes in Munno Para, Blakeview and Elizabeth?', answer: 'Yes. These northern suburbs each have their own page. Send both addresses and the access notes, and we will discuss the crew size and moving time.' },
+      { question: 'Can you move garage and outdoor items as well as the house?', answer: 'Yes. List garage shelving, fridges, outdoor settings, bikes and play equipment in the brief, and say which pieces need dismantling so the time allowed matches the work.' },
+      { question: 'Can you move me from Andrews Farm to another state?', answer: 'Yes. Interstate pricing is route-specific, so send both addresses, the inventory and your preferred dates and ask for an interstate quote.' },
+      { question: 'Is a 2-man or 3-man crew better for an Andrews Farm house move?', answer: 'For a typical Andrews Farm family home, the crew size depends on how much is in the garage and outdoors as well as inside. Send the inventory and access notes and we will discuss whether 2 men or 3 men suits the move.' },
+    ],
+  },
+  // Gawler facts used: Gawler SA 5118 sits at the northern edge of the Adelaide metropolitan area and is a gateway to the
+  // Barossa; Murray Street is the main street; the older town has historic stone buildings. No distances are claimed.
+  'gawler': {
+    h1: 'Gawler removalists: heritage homes, estates and northern moves',
+    lead: 'Moving in or out of Gawler, SA 5118? ZQ Removals moves houses, units and furniture in Gawler and across the northern suburbs. Send both addresses, the inventory and any access limits, and we will discuss the crew size and moving time. Published rates start at $75 per 30 minutes for 2 men and a truck.',
+    points: ['Older character homes and newer estates', 'Published crew rates, call-out/travel disclosed', 'Access and parking reviewed before booking'],
+    sections: [
+      {
+        module: 'local-intro',
+        eyebrow: 'Your Gawler move',
+        heading: 'Moving house or furniture in Gawler',
+        intro: 'Gawler mixes older streets with newer housing, so the property type decides the plan.',
+        paragraphs: [
+          'Gawler sits at the northern edge of metropolitan Adelaide, and its homes range from older stone cottages and villas near the town centre to newer family homes in estates around it. Tell us which kind of property you are moving from and to, because they need different loading plans.',
+          'List furniture room by room, including shed, garage and outdoor items, and send photos of larger pieces and the path to the truck.',
+        ],
+      },
+      {
+        module: 'logistics-access',
+        eyebrow: 'Access matters',
+        heading: 'Older streets, steps and parking in Gawler',
+        intro: 'Access around the town centre can be tighter than in a newer estate.',
+        paragraphs: [
+          'Around the older parts of town, check front steps, narrow side access and the width of doorways and hallways in older stone homes. Measure the tightest doorway on the carry path and compare it with your largest wardrobe, sofa or table.',
+          'If the move is near Murray Street or another busy street, check the posted parking and loading restrictions for the day and time, and tell us the distance from the nearest place the truck can stop to the front door.',
+        ],
+      },
+      {
+        module: 'local-insights',
+        eyebrow: 'Character homes',
+        heading: 'Moving out of an older Gawler home',
+        intro: 'Older homes need more planning at the doorways than at the truck.',
+        paragraphs: [
+          'Heritage-style homes often have timber floors, internal steps and decorative features along the carry path. Tell us about floors, door frames and anything fragile at the entry, so protection can be planned before moving day.',
+          'Note heavy timber furniture, antiques and any piano separately, because they change the crew size and the handling time. For a newer estate home, the questions are usually garage contents, outdoor items and whether the truck can reach the driveway.',
+          'Gawler is in the Town of Gawler council area. If your address is near Pioneer Park, the Gawler River or Gawler Central Station, tell us where the truck can stop, because streets near the station and the river can limit parking.',
+        ],
+      },
+      {
+        module: 'local-service-summary',
+        eyebrow: 'Services in Gawler',
+        heading: 'Moving services available in Gawler',
+        intro: 'Choose the service that matches your move, then send both addresses.',
+        paragraphs: [
+          'ZQ Removals can quote house and unit moves, furniture-only moves, packing help and interstate removals for Gawler addresses. Published rates are $75 per 30 minutes for 2 men and a truck and $89 per 30 minutes for 3 men and a truck, with a 1-hour call-out/travel charge where applicable.',
+        ],
+      },
+      {
+        module: 'nearby-suburbs',
+        eyebrow: 'Nearby suburbs',
+        heading: 'Gawler and the northern suburbs around it',
+        intro: 'Moves between these suburbs share the same northern corridor.',
+        paragraphs: [
+          'Gawler sits north of Munno Para, Elizabeth, Andrews Farm and Salisbury, and each has its own page with local access notes. Use the nearby suburb cards below when your other address is in one of them.',
+        ],
+      },
+      {
+        module: 'local-route',
+        eyebrow: 'Moves from the north',
+        heading: 'Moving to or from Gawler',
+        intro: 'Gawler is on the northern fringe, so the drive is part of the job.',
+        paragraphs: [
+          'Moves between Gawler and the closer northern suburbs are a mix of driving and loading. Moves to the city, the coast or the southern suburbs involve a longer drive, and a 1-hour call-out/travel charge applies where applicable, so confirm it when you ask for a quote.',
+          'ZQ Removals is based in Andrews Farm, in the same northern corridor. For a move to another state, ask about interstate removals and start planning early.',
+        ],
+      },
+      {
+        module: 'trust',
+        eyebrow: 'Before you book',
+        heading: 'What you can check about ZQ Removals first',
+        intro: 'Ratings and business details are listed so you can verify them before you request a quote.',
+        paragraphs: [
+          'ZQ Removals is rated {{google.rating}} from {{google.reviewCount}} Google reviews across all jobs, not only Gawler. You can read them on the ZQ Removals Google Business Profile before you request a quote.',
+          'ZQ Removals Adelaide trades under ABN 97 954 095 119. Ask about current cover details, building requirements and move protection before booking.',
+        ],
+      },
+    ],
+    nearby: [
+      { title: 'Removalists Andrews Farm', copy: 'ZQ Removals is based in Andrews Farm, in the same northern corridor as Gawler.', href: '/removalists-andrews-farm/', cta: 'View Andrews Farm removalists' },
+      { title: 'Removalists Munno Para', copy: 'Estate homes and newer builds in Munno Para.', href: '/removalists-munno-para/', cta: 'View Munno Para removalists' },
+      { title: 'Removalists Elizabeth', copy: 'Family-home access and staging in Elizabeth.', href: '/removalists-elizabeth/', cta: 'View Elizabeth removalists' },
+      { title: 'Removalists Salisbury', copy: 'Family homes and storage items in Salisbury.', href: '/removalists-salisbury/', cta: 'View Salisbury removalists' },
+      { eyebrow: 'Service area', title: 'Northern Adelaide removalists', copy: 'The northern suburbs hub covers the wider service area.', href: '/removalists-northern-adelaide/', cta: 'Northern Adelaide hub' },
+      { eyebrow: 'Moving service', title: 'Packing help', copy: 'Fragile items, glassware and antiques can be packed before the move.', href: '/packing-services-adelaide/', cta: 'Packing services' },
+      { eyebrow: 'Moving service', title: 'Interstate removals', copy: 'Moving from Gawler to another state? Check what to send first.', href: '/interstate-removals-adelaide/', cta: 'Interstate moving information' },
+    ],
+    faqs: [
+      { question: 'What affects the price of a Gawler move?', answer: 'Gawler moves are charged by time on site, so the total depends on the volume of items, access, stairs, carry distance and the drive from your other address. ZQ Removals gives a transparent-rate quote using its published rates: 2 men + truck $75 per 30 minutes and 3 men + truck $89 per 30 minutes. A 1-hour call-out/travel charge applies where applicable.' },
+      { question: 'Do you offer removalists in Gawler?', answer: 'Yes. ZQ Removals moves homes, units and furniture in Gawler and across the northern suburbs. A 1-hour call-out/travel charge applies where applicable, so confirm it when you ask for a quote.' },
+      { question: 'Can you move furniture out of an older stone home in Gawler?', answer: 'Yes. Tell us about steps, narrow doorways, timber floors and heavy or antique pieces when you request a quote, so protection and crew size can be planned.' },
+      { question: 'Can you move a piano or antique furniture in Gawler?', answer: 'Yes, when it is disclosed before booking. Send the piano type, the steps at both addresses and photos of any antique or heavy timber pieces, and we will confirm the handling plan before the day.' },
+      { question: 'Do you move homes from Gawler to Adelaide or interstate?', answer: 'Yes. Send both addresses and the inventory. Interstate pricing is route-specific, and a 1-hour call-out/travel charge applies where applicable.' },
+      { question: 'Is a 2-man or 3-man crew better for a Gawler house move?', answer: 'For a Gawler move, crew size depends on the property. An older home with steps and narrow doorways can need a different plan from a newer estate house. Send the inventory and access notes and we will discuss whether 2 men or 3 men suits the move.' },
+    ],
+  },
+  // Mount Barker facts used: Mount Barker SA 5251 is a large Adelaide Hills town with a lot of newer housing, reached from
+  // Adelaide by the South Eastern Freeway; the terrain is hilly. No distances, travel times or council rules are claimed.
+  'mount-barker': {
+    h1: 'Mount Barker removalists: Adelaide Hills house and furniture moves',
+    lead: 'Moving in or out of Mount Barker, SA 5251? ZQ Removals moves houses, units and furniture between Mount Barker, the Adelaide Hills and metropolitan Adelaide. Send both addresses, the inventory and any access limits, and we will discuss the crew size and moving time. Published rates start at $75 per 30 minutes for 2 men and a truck.',
+    points: ['Hills and metro Adelaide moves', 'Published crew rates, call-out/travel disclosed', 'Sloping driveways and access reviewed before booking'],
+    sections: [
+      {
+        module: 'local-intro',
+        eyebrow: 'Your Mount Barker move',
+        heading: 'Moving house or furniture in Mount Barker',
+        intro: 'Mount Barker is a growing Hills town, with a lot of newer housing alongside older streets.',
+        paragraphs: [
+          'Many Mount Barker moves are family homes in newer estates, with a double garage, a driveway and outdoor items to list. Others are older homes closer to the town centre, where access can be tighter.',
+          'List furniture room by room, including garage, shed and outdoor items, and send photos of larger pieces and the path to the truck. If you are moving to or from metropolitan Adelaide, say which suburb, so both addresses can be planned together.',
+        ],
+      },
+      {
+        module: 'logistics-access',
+        eyebrow: 'Access matters',
+        heading: 'Slopes, driveways and wet weather in the Hills',
+        intro: 'Hills properties often have more slope than a typical metro block.',
+        paragraphs: [
+          'Check whether the driveway is steep, long or gravel, and whether the truck can reach the garage or the front door. A sloping drive, a long carry from the street or steps down to the entry all add to the time on site, so tell us before the move.',
+          'Wet conditions can make sloping driveways and paths slippery. Clear the carry path, keep pets away from the loading area and ask whether the date and time suit the weather forecast.',
+        ],
+      },
+      {
+        module: 'local-insights',
+        eyebrow: 'Bigger blocks',
+        heading: 'Sheds, outbuildings and outdoor items',
+        intro: 'Hills blocks tend to come with more to move outside the house.',
+        paragraphs: [
+          'A move from a larger block can include a shed or workshop, garden equipment, firewood, outdoor settings and a trailer or boat stored on site. List these separately, because bulky and awkward items change the crew size and the loading order.',
+          'If a water tank, play equipment or large outdoor structure is part of the sale or the move, say so in the brief so the time allowed is realistic. Anything that needs dismantling should be flagged early.',
+          'Mount Barker is in the District Council of Mount Barker area. If your address is on a slope near Mount Barker Summit, or close to Gawler Street or Keith Stephenson Park, tell us where the truck can stop and how far the carry is, because hillside and town-centre streets can limit parking.',
+        ],
+      },
+      {
+        module: 'local-service-summary',
+        eyebrow: 'Services in Mount Barker',
+        heading: 'Moving services available in Mount Barker',
+        intro: 'Choose the service that matches your move, then send both addresses.',
+        paragraphs: [
+          'ZQ Removals can quote house and unit moves, furniture-only moves, packing help and interstate removals for Mount Barker addresses. Published rates are $75 per 30 minutes for 2 men and a truck and $89 per 30 minutes for 3 men and a truck, with a 1-hour call-out/travel charge where applicable.',
+        ],
+      },
+      {
+        module: 'nearby-suburbs',
+        eyebrow: 'Nearby suburbs',
+        heading: 'Mount Barker and the Adelaide Hills around it',
+        intro: 'Moves between Hills suburbs have their own access notes.',
+        paragraphs: [
+          'Bridgewater, Blackwood, Belair and Mitcham each have their own page with local access notes, and the Adelaide Hills page covers the wider service area. Use the nearby suburb cards below when your other address is in one of them.',
+        ],
+      },
+      {
+        module: 'local-route',
+        eyebrow: 'Hills and metro routes',
+        heading: 'Moving to or from Mount Barker',
+        intro: 'Mount Barker moves include a drive between the Hills and the metro address.',
+        paragraphs: [
+          'Adelaide is reached from Mount Barker by the South Eastern Freeway, so a move to or from the metro area includes a drive in addition to the loading and unloading. A 1-hour call-out/travel charge applies where applicable, so confirm it when you ask for a quote.',
+          'For moves within the Hills, see the nearby suburb pages below. For a move to another state, ask about interstate removals and start planning early.',
+        ],
+      },
+      {
+        module: 'trust',
+        eyebrow: 'Before you book',
+        heading: 'What you can check about ZQ Removals first',
+        intro: 'Ratings and business details are listed so you can verify them before you request a quote.',
+        paragraphs: [
+          'ZQ Removals is rated {{google.rating}} from {{google.reviewCount}} Google reviews across all jobs, not only Mount Barker. You can read them on the ZQ Removals Google Business Profile before you request a quote.',
+          'ZQ Removals Adelaide trades under ABN 97 954 095 119. Ask about current cover details, building requirements and move protection before booking.',
+        ],
+      },
+    ],
+    nearby: [
+      { title: 'Removalists Bridgewater', copy: 'Hills access and long carry planning in Bridgewater.', href: '/removalists-bridgewater/', cta: 'View Bridgewater removalists' },
+      { title: 'Removalists Blackwood', copy: 'Planning a move that starts or ends in Blackwood? Check the local access notes.', href: '/removalists-blackwood/', cta: 'View Blackwood removalists' },
+      { title: 'Removalists Belair', copy: 'Larger homes and driveways in Belair.', href: '/removalists-belair/', cta: 'View Belair removalists' },
+      { title: 'Removalists Mitcham', copy: 'Premium home and driveway planning in Mitcham.', href: '/removalists-mitcham/', cta: 'View Mitcham removalists' },
+      { eyebrow: 'Service area', title: 'Adelaide Hills removalists', copy: 'The Adelaide Hills page covers the wider Hills service area.', href: '/removalists-adelaide-hills/', cta: 'Adelaide Hills removalists' },
+      { eyebrow: 'Moving service', title: 'Packing help', copy: 'Fragile items, glassware and kitchen contents can be packed before the move.', href: '/packing-services-adelaide/', cta: 'Packing services' },
+      { eyebrow: 'Moving service', title: 'Interstate removals', copy: 'Moving from Mount Barker to another state? Check what to send first.', href: '/interstate-removals-adelaide/', cta: 'Interstate moving information' },
+    ],
+    faqs: [
+      { question: 'What affects the price of a Mount Barker move?', answer: 'Mount Barker moves are charged by time on site, so the total depends on the volume of items, driveway access, carry distance and the drive between the Hills and your other address. ZQ Removals gives a transparent-rate quote using its published rates: 2 men + truck $75 per 30 minutes and 3 men + truck $89 per 30 minutes. A 1-hour call-out/travel charge applies where applicable.' },
+      { question: 'Do you offer removalists in Mount Barker?', answer: 'Yes. ZQ Removals moves homes, units and furniture in Mount Barker and across the Adelaide Hills and metropolitan Adelaide. A 1-hour call-out/travel charge applies where applicable, so confirm it when you ask for a quote.' },
+      { question: 'Can you move from a sloping or gravel driveway?', answer: 'Yes. Tell us about the slope, the surface and the carry distance when you request a quote, so the time allowed matches the access.' },
+      { question: 'Can you move shed and outdoor items as well as the house?', answer: 'Yes. List shed contents, garden equipment, outdoor settings and any items that need dismantling in the brief, so the time allowed matches the work.' },
+      { question: 'Do you move homes from Mount Barker to Adelaide or interstate?', answer: 'Yes. Send both addresses and the inventory. Interstate pricing is route-specific, and a 1-hour call-out/travel charge applies where applicable.' },
+      { question: 'Is a 2-man or 3-man crew better for a Mount Barker house move?', answer: 'For a Mount Barker move, crew size depends on the slope, the carry distance and what is stored outside. Send the inventory and access notes and we will discuss whether 2 men or 3 men suits the move.' },
+    ],
+  },
   'hyde-park': {
     h1: 'Hyde Park removalists: local home and furniture moves',
     lead: 'Looking for local removalists in Hyde Park? ZQ Removals moves houses, units and furniture in Hyde Park and the surrounding inner-south suburbs. Send both addresses and what needs moving, and we will discuss the crew size and likely moving time. Published rates start at $75 per 30 minutes for 2 men and a truck.',
@@ -5909,6 +6181,16 @@ const SUBURB_INBOUND_COPY = {
   'walkerville': [['medindie', 'Medindie adjoins Walkerville to the west and covers larger-home moves, with long carries and outbuildings to list.']],
   'prospect': [['medindie', 'Medindie is a neighbouring northern suburb, with larger homes where the carry path and outbuildings shape the quote.']],
   'adelaide-cbd': [['medindie', 'Medindie lies north of the CBD, past North Adelaide and the Parklands, and covers larger-home moves.']],
+  'unley': [
+    ['hyde-park', 'Hyde Park is a neighbouring inner-south page covering character villas and King William Road access.'],
+    ['unley-park', 'Unley Park is a neighbouring inner-south page covering townhouse and larger-home moves.'],
+    ['malvern', 'Malvern is another inner-south page, covering villa and townhouse moves.'],
+  ],
+  'goodwood': [
+    ['hyde-park', 'Hyde Park is an inner-south page covering character villas and furniture moves.'],
+    ['unley-park', 'Unley Park is an inner-south page covering townhouse and larger-home moves.'],
+    ['malvern', 'Malvern is an inner-south page covering villa and townhouse moves.'],
+  ],
 };
 
 function buildNeighbourItems(entries = []) {
@@ -5916,6 +6198,10 @@ function buildNeighbourItems(entries = []) {
     const name = suburbDataBySlug.get(neighbourSlug)?.suburb || toTitle(neighbourSlug);
     return { href: `/removalists-${neighbourSlug}/`, label: `removalists in ${name}`, suburb: name, copy };
   });
+}
+
+function hasPrioritySuburbProfile(slug) {
+  return Object.hasOwn(prioritySuburbProfiles, slug);
 }
 
 function getPrioritySuburbFaqItems(slug) {
@@ -6001,9 +6287,10 @@ const priorityCommercialProfiles = {
       { type: 'html', module: 'pricing-callout-examples', eyebrow: 'Putting it together', heading: 'Hypothetical examples including call-out', intro: 'Time charge plus call-out/travel, with the assumptions shown.', html: rateCalloutExamplesHtml },
       { type: 'text', module: 'pricing-compare-quotes', eyebrow: 'Removalist cost and quotes', heading: 'How to compare removal quotes in Adelaide', intro: 'A fair comparison starts with the same brief for every company.', paragraphs: [
         'When you ask for removal quotes, give each company the same inventory, the same access notes for both addresses and the same moving date. Then compare the crew size, the hourly or half-hourly rate, how the call-out or travel charge is treated and what is excluded.',
-        'ZQ Removals publishes its rates so the first two are easy to check: $75 per 30 minutes for 2 men and a truck, and $89 per 30 minutes for 3 men and a truck. Ask any other removalist how a part-increment is counted and whether travel is charged, because those two terms change the total as much as the headline rate does.',
+        `ZQ Removals publishes its rates so the first two are easy to check: ${movingRates.smallTruck} for the small truck, $75 per 30 minutes for 2 men and a truck, and $89 per 30 minutes for 3 men and a truck. Ask any other removalist how a part-increment is counted and whether travel is charged, because those two terms change the total as much as the headline rate does.`,
         'If you are working to a budget, the quickest saving is less time on site: boxes packed and labelled, furniture dismantled in advance and a short, clear carry from the truck to the door. The affordable moving guide linked below explains those preparation steps.',
       ] },
+      { type: 'html', module: 'pricing-suburb-links', eyebrow: 'Local move pages', heading: 'Access notes for popular inner-city suburbs', intro: 'Time on site depends on access, so these suburb pages list what to check at each address before you request a quote.', html: '<div class="inline-link-group" style="justify-content: flex-start;"><a href="/removalists-hyde-park/">Hyde Park removalists</a><a href="/removalists-unley-park/">Unley Park home moves</a><a href="/removalists-malvern/">Malvern removalists</a><a href="/removalists-medindie/">Medindie house moves</a><a href="/removalists-toorak-gardens/">Toorak Gardens moving help</a><a href="/removalists-kensington-gardens/">Kensington Gardens family moves</a></div>' },
       { type: 'text', module: 'move-planning', eyebrow: 'What changes the total', heading: 'What changes the time on site', intro: 'The rate is fixed. The time on site is the variable.', paragraphs: [
         'These are time-based rates, not a fixed total for every move. Volume, stairs, lifts, parking, carry distance and packing change the time, and a prepared inventory with clear access shortens the job.',
         'The moving cost guide explains each factor in detail and what to tell the removalist, so you can brief every company the same way.',
@@ -6014,7 +6301,7 @@ const priorityCommercialProfiles = {
       { question: 'How is time billed?', answer: 'Time is charged per 30 minutes at the agreed package rate: small truck $65 with crew confirmed in the quote, or large truck $75 for 2 movers or $89 for 3 movers. Confirm how a part-increment is counted when you request a quote.' },
       { question: 'Is the call-out or travel charge always added?', answer: 'It applies where applicable. For large-truck packages it is one hour of the selected crew rate ($150 for 2 movers, $178 for 3 movers). Confirm whether it applies to your addresses, and the applicable small-truck charge if choosing that package.' },
       { question: 'Can I get a fixed total from these rates?', answer: 'The published rates describe time-based charging. Request an estimate based on your inventory and access, then confirm the charging basis and inclusions with ZQ Removals.' },
-      { question: 'How much does a removalist cost in Adelaide?', answer: 'The cost is time-based. ZQ Removals charges $75 per 30 minutes for 2 men and a truck and $89 per 30 minutes for 3 men and a truck, plus a 1-hour call-out/travel charge where applicable. The total depends on how long your move takes.' },
+      { question: 'How much does a removalist cost in Adelaide?', answer: `The cost is time-based. ZQ Removals charges ${movingRates.smallTruck} for the small truck, $75 per 30 minutes for 2 men and a truck and $89 per 30 minutes for 3 men and a truck, plus a 1-hour call-out/travel charge where applicable. The total depends on how long your move takes.` },
       { question: 'How do I compare removal quotes?', answer: 'Give each company the same inventory, access notes and date, then compare the crew size, rate, call-out or travel treatment, how part-increments are counted and what is excluded.' },
       { question: 'Do stairs or long carries change the cost?', answer: 'They can, because they add time on site. Include stairs, lift access and the distance from the truck to the door in your enquiry.' },
     ],
@@ -6087,7 +6374,7 @@ function renderPriorityCommercial(page, image) {
 }
 
 function renderSuburbContent({ slug, suburb, region, intro, logisticsLabel, nearby, clusterKey, intents, image, faqItems }) {
-  if (['hyde-park', 'unley-park', 'toorak-gardens'].includes(slug)) return renderPrioritySuburb({ slug, suburb, image });
+  if (hasPrioritySuburbProfile(slug)) return renderPrioritySuburb({ slug, suburb, image });
   const quoteHref = ['medindie', 'toorak-gardens'].includes(slug)
     ? '/contact-us/?move_scope=house-removal&property_type=house#quote-form'
     : '/contact-us/#quote-form';
