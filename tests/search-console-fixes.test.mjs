@@ -3,7 +3,7 @@ import path from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
-import { businessIdentity, googleReviews } from '../site-src/data/business.mjs';
+import { buildOpeningHoursSpecification, businessIdentity, googleReviews } from '../site-src/data/business.mjs';
 import { buildDescription, buildTitle, getGeneratedPages, isVerifiedRedirectSource, mergePagesByOutput } from '../site-src/data/seo-v4.mjs';
 import { readVercelConfig } from './helpers/vercel-config.mjs';
 
@@ -713,8 +713,12 @@ test('json-ld is valid, host-consistent, and uses only supported business facts'
           assert.equal(node.address?.postalCode, '5114', `MovingCompany address postal code mismatch in ${relativePath}`);
           assert.equal(node.address?.addressCountry, 'AU', `MovingCompany address country mismatch in ${relativePath}`);
           assert.ok(schemaValueNames(node.areaServed).includes('Adelaide'), `MovingCompany areaServed missing Adelaide in ${relativePath}`);
-          assert.equal(node.openingHours, undefined, `unverified openingHours published in ${relativePath}`);
-          assert.equal(node.openingHoursSpecification, undefined, `unverified openingHoursSpecification published in ${relativePath}`);
+          assert.equal(node.openingHours, undefined, `plain-string openingHours published in ${relativePath}`);
+          assert.deepEqual(
+            node.openingHoursSpecification,
+            buildOpeningHoursSpecification(),
+            `MovingCompany openingHoursSpecification mismatch in ${relativePath}`,
+          );
           if (node.founder !== undefined) {
             assert.equal(node.founder?.['@type'], 'Person', `founder must be a Person in ${relativePath}`);
             assert.equal(node.founder?.name, 'Qasim Ali', `founder mismatch in ${relativePath}`);

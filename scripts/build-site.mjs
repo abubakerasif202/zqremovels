@@ -31,7 +31,7 @@ import {
   seoConfig,
   zqServiceSitemapOutputs,
 } from '../site-src/data/seo-v4.mjs';
-import { buildPostalAddressSchema, businessIdentity, googleReviewCards, googleReviews, movingRates } from '../site-src/data/business.mjs';
+import { buildOpeningHoursSpecification, buildPostalAddressSchema, businessIdentity, googleReviewCards, googleReviews, movingRates } from '../site-src/data/business.mjs';
 import { zqSuburbGeoData } from '../site-src/data/zq-suburbs.mjs';
 import { getGoogleMapsBrowserConfig } from '../site-src/data/maps.mjs';
 
@@ -3015,9 +3015,11 @@ function buildBusinessJsonLd(page) {
   }
 
   const schema = buildLocalBusinessSchema();
+  // Opening hours come from the shared business data so every page that carries the entity inherits them.
+  schema.openingHoursSpecification = buildOpeningHoursSpecification();
+  schema.priceRange = movingRates.priceRange;
   if (page.output.includes('guide')) {
     delete schema.geo;
-    delete schema.openingHoursSpecification;
   }
   return JSON.stringify(schema, null, 2);
 }
@@ -3038,7 +3040,8 @@ function buildWebSiteJsonLd(page) {
       '@type': 'WebSite',
       '@id': 'https://zqremovalsadelaide.com.au/#website',
       url: `${businessIdentity.siteUrl}/`,
-      name: businessIdentity.name,
+      name: businessIdentity.listingName,
+      alternateName: businessIdentity.name,
       inLanguage: 'en-AU',
       publisher: {
         '@id': 'https://zqremovalsadelaide.com.au/#movingcompany',
@@ -3720,7 +3723,7 @@ function normalizeMovingCompanyNode(node, page) {
     image,
     logo,
     openingHours,
-    openingHoursSpecification,
+    openingHoursSpecification: _pageOpeningHours,
     priceRange: _unverifiedPriceRange,
     ...rest
   } = node;
@@ -3745,6 +3748,8 @@ function normalizeMovingCompanyNode(node, page) {
       name: 'ABN',
       value: businessIdentifiers.abnMachine,
     },
+    openingHoursSpecification: buildOpeningHoursSpecification(),
+    priceRange: movingRates.priceRange,
     serviceType: [
       'Local removals',
       'Interstate removals',
