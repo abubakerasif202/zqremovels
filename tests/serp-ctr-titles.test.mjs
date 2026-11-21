@@ -15,7 +15,7 @@ const expectations = [
   ['removalists-unley-park/index.html', 'Unley Park Removalists | Homes & Townhouses | $75/30 min'],
   ['removalists-medindie/index.html', 'Medindie Removalists | From $75/30 min | ZQ Removals'],
   ['removalists-toorak-gardens/index.html', 'Toorak Gardens Removalists | From $75/30 min | ZQ'],
-  ['removalists-adelaide-prices/index.html', 'Adelaide Removalist Prices | $75 & $89 per 30 min | ZQ'],
+  ['removalists-adelaide-prices/index.html', 'Removalists Adelaide Prices | $75 & $89 per 30 min | ZQ'],
   ['services/piano-movers-adelaide/index.html', 'Piano Movers Adelaide | Upright & Grand Pianos | ZQ'],
 ];
 
