@@ -186,6 +186,10 @@ const verifiedPricingMetadata = new Map([
     title: 'Toorak Gardens Removalists | From $75/30 min | ZQ',
     description: 'Toorak Gardens removalists for premium homes. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply.',
   }],
+  ['removalists-adelaide-prices/index.html', {
+    title: 'Removalists Adelaide Prices | $75 & $89 Truck Rates | ZQ',
+    description: 'Compare Adelaide small truck $65/30 min and large truck $75 or $89/30 min packages. Confirm crew, call-out/travel and inclusions in your quote.',
+  }],
   ['services/piano-movers-adelaide/index.html', {
     title: 'Piano Movers Adelaide | Upright & Grand Pianos | ZQ',
     description: 'Piano movers Adelaide for upright, grand and digital pianos. Send dimensions and access photos so handling can be confirmed before you book.',

@@ -12,6 +12,7 @@ const metaOf = (html, attr, name) =>
 
 const expectations = [
   ['removalists-toorak-gardens/index.html', 'Toorak Gardens Removalists | From $75/30 min | ZQ'],
+  ['removalists-adelaide-prices/index.html', 'Removalists Adelaide Prices | $75 & $89 Truck Rates | ZQ'],
   ['services/piano-movers-adelaide/index.html', 'Piano Movers Adelaide | Upright & Grand Pianos | ZQ'],
 ];
 
