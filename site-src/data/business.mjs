@@ -1,13 +1,17 @@
 import { readFileSync } from 'node:fs';
 
-const googleProfileUrl = 'https://share.google/toaQ1pTUMpigxRuQM';
+const googleProfileUrl = 'https://share.google/afUxDQxO7PBWGSsxP';
+const googleReviewUrl = 'https://g.page/r/Cb5kWH_Fcs9LEBM/review';
+// Google Maps listing for "ZQ Removals Adelaide" (owner-supplied share link maps.app.goo.gl/jFEKZGFdYLNTEPec6),
+// stored in its stable CID form so the URL carries no session or tracking parameters.
+const googleMapsUrl = 'https://www.google.com/maps?cid=5462711065594324158';
 
 export const businessIdentity = {
   name: 'ZQ Removals',
   // The name shown on the Google Business Profile; used for the MovingCompany entity so schema matches the listing.
   listingName: 'ZQ Removals Adelaide',
   siteUrl: 'https://zqremovalsadelaide.com.au',
-  email: 'admin@zqremovals.au',
+  email: 'admin@zqremovalsadelaide.com.au',
   phone: {
     display: '0433 819 989',
     tel: '+61433819989',
@@ -34,6 +38,7 @@ export const businessIdentity = {
     'Coastal suburbs',
     'Interstate Australia',
   ],
+  mapsUrl: googleMapsUrl,
   socialProfiles: [
     googleProfileUrl,
     'https://facebook.com/zqremovals',
@@ -44,7 +49,7 @@ export const businessIdentity = {
 
 // Rating and review count come from google-reviews.json, which scripts/update-google-reviews.mjs refreshes from the
 // Google Places API. The fallback below is used only if that file is missing or invalid.
-const googleReviewsFallback = { rating: 5.0, reviewCount: 94 };
+const googleReviewsFallback = { rating: 5.0, reviewCount: 100 };
 
 function readGoogleReviewsData() {
   try {
@@ -66,6 +71,7 @@ export const googleReviews = {
   rating: googleReviewsData.rating,
   reviewCount: googleReviewsData.reviewCount,
   profileUrl: googleProfileUrl,
+  reviewUrl: googleReviewUrl,
   lastVerifiedSource: `${googleReviewsData.source} ${googleReviewsData.fetchedAt}`.trim(),
 };
 
@@ -91,11 +97,32 @@ export const businessIdentifiers = {
 };
 
 export const movingRates = {
+  // Small truck confirmed as a real published package by the owner on 2026-11-21 (crew confirmed with the quote).
+  smallTruck: '$65 per 30 minutes',
+  priceRange: '$65-$89 per 30 minutes',
   twoMenAndTruck: '$75 per 30 minutes',
   threeMenAndTruck: '$89 per 30 minutes',
   travelCharge: 'A 1-hour call-out/travel charge applies where applicable.',
   summary: '2 men and a truck: $75 per 30 minutes. 3 men and a truck: $89 per 30 minutes. A 1-hour call-out/travel charge applies where applicable.',
 };
+
+// Opening hours match the Google Business Profile (owner-confirmed 2026-11-21): Monday to Sunday, 07:00-19:00.
+export const businessOpeningHours = {
+  days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+  opens: '07:00',
+  closes: '19:00',
+};
+
+export function buildOpeningHoursSpecification() {
+  return [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: [...businessOpeningHours.days],
+      opens: businessOpeningHours.opens,
+      closes: businessOpeningHours.closes,
+    },
+  ];
+}
 
 export function businessUrl(pathname = '/') {
   return new URL(pathname, businessIdentity.siteUrl).toString();

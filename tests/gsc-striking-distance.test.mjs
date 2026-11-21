@@ -34,7 +34,7 @@ test('prices page explains how to compare removal quotes using only published ra
   const dollarAmounts = [...section.matchAll(/\$\d+/g)].map((match) => match[0]);
   assert.ok(dollarAmounts.length > 0);
   for (const amount of dollarAmounts) {
-    assert.ok(['$75', '$89'].includes(amount), `unexpected price ${amount} in the compare-quotes section`);
+    assert.ok(['$65', '$75', '$89'].includes(amount), `unexpected price ${amount} in the compare-quotes section`);
   }
 });
 

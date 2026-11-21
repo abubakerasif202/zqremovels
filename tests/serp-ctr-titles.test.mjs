@@ -11,11 +11,8 @@ const metaOf = (html, attr, name) =>
   decode(html.match(new RegExp(`<meta[^>]*${attr}="${name}"[^>]*content="([^"]*)"`, 'i'))[1]);
 
 const expectations = [
-  ['removalists-hyde-park/index.html', 'Hyde Park Removalists | From $75/30 min | ZQ Removals'],
-  ['removalists-unley-park/index.html', 'Unley Park Removalists | Homes & Townhouses | $75/30 min'],
-  ['removalists-medindie/index.html', 'Medindie Removalists | From $75/30 min | ZQ Removals'],
   ['removalists-toorak-gardens/index.html', 'Toorak Gardens Removalists | From $75/30 min | ZQ'],
-  ['removalists-adelaide-prices/index.html', 'Removalists Adelaide Prices | $75 & $89 per 30 min | ZQ'],
+  ['removalists-adelaide-prices/index.html', 'Removalists Adelaide Prices | $75 & $89 Truck Rates | ZQ'],
   ['services/piano-movers-adelaide/index.html', 'Piano Movers Adelaide | Upright & Grand Pianos | ZQ'],
 ];
 

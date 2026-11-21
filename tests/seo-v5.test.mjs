@@ -119,7 +119,9 @@ test('seo v5 json-ld parses and only publishes supported business facts', () => 
       const serialized = JSON.stringify(jsonLd);
       assert.doesNotMatch(serialized, /https:\/\/www\.zqremovals\.au|localhost|\.vercel\.app/i, `bad URL in ${relativePath}`);
       assert.doesNotMatch(serialized, /AggregateRating|aggregateRating|reviewCount|ratingValue/i, `unsupported review schema in ${relativePath}`);
-      assert.doesNotMatch(serialized, /openingHours|openingHoursSpecification/i, `unsupported hours schema in ${relativePath}`);
+      // Hours are published only as the owner-confirmed OpeningHoursSpecification on the MovingCompany node
+      // (see search-console-fixes.test.mjs); the plain-string openingHours form is never emitted.
+      assert.doesNotMatch(serialized, /"openingHours"\s*:/, `unsupported hours schema in ${relativePath}`);
       assert.doesNotMatch(serialized, /latitude|longitude|GeoCoordinates/i, `unsupported geo schema in ${relativePath}`);
 
       for (const node of flattenJsonLdNodes(jsonLd)) {
@@ -133,9 +135,10 @@ test('seo v5 json-ld parses and only publishes supported business facts', () => 
           assert.equal(node.url, `${canonicalHost}/`, `business URL mismatch in ${relativePath}`);
           assert.ok(node.telephone, `business telephone missing in ${relativePath}`);
           assert.deepEqual(node.sameAs || [], [
-            'https://share.google/toaQ1pTUMpigxRuQM',
+            'https://share.google/afUxDQxO7PBWGSsxP',
             'https://facebook.com/zqremovals'
           ], `sameAs must use only verified project profiles in ${relativePath}`);
+          assert.equal(node.hasMap, businessIdentity.mapsUrl, `hasMap must be the Google Maps listing in ${relativePath}`);
         }
       }
     }

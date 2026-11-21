@@ -51,7 +51,7 @@ test('Premium template homepage contract is generator-native and complete', asyn
     assert.match(html, /id="reviews"/);
     assert.match(html, /Planning a move in Adelaide\? Get your free ZQ Removals quote today\./);
     assert.match(html, /(?:5\.0|\{\{google\.rating\}\})[\s\S]*from (?:\d+|\{\{google\.reviewCount\}\})[\s\S]*Google reviews/i);
-    assert.match(html, /(?:href="https:\/\/share\.google\/toaQ1pTUMpigxRuQM"|href="\{\{google\.profileUrl\}\}")/i);
+    assert.match(html, /(?:href="https:\/\/share\.google\/afUxDQxO7PBWGSsxP"|href="\{\{google\.profileUrl\}\}")/i);
     assert.match(html, /google-review-stars" role="img" aria-label="5 out of 5 stars"/i);
     assert.doesNotMatch(html, /Site owner to replace|Placeholder for a verified Google review|Review excerpts below are placeholders/i);
     assert.doesNotMatch(html, /54 Google|5\.0\/5|5\.0-star|top-rated|fully insured|AFRA|award-winning|guaranteed|zero damage/i);
@@ -67,7 +67,7 @@ test('Premium template homepage contract is generator-native and complete', asyn
   ]) {
     assert.match(built, new RegExp(reviewText, 'i'));
   }
-  assert.match(built, /admin@zqremovals\.au/);
+  assert.match(built, /admin@zqremovalsadelaide\.com\.au/);
 });
 
 test('homepage navigation and sticky actions stay complete across desktop and mobile markup', async () => {
@@ -119,6 +119,6 @@ test('homepage JSON-LD uses the visible FAQs and contains no unsupported trust c
 
   assert.deepEqual(faq.mainEntity.map((item) => item.name), requiredFaqs);
   assert.equal(business.telephone, '+61433819989');
-  assert.equal(business.email, 'admin@zqremovals.au');
+  assert.equal(business.email, 'admin@zqremovalsadelaide.com.au');
   assert.doesNotMatch(JSON.stringify(schemas), /AggregateRating|reviewCount|ratingValue|insured|guarantee|award/i);
 });
