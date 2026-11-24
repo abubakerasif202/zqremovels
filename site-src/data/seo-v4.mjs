@@ -1574,7 +1574,7 @@ const guideTopics = [
 const semrushQuoteFaqItems = [
   {
     question: 'How much do cheap removalists cost in Adelaide?',
-    answer: 'ZQ Removals charges $75 per 30 minutes for 2 men and a truck, or $89 per 30 minutes for 3 men and a truck. A 1-hour call-out/travel charge applies where applicable. Access, inventory, packing and timing can affect the work required.',
+    answer: `ZQ Removals' published rates start at ${movingRates.smallTruck} for the small truck (crew confirmed in your quote). Large-truck packages are ${movingRates.twoMenAndTruck} for 2 men and a truck, or ${movingRates.threeMenAndTruck} for 3 men and a truck. ${movingRates.travelCharge} Access, inventory, packing and timing can affect the work required.`,
   },
   {
     question: 'How do access and inventory affect moving costs?',
@@ -1629,7 +1629,7 @@ const commercialPages = [
     hero: 'Affordable pricing works best when access, inventory, and timing are scoped clearly before the truck is booked.',
     sections: [
       'Cheap does not need to mean careless. The best low-cost Adelaide move is one where the brief is precise enough to avoid rework, waiting time, and last-minute scope changes.',
-      'ZQ Removals charges $75 per 30 minutes for 2 men and a truck, or $89 per 30 minutes for 3 men and a truck. A 1-hour call-out/travel charge applies where applicable.',
+      `ZQ Removals' published rates start at ${movingRates.smallTruck} for the small truck, with the crew confirmed in your quote. Large-truck packages are ${movingRates.twoMenAndTruck} for 2 men and a truck, or ${movingRates.threeMenAndTruck} for 3 men and a truck. ${movingRates.travelCharge}`,
     ],
     faq: cheapRemovalistsFaqItems,
   },
@@ -1734,6 +1734,7 @@ const commercialPages = [
     sections: [
       'Moving into or out of an Adelaide apartment (like those in the CBD, Glenelg, Norwood, or Mawson Lakes) means managing building management rules and tight parking windows.',
       'We plan for the specific logistics of high-rise and unit living, including stair carries and long corridors, ensuring your furniture is protected and shared spaces are respected.',
+      `Smaller apartment moves may suit the small-truck package, which starts at ${movingRates.smallTruck} with the crew confirmed in your quote. Larger loads can use a large truck at ${movingRates.twoMenAndTruck} for 2 movers or ${movingRates.threeMenAndTruck} for 3 movers. ${movingRates.travelCharge}`,
     ],
     faq: [
       {
@@ -6314,7 +6315,7 @@ const priorityCommercialProfiles = {
   },
   'cheap-removalists-adelaide': {
     h1: 'Affordable removalists Adelaide: plan a budget move',
-    lead: 'Looking for cheap removalists in Adelaide? Start with the total cost, not just the advertised rate. These preparation steps can help our crew spend more time moving and less time waiting, while keeping your budget and handling needs in view.',
+    lead: `Looking for cheap removalists in Adelaide? ZQ Removals' published rates start at ${movingRates.smallTruck} for the small truck. Start with the total cost, not just the advertised rate. These preparation steps can help our crew spend more time moving and less time waiting, while keeping your budget and handling needs in view.`,
     blocks: [
       { type: 'text', module: 'move-planning', eyebrow: 'Practical ways to prepare', heading: 'Ways to keep a move short', intro: 'Each of these removes time from the job.', paragraphs: [
         'Pack and label boxes before the crew arrives, and keep essentials separate. Make a room-by-room furniture list and arrange any dismantling before moving day.',
@@ -6322,7 +6323,7 @@ const priorityCommercialProfiles = {
       ] },
       { type: 'text', module: 'budget-compare', eyebrow: 'Comparing low quotes', heading: 'Check what a low price leaves out', intro: 'A low headline price is only useful if it covers your real move.', paragraphs: [
         'Ask whether a quote covers stairs, long carries, lift waits, travel and packing, and whether the crew size matches the inventory. Compare quotes against the same inventory and access notes.',
-        'ZQ Removals publishes its rates so you can compare on the same terms: $75 per 30 minutes for 2 men and a truck, $89 per 30 minutes for 3 men and a truck, with a 1-hour call-out/travel charge where applicable. The prices page shows how those rates add up over time.',
+        `ZQ Removals publishes its rates so you can compare on the same terms: ${movingRates.smallTruck} for the small truck (crew confirmed in your quote), ${movingRates.twoMenAndTruck} for 2 men and a truck, ${movingRates.threeMenAndTruck} for 3 men and a truck, with a 1-hour call-out/travel charge where applicable. The prices page shows how those rates add up over time.`,
       ] },
       { type: 'text', module: 'budget-small', eyebrow: 'Smaller jobs', heading: 'Not every job needs a full house move', paragraphs: [
         'If you are moving a few large items or a small unit, say so in your enquiry and ask which crew size and time suit a smaller job.',

@@ -247,7 +247,18 @@ test('the confirmed small-truck rate is consistent and comes from the shared con
     .filter((file) => readFileSync(file, 'utf8').replace(/<script[^>]*application\/ld\+json[\s\S]*?<\/script>/gi, '').includes('$65'))
     .map((file) => path.relative(distDir, file).replace(/\\/g, '/'))
     .sort();
-  assert.deepEqual(withRate, ['index.html', 'removalists-adelaide-prices/index.html']);
+  // Allowlist of pages that may show the small-truck starting rate. The owner asked for it on the home page, the
+  // Adelaide hub (the retired small-removalists page redirects there), the prices page, the cheap page and the
+  // apartment page. The Door 2 Door comparison table lists the full published rate set. It must not spread to
+  // specialist, interstate or large-truck pages (see pricing-visibility.test.mjs).
+  assert.deepEqual(withRate, [
+    'apartment-removalists-adelaide/index.html',
+    'cheap-removalists-adelaide/index.html',
+    'door-2-door-movers-alternative-adelaide/index.html',
+    'index.html',
+    'removalists-adelaide-prices/index.html',
+    'removalists-adelaide/index.html',
+  ]);
 
   const prices = read('removalists-adelaide-prices/index.html');
   const quoted = [...prices.matchAll(/small[- ]truck(?: rate)?(?: of| is)? \$(\d+)/gi)].map((m) => m[1]);

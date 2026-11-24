@@ -2,6 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import { movingRates } from '../site-src/data/business.mjs';
+
+// The published rate set comes from the shared pricing source so a rate change cannot leave this test stale.
+const publishedPrices = [movingRates.smallTruck, movingRates.twoMenAndTruck, movingRates.threeMenAndTruck]
+  .map((rate) => rate.match(/\$\d+/)[0]);
 
 const dist = path.resolve('site-dist');
 const read = (output) => fs.readFileSync(path.join(dist, output), 'utf8');
@@ -12,7 +17,7 @@ const metaOf = (html, attr, name) =>
 
 const expectations = [
   ['removalists-toorak-gardens/index.html', 'Toorak Gardens Removalists | From $75/30 min | ZQ'],
-  ['removalists-adelaide-prices/index.html', 'Removalists Adelaide Prices | $75 & $89 Truck Rates | ZQ'],
+  ['removalists-adelaide-prices/index.html', 'Removalists Adelaide Prices | From $65/30 Min | ZQ'],
   ['services/piano-movers-adelaide/index.html', 'Piano Movers Adelaide | Upright & Grand Pianos | ZQ'],
 ];
 
@@ -27,10 +32,10 @@ for (const [output, expectedTitle] of expectations) {
   });
 }
 
-test('published rates quoted in CTR titles stay at the verified $75 and $89 figures', () => {
+test('published rates quoted in CTR titles stay within the verified published rate set', () => {
   for (const [output, title] of expectations) {
     for (const price of title.match(/\$\d+/g) || []) {
-      assert.ok(['$75', '$89'].includes(price), `${output} quotes unverified price ${price}`);
+      assert.ok(publishedPrices.includes(price), `${output} quotes unverified price ${price}`);
     }
   }
 });

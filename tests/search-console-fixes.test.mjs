@@ -119,10 +119,10 @@ test('generated sitemap and canonicals stay on the apex host', () => {
   assert.doesNotMatch(sitemap, /https:\/\/www\.zqremovals\.au\//);
   assert.match(sitemap, /<sitemapindex/);
   assert.match(homepage, /<link rel="canonical" href="https:\/\/zqremovalsadelaide\.com\.au\/" \/>/);
-  assert.match(homepage, /<title>Adelaide Removalists &amp; Moving Company \| ZQ Removals<\/title>/);
+  assert.match(homepage, /<title>Removalists Adelaide \| From \$65\/30 Min \| ZQ Removals<\/title>/);
   assert.match(
     homepage,
-    /<meta name="description" content="Adelaide removalists for home, furniture, office and interstate moves\. Compare crew rates and applicable travel charges, or request a quote\. Call 0433 819 989\." \/>/,
+    /<meta name="description" content="Removalists Adelaide rated 5\.0 from \d+ Google reviews\. Small-truck moves from \$65 per 30 minutes\. Free quote, call 0433 819 989\." \/>/,
   );
   assert.match(
     interstateHub,
@@ -326,7 +326,7 @@ test('live-audit commercial snippets and guide publication schema stay fixed', (
   const piano = readDist('services/piano-movers-adelaide/index.html');
   const guide = readDist('adelaide-moving-guides/moving-house-checklist-adelaide/index.html');
 
-  assert.match(pricing, /<title>Removalists Adelaide Prices \| \$75 &amp; \$89 Truck Rates \| ZQ<\/title>/i);
+  assert.match(pricing, /<title>Removalists Adelaide Prices \| From \$65\/30 Min \| ZQ<\/title>/i);
   assert.match(pricing, /\$75 per 30 minutes/i);
   assert.match(pricing, /\$89 per 30 minutes/i);
   assert.match(pricing, /1-hour call-out(?: or travel|\/travel) charge applies where applicable/i);
@@ -996,8 +996,8 @@ test('homepage targets Adelaide removalists and keeps above-fold conversion cont
   const homepage = readDist('index.html');
   const hero = homepage.match(/<section class="zqh-hero[\s\S]*?<\/section>/i)?.[0] || '';
 
-  assert.match(homepage, /<title>Adelaide Removalists &amp; Moving Company \| ZQ Removals<\/title>/);
-  assert.match(homepage, /<meta name="description" content="Adelaide removalists for home, furniture, office and interstate moves\. Compare crew rates and applicable travel charges, or request a quote\. Call 0433 819 989\."/i);
+  assert.match(homepage, /<title>Removalists Adelaide \| From \$65\/30 Min \| ZQ Removals<\/title>/);
+  assert.match(homepage, /<meta name="description" content="Removalists Adelaide rated 5\.0 from \d+ Google reviews\. Small-truck moves from \$65 per 30 minutes\. Free quote, call 0433 819 989\."/i);
   assert.match(hero, /<h1\b[^>]*>\s*Removalists Adelaide\b[\s\S]*?<\/h1>/);
   assert.match(hero, /Your Adelaide removalists for home, furniture, office and interstate moves/i);
   assert.match(hero, /href="#quote-form"[^>]*>Get a Free Quote/i);

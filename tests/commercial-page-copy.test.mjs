@@ -2,6 +2,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { movingRates } from '../site-src/data/business.mjs';
 
 // Reads the generated output, so run `npm run build` first.
 const distDir = path.join(process.cwd(), 'site-dist');
@@ -69,11 +70,14 @@ test('each commercial landing page keeps a quote path and a phone call to action
   }
 });
 
-test('published rates on commercial pages stay at the verified $75 and $89 figures', () => {
+test('published rates on commercial pages stay within the verified published rate set', () => {
+  // The verified set comes from the shared pricing source (small truck, 2 movers, 3 movers).
+  const verified = [movingRates.smallTruck, movingRates.twoMenAndTruck, movingRates.threeMenAndTruck]
+    .map((rate) => rate.match(/\$\d+/)[0]);
   for (const slug of COMMERCIAL_PAGES) {
     const rates = new Set(getVisibleText(readPage(slug)).match(/\$\d+ per 30 min(?:utes)?/g) || []);
     for (const rate of rates) {
-      assert.match(rate, /^\$(75|89) per 30 min/, `${slug} shows unverified rate ${rate}`);
+      assert.ok(verified.includes(rate.match(/\$\d+/)[0]), `${slug} shows unverified rate ${rate}`);
     }
   }
 });
