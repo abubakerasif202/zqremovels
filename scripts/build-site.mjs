@@ -5267,7 +5267,7 @@ function renderServiceMoneyUpgrade(page) {
     ['/interstate-removals-adelaide/', 'Interstate route planning', 'Plan long-distance routes'],
     ['/cheap-removalists-adelaide/', 'Compare lower-cost options', 'Compare affordable moving options'],
     ['/affordable-removalists-adelaide/', 'Value-focused move planning', 'Keep premium handling with budget-aware scope'],
-    ['/removalist-cost-adelaide/', 'Understand quote factors', 'Understand quote factors before booking'],
+    ['/adelaide-moving-guides/removalists-cost-adelaide/', 'Understand quote factors', 'Understand quote factors before booking'],
     ['/moving-quotes-adelaide/', 'Compare Adelaide quote options', 'Request a clearer moving quote'],
     ['/fixed-price-removalists-adelaide/', 'See published moving rates', 'Check rates and applicable charges'],
     ['/budget-removalists-adelaide/', 'Budget-aware Adelaide moves', 'Plan a value-focused Adelaide move'],
