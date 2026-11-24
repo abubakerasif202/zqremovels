@@ -1,4 +1,6 @@
 import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 const googleProfileUrl = 'https://share.google/afUxDQxO7PBWGSsxP';
 const googleReviewUrl = 'https://g.page/r/Cb5kWH_Fcs9LEBM/review';
@@ -51,16 +53,25 @@ export const businessIdentity = {
 // Google Places API. The fallback below is used only if that file is missing or invalid.
 const googleReviewsFallback = { rating: 5.0, reviewCount: 100 };
 
+// Astro bundles this module for prerendering, so `import.meta.url` can point into the bundle where the JSON file does
+// not exist. Try the project-root path as well so Astro-rendered pages use the refreshed data instead of the fallback.
+const googleReviewsFileCandidates = [
+  new URL('./google-reviews.json', import.meta.url),
+  pathToFileURL(path.join(process.cwd(), 'site-src', 'data', 'google-reviews.json')),
+];
+
 function readGoogleReviewsData() {
-  try {
-    const data = JSON.parse(readFileSync(new URL('./google-reviews.json', import.meta.url), 'utf8'));
-    const rating = Number(data.rating);
-    const reviewCount = Number(data.reviewCount);
-    if (rating >= 1 && rating <= 5 && Number.isInteger(reviewCount) && reviewCount > 0) {
-      return { rating, reviewCount, fetchedAt: String(data.fetchedAt || ''), source: String(data.source || '') };
+  for (const file of googleReviewsFileCandidates) {
+    try {
+      const data = JSON.parse(readFileSync(file, 'utf8'));
+      const rating = Number(data.rating);
+      const reviewCount = Number(data.reviewCount);
+      if (rating >= 1 && rating <= 5 && Number.isInteger(reviewCount) && reviewCount > 0) {
+        return { rating, reviewCount, fetchedAt: String(data.fetchedAt || ''), source: String(data.source || '') };
+      }
+    } catch {
+      // Try the next candidate, then fall through to the fallback values.
     }
-  } catch {
-    // Fall through to the fallback values.
   }
   return { ...googleReviewsFallback, fetchedAt: '', source: 'fallback' };
 }
