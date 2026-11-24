@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { googleReviews, movingRates } from '../site-src/data/business.mjs';
+import { visibleText } from './helpers/html-text.mjs';
 
 // Reads the generated output, so run `npm run build` first.
 const dist = path.resolve('site-dist');
@@ -14,10 +15,8 @@ const read = (slug) => {
 };
 const titleOf = (html) => decode(html.match(/<title>([\s\S]*?)<\/title>/)[1]);
 const descriptionOf = (html) => decode(html.match(/<meta[^>]*name="description"[^>]*content="([^"]*)"/i)[1]);
-const mainText = (html) => decode((html.match(/<main[\s\S]*?<\/main>/)?.[0] || '')
-  .replace(/<script[\s\S]*?<\/script\s*>|<style[\s\S]*?<\/style\s*>/gi, ' ')
-  .replace(/<[^>]+>/g, ' ')
-  .replace(/\s+/g, ' '));
+// visibleText is the repo's character-scanner helper (no tag-stripping regexes), so malformed end tags are handled safely.
+const mainText = (html) => decode(visibleText(html.match(/<main[\s\S]*?<\/main>/)?.[0] || '')).replace(/\s+/g, ' ');
 
 // "$65 per 30 minutes" -> "$65/30 Min" (the small-truck package; the only package this rate applies to).
 const shortRate = movingRates.smallTruck.replace(' per 30 minutes', '/30 Min');
