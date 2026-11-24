@@ -149,7 +149,16 @@ const defaultLogoImage = seoConfig.defaultLogo;
 const companySameAsProfiles = businessIdentity.socialProfiles;
 const confirmedTrustCredentialText = `${businessIdentity.name} ABN ${businessIdentifiers.abnFormatted}. Ask about current cover details, building requirements, and move protection before booking.`;
 
+// "$65 per 30 minutes" -> "$65/30 Min" for titles. The $65 rate is the small-truck package only.
+const smallTruckShortRate = movingRates.smallTruck.replace(' per 30 minutes', '/30 Min');
+
 const verifiedPricingMetadata = new Map([
+  // Homepage: "removalists adelaide" is the home page's main non-brand query (word order matches the H1). The rate and
+  // review count come from the shared business data so they cannot drift from the on-page figures.
+  ['index.html', {
+    title: `Removalists Adelaide | From ${smallTruckShortRate} | ZQ Removals`,
+    description: `Removalists Adelaide rated ${Number(googleReviews.rating).toFixed(1)} from ${googleReviews.reviewCount} Google reviews. Small-truck moves from ${movingRates.smallTruck}. Free quote, call ${businessIdentity.phone.display}.`,
+  }],
   ['services/furniture-removals-adelaide/index.html', {
     title: 'Furniture Removals Adelaide | Careful Movers',
     description: 'Furniture removals Adelaide with protective wrapping, careful loading and clear hourly rates for delicate, bulky and oversized pieces.',
@@ -187,7 +196,8 @@ const verifiedPricingMetadata = new Map([
     description: 'Toorak Gardens removalists for premium homes. 2 men + truck $75 per 30 minutes, 3 men + truck $89 per 30 minutes. Call-out/travel may apply.',
   }],
   ['removalists-adelaide-prices/index.html', {
-    title: 'Removalists Adelaide Prices | $75 & $89 Truck Rates | ZQ',
+    // The title previously advertised only the large-truck rates; the cheapest published package is the $65 small truck.
+    title: `Removalists Adelaide Prices | From ${smallTruckShortRate} | ZQ`,
     description: 'Compare Adelaide small truck $65/30 min and large truck $75 or $89/30 min packages. Confirm crew, call-out/travel and inclusions in your quote.',
   }],
   ['services/piano-movers-adelaide/index.html', {
@@ -215,8 +225,8 @@ const verifiedPricingMetadata = new Map([
     description: 'Office removalists in Adelaide for offices, clinics and studios. Lift and dock checks, IT equipment care, restart planning. Crew rates from $75/30 min.',
   }],
   ['cheap-removalists-adelaide/index.html', {
-    title: 'Cheap & Affordable Removalists Adelaide | ZQ Removals',
-    description: 'Planning an affordable Adelaide move? Compare ZQ crew rates, applicable travel charges and practical ways to reduce moving time before requesting a budget quote.',
+    title: `Cheap Removalists Adelaide | From ${smallTruckShortRate} | ZQ`,
+    description: `Affordable Adelaide removalists with published rates from ${movingRates.smallTruck} (small truck). Compare crew rates, travel charges and ways to cut moving time.`,
   }],
   ['budget-removalists-adelaide/index.html', {
     title: 'Budget Removalists Adelaide | Efficient Planning | ZQ Removals',
@@ -3522,6 +3532,10 @@ function sanitizeTrustClaimText(value = '') {
     .replace(/\{\{\s*business\.addressLocality\s*\}\}/gi, businessIdentity.address.locality)
     .replace(/\{\{\s*business\.addressRegion\s*\}\}/gi, businessIdentity.address.region)
     .replace(/\{\{\s*business\.postalCode\s*\}\}/gi, businessIdentity.address.postalCode)
+    .replace(/\{\{\s*rates\.smallTruck\s*\}\}/gi, movingRates.smallTruck)
+    .replace(/\{\{\s*rates\.twoMenAndTruck\s*\}\}/gi, movingRates.twoMenAndTruck)
+    .replace(/\{\{\s*rates\.threeMenAndTruck\s*\}\}/gi, movingRates.threeMenAndTruck)
+    .replace(/\{\{\s*rates\.travelCharge\s*\}\}/gi, movingRates.travelCharge)
     .replace(/\{\{\s*google\.rating\s*\}\}/gi, Number(googleReviews.rating).toFixed(1))
     .replace(/\{\{\s*google\.reviewCount\s*\}\}/gi, String(googleReviews.reviewCount))
     .replace(/\{\{\s*google\.profileUrl\s*\}\}/gi, googleReviews.profileUrl)

@@ -114,7 +114,7 @@ export const movingRates = {
   twoMenAndTruck: '$75 per 30 minutes',
   threeMenAndTruck: '$89 per 30 minutes',
   travelCharge: 'A 1-hour call-out/travel charge applies where applicable.',
-  summary: '2 men and a truck: $75 per 30 minutes. 3 men and a truck: $89 per 30 minutes. A 1-hour call-out/travel charge applies where applicable.',
+  summary: 'Small truck: $65 per 30 minutes (crew confirmed with the quote). 2 men and a truck: $75 per 30 minutes. 3 men and a truck: $89 per 30 minutes. A 1-hour call-out/travel charge applies where applicable.',
 };
 
 // Opening hours match the Google Business Profile (owner-confirmed 2026-11-21): Monday to Sunday, 07:00-19:00.
