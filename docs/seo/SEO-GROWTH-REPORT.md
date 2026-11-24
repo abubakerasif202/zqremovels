@@ -22,6 +22,7 @@ Anything marked **Not verified** could not be confirmed with the tools available
 | Action | Only the genuinely new commit was carried over (cherry-picked onto fresh `origin/main` in a separate worktree). Your local checkout and uncommitted files were not touched. |
 | PR | #114 `fix(seo): link cost guide directly instead of via legacy redirect`, squash-merged as `a158fc3`. All checks passed (Lighthouse CI, CodeQL, Vercel). |
 | Production deploy | Vercel production deployment of `a158fc3` succeeded at 2026-11-24 16:38 UTC. |
+| Follow-up PRs | #115 report and CSVs (`c104363`). #116 `fix(reviews): show 102 Google reviews and read review data in Astro-rendered pages` (`0e9b93a`), verified live on 2026-11-25. |
 | Local branch `seo/serp-ctr-titles` | Left in place, now redundant (two commits superseded by `main`, one merged via #114). Safe to delete when you are ready. |
 
 Checks before merge: `npm run build` passed, `npm run seo:validate` passed (80 pages), `npm test` passed (563 tests, 0 failed).
@@ -129,7 +130,7 @@ Live Adelaide-located SERPs on 2026-11-25 (search snippets only; competitor page
 - **"office removalists adelaide":** Grace Removals, CBD Movers, Richard Mitchell, Office Moves Group, Anspach; **ZQ appears at position 6** (snippet "Crew rates from $75/30 min"). HF is at position 9.
 
 Gaps versus HF Removals, from its snippet only:
-- Reviews: HF shows 491 Google reviews in the snippet; ZQ shows 100 on its pages (the automation branch holds 102). The gap is visible to searchers.
+- Reviews: HF shows 491 Google reviews in the snippet; ZQ shows 102 on its pages (since 2026-11-25; it was 100 when this report was first written). The gap is visible to searchers.
 - Price visibility: HF's "from $69/30 min" is in the snippet, while ZQ's lower $65 is not.
 - ZQ's strengths: published rates with hypothetical examples, a shared pricing source, no fake review schema.
 
@@ -140,7 +141,7 @@ Gaps versus HF Removals, from its snippet only:
 Verified on production:
 - **NAP:** one phone number (0433 819 989) on all 121 built pages, one email (admin@zqremovalsadelaide.com.au). Schema address is locality-level only (Andrews Farm SA 5114), which suits a service-area business.
 - **Schema:** `MovingCompany` with opening hours (07:00 to 19:00, 7 days), `priceRange` `$65-$89 per 30 minutes`, `areaServed` (9 items), `sameAs` (Google listing, Facebook), `hasMap`. There is no `aggregateRating` or `Review` markup, which is compliant with the repository's no-fake-ratings rule.
-- **Reviews:** shown as visible text ("rated 5.0 from 100 Google reviews") from the Places API data file. An unmerged automated branch `origin/chore/google-reviews-20261123` updates the count to 102 and has no PR. It was not merged here because the count cannot be independently confirmed from this session.
+- **Reviews (updated 2026-11-25):** shown as visible text ("5.0 from 102 Google reviews") from the Places API data file. The owner confirmed 102 five-star reviews, so the refresh from `origin/chore/google-reviews-20261123` was shipped in PR #116 (`0e9b93a`) and verified live on the home page and `/removalists-unley-park/`. The Google Business Profile link supplied by the owner resolves to the listing "ZQ Removals Adelaide", and its place ID matches the site's `hasMap` CID. That PR also fixed a loader bug: Astro-rendered pages had been using the 100-review fallback and ignoring the data file. The automation branch is now redundant and can be deleted.
 
 **Not verified:** the Google Business Profile landing-page URL, listing categories and photos, citation consistency on directories, and real project photographs on the site.
 
@@ -157,7 +158,7 @@ Prioritised local authority plan (no fake reviews, locations or purchased links)
 - Field Core Web Vitals unavailable (insufficient traffic).
 - Hub-page rendering cost (`/removalists-adelaide/`, home) not yet fixed; cause narrowed to style/layout, not isolated.
 - Pricing wording decision: whether to surface the $65 small-truck rate in titles or descriptions (section 4).
-- Decision on merging the automated reviews refresh (100 to 102).
+- ~~Decision on merging the automated reviews refresh (100 to 102).~~ Resolved: shipped in PR #116 and verified live.
 - Your uncommitted local files (`package.json`, `package-lock.json`, `odd/tasks/…`, `site-src/data/zq-services.mjs` piano copy edit) are still unreviewed and unshipped.
 - Title effect is not measurable yet (1 to 8 days of post-change data).
 
