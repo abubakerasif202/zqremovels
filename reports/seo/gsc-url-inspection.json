@@ -1,0 +1,78 @@
+{
+  "source": "Google Search Console URL Inspection API",
+  "scope": "Six priority pages, not sitewide index coverage",
+  "results": [
+    {
+      "url": "https://zqremovalsadelaide.com.au/",
+      "indexed": true,
+      "indexingState": "Submitted and indexed",
+      "lastCrawlTime": "2026-11-25T15:55:39Z",
+      "crawlAllowed": true,
+      "indexingAllowed": true,
+      "pageFetchState": "SUCCESSFUL",
+      "googleCanonical": "https://zqremovalsadelaide.com.au/",
+      "userCanonical": "https://zqremovalsadelaide.com.au/",
+      "canonicalMatch": true
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+      "indexed": true,
+      "indexingState": "Submitted and indexed",
+      "lastCrawlTime": "2026-11-24T09:50:20Z",
+      "crawlAllowed": true,
+      "indexingAllowed": true,
+      "pageFetchState": "SUCCESSFUL",
+      "googleCanonical": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+      "userCanonical": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+      "canonicalMatch": true
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+      "indexed": true,
+      "indexingState": "Submitted and indexed",
+      "lastCrawlTime": "2026-11-24T12:40:30Z",
+      "crawlAllowed": true,
+      "indexingAllowed": true,
+      "pageFetchState": "SUCCESSFUL",
+      "googleCanonical": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+      "userCanonical": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+      "canonicalMatch": true
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-hyde-park/",
+      "indexed": true,
+      "indexingState": "Submitted and indexed",
+      "lastCrawlTime": "2026-10-26T03:21:03Z",
+      "crawlAllowed": true,
+      "indexingAllowed": true,
+      "pageFetchState": "SUCCESSFUL",
+      "googleCanonical": "https://zqremovalsadelaide.com.au/removalists-hyde-park/",
+      "userCanonical": "https://zqremovalsadelaide.com.au/removalists-hyde-park/",
+      "canonicalMatch": true
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/removalists-unley-park/",
+      "indexed": true,
+      "indexingState": "Submitted and indexed",
+      "lastCrawlTime": "2026-11-20T09:05:49Z",
+      "crawlAllowed": true,
+      "indexingAllowed": true,
+      "pageFetchState": "SUCCESSFUL",
+      "googleCanonical": "https://zqremovalsadelaide.com.au/removalists-unley-park/",
+      "userCanonical": "https://zqremovalsadelaide.com.au/removalists-unley-park/",
+      "canonicalMatch": true
+    },
+    {
+      "url": "https://zqremovalsadelaide.com.au/services/piano-movers-adelaide/",
+      "indexed": true,
+      "indexingState": "Submitted and indexed",
+      "lastCrawlTime": "2026-11-12T19:09:43Z",
+      "crawlAllowed": true,
+      "indexingAllowed": true,
+      "pageFetchState": "SUCCESSFUL",
+      "googleCanonical": "https://zqremovalsadelaide.com.au/services/piano-movers-adelaide/",
+      "userCanonical": "https://zqremovalsadelaide.com.au/services/piano-movers-adelaide/",
+      "canonicalMatch": true
+    }
+  ]
+}

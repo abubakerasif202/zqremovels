@@ -1,0 +1,673 @@
+{
+  "started_utc": "2026-11-26T19:37:40.388347+00:00",
+  "finished_utc": "2026-11-26T19:39:33.561084+00:00",
+  "legacy_rows": 329,
+  "legacy_distinct_raw_paths": 275,
+  "synthetic_legacy_probes": 278,
+  "legacy_rows_with_redacted_query": 52,
+  "migration_status_chains": {
+    "301 -> 200": 131,
+    "301 -> 308 -> 200": 196,
+    "301 -> 301 -> 200": 2
+  },
+  "migration_actions": {
+    "Keep direct permanent same-path mapping": 131,
+    "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent": 198
+  },
+  "legacy_impressions_by_action": {
+    "Keep direct permanent same-path mapping": 35225,
+    "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent": 8882
+  },
+  "sitemap_urls": {
+    "ordinary": 79,
+    "ai": 79,
+    "union": 79,
+    "ordinary_duplicates": 79,
+    "ai_duplicates": 0
+  },
+  "sitemap_files": [
+    "https://zqremovalsadelaide.com.au/ai-sitemap.xml",
+    "https://zqremovalsadelaide.com.au/sitemap-guides.xml",
+    "https://zqremovalsadelaide.com.au/sitemap-images.xml",
+    "https://zqremovalsadelaide.com.au/sitemap-pages.xml",
+    "https://zqremovalsadelaide.com.au/sitemap-services.xml",
+    "https://zqremovalsadelaide.com.au/sitemap-suburbs.xml",
+    "https://zqremovalsadelaide.com.au/sitemap.xml"
+  ],
+  "sitemap_issues": [],
+  "sitemap_h1_anomalies": [],
+  "ordinary_sitemap_no_sampled_inbound": [],
+  "old_domain_internal_links": [],
+  "ordinary_sitemap_duplicate_titles": {},
+  "variant_and_controls": {
+    "http://www.zqremovals.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe": {
+      "canonical": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+      "canonical_count": 1,
+      "robots": "index,follow,max-image-preview:large",
+      "indexability": "eligible (HTTP/HTML signals only)",
+      "refresh": "",
+      "title": "Office Removalists Adelaide | Business Moves | ZQ Removals",
+      "h1_count": 1,
+      "hops": [
+        [
+          308,
+          "http://www.zqremovals.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+          "https://www.zqremovals.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe"
+        ],
+        [
+          301,
+          "https://www.zqremovals.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+          "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe"
+        ],
+        [
+          200,
+          "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+          ""
+        ]
+      ],
+      "error": "",
+      "final_url": "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+      "final_status": 200
+    },
+    "http://www.zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe": {
+      "canonical": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+      "canonical_count": 1,
+      "robots": "index,follow,max-image-preview:large",
+      "indexability": "eligible (HTTP/HTML signals only)",
+      "refresh": "",
+      "title": "Office Removalists Adelaide | Business Moves | ZQ Removals",
+      "h1_count": 1,
+      "hops": [
+        [
+          308,
+          "http://www.zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+          "https://www.zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe"
+        ],
+        [
+          308,
+          "https://www.zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+          "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe"
+        ],
+        [
+          200,
+          "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+          ""
+        ]
+      ],
+      "error": "",
+      "final_url": "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+      "final_status": 200
+    },
+    "http://zqremovals.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe": {
+      "canonical": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+      "canonical_count": 1,
+      "robots": "index,follow,max-image-preview:large",
+      "indexability": "eligible (HTTP/HTML signals only)",
+      "refresh": "",
+      "title": "Office Removalists Adelaide | Business Moves | ZQ Removals",
+      "h1_count": 1,
+      "hops": [
+        [
+          308,
+          "http://zqremovals.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+          "https://zqremovals.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe"
+        ],
+        [
+          301,
+          "https://zqremovals.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+          "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe"
+        ],
+        [
+          200,
+          "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+          ""
+        ]
+      ],
+      "error": "",
+      "final_url": "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+      "final_status": 200
+    },
+    "http://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe": {
+      "canonical": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+      "canonical_count": 1,
+      "robots": "index,follow,max-image-preview:large",
+      "indexability": "eligible (HTTP/HTML signals only)",
+      "refresh": "",
+      "title": "Office Removalists Adelaide | Business Moves | ZQ Removals",
+      "h1_count": 1,
+      "hops": [
+        [
+          308,
+          "http://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+          "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe"
+        ],
+        [
+          200,
+          "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+          ""
+        ]
+      ],
+      "error": "",
+      "final_url": "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+      "final_status": 200
+    },
+    "https://www.zqremovals.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe": {
+      "canonical": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+      "canonical_count": 1,
+      "robots": "index,follow,max-image-preview:large",
+      "indexability": "eligible (HTTP/HTML signals only)",
+      "refresh": "",
+      "title": "Office Removalists Adelaide | Business Moves | ZQ Removals",
+      "h1_count": 1,
+      "hops": [
+        [
+          301,
+          "https://www.zqremovals.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+          "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe"
+        ],
+        [
+          200,
+          "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+          ""
+        ]
+      ],
+      "error": "",
+      "final_url": "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+      "final_status": 200
+    },
+    "https://www.zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe": {
+      "canonical": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+      "canonical_count": 1,
+      "robots": "index,follow,max-image-preview:large",
+      "indexability": "eligible (HTTP/HTML signals only)",
+      "refresh": "",
+      "title": "Office Removalists Adelaide | Business Moves | ZQ Removals",
+      "h1_count": 1,
+      "hops": [
+        [
+          308,
+          "https://www.zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+          "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe"
+        ],
+        [
+          200,
+          "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+          ""
+        ]
+      ],
+      "error": "",
+      "final_url": "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+      "final_status": 200
+    },
+    "https://zqremovals.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe": {
+      "canonical": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+      "canonical_count": 1,
+      "robots": "index,follow,max-image-preview:large",
+      "indexability": "eligible (HTTP/HTML signals only)",
+      "refresh": "",
+      "title": "Office Removalists Adelaide | Business Moves | ZQ Removals",
+      "h1_count": 1,
+      "hops": [
+        [
+          301,
+          "https://zqremovals.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+          "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe"
+        ],
+        [
+          200,
+          "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+          ""
+        ]
+      ],
+      "error": "",
+      "final_url": "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+      "final_status": 200
+    },
+    "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe": {
+      "canonical": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+      "canonical_count": 1,
+      "robots": "index,follow,max-image-preview:large",
+      "indexability": "eligible (HTTP/HTML signals only)",
+      "refresh": "",
+      "title": "Office Removalists Adelaide | Business Moves | ZQ Removals",
+      "h1_count": 1,
+      "hops": [
+        [
+          200,
+          "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+          ""
+        ]
+      ],
+      "error": "",
+      "final_url": "https://zqremovalsadelaide.com.au/office-removals-adelaide/?utm_source=zq-seo-audit&gclid=zq-audit-probe",
+      "final_status": 200
+    },
+    "https://zqremovals.au/zq-seo-audit-does-not-exist/": {
+      "canonical": "https://zqremovalsadelaide.com.au/404.html",
+      "canonical_count": 1,
+      "robots": "noindex,follow",
+      "indexability": "not eligible by audit criteria",
+      "refresh": "",
+      "title": "Page Not Found | ZQ Removals",
+      "h1_count": 1,
+      "hops": [
+        [
+          301,
+          "https://zqremovals.au/zq-seo-audit-does-not-exist/",
+          "https://zqremovalsadelaide.com.au/zq-seo-audit-does-not-exist/"
+        ],
+        [
+          404,
+          "https://zqremovalsadelaide.com.au/zq-seo-audit-does-not-exist/",
+          ""
+        ]
+      ],
+      "error": "",
+      "final_url": "https://zqremovalsadelaide.com.au/zq-seo-audit-does-not-exist/",
+      "final_status": 404
+    },
+    "https://zqremovalsadelaide.com.au/zq-seo-audit-does-not-exist/": {
+      "canonical": "https://zqremovalsadelaide.com.au/404.html",
+      "canonical_count": 1,
+      "robots": "noindex,follow",
+      "indexability": "not eligible by audit criteria",
+      "refresh": "",
+      "title": "Page Not Found | ZQ Removals",
+      "h1_count": 1,
+      "hops": [
+        [
+          404,
+          "https://zqremovalsadelaide.com.au/zq-seo-audit-does-not-exist/",
+          ""
+        ]
+      ],
+      "error": "",
+      "final_url": "https://zqremovalsadelaide.com.au/zq-seo-audit-does-not-exist/",
+      "final_status": 404
+    }
+  },
+  "important_legacy_exceptions": [
+    {
+      "source_row": 120,
+      "old_url": "https://zqremovals.au/budget-removalists-adelaide/",
+      "historical_clicks": "0",
+      "historical_impressions": "995",
+      "probe_url": "https://zqremovals.au/budget-removalists-adelaide/",
+      "initial_status": 301,
+      "redirect_destination": "https://zqremovalsadelaide.com.au/budget-removalists-adelaide/",
+      "redirect_count": 2,
+      "status_chain": "301 -> 308 -> 200",
+      "final_url": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+      "final_status": 200,
+      "destination_canonical": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+      "destination_indexability": "eligible (HTTP/HTML signals only)",
+      "destination_robots": "index,follow,max-image-preview:large",
+      "query_preserved": "",
+      "recommended_correction": "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent",
+      "probe_error": ""
+    },
+    {
+      "source_row": 224,
+      "old_url": "https://zqremovals.au/removalist-cost-adelaide/",
+      "historical_clicks": "0",
+      "historical_impressions": "930",
+      "probe_url": "https://zqremovals.au/removalist-cost-adelaide/",
+      "initial_status": 301,
+      "redirect_destination": "https://zqremovalsadelaide.com.au/removalist-cost-adelaide/",
+      "redirect_count": 2,
+      "status_chain": "301 -> 308 -> 200",
+      "final_url": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+      "final_status": 200,
+      "destination_canonical": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+      "destination_indexability": "eligible (HTTP/HTML signals only)",
+      "destination_robots": "index,follow,max-image-preview:large",
+      "query_preserved": "",
+      "recommended_correction": "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent",
+      "probe_error": ""
+    },
+    {
+      "source_row": 26,
+      "old_url": "https://zqremovals.au/affordable-removalists-adelaide/",
+      "historical_clicks": "1",
+      "historical_impressions": "863",
+      "probe_url": "https://zqremovals.au/affordable-removalists-adelaide/",
+      "initial_status": 301,
+      "redirect_destination": "https://zqremovalsadelaide.com.au/affordable-removalists-adelaide/",
+      "redirect_count": 2,
+      "status_chain": "301 -> 308 -> 200",
+      "final_url": "https://zqremovalsadelaide.com.au/cheap-removalists-adelaide/",
+      "final_status": 200,
+      "destination_canonical": "https://zqremovalsadelaide.com.au/cheap-removalists-adelaide/",
+      "destination_indexability": "eligible (HTTP/HTML signals only)",
+      "destination_robots": "index,follow,max-image-preview:large",
+      "query_preserved": "",
+      "recommended_correction": "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent",
+      "probe_error": ""
+    },
+    {
+      "source_row": 15,
+      "old_url": "https://zqremovals.au/cheap-vs-fixed-price-removalists-adelaide/",
+      "historical_clicks": "2",
+      "historical_impressions": "415",
+      "probe_url": "https://zqremovals.au/cheap-vs-fixed-price-removalists-adelaide/",
+      "initial_status": 301,
+      "redirect_destination": "https://zqremovalsadelaide.com.au/cheap-vs-fixed-price-removalists-adelaide/",
+      "redirect_count": 2,
+      "status_chain": "301 -> 308 -> 200",
+      "final_url": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+      "final_status": 200,
+      "destination_canonical": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+      "destination_indexability": "eligible (HTTP/HTML signals only)",
+      "destination_robots": "index,follow,max-image-preview:large",
+      "query_preserved": "",
+      "recommended_correction": "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent",
+      "probe_error": ""
+    },
+    {
+      "source_row": 31,
+      "old_url": "https://zqremovals.au/moving-quotes-adelaide/",
+      "historical_clicks": "1",
+      "historical_impressions": "412",
+      "probe_url": "https://zqremovals.au/moving-quotes-adelaide/",
+      "initial_status": 301,
+      "redirect_destination": "https://zqremovalsadelaide.com.au/moving-quotes-adelaide/",
+      "redirect_count": 2,
+      "status_chain": "301 -> 308 -> 200",
+      "final_url": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+      "final_status": 200,
+      "destination_canonical": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+      "destination_indexability": "eligible (HTTP/HTML signals only)",
+      "destination_robots": "index,follow,max-image-preview:large",
+      "query_preserved": "",
+      "recommended_correction": "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent",
+      "probe_error": ""
+    },
+    {
+      "source_row": 36,
+      "old_url": "https://zqremovals.au/removal-companies-adelaide/",
+      "historical_clicks": "1",
+      "historical_impressions": "399",
+      "probe_url": "https://zqremovals.au/removal-companies-adelaide/",
+      "initial_status": 301,
+      "redirect_destination": "https://zqremovalsadelaide.com.au/removal-companies-adelaide/",
+      "redirect_count": 2,
+      "status_chain": "301 -> 308 -> 200",
+      "final_url": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+      "final_status": 200,
+      "destination_canonical": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+      "destination_indexability": "eligible (HTTP/HTML signals only)",
+      "destination_robots": "index,follow,max-image-preview:large",
+      "query_preserved": "",
+      "recommended_correction": "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent",
+      "probe_error": ""
+    },
+    {
+      "source_row": 65,
+      "old_url": "https://zqremovals.au/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/",
+      "historical_clicks": "0",
+      "historical_impressions": "332",
+      "probe_url": "https://zqremovals.au/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/",
+      "initial_status": 301,
+      "redirect_destination": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/how-much-do-removalists-cost-adelaide/",
+      "redirect_count": 2,
+      "status_chain": "301 -> 301 -> 200",
+      "final_url": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/",
+      "final_status": 200,
+      "destination_canonical": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/removalists-cost-adelaide/",
+      "destination_indexability": "eligible (HTTP/HTML signals only)",
+      "destination_robots": "index,follow,max-image-preview:large",
+      "query_preserved": "",
+      "recommended_correction": "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent",
+      "probe_error": ""
+    },
+    {
+      "source_row": 324,
+      "old_url": "https://zqremovals.au/services/packing-services-adelaide/",
+      "historical_clicks": "0",
+      "historical_impressions": "260",
+      "probe_url": "https://zqremovals.au/services/packing-services-adelaide/",
+      "initial_status": 301,
+      "redirect_destination": "https://zqremovalsadelaide.com.au/services/packing-services-adelaide/",
+      "redirect_count": 2,
+      "status_chain": "301 -> 308 -> 200",
+      "final_url": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+      "final_status": 200,
+      "destination_canonical": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+      "destination_indexability": "eligible (HTTP/HTML signals only)",
+      "destination_robots": "index,follow,max-image-preview:large",
+      "query_preserved": "",
+      "recommended_correction": "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent",
+      "probe_error": ""
+    },
+    {
+      "source_row": 223,
+      "old_url": "https://zqremovals.au/professional-packers-vs-diy-packing-adelaide/",
+      "historical_clicks": "0",
+      "historical_impressions": "195",
+      "probe_url": "https://zqremovals.au/professional-packers-vs-diy-packing-adelaide/",
+      "initial_status": 301,
+      "redirect_destination": "https://zqremovalsadelaide.com.au/professional-packers-vs-diy-packing-adelaide/",
+      "redirect_count": 2,
+      "status_chain": "301 -> 308 -> 200",
+      "final_url": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+      "final_status": 200,
+      "destination_canonical": "https://zqremovalsadelaide.com.au/packing-services-adelaide/",
+      "destination_indexability": "eligible (HTTP/HTML signals only)",
+      "destination_robots": "index,follow,max-image-preview:large",
+      "query_preserved": "",
+      "recommended_correction": "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent",
+      "probe_error": ""
+    },
+    {
+      "source_row": 323,
+      "old_url": "https://zqremovals.au/services/office-removals-adelaide/",
+      "historical_clicks": "0",
+      "historical_impressions": "192",
+      "probe_url": "https://zqremovals.au/services/office-removals-adelaide/",
+      "initial_status": 301,
+      "redirect_destination": "https://zqremovalsadelaide.com.au/services/office-removals-adelaide/",
+      "redirect_count": 2,
+      "status_chain": "301 -> 308 -> 200",
+      "final_url": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+      "final_status": 200,
+      "destination_canonical": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+      "destination_indexability": "eligible (HTTP/HTML signals only)",
+      "destination_robots": "index,follow,max-image-preview:large",
+      "query_preserved": "",
+      "recommended_correction": "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent",
+      "probe_error": ""
+    },
+    {
+      "source_row": 37,
+      "old_url": "https://zqremovals.au/removalists-adelaide-quote/",
+      "historical_clicks": "1",
+      "historical_impressions": "191",
+      "probe_url": "https://zqremovals.au/removalists-adelaide-quote/",
+      "initial_status": 301,
+      "redirect_destination": "https://zqremovalsadelaide.com.au/removalists-adelaide-quote/",
+      "redirect_count": 2,
+      "status_chain": "301 -> 308 -> 200",
+      "final_url": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+      "final_status": 200,
+      "destination_canonical": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+      "destination_indexability": "eligible (HTTP/HTML signals only)",
+      "destination_robots": "index,follow,max-image-preview:large",
+      "query_preserved": "",
+      "recommended_correction": "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent",
+      "probe_error": ""
+    },
+    {
+      "source_row": 50,
+      "old_url": "https://zqremovals.au/services/house-removals-adelaide/",
+      "historical_clicks": "1",
+      "historical_impressions": "189",
+      "probe_url": "https://zqremovals.au/services/house-removals-adelaide/",
+      "initial_status": 301,
+      "redirect_destination": "https://zqremovalsadelaide.com.au/services/house-removals-adelaide/",
+      "redirect_count": 2,
+      "status_chain": "301 -> 308 -> 200",
+      "final_url": "https://zqremovalsadelaide.com.au/house-removals-adelaide/",
+      "final_status": 200,
+      "destination_canonical": "https://zqremovalsadelaide.com.au/house-removals-adelaide/",
+      "destination_indexability": "eligible (HTTP/HTML signals only)",
+      "destination_robots": "index,follow,max-image-preview:large",
+      "query_preserved": "",
+      "recommended_correction": "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent",
+      "probe_error": ""
+    },
+    {
+      "source_row": 7,
+      "old_url": "https://zqremovals.au/fixed-price-removalists-adelaide/",
+      "historical_clicks": "3",
+      "historical_impressions": "177",
+      "probe_url": "https://zqremovals.au/fixed-price-removalists-adelaide/",
+      "initial_status": 301,
+      "redirect_destination": "https://zqremovalsadelaide.com.au/fixed-price-removalists-adelaide/",
+      "redirect_count": 2,
+      "status_chain": "301 -> 308 -> 200",
+      "final_url": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+      "final_status": 200,
+      "destination_canonical": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+      "destination_indexability": "eligible (HTTP/HTML signals only)",
+      "destination_robots": "index,follow,max-image-preview:large",
+      "query_preserved": "",
+      "recommended_correction": "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent",
+      "probe_error": ""
+    },
+    {
+      "source_row": 174,
+      "old_url": "https://zqremovals.au/fixed-price-vs-hourly-removalists-adelaide/",
+      "historical_clicks": "0",
+      "historical_impressions": "177",
+      "probe_url": "https://zqremovals.au/fixed-price-vs-hourly-removalists-adelaide/",
+      "initial_status": 301,
+      "redirect_destination": "https://zqremovalsadelaide.com.au/fixed-price-vs-hourly-removalists-adelaide/",
+      "redirect_count": 2,
+      "status_chain": "301 -> 308 -> 200",
+      "final_url": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+      "final_status": 200,
+      "destination_canonical": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+      "destination_indexability": "eligible (HTTP/HTML signals only)",
+      "destination_robots": "index,follow,max-image-preview:large",
+      "query_preserved": "",
+      "recommended_correction": "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent",
+      "probe_error": ""
+    },
+    {
+      "source_row": 30,
+      "old_url": "https://zqremovals.au/movers-and-packers-adelaide/",
+      "historical_clicks": "1",
+      "historical_impressions": "164",
+      "probe_url": "https://zqremovals.au/movers-and-packers-adelaide/",
+      "initial_status": 301,
+      "redirect_destination": "https://zqremovalsadelaide.com.au/movers-and-packers-adelaide/",
+      "redirect_count": 2,
+      "status_chain": "301 -> 308 -> 200",
+      "final_url": "https://zqremovalsadelaide.com.au/adelaide-movers-and-packers/",
+      "final_status": 200,
+      "destination_canonical": "https://zqremovalsadelaide.com.au/adelaide-movers-and-packers/",
+      "destination_indexability": "eligible (HTTP/HTML signals only)",
+      "destination_robots": "index,follow,max-image-preview:large",
+      "query_preserved": "",
+      "recommended_correction": "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent",
+      "probe_error": ""
+    },
+    {
+      "source_row": 41,
+      "old_url": "https://zqremovals.au/removalists-croydon/",
+      "historical_clicks": "1",
+      "historical_impressions": "157",
+      "probe_url": "https://zqremovals.au/removalists-croydon/",
+      "initial_status": 301,
+      "redirect_destination": "https://zqremovalsadelaide.com.au/removalists-croydon/",
+      "redirect_count": 2,
+      "status_chain": "301 -> 308 -> 200",
+      "final_url": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+      "final_status": 200,
+      "destination_canonical": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+      "destination_indexability": "eligible (HTTP/HTML signals only)",
+      "destination_robots": "index,follow,max-image-preview:large",
+      "query_preserved": "",
+      "recommended_correction": "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent",
+      "probe_error": ""
+    },
+    {
+      "source_row": 60,
+      "old_url": "https://zqremovals.au/adelaide-moving-guides/coastal-moving-access-adelaide/",
+      "historical_clicks": "0",
+      "historical_impressions": "149",
+      "probe_url": "https://zqremovals.au/adelaide-moving-guides/coastal-moving-access-adelaide/",
+      "initial_status": 301,
+      "redirect_destination": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/coastal-moving-access-adelaide/",
+      "redirect_count": 2,
+      "status_chain": "301 -> 308 -> 200",
+      "final_url": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+      "final_status": 200,
+      "destination_canonical": "https://zqremovalsadelaide.com.au/removalists-southern-adelaide/",
+      "destination_indexability": "eligible (HTTP/HTML signals only)",
+      "destination_robots": "index,follow,max-image-preview:large",
+      "query_preserved": "",
+      "recommended_correction": "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent",
+      "probe_error": ""
+    },
+    {
+      "source_row": 103,
+      "old_url": "https://zqremovals.au/adelaide-to-queensland-removals/",
+      "historical_clicks": "0",
+      "historical_impressions": "128",
+      "probe_url": "https://zqremovals.au/adelaide-to-queensland-removals/",
+      "initial_status": 301,
+      "redirect_destination": "https://zqremovalsadelaide.com.au/adelaide-to-queensland-removals/",
+      "redirect_count": 2,
+      "status_chain": "301 -> 308 -> 200",
+      "final_url": "https://zqremovalsadelaide.com.au/adelaide-to-brisbane-removals/",
+      "final_status": 200,
+      "destination_canonical": "https://zqremovalsadelaide.com.au/adelaide-to-brisbane-removals/",
+      "destination_indexability": "eligible (HTTP/HTML signals only)",
+      "destination_robots": "index,follow,max-image-preview:large",
+      "query_preserved": "",
+      "recommended_correction": "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent",
+      "probe_error": ""
+    },
+    {
+      "source_row": 79,
+      "old_url": "https://zqremovals.au/adelaide-moving-guides/northern-suburbs-moving-adelaide/",
+      "historical_clicks": "0",
+      "historical_impressions": "126",
+      "probe_url": "https://zqremovals.au/adelaide-moving-guides/northern-suburbs-moving-adelaide/",
+      "initial_status": 301,
+      "redirect_destination": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/northern-suburbs-moving-adelaide/",
+      "redirect_count": 2,
+      "status_chain": "301 -> 308 -> 200",
+      "final_url": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+      "final_status": 200,
+      "destination_canonical": "https://zqremovalsadelaide.com.au/removalists-northern-adelaide/",
+      "destination_indexability": "eligible (HTTP/HTML signals only)",
+      "destination_robots": "index,follow,max-image-preview:large",
+      "query_preserved": "",
+      "recommended_correction": "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent",
+      "probe_error": ""
+    },
+    {
+      "source_row": 185,
+      "old_url": "https://zqremovals.au/interstate-removalists-vs-backloading-adelaide/",
+      "historical_clicks": "0",
+      "historical_impressions": "121",
+      "probe_url": "https://zqremovals.au/interstate-removalists-vs-backloading-adelaide/",
+      "initial_status": 301,
+      "redirect_destination": "https://zqremovalsadelaide.com.au/interstate-removalists-vs-backloading-adelaide/",
+      "redirect_count": 2,
+      "status_chain": "301 -> 308 -> 200",
+      "final_url": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/",
+      "final_status": 200,
+      "destination_canonical": "https://zqremovalsadelaide.com.au/interstate-removals-adelaide/",
+      "destination_indexability": "eligible (HTTP/HTML signals only)",
+      "destination_robots": "index,follow,max-image-preview:large",
+      "query_preserved": "",
+      "recommended_correction": "Flatten to one permanent redirect to the verified final destination; confirm equivalent intent",
+      "probe_error": ""
+    }
+  ],
+  "distinct_known_not_found": [],
+  "probe_errors": []
+}

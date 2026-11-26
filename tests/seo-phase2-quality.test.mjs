@@ -102,8 +102,9 @@ test('office removals page title and description are commercially targeted', () 
   const content = readFileSync(officeFile, 'utf8');
   assert.match(
     content,
-    /<title>Office Removalists Adelaide \| Business Moves \| ZQ Removals<\/title>/i,
+    /<title>Office Removalists Adelaide \| Commercial Moves \| ZQ<\/title>/i,
   );
+  assert.match(content, /<meta[^>]*name="description"[^>]*content="[^"]*loading dock access, IT equipment transport[^"]*restart/i);
   assert.doesNotMatch(content, /<title>[^<]*\$75 and \$89[^<]*<\/title>/i);
 });
 

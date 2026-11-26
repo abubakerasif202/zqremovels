@@ -1,0 +1,664 @@
+[
+  {
+    "property": "zqremovals.au",
+    "period_start": "2026-05-26",
+    "period_end": "2026-11-25",
+    "first_observed_day": "2026-05-26",
+    "last_observed_day": "2026-11-24",
+    "totals": {
+      "clicks": 203,
+      "impressions": 36608,
+      "ctr": 0.005545236013986014,
+      "position": 22.488636363636363
+    },
+    "latest_28": {
+      "start": "2026-10-29",
+      "end": "2026-11-25",
+      "reported_days": 27,
+      "clicks": 1,
+      "impressions": 271,
+      "ctr": 0.0036900369003690036,
+      "position": 11.904059040590406
+    },
+    "previous_28": {
+      "start": "2026-10-01",
+      "end": "2026-10-28",
+      "reported_days": 28,
+      "clicks": 3,
+      "impressions": 1134,
+      "ctr": 0.0026455026455026454,
+      "position": 13.801587301587302
+    },
+    "australia": {
+      "clicks": 200,
+      "impressions": 34628,
+      "ctr": 0.005775672865888876,
+      "position": 22.821011897886105
+    },
+    "devices": {
+      "MOBILE": {
+        "clicks": 127,
+        "impressions": 12562,
+        "ctr": 0.010109855118611686,
+        "position": 17.08883935679032
+      },
+      "DESKTOP": {
+        "clicks": 72,
+        "impressions": 23879,
+        "ctr": 0.0030152016416097826,
+        "position": 25.325306754889233
+      },
+      "TABLET": {
+        "clicks": 4,
+        "impressions": 167,
+        "ctr": 0.023952095808383235,
+        "position": 23.059880239520957
+      }
+    },
+    "au_segments": {
+      "daily_country_device": {
+        "MOBILE": {
+          "clicks": 126,
+          "impressions": 12286,
+          "ctr": 0.010255575451733681,
+          "position": 17.132834120136742
+        },
+        "DESKTOP": {
+          "clicks": 70,
+          "impressions": 22175,
+          "ctr": 0.003156708004509583,
+          "position": 25.97073280721533
+        },
+        "TABLET": {
+          "clicks": 4,
+          "impressions": 167,
+          "ctr": 0.023952095808383235,
+          "position": 23.059880239520957
+        }
+      },
+      "page_country_device": {
+        "MOBILE": {
+          "clicks": 50,
+          "impressions": 12314,
+          "ctr": 0.004060419035244438,
+          "position": 23.315738184180606
+        },
+        "DESKTOP": {
+          "clicks": 19,
+          "impressions": 20097,
+          "ctr": 0.0009454147385181868,
+          "position": 28.921779370055233
+        },
+        "TABLET": {
+          "clicks": 1,
+          "impressions": 142,
+          "ctr": 0.007042253521126761,
+          "position": 26.218309859154928
+        }
+      },
+      "query_country_device": {
+        "DESKTOP": {
+          "clicks": 1,
+          "impressions": 228,
+          "ctr": 0.0043859649122807015,
+          "position": 13.758771929824562
+        },
+        "MOBILE": {
+          "clicks": 0,
+          "impressions": 5,
+          "ctr": 0.0,
+          "position": 7.6
+        }
+      },
+      "query_page_country_device": {
+        "DESKTOP": {
+          "clicks": 1,
+          "impressions": 185,
+          "ctr": 0.005405405405405406,
+          "position": 13.567567567567568
+        },
+        "MOBILE": {
+          "clicks": 0,
+          "impressions": 3,
+          "ctr": 0.0,
+          "position": 8.333333333333332
+        }
+      }
+    },
+    "table_row_counts": {
+      "daily_branded_classification": 0,
+      "daily_country": 1004,
+      "daily_country_device": 1298,
+      "daily_device": 415,
+      "daily_page_aggregation_totals": 183,
+      "daily_totals": 183,
+      "page_country_device": 665,
+      "pages": 329,
+      "period_totals": 1,
+      "queries": 1079,
+      "query_country_device": 1822,
+      "query_page": 1963,
+      "query_page_country_device": 3078,
+      "search_appearance": 0
+    },
+    "jsonl_row_counts": {
+      "daily_branded_classification": 0,
+      "daily_country": 1004,
+      "daily_country_device": 1298,
+      "daily_device": 415,
+      "daily_page_aggregation_totals": 183,
+      "daily_totals": 183,
+      "page_country_device": 665,
+      "pages": 329,
+      "period_totals": 1,
+      "queries": 1079,
+      "query_country_device": 1822,
+      "query_page": 1963,
+      "query_page_country_device": 3078,
+      "search_appearance": 0
+    },
+    "raw_api_response_counts": {
+      "daily_branded_classification": 0,
+      "daily_country": 0,
+      "daily_country_device": 0,
+      "daily_device": 0,
+      "daily_page_aggregation_totals": 0,
+      "daily_totals": 0,
+      "page_country_device": 0,
+      "pages": 0,
+      "period_totals": 0,
+      "queries": 0,
+      "query_country_device": 0,
+      "query_page": 0,
+      "query_page_country_device": 0,
+      "search_appearance": 0
+    },
+    "sitemaps": [],
+    "top_pages": [
+      {
+        "page": "https://zqremovals.au/",
+        "clicks": 119,
+        "impressions": 4272,
+        "ctr": 0.02785580524344569,
+        "position": 22.681647940074907
+      },
+      {
+        "page": "https://zqremovals.au/adelaide-moving-guides/removalists-cost-adelaide/",
+        "clicks": 6,
+        "impressions": 2141,
+        "ctr": 0.0028024287716020553,
+        "position": 20.422699673049976
+      },
+      {
+        "page": "https://zqremovals.au/same-day-removalists-adelaide/",
+        "clicks": 6,
+        "impressions": 551,
+        "ctr": 0.010889292196007259,
+        "position": 10.996370235934664
+      },
+      {
+        "page": "https://zqremovals.au/removalists-goodwood/",
+        "clicks": 5,
+        "impressions": 99,
+        "ctr": 0.050505050505050504,
+        "position": 6.02020202020202
+      },
+      {
+        "page": "https://zqremovals.au/removalists-adelaide-prices/",
+        "clicks": 4,
+        "impressions": 2565,
+        "ctr": 0.0015594541910331384,
+        "position": 15.36803118908382
+      },
+      {
+        "page": "https://zqremovals.au/about/",
+        "clicks": 3,
+        "impressions": 344,
+        "ctr": 0.00872093023255814,
+        "position": 9.325581395348838
+      },
+      {
+        "page": "https://zqremovals.au/fixed-price-removalists-adelaide/",
+        "clicks": 3,
+        "impressions": 177,
+        "ctr": 0.01694915254237288,
+        "position": 12.31638418079096
+      },
+      {
+        "page": "https://zqremovals.au/house-removals-adelaide/",
+        "clicks": 3,
+        "impressions": 2452,
+        "ctr": 0.0012234910277324632,
+        "position": 25.752446982055464
+      },
+      {
+        "page": "https://zqremovals.au/removalists-adelaide/",
+        "clicks": 3,
+        "impressions": 1216,
+        "ctr": 0.0024671052631578946,
+        "position": 24.576480263157894
+      },
+      {
+        "page": "https://zqremovals.au/removalists-andrews-farm/",
+        "clicks": 3,
+        "impressions": 141,
+        "ctr": 0.02127659574468085,
+        "position": 8.574468085106382
+      },
+      {
+        "page": "https://zqremovals.au/removalists-northern-adelaide/",
+        "clicks": 3,
+        "impressions": 755,
+        "ctr": 0.003973509933774834,
+        "position": 31.980132450331126
+      },
+      {
+        "page": "https://zqremovals.au/services/piano-movers-adelaide/",
+        "clicks": 3,
+        "impressions": 2344,
+        "ctr": 0.001279863481228669,
+        "position": 28.862627986348123
+      },
+      {
+        "page": "https://zqremovals.au/adelaide-movers-and-packers/",
+        "clicks": 2,
+        "impressions": 192,
+        "ctr": 0.010416666666666666,
+        "position": 24.708333333333332
+      },
+      {
+        "page": "https://zqremovals.au/adelaide-moving-guides/how-long-moves-take-adelaide/",
+        "clicks": 2,
+        "impressions": 27,
+        "ctr": 0.07407407407407407,
+        "position": 5.296296296296297
+      },
+      {
+        "page": "https://zqremovals.au/cheap-vs-fixed-price-removalists-adelaide/",
+        "clicks": 2,
+        "impressions": 415,
+        "ctr": 0.004819277108433735,
+        "position": 44.68433734939759
+      },
+      {
+        "page": "https://zqremovals.au/contact-us/",
+        "clicks": 2,
+        "impressions": 333,
+        "ctr": 0.006006006006006006,
+        "position": 9.408408408408409
+      },
+      {
+        "page": "https://zqremovals.au/removalists-adelaide-cbd/",
+        "clicks": 2,
+        "impressions": 511,
+        "ctr": 0.003913894324853229,
+        "position": 11.017612524461839
+      },
+      {
+        "page": "https://zqremovals.au/removalists-adelaide-hills/",
+        "clicks": 2,
+        "impressions": 740,
+        "ctr": 0.002702702702702703,
+        "position": 20.555405405405406
+      },
+      {
+        "page": "https://zqremovals.au/removalists-southern-adelaide/",
+        "clicks": 2,
+        "impressions": 390,
+        "ctr": 0.005128205128205128,
+        "position": 30.515384615384615
+      },
+      {
+        "page": "https://zqremovals.au/adelaide-moving-guides/apartment-lift-bookings-adelaide/",
+        "clicks": 1,
+        "impressions": 68,
+        "ctr": 0.014705882352941176,
+        "position": 9.205882352941176
+      }
+    ],
+    "high_impression_zero_click_count": 143,
+    "potential_overlap_query_count": 169
+  },
+  {
+    "property": "zqremovalsadelaide.com.au",
+    "period_start": "2026-05-26",
+    "period_end": "2026-11-25",
+    "first_observed_day": "2026-08-30",
+    "last_observed_day": "2026-11-24",
+    "totals": {
+      "clicks": 88,
+      "impressions": 15445,
+      "ctr": 0.005697636775655552,
+      "position": 32.11680155390094
+    },
+    "latest_28": {
+      "start": "2026-10-29",
+      "end": "2026-11-25",
+      "reported_days": 27,
+      "clicks": 41,
+      "impressions": 6069,
+      "ctr": 0.006755643433844126,
+      "position": 26.50650848574724
+    },
+    "previous_28": {
+      "start": "2026-10-01",
+      "end": "2026-10-28",
+      "reported_days": 28,
+      "clicks": 25,
+      "impressions": 6023,
+      "ctr": 0.004150755437489623,
+      "position": 32.503071559023745
+    },
+    "australia": {
+      "clicks": 84,
+      "impressions": 15000,
+      "ctr": 0.0056,
+      "position": 32.402
+    },
+    "devices": {
+      "MOBILE": {
+        "clicks": 54,
+        "impressions": 5591,
+        "ctr": 0.00965837953854409,
+        "position": 25.091933464496513
+      },
+      "DESKTOP": {
+        "clicks": 32,
+        "impressions": 9674,
+        "ctr": 0.0033078354351870993,
+        "position": 36.035352491213565
+      },
+      "TABLET": {
+        "clicks": 2,
+        "impressions": 180,
+        "ctr": 0.011111111111111112,
+        "position": 39.71666666666667
+      }
+    },
+    "au_segments": {
+      "daily_country_device": {
+        "MOBILE": {
+          "clicks": 51,
+          "impressions": 5558,
+          "ctr": 0.009175962576466355,
+          "position": 25.178121626484348
+        },
+        "DESKTOP": {
+          "clicks": 31,
+          "impressions": 9262,
+          "ctr": 0.0033470092852515656,
+          "position": 36.59479594040164
+        },
+        "TABLET": {
+          "clicks": 2,
+          "impressions": 180,
+          "ctr": 0.011111111111111112,
+          "position": 39.71666666666667
+        }
+      },
+      "page_country_device": {
+        "MOBILE": {
+          "clicks": 27,
+          "impressions": 4784,
+          "ctr": 0.0056438127090301,
+          "position": 27.958821070234112
+        },
+        "DESKTOP": {
+          "clicks": 10,
+          "impressions": 8542,
+          "ctr": 0.0011706860220088973,
+          "position": 39.332474830250526
+        },
+        "TABLET": {
+          "clicks": 0,
+          "impressions": 155,
+          "ctr": 0.0,
+          "position": 45.30967741935484
+        }
+      },
+      "query_country_device": {
+        "DESKTOP": {
+          "clicks": 0,
+          "impressions": 212,
+          "ctr": 0.0,
+          "position": 5.165094339622642
+        },
+        "MOBILE": {
+          "clicks": 0,
+          "impressions": 4,
+          "ctr": 0.0,
+          "position": 9.0
+        }
+      },
+      "query_page_country_device": {
+        "DESKTOP": {
+          "clicks": 0,
+          "impressions": 205,
+          "ctr": 0.0,
+          "position": 5.331707317073171
+        },
+        "MOBILE": {
+          "clicks": 0,
+          "impressions": 4,
+          "ctr": 0.0,
+          "position": 10.5
+        }
+      }
+    },
+    "table_row_counts": {
+      "daily_branded_classification": 0,
+      "daily_country": 306,
+      "daily_country_device": 469,
+      "daily_device": 240,
+      "daily_page_aggregation_totals": 87,
+      "daily_totals": 87,
+      "page_country_device": 215,
+      "pages": 75,
+      "period_totals": 1,
+      "queries": 702,
+      "query_country_device": 1043,
+      "query_page": 936,
+      "query_page_country_device": 1335,
+      "search_appearance": 0
+    },
+    "jsonl_row_counts": {
+      "daily_branded_classification": 0,
+      "daily_country": 306,
+      "daily_country_device": 469,
+      "daily_device": 240,
+      "daily_page_aggregation_totals": 87,
+      "daily_totals": 87,
+      "page_country_device": 215,
+      "pages": 75,
+      "period_totals": 1,
+      "queries": 702,
+      "query_country_device": 1043,
+      "query_page": 936,
+      "query_page_country_device": 1335,
+      "search_appearance": 0
+    },
+    "raw_api_response_counts": {
+      "daily_branded_classification": 0,
+      "daily_country": 0,
+      "daily_country_device": 0,
+      "daily_device": 0,
+      "daily_page_aggregation_totals": 0,
+      "daily_totals": 0,
+      "page_country_device": 0,
+      "pages": 0,
+      "period_totals": 0,
+      "queries": 0,
+      "query_country_device": 0,
+      "query_page": 0,
+      "query_page_country_device": 0,
+      "search_appearance": 0
+    },
+    "sitemaps": [
+      {
+        "path": "https://zqremovalsadelaide.com.au/sitemap.xml",
+        "lastSubmitted": "2026-11-20T17:21:59.652Z",
+        "lastDownloaded": "2026-11-26T11:58:23.377Z",
+        "isPending": false,
+        "isSitemapsIndex": true,
+        "warnings": "0",
+        "errors": "0",
+        "contents": [
+          {
+            "type": "web",
+            "submitted": "158",
+            "indexed": "0"
+          },
+          {
+            "type": "image",
+            "submitted": "227",
+            "indexed": "0"
+          }
+        ]
+      }
+    ],
+    "top_pages": [
+      {
+        "page": "https://zqremovalsadelaide.com.au/",
+        "clicks": 63,
+        "impressions": 1877,
+        "ctr": 0.03356419818859883,
+        "position": 12.600958977091103
+      },
+      {
+        "page": "https://zqremovalsadelaide.com.au/removalists-adelaide-prices/",
+        "clicks": 7,
+        "impressions": 1419,
+        "ctr": 0.004933051444679351,
+        "position": 21.53488372093023
+      },
+      {
+        "page": "https://zqremovalsadelaide.com.au/same-day-removalists-adelaide/",
+        "clicks": 4,
+        "impressions": 459,
+        "ctr": 0.008714596949891068,
+        "position": 17.08714596949891
+      },
+      {
+        "page": "https://zqremovalsadelaide.com.au/removalists-adelaide/",
+        "clicks": 3,
+        "impressions": 324,
+        "ctr": 0.009259259259259259,
+        "position": 21.78395061728395
+      },
+      {
+        "page": "https://zqremovalsadelaide.com.au/adelaide-to-perth-removals/",
+        "clicks": 1,
+        "impressions": 132,
+        "ctr": 0.007575757575757576,
+        "position": 48.25
+      },
+      {
+        "page": "https://zqremovalsadelaide.com.au/apartment-removalists-adelaide/",
+        "clicks": 1,
+        "impressions": 23,
+        "ctr": 0.043478260869565216,
+        "position": 29.347826086956523
+      },
+      {
+        "page": "https://zqremovalsadelaide.com.au/contact-us/",
+        "clicks": 1,
+        "impressions": 94,
+        "ctr": 0.010638297872340425,
+        "position": 6.191489361702128
+      },
+      {
+        "page": "https://zqremovalsadelaide.com.au/office-removals-adelaide/",
+        "clicks": 1,
+        "impressions": 1987,
+        "ctr": 0.0005032712632108706,
+        "position": 35.9677906391545
+      },
+      {
+        "page": "https://zqremovalsadelaide.com.au/removalists-adelaide-cbd/",
+        "clicks": 1,
+        "impressions": 111,
+        "ctr": 0.009009009009009009,
+        "position": 15.0
+      },
+      {
+        "page": "https://zqremovalsadelaide.com.au/removalists-adelaide-hills/",
+        "clicks": 1,
+        "impressions": 377,
+        "ctr": 0.002652519893899204,
+        "position": 25.23076923076923
+      },
+      {
+        "page": "https://zqremovalsadelaide.com.au/removalists-port-adelaide/",
+        "clicks": 1,
+        "impressions": 18,
+        "ctr": 0.05555555555555555,
+        "position": 31.11111111111111
+      },
+      {
+        "page": "https://zqremovalsadelaide.com.au/removalists-prospect/",
+        "clicks": 1,
+        "impressions": 33,
+        "ctr": 0.030303030303030304,
+        "position": 35.81818181818182
+      },
+      {
+        "page": "https://zqremovalsadelaide.com.au/removalists-salisbury/",
+        "clicks": 1,
+        "impressions": 350,
+        "ctr": 0.002857142857142857,
+        "position": 46.35142857142857
+      },
+      {
+        "page": "https://zqremovalsadelaide.com.au/removalists-stepney/",
+        "clicks": 1,
+        "impressions": 4,
+        "ctr": 0.25,
+        "position": 25.5
+      },
+      {
+        "page": "https://zqremovalsadelaide.com.au/services/piano-movers-adelaide/",
+        "clicks": 1,
+        "impressions": 1983,
+        "ctr": 0.0005042864346949068,
+        "position": 58.519415027735754
+      },
+      {
+        "page": "https://zqremovalsadelaide.com.au/about/",
+        "clicks": 0,
+        "impressions": 142,
+        "ctr": 0.0,
+        "position": 4.598591549295774
+      },
+      {
+        "page": "https://zqremovalsadelaide.com.au/adelaide-movers-and-packers/",
+        "clicks": 0,
+        "impressions": 3,
+        "ctr": 0.0,
+        "position": 6.666666666666667
+      },
+      {
+        "page": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/",
+        "clicks": 0,
+        "impressions": 31,
+        "ctr": 0.0,
+        "position": 14.0
+      },
+      {
+        "page": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/apartment-moving-tips-adelaide/",
+        "clicks": 0,
+        "impressions": 18,
+        "ctr": 0.0,
+        "position": 4.944444444444445
+      },
+      {
+        "page": "https://zqremovalsadelaide.com.au/adelaide-moving-guides/best-time-to-book-removalists-adelaide/",
+        "clicks": 0,
+        "impressions": 39,
+        "ctr": 0.0,
+        "position": 21.0
+      }
+    ],
+    "high_impression_zero_click_count": 78,
+    "potential_overlap_query_count": 58
+  }
+]
