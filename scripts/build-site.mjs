@@ -2949,7 +2949,7 @@ export function renderHead(page, content) {
     // Measured with applied slow-4G throttling: LCP -325 to -520 ms on four page types with CLS unchanged at 0.
 
     if (page.output === 'index.html') {
-      tags.push('<link rel="preload" as="image" href="/media/premium-template-hero-mobile.webp" type="image/webp" fetchpriority="high" media="(max-width: 760px)" />');
+      tags.push('<link rel="preload" as="image" href="/media/premium-template-hero-mobile.webp" type="image/webp" fetchpriority="low" media="(max-width: 760px)" />');
       tags.push('<link rel="preload" as="image" href="/media/premium-template-hero.webp" type="image/webp" fetchpriority="high" media="(min-width: 761px)" />');
       tags.push(`<link rel="stylesheet" href="/${performanceStylesheetNames.home}" />`);
     } else if (page.output === 'contact-us/index.html') {
