@@ -330,7 +330,7 @@ test('live-audit commercial snippets and guide publication schema stay fixed', (
   assert.match(pricing, /\$75 per 30 minutes/i);
   assert.match(pricing, /\$89 per 30 minutes/i);
   assert.match(pricing, /1-hour call-out(?: or travel|\/travel) charge applies where applicable/i);
-  assert.match(office, /<title>Office Removalists Adelaide\s*\|[^<]*Business Moves[^<]*ZQ Removals<\/title>/i);
+  assert.match(office, /<title>Office Removalists Adelaide\s*\|[^<]*Commercial Moves[^<]*ZQ<\/title>/i);
   assert.match(piano, /<title>Piano Movers Adelaide \| Upright &amp; Grand Pianos \| ZQ<\/title>/i);
   assert.match(guide, /"datePublished": "2026-05-23"/);
   assert.match(guide, /"dateModified": "2026-08-29"/);
@@ -1063,7 +1063,7 @@ test('v6 service pages carry CTR titles, related services, suburb links, FAQ and
   const cases = [
     ['furniture-removalists-adelaide/index.html', /Furniture Removalists Adelaide \| Careful Moves/i],
     ['house-removals-adelaide/index.html', /House Removalists Adelaide \| Local Home Moves/i],
-    ['office-removals-adelaide/index.html', /Office Removalists Adelaide\s*\|[^<]*Business Moves[^<]*ZQ Removals/i],
+    ['office-removals-adelaide/index.html', /Office Removalists Adelaide\s*\|[^<]*Commercial Moves[^<]*ZQ/i],
     ['apartment-removalists-adelaide/index.html', /Apartment Removalists Adelaide/i],
   ];
 

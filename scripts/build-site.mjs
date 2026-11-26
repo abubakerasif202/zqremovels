@@ -220,10 +220,6 @@ const verifiedPricingMetadata = new Map([
     title: 'Adelaide Removalist Rates | ZQ Removals',
     description: 'Compare transparent hourly removalist rates in Adelaide with manual quote review for house, office, apartment, bulky-item and interstate moves.',
   }],
-  ['office-removals-adelaide/index.html', {
-    title: 'Office Removalists Adelaide | Business Moves | ZQ Removals',
-    description: 'Office removalists in Adelaide for offices, clinics and studios. Lift and dock checks, IT equipment care, restart planning. Crew rates from $75/30 min.',
-  }],
   ['cheap-removalists-adelaide/index.html', {
     title: `Cheap Removalists Adelaide | From ${smallTruckShortRate} | ZQ`,
     description: `Affordable Adelaide removalists with published rates from ${movingRates.smallTruck} (small truck). Compare crew rates, travel charges and ways to cut moving time.`,
