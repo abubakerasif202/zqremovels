@@ -43,3 +43,9 @@ data/gsc/*.raw.json
 *.env
 *.log
 .gstack/
+
+# Private Search Console input folders and archive
+/sc-domain_zqremovals.au_*/
+/sc-domain_zqremovalsadelaide.com.au_*/
+/final/sc-domain_*/
+/final.zip
