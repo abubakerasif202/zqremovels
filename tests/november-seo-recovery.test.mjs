@@ -1,7 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
-import { movingRates } from '../site-src/data/business.mjs';
 
 const read = (path) => readFileSync(new URL('../' + path, import.meta.url), 'utf8');
 const pages = JSON.parse(read('site-src/pages.json'));
@@ -14,6 +13,8 @@ test('office metadata reflects the commercial brief and CTA is concise', () => {
   assert.equal(route.ogDescription, route.description);
   assert.equal(route.twitterDescription, route.description);
   const html = read('site-src/content/office-removals-adelaide/index.html');
+  assert.match(html, /<h1>Office Removalists Adelaide<\/h1>/);
+  assert.ok(html.indexOf('Get an Office Move Quote') < html.indexOf('Office relocation highlights'));
   assert.match(html, /href="\/contact-us\/#quote-form">Get an Office Move Quote<\/a>/);
   assert.match(html, /href="tel:\+61433819989"/);
 });
@@ -30,6 +31,6 @@ test('displays the supplied director portrait without labelling the generic hero
 test('suburb leads do not describe the two-mover rate as the minimum', () => {
   const registry = read('site-src/data/seo-v4.mjs');
   assert.doesNotMatch(registry, /Published rates start at \$75 per 30 minutes/);
-  assert.match(registry, /const smallTruckStartingRate = .*movingRates\.smallTruck/);
-  assert.match(movingRates.smallTruck, /^\$\d+ per 30 minutes$/);
+  assert.match(registry, /Hyde Park\? Send both addresses.*shared entries/);
+  assert.match(registry, /Moving in Unley Park\?.*driveway and gate clearances/);
 });

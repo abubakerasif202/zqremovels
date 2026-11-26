@@ -27,7 +27,6 @@ export { businessIdentifiers };
 const SITE_URL = businessIdentity.siteUrl;
 const BUSINESS_NAME = businessIdentity.name;
 const PHONE = businessIdentity.phone.display;
-const smallTruckStartingRate = `The small-truck package starts at ${movingRates.smallTruck}, with crew size confirmed when we quote.`;
 const DEFAULT_OG_IMAGE = businessUrl(businessIdentity.defaultOgImagePath);
 const DEFAULT_LOGO = businessUrl(businessIdentity.defaultLogoPath);
 
@@ -5565,7 +5564,7 @@ const prioritySuburbProfiles = {
   // Other facts below are general area knowledge only; no distances, travel times, council rules or statistics are claimed.
   'andrews-farm': {
     h1: 'Andrews Farm removalists: local house, unit and furniture moves',
-    lead: `ZQ Removals is based in Andrews Farm, SA 5114, so moves that start or finish here begin close to the crew. Send both addresses and what needs moving, and we will discuss the crew size and likely moving time. ${smallTruckStartingRate}`,
+    lead: 'ZQ Removals is based in Andrews Farm, SA 5114, so moves that start or finish here begin close to the crew. Send both addresses and what needs moving, and we will discuss the crew size and likely moving time.',
     points: ['Local base in Andrews Farm, SA 5114', 'House, unit and furniture moves', 'Published crew rates, call-out/travel disclosed'],
     sections: [
       {
@@ -5647,7 +5646,7 @@ const prioritySuburbProfiles = {
   // Barossa; Murray Street is the main street; the older town has historic stone buildings. No distances are claimed.
   'gawler': {
     h1: 'Gawler removalists: heritage homes, estates and northern moves',
-    lead: `Moving in or out of Gawler, SA 5118? ZQ Removals moves houses, units and furniture in Gawler and across the northern suburbs. Send both addresses, the inventory and any access limits, and we will discuss the crew size and moving time. ${smallTruckStartingRate}`,
+    lead: 'Moving in or out of Gawler, SA 5118? ZQ Removals moves houses, units and furniture in Gawler and across the northern suburbs. Send both addresses, the inventory and any access limits, and we will discuss the crew size and moving time.',
     points: ['Older character homes and newer estates', 'Published crew rates, call-out/travel disclosed', 'Access and parking reviewed before booking'],
     sections: [
       {
@@ -5742,7 +5741,7 @@ const prioritySuburbProfiles = {
   // Adelaide by the South Eastern Freeway; the terrain is hilly. No distances, travel times or council rules are claimed.
   'mount-barker': {
     h1: 'Mount Barker removalists: Adelaide Hills house and furniture moves',
-    lead: `Moving in or out of Mount Barker, SA 5251? ZQ Removals moves houses, units and furniture between Mount Barker, the Adelaide Hills and metropolitan Adelaide. Send both addresses, the inventory and any access limits, and we will discuss the crew size and moving time. ${smallTruckStartingRate}`,
+    lead: 'Moving in or out of Mount Barker, SA 5251? ZQ Removals moves houses, units and furniture between Mount Barker, the Adelaide Hills and metropolitan Adelaide. Send both addresses, the inventory and any access limits, and we will discuss the crew size and moving time.',
     points: ['Hills and metro Adelaide moves', 'Published crew rates, call-out/travel disclosed', 'Sloping driveways and access reviewed before booking'],
     sections: [
       {
@@ -5835,7 +5834,7 @@ const prioritySuburbProfiles = {
   },
   'hyde-park': {
     h1: 'Hyde Park removalists: local home and furniture moves',
-    lead: `Looking for local removalists in Hyde Park? ZQ Removals moves houses, units and furniture in Hyde Park and the surrounding inner-south suburbs. Send both addresses and what needs moving, and we will discuss the crew size and likely moving time. ${smallTruckStartingRate}`,
+    lead: 'Moving a house, unit or individual pieces of furniture in Hyde Park? Send both addresses and your inventory. For a unit, tell us about stairs, shared entries and any booked loading space so we can discuss crew size and moving time.',
     points: ['House, unit and furniture moves in Hyde Park', 'Published crew rates, call-out/travel disclosed', 'Access and parking reviewed before booking'],
     sections: [
       {
@@ -5898,7 +5897,7 @@ const prioritySuburbProfiles = {
   },
   'unley-park': {
     h1: 'Unley Park removalists: home, townhouse and furniture moves',
-    lead: `Moving in Unley Park? ZQ Removals handles house, townhouse and furniture moves in Unley Park and nearby inner-south suburbs. Send both addresses, the inventory and any access limits, and we will discuss the crew and moving time. ${smallTruckStartingRate}`,
+    lead: 'Moving in Unley Park? ZQ Removals handles house, townhouse and furniture moves in Unley Park and nearby inner-south suburbs. Include driveway and gate clearances, upstairs furniture and the distance from the truck to each entrance when asking for a quote.',
     points: ['Houses, townhouses and furniture', 'Packing help can be discussed before booking', 'Published crew rates, call-out/travel disclosed'],
     sections: [
       {
@@ -5938,7 +5937,7 @@ const prioritySuburbProfiles = {
   // and Greenhill Road (south) per Wikipedia "Toorak Gardens, South Australia". No distances or council rules are claimed.
   'toorak-gardens': {
     h1: 'Toorak Gardens removalists: careful moves for eastern-suburbs homes',
-    lead: `Moving in Toorak Gardens, SA 5065? ZQ Removals handles house, unit and furniture moves in Toorak Gardens and the nearby eastern suburbs. Send both addresses, the inventory and any fragile or valuable pieces, and we will discuss the crew and moving time. ${smallTruckStartingRate}`,
+    lead: 'Moving in Toorak Gardens, SA 5065? ZQ Removals handles house, unit and furniture moves in Toorak Gardens and the nearby eastern suburbs. Send both addresses, the inventory and any fragile or valuable pieces, and we will discuss the crew and moving time.',
     points: ['Houses, units and furniture in Toorak Gardens 5065', 'Wrapping and fragile items planned before the day', 'Published crew rates, call-out/travel disclosed'],
     sections: [
       {
@@ -6106,7 +6105,7 @@ const suburbMoveBriefs = {
 const suburbHeroOverrides = {
   malvern: {
     title: 'Removalists in Malvern, Adelaide, SA 5061',
-    lead: `ZQ Removals moves villas, townhouses and furniture in Malvern, Adelaide, SA 5061, and the surrounding inner-south suburbs. Send both addresses and the inventory, and we will discuss the crew and moving time. ${smallTruckStartingRate}`,
+    lead: 'ZQ Removals moves villas, townhouses and furniture in Malvern, Adelaide, SA 5061, and the surrounding inner-south suburbs. Send both addresses and the inventory, and we will discuss the crew and moving time.',
   },
 };
 
