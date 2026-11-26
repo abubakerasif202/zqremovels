@@ -8,10 +8,11 @@ Branch: seo/gsc-migration-recovery-2026-11 · Baseline: 6412c60 · Delivery: foc
 - S4: “Deploy a Vercel preview and verify it independently.” Run local and preview gates; no merge or production deployment without independent permission.
 
 ## Tasks
-- [ ] T1 (S1, S2): parallel read-only HTTP evidence; inline reports and deterministic monitoring regression.
-- [ ] T2 (S3): inline tested commercial and director changes following T1.
-- [ ] T3 (S4): inline focused checks and report; full validation in parallel where independent.
+- [x] T1 (S1, S2): 329-row evidence and 79-page audit, monitoring and regression at 4c9478b. Production forwarding change remains outside the local branch.
+- [x] T2 (S3): office and director changes, seven suburb corrections; dba1a75, 90f3916 and d6cd23e. Existing pricing placement constraint preserved. Nine-width functional verification passed.
+- [ ] T3 (S4): local evidence in the final report; explicit GitHub/Vercel session selection needed for push, hosted preview and PR.
 
 ## Log
 - L1: User's November SEO recovery brief requests two-property GSC analysis, 329-URL migration verification, technical and commercial improvements, portrait, testing, preview and PR.
 - Baseline isolated from the dirty, stale original checkout. Engram mirror pending: resolved project was rejected by the write tool.
+- T1–T2 native assessment did not require review (under budget); independent code review caught the office generator override, verified fixed in generated output.
