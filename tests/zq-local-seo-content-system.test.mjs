@@ -250,7 +250,7 @@ test('phones get a lighter hero image and the homepage skips the footer-only fon
   const stylesheet = readFileSync(path.join(root, 'premium-site.css'), 'utf8');
 
   assert.match(mobilePreload, /media="\(max-width: 760px\)"/i);
-  assert.match(mobilePreload, /fetchpriority="high"/i);
+  assert.match(mobilePreload, /fetchpriority="low"/i);
   assert.match(desktopPreload, /media="\(min-width: 761px\)"/i);
   assert.match(stylesheet, /@media \(max-width: 760px\)\s*\{\s*body\.page-home \.zqh \.zqh-hero::before[^}]*premium-template-hero-mobile\.webp/);
   assert.ok(statSync(path.join(distDir, 'media', 'premium-template-hero-mobile.webp')).size < 80 * 1024, 'mobile hero must stay under 80KB');
